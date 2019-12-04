@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Lawyer</title>
+
+{% block body %}
+    <h1>Edit Lawyer</h1>
+
+    {{ include('lawyer/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('lawyer_index') }}">back to list</a>
+
+    {{ include('lawyer/_delete_form.html.twig') }}
+{% endblock %}

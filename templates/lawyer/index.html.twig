@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<title>Lawyer index</title>
+
+{% block body %}
+    <h1>Lawyer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UserId</th>
+                <th>Creation_date</th>
+                <th>Update_date</th>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Fax</th>
+                <th>Photo</th>
+                <th>Lawyer_type</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lawyer in lawyers %}
+            <tr>
+                <td>{{ lawyer.id }}</td>
+                <td>{{ lawyer.userId }}</td>
+                <td>{{ lawyer.creationDate ? lawyer.creationDate|date('Y-m-d') : '' }}</td>
+                <td>{{ lawyer.updateDate ? lawyer.updateDate|date('Y-m-d') : '' }}</td>
+                <td>{{ lawyer.role }}</td>
+                <td>{{ lawyer.name }}</td>
+                <td>{{ lawyer.surname }}</td>
+                <td>{{ lawyer.email }}</td>
+                <td>{{ lawyer.phone }}</td>
+                <td>{{ lawyer.fax }}</td>
+                <td>{{ lawyer.photo }}</td>
+                <td>{{ lawyer.lawyerType }}</td>
+                <td>{{ lawyer.status }}</td>
+                <td>
+                    <a href="{{ path('lawyer_show', {'id': lawyer.id}) }}">show</a>
+                    <a href="{{ path('lawyer_edit', {'id': lawyer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('lawyer_new') }}">Create new</a>
+{% endblock %}
