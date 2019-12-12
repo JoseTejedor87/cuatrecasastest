@@ -11,12 +11,7 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 class LawyerTranslation
 {
     use ORMBehaviors\Translatable\Translation;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -47,11 +42,8 @@ class LawyerTranslation
      */
     private $mentions;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-    
+
+
     public function getDescription(): ?string
     {
         return $this->description;

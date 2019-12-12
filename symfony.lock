@@ -1,4 +1,10 @@
 {
+    "a2lix/auto-form-bundle": {
+        "version": "0.2"
+    },
+    "a2lix/translation-form-bundle": {
+        "version": "3.0.5"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -77,6 +83,9 @@
     },
     "doctrine/reflection": {
         "version": "v1.0.0"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.38"
     },
     "imagine/imagine": {
         "version": "1.2.2"

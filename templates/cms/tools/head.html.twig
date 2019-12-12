@@ -457,10 +457,10 @@
                                                     </div>
                                                     <div class="m-card-user__details">
                                                         <span class="m-card-user__name m--font-weight-500">
-                                                            {{ user.NombreCompleto }}
+                                                            {# {{ user ? user.NombreCompleto : '' }} #}
                                                         </span>
                                                         <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                            {{ user.Email }}
+                                                            {# {{ user ? user.Email : ''}} #}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -525,7 +525,7 @@
                                                         </li>
                                                         <li class="m-nav__separator m-nav__separator--fit"></li>
                                                         <li class="m-nav__item">
-                                                            <a href="snippets/pages/user/login-1.html"
+                                                            <a href="snippets/pages/user/login-1.html" href="{{ path('app_logout') }}"
                                                                 class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
                                                                 Logout
                                                             </a>

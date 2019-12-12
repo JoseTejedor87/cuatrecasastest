@@ -114,12 +114,31 @@ class MigrationCommand extends Command
     public function Eventos($conn){
 
     }
-    public function Sectores($conn){
-
+    public function Activity($conn){
+    //     SELECT TOP (1000) [id]
+    //     ,[lang]
+    //     ,[titulo]
+    //     ,[descripcion]
+    //     ,[experiencia]
+    //     ,[tags]
+    //     ,[url_friend]
+    //     ,[id_area]
+    //     ,[url_image]
+    //     ,[visio_esp]
+    //     ,[visio_por]
+    //     ,[visio_eng]
+    //     ,[quote]
+    //     ,[spractica]
+    //     ,[visio_chi]
+    //     ,[sap]
+    // FROM [web_cuatrecasas_cms_preprod].[dbo].[areas_practicas]
+  
+  
+    // activity
+    // - sectorial
+    // - legal
     }
-    public function Servicios($conn){
 
-    }
 
 
 

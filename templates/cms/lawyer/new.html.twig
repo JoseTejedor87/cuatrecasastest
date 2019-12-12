@@ -1,0 +1,44 @@
+{% extends 'cms/base.html.twig' %}
+
+{% block title %}New Lawyer{% endblock %}
+
+{% block body %}
+<div class="m-grid m-grid--hor m-grid--root m-page">
+    {% include 'cms/tools/head.html.twig' %}
+    <!-- begin::Body -->
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+        <!-- BEGIN: Left Aside -->
+        <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+            <i class="la la-close"></i>
+        </button>
+        {% include 'cms/tools/menu.html.twig' %}
+        <!-- END: Left Aside -->
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <div class="m-content">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-8">
+                        <div class="m-portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											 New Lawyer
+										</h3>
+									</div>
+								</div>
+                            </div>
+                            <div class="m-portlet__body">
+                                {{ include('cms/lawyer/_form.html.twig') }}
+                            </div>
+                        </div>
+                        <a href="{{ path('lawyer_index') }}">back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end:: Body -->
+    {% include 'cms/tools/footer.html.twig' %}
+
+</div>
+{% endblock %}

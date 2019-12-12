@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
@@ -25,12 +26,14 @@ class Person
     private $userId;
 
     /**
-     * @ORM\Column(type="date")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="creation_date", type="datetime")
      */
     private $creation_date;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(name="update_date", type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $update_date;
 

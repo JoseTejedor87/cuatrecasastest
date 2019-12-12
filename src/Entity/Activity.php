@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
  */
-class Category
+class Activity
 {
     use ORMBehaviors\Translatable\Translatable;
     /**
@@ -18,25 +18,8 @@ class Category
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numero;
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
     }
 }
