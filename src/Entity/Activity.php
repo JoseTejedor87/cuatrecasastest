@@ -7,6 +7,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"activity" = "Activity", "Practice" = "Practice", "Desk" = "Desk", "Product" = "Product", "Sector" = "Sector"})
  */
 class Activity
 {

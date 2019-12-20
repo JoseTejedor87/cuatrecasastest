@@ -6,7 +6,7 @@
 parameters:
     locale: 'es'
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: es|fr|en|de
+    app_locales: es|pt|en|chi
 
 services:
     # default configuration for services in *this* file
@@ -31,6 +31,10 @@ services:
     App\Command\MigrationCommand:
         tags:
             - { name: 'console.command', command: 'app:migration' }
+    
+    App\Command\ImportCommand:
+        tags:
+            - { name: 'console.command', command: 'app:import' }
     
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener

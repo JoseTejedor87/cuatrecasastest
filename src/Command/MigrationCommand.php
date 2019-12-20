@@ -43,66 +43,86 @@ class MigrationCommand extends Command
             'Empezando la migración',// A line
             '======================',// Another line
         ]);
-        $em = $this->container->get('doctrine')->getManager('default');
+        $em = $this->container->get('doctrine')->getManager('customer');
         $conn = $em->getConnection();
         $table = $input->getOption('table');
 
-
         if($table=="all"){
             $output->writeln("Se van a exportar todas las tablas");
+            $this->Abogados($conn);
+            $this->Activity($conn);
+            $this->Eventos($conn,$output);
+            
         }else{
             $output->writeln("La tabla a exportar es : ".$table); 
+            switch ($table) {
+                case "lawyer":
+                    $this->Abogados($conn);
+                    break;
+                case "activity":
+                    $this->Activity($conn);
+                    break;
+                case "event":
+                    $this->Eventos($conn,$output);
+                    break;
+            }
+            
         }
-
         $output->writeln("Se ha conectado con el servidor");
-        $query = "SELECT * FROM page WHERE id = 1";
-        $stmt = $conn->prepare($query);
-        //EXECUTE DA UN LOG
-        if($conn->isConnected()){
-            $output->writeln("se ha conectado" . var_dump($conn->isConnected()));
-            $stmt->execute();
-            $results = $stmt->fetchAll();
-            $output->writeln("Este es el resultado del id = 1 : ". var_dump($results));
-        }
-
-        $this->logger->info('Error log');
-        $this->logger->error('HOLA');
-
+        $this->logger->info('Dia de la exportación'.date("Y-m-d H:i:s"));
+ //Fecha de la exportacion, total de registros, tipo de registro, ruta del json y errores
+        return 0;
     }
 
-    public function Usuarios($conn){
-
-        //tabla User 
-        //tabla Abogado 
-        //columna userID JTEB (preguntar si los abogados tienen)
-        //fecha de creacion  ( doctrine Behaviors )
-        //fecha de actualizacion  ( doctrine Behaviors )
-        //Roles ( Dependencia )
-        //nombre
-        // apellido
-        // email
-
-
-    }
-    public function Roles($conn){
-        // Siempre borrar todos los datos
-        // [tb_roles]
-        // role id 
-        // role desc
-        // desc
-    }
     public function Abogados($conn){
+        $query = "SELECT a.*, o.* FROM abogado a inner JOIN abogado_desc o ON o.id_abogado = a.id order by a.id";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('abogados.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla abogados');
+        $this->logger->info('Se ha guardado con el nombre abogados.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
         // telefono 
         // fax 
         // imagen
         // tipo de agogado
         //fecha de creacion  ( doctrine Behaviors ) no importar
         //fecha de actualizacion  ( doctrine Behaviors ) no importar
-        //fecha de publicacion (preguntar) y el status 
+        //fecha de publicacion creacion (preguntar) y el status 
         //omitimos visionado idiomas
         //telefono coleccion de string  o fill
 
+        return 0;
+    }
 
+    public function Eventos($conn,$output){
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted]  FROM eventos";        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('eventos.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos');
+        $this->logger->info('Se ha guardado con el nombre eventos.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function Activity($conn){
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[descripcion] ,[experiencia] ,[tags] ,[url_friend] ,[id_area] ,[url_image] ,[quote] ,[spractica] ,[sap]  FROM areas_practicas";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('areas_practicas.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla areas_practicas');
+        $this->logger->info('Se ha guardado con el nombre areas_practicas.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+
+    // activity
+    // - sectorial
+    // - legal
     }
 
     public function Permisos($conn){
@@ -111,33 +131,7 @@ class MigrationCommand extends Command
 
     }
 
-    public function Eventos($conn){
 
-    }
-    public function Activity($conn){
-    //     SELECT TOP (1000) [id]
-    //     ,[lang]
-    //     ,[titulo]
-    //     ,[descripcion]
-    //     ,[experiencia]
-    //     ,[tags]
-    //     ,[url_friend]
-    //     ,[id_area]
-    //     ,[url_image]
-    //     ,[visio_esp]
-    //     ,[visio_por]
-    //     ,[visio_eng]
-    //     ,[quote]
-    //     ,[spractica]
-    //     ,[visio_chi]
-    //     ,[sap]
-    // FROM [web_cuatrecasas_cms_preprod].[dbo].[areas_practicas]
-  
-  
-    // activity
-    // - sectorial
-    // - legal
-    }
 
 
 

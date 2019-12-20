@@ -14,12 +14,12 @@ class Lawyer extends Person
 
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fax;
 
@@ -39,24 +39,24 @@ class Lawyer extends Person
     private $status;
 
 
-    public function getPhone(): ?int
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(?int $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getFax(): ?int
+    public function getFax(): ?string
     {
         return $this->fax;
     }
 
-    public function setFax(?int $fax): self
+    public function setFax(?string $fax): self
     {
         $this->fax = $fax;
 
