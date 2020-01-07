@@ -1,4 +1,5 @@
 {% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
 
 {% block title %}Edit Lawyer{% endblock %}
 
@@ -6,7 +7,7 @@
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 
     <a href="{{ path('lawyer_index') }}">
-        {{ 'admin.back_to_list'|trans }}
+        {{ 'global.actions.back_to_list'|trans }}
     </a>
 
     <div class="m-content">
@@ -17,13 +18,13 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    {{ 'admin.lawyers.edit.title'|trans }}
+                                    {{ 'sections.lawyers.edit.title'|trans }}
                                 </h3>
                             </div>
                         </div>
                     </div>
                     <div class="m-portlet__body">
-                        {{ include('cms/lawyer/_form.html.twig', {'button_label': 'admin.lawyers.edit.button'}) }}
+                        {{ include('cms/lawyer/_form.html.twig', {'button_label': 'global.actions.update'}) }}
                     </div>
                 </div>
             </div>

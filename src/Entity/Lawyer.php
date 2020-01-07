@@ -126,21 +126,6 @@ class Lawyer extends Publishable
         return $this->lawyerType;
     }
 
-    public static function getLawyerTypes(): ?array
-    {
-        return [
-            "Associate" => "associate",
-            "Counsel" => "counsel",
-            "Honorary Partner" => "honorary_partner",
-            "Honorary President" => "honorary_president",
-            "Managing Partner" => "managing_partner",
-            "No position" => "no_position",
-            "Partner" => "partner",
-            "Senior Associate" => "senior_associate",
-            "Senior Partner" => "senior_partner",
-        ];
-    }
-
     public function setLawyerType(?string $lawyerType): self
     {
         $this->lawyerType = $lawyerType;

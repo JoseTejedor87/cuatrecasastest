@@ -1,4 +1,5 @@
 {% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
 
 {% block title %}Lawyer index{% endblock %}
 
@@ -10,9 +11,9 @@
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
                     <i class="m-menu__link-icon flaticon-users"></i>
-                    {{ 'admin.lawyers.index.title'|trans }}
+                    {{ 'sections.lawyers.index.title'|trans }}
                     <a href="{{ path('lawyer_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
-                        <i class="flaticon-plus"></i> {{ 'admin.lawyers.index.create_link'|trans }}
+                        <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                     </a>
                 </h3>
             </div>
@@ -27,11 +28,11 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Name', 'name') }}</th>
-                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Surname', 'surname') }}</th>
-                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'email') }}</th>
-                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Type', 'lawyerType') }}</th>
-                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated', 'updatedAt') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.name'|trans, 'name') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.surname'|trans, 'surname') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.email'|trans, 'email') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.lawyerType'|trans, 'lawyerType') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.item.fields.updatedAt'|trans, 'updatedAt') }}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -44,8 +45,6 @@
                             <td>{{ lawyer.lawyerType }}</td>
                             <td>{{ lawyer.updatedAt ? lawyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>
-                                <a class="btn btn-success m-btn m-btn--icon btn-sm m-btn--icon-only"
-                                    href="{{ path('lawyer_show', {'id': lawyer.id}) }}"><i class="fa fa-eye"></i> </a>
                                 <a class="btn btn-info m-btn m-btn--icon btn-sm m-btn--icon-only"
                                     href="{{ path('lawyer_edit', {'id': lawyer.id}) }}"><i class="fa fa-edit"></i></a>
                             </td>

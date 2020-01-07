@@ -78,9 +78,9 @@ class Event extends Publishable
     private $type;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $visible;
+    private $city;
 
     public function getUrlPdf(): ?string
     {
@@ -238,15 +238,17 @@ class Event extends Publishable
         return $this;
     }
 
-    public function getVisible(): ?int
+
+    public function getCity(): ?string
     {
-        return $this->visible;
+        return $this->city;
     }
 
-    public function setVisible(int $visible): self
+    public function setCity(string $city): self
     {
-        $this->visible = $visible;
+        $this->city = $city;
 
         return $this;
     }
+
 }

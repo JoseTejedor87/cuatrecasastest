@@ -9,10 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class PublishableTranslation
 {
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -23,17 +20,7 @@ abstract class PublishableTranslation
      */
     protected $metaDescription;
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
 
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
     
     public function getMetaTitle(): ?string
     {

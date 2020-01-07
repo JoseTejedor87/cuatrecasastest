@@ -2,7 +2,7 @@ framework:
     secret: '%env(APP_SECRET)%'
     assets:
         version: v1.0
-        base_path: '/assets/'
+        base_path: '/'
     #csrf_protection: true
     #http_method_override: true
 
