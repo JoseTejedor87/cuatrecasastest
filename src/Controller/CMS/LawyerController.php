@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
@@ -18,18 +19,20 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class LawyerController extends AbstractController
 {
-    private static $user;
+
     /**
      * @Route("/", name="lawyer_index", methods={"GET"})
      */
-    public function index(LawyerRepository $lawyerRepository): Response
+    public function index(LawyerRepository $lawyerRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // $user = LawyerController::session();
-        
-        return $this->render('cms/lawyer/index.html.twig', [
-            'lawyers' => $lawyerRepository->findAll(),
-            // 'user' => (array)$user,
+        $pagination = $paginator->paginate(
+            $lawyerRepository->findAll(),
+            $request->query->getInt('page', 1),
+            25
+        );
 
+        return $this->render('cms/lawyer/index.html.twig', [
+            'pagination' => $pagination
         ]);
     }
 
@@ -38,7 +41,6 @@ class LawyerController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        // $user = LawyerController::session();
         $lawyer = new Lawyer();
         $form = $this->createForm(LawyerType::class, $lawyer);
         $form->handleRequest($request);
@@ -55,7 +57,6 @@ class LawyerController extends AbstractController
         return $this->render('cms/lawyer/new.html.twig', [
             'lawyer' => $lawyer,
             'form' => $form->createView(),
-            // 'user' => (array)$user,
         ]);
     }
 
@@ -64,10 +65,8 @@ class LawyerController extends AbstractController
      */
     public function show(Lawyer $lawyer): Response
     {
-        // $user = LawyerController::session();
         return $this->render('cms/lawyer/show.html.twig', [
-            'lawyer' => $lawyer,
-            // 'user' => (array)$user,
+            'lawyer' => $lawyer
         ]);
     }
 
@@ -76,7 +75,6 @@ class LawyerController extends AbstractController
      */
     public function edit(Request $request, Lawyer $lawyer): Response
     {
-        // $user = LawyerController::session();
         $form = $this->createForm(LawyerType::class, $lawyer);
         $form->handleRequest($request);
 
@@ -89,7 +87,6 @@ class LawyerController extends AbstractController
         return $this->render('cms/lawyer/edit.html.twig', [
             'lawyer' => $lawyer,
             'form' => $form->createView(),
-            // 'user' => (array)$user,
         ]);
     }
 
@@ -106,11 +103,4 @@ class LawyerController extends AbstractController
 
         return $this->redirectToRoute('lawyer_index');
     }
-    static function session(){
-        if(LawyerController::$user == null){
-            $session = new Session();
-            LawyerController::$user = $session->get('User');
-        }
-        return LawyerController::$user;
-    } 
 }

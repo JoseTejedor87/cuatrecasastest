@@ -16,10 +16,12 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     private $em;
+    private $singleSignOnParameters;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, $singleSignOnParameters)
     {
         $this->em = $em;
+        $this->singleSignOnParameters = $singleSignOnParameters;
     }
 
     /**
@@ -45,25 +47,31 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $apiToken = $credentials['token'];
-        if (null === $apiToken) {
+        $token = $credentials['token'];
+        if ($token === null) {
             return;
         }
+        
+        $client = new \SoapClient(
+            $this->singleSignOnParameters['url'],
+            $this->singleSignOnParameters['options']
+        );
+        $response  = $client->ValidateSSO([
+            'input' => [
+                'Data'      => $token,
+                'SSOType'   =>  'SSO'
+            ]
+        ]);
 
-        //LLamada al web service con el token para obtener el usuario, verificar respuesta valida. 
-        $client = new \SoapClient('http://srvwebinta.cuatrecasas.com/VSNET/WebServicesCGP/Credentials/Service.svc?wsdl', array("trace"=>1, "exception" => 0));
-        $res  = $client->ValidateSSO( array ('input' =>( array ( 'Data' => $apiToken, 'SSOType'  =>  'SSO'))));
-
-        $result = $res->ValidateSSOResult->Result;
-        if($result){
-            $data = $res->ValidateSSOResult->Data;
-            $user = (array)$data;
+        //dd((array)$response->ValidateSSOResult->Data);
+        if ($response->ValidateSSOResult->Result) {
+            $data = (array)$response->ValidateSSOResult->Data;
+            return $this->em->getRepository(User::class)
+                ->findOneBy(['user_id' => $data['Iniciales']]);
         }
-        // echo($user['Iniciales']);
-        // die($user['Iniciales']);
-        // if a User object, checkCredentials() is called
-        return $this->em->getRepository(User::class)
-            ->findOneBy(['user_id' =>'JTEB']);
+        
+        // return $this->em->getRepository(User::class)
+        //     ->findOneBy(['user_id' => 'JMM']);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
@@ -110,5 +118,5 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         return false;
     }
-    
+
 }

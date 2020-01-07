@@ -3,23 +3,38 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+/* use Symfony\component\Translation\Translator; */
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerRepository")
  */
-class Lawyer extends Person
+class Lawyer extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $phone;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $surname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $fax;
 
@@ -31,13 +46,44 @@ class Lawyer extends Person
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lawyer_type;
+    private $lawyerType;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $status;
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(?string $surname): self
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     public function getPhone(): ?string
     {
@@ -77,24 +123,27 @@ class Lawyer extends Person
 
     public function getLawyerType(): ?string
     {
-        return $this->lawyer_type;
+        return $this->lawyerType;
     }
 
-    public function setLawyerType(?string $lawyer_type): self
+    public static function getLawyerTypes(): ?array
     {
-        $this->lawyer_type = $lawyer_type;
-
-        return $this;
+        return [
+            "Associate" => "associate",
+            "Counsel" => "counsel",
+            "Honorary Partner" => "honorary_partner",
+            "Honorary President" => "honorary_president",
+            "Managing Partner" => "managing_partner",
+            "No position" => "no_position",
+            "Partner" => "partner",
+            "Senior Associate" => "senior_associate",
+            "Senior Partner" => "senior_partner",
+        ];
     }
 
-    public function getStatus(): ?int
+    public function setLawyerType(?string $lawyerType): self
     {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
+        $this->lawyerType = $lawyerType;
 
         return $this;
     }

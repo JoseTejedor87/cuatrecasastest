@@ -4,19 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use App\Entity\PublishableTranslation;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityTranslationRepository")
  */
-class ActivityTranslation
+class ActivityTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
-
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
 
     /**
      * @ORM\Column(type="text")
@@ -28,27 +23,6 @@ class ActivityTranslation
      */
     private $experience;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $tags;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url_image;
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -70,30 +44,6 @@ class ActivityTranslation
     public function setExperience(string $experience): self
     {
         $this->experience = $experience;
-
-        return $this;
-    }
-
-    public function getTags(): ?string
-    {
-        return $this->tags;
-    }
-
-    public function setTags(string $tags): self
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(string $url_image): self
-    {
-        $this->url_image = $url_image;
 
         return $this;
     }

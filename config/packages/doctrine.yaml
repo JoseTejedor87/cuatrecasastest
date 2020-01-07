@@ -5,12 +5,11 @@ doctrine:
             default:
                 # configure these for your database server
                 url: '%env(DATABASE_URL)%'
-                driver: 'pdo_sqlsrv'
+                driver: 'sqlsrv'
                 # server_version: '5.7'
-                charset: utf8mb4
-                logging: false 
+                charset: UTF-8
                 default_table_options:
-                    collate: utf8mb4_unicode_ci
+                    collate: utf8_unicode_ci
             customer:
                 # configure these for your database server
                 url: '%env(DATABASE_CUSTOMER_URL)%'
@@ -20,6 +19,7 @@ doctrine:
                 logging: false 
                 default_table_options:
                     collate: utf8mb4_unicode_ci
+
     orm:
         default_entity_manager: default
         entity_managers:
@@ -41,6 +41,22 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity'
                         prefix: 'App\Entity'
                         alias: App
+#                    translatable:
+#                        type: annotation
+#                        alias: Gedmo
+#                        prefix: Gedmo\Translatable\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
+#                    loggable:
+#                        type: annotation
+#                       alias: Gedmo
+#                       prefix: Gedmo\Loggable\Entity
+#                       dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+#                   tree:
+#                       type: annotation
+#                       alias: Gedmo
+#                       prefix: Gedmo\Tree\Entity
+#                       dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+
 
 
     #     url: '%env(resolve:DATABASE_URL)%'

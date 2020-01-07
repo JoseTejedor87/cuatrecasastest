@@ -8,21 +8,29 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"activity" = "Activity", "Practice" = "Practice", "Desk" = "Desk", "Product" = "Product", "Sector" = "Sector"})
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"sector" = "Sector", "practice" = "Practice", "desk" = "Desk", "product" = "Product"})
+ *
  */
-class Activity
+abstract class Activity extends Publishable
 {
-    use ORMBehaviors\Translatable\Translatable;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
-    public function getId(): ?int
+    use ORMBehaviors\Translatable\Translatable;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $tags;
+
+    public function getTags(): ?string
     {
-        return $this->id;
+        return $this->tags;
+    }
+
+    public function setTags(string $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
     }
 }

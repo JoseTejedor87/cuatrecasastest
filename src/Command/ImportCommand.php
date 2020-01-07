@@ -1,5 +1,8 @@
 <?php
 namespace App\Command;
+
+use App\Entity\Activity;
+use App\Entity\Event;
 use App\Entity\Lawyer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -31,7 +34,7 @@ class ImportCommand extends Command
             // Set options
             ->setDefinition(
                 new InputDefinition(array(
-                    new InputOption('table', 'a', InputOption::VALUE_REQUIRED,"Si table esta vacio, se ejecutará para todas las tablas","all"),
+                    new InputOption('table', 'a', InputOption::VALUE_REQUIRED, "Si table esta vacio, se ejecutará para todas las tablas", "all"),
                 ))
             )
         ;
@@ -40,21 +43,20 @@ class ImportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
-            'Empezando la migración',// A line
-            '======================',// Another line
+            'Empezando la migración',
+            '======================',
         ]);
         $em = $this->container->get('doctrine')->getManager();
         $conn = $em->getConnection();
         $table = $input->getOption('table');
 
-        if($table=="all"){
+        if ($table=="all") {
             $output->writeln("Se van a exportar todas las tablas");
-            // $this->Abogados($conn);
+         //$this->Abogados($conn);
             // $this->Activity($conn);
-            // $this->Eventos($conn,$output);
-            
-        }else{
-            $output->writeln("La tabla a exportar es : ".$table); 
+             $this->Eventos($conn,$output);
+        } else {
+            $output->writeln("La tabla a exportar es : ".$table);
             switch ($table) {
                 case "lawyer":
                     $this->Abogados($conn);
@@ -63,91 +65,211 @@ class ImportCommand extends Command
                     $this->Activity($conn);
                     break;
                 case "event":
-                    $this->Eventos($conn,$output);
+                    $this->Eventos($conn, $output);
                     break;
             }
-            
         }
         $output->writeln("Se ha conectado con el servidor");
         $this->logger->info('Dia de la exportación'.date("Y-m-d H:i:s"));
         return 0;
     }
 
-    public function Abogados($conn){
+    public function Abogados($conn)
+    {
         $data = file_get_contents("abogados.json");
-        $abogados = json_decode($data, true);
+        $items = json_decode($data, true);
         $entityManager = $this->container->get('doctrine')->getManager();
-        $platform   = $conn->getDatabasePlatform();
 
-        $conn->executeQuery("DELETE FROM [LawyerTranslation]
-        DBCC CHECKIDENT ('[web_cuatrecasas_cms_Symfony].[dbo].[LawyerTranslation]',RESEED, 0)");
-        $conn->executeQuery("DELETE FROM [Person]
-        DBCC CHECKIDENT ('[web_cuatrecasas_cms_Symfony].[dbo].[Person]',RESEED, 0)");
-         $idViejo = -1;
-         foreach ($abogados as $key => $abogado) {
-             $idNuevo = $abogado['id_abogado'];
-             if($key != 0){
-                 $idViejo = $abogados[$key-1]['id_abogado'];
-             }
-             if($idNuevo != $idViejo){
-                 echo(var_dump($abogado));
-                 $lawyer = new Lawyer();
-                 $lawyer->setUserId($abogado['siglas']);
-                 $lawyer->setName($abogado['nombre']);
-                 $lawyer->setSurname($abogado['apellidos']);
-                 $lawyer->setEmail($abogado['email']);
-                 $lawyer->setPhone(($abogado['telefono']));
-                 $lawyer->setFax(($abogado['fax']));
-                 $lawyer->setPhoto($abogado['image']);
-                 $lawyer->setLawyerType($abogado['idtipoabogado']);
-                 $lawyer->setStatus($abogado['status']);
-                 foreach ($abogados as $key1 => $abogado1) {
-                     if($abogado1['id_abogado'] == $abogado['id_abogado']){
-                         switch ($abogado1['lang']) {
-                             case "esp":
-                                 $lang = 'es';
-                                 break;
-                             case 'eng':
-                                 $lang = 'en';
-                                 break;
-                             case 'por':
-                                 $lang = 'pt';
-                                 break;
-                             default:
-                                 $lang = $abogado1['lang'];
-                         }
-                         $lawyer->translate($lang)->setDescription($abogado1['descripcion']);
-                         $lawyer->translate($lang)->setCv($abogado1['CV']);
-                         $lawyer->translate($lang)->setExperience($abogado1['experiencia']);
-                         $lawyer->translate($lang)->setTags($abogado1['tags']);
-                         $lawyer->translate($lang)->setTraining($abogado1['formacion']);
-                         $lawyer->translate($lang)->setMentions($abogado1['menciones']);
-                     }
-                 }
-                 $lawyer->mergeNewTranslations();
-                 $entityManager->persist($lawyer);
-                 $entityManager->flush();  
-             }
-         }    
+        $conn->executeQuery("DELETE FROM [LawyerTranslation]");
+        $conn->executeQuery("DELETE FROM [Lawyer]");
+
+        $processedLawyersMap = [];
+
+        foreach ($items as $item) {
+            $oldLawyerId = $item['id_abogado'];
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+
+            // Was the current lawyer instance processed previously ?
+            if (isset($processedLawyersMap[$oldLawyerId])) {
+                $lawyer = $processedLawyersMap[$oldLawyerId];
+                $lawyer->translate($currentLang)->setDescription($item['descripcion']);
+                $lawyer->translate($currentLang)->setCurriculum($item['CV']);
+                $lawyer->translate($currentLang)->setTraining($item['formacion']);
+                $processedLawyersMap[$oldLawyerId] = $lawyer;
+            } else {
+                $lawyer = new Lawyer();
+                $lawyer->setOldId($oldLawyerId);
+                $lawyer->setName($item['nombre']);
+                $lawyer->setSurname($item['apellidos']);
+                $lawyer->setEmail($item['email']);
+                $lawyer->setPhone(($item['telefono']));
+                $lawyer->setFax(($item['fax']));
+                $lawyer->setPhoto($item['image']);
+
+                // TODO: validar estado de publicación en origen para reflajarlo en destino
+                $lawyer->setLanguages(["es","en"]);
+                $lawyer->setLocations(["es","uk"]);
+
+                $lawyer->setLawyerType(
+                    self::getMappedLawyerType($item['idtipoabogado'])
+                );
+                $lawyer->translate($currentLang)->setDescription($item['descripcion']);
+                $lawyer->translate($currentLang)->setCurriculum($item['CV']);
+                $lawyer->translate($currentLang)->setTraining($item['formacion']);
+                // Adding the current $lawyer instance to $processedLawyersMap
+                $processedLawyersMap[$oldLawyerId] = $lawyer;
+            }
+        }
+
+        foreach ($processedLawyersMap as $lawyer) {
+            $lawyer->mergeNewTranslations();
+            $entityManager->persist($lawyer);
+            $entityManager->flush();
+        }
+
         return 0;
     }
 
-    public function Eventos($conn,$output){
+    public function Eventos($conn, $output)
+    {
+        $data = file_get_contents("eventos.json");
+        $items = json_decode($data, true);
+        $entityManager = $this->container->get('doctrine')->getManager();
+
+        $conn->executeQuery("DELETE FROM [EventTranslation]");
+        $conn->executeQuery("DELETE FROM [Event]");
+
+        $processedEventsMap = [];
+
+        foreach ($items as $item) {
+            
+            $oldEventId = $item['id'];
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+
+            // Was the current lawyer instance processed previously ?
+            if (isset($processedEventsMap[$oldEventId])) {
+                $event = $processedEventsMap[$oldEventId];
+                $event->translate($currentLang)->setMetaTitle($item['titulo']);
+                $event->translate($currentLang)->getMetaDescription($item['resumen']);
+                $processedEventsMap[$oldEventId] = $event;
+            } else {
+                
+                $event = new Event();
+                $event->setOldId($oldEventId);
+                $event->setUrlPdf((string)$item['url_pdf']);
+                $event->setContact((string)$item['contacto']);
+                $event->setPhone((int)$item['telefono']);
+                $event->setProgram((string)$item['programa']);
+                $event->setFeatured($item['destacada']);
+                $event->setType($item['tipo']);
+                $event->setVisible($item['visible']);
+                
+
+                // TODO: validar estado de publicación en origen para reflajarlo en destino
+                $event->setLanguages(["es","en"]);
+                $event->setLocations(["es","uk"]);
+
+                $event->translate($currentLang)->setMetaTitle($item['titulo']);
+                $event->translate($currentLang)->getMetaDescription($item['resumen']);
+                // Adding the current $lawyer instance to $processedLawyersMap
+                $processedEventsMap[$oldEventId] = $event;
+            }
+        }
+
+        foreach ($processedEventsMap as $event) {
+            $event->mergeNewTranslations();
+            $entityManager->persist($event);
+            $entityManager->flush();
+        }
+
+        return 0;
 
     }
-    public function Activity($conn){
+    public function Activity($conn)
+    {
+        $data = file_get_contents("areas_practicas.json");
+        $items = json_decode($data, true);
+        $entityManager = $this->container->get('doctrine')->getManager();
 
+        $conn->executeQuery("DELETE FROM [ActivityTranslation]");
+        $conn->executeQuery("DELETE FROM [Activity]");
+
+        $processedActivitysMap = [];
+
+        foreach ($items as $item) {
+            
+            $oldActivityId = $item['id'];
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+
+            // Was the current lawyer instance processed previously ?
+            if (isset($processedActivitysMap[$oldActivityId])) {
+                $activity = $processedActivitysMap[$oldActivityId];
+                $activity->translate($currentLang)->setMetaTitle($item['titulo']);
+                $activity->translate($currentLang)->getMetaDescription($item['resumen']);
+                $processedActivitysMap[$oldActivityId] = $activity;
+            } else {
+                
+                $activity = new Activity();
+                $activity->setOldId($oldActivityId);
+                $activity->setTitle((string)$item['url_pdf']);
+                $activity->setBody((string)$item['contacto']);
+                
+
+                // TODO: validar estado de publicación en origen para reflajarlo en destino
+                $activity->setLanguages(["es","en"]);
+                $activity->setLocations(["es","uk"]);
+
+                $activity->translate($currentLang)->setMetaTitle($item['titulo']);
+                $activity->translate($currentLang)->getMetaDescription($item['resumen']);
+                // Adding the current $lawyer instance to $processedLawyersMap
+                $processedActivitysMap[$oldActivityId] = $activity;
+            }
+        }
+
+        foreach ($processedActivitysMap as $activity) {
+            $activity->mergeNewTranslations();
+            $entityManager->persist($activity);
+            $entityManager->flush();
+        }
+
+        return 0;
     }
 
-    public function Permisos($conn){
-
-
-
+    public function Permisos($conn)
+    {
     }
 
+    private static function getMappedLawyerType(?string $code): ?string
+    {
+        $map = [
+            '0' => 'no_position',
+            '1' => 'senior_associate',
+            '2' => 'partner',
+            '3' => 'counsel',
+            '4' => 'senior_associate',
+            '5' => 'partner',
+            '6' => 'counsel',
+            '7' => 'associate',
+            '8' => 'honorary_partner',
+            '9' => 'associate',
+            '10' => 'honorary_partner',
+            '11' => 'senior_partner',
+            '12' => 'senior_partner',
+            '13' => 'managing_partner',
+            '14' => 'managing_partner',
+            '15' => 'honorary_president',
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
 
-
-
-
-
+    private static function getMappedLanguageCode(?string $code): ?string
+    {
+        $map = [
+            'esp' => 'es',
+            'eng' => 'en',
+            'por' => 'pt',
+            'chi' => 'zh'
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
 }

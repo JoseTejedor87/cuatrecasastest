@@ -4,31 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  */
-class Event
+class Event extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="creation_date", type="datetime")
-     */
-    private $creation_date;
-
-    /**
-     * @ORM\Column(name="update_date", type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $update_date;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -99,35 +81,6 @@ class Event
      * @ORM\Column(type="integer")
      */
     private $visible;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getCreationDate(): ?\DateTimeInterface
-    {
-        return $this->creation_date;
-    }
-
-    public function setCreationDate(\DateTimeInterface $creation_date): self
-    {
-        $this->creation_date = $creation_date;
-
-        return $this;
-    }
-
-    public function getUpdateDate(): ?\DateTimeInterface
-    {
-        return $this->update_date;
-    }
-
-    public function setUpdateDate(\DateTimeInterface $update_date): self
-    {
-        $this->update_date = $update_date;
-
-        return $this;
-    }
 
     public function getUrlPdf(): ?string
     {

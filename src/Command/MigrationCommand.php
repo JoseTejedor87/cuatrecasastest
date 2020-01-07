@@ -98,7 +98,7 @@ class MigrationCommand extends Command
     }
 
     public function Eventos($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted]  FROM eventos";        $stmt = $conn->prepare($query);
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted]  FROM eventos order by id";        $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();

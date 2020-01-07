@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use App\Entity\PublishableTranslation;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerTranslationRepository")
  */
-class LawyerTranslation
+class LawyerTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
 
@@ -20,29 +21,12 @@ class LawyerTranslation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $cv;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $experience;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tags;
+    private $curriculum;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $training;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $mentions;
-
-
 
     public function getDescription(): ?string
     {
@@ -56,38 +40,14 @@ class LawyerTranslation
         return $this;
     }
 
-    public function getCv(): ?string
+    public function getCurriculum(): ?string
     {
-        return $this->cv;
+        return $this->curriculum;
     }
 
-    public function setCv(?string $cv): self
+    public function setCurriculum(?string $curriculum): self
     {
-        $this->cv = $cv;
-
-        return $this;
-    }
-
-    public function getExperience(): ?string
-    {
-        return $this->experience;
-    }
-
-    public function setExperience(?string $experience): self
-    {
-        $this->experience = $experience;
-
-        return $this;
-    }
-
-    public function getTags(): ?string
-    {
-        return $this->tags;
-    }
-
-    public function setTags(?string $tags): self
-    {
-        $this->tags = $tags;
+        $this->curriculum = $curriculum;
 
         return $this;
     }
@@ -104,15 +64,4 @@ class LawyerTranslation
         return $this;
     }
 
-    public function getMentions(): ?string
-    {
-        return $this->mentions;
-    }
-
-    public function setMentions(?string $mentions): self
-    {
-        $this->mentions = $mentions;
-
-        return $this;
-    }
 }

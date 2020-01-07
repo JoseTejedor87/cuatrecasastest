@@ -3,64 +3,46 @@
 {% block title %}Lawyer index{% endblock %}
 
 {% block body %}
-<div class="m-grid m-grid--hor m-grid--root m-page">
-    {% include 'cms/tools/head.html.twig' %}
-    <!-- begin::Body -->
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-        <!-- BEGIN: Left Aside -->
-        <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
-            <i class="la la-close"></i>
-        </button>
-        {% include 'cms/tools/menu.html.twig' %}
-        <!-- END: Left Aside -->
-        <div class="m-grid__item m-grid__item--fluid m-wrapper">
-            <!-- BEGIN: Subheader -->
-            <div class="m-subheader ">
-                <div class="d-flex align-items-center">
-                    <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Lawyer
-                        </h3>
-                    </div>
-                </div>
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title ">
+                    <i class="m-menu__link-icon flaticon-users"></i>
+                    {{ 'admin.lawyers.index.title'|trans }}
+                    <a href="{{ path('lawyer_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <i class="flaticon-plus"></i> {{ 'admin.lawyers.index.create_link'|trans }}
+                    </a>
+                </h3>
             </div>
-            <!-- END: Subheader -->
-            <div class="m-content">
-                <table class="table">
-                    <thead>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        {% if pagination %}
+        <div class="m-section">
+            <div class="m-portlet">
+                <table class="table table-hover">
+                    <thead class="thead-light">
                         <tr>
-                            <th>Id</th>
-                            <th>UserId</th>
-                            <th>Creation_date</th>
-                            <th>Update_date</th>
-                            <th>Role</th>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Fax</th>
-                            <th>Photo</th>
-                            <th>Lawyer_type</th>
-                            <th>Status</th>
-                            <th>actions</th>
+                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Name', 'name') }}</th>
+                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Surname', 'surname') }}</th>
+                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'email') }}</th>
+                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Type', 'lawyerType') }}</th>
+                            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated', 'updatedAt') }}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for lawyer in lawyers %}
+                        {% for lawyer in pagination %}
                         <tr>
-                            <td>{{ lawyer.id }}</td>
-                            <td>{{ lawyer.userId }}</td>
-                            <td>{{ lawyer.creationDate ? lawyer.creationDate|date('Y-m-d') : '' }}</td>
-                            <td>{{ lawyer.updateDate ? lawyer.updateDate|date('Y-m-d') : '' }}</td>
-                            <td>{{ lawyer.role }}</td>
                             <td>{{ lawyer.name }}</td>
                             <td>{{ lawyer.surname }}</td>
                             <td>{{ lawyer.email }}</td>
-                            <td>{{ lawyer.phone }}</td>
-                            <td>{{ lawyer.fax }}</td>
-                            <td>{{ lawyer.photo }}</td>
                             <td>{{ lawyer.lawyerType }}</td>
-                            <td>{{ lawyer.status }}</td>
+                            <td>{{ lawyer.updatedAt ? lawyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>
                                 <a class="btn btn-success m-btn m-btn--icon btn-sm m-btn--icon-only"
                                     href="{{ path('lawyer_show', {'id': lawyer.id}) }}"><i class="fa fa-eye"></i> </a>
@@ -68,19 +50,26 @@
                                     href="{{ path('lawyer_edit', {'id': lawyer.id}) }}"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="14">no records found</td>
-                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                {# <a href="{{ path('lawyer_new') }}">Create new</a> #}
             </div>
         </div>
+
+        <div class="m-section">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-elevate fade show" role="alert">
+                    No records found
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    <!-- end:: Body -->
-    {% include 'cms/tools/footer.html.twig' %}
 
 </div>
 {% endblock %}
