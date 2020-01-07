@@ -5,19 +5,18 @@ namespace App\Controller\CMS;
 use App\Entity\Lawyer;
 use App\Form\LawyerType;
 use App\Repository\LawyerRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\CMS\CMSController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
  * @Route("cms/lawyer")
  */
-class LawyerController extends AbstractController
+class LawyerController extends CMSController
 {
 
     /**

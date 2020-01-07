@@ -5,10 +5,11 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+    locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
+
     # Languages & Translations
     app.languages: [es, en, pt, zh] # The list of available languages
     app.default_language: es        # The default language
-    locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -16,6 +17,18 @@ parameters:
         options:
             trace: 1
             exception: 0
+    app.lawyer_types: [
+        associate,
+        counsel,
+        honoraryPartner,
+        honoraryPresident,
+        managingPartner,
+        noPosition,
+        partner,
+        seniorAssociate,
+        seniorPartner
+    ]
+
 
 services:
     # default configuration for services in *this* file
