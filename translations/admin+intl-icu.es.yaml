@@ -1,0 +1,71 @@
+# Global
+# ###########################################
+global:
+  languages:
+    es: Español
+    en: Inglés
+    pt: Portugués
+    zh: Chino
+
+  actions:
+    create: Crear nuevo
+    save: Guardar
+    update: Actualizar
+    back_to_list: Volver al listado
+
+# Sections
+# ###########################################
+sections:
+  dashboard:
+    title: Escritorio
+  lawyers:
+    index:
+      title: Abogados
+    new:
+      title: Nuevo Abogado
+    edit:
+      title: Editar Abogado
+
+# Menu
+# ###########################################
+menu:
+  lawyers.title: Abogados
+  events.title: Eventos
+  desks.title: Desks
+  sectors.title: Sectores
+  practices.title: Áreas de Práctica
+  products.title: Productos
+
+# Entities
+# ###########################################
+entities:
+  lawyer:
+    fields:
+      name: Nombre
+      surname: Apellido
+      email: Correo electrónico
+      phone: Teléfono
+      fax: Fax
+      photo: Foto
+      lawyerType: Tipo de abogado
+      languages: Idiomas de publicación
+      description: Descripción
+      curriculum: Curriculum Vitae
+      training: Formación
+    lawyerTypes:
+      associate: Associate
+      counsel: Counsel
+      honoraryPartner: Honorary Partner
+      honoraryPresident: Honorary President
+      managingPartner: Managing Partner
+      noPosition: No position
+      partner: Partner
+      seniorAssociate: Senior Associate
+      seniorPartner: Senior Partner
+  publishable:
+    fields:
+      metaTitle: Meta Título
+      metaDescription: Meta Descripción
+  item:
+    fields:
+      updatedAt: Última modificación

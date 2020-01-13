@@ -5,6 +5,31 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+    locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
+
+    # Languages & Translations
+    app.languages: [es, en, pt, zh] # The list of available languages
+    app.default_language: es        # The default language
+
+    # The Single Sign On configuration parameters
+    app.single_sign_on:
+        url: 'http://srvwebinta.cuatrecasas.com/VSNET/WebServicesCGP/Credentials/Service.svc?wsdl'
+        options:
+            trace: 1
+            exception: 0
+    app.lawyer_types: [
+        associate,
+        counsel,
+        honoraryPartner,
+        honoraryPresident,
+        managingPartner,
+        noPosition,
+        partner,
+        seniorAssociate,
+        seniorPartner
+    ]
+
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,3 +50,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Command\MigrationCommand:
+        tags:
+            - { name: 'console.command', command: 'app:migration' }
+
+    App\Security\TokenAuthenticator:
+        arguments:
+            $singleSignOnParameters: '%app.single_sign_on%'
+
+# KnpLab Paginator
+knp_paginator:
+    template:
+        #sortable: '@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig'
+        #sortable: '@KnpPaginator/Pagination/font_awesome_sortable_link.html.twig'
+        #sortable: '@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig'
+        #filtration: '@KnpPaginator/Pagination/filtration.html.twig'
+        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'

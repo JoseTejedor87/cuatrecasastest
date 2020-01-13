@@ -1,0 +1,35 @@
+{% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
+
+{% block title %}Edit Lawyer{% endblock %}
+
+{% block body %}
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <a href="{{ path('lawyer_index') }}">
+        {{ 'global.actions.back_to_list'|trans }}
+    </a>
+
+    <div class="m-content">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8">
+                <div class="m-portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    {{ 'sections.lawyers.new.title'|trans }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        {{ include('cms/lawyer/_form.html.twig', {'button_label': 'global.actions.save'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
