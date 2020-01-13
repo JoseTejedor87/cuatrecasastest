@@ -1,92 +1,79 @@
 {% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
 
-{% block title %}Event index{% endblock %}
+{% block title %}{{ 'sections.events.index.title'|trans }}{% endblock %}
 
 {% block body %}
-<div class="m-grid m-grid--hor m-grid--root m-page">
-    {% include 'cms/tools/head.html.twig' %}
-    <!-- begin::Body -->
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-        <!-- BEGIN: Left Aside -->
-        <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
-            <i class="la la-close"></i>
-        </button>
-        {% include 'cms/tools/menu.html.twig' %}
-        <!-- END: Left Aside -->
-        <div class="m-grid__item m-grid__item--fluid m-wrapper">
-            <!-- BEGIN: Subheader -->
-            <div class="m-subheader ">
-                <div class="d-flex align-items-center">
-                    <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Event
-                        </h3>
-                    </div>
-                </div>
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <i class="m-menu__link-icon flaticon-users"></i>
+                    {{ 'sections.events.index.title'|trans }}
+                </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item">
+                        <a href="{{ path('event_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- END: Subheader -->
-            <div class="m-content">
-                <table class="table">
-                    <thead>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        {% if pagination %}
+        <div class="m-section">
+            <div class="m-portlet">
+                <table class="table table-hover">
+                    <thead class="thead-light">
                         <tr>
-                            <th>Id</th>
-                            <th>Creation_date</th>
-                            <th>Update_date</th>
-                            <th>Url_pdf</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Principal</th>
-                            <th>Image</th>
-                            <th>Url_video</th>
-                            <th>Url_inscription</th>
-                            <th>Contact</th>
-                            <th>Phone</th>
-                            <th>Program</th>
-                            <th>Date_notification</th>
-                            <th>Featured</th>
-                            <th>Type</th>
-                            <th>Visible</th>
-                            <th>actions</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.event.fields.title'|trans, 'translate.title') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.event.fields.startDate'|trans, 'startDate') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.event.fields.endDate'|trans, 'endDate') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.event.fields.eventType'|trans, 'eventType') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.item.fields.updatedAt'|trans, 'updatedAt') }}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for event in events %}
+                        {% for event in pagination %}
                         <tr>
-                            <td>{{ event.id }}</td>
-                            <td>{{ event.creationDate ? event.creationDate|date('Y-m-d') : '' }}</td>
-                            <td>{{ event.updateDate ? event.updateDate|date('Y-m-d') : '' }}</td>
-                            <td>{{ event.urlPdf }}</td>
-                            <td>{{ event.email }}</td>
-                            <td>{{ event.status }}</td>
-                            <td>{{ event.principal }}</td>
-                            <td>{{ event.image }}</td>
-                            <td>{{ event.urlVideo }}</td>
-                            <td>{{ event.urlInscription }}</td>
-                            <td>{{ event.contact }}</td>
-                            <td>{{ event.phone }}</td>
-                            <td>{{ event.program }}</td>
-                            <td>{{ event.dateNotification ? event.dateNotification|date('Y-m-d') : '' }}</td>
-                            <td>{{ event.featured }}</td>
-                            <td>{{ event.type }}</td>
-                            <td>{{ event.visible }}</td>
+                            <td>{{ event.translate.title }}</td>
+                            <td>{{ event.startDate ? event.startDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ event.endDate ? event.endDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ ('forms.choices.eventCategoryTypes.' ~ event.eventType) | trans }}</td>
+                            <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>
-                                <a class="btn btn-success m-btn m-btn--icon btn-sm m-btn--icon-only" href="{{ path('event_show', {'id': event.id}) }}"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-info m-btn m-btn--icon btn-sm m-btn--icon-only" href="{{ path('event_edit', {'id': event.id}) }}"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-metal btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('event_edit', {'id': event.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="18">no records found</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-
             </div>
         </div>
+
+        <div class="m-section">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-elevate fade show" role="alert">
+                    No records found
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    <!-- end:: Body -->
-    {% include 'cms/tools/footer.html.twig' %}
 
 </div>
 {% endblock %}

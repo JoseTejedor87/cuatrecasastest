@@ -17,17 +17,31 @@ class EventTranslation extends PublishableTranslation
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $summary;
-
-
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $place_description;
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $schedule;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $program;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customCity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customAddress;
 
     public function getTitle(): ?string
     {
@@ -41,29 +55,65 @@ class EventTranslation extends PublishableTranslation
         return $this;
     }
 
-    public function getSummary(): ?string
+    public function getDescription(): ?string
     {
-        return $this->summary;
+        return $this->description;
     }
 
-    public function setSummary(string $summary): self
+    public function setDescription(?string $description): self
     {
-        $this->summary = $summary;
+        $this->description = $description;
 
         return $this;
     }
 
-
-    public function getPlaceDescription(): ?string
+    public function getSchedule(): ?string
     {
-        return $this->place_description;
+        return $this->schedule;
     }
 
-    public function setPlaceDescription(string $place_description): self
+    public function setSchedule(?string $schedule): self
     {
-        $this->place_description = $place_description;
+        $this->schedule = $schedule;
 
         return $this;
     }
+
+    public function getProgram(): ?string
+    {
+        return $this->program;
+    }
+
+    public function setProgram(?string $program): self
+    {
+        $this->program = $program;
+
+        return $this;
+    }
+
+    public function getCustomCity(): ?string
+    {
+        return $this->customCity;
+    }
+
+    public function setCustomCity(?string $customCity): self
+    {
+        $this->customCity = $customCity;
+
+        return $this;
+    }
+
+    public function getCustomAddress(): ?string
+    {
+        return $this->customAddress;
+    }
+
+    public function setCustomAddress(?string $customAddress): self
+    {
+        $this->customAddress = $customAddress;
+
+        return $this;
+    }
+
 
 }

@@ -2,19 +2,19 @@
 
 namespace App\Controller\CMS;
 
-use App\Entity\Lawyer;
-use App\Form\LawyerType;
-use App\Repository\LawyerRepository;
-use App\Controller\CMS\CMSController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
+use App\Entity\Lawyer;
+use App\Form\LawyerFormType;
+use App\Repository\LawyerRepository;
+use App\Controller\CMS\CMSController;
 
 /**
- * @Route("cms/lawyer")
+ * @Route("cms/lawyers")
  */
 class LawyerController extends CMSController
 {
@@ -41,7 +41,7 @@ class LawyerController extends CMSController
     public function new(Request $request): Response
     {
         $lawyer = new Lawyer();
-        $form = $this->createForm(LawyerType::class, $lawyer);
+        $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
@@ -74,7 +74,7 @@ class LawyerController extends CMSController
      */
     public function edit(Request $request, Lawyer $lawyer): Response
     {
-        $form = $this->createForm(LawyerType::class, $lawyer);
+        $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

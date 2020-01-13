@@ -1,7 +1,7 @@
 {% extends 'cms/base.html.twig' %}
 {% trans_default_domain "admin" %}
 
-{% block title %}Lawyer index{% endblock %}
+{% block title %}{{ 'sections.lawyers.index.title'|trans }}{% endblock %}
 
 {% block body %}
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -9,13 +9,17 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title ">
+                <h3 class="m-subheader__title m-subheader__title--separator">
                     <i class="m-menu__link-icon flaticon-users"></i>
                     {{ 'sections.lawyers.index.title'|trans }}
-                    <a href="{{ path('lawyer_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
-                        <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
-                    </a>
                 </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item">
+                        <a href="{{ path('lawyer_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -42,11 +46,12 @@
                             <td>{{ lawyer.name }}</td>
                             <td>{{ lawyer.surname }}</td>
                             <td>{{ lawyer.email }}</td>
-                            <td>{{ lawyer.lawyerType }}</td>
+                            <td>{{ ('forms.choices.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</td>
                             <td>{{ lawyer.updatedAt ? lawyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>
-                                <a class="btn btn-info m-btn m-btn--icon btn-sm m-btn--icon-only"
-                                    href="{{ path('lawyer_edit', {'id': lawyer.id}) }}"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-metal btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('lawyer_edit', {'id': lawyer.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}

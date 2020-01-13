@@ -1,4 +1,18 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% trans_default_domain "admin" %}
+
+<div class="row">
+    <div class="col-md-4">
+        {{ form_row(form.eventType) }}
+        {{ form_row(form.contact) }}
+        {{ form_row(form.capacity) }}
+        {{ form_row(form.customMap) }}
+        {{ form_row(form.customSignup) }}
+        {{ form_row(form.startDate) }}
+        {{ form_row(form.endDate) }}
+        {{ form_row(form.languages) }}
+    </div>
+    <div class="col-md-8">
+        {{ form_row(form.translations) }}
+    </div>
+    {{ form_rest(form) }}
+</div>

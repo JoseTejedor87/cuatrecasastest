@@ -13,155 +13,77 @@ class Event extends Publishable
     use ORMBehaviors\Translatable\Translatable;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
-    private $url_pdf;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $status;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $principal;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url_video;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url_inscription;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $contact;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $phone;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $program;
+    private $startDate;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_notification;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $featured;
+    private $endDate;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $eventType;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true, nullable=true)
      */
-    private $city;
+    private $contact;
 
-    public function getUrlPdf(): ?string
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $capacity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customMap;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customSignup;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $attachment;
+
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->url_pdf;
+        return $this->startDate;
     }
 
-    public function setUrlPdf(string $url_pdf): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->url_pdf = $url_pdf;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEndDate(): ?\DateTimeInterface
     {
-        return $this->email;
+        return $this->endDate;
     }
 
-    public function setEmail(string $email): self
+    public function setEndDate(\DateTimeInterface $endDate): self
     {
-        $this->email = $email;
+        $this->endDate = $endDate;
 
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getEventType(): ?string
     {
-        return $this->status;
+        return $this->eventType;
     }
 
-    public function setStatus(int $status): self
+    public function setEventType(string $eventType): self
     {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getPrincipal(): ?int
-    {
-        return $this->principal;
-    }
-
-    public function setPrincipal(int $principal): self
-    {
-        $this->principal = $principal;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getUrlVideo(): ?string
-    {
-        return $this->url_video;
-    }
-
-    public function setUrlVideo(string $url_video): self
-    {
-        $this->url_video = $url_video;
-
-        return $this;
-    }
-
-    public function getUrlInscription(): ?string
-    {
-        return $this->url_inscription;
-    }
-
-    public function setUrlInscription(string $url_inscription): self
-    {
-        $this->url_inscription = $url_inscription;
+        $this->eventType = $eventType;
 
         return $this;
     }
@@ -171,84 +93,61 @@ class Event extends Publishable
         return $this->contact;
     }
 
-    public function setContact(string $contact): self
+    public function setContact(?string $contact): self
     {
         $this->contact = $contact;
 
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getCapacity(): ?int
     {
-        return $this->phone;
+        return $this->capacity;
     }
 
-    public function setPhone(int $phone): self
+    public function setCapacity(?int $capacity): self
     {
-        $this->phone = $phone;
+        $this->capacity = $capacity;
 
         return $this;
     }
 
-    public function getProgram(): ?string
+    public function getCustomMap(): ?string
     {
-        return $this->program;
+        return $this->customMap;
     }
 
-    public function setProgram(string $program): self
+    public function setCustomMap(?string $customMap): self
     {
-        $this->program = $program;
+        $this->customMap = $customMap;
 
         return $this;
     }
 
-    public function getDateNotification(): ?\DateTimeInterface
+    public function getCustomSignup(): ?string
     {
-        return $this->date_notification;
+        return $this->customSignup;
     }
 
-    public function setDateNotification(\DateTimeInterface $date_notification): self
+    public function setCustomSignup(?string $customSignup): self
     {
-        $this->date_notification = $date_notification;
+        $this->customSignup = $customSignup;
 
         return $this;
     }
 
-    public function getFeatured(): ?int
+    public function getAttachment(): ?string
     {
-        return $this->featured;
+        return $this->attachment;
     }
 
-    public function setFeatured(int $featured): self
+    public function setAttachment(?string $attachment): self
     {
-        $this->featured = $featured;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
+        $this->attachment = $attachment;
 
         return $this;
     }
 
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
 
 }

@@ -17,18 +17,21 @@ parameters:
         options:
             trace: 1
             exception: 0
-    app.lawyer_types: [
-        associate,
-        counsel,
-        honoraryPartner,
-        honoraryPresident,
-        managingPartner,
-        noPosition,
-        partner,
-        seniorAssociate,
-        seniorPartner
-    ]
-
+    app.lawyer_types:
+        - associate
+        - counsel
+        - honorary_partner
+        - honorary_president
+        - managing_partner
+        - no_position
+        - partner
+        - senior_associate
+        - senior_partner
+    app.event_types:
+        - standard
+        - webinar
+        - breakfast
+        - institutional
 
 services:
     # default configuration for services in *this* file
