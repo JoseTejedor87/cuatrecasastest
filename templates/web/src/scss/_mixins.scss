@@ -1,0 +1,189 @@
+@mixin reset-margins {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@mixin reset-flex {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+@mixin flex-boxes {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch;
+    margin: 0 -1em;
+}
+
+@mixin reset-button {
+    padding: .8em 1.6em;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    border-radius: 0;
+    transition: all .3s ease-in-out;
+}
+
+@mixin button-arrow {
+    position: relative;
+    padding-right: 5em;
+    text-align: left;
+
+    &:after {
+        position: absolute;
+        right: 26px;
+        top: 2px;
+        content: '\f3d3';
+        font-family: 'Ionicons';
+        font-size: 44px;
+        font-weight: normal;
+    }
+}
+
+@mixin button-hover {
+    color: $white;
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+}
+
+@mixin button-hover-shadow {
+    color: $white;
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    box-shadow: -4px 4px 1px $primary-color;
+}
+
+@mixin text-link($color,$hover,$shadow-color,$shadow-hover) {
+    color: $color;
+    font-weight: 600;
+    box-shadow: 0 1px 0 $shadow-color;
+    transition: all .2s linear;
+
+    &:hover,&:focus,&:active {
+        text-decoration: none;
+        color: $hover;
+        box-shadow: 0 1px 0 $shadow-hover;
+    }
+}
+
+@mixin link-hover {
+    text-decoration: none;
+    color: $secondary-color;
+    // box-shadow: 0 1px 0 $secondary-color;
+}
+
+@mixin icons-ionicons {
+    position: absolute;
+    font-family: 'Ionicons';
+    font-weight: normal;
+    transition: transform .3s ease-in-out;
+}
+
+@mixin reset-figure {
+    position: relative;
+    margin: 0 0;
+    overflow: hidden;
+}
+
+@mixin stretch-to-left {
+    @include reset-figure;
+    margin-left: -22vw;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@mixin stretch-to-right {
+    @include reset-figure;
+    margin-right: -22vw;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@mixin marked-image {
+    position: relative;
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4px;
+        height: 50px;
+        background-color: $black;
+    }
+}
+
+@mixin marked-box {
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 40px;
+        background-color: $black;
+    }
+}
+
+@mixin card-boxes {
+    position: relative;
+    width: calc(50% - 2em);
+    margin: 1em;
+    text-align: left;
+    color: inherit;
+    border-radius: 0;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition: .3s;
+
+    &:hover,&:focus,&:active {
+        box-shadow: 0 15px 30px rgba(0,0,0,.07);
+    }
+
+    &:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        outline: transparent solid 1px;
+        -webkit-box-shadow: 0 0 0 rgba(0,0,0,.15);
+        box-shadow: 0 0 0 rgba(0,0,0,.15);
+        transition: .3s;
+    }
+
+    &:hover:after {
+        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,.07);
+        box-shadow: 0 15px 30px rgba(0,0,0,.07)
+    }
+}
+
+@mixin highlight-text {
+    margin-bottom: 0;
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}

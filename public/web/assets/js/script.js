@@ -1,0 +1,1 @@
+console.log("Load script.js");var web={};web.global={init:function(){console.log("load global functions"),web.global.loadHeader()},loadHeader:function(){console.log("loadHeader()")}},web.global.init();
