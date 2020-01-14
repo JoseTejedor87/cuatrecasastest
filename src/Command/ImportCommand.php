@@ -41,7 +41,7 @@ class ImportCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input)
+	protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->logger->info('Empezando la migración...');
         $em = $this->container->get('doctrine')->getManager();
