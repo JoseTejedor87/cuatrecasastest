@@ -33,22 +33,27 @@ class Event extends Publishable
     private $contact;
 
     /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $capacity;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $customMap;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $customSignup;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $attachment;
 
@@ -144,6 +149,18 @@ class Event extends Publishable
     public function setAttachment(?string $attachment): self
     {
         $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

@@ -24,6 +24,7 @@ class ImportCommand extends Command
         $this->container = $container;
         $this->logger = $logger;
     }
+
     protected function configure()
     {
         $this
@@ -40,23 +41,20 @@ class ImportCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input)
     {
-        $output->writeln([
-            'Empezando la migración',
-            '======================',
-        ]);
+        $this->logger->info('Empezando la migración...');
         $em = $this->container->get('doctrine')->getManager();
         $conn = $em->getConnection();
         $table = $input->getOption('table');
 
         if ($table=="all") {
-            $output->writeln("Se van a exportar todas las tablas");
+            $this->logger->info("Se van a exportar todas las tablas");
          //$this->Abogados($conn);
             // $this->Activity($conn);
-             $this->Eventos($conn,$output);
+             $this->Eventos($conn);
         } else {
-            $output->writeln("La tabla a exportar es : ".$table);
+            $this->logger->info("La tabla a exportar es : ".$table);
             switch ($table) {
                 case "lawyer":
                     $this->Abogados($conn);
@@ -65,12 +63,12 @@ class ImportCommand extends Command
                     $this->Activity($conn);
                     break;
                 case "event":
-                    $this->Eventos($conn, $output);
+                    $this->Eventos($conn);
                     break;
             }
         }
-        $output->writeln("Se ha conectado con el servidor");
-        $this->logger->info('Dia de la exportación'.date("Y-m-d H:i:s"));
+        $this->logger->info("Se ha conectado con el servidor");
+        $this->logger->info('Dia de la exportación '.date("Y-m-d H:i:s"));
         return 0;
     }
 
@@ -86,17 +84,23 @@ class ImportCommand extends Command
         $processedLawyersMap = [];
 
         foreach ($items as $item) {
+
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            if ($item['status']=='0') {
+                continue;
+            }
+
             $oldLawyerId = $item['id_abogado'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            // Was the current lawyer instance processed previously ?
+            // Was processed the current lawyer instance in a previous iteration ?
             if (isset($processedLawyersMap[$oldLawyerId])) {
+                // in that case, restore it from $processedLawyersMap
                 $lawyer = $processedLawyersMap[$oldLawyerId];
-                $lawyer->translate($currentLang)->setDescription($item['descripcion']);
-                $lawyer->translate($currentLang)->setCurriculum($item['CV']);
-                $lawyer->translate($currentLang)->setTraining($item['formacion']);
-                $processedLawyersMap[$oldLawyerId] = $lawyer;
-            } else {
+            }
+            else {
+                // in other case, create a new instance and fill it
                 $lawyer = new Lawyer();
                 $lawyer->setOldId($oldLawyerId);
                 $lawyer->setName($item['nombre']);
@@ -105,20 +109,22 @@ class ImportCommand extends Command
                 $lawyer->setPhone(($item['telefono']));
                 $lawyer->setFax(($item['fax']));
                 $lawyer->setPhoto($item['image']);
-
-                // TODO: validar estado de publicación en origen para reflajarlo en destino
-                $lawyer->setLanguages(["es","en"]);
-                $lawyer->setLocations(["es","uk"]);
-
                 $lawyer->setLawyerType(
                     self::getMappedLawyerType($item['idtipoabogado'])
                 );
-                $lawyer->translate($currentLang)->setDescription($item['descripcion']);
-                $lawyer->translate($currentLang)->setCurriculum($item['CV']);
-                $lawyer->translate($currentLang)->setTraining($item['formacion']);
-                // Adding the current $lawyer instance to $processedLawyersMap
-                $processedLawyersMap[$oldLawyerId] = $lawyer;
             }
+            // Updating the languages field using the correspondent visio_* field
+            foreach (['esp','por','eng','chi'] as $lang) {
+                if ($item['visio_'.$lang] == "1") {
+                    $languages[] = self::getMappedLanguageCode($lang);
+                }
+            }
+            // Filling translatable fields
+            $lawyer->translate($currentLang)->setDescription($item['descripcion']);
+            $lawyer->translate($currentLang)->setCurriculum($item['CV']);
+            $lawyer->translate($currentLang)->setTraining($item['formacion']);
+            // Adding the current instance to map
+            $processedLawyersMap[$oldLawyerId] = $lawyer;
         }
 
         foreach ($processedLawyersMap as $lawyer) {
@@ -130,7 +136,7 @@ class ImportCommand extends Command
         return 0;
     }
 
-    public function Eventos($conn, $output)
+    public function Eventos($conn)
     {
         $data = file_get_contents("eventos.json");
         $items = json_decode($data, true);
@@ -143,68 +149,73 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
 
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            if ($item['status']=='0' || $item['visible']=='0' || empty($item['titulo'])) {
+                continue;
+            }
+
             $oldEventId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            // Was the current lawyer instance processed previously ?
+            // Was processed the current lawyer instance in a previous iteration ?
             if (isset($processedEventsMap[$oldEventId])) {
+                // in that case, restore it from $processedEventsMap
                 $event = $processedEventsMap[$oldEventId];
-                $event->translate($currentLang)->setTitle($item['titulo']);
-                $event->translate($currentLang)->setDescription($item['resumen']);
-                $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
-                $event->translate($currentLang)->setProgram($item['programa']);
-                $processedEventsMap[$oldEventId] = $event;
             }
             else {
+                // in other case, create a new instance and fill it
                 $event = new Event();
                 $event->setOldId($oldEventId);
+                $startDate = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha_inicio']);
                 $event->setStartDate(
-                    \DateTime::createFromFormat('Y-m-d G:i:s', $item['fecha_inicio'])
+                    $startDate ? $startDate : date("Y-m-d H:i:s")
                 );
-                $event->setEndDate($item['fecha_final']);
-                $event->setPdf($item['url_pdf']);
+                $endDate = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha_final']);
+                $event->setEndDate(
+                    $endDate ? $endDate : date("Y-m-d H:i:s")
+                );
+                $event->setAttachment($item['url_pdf']);
                 $event->setCustomMap($item['mapa']);
                 $event->setCustomSignup($item['url_inscripcion']);
-                $event->setPhone($item['telefono']);
+                //$event->setPhone($item['telefono']);
                 $event->setContact($item['contacto']);
-                $event->setEventType($item['tipo']);
-                $event->setCapacity($item['capacidad']);
-
-                // Pendiente de corregir el export a JSON
-                // para incluir los campos visio_*
-                /*
-                if ($item['visio_'.$item['lang']] == "1") {
-                    $event->setLanguages(
-                        array_unique(
-                            array_merge(
-                                $event->getLanguages(),
-                                [$currentLang]
-                            )
-                        )
-                    )
-                }
-                */
-
-                $event->translate($currentLang)->setTitle($item['titulo']);
-                $event->translate($currentLang)->setDescription($item['resumen']);
-                $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
-                $event->translate($currentLang)->setProgram($item['programa']);
-                $event->translate($currentLang)->setCustomCity($item['ciudad']);
-                $event->translate($currentLang)->setCustomAddress($item['ubicacion_lugar']);
-                // Adding the current $lawyer instance to $processedLawyersMap
-                $processedEventsMap[$oldEventId] = $event;
+                $event->setEventType(
+                    self::getMappedEventTypeCode($item['tipo'])
+                );
+                $event->setCapacity($item['aforo']);
             }
+            // Updating the languages field using the correspondent visio_* field
+            if ($item['visio_'.$item['lang']] == "1") {
+                $event->setLanguages(
+                    array_unique(
+                        array_merge( $event->getLanguages(), [$currentLang])
+                    )
+                );
+            }
+            // Filling translatable fields
+            $event->translate($currentLang)->setTitle($item['titulo']);
+            $event->translate($currentLang)->setDescription($item['resumen']);
+            $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
+            $event->translate($currentLang)->setProgram($item['programa']);
+            $event->translate($currentLang)->setCustomCity($item['ciudad']);
+            $event->translate($currentLang)->setCustomAddress($item['ubicacion_lugar']);
+            // Adding the current instance to map
+            $processedEventsMap[$oldEventId] = $event;
         }
 
         foreach ($processedEventsMap as $event) {
-            $event->mergeNewTranslations();
-            $entityManager->persist($event);
-            $entityManager->flush();
+            // Persist only the registers with at least one active language
+            if (!empty($event->getLanguages())) {
+                // Persiste the instance
+                $event->mergeNewTranslations();
+                $entityManager->persist($event);
+                $entityManager->flush();
+                $this->logger->info("Event ".$event->getId()." ".$event->translate('es')->getTitle());
+            }
         }
-
-        return 0;
-
     }
+
     public function Activity($conn)
     {
         $data = file_get_contents("areas_practicas.json");
@@ -241,7 +252,7 @@ class ImportCommand extends Command
 
                 $activity->translate($currentLang)->setMetaTitle($item['titulo']);
                 $activity->translate($currentLang)->getMetaDescription($item['resumen']);
-                // Adding the current $lawyer instance to $processedLawyersMap
+                // Adding the current instance to map
                 $processedActivitysMap[$oldActivityId] = $activity;
             }
         }
@@ -289,6 +300,17 @@ class ImportCommand extends Command
             'eng' => 'en',
             'por' => 'pt',
             'chi' => 'zh'
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
+
+    private static function getMappedEventTypeCode(?string $code): ?string
+    {
+        $map = [
+            "1" => "standard",
+            "2" => "webinar",
+            "3" => "breakfast",
+            "4" => "institutional"
         ];
         return isset($map[$code]) ? $map[$code] : null;
     }
