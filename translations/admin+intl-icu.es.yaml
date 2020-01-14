@@ -68,8 +68,8 @@ entities:
       customAddress: Dirección
       customMap: Mapa
       customSignup: Enlace inscripciones
-      startDate: Fecha de inicio
-      endDate: Fecha de fin
+      startDate: Inicio
+      endDate: Fin
       eventType: Tipo de evento
       contact: Datos de contacto
       capacity: Aforo
