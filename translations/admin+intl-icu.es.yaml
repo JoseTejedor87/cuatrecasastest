@@ -10,7 +10,7 @@ global:
   actions:
     create: Crear nuevo
     save: Guardar
-    update: Actualizar
+    update: Guardar cambios
     back_to_list: Volver al listado
 
 # Sections
@@ -25,6 +25,13 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
+  events:
+    index:
+      title: Eventos
+    new:
+      title: Nuevo Evento
+    edit:
+      title: Editar Evento
 
 # Menu
 # ###########################################
@@ -48,24 +55,51 @@ entities:
       fax: Fax
       photo: Foto
       lawyerType: Tipo de abogado
-      languages: Idiomas de publicación
       description: Descripción
       curriculum: Curriculum Vitae
       training: Formación
-    lawyerTypes:
-      associate: Associate
-      counsel: Counsel
-      honoraryPartner: Honorary Partner
-      honoraryPresident: Honorary President
-      managingPartner: Managing Partner
-      noPosition: No position
-      partner: Partner
-      seniorAssociate: Senior Associate
-      seniorPartner: Senior Partner
+  event:
+    fields:
+      title: Título
+      description: Descripción
+      schedule: Horarios
+      program: Programa
+      customCity: Ciudad
+      customAddress: Dirección
+      customMap: Mapa
+      customSignup: Enlace inscripciones
+      startDate: Fecha de inicio
+      endDate: Fecha de fin
+      eventType: Tipo de evento
+      contact: Datos de contacto
+      capacity: Aforo
+
   publishable:
     fields:
+      languages: Idiomas de publicación
+      locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
   item:
     fields:
       updatedAt: Última modificación
+
+# Custom Form Types
+
+forms:
+  choices:
+    eventCategoryTypes:
+      standard: Estándar
+      webinar: Webinar
+      breakfast: Desayuno
+      institutional: Institucional
+    lawyerCategoryTypes:
+      associate: Asociado
+      counsel: Consejero
+      honorary_partner: Socio de honor
+      honorary_president: Presidente de honor
+      managing_partner: Consejero delegado
+      no_position: Sin cargo
+      partner: Socio
+      senior_associate: Asociado sénior
+      senior_partner: Presidente

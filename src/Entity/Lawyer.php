@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-/* use Symfony\component\Translation\Translator; */
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**

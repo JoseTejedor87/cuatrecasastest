@@ -1,11 +1,7 @@
 {% trans_default_domain "admin" %}
 
-{{ form_start(form) }}
-
-{# {{ form_widget(form) }} #}
-
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         {{ form_row(form.name) }}
         {{ form_row(form.surname) }}
         {{ form_row(form.email) }}
@@ -15,18 +11,8 @@
         {{ form_row(form.lawyerType) }}
         {{ form_row(form.languages) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         {{ form_row(form.translations) }}
     </div>
+    {{ form_rest(form) }}
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <button class="btn">{{ button_label|trans }}</button>
-    </div>
-</div>
-
-{# {{ form_end(form) }} #}
-{{ form_end(form, {'render_rest': false}) }}
-
-
-

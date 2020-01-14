@@ -2,26 +2,36 @@
 
 namespace App\Controller\CMS;
 
-use App\Entity\Event;
-use App\Form\EventType;
-use App\Repository\EventRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Knp\Component\Pager\PaginatorInterface;
+
+use App\Entity\Event;
+use App\Form\EventFormType;
+use App\Repository\EventRepository;
+use App\Controller\CMS\CMSController;
 
 /**
- * @Route("cms/event")
+ * @Route("cms/events")
  */
-class EventController extends AbstractController
+class EventController extends CMSController
 {
+
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $eventRepository->findAll(),
+            $request->query->getInt('page', 1),
+            25
+        );
+
         return $this->render('cms/event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 
@@ -31,16 +41,17 @@ class EventController extends AbstractController
     public function new(Request $request): Response
     {
         $event = new Event();
-        $form = $this->createForm(EventType::class, $event);
+        $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
+            $event->mergeNewTranslations();
             $entityManager->flush();
 
             return $this->redirectToRoute('event_index');
-        }
+         }
 
         return $this->render('cms/event/new.html.twig', [
             'event' => $event,
@@ -54,7 +65,7 @@ class EventController extends AbstractController
     public function show(Event $event): Response
     {
         return $this->render('cms/event/show.html.twig', [
-            'event' => $event,
+            'event' => $event
         ]);
     }
 
@@ -63,7 +74,7 @@ class EventController extends AbstractController
      */
     public function edit(Request $request, Event $event): Response
     {
-        $form = $this->createForm(EventType::class, $event);
+        $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

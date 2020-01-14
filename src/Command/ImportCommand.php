@@ -142,35 +142,55 @@ class ImportCommand extends Command
         $processedEventsMap = [];
 
         foreach ($items as $item) {
-            
+
             $oldEventId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
             // Was the current lawyer instance processed previously ?
             if (isset($processedEventsMap[$oldEventId])) {
                 $event = $processedEventsMap[$oldEventId];
-                $event->translate($currentLang)->setMetaTitle($item['titulo']);
-                $event->translate($currentLang)->getMetaDescription($item['resumen']);
+                $event->translate($currentLang)->setTitle($item['titulo']);
+                $event->translate($currentLang)->setDescription($item['resumen']);
+                $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
+                $event->translate($currentLang)->setProgram($item['programa']);
                 $processedEventsMap[$oldEventId] = $event;
-            } else {
-                
+            }
+            else {
                 $event = new Event();
                 $event->setOldId($oldEventId);
-                $event->setUrlPdf((string)$item['url_pdf']);
-                $event->setContact((string)$item['contacto']);
-                $event->setPhone((int)$item['telefono']);
-                $event->setProgram((string)$item['programa']);
-                $event->setFeatured($item['destacada']);
-                $event->setType($item['tipo']);
-                $event->setVisible($item['visible']);
-                
+                $event->setStartDate(
+                    \DateTime::createFromFormat('Y-m-d G:i:s', $item['fecha_inicio'])
+                );
+                $event->setEndDate($item['fecha_final']);
+                $event->setPdf($item['url_pdf']);
+                $event->setCustomMap($item['mapa']);
+                $event->setCustomSignup($item['url_inscripcion']);
+                $event->setPhone($item['telefono']);
+                $event->setContact($item['contacto']);
+                $event->setEventType($item['tipo']);
+                $event->setCapacity($item['capacidad']);
 
-                // TODO: validar estado de publicación en origen para reflajarlo en destino
-                $event->setLanguages(["es","en"]);
-                $event->setLocations(["es","uk"]);
+                // Pendiente de corregir el export a JSON
+                // para incluir los campos visio_*
+                /*
+                if ($item['visio_'.$item['lang']] == "1") {
+                    $event->setLanguages(
+                        array_unique(
+                            array_merge(
+                                $event->getLanguages(),
+                                [$currentLang]
+                            )
+                        )
+                    )
+                }
+                */
 
-                $event->translate($currentLang)->setMetaTitle($item['titulo']);
-                $event->translate($currentLang)->getMetaDescription($item['resumen']);
+                $event->translate($currentLang)->setTitle($item['titulo']);
+                $event->translate($currentLang)->setDescription($item['resumen']);
+                $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
+                $event->translate($currentLang)->setProgram($item['programa']);
+                $event->translate($currentLang)->setCustomCity($item['ciudad']);
+                $event->translate($currentLang)->setCustomAddress($item['ubicacion_lugar']);
                 // Adding the current $lawyer instance to $processedLawyersMap
                 $processedEventsMap[$oldEventId] = $event;
             }
@@ -197,7 +217,7 @@ class ImportCommand extends Command
         $processedActivitysMap = [];
 
         foreach ($items as $item) {
-            
+
             $oldActivityId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
@@ -208,12 +228,12 @@ class ImportCommand extends Command
                 $activity->translate($currentLang)->getMetaDescription($item['resumen']);
                 $processedActivitysMap[$oldActivityId] = $activity;
             } else {
-                
+
                 $activity = new Activity();
                 $activity->setOldId($oldActivityId);
                 $activity->setTitle((string)$item['url_pdf']);
                 $activity->setBody((string)$item['contacto']);
-                
+
 
                 // TODO: validar estado de publicación en origen para reflajarlo en destino
                 $activity->setLanguages(["es","en"]);
