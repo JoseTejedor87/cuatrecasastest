@@ -13,7 +13,7 @@ doctrine:
             customer:
                 # configure these for your database server
                 url: '%env(DATABASE_CUSTOMER_URL)%'
-                driver: 'pdo_sqlsrv'
+                driver: 'sqlsrv'
                 # server_version: '5.7'
                 charset: utf8mb4
                 logging: false 
