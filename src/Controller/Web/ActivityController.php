@@ -15,7 +15,7 @@ class ActivityController extends AbstractController
      */
     public function sectoresHome()
     {
-        return $this->render('activity/sectoresHome.html.twig', [
+        return $this->render('web/activity/sectoresHome.html.twig', [
             'controller_name' => 'ActivityController',
         ]);
     }
@@ -25,7 +25,7 @@ class ActivityController extends AbstractController
      */
     public function consumoRetail()
     {
-        return $this->render('activity/consumoRetail.html.twig', [
+        return $this->render('web/activity/consumoRetail.html.twig', [
             'controller_name' => 'ActivityController',
         ]);
     }
