@@ -183,5 +183,6 @@ class TestController extends AbstractController
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/addContactoWebForm?Guid=00505693770F1EDA8B93326D22524160
 
         dd($this->soap->addContactoWebForm($request));
+
     }
 }
