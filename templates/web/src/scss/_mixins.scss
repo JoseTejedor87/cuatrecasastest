@@ -11,19 +11,10 @@
 
 @mixin reset-flex {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     align-items: center;
     justify-content: space-between;
     align-content: space-between;
-}
-
-@mixin flex-boxes {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: stretch;
-    align-items: stretch;
-    margin: 0 -1em;
 }
 
 @mixin reset-button {
@@ -33,6 +24,8 @@
     line-height: 1;
     letter-spacing: 0;
     text-transform: uppercase;
+    background: none;
+    border: none;
     border-radius: 0;
     transition: all .3s ease-in-out;
 }
@@ -89,6 +82,19 @@
     position: absolute;
     font-family: 'Ionicons';
     font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
     transition: transform .3s ease-in-out;
 }
 
@@ -144,6 +150,16 @@
         height: 40px;
         background-color: $black;
     }
+}
+
+
+@mixin flex-boxes {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch;
+    margin: 0 -1em;
 }
 
 @mixin card-boxes {

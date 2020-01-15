@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 class TestController extends AbstractController
 {
 
-    // GetContactoWebtFormExtranet(NO),  
+    // GetContactoWebtFormExtranet(NO),
 // ,  EditEventoAsistenteRespuestasForGestionEventos
-//  
+//
 
 // GetIdiomas, GetAreasInteres, GetOficinas, GetPaises, GetProvincias,AddContactoWebForm , CreateEventoAsistenteForGestionEventos,CancelAttendanceEventoAsistenteForGestionEventos,
 // GetSecretarias, GetResponsablesMarketing, GetSociosResponsables
@@ -41,7 +41,7 @@ class TestController extends AbstractController
             return $data;
 
         }
-        
+
     }
     /**
      * @Route("/getProvincias", name="getProvincias", methods={"GET"})
@@ -72,7 +72,7 @@ class TestController extends AbstractController
             return $data;
 
         }
-        
+
     }
 
     /**
@@ -98,9 +98,9 @@ class TestController extends AbstractController
             return $data;
 
         }
-        
-        
-        
+
+
+
     }
     /**
      * @Route("/getAreasInteres", name="getAreasInteres", methods={"GET"})
@@ -349,7 +349,7 @@ class TestController extends AbstractController
 
         }
     }
-    
+
     /**
      * @Route("/createEventoAsistenteForGestionEventos", name="createEventoAsistenteForGestionEventos", methods={"GET","POST"})
      */
@@ -416,7 +416,7 @@ class TestController extends AbstractController
 
 
 
-    
+
 
     /**
      * @Route("/addContactoWebForm", name="addContactoWebForm", methods={"GET","POST"})
@@ -440,13 +440,13 @@ class TestController extends AbstractController
     }
     public function EventoCreate($param)
     {
-        $parametrosEvento = array('eventoGestionEventosCreateParamDto'=>( 
-            array ( 
+        $parametrosEvento = array('eventoGestionEventosCreateParamDto'=>(
+            array (
                 'Aforo' => 50 ,
-                'Areas' =>  array ( 
-                    'EventoGestionEventosAreaCreateParamDto' => array ( 
+                'Areas' =>  array (
+                    'EventoGestionEventosAreaCreateParamDto' => array (
                         'IdArea' => "WE",
-                        'Nombre' => "Laboral"       
+                        'Nombre' => "Laboral"
                     )
                 ),
                 'Ciudad' => "Barcelona" ,
@@ -471,67 +471,67 @@ class TestController extends AbstractController
                     'PostalCode' => "08029" ,
                     'Province' => "Barcelona"
                 ),
-                'PonentesExternos' =>  array ( 
-                    'EventoGestionEventosPonenteExternoCreateParamDto' => array ( 
+                'PonentesExternos' =>  array (
+                    'EventoGestionEventosPonenteExternoCreateParamDto' => array (
                         'Apellidos' => "Doe",
-                        'Nombre' => "John" 
-                    )      
+                        'Nombre' => "John"
+                    )
                 ),
-                'PonentesInternos' =>  array ( 
-                    'EventoGestionEventosPonenteInternoCreateParamDto' => array ( 
+                'PonentesInternos' =>  array (
+                    'EventoGestionEventosPonenteInternoCreateParamDto' => array (
                         'Apellidos' => "Cuatrecasas",
                         'Iniciales' => "EC",
-                        'Nombre' => "Emilio" 
-                    )      
+                        'Nombre' => "Emilio"
+                    )
                 ),
-                'PreguntasEvento' =>  array ( 
-                    'EventoPreguntaCreateDto' => array ( 
+                'PreguntasEvento' =>  array (
+                    'EventoPreguntaCreateDto' => array (
                         'Action' => 1,
                         'IdEventQuestionWeb' => "82dnfoaqp9dqn3gy49ptrbir4t7qvzf2",
-                        'Question' => "Indique si tiene intolerancia a algún alimento, gracias."    
-                    )   
+                        'Question' => "Indique si tiene intolerancia a algún alimento, gracias."
+                    )
                 ),
-                'ResponsablesMarketing' =>  array ( 
-                    'EventoGestionEventosResponsableMarketingCreateParamDto' => array ( 
+                'ResponsablesMarketing' =>  array (
+                    'EventoGestionEventosResponsableMarketingCreateParamDto' => array (
                         'Apellidos' => "Doe",
                         'Iniciales' => "JNOE",
-                        'Nombre' => "Jane"   
-                    )    
+                        'Nombre' => "Jane"
+                    )
                 ),
-                'Secretarias' =>  array ( 
-                    'EventoGestionEventosSecretariaCreateParamDto' => array ( 
+                'Secretarias' =>  array (
+                    'EventoGestionEventosSecretariaCreateParamDto' => array (
                         'Apellidos' => "Doe",
                         'Iniciales' => "JDE",
-                        'Nombre' => "John" 
-                    )      
+                        'Nombre' => "John"
+                    )
                 ),
-                'SociosResponsables' =>  array ( 
-                    'EventoGestionEventosSocioResponsableCreateParamDto' => array ( 
+                'SociosResponsables' =>  array (
+                    'EventoGestionEventosSocioResponsableCreateParamDto' => array (
                         'Apellidos' => "Cuatrecasas",
                         'Iniciales' => "EC",
-                        'Nombre' => "Emilio"   
-                    )    
+                        'Nombre' => "Emilio"
+                    )
                 ),
                 'TipoNombre' => "Estándar" ,
                 'Titulo' => "Impacto en la fiscalidad de los vehículos y de los inversores" ,
                 'UrlIcs' => "https://www.cuatrecasas.com/es/evento/calendario/93143.html" ,
                 'UrlImagenEmail' => "https://www.cuatrecasas.com/media_repository/images/eventos/impactofscl.jpg" ,
                 'UrlWeb' => "https://www.cuatrecasas.com/es/evento/92499/impacto_fiscalidad_movil.html" ,
-                       
+
             )
         ));
         return($parametrosEvento);
-        
+
     }
     public function EventoUpdate($param)
     {
-        $parametrosEvento = array('eventoGestionEventosUpdateParamDto'=>( 
-            array ( 
+        $parametrosEvento = array('eventoGestionEventosUpdateParamDto'=>(
+            array (
                 'Aforo' => 50 ,
-                'Areas' =>  array ( 
-                    'EventoGestionEventosAreaCreateParamDto' => array ( 
+                'Areas' =>  array (
+                    'EventoGestionEventosAreaCreateParamDto' => array (
                         'IdArea' => "WE",
-                        'Nombre' => "Laboral"       
+                        'Nombre' => "Laboral"
                     )
                 ),
                 'Ciudad' => "Barcelona" ,
@@ -555,46 +555,46 @@ class TestController extends AbstractController
                     'PostalCode' => "08029" ,
                     'Province' => "Barcelona"
                 ),
-                'PonentesExternos' =>  array ( 
-                    'EventoGestionEventosPonenteExternoCreateParamDto' => array ( 
+                'PonentesExternos' =>  array (
+                    'EventoGestionEventosPonenteExternoCreateParamDto' => array (
                         'Apellidos' => "Doe",
-                        'Nombre' => "John" 
-                    )      
+                        'Nombre' => "John"
+                    )
                 ),
-                'PonentesInternos' =>  array ( 
-                    'EventoGestionEventosPonenteInternoCreateParamDto' => array ( 
+                'PonentesInternos' =>  array (
+                    'EventoGestionEventosPonenteInternoCreateParamDto' => array (
                         'Apellidos' => "Cuatrecasas",
                         'Iniciales' => "EC",
-                        'Nombre' => "Emilio" 
-                    )      
+                        'Nombre' => "Emilio"
+                    )
                 ),
-                'PreguntasEvento' =>  array ( 
-                    'EventoPreguntaCreateDto' => array ( 
+                'PreguntasEvento' =>  array (
+                    'EventoPreguntaCreateDto' => array (
                         'Action' => 1,
                         'IdEventQuestionWeb' => "82dnfoaqp9dqn3gy49ptrbir4t7qvzf2",
-                        'Question' => "Indique si tiene intolerancia a algún alimento, gracias."    
-                    )   
+                        'Question' => "Indique si tiene intolerancia a algún alimento, gracias."
+                    )
                 ),
-                'ResponsablesMarketing' =>  array ( 
-                    'EventoGestionEventosResponsableMarketingCreateParamDto' => array ( 
+                'ResponsablesMarketing' =>  array (
+                    'EventoGestionEventosResponsableMarketingCreateParamDto' => array (
                         'Apellidos' => "Doe",
                         'Iniciales' => "JNOE",
-                        'Nombre' => "Jane"   
-                    )    
+                        'Nombre' => "Jane"
+                    )
                 ),
-                'Secretarias' =>  array ( 
-                    'EventoGestionEventosSecretariaCreateParamDto' => array ( 
+                'Secretarias' =>  array (
+                    'EventoGestionEventosSecretariaCreateParamDto' => array (
                         'Apellidos' => "Doe",
                         'Iniciales' => "JDE",
-                        'Nombre' => "John" 
-                    )      
+                        'Nombre' => "John"
+                    )
                 ),
-                'SociosResponsables' =>  array ( 
-                    'EventoGestionEventosSocioResponsableCreateParamDto' => array ( 
+                'SociosResponsables' =>  array (
+                    'EventoGestionEventosSocioResponsableCreateParamDto' => array (
                         'Apellidos' => "Cuatrecasas",
                         'Iniciales' => "EC",
-                        'Nombre' => "Emilio"   
-                    )    
+                        'Nombre' => "Emilio"
+                    )
                 ),
                 'TipoNombre' => "Estándar" ,
                 'Titulo' => "Impacto en la fiscalidad de los vehículos y de los inversores" ,
@@ -602,17 +602,17 @@ class TestController extends AbstractController
                 'UrlIcs' => "https://www.cuatrecasas.com/es/evento/calendario/93143.html" ,
                 'UrlImagenEmail' => "https://www.cuatrecasas.com/media_repository/images/eventos/impactofscl.jpg" ,
                 'UrlWeb' => "https://www.cuatrecasas.com/es/evento/92499/impacto_fiscalidad_movil.html" ,
-                       
+
             )
         ));
         return($parametrosEvento);
-        
+
     }
 
     public function Contacto($param)
     {
-        $parametrosEvento = array('contactoGestionEventosCreateParamDto'=>( 
-            array ( 
+        $parametrosEvento = array('contactoGestionEventosCreateParamDto'=>(
+            array (
                 'Apellidos' => "Juanito" ,
                 'Cargo' => "IT" ,
                 'CodigoPostal' => "08030" ,
@@ -631,17 +631,17 @@ class TestController extends AbstractController
                 'Nombre' => "Barcelona" ,
                 'Poblacion' => "Barcelona" ,
                 'Telefono' => "690367295" ,
-                       
+
             )
         ));
         return($parametrosEvento);
-        
+
     }
 
     public function ContactoWeb($param)
     {
-        $parametrosEvento = array('contactoWebDto'=>( 
-            array ( 
+        $parametrosEvento = array('contactoWebDto'=>(
+            array (
                 'Accion' => 2 ,
                 'Apellidos' => "Tejedor Bello" ,
                 'Cargo' => "IT" ,
@@ -679,17 +679,17 @@ class TestController extends AbstractController
                 'Suscripcion' => 0 ,
                 'SuscripcionPrensa' => 1 ,
                 'Telefono' => "690367295" ,
-                       
+
             )
         ));
         return($parametrosEvento);
-        
+
     }
 
     public function eventoAsistente($param)
     {
-        $parametrosEvento = array('eventoAsistenteGestionEventosCreatePatamDto'=>( 
-            array ( 
+        $parametrosEvento = array('eventoAsistenteGestionEventosCreatePatamDto'=>(
+            array (
                 'CreatedShortName' => "" ,
                 'Guid' => "edb8bbd7-9246-4ba2-acd6-d035b62132a2" ,
                 'IdAsistenteEstado' => "" ,
@@ -698,23 +698,22 @@ class TestController extends AbstractController
                 'IdEventoWeb' => 92569 ,
                 'IsCRMContact' => "" ,
                 'Observaciones' => ""
-                       
+
             )
         ));
         return($parametrosEvento);
-        
+
     }
     public function confirmCancelEventoAsistente($param)
     {
-        $parametrosEvento = array('eventoAsistenteGestionEventosAttendanceParamDto'=>( 
-            array ( 
+        $parametrosEvento = array('eventoAsistenteGestionEventosAttendanceParamDto'=>(
+            array (
                 'Guid' => "edb8bbd7-9246-4ba2-acd6-d035b62132a2" ,
                 'IdEvento' => 20171 ,
                 'IdEventoWeb' => 19168 ,
-                'UpdatedShortName' => ""  
+                'UpdatedShortName' => ""
             )
         ));
         return($parametrosEvento);
-        
     }
 }
