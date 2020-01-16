@@ -46,7 +46,8 @@ class LawyerFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Lawyer::class,
-            'translation_domain' => 'admin'
+            'translation_domain' => 'admin',
+            'required' => false
         ]);
     }
 }

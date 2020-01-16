@@ -2,28 +2,35 @@
 
 namespace App\Controller\CMS;
 
-use App\Entity\Practice;
-use App\Form\PracticeType;
-use App\Repository\PracticeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Knp\Component\Pager\PaginatorInterface;
+
+use App\Entity\Practice;
+use App\Form\PracticeFormType;
+use App\Repository\PracticeRepository;
+use App\Controller\CMS\CMSController;
 
 /**
- * @Route("cms/practice")
+ * @Route("cms/practices")
  */
-class PracticeController extends AbstractController
+class PracticeController extends CMSController
 {
     /**
      * @Route("/", name="practice_index", methods={"GET"})
      */
-    public function index(PracticeRepository $practiceRepository): Response
+    public function index(PracticeRepository $practiceRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $practiceRepository->findAll(),
+            $request->query->getInt('page', 1),
+            25
+        );
+
         return $this->render('cms/practice/index.html.twig', [
-            'practices' => $practiceRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 
@@ -33,12 +40,13 @@ class PracticeController extends AbstractController
     public function new(Request $request): Response
     {
         $practice = new Practice();
-        $form = $this->createForm(PracticeType::class, $practice);
+        $form = $this->createForm(PracticeFormType::class, $practice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($practice);
+            $practice->mergeNewTranslations();
             $entityManager->flush();
 
             return $this->redirectToRoute('practice_index');
@@ -55,7 +63,7 @@ class PracticeController extends AbstractController
      */
     public function show(Practice $practice): Response
     {
-        return $this->render('cms/practice/show.html.twig', [
+        return $this->render('practice/show.html.twig', [
             'practice' => $practice,
         ]);
     }
@@ -65,7 +73,7 @@ class PracticeController extends AbstractController
      */
     public function edit(Request $request, Practice $practice): Response
     {
-        $form = $this->createForm(PracticeType::class, $practice);
+        $form = $this->createForm(PracticeFormType::class, $practice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

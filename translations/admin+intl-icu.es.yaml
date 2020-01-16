@@ -7,17 +7,48 @@ global:
     pt: Portugués
     zh: Chino
 
+  messages:
+    noRecordsFound: No se han encontrado registros
+
   actions:
     create: Crear nuevo
     save: Guardar
     update: Guardar cambios
-    back_to_list: Volver al listado
+    backToList: Volver al listado
 
 # Sections
 # ###########################################
 sections:
   dashboard:
     title: Escritorio
+  desks:
+    index:
+      title: Desks
+    new:
+      title: Nuevo Desk
+    edit:
+      title: Editar Desk
+  practices:
+    index:
+      title: Áreas de Práctica
+    new:
+      title: Nueva Área de Práctica
+    edit:
+      title: Editar Área de Práctica
+  products:
+    index:
+      title: Productos
+    new:
+      title: Nuevo Producto
+    edit:
+      title: Editar Producto
+  sectors:
+    index:
+      title: Sectores
+    new:
+      title: Nuevo Sector
+    edit:
+      title: Editar Sector
   lawyers:
     index:
       title: Abogados
@@ -38,6 +69,7 @@ sections:
 menu:
   lawyers.title: Abogados
   events.title: Eventos
+  services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
   practices.title: Áreas de Práctica
@@ -46,18 +78,13 @@ menu:
 # Entities
 # ###########################################
 entities:
-  lawyer:
+  activity:
     fields:
-      name: Nombre
-      surname: Apellido
-      email: Correo electrónico
-      phone: Teléfono
-      fax: Fax
-      photo: Foto
-      lawyerType: Tipo de abogado
+      title: Título
       description: Descripción
-      curriculum: Curriculum Vitae
-      training: Formación
+      image: Imagen
+      highlighted: Destacado
+      experience: Experiencia
   event:
     fields:
       title: Título
@@ -73,16 +100,27 @@ entities:
       eventType: Tipo de evento
       contact: Datos de contacto
       capacity: Aforo
-
+  item:
+    fields:
+      updatedAt: Última modificación
+  lawyer:
+    fields:
+      name: Nombre
+      surname: Apellido
+      email: Correo electrónico
+      phone: Teléfono
+      fax: Fax
+      photo: Foto
+      lawyerType: Tipo de abogado
+      description: Descripción
+      curriculum: Curriculum Vitae
+      training: Formación
   publishable:
     fields:
       languages: Idiomas de publicación
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
-  item:
-    fields:
-      updatedAt: Última modificación
 
 # Custom Form Types
 

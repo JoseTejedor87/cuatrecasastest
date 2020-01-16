@@ -19,9 +19,9 @@ class EventFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startDate', DateType::class, ['label'=>'entities.event.fields.startDate'])
-            ->add('endDate', DateType::class, ['label'=>'entities.event.fields.endDate'])
-            ->add('eventType', EventCategoryType::class, ['label'=>'entities.event.fields.eventType'])
+            ->add('startDate', DateType::class, ['label'=>'entities.event.fields.startDate', 'required' => true])
+            ->add('endDate', DateType::class, ['label'=>'entities.event.fields.endDate', 'required' => true])
+            ->add('eventType', EventCategoryType::class, ['label'=>'entities.event.fields.eventType', 'required' => true])
             ->add('contact', TextareaType::class, ['label'=>'entities.event.fields.contact', 'attr'=>['class'=>'summernote']])
             ->add('capacity', IntegerType::class, ['label'=>'entities.event.fields.capacity'])
             ->add('customMap', TextType::class, ['label'=>'entities.event.fields.customMap'])
@@ -29,7 +29,7 @@ class EventFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.event.fields.title'],
+                    'title' => ['label'=>'entities.event.fields.title', 'required' => true],
                     'description' => ['label'=>'entities.event.fields.description', 'attr'=>['class'=>'summernote']],
                     'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'program' => ['label'=>'entities.event.fields.program', 'attr'=>['class'=>'summernote']],
@@ -46,7 +46,8 @@ class EventFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
-            'translation_domain' => 'admin'
+            'translation_domain' => 'admin',
+            'required' => false
         ]);
     }
 }
