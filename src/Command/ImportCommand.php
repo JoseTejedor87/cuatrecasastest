@@ -113,11 +113,14 @@ class ImportCommand extends Command
                 );
             }
             // Updating the languages field using the correspondent visio_* field
+            $languages = [];
             foreach (['esp','por','eng','chi'] as $lang) {
                 if ($item['visio_'.$lang] == "1") {
                     $languages[] = self::getMappedLanguageCode($lang);
                 }
             }
+            $lawyer->setLanguages($languages);
+
             // Filling translatable fields
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
