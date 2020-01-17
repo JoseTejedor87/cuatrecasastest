@@ -1,11 +1,11 @@
 {% extends 'web/base.html.twig' %}
 {% block main %}
+
     <main role="main" class="lawyer-filter">
         <article>
-            <header class="container">
+            <header id="page-header" class="container">
                 <figure class="full-width">
-                    <img src="{{ asset('web/assets/img/abogado-full.jpg') }}" alt="Juan García Hernández">
-                    {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
+                    <img class="v-center" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández">
                 </figure>
                 <div class="row">
                     <div class="col-8">
@@ -25,220 +25,248 @@
 
             <section class="container search-page">
 
-                <form>
-
-                    <!-- Search Term & Filters -->
-                    <div class="search-filters">
-                        <div class="row">
-                            <div class="col-12 find-lawyer">
-                                <h2>Encuentra tu abogado</h2>
-                                <div class="form-group">
-                                    <label for="" class="sr-only">Nombre abogado</label>
-                                    <input type="text" class="form-control" id="" placeholder="Buscar por nombre de abogado">
-                                </div>
+                <!-- Search Term & Filters -->
+                <div class="search-filters">
+                    <div class="row">
+                        <div class="col-12 find-lawyer">
+                            <h2>Encuentra tu abogado</h2>
+                            <div class="form-group">
+                                <label for="" class="sr-only">Nombre abogado</label>
+                                <input type="text" class="form-control" id="" placeholder="Buscar por nombre de abogado">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 filter-lawyer">
-                                <h5>Filtrar por:</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 filter-lawyer">
+                            <h5>Filtrar por:</h5>
 
-                                <div class="row">
-                                    <div class="col-md">
-                                        <label for="" class="sr-only">Por servicios</label>
-                                        <select class="custom-select" id="">
-                                            <option selected disabled>Por servicios</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md">
-                                        <label for="" class="sr-only">Por oficina</label>
-                                        <select class="custom-select" id="">
-                                            <option selected disabled>Por oficina</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md">
-                                        <label for="" class="sr-only">Por categoría</label>
-                                        <select class="custom-select" id="">
-                                            <option selected disabled>Por categoría</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md">
-                                        <label for="" class="sr-only">Por servicios</label>
-                                        <select class="custom-select" id="">
-                                            <option selected disabled>Por servicios</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <label for="" class="sr-only">Por servicios</label>
+                                    <select class="custom-select" id="">
+                                        <option selected disabled>Por servicios</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label for="" class="sr-only">Por oficina</label>
+                                    <select class="custom-select" id="">
+                                        <option selected disabled>Por oficina</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label for="" class="sr-only">Por categoría</label>
+                                    <select class="custom-select" id="">
+                                        <option selected disabled>Por categoría</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label for="" class="sr-only">Por servicios</label>
+                                    <select class="custom-select" id="">
+                                        <option selected disabled>Por servicios</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Results -->
-                    <div class="search-results-wrapper">
+                <!-- Results -->
+                <div class="search-results-wrapper">
 
-                        <!-- Pagination -->
-                        <nav aria-label="page navigation">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item"><a class="page-link" href="#">a</a></li>
-                                <li class="page-item"><a class="page-link" href="#">b</a></li>
-                                <li class="page-item"><a class="page-link" href="#">c</a></li>
-                                <li class="page-item"><a class="page-link" href="#">d</a></li>
-                                <li class="page-item"><a class="page-link" href="#">e</a></li>
-                                <li class="page-item"><a class="page-link" href="#">f</a></li>
-                                <li class="page-item"><a class="page-link" href="#">g</a></li>
-                                <li class="page-item"><a class="page-link" href="#">h</a></li>
-                                <li class="page-item"><a class="page-link" href="#">i</a></li>
-                                <li class="page-item"><a class="page-link" href="#">j</a></li>
-                                <li class="page-item"><a class="page-link" href="#">k</a></li>
-                                <li class="page-item"><a class="page-link" href="#">l</a></li>
-                                <li class="page-item"><a class="page-link" href="#">m</a></li>
-                                <li class="page-item"><a class="page-link" href="#">n</a></li>
-                                <li class="page-item"><a class="page-link" href="#">o</a></li>
-                                <li class="page-item"><a class="page-link" href="#">p</a></li>
-                                <li class="page-item"><a class="page-link" href="#">q</a></li>
-                                <li class="page-item"><a class="page-link" href="#">r</a></li>
-                                <li class="page-item"><a class="page-link" href="#">s</a></li>
-                                <li class="page-item"><a class="page-link" href="#">t</a></li>
-                                <li class="page-item"><a class="page-link" href="#">u</a></li>
-                                <li class="page-item"><a class="page-link" href="#">v</a></li>
-                                <li class="page-item"><a class="page-link" href="#">w</a></li>
-                                <li class="page-item"><a class="page-link" href="#">x</a></li>
-                                <li class="page-item"><a class="page-link" href="#">y</a></li>
-                                <li class="page-item"><a class="page-link" href="#">z</a></li>
-                            </ul>
-                        </nav>
+                    <!-- Pagination -->
+                    <nav aria-label="page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="#">a</a></li>
+                            <li class="page-item"><a class="page-link" href="#">b</a></li>
+                            <li class="page-item"><a class="page-link" href="#">c</a></li>
+                            <li class="page-item"><a class="page-link" href="#">d</a></li>
+                            <li class="page-item"><a class="page-link" href="#">e</a></li>
+                            <li class="page-item"><a class="page-link" href="#">f</a></li>
+                            <li class="page-item"><a class="page-link" href="#">g</a></li>
+                            <li class="page-item"><a class="page-link" href="#">h</a></li>
+                            <li class="page-item"><a class="page-link" href="#">i</a></li>
+                            <li class="page-item"><a class="page-link" href="#">j</a></li>
+                            <li class="page-item"><a class="page-link" href="#">k</a></li>
+                            <li class="page-item"><a class="page-link" href="#">l</a></li>
+                            <li class="page-item"><a class="page-link" href="#">m</a></li>
+                            <li class="page-item"><a class="page-link" href="#">n</a></li>
+                            <li class="page-item"><a class="page-link" href="#">o</a></li>
+                            <li class="page-item"><a class="page-link" href="#">p</a></li>
+                            <li class="page-item"><a class="page-link" href="#">q</a></li>
+                            <li class="page-item"><a class="page-link" href="#">r</a></li>
+                            <li class="page-item"><a class="page-link" href="#">s</a></li>
+                            <li class="page-item"><a class="page-link" href="#">t</a></li>
+                            <li class="page-item"><a class="page-link" href="#">u</a></li>
+                            <li class="page-item"><a class="page-link" href="#">v</a></li>
+                            <li class="page-item"><a class="page-link" href="#">w</a></li>
+                            <li class="page-item"><a class="page-link" href="#">x</a></li>
+                            <li class="page-item"><a class="page-link" href="#">y</a></li>
+                            <li class="page-item"><a class="page-link" href="#">z</a></li>
+                        </ul>
+                    </nav>
 
-                        <!-- Info -->
-                        <div class="search-results-info">
-                            <h2 class="big-header">Resultados de búsqueda</h2>
-                            <div class="search-results-text">Mostramos 18 perfiles que encajan con la búsqueda</div>
-                        </div>
-
-                        <!-- Boxes -->
-                        <div class="search-results-boxes">
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Ramón Fernández García</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Ramón Fernández García</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                            <a href="#" class="card">
-                                <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
-                                    <div class="card-text lawyer-position">Socio</div>
-                                    <div class="card-text lawyer-location">Barcelona | España</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="button-wrapper">
-                            <button class="btn btn-line view-more">Ver más</button>
-                        </div>
+                    <!-- Info -->
+                    <div class="search-results-info">
+                        <h2 class="big-header">Resultados de búsqueda</h2>
+                        <div class="search-results-text">Mostramos 18 perfiles que encajan con la búsqueda</div>
                     </div>
 
-                </form>
+                    <!-- Boxes -->
+                    <div class="search-results-boxes">
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Ramón Fernández García</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ehimetalor-unuabona-OK1hw9YJlt8-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-2McglrBFkns-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ethan-sykes-TdM_fhzmWog-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ethan-sykes-TdM_fhzmWog-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-2McglrBFkns-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Ramón Fernández García</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ehimetalor-unuabona-OK1hw9YJlt8-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-2McglrBFkns-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ehimetalor-unuabona-OK1hw9YJlt8-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Ainhoa Urrutikoetxea Olaizola</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/ethan-sykes-TdM_fhzmWog-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Jordi Ferrer Beltrán</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <figure>
+                                <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="card-img-top" alt="">
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title lawyer-name">Francisco Javier Gonzalez del Olmo</h3>
+                                <div class="card-text lawyer-position">Socio</div>
+                                <div class="card-text lawyer-location">Barcelona | España</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="button-wrapper">
+                        <button class="btn btn-border view-more">Ver más</button>
+                    </div>
+                </div>
 
             </section>
 
         </article>
     </main>
 
-    {% include 'web/shared/highlight-content.html.twig' %}
-    {% include 'web/shared/tech-channel.html.twig' %}
+    {% include 'web/shared/highlightContentMix.html.twig' %}
+    {% include 'web/shared/techChannel.html.twig' %}
     {% include 'web/shared/talent.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 

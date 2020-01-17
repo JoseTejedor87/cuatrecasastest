@@ -1,2 +1,22 @@
 {% block header %}
+    <header id="page-header" class="container">
+        <figure class="full-width">
+            <img src="{{ asset('web/assets/img/abogado-full.jpg') }}" alt="Juan García Hernández">
+            {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
+        </figure>
+        <div class="row">
+            <div class="col-8">
+                <div class="header-info">
+                    <big class="hash-text">{{ 'global.general.hashtag'|trans }}</big>
+                    <h1>Abogados</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Búsqueda Abogados</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
 {% endblock %}

@@ -6,26 +6,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-* @Route("/activity", name="Activity")
+* @Route("/activity", name="activity")
 */
 class ActivityController extends AbstractController
 {
     /**
-     * @Route("/sectoresHome", name="sectoresHome")
+     * @Route("/sectorsHome", name="sectorsHome")
      */
-    public function sectoresHome()
+    public function sectorsHome()
     {
-        return $this->render('web/activity/sectoresHome.html.twig', [
+        return $this->render('web/activity/sectorsHome.html.twig', [
             'controller_name' => 'ActivityController',
         ]);
     }
 
     /**
-     * @Route("/consumoRetail", name="consumoRetail")
+     * @Route("/consumptionRetail", name="consumptionRetail")
      */
-    public function consumoRetail()
+    public function consumptionRetail()
     {
-        return $this->render('web/activity/consumoRetail.html.twig', [
+        return $this->render('web/activity/consumptionRetail.html.twig', [
             'controller_name' => 'ActivityController',
         ]);
     }
