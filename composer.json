@@ -25,7 +25,8 @@
         "symfony/security-csrf": "4.4.*",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "vich/uploader-bundle": "^1.13"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.14",

@@ -8,10 +8,7 @@
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9001,
-            "pathMappings": {
-                "/app/public": "${workspaceFolder}"
-            },
+            "port": 9000,
             "log": true
         },
         {
