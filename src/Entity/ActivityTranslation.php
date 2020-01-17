@@ -19,14 +19,9 @@ class ActivityTranslation extends PublishableTranslation
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $experience;
 
     public function getTitle(): ?string
     {
@@ -48,18 +43,6 @@ class ActivityTranslation extends PublishableTranslation
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getExperience(): ?string
-    {
-        return $this->experience;
-    }
-
-    public function setExperience(string $experience): self
-    {
-        $this->experience = $experience;
 
         return $this;
     }

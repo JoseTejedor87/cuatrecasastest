@@ -14,22 +14,38 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 abstract class Activity extends Publishable
 {
-
     use ORMBehaviors\Translatable\Translatable;
-    
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $tags;
 
-    public function getTags(): ?string
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $highlighted;
+
+    public function getImage(): ?string
     {
-        return $this->tags;
+        return $this->image;
     }
 
-    public function setTags(string $tags): self
+    public function setImage(?string $image): self
     {
-        $this->tags = $tags;
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getHighlighted(): ?bool
+    {
+        return $this->highlighted;
+    }
+
+    public function setHighlighted(bool $highlighted): self
+    {
+        $this->highlighted = $highlighted;
 
         return $this;
     }
