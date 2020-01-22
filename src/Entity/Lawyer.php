@@ -72,6 +72,11 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    public function getFullName(): ?string
+    {
+        return $this->surname . ", " . $this->name;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;

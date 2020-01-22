@@ -3,7 +3,9 @@
 <div class="row">
     <div class="col-md-4">
         {{ form_row(form.eventType) }}
+        {{ form_row(form.speakers) }}
         {{ form_row(form.contact) }}
+        {{ form_row(form.phone) }}
         {{ form_row(form.capacity) }}
         {{ form_row(form.customMap) }}
         {{ form_row(form.customSignup) }}
@@ -14,5 +16,6 @@
     <div class="col-md-8">
         {{ form_row(form.translations) }}
     </div>
-    {{ form_rest(form) }}
 </div>
+
+{{ form_rest(form) }}

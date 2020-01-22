@@ -56,6 +56,13 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
+  speakers:
+    index:
+      title: Ponentes
+    new:
+      title: Nuevo Ponente
+    edit:
+      title: Editar Ponente
   events:
     index:
       title: Eventos
@@ -63,17 +70,22 @@ sections:
       title: Nuevo Evento
     edit:
       title: Editar Evento
+    actions:
+      addSpeaker: Crear Ponente
 
 # Menu
 # ###########################################
 menu:
   lawyers.title: Abogados
   events.title: Eventos
+  events.searcher.title: Buscador
+  events.speakers.title: Ponentes
   services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
   practices.title: Áreas de Práctica
   products.title: Productos
+  metadata.title: Metadatos
 
 # Entities
 # ###########################################
@@ -83,7 +95,7 @@ entities:
       title: Título
       description: Descripción
       image: Imagen
-      highlighted: Destacado
+      highlighted: En Menú
       experience: Experiencia
   event:
     fields:
@@ -98,8 +110,10 @@ entities:
       startDate: Inicio
       endDate: Fin
       eventType: Tipo de evento
-      contact: Datos de contacto
+      contact: Nombre de contacto
+      phone: Teléfono de contacto
       capacity: Aforo
+      speakers: Ponentes
   item:
     fields:
       updatedAt: Última modificación
@@ -121,6 +135,14 @@ entities:
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
+  speaker:
+    fields:
+      name: Nombre
+      surname: Apellidos
+      position: Posición / Cargo
+      lawyer: Abogado
+    help:
+      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
 
 # Custom Form Types
 

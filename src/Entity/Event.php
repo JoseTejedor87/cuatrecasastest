@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
@@ -56,6 +58,16 @@ class Event extends Publishable
      * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $attachment;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Speaker", cascade="persist", inversedBy="events")
+     */
+    private $speakers;
+
+    public function __construct()
+    {
+        $this->speakers = new ArrayCollection();
+    }
 
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -165,6 +177,29 @@ class Event extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|Speaker[]
+     */
+    public function getSpeakers(): Collection
+    {
+        return $this->speakers;
+    }
 
+    public function addSpeaker(Speaker $speaker): self
+    {
+        if (!$this->speakers->contains($speaker)) {
+            $this->speakers[] = $speaker;
+        }
 
+        return $this;
+    }
+
+    public function removeSpeaker(Speaker $speaker): self
+    {
+        if ($this->speakers->contains($speaker)) {
+            $this->speakers->removeElement($speaker);
+        }
+
+        return $this;
+    }
 }
