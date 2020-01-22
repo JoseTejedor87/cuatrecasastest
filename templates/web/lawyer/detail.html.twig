@@ -1,11 +1,12 @@
 {% extends 'web/base.html.twig' %}
 {% block main %}
+
     <main role="main" class="lawyer-details">
         <article class="container">
-            <header class="row article-header">
+            <header class="row lawyer-header">
                 <div class="col-sm-4 col-md-12 col-lg-4">
                     <figure class="stretch-to-left">
-                        <img src="{{ asset('web/assets/img/abogado-retrato.jpg') }}" alt="Juan García Hernández">
+                        <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández">
                         {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
                     </figure>
                 </div>
@@ -47,7 +48,7 @@
                 <section class="col-sm-8 article-section">
                     <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Pretium lectus quam id leo in vitae. Viverra vitae congue eu consequat ac felis donec. Commodo nulla facilisi nullam vehicula ipsum a arcu cursus. Aenean euismod elementum nisi quis eleifend quam. Risus commodo viverra maecenas accumsan lacus vel. Enim eu turpis egestas pretium. Molestie ac feugiat sed lectus vestibulum. A cras semper auctor neque vitae tempus. Nulla porttitor massa id neque. Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus.</strong></p>
                     <p>Volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim. Arcu dui vivamus arcu felis bibendum ut tristique. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Nullam eget felis eget nunc lobortis. Scelerisque eu ultrices vitae auctor eu. Ut tristique et egestas quis ipsum. Tellus in hac <a href="">habitasse platea dictumst</a> vestibulum rhoncus. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor. Odio tempor orci dapibus ultrices. Quis hendrerit dolor magna eget est lorem.</p>
-                    <blockquote>
+                    <blockquote class="inline-quote">
                         <p>Aliquam vestibulum morbi blandit cursus risus. Quam id leo in vitae turpis massa. Non blandit massa enim dui nunc.</p>
                     </blockquote>
                     <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p>
@@ -55,9 +56,9 @@
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel">
                             <div class="panel-heading" role="tab" id="headingOne">
-                                <h2 class="panel-title">
+                                <h3 class="panel-title">
                                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Experiencia relevante</a>
-                                </h2>
+                                </h3>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
@@ -68,9 +69,9 @@
                         </div>
                         <div class="panel">
                             <div class="panel-heading" role="tab" id="headingTwo">
-                                <h2 class="panel-title">
+                                <h3 class="panel-title">
                                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Publicaciones y eventos</a>
-                                </h2>
+                                </h3>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
@@ -100,6 +101,7 @@
                         </div>
                     </div>
                 </section>
+
                 <aside class="col-sm-4 article-aside">
                     <section class="related-services">
                         <h3>Servicios relacionados</h3>
@@ -143,5 +145,7 @@
             </div>
         </article>
     </main>
+
     {% include 'web/shared/insights.html.twig' %}
+
 {% endblock %}

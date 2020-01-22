@@ -11,19 +11,18 @@
 
 @mixin reset-flex {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     align-items: center;
     justify-content: space-between;
     align-content: space-between;
 }
 
-@mixin flex-boxes {
+@mixin reset-flex-horizontal {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: stretch;
-    align-items: stretch;
-    margin: 0 -1em;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 
 @mixin reset-button {
@@ -33,6 +32,8 @@
     line-height: 1;
     letter-spacing: 0;
     text-transform: uppercase;
+    background: none;
+    border: none;
     border-radius: 0;
     transition: all .3s ease-in-out;
 }
@@ -44,8 +45,8 @@
 
     &:after {
         position: absolute;
-        right: 26px;
         top: 2px;
+        right: 26px;
         content: '\f3d3';
         font-family: 'Ionicons';
         font-size: 44px;
@@ -89,6 +90,19 @@
     position: absolute;
     font-family: 'Ionicons';
     font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
     transition: transform .3s ease-in-out;
 }
 
@@ -104,6 +118,7 @@
 
     img {
         width: 100%;
+        max-width: 100%;
         height: auto;
     }
 }
@@ -114,6 +129,7 @@
 
     img {
         width: 100%;
+        max-width: 100%;
         height: auto;
     }
 }
@@ -146,6 +162,15 @@
     }
 }
 
+@mixin flex-boxes {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch;
+    margin: 0 -1em;
+}
+
 @mixin card-boxes {
     position: relative;
     width: calc(50% - 2em);
@@ -157,7 +182,7 @@
     transition: .3s;
 
     &:hover,&:focus,&:active {
-        box-shadow: 0 15px 30px rgba(0,0,0,.07);
+        box-shadow: 0 15px 30px rgba(0,0,0,.2);
     }
 
     &:after {
@@ -170,15 +195,27 @@
         left: 0;
         z-index: 1;
         outline: transparent solid 1px;
-        -webkit-box-shadow: 0 0 0 rgba(0,0,0,.15);
+        -webkit-box-shadow: 0 0 0 rgba(0,0,0,.25);
         box-shadow: 0 0 0 rgba(0,0,0,.15);
         transition: .3s;
     }
 
     &:hover:after {
-        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,.07);
-        box-shadow: 0 15px 30px rgba(0,0,0,.07)
+        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,.17);
+        box-shadow: 0 15px 30px rgba(0,0,0,.17)
     }
+}
+
+@mixin box-hover {
+    color: $white;
+    background-color: $secondary-color;
+    transition: .2s ease-in-out;
+}
+
+@mixin box-hover-bw {
+    color: $white;
+    background-color: $black;
+    transition: .2s ease-in-out;
 }
 
 @mixin highlight-text {
@@ -186,4 +223,31 @@
     font-size: 4.5rem;
     font-weight: 300;
     line-height: 1.2;
+}
+
+@mixin img-hover-fx {
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+
+    img {
+        width: 100%;
+        transform-origin: left bottom 0;
+        transition: .6s;
+    }
+
+    &:hover img {
+        transform: scale(1.1) translate(-20px);
+    }
+}
+
+
+@mixin keyframes($name) {
+    @keyframes #{$name} {
+        @content
+    }
+}
+
+@mixin animation($value) {
+    animation: $value;
 }

@@ -1,7 +1,9 @@
 <?php
 namespace App\Command;
 
-use App\Entity\Activity;
+use App\Entity\Practice;
+use App\Entity\Sector;
+use App\Entity\Desk;
 use App\Entity\Event;
 use App\Entity\Lawyer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -41,7 +43,7 @@ class ImportCommand extends Command
         ;
     }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->logger->info('Empezando la migración...');
         $em = $this->container->get('doctrine')->getManager();
@@ -49,26 +51,24 @@ class ImportCommand extends Command
         $table = $input->getOption('table');
 
         if ($table=="all") {
-            $this->logger->info("Se van a exportar todas las tablas");
-         //$this->Abogados($conn);
-            // $this->Activity($conn);
-             $this->Eventos($conn);
+            $this->logger->info("Se van a importar todas las tablas");
+            $this->Abogados($conn);
+            $this->Eventos($conn);
+            $this->Activity($conn);
         } else {
-            $this->logger->info("La tabla a exportar es : ".$table);
             switch ($table) {
                 case "lawyer":
                     $this->Abogados($conn);
                     break;
-                case "activity":
-                    $this->Activity($conn);
-                    break;
                 case "event":
                     $this->Eventos($conn);
                     break;
+                case "activity":
+                    $this->Activity($conn);
+                    break;
             }
         }
-        $this->logger->info("Se ha conectado con el servidor");
-        $this->logger->info('Dia de la exportación '.date("Y-m-d H:i:s"));
+        $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
 
@@ -98,8 +98,7 @@ class ImportCommand extends Command
             if (isset($processedLawyersMap[$oldLawyerId])) {
                 // in that case, restore it from $processedLawyersMap
                 $lawyer = $processedLawyersMap[$oldLawyerId];
-            }
-            else {
+            } else {
                 // in other case, create a new instance and fill it
                 $lawyer = new Lawyer();
                 $lawyer->setOldId($oldLawyerId);
@@ -114,11 +113,14 @@ class ImportCommand extends Command
                 );
             }
             // Updating the languages field using the correspondent visio_* field
+            $languages = [];
             foreach (['esp','por','eng','chi'] as $lang) {
                 if ($item['visio_'.$lang] == "1") {
                     $languages[] = self::getMappedLanguageCode($lang);
                 }
             }
+            $lawyer->setLanguages($languages);
+
             // Filling translatable fields
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
@@ -162,8 +164,7 @@ class ImportCommand extends Command
             if (isset($processedEventsMap[$oldEventId])) {
                 // in that case, restore it from $processedEventsMap
                 $event = $processedEventsMap[$oldEventId];
-            }
-            else {
+            } else {
                 // in other case, create a new instance and fill it
                 $event = new Event();
                 $event->setOldId($oldEventId);
@@ -189,7 +190,7 @@ class ImportCommand extends Command
             if ($item['visio_'.$item['lang']] == "1") {
                 $event->setLanguages(
                     array_unique(
-                        array_merge( $event->getLanguages(), [$currentLang])
+                        array_merge($event->getLanguages(), [$currentLang])
                     )
                 );
             }
@@ -225,45 +226,68 @@ class ImportCommand extends Command
         $conn->executeQuery("DELETE FROM [ActivityTranslation]");
         $conn->executeQuery("DELETE FROM [Activity]");
 
-        $processedActivitysMap = [];
+        $processedActivitiesMap = [];
 
         foreach ($items as $item) {
+
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            if (empty($item['titulo'])) {
+                continue;
+            }
 
             $oldActivityId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            // Was the current lawyer instance processed previously ?
-            if (isset($processedActivitysMap[$oldActivityId])) {
-                $activity = $processedActivitysMap[$oldActivityId];
-                $activity->translate($currentLang)->setMetaTitle($item['titulo']);
-                $activity->translate($currentLang)->getMetaDescription($item['resumen']);
-                $processedActivitysMap[$oldActivityId] = $activity;
+            // Was processed the current lawyer instance in a previous iteration ?
+            if (isset($processedActivitiesMap[$oldActivityId])) {
+                // in that case, restore it from $processedEventsMap
+                $activity = $processedActivitiesMap[$oldActivityId];
             } else {
+                // in other case, create a new instance and fill it
+                // Using a subclass of Activity using id_area as reference
+                if ($item['id_area']==1) {
+                    $activity = new Practice();
+                } elseif ($item['id_area']==2) {
+                    $activity = new Sector();
+                } elseif ($item['id_area']==3) {
+                    $activity = new Desk();
+                } else {
+                    continue;
+                }
 
-                $activity = new Activity();
                 $activity->setOldId($oldActivityId);
-                $activity->setTitle((string)$item['url_pdf']);
-                $activity->setBody((string)$item['contacto']);
+                $activity->setImage($item['url_image']);
+                $activity->setHighlighted(!(bool)$item['spractica']);
+            }
 
+            // Updating the languages field using the correspondent visio_* field
+            if ($item['visio_'.$item['lang']] == "1") {
+                $activity->setLanguages(
+                    array_unique(
+                        array_merge($activity->getLanguages(), [$currentLang])
+                    )
+                );
+            }
+            // Filling translatable fields
+            $activity->translate($currentLang)->setTitle($item['titulo']);
+            $description = $item['descripcion'] . "<br/><br/>" . $item['experiencia'];
+            $activity->translate($currentLang)->setDescription($description);
 
-                // TODO: validar estado de publicación en origen para reflajarlo en destino
-                $activity->setLanguages(["es","en"]);
-                $activity->setLocations(["es","uk"]);
+            // Adding the current instance to map
+            $processedActivitiesMap[$oldActivityId] = $activity;
+        }
 
-                $activity->translate($currentLang)->setMetaTitle($item['titulo']);
-                $activity->translate($currentLang)->getMetaDescription($item['resumen']);
-                // Adding the current instance to map
-                $processedActivitysMap[$oldActivityId] = $activity;
+        foreach ($processedActivitiesMap as $activity) {
+            // Persist only the registers with at least one active language
+            if (!empty($activity->getLanguages())) {
+                // Persiste the instance
+                $activity->mergeNewTranslations();
+                $entityManager->persist($activity);
+                $entityManager->flush();
+                $this->logger->info("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
             }
         }
-
-        foreach ($processedActivitysMap as $activity) {
-            $activity->mergeNewTranslations();
-            $entityManager->persist($activity);
-            $entityManager->flush();
-        }
-
-        return 0;
     }
 
     public function Permisos($conn)

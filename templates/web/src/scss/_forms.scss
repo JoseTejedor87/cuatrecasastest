@@ -2,45 +2,53 @@
 // FORMS
 // ==========================================================================
 
-.form-control {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+// .form-control {
+//     display: block;
+//     width: 100%;
+//     height: calc(1.5em + .75rem + 2px);
+//     padding: .375rem .75rem;
+//     font-size: 1rem;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     color: #495057;
+//     background-color: #fff;
+//     background-clip: padding-box;
+//     border: 1px solid #ced4da;
+//     border-radius: .25rem;
+//     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+// }
 
-.custom-select {
-    display: inline-block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem 1.75rem .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    vertical-align: middle;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+// .custom-select {
+//     display: inline-block;
+//     width: 100%;
+//     height: calc(1.5em + .75rem + 2px);
+//     padding: .375rem 1.75rem .375rem .75rem;
+//     font-size: 1rem;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     color: #495057;
+//     vertical-align: middle;
+//     border: 1px solid #ced4da;
+//     border-radius: .25rem;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+// }
 
 
 .form-control,
 .custom-select {
+    height: auto;
+    padding: 1.4rem 2.4rem;
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
-    border: 1px solid $medium-black;
+    border: 1px solid $gray-500;
+}
+
+.form-control {}
+
+.custom-select {
+    padding-right: 3.2rem;
 }
 

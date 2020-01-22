@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
 * @Route("/lawyer", name="lawyer")
 */
-class LawyerController extends WebController
+class LawyerController extends AbstractController
 {
     /**
      * @Route("/detail", name="detail")
@@ -19,6 +19,7 @@ class LawyerController extends WebController
             'controller_name' => 'LawyerController',
         ]);
     }
+
     /**
      * @Route("/filter", name="filter")
      */

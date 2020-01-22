@@ -14,7 +14,6 @@ use App\Controller\SOAPContactsClientController;
 class TestController extends AbstractController
 {
     private $soap;
-
     public function __construct()
     {
         $this->soap  = new SOAPContactsClientController;
@@ -23,11 +22,11 @@ class TestController extends AbstractController
      * @Route("/getPaises", name="getPaises", methods={"GET"})
      */
     public function getPaises(Request $request)
-    { 
+    {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getPaises?LanguageId=es
         dd($this->soap->getPaises($request));
     }
-    
+
     /**
      * @Route("/getProvincias", name="getProvincias", methods={"GET"})
      */
@@ -35,14 +34,16 @@ class TestController extends AbstractController
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getProvincias?PaisId=es
         dd($this->soap->getProvincias($request));
+
     }
-        /**
+    /**
      * @Route("/getIdiomas", name="getIdiomas", methods={"GET"})
      */
     public function getIdiomas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getIdiomas?IdiomaId=es
         dd($this->soap->getIdiomas($request));
+
     }
     /**
      * @Route("/getAreasInteres", name="getAreasInteres", methods={"GET"})
@@ -58,7 +59,6 @@ class TestController extends AbstractController
     public function getOficinas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getOficinas?OficinaId=WALC
-
         dd($this->soap->getOficinas($request));
     }
     /**
@@ -67,7 +67,6 @@ class TestController extends AbstractController
     public function getSecretarias(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSecretarias?Iniciales=JH
-
         dd($this->soap->getSecretarias($request));
     }
     /**
@@ -76,7 +75,6 @@ class TestController extends AbstractController
     public function getResponsablesMarketing(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getResponsablesMarketing?Iniciales=LCM
-
         dd($this->soap->getResponsablesMarketing($request));
     }
     /**
@@ -85,7 +83,6 @@ class TestController extends AbstractController
     public function getSociosResponsables(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSociosResponsables?Iniciales=JCV
-
         dd($this->soap->getSociosResponsables($request));
     }
     /**
@@ -94,7 +91,6 @@ class TestController extends AbstractController
     public function getContactoWebtForm(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getContactoWebtForm?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->getContactoWebtForm($request));
     }
     /**
@@ -103,7 +99,6 @@ class TestController extends AbstractController
     public function createEventoForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/createEventoForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->createEventoForGestionEventos($request));
     }
     /**
@@ -112,7 +107,6 @@ class TestController extends AbstractController
     public function updateEventoForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/updateEventoForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->updateEventoForGestionEventos($request));
     }
 
@@ -122,7 +116,6 @@ class TestController extends AbstractController
     public function deleteEventoForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/deleteEventoForGestionEventos?DeletedShortName=EXT4&IdEventoWeb=19169
-
         dd($this->soap->deleteEventoForGestionEventos($request));
     }
     /**
@@ -131,7 +124,6 @@ class TestController extends AbstractController
     public function getEventosForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getEventosForGestionEventos?GetFullData=1&Id=20171&IdEventoWeb=19168
-
         dd($this->soap->getEventosForGestionEventos($request));
     }
     /**
@@ -140,17 +132,15 @@ class TestController extends AbstractController
     public function createContactoForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/createContactoForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->createContactoForGestionEventos($request));
     }
-    
+
     /**
      * @Route("/createEventoAsistenteForGestionEventos", name="createEventoAsistenteForGestionEventos", methods={"GET","POST"})
      */
     public function createEventoAsistenteForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/createEventoAsistenteForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->createEventoAsistenteForGestionEventos($request));
     }
 
@@ -160,7 +150,6 @@ class TestController extends AbstractController
     public function confirmAttendanceEventoAsistenteForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/confirmAttendanceEventoAsistenteForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->confirmAttendanceEventoAsistenteForGestionEventos($request));
     }
 
@@ -171,7 +160,6 @@ class TestController extends AbstractController
     public function cancelAttendanceEventoAsistenteForGestionEventos(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/cancelAttendanceEventoAsistenteForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->cancelAttendanceEventoAsistenteForGestionEventos($request));
     }
 
@@ -181,8 +169,6 @@ class TestController extends AbstractController
     public function addContactoWebForm(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/addContactoWebForm?Guid=00505693770F1EDA8B93326D22524160
-
         dd($this->soap->addContactoWebForm($request));
-
     }
 }
