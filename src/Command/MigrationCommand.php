@@ -65,6 +65,14 @@ class MigrationCommand extends Command
                 case "event":
                     $this->Eventos($conn,$output);
                     break;
+                case "eventArea":
+                    $this->EventosArea($conn,$output);
+                    break;
+                case "eventosPonente":
+                    $this->EventosPonente($conn,$output);
+                    break;
+
+                    
             }
             
         }
@@ -125,10 +133,29 @@ class MigrationCommand extends Command
     // - legal
     }
 
-    public function Permisos($conn){
 
+    public function EventosArea($conn,$output){
+        $query = "SELECT [id_evento] ,[id_area] ,[id_area_sub]  FROM eventos_area";        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('eventosArea.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_area');
+        $this->logger->info('Se ha guardado con el nombre eventosArea.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
-
+    public function EventosPonente($conn,$output){
+        $query = "SELECT [id] ,[id_evento] ,[lang] ,[nombre] ,[apellidos] ,[cargo] ,[telefono] ,[email] ,[descripcion] ,[image] ,[link] ,[id_abogado] ,[empresa] ,[orden] ,[hash]  FROM eventos_ponente";        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('eventosPonente.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_Ponente');
+        $this->logger->info('Se ha guardado con el nombre eventosPonente.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
     }
 
 
