@@ -1,0 +1,12 @@
+{% trans_default_domain "admin" %}
+
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.name) }}
+        {{ form_row(form.surname) }}
+        {{ form_row(form.position) }}
+        {{ form_row(form.lawyer) }}
+    </div>
+</div>
+
+{{ form_rest(form) }}
