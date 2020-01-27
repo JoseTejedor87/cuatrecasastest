@@ -29,10 +29,8 @@ class LawyerFormType extends AbstractType
                 'label'=>'entities.lawyer.fields.photo',
                 'required' => false,
                 'allow_delete' => true,
-                'download_label' => '...',
                 'download_uri' => true,
                 'image_uri' => true,
-                'imagine_pattern' => '...',
                 'asset_helper' => true,
             ])
             ->add('photo', TextType::class, ['label'=>'entities.lawyer.fields.photo'])
