@@ -76,13 +76,13 @@ class LawyerController extends CMSController
     {
         $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
-
+  
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('lawyer_index');
         }
-
+        
         return $this->render('cms/lawyer/edit.html.twig', [
             'lawyer' => $lawyer,
             'form' => $form->createView(),
