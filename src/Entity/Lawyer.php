@@ -53,18 +53,11 @@ class Lawyer extends Publishable
      /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="lawyers", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="lawyers", fileNameProperty="photo")
      * 
      * @var File
      */
     private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string
-     */
-    private $imageName;
     
     public function getName(): ?string
     {
@@ -177,14 +170,5 @@ class Lawyer extends Publishable
         return $this->imageFile;
     }
 
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
 
 }
