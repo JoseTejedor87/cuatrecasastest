@@ -12,26 +12,26 @@
 @mixin reset-flex {
     display: flex;
     flex-flow: column wrap;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     align-content: space-between;
 }
 
 @mixin reset-flex-horizontal {
     display: flex;
     flex-flow: row nowrap;
-    align-items: flex-start;
     justify-content: flex-start;
+    align-items: flex-start;
     align-content: flex-start;
 }
 
 @mixin reset-button {
-    padding: .8em 1.6em;
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1;
+    padding: .8em 1.4em;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2;
     letter-spacing: 0;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     background: none;
     border: none;
     border-radius: 0;
@@ -40,30 +40,31 @@
 
 @mixin button-arrow {
     position: relative;
+    width: 50%;
     padding-right: 5em;
     text-align: left;
 
     &:after {
         position: absolute;
-        top: 2px;
-        right: 26px;
+        top: 3px;
+        right: 12px;
         content: '\f3d3';
         font-family: 'Ionicons';
-        font-size: 44px;
+        font-size: 32px;
         font-weight: normal;
     }
 }
 
 @mixin button-hover {
     color: $white;
-    background-color: $secondary-color;
-    border-color: $secondary-color;
+    background-color: $complementary-color;
+    border-color: $complementary-color;
 }
 
 @mixin button-hover-shadow {
     color: $white;
-    background-color: $secondary-color;
-    border-color: $secondary-color;
+    background-color: $complementary-color;
+    border-color: $complementary-color;
     box-shadow: -4px 4px 1px $primary-color;
 }
 
@@ -82,12 +83,21 @@
 
 @mixin link-hover {
     text-decoration: none;
-    color: $secondary-color;
-    // box-shadow: 0 1px 0 $secondary-color;
+    color: $complementary-color;
+    // box-shadow: 0 1px 0 $complementary-color;
 }
 
-@mixin icons-ionicons {
+@mixin link-underline-hover {
+    color: $black;
+    box-shadow: 0 1px 0 $black;
+}
+
+@mixin icons-ionicons($top,$right,$bottom,$left) {
     position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
     font-family: 'Ionicons';
     font-weight: normal;
     font-style: normal;
@@ -208,7 +218,7 @@
 
 @mixin box-hover {
     color: $white;
-    background-color: $secondary-color;
+    background-color: $complementary-color;
     transition: .2s ease-in-out;
 }
 
@@ -218,9 +228,35 @@
     transition: .2s ease-in-out;
 }
 
+@mixin box-hover-shadow {
+    background-color: $light-black;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition: .3s;
+
+    &:hover,&:focus,&:active {
+        box-shadow: 0 15px 30px rgba(0,0,0,.2);
+    }
+}
+
+@mixin box-hover-outline {
+    outline: 4px solid transparent;
+    // outline-offset: 4px;
+    transition: .3s;
+
+    &:hover,&:focus,&:active {
+        outline: 4px solid $complementary-color;
+    }
+}
+
 @mixin highlight-text {
     margin-bottom: 0;
     font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+@mixin smaller-text {
+    font-size: 90%;
     font-weight: 300;
     line-height: 1.2;
 }
