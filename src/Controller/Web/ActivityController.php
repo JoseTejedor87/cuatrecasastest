@@ -29,4 +29,14 @@ class ActivityController extends AbstractController
             'controller_name' => 'ActivityController',
         ]);
     }
+
+    /**
+     * @Route("/successStories", name="successStories")
+     */
+    public function successStories()
+    {
+        return $this->render('web/activity/successStories.html.twig', [
+            'controller_name' => 'ActivityController',
+        ]);
+    }
 }

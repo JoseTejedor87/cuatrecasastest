@@ -12,10 +12,15 @@ const cssnano = require('cssnano');
 var replace = require('gulp-replace');
 
 
+// var processorsArray = [
+//   require('autoprefixer')({ grid: true, browsers: ['>1%'] })
+// ];
+
+
 // File paths
 const files = {
     scssPath: 'templates/web/src/scss/**/*.scss',
-    jsPath: 'templates/websrc/js/**/*.js'
+    jsPath: 'templates/web/src/js/**/*.js'
 }
 
 // Sass task: compiles the style.scss file into style.css
