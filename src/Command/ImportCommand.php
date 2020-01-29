@@ -65,6 +65,7 @@ class ImportCommand extends Command
             $this->Activities();
             $this->SpeakersByEvent();
             $this->ActivitiesByEvent();
+            $this->ActivitiesByLawyer();
         } else {
             switch ($table) {
                 case "lawyer":
@@ -84,6 +85,9 @@ class ImportCommand extends Command
                     break;
                 case "event_activity":
                     $this->ActivitiesByEvent();
+                    break;
+                case "lawyer_activity":
+                    $this->ActivitiesByLawyer();
                     break;
             }
         }
@@ -357,6 +361,45 @@ class ImportCommand extends Command
         }
     }
 
+    public function ActivitiesByLawyer()
+    {
+        $data = file_get_contents("abogadoArea.json");
+        $items = json_decode($data, true);
+        $lawyersMapping = [];
+        $activitiesMapping = [];
+        $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $activityRepository = $this->em->getRepository(Activity::class);
+
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+
+        foreach ($items as $item) {
+            $this->logger->info("ORIGINAL DATA: lawyer:" . $item['id_abogado'] . " activity:" . $item['id_area']);
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            $activityId = $this->getMappedActivityId($item['id_area']);
+            if ($lawyerId && $activityId) {
+
+                // Trying to recover objects from the mapping arrays,
+                // if items does not exists, use the ORM to load it from the database
+                $lawyer = isset($lawyersMapping[$item['id_abogado']]) ? $lawyersMapping[$item['id_abogado']] : $lawyerRepository->find($lawyerId);
+                $activity = isset($activitiesMapping[$item['id_area']]) ? $activitiesMapping[$item['id_area']] : $activityRepository->find($activityId);
+
+                $this->logger->info("- Mapped Lawyer " . $lawyer->getName());
+                $this->logger->info("- Mapped Activity " . $activity->translate("es")->getTitle());
+
+                $lawyer->addActivity($activity);
+                $this->em->persist($lawyer);
+                $this->em->flush();
+
+                // Adding lawyer and activity objects to the mapping arrays
+                // in order to avoid ORM calls in each iteration
+                $lawyersMapping[$item['id_abogado']] = $lawyer;
+                $activitiesMapping[$item['id_area']] = $activity;
+            }
+            else {
+                $this->logger->info(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
 
     public function ActivitiesByEvent()
     {
@@ -367,8 +410,6 @@ class ImportCommand extends Command
 
         $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
 
-        $this->logger->info("BEFORE");
-
         foreach ($items as $item) {
             $this->logger->info("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
             $eventId = $this->getMappedEventId($item['id_evento']);
@@ -378,7 +419,7 @@ class ImportCommand extends Command
                 $activity = $activityRepository->find($activityId);
 
                 $this->logger->info("- Mapped Event " . $event->translate("es")->getTitle());
-                $this->logger->info("- Mapped Activity " . $event->translate("es")->getTitle());
+                $this->logger->info("- Mapped Activity " . $activity->translate("es")->getTitle());
 
                 $event->addActivity($activity);
                 $this->em->persist($event);
