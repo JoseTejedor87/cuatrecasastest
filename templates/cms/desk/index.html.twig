@@ -33,7 +33,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th>{{ knp_pagination_sortable(pagination, 'entities.activity.fields.title'|trans, 'translate.title') }}</th>
-                            <th class="text-center" style="width:30px;">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.highlighted'|trans, 'highlighted') }}</th>
+                            <th class="text-center">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.highlighted'|trans, 'highlighted') }}</th>
                             <th colspan="2" style="width:10%;"></th>
                         </tr>
                     </thead>
@@ -43,9 +43,9 @@
                             <td>{{ desk.translate.title }}</td>
                             <td class="text-center">
                             {% if desk.highlighted %}
-                                <i class="fa fa-check m--font-success"></i>
+                                <i class="fa fa-star m--font-success"></i>
                             {% else %}
-                                <i class="fa fa-check m--font-metal"></i>
+                                <i class="fa fa-star-o m--font-secondary"></i>
                             {% endif %}
                             </td>
                             <td class="text-nowrap">

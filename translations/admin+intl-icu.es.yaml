@@ -103,7 +103,7 @@ entities:
       title: Título
       description: Descripción
       image: Imagen
-      highlighted: Menú
+      highlighted: En Menú
       experience: Experiencia
   event:
     fields:
