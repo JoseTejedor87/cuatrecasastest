@@ -56,6 +56,13 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
+  mentions:
+    index:
+      title: Menciones
+    new:
+      title: Nueva Mención
+    edit:
+      title: Editar Mención
   speakers:
     index:
       title: Ponentes
@@ -86,6 +93,7 @@ menu:
   practices.title: Áreas de Práctica
   products.title: Productos
   metadata.title: Metadatos
+  mentions.title: Menciones
 
 # Entities
 # ###########################################
@@ -114,6 +122,7 @@ entities:
       phone: Teléfono de contacto
       capacity: Aforo
       speakers: Ponentes
+      activities: Sectores / Servicios / Desks
   item:
     fields:
       updatedAt: Última modificación
@@ -129,6 +138,12 @@ entities:
       description: Descripción
       curriculum: Curriculum Vitae
       training: Formación
+      activities: Sectores / Servicios / Desks
+      mentions: Menciones
+  mention:
+    fields:
+      body: Texto
+      lawyers: Abogados
   publishable:
     fields:
       languages: Idiomas de publicación

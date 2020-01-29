@@ -32,7 +32,7 @@ class Speaker extends Publishable
     private $events;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Lawyer", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Lawyer", cascade={"persist"})
      */
     private $lawyer;
 
