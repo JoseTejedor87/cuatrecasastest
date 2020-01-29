@@ -71,6 +71,9 @@ class MigrationCommand extends Command
                 case "eventosPonente":
                     $this->EventosPonente($conn,$output);
                     break;
+                case "abogadoArea":
+                    $this->AbogadoArea($conn,$output);
+                    break;
 
                     
             }
@@ -158,8 +161,19 @@ class MigrationCommand extends Command
         return 0;
     }
 
-
-
+    
+    public function AbogadoArea($conn,$output){
+        $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[abogado_area]";       
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('abogadoArea.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla abogado_area');
+        $this->logger->info('Se ha guardado con el nombre abogadoArea.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
 
 

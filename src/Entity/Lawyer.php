@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerRepository")
@@ -58,7 +60,12 @@ class Lawyer extends Publishable
      * @var File
      */
     private $imageFile;
-    
+
+    /**
+     * @Gedmo\Slug(fields={"name", "surname"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
     public function getName(): ?string
     {
         return $this->name;
@@ -168,6 +175,11 @@ class Lawyer extends Publishable
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
 

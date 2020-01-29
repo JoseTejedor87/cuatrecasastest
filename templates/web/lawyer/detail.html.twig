@@ -12,16 +12,24 @@
                 </div>
                 <div class="col-sm-5 col-md-7 col-lg-5 detail-info">
                     <big class="hash-text">{{ 'global.general.hashtag'|trans }}</big>
-                    <h1>Juan García Hernández</h1>
-                    <div class="lawyer-position">Socio</div>
+                    <h1>{{ lawyer.name }} {{ lawyer.surname }}
+                    {# Juan García Hernández #}
+                    </h1>
+                    <div class="lawyer-position">{{ lawyer.lawyerType }}
+                    {# Socio #}
+                    </div>
                     <ul class="lawyer-scope d-flex">
                         <li>Fical</li>
                         <li>Alimentación</li>
                     </ul>
                     <div class="lawyer-address"><strong>BARCELONA</strong> CUATRECASAS Avenida Diagonal, 141</div>
-                    <div class="lawyer-tel">638 84 65 27</div>
+                    <div class="lawyer-tel">{{ lawyer.phone }}
+                    638 84 65 27
+                    </div>
                     <div class="lawyer-mail">
-                        <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">juan.garcia.hernandez@cuatrecasas.com</a>
+                        <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">{{ lawyer.email }}
+                        {# juan.garcia.hernandez@cuatrecasas.com #}
+                        </a>
                     </div>
                     <div class="lawyer-langs">Español / Inglés</div>
                     <div class="lawyer-vcard">
@@ -46,11 +54,14 @@
             </nav>
             <div class="row">
                 <section class="col-sm-8 article-section">
-                    <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Pretium lectus quam id leo in vitae. Viverra vitae congue eu consequat ac felis donec. Commodo nulla facilisi nullam vehicula ipsum a arcu cursus. Aenean euismod elementum nisi quis eleifend quam. Risus commodo viverra maecenas accumsan lacus vel. Enim eu turpis egestas pretium. Molestie ac feugiat sed lectus vestibulum. A cras semper auctor neque vitae tempus. Nulla porttitor massa id neque. Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus.</strong></p>
+                    {{ lawyer.translate(locale).description|raw  }}
+                    {# <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Pretium lectus quam id leo in vitae. Viverra vitae congue eu consequat ac felis donec. Commodo nulla facilisi nullam vehicula ipsum a arcu cursus. Aenean euismod elementum nisi quis eleifend quam. Risus commodo viverra maecenas accumsan lacus vel. Enim eu turpis egestas pretium. Molestie ac feugiat sed lectus vestibulum. A cras semper auctor neque vitae tempus. Nulla porttitor massa id neque. Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus.</strong></p>
                     <p>Volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim. Arcu dui vivamus arcu felis bibendum ut tristique. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Nullam eget felis eget nunc lobortis. Scelerisque eu ultrices vitae auctor eu. Ut tristique et egestas quis ipsum. Tellus in hac <a href="">habitasse platea dictumst</a> vestibulum rhoncus. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor. Odio tempor orci dapibus ultrices. Quis hendrerit dolor magna eget est lorem.</p>
+                     #}
                     <blockquote class="inline-quote">
                         <p>Aliquam vestibulum morbi blandit cursus risus. Quam id leo in vitae turpis massa. Non blandit massa enim dui nunc.</p>
                     </blockquote>
+                    
                     <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p>
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
