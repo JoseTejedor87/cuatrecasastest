@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerRepository")
+ * @Vich\Uploadable
  */
 class Lawyer extends Publishable
 {
@@ -49,23 +50,15 @@ class Lawyer extends Publishable
      */
     private $lawyerType;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
+     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="lawyers", fileNameProperty="photo")
+     * 
+     * @var File
      */
-    private $activities;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Mention", cascade="persist", inversedBy="lawyers")
-     */
-    private $mentions;
-
-    public function __construct()
-    {
-        $this->activities = new ArrayCollection();
-        $this->mentions = new ArrayCollection();
-    }
-
-
+    private $imageFile;
+    
     public function getName(): ?string
     {
         return $this->name;
@@ -131,16 +124,14 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
     public function getPhoto(): ?string
     {
         return $this->photo;
-    }
-
-    public function setPhoto(?string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
     }
 
     public function getLawyerType(): ?string
@@ -154,56 +145,30 @@ class Lawyer extends Publishable
 
         return $this;
     }
-
     /**
-     * @return Collection|Activity[]
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
      */
-    public function getActivities(): Collection
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->activities;
-    }
+        $this->imageFile = $imageFile;
 
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
         }
-
-        return $this;
     }
 
-    public function removeActivity(Activity $activity): self
+    public function getImageFile(): ?File
     {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
-        }
-
-        return $this;
+        return $this->imageFile;
     }
 
-    /**
-     * @return Collection|Mention[]
-     */
-    public function getMentions(): Collection
-    {
-        return $this->mentions;
-    }
 
-    public function addMention(Mention $mention): self
-    {
-        if (!$this->mentions->contains($mention)) {
-            $this->mentions[] = $mention;
-        }
-
-        return $this;
-    }
-
-    public function removeMention(Mention $mention): self
-    {
-        if ($this->mentions->contains($mention)) {
-            $this->mentions->removeElement($mention);
-        }
-
-        return $this;
-    }
 }

@@ -64,15 +64,9 @@ class Event extends Publishable
      */
     private $speakers;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
-     */
-    private $activities;
-
     public function __construct()
     {
         $this->speakers = new ArrayCollection();
-        $this->activities = new ArrayCollection();
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -204,32 +198,6 @@ class Event extends Publishable
     {
         if ($this->speakers->contains($speaker)) {
             $this->speakers->removeElement($speaker);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Activity[]
-     */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
-
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(Activity $activity): self
-    {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
         }
 
         return $this;

@@ -1,6 +1,11 @@
 <?php
 namespace App\Command;
 
+use App\Entity\Practice;
+use App\Entity\Sector;
+use App\Entity\Desk;
+use App\Entity\Event;
+use App\Entity\Lawyer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -9,31 +14,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 
-use App\Entity\Activity;
-use App\Entity\Desk;
-use App\Entity\Event;
-use App\Entity\Lawyer;
-use App\Entity\Mention;
-use App\Entity\Practice;
-use App\Entity\Sector;
-use App\Entity\Speaker;
-
 class ImportCommand extends Command
 {
     protected static $defaultName = 'app:import';
     private $container;
     private $logger;
-    private $mappedLawyerIds;
-    private $mappedEventIds;
-    private $mappedActivityIds;
 
     public function __construct(ContainerInterface $container, LoggerInterface $logger)
     {
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
-
-        $this->em = $this->container->get('doctrine')->getManager();
     }
 
     protected function configure()
@@ -55,35 +46,25 @@ class ImportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->logger->info('Empezando la migración...');
+        $em = $this->container->get('doctrine')->getManager();
+        $conn = $em->getConnection();
         $table = $input->getOption('table');
 
         if ($table=="all") {
             $this->logger->info("Se van a importar todas las tablas");
-            $this->Lawyers();
-            $this->Mentions();
-            $this->Events();
-            $this->Activities();
-            $this->SpeakersByEvent();
-            $this->ActivitiesByEvent();
+            $this->Abogados($conn);
+            $this->Eventos($conn);
+            $this->Activity($conn);
         } else {
             switch ($table) {
                 case "lawyer":
-                    $this->Lawyers();
-                    break;
-                case "mentions":
-                    $this->Mentions();
+                    $this->Abogados($conn);
                     break;
                 case "event":
-                    $this->Events();
+                    $this->Eventos($conn);
                     break;
                 case "activity":
-                    $this->Activities();
-                    break;
-                case "speaker":
-                    $this->SpeakersByEvent();
-                    break;
-                case "event_activity":
-                    $this->ActivitiesByEvent();
+                    $this->Activity($conn);
                     break;
             }
         }
@@ -91,13 +72,14 @@ class ImportCommand extends Command
         return 0;
     }
 
-    public function Lawyers()
+    public function Abogados($conn)
     {
         $data = file_get_contents("abogados.json");
         $items = json_decode($data, true);
-        $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
+        $entityManager = $this->container->get('doctrine')->getManager();
+
+        $conn->executeQuery("DELETE FROM [LawyerTranslation]");
+        $conn->executeQuery("DELETE FROM [Lawyer]");
 
         $processedLawyersMap = [];
 
@@ -149,71 +131,21 @@ class ImportCommand extends Command
 
         foreach ($processedLawyersMap as $lawyer) {
             $lawyer->mergeNewTranslations();
-            $this->em->persist($lawyer);
-            $this->em->flush();
-            $this->logger->info("Lawyer ".$lawyer->getOldId()." - ".$lawyer->getId()." ".$lawyer->getFullName());
+            $entityManager->persist($lawyer);
+            $entityManager->flush();
         }
+
+        return 0;
     }
 
-    public function Mentions()
-    {
-        $data = file_get_contents("abogados.json");
-        $items = json_decode($data, true);
-        $this->em->getConnection()->executeQuery("DELETE FROM [MentionTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Mention]");
-
-        $lawyerRepository = $this->em->getRepository(Lawyer::class);
-
-        $processedLawyersMap = [];
-
-        foreach ($items as $item) {
-
-            $oldLawyerId = $item['id_abogado'];
-            $lawyerId = $this->getMappedLawyerId($oldLawyerId);
-
-            // Has the current item the required conditions to be imported?
-            // if not, Skip it !
-            if ($item['status']=='0' || $lawyerId == null || empty($item['menciones'])) {
-                continue;
-            }
-
-            $currentLang = self::getMappedLanguageCode($item['lang']);
-
-            // Was processed the current lawyer instance in a previous iteration ?
-            if (isset($processedLawyersMap[$oldLawyerId])) {
-                // in that case, restore it from $processedLawyersMap
-                $lawyer = $processedLawyersMap[$oldLawyerId];
-                $mention = $lawyer->getMentions()[0];
-            }
-            else {
-                // in other case, restore it from the database
-                $lawyer = $lawyerRepository->find($lawyerId);
-                $mention = new Mention();
-            }
-
-            // Filling translatable fields
-            $mention->translate($currentLang)->setBody($item['menciones']);
-            $mention->mergeNewTranslations();
-            $lawyer->addMention($mention);
-            // Adding the current instance to map
-            $processedLawyersMap[$oldLawyerId] = $lawyer;
-        }
-
-        foreach ($processedLawyersMap as $lawyer) {
-            $mention = $lawyer->getMentions()[0];
-            $this->em->persist($lawyer);
-            $this->em->flush();
-            $this->logger->info("Mention ".$mention->getId()." - ".substr($mention->translate('es')->getBody(),0,50)."... [ Lawyer : ".$lawyer->getFullName() ." ]");
-        }
-    }
-
-    public function Events()
+    public function Eventos($conn)
     {
         $data = file_get_contents("eventos.json");
         $items = json_decode($data, true);
+        $entityManager = $this->container->get('doctrine')->getManager();
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
+        $conn->executeQuery("DELETE FROM [EventTranslation]");
+        $conn->executeQuery("DELETE FROM [Event]");
 
         $processedEventsMap = [];
 
@@ -278,20 +210,21 @@ class ImportCommand extends Command
             if (!empty($event->getLanguages())) {
                 // Persiste the instance
                 $event->mergeNewTranslations();
-                $this->em->persist($event);
-                $this->em->flush();
+                $entityManager->persist($event);
+                $entityManager->flush();
                 $this->logger->info("Event ".$event->getId()." ".$event->translate('es')->getTitle());
             }
         }
     }
 
-    public function Activities()
+    public function Activity($conn)
     {
         $data = file_get_contents("areas_practicas.json");
         $items = json_decode($data, true);
+        $entityManager = $this->container->get('doctrine')->getManager();
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [ActivityTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Activity]");
+        $conn->executeQuery("DELETE FROM [ActivityTranslation]");
+        $conn->executeQuery("DELETE FROM [Activity]");
 
         $processedActivitiesMap = [];
 
@@ -350,148 +283,15 @@ class ImportCommand extends Command
             if (!empty($activity->getLanguages())) {
                 // Persiste the instance
                 $activity->mergeNewTranslations();
-                $this->em->persist($activity);
-                $this->em->flush();
+                $entityManager->persist($activity);
+                $entityManager->flush();
                 $this->logger->info("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
             }
         }
     }
 
-
-    public function ActivitiesByEvent()
+    public function Permisos($conn)
     {
-        $data = file_get_contents("eventosArea.json");
-        $items = json_decode($data, true);
-        $eventRepository = $this->em->getRepository(Event::class);
-        $activityRepository = $this->em->getRepository(Activity::class);
-
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
-
-        $this->logger->info("BEFORE");
-
-        foreach ($items as $item) {
-            $this->logger->info("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
-            $eventId = $this->getMappedEventId($item['id_evento']);
-            $activityId = $this->getMappedActivityId($item['id_area']);
-            if ($eventId && $activityId) {
-                $event = $eventRepository->find($eventId);
-                $activity = $activityRepository->find($activityId);
-
-                $this->logger->info("- Mapped Event " . $event->translate("es")->getTitle());
-                $this->logger->info("- Mapped Activity " . $event->translate("es")->getTitle());
-
-                $event->addActivity($activity);
-                $this->em->persist($event);
-                $this->em->flush();
-            }
-            else {
-                $this->logger->info(">>>>>>>>>>>>>>>> SKIPPED !!!!");
-            }
-        }
-    }
-
-    public function SpeakersByEvent()
-    {
-        $data = file_get_contents("eventosPonente.json");
-        $items = json_decode($data, true);
-        $processedSpeakers = [];
-
-        $eventRepository = $this->em->getRepository(Event::class);
-        $lawyerRepository = $this->em->getRepository(Lawyer::class);
-
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_speaker]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
-
-        foreach ($items as $item) {
-
-            // Skip speakers other than lawyers
-            if ($item['id_abogado']) {
-
-                $this->logger->info("ORIGINAL DATA: event:" . $item['id_evento'] . " lawyer:" . $item['id_abogado']);
-
-                $eventId = $this->getMappedEventId($item['id_evento']);
-                $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
-
-                if ($lawyerId && $eventId) {
-
-                    $event = $eventRepository->find($eventId);
-                    $lawyer = $lawyerRepository->find($lawyerId);
-
-                    $this->logger->info("- Mapped Event " . $eventId . " · " . $event->translate("es")->getTitle());
-                    $this->logger->info("- Mapped Lawyer " . $lawyerId . " · " . $lawyer->getFullName());
-
-                    if (isset($processedSpeakers[$item['id_abogado']])) {
-                        $speaker = $processedSpeakers[$item['id_abogado']];
-                    }
-                    else {
-                        $speaker = new Speaker();
-                        $speaker->setOldId($item['id']);
-                        $speaker->setLawyer($lawyer);
-                    }
-
-                    $event->addSpeaker($speaker);
-
-                    $this->em->persist($event);
-                    $this->em->flush();
-
-                    $processedSpeakers[$item['id_abogado']] = $speaker;
-                }
-                else {
-                    $this->logger->info(">>>>>>>>>>>>>>>> SKIPPED !!!!");
-                }
-            }
-        }
-    }
-
-    private function getMappedEventId(?string $id): ?string
-    {
-        if (empty($this->mappedEventIds)) {
-            $this->loadMappedEventIds();
-        }
-        return isset($this->mappedEventIds[$id]) ? $this->mappedEventIds[$id] : null;
-    }
-
-    private function loadMappedEventIds()
-    {
-        $repository = $this->em->getRepository(Event::class);
-        $events = $repository->findAll();
-        foreach ($events as $event) {
-            $this->mappedEventIds[$event->getOldId()] = $event->getId();
-        }
-    }
-
-    private function getMappedActivityId(?string $id): ?string
-    {
-        if (empty($this->mappedActivityIds)) {
-            $this->loadMappedActivityIds();
-        }
-        return isset($this->mappedActivityIds[$id]) ? $this->mappedActivityIds[$id] : null;
-    }
-
-    private function loadMappedActivityIds()
-    {
-        $repository = $this->em->getRepository(Activity::class);
-        $activities = $repository->findAll();
-        foreach ($activities as $activity) {
-            $this->mappedActivityIds[$activity->getOldId()] = $activity->getId();
-        }
-    }
-
-    private function getMappedLawyerId(?string $id): ?string
-    {
-        if (empty($this->mappedLawyerIds)) {
-            $this->loadMappedLawyerIds();
-        }
-        return isset($this->mappedLawyerIds[$id]) ? $this->mappedLawyerIds[$id] : null;
-    }
-
-    private function loadMappedLawyerIds()
-    {
-        $repository = $this->em->getRepository(Lawyer::class);
-        $lawyers = $repository->findAll();
-        foreach ($lawyers as $lawyer) {
-            $this->mappedLawyerIds[$lawyer->getOldId()] = $lawyer->getId();
-        }
     }
 
     private static function getMappedLawyerType(?string $code): ?string

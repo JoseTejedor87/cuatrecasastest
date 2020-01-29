@@ -11,10 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
 use App\Entity\Event;
 use App\Entity\Speaker;
-use App\Entity\Activity;
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LanguageType;
 
@@ -32,19 +30,6 @@ class EventFormType extends AbstractType
             ->add('customMap', TextType::class, ['label'=>'entities.event.fields.customMap'])
             ->add('customSignup', TextType::class, ['label'=>'entities.event.fields.customSignup'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
-            ->add('activities', EntityType::class, [
-                'class' => Activity::class,
-                'label' => 'entities.event.fields.activities',
-                'attr' => [
-                    'class' => 'm-select2',
-                    'data-allow-clear' => true
-                ],
-                'multiple' => true,
-                'expanded' => false,
-                'choice_label' => function ($activity) {
-                    return $activity->translate('es')->getTitle();
-                }
-            ])
             ->add('speakers', EntityType::class, [
                 'class' => Speaker::class,
                 'label' => 'entities.event.fields.speakers',
