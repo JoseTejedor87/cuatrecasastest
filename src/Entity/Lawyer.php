@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerRepository")
@@ -61,6 +62,12 @@ class Lawyer extends Publishable
      */
     private $imageFile;
 
+    /**
+     * @Gedmo\Slug(fields={"name", "surname"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+    
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
@@ -188,6 +195,12 @@ class Lawyer extends Publishable
     {
         return $this->imageFile;
     }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 
     /**
      * @return Collection|Activity[]

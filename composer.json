@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "a2lix/translation-form-bundle": "^3.0",
+        "antishov/doctrine-extensions-bundle": "^1.4",
         "knplabs/doctrine-behaviors": "^1.6",
         "knplabs/knp-menu-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^5.0",
@@ -29,6 +30,7 @@
         "vich/uploader-bundle": "^1.13"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/maker-bundle": "^1.14",
         "symfony/web-server-bundle": "4.4.*"
     },
