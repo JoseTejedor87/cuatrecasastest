@@ -3,10 +3,9 @@ web.global = {
     init: function(){ // Load all global functions here
         console.log("load global functions");
         web.global.homeSelect();
-        web.global.carouselItems();
+        web.global.carouselAwards();
+        web.global.sliderCases();
         // web.global.loadHeader();
-        // web.global.carouselAwards();
-        // web.global.sliderCases();
     },
 
     loadHeader: function(){ // Some specific function
@@ -77,31 +76,31 @@ web.global = {
         });
     },
 
-    // carouselAwards: function(){
-    //     var swiperCarousel = new Swiper ('#carouselAwards', {
-    //         slidesPerView: 4,
-    //         spaceBetween: 30,
-    //         grabCursor: true,
-    //         loop: true,
-    //         pagination: {
-    //             el: '.swiper-pagination',
-    //             type: 'progressbar',
-    //         },
-    //         navigation: {
-    //             nextEl: '.swiper-button-next',
-    //             prevEl: '.swiper-button-prev',
-    //         },
-    //     });
-    // },
+    carouselAwards: function(){
+        $(document).ready(function () {
+            var swiperCarousel = new Swiper ('#carouselAwards', {
+                slidesPerView: 4,
+                grabCursor: true,
+                loop: true,
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                    draggable: true,
+                    dragSize: 200,
+                }
+            });
+        });
+    },
 
-    // sliderCases: function(){
-    //     var swiperSlider = new Swiper ('#sliderCases', {
-    //         navigation: {
-    //             nextEl: '.swiper-button-next',
-    //             prevEl: '.swiper-button-prev',
-    //         },
-    //     });
-    // }
+    sliderCases: function(){
+        $(document).ready(function () {
+            var swiperSlider = new Swiper ('#sliderCases', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }
+            });
+        });
+    }
 }
 
 // Run the global stuff

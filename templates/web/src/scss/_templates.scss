@@ -26,7 +26,7 @@
         }
 
         h1 {
-            margin: .5em 0;
+            margin: 0.5em 0;
         }
 
         a {
@@ -44,8 +44,8 @@
 
             li {
                 position: relative;
-                margin-right: .4em;
-                padding-right: .6em;
+                margin-right: 0.4em;
+                padding-right: 0.6em;
                 text-transform: uppercase;
                 color: $gray-600;
 
@@ -69,13 +69,17 @@
         }
 
         .lawyer-address {
-            margin: .5em 0 .3em;
+            margin: 0.5em 0 0.3em;
             color: $gray-800;
 
             strong {
-                margin-right: .5em;
+                margin-right: 0.5em;
                 font-weight: 400;
             }
+
+            // br {
+            //     @include br-to-space;
+            // }
         }
 
         .lawyer-tel {
@@ -96,11 +100,11 @@
         }
 
         .lawyer-mail {
-            margin: .3em 0;
+            margin: 0.3em 0;
         }
 
         .lawyer-vcard {
-            margin-top: .3em;
+            margin-top: 0.3em;
         }
 
         figure {
@@ -128,7 +132,7 @@
     //     font-size: 4rem;
     //     font-weight: 700;
     //     line-height: 1.138888889;
-    //     letter-spacing: .05rem;
+    //     letter-spacing: 0.05rem;
     // }
 }
 
@@ -224,11 +228,11 @@
 
         h2, h5 {
             color: $soft-black;
-            letter-spacing: .02rem;
+            letter-spacing: 0.02rem;
         }
 
         h2 {
-            margin-bottom: .6em;
+            margin-bottom: 0.6em;
             font-size: 3rem;
         }
 
@@ -281,7 +285,7 @@
             margin-bottom: 3em;
 
             .search-results-text {
-                margin-top: .6em;
+                margin-top: 0.6em;
                 color: $medium-black;
             }
         }
@@ -305,7 +309,7 @@
                 }
 
                 .card-title {
-                    margin-bottom: .75rem;
+                    margin-bottom: 0.75rem;
                 }
 
                 .card-body {
@@ -317,7 +321,7 @@
                     background-color: $light-black;
 
                     .lawyer-name {
-                        padding-bottom: .5em;
+                        padding-bottom: 0.5em;
                     }
 
                     .lawyer-position {
@@ -339,8 +343,8 @@
 
                 &:hover,&:focus,&:active {
                     .card-body {
-                        @include box-hover-bw;
-                        outline: 2px solid $black;
+                        @include box-hover;
+                        // outline: 2px solid $black;
 
                         &:after {
                             color: $white;

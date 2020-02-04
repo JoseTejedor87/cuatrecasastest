@@ -1,5 +1,6 @@
 {% block menu %}
     <div class="main-nav-wrapper">
+
         <nav id="top-nav" class="navbar navbar-expand-md justify-content-between" aria-label="primary">
             <div class="container-fluid">
                 <div class="navbar-collapse collapse w-50">
@@ -22,45 +23,73 @@
                 </div>
             </div>
         </nav>
-        <nav id="main-nav" class="navbar navbar-expand-lg navbar-light">
 
-            <a href="/" class="navbar-brand">
-                <img src="{{ asset('web/assets/img/Cuatrecasas-logo.png') }}" alt="Cuatrecasas">
-            </a>
+        <nav id="main-nav" class="navbar navbar-expand-md navbar-light justify-content-between">
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="container-fluid">
 
-             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Conocimiento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Abogados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sectores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Talento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Estamos en</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">La firma</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link search" href="#">
-                            <span class="ion-search"></span>
-                        </a>
-                    </li>
-                </ul>
+                <a href="/" class="navbar-brand">
+                    <img src="{{ asset('web/assets/img/Cuatrecasas-logo.png') }}" alt="Cuatrecasas">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav main-nav-left mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Conocimiento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Abogados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sectores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li>
+                            {# <i class="icon ion-android-menu"></i> #}
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="" aria-expanded="false">
+                                <i class="icon ion-android-menu"></i>
+                            </button>
+                        </li>
+                        {# <li class="nav-item">
+                            <a class="nav-link" href="#">Talento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Estamos en</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">La firma</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link search" href="#">
+                                <span class="ion-search"></span>
+                            </a>
+                        </li> #}
+                    </ul>
+
+                    {# <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Talento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Estamos en</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">La firma</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link search" href="#">
+                                <span class="ion-search"></span>
+                            </a>
+                        </li>
+                    </ul> #}
+                </div>
+
             </div>
 
         </nav>
