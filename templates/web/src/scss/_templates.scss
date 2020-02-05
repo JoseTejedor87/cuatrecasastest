@@ -11,6 +11,26 @@
     position: relative;
     top: 129px;
 
+
+    .breadcrumb {
+        padding: 0 0;
+        margin: 1em 0 2.6rem;
+        list-style: none;
+        background-color: transparent;
+        border-radius: 0;
+
+        .breadcrumb-item {
+            font-size: 80%;
+            font-weight: bold;
+            color: $black;
+
+            a {
+                @include text-link($black,$secondary-color,transparent,$secondary-color);
+                font-weight: 300;
+            }
+        }
+    }
+
     .lawyer-header {
         min-height: $header-height;
 
@@ -296,11 +316,12 @@
             .card {
                 @include card-boxes;
                 @include img-hover-fx;
+
                 width: calc(25% - 2em);
 
                 figure {
                     @include reset-figure;
-                    // height: 180px;
+                    min-height: 180px;
 
                     img {
                         width: auto;

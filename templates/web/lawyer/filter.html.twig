@@ -3,30 +3,124 @@
 
     <main role="main" class="lawyer-filter">
         <article>
-            <header id="page-header" class="container">
+            <header id="page-header">
                 <figure class="full-width">
-                    <img class="v-center" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández">
+                    <img class="v-middle" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="">
                 </figure>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="header-info">
-                            <big class="hash-text">{{ 'global.general.hashtag'|trans }}</big>
-                            <h1>Abogados</h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Búsqueda Abogados</li>
-                                </ol>
-                            </nav>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="header-info d-flex flex-column">
+                                <h1 class="order-2">
+                                    Abogados
+                                </h1>
+                                <nav class="order-1" aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Búsqueda Abogados
+                                        </a></li>
+                                    </ol>
+                                </nav>
+                                <ul class="action-icons order-3">
+                                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                                </ul>
+                                {# <a href="#" class="back-button">volver</a> #}
+                            </div>
                         </div>
                     </div>
                 </div>
             </header>
 
+            <section class="search-component">
+                <div class="container">
+                    <div class="row">
+                        <div class="col search-wrapper">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs justify-content-center" id="searchTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="lawler-tab" data-toggle="tab" href="#lawler" role="tab" aria-controls="lawler" aria-selected="true">Encuentra tu abogado</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="sector-tab" data-toggle="tab" href="#sector" role="tab" aria-controls="sector" aria-selected="false">Encuentra tu sector</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="lawler" role="tabpanel" aria-labelledby="lawler-tab">
+                                    <div class="search-name">
+                                        <input type="text" class="form-control" placeholder="Buscar">
+                                        <div class="input-group">
+                                            <button class="" type="button">
+                                                <i class="icon ion-ios-search-strong"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="search-filters">
+                                        <select id="area" class="custom-home-select">
+                                            <option value="hide">Por área de práctica</option>
+                                            <option value="">Competencia y Derecho de la UE</option>
+                                            <option value="">Corporate Governance y Compliance</option>
+                                            <option value="">Derecho contable</option>
+                                            <option value="">Derecho Laboral</option>
+                                            <option value="">Financiero</option>
+                                            <option value="">Fiscal</option>
+                                            <option value="">Fiscalidad Contenciosa</option>
+                                            <option value="">Fiscalidad Financiera</option>
+                                            <option value="">Fusiones y Adquisiciones</option>
+                                            <option value="">Litigación</option>
+                                            <option value="">Mediación</option>
+                                            <option value="">Mercado de valores</option>
+                                        </select>
+                                        <select id="desk" class="custom-home-select">
+                                            <option value="hide">Por sector o desk</option>
+                                            <option value="">Alimentación</option>
+                                            <option value="">Arte</option>
+                                            <option value="">Brexit</option>
+                                            <option value="">Canadian Desk</option>
+                                            <option value="">Ciberseguridad</option>
+                                            <option value="">Consumo y Retail</option>
+                                            <option value="">Deporte</option>
+                                            <option value="">Empresa Familiar</option>
+                                            <option value="">Energía y Recursos Naturales</option>
+                                            <option value="">Farmacia y Sanitario</option>
+                                        </select>
+                                        <select id="office" class="custom-home-select">
+                                            <option value="hide">Por oficina</option>
+                                            <option value="">Barcelona</option>
+                                            <option value="">Madrid</option>
+                                            <option value="">Lisboa</option>
+                                            <option value="">Beijing</option>
+                                            <option value="">Bogotá</option>
+                                            <option value="">Brussels</option>
+                                            <option value="">Casablanca</option>
+                                            <option value="">Lima</option>
+                                            <option value="">London</option>
+                                            <option value="">Luanda</option>
+                                            <option value="">Maputo</option>
+                                            <option value="">Mexico City</option>
+                                            <option value="">New York</option>
+                                            <option value="">Sao Paulo</option>
+                                            <option value="">Shanghai</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="sector" role="tabpanel" aria-labelledby="sector-tab">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, quisquam qui error nesciunt illo in quaerat odit voluptatibus ratione accusantium magni et, saepe magnam provident totam. Atque est cum, laudantium. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe dolores, labore ratione quibusdam aut adipisci totam temporibus minus iusto facere explicabo nemo iste aliquid laboriosam porro maiores magni, odit eos.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="container search-page">
 
                 <!-- Search Term & Filters -->
-                <div class="search-filters">
+                {# <div class="search-filters">
                     <div class="row">
                         <div class="col-12 find-lawyer">
                             <h2>Encuentra tu abogado</h2>
@@ -88,7 +182,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> #}
 
                 <!-- Results -->
                 <div class="search-results-wrapper">
@@ -267,9 +361,7 @@
         </article>
     </main>
 
-    {% include 'web/shared/highlightContentMix.html.twig' %}
-    {% include 'web/shared/techChannel.html.twig' %}
-    {% include 'web/shared/talent.html.twig' %}
+    {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 
 {% endblock %}

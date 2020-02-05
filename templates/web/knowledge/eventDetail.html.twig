@@ -12,42 +12,47 @@
     <main role="main" class="event-detail">
 
         <article>
-            <header id="page-header" class="container">
+            <header id="page-header">
                 <figure class="full-width">
-                    <img class="v-middle" src="{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}" alt="Juan García Hernández">
+                    <img class="v-middle" src="{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}" alt="">
                 </figure>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="header-info event">
-                            <big class="hash-text">EventosCuatrecasas</big>
-                            <h1>{{ event.translate(app.request.getLocale()).title|raw  }}
-                            {# "Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020 #}
-                            </h1>
-                            <div class="date-time">{{ event.translate(app.request.getLocale()).schedule|raw  }} 
-                            {# 24 Febrero 2019 · De 18 h. a  20 h. #}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="header-info d-flex flex-column">
+                                <h1 class="order-2">
+                                    {{ event.translate(app.request.getLocale()).title|raw  }}
+                                </h1>
+                                <div class="order-3">
+                                    <div class="date-time">
+                                        {{ event.translate(app.request.getLocale()).schedule|raw  }}
+                                    </div>
+                                    <address class="address">
+                                        <span class="city">
+                                            {{  customAddress|last }}
+                                        </span>
+                                        <span class="location">
+                                            {{ customAddress[:-1]|join(' ') }}
+                                        </span>
+                                    </address>
+                                </div>
+                                <nav class="order-1" aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                        <li class="breadcrumb-item"><a href="#">Conocimiento</a></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Evento
+                                        </a></li>
+                                    </ol>
+                                </nav>
+                                <ul class="action-icons order-4">
+                                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                                </ul>
+                                {# <a href="#" class="back-button">volver</a> #}
                             </div>
-                            <address class="address">
-                                <span class="city">{{  customAddress|last }}</span>
-                                <span class="location">
-                                {{ customAddress[:-1]|join(' ') }}
-                                
-                                {# CUATRECASAS Avenida Diagonal, 141 #}
-                                </span>
-                            </address>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Conocimiento</a></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Eventos</a></li>
-                                </ol>
-                            </nav>
-                            <ul class="action-icons">
-                                <li><a href="#"><i class="material-icons">share</i></a></li>
-                                <li><a href="#"><i class="material-icons">print</i></a></li>
-                                <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
-                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                            </ul>
-                            <a href="#" class="back-button">volver</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +62,7 @@
                 <div class="row">
                     <div class="col-md-8 article-section detail">
                     {{ event.translate(app.request.getLocale()).description|raw  }}
-                    
+
                         {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi.</p>
                         <p>Tincidunt lobortis feugiat vivamus at augue eget. Suspendisse potenti nullam ac tortor vitae purus faucibus. Amet porttitor eget dolor morbi non arcu risus. Augue neque gravida in fermentum et sollicitudin ac orci. Nisl nisi scelerisque eu ultrices. Nulla at volutpat diam ut venenatis. Nulla porttitor massa id neque aliquam. Mauris a diam maecenas sed enim.</p>
                         <p>Erat velit scelerisque in dictum non consectetur a erat nam. Nibh cras pulvinar mattis nunc sed blandit libero volutpat sed. Egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Vulputate eu scelerisque felis imperdiet proin fermentum leo. Odio ut sem nulla pharetra diam sit amet nisl.</p>
@@ -71,13 +76,8 @@
                             <h3>Información práctica</h3>
                             <div class="information-wrapper">
                                 <div class="date">
-                                    <strong>
-                                    {{ fecha[0]  }}
-                                    {# 20 #}
-                                    </strong> 
+                                    <strong>{{ fecha[0]  }}</strong>
                                     {{  fecha[1:]|join(' ') }}
-{#                                     
-                                    noviembre 2019 #}
                                 </div>
                                 <time class="time">
                                     {{ event.translate(app.request.getLocale()).schedule|raw  }}
@@ -90,11 +90,10 @@
                                 </address>
                                 <div class="contact">
                                     <span class="name">
-                                    {{ event.contact ? event.contact : 'Marga Zaragoza' }}
+                                        {{ event.contact ? event.contact : 'Marga Zaragoza' }}
                                     </span>
                                     <span class="tel">
-                                    {{ (event.phone) ? event.phone : '684 25 83 57' }}
-                                    
+                                        {{ (event.phone) ? event.phone : '684 25 83 57' }}
                                     </span>
                                 </div>
                                 <button class="btn btn-naked white btn-arrow">Inscribirme</button>
@@ -129,7 +128,7 @@
 
     </main>
 
-    {% include 'web/shared/highlightContentEvents.html.twig' %}
+    {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 
 {% endblock %}
