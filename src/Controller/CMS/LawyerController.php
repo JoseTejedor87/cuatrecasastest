@@ -76,13 +76,21 @@ class LawyerController extends CMSController
     {
         $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
-  
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (isset($request->request->get('lawyer_form')['photo'])) {
+                $photo = $request->request->get('lawyer_form')['photo'];
+                if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
+                    $lawyer->setPhoto(null);
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('lawyer_index');
+            return $this->redirectToRoute('lawyer_edit', ['id'=>$lawyer->getId()]);
         }
-        
+
         return $this->render('cms/lawyer/edit.html.twig', [
             'lawyer' => $lawyer,
             'form' => $form->createView(),

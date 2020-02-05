@@ -13,6 +13,34 @@
         {{ form_row(form.startDate) }}
         {{ form_row(form.endDate) }}
         {{ form_row(form.languages) }}
+
+        {{ form_label(form.attachments) }}
+        <div id="attachments-fields-list"
+            class="vich-attachment-list"
+            data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}"
+            data-widget-tags="{{ '<div class="vich-attachment-item col-md-12"></div>'|e }}"
+            data-widget-counter="{{ form.attachments|length }}">
+            {% for attachment in form.attachments %}
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(attachment) }}
+                    {{ form_widget(attachment) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button"
+            class="add-another-collection-widget btn btn-secondary"
+            data-list-selector="#attachments-fields-list">
+            <span>
+                <i class="fa flaticon-plus"></i>
+                <span>
+                    Añadir fichero
+                </span>
+            </span>
+        </button>
+
+        {% do form.attachments.setRendered %}
+
     </div>
     <div class="col-md-8">
         {{ form_row(form.translations) }}

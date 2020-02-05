@@ -99,6 +99,7 @@ class ImportCommand extends Command
     {
         $data = file_get_contents("abogados.json");
         $items = json_decode($data, true);
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
         $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
@@ -129,7 +130,12 @@ class ImportCommand extends Command
                 $lawyer->setEmail($item['email']);
                 $lawyer->setPhone(($item['telefono']));
                 $lawyer->setFax(($item['fax']));
-                $lawyer->setPhoto($item['image']);
+
+                // Temporal exclusion of photo field.
+                // The new relation with the Resource Entity requires
+                // a little more complex process to do the import
+                // $lawyer->setPhoto($item['image']);
+
                 $lawyer->setLawyerType(
                     self::getMappedLawyerType($item['idtipoabogado'])
                 );
@@ -216,6 +222,7 @@ class ImportCommand extends Command
         $data = file_get_contents("eventos.json");
         $items = json_decode($data, true);
 
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
 
@@ -248,7 +255,13 @@ class ImportCommand extends Command
                 $event->setEndDate(
                     $endDate ? $endDate : date("Y-m-d H:i:s")
                 );
-                $event->setAttachment($item['url_pdf']);
+
+                // Temporal exclusion of attachment field.
+                // The new attachments collections of files requires
+                // a little more complex process to do the import
+                //
+                //$event->setAttachment($item['url_pdf']);
+
                 $event->setCustomMap($item['mapa']);
                 $event->setCustomSignup($item['url_inscripcion']);
                 //$event->setPhone($item['telefono']);

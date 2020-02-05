@@ -10,13 +10,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Event;
 use App\Entity\Speaker;
 use App\Entity\Activity;
+use App\Entity\Resource;
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LanguageType;
+use App\Form\ResourceFormType;
 
 class EventFormType extends AbstractType
 {
@@ -32,6 +35,13 @@ class EventFormType extends AbstractType
             ->add('customMap', TextType::class, ['label'=>'entities.event.fields.customMap'])
             ->add('customSignup', TextType::class, ['label'=>'entities.event.fields.customSignup'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('attachments', CollectionType::class, [
+                'label' => 'entities.event.fields.attachments',
+                'entry_type' => ResourceFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.event.fields.activities',

@@ -122,6 +122,7 @@ entities:
       phone: Teléfono de contacto
       capacity: Aforo
       speakers: Ponentes
+      attachments: Adjuntos
       activities: Sectores / Servicios / Desks
   item:
     fields:
@@ -133,7 +134,7 @@ entities:
       email: Correo electrónico
       phone: Teléfono
       fax: Fax
-      photo: Foto
+      photo: Fotografía
       lawyerType: Tipo de abogado
       description: Descripción
       curriculum: Curriculum Vitae
@@ -150,6 +151,10 @@ entities:
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
+  resource:
+    fields:
+      title: Título
+      file: Fichero
   speaker:
     fields:
       name: Nombre

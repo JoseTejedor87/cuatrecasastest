@@ -7,3 +7,45 @@ body{
 .select2-container--default .select2-results__option {
     min-height: 2.5em;
 }
+
+/* VICH Attachments */
+.vich-attachment-list .vich-filename .form-check,
+.vich-attachment-list .undo-delete-attachment-button,
+.vich-attachment-list .for-deletion .delete-attachment-button,
+.vich-attachment-list .for-deletion input,
+.vich-attachment-list .for-deletion label,
+.vich-attachment-list .for-deletion legend,
+.vich-attachment-list .for-deletion .custom-file {
+    display: none;
+}
+.vich-attachment-list > div {
+    padding: 1em;
+    border: 1px solid #ececec;
+    box-shadow: 3px 3px 10px #eee;
+    margin-bottom: 1em;
+}
+.vich-attachment-list .vich-filename {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5em 0 1em 0;
+}
+.vich-attachment-list .vich-filename .form-group {
+    display: inline-block;
+}
+.vich-attachment-list .vich-filename a {
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 80%;
+    vertical-align: middle;
+}
+.vich-attachment-list .for-deletion .undo-delete-attachment-button {
+    display: inline-block;
+}
+.vich-attachment-list .for-deletion a {
+    text-decoration: line-through;
+}
+.vich-attachment-list .custom-file-label {
+    white-space: nowrap;
+    overflow: hidden;
+}

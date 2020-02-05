@@ -55,11 +55,6 @@ class Event extends Publishable
     private $customSignup;
 
     /**
-     * @ORM\Column(type="string", length=512, nullable=true)
-     */
-    private $attachment;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Speaker", cascade="persist", inversedBy="events")
      */
     private $speakers;
@@ -69,10 +64,16 @@ class Event extends Publishable
      */
     private $activities;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="event", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $attachments;
+
     public function __construct()
     {
         $this->speakers = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -159,18 +160,6 @@ class Event extends Publishable
         return $this;
     }
 
-    public function getAttachment(): ?string
-    {
-        return $this->attachment;
-    }
-
-    public function setAttachment(?string $attachment): self
-    {
-        $this->attachment = $attachment;
-
-        return $this;
-    }
-
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -230,6 +219,37 @@ class Event extends Publishable
     {
         if ($this->activities->contains($activity)) {
             $this->activities->removeElement($activity);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getEvent() === $this) {
+                $attachment->setEvent(null);
+            }
         }
 
         return $this;

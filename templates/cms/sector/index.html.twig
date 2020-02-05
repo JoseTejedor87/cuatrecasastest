@@ -40,7 +40,7 @@
                     <tbody>
                         {% for sector in pagination %}
                         <tr>
-                            <td>{{ sector.translate.title }}</td>
+                            <td>{{ sector.translate(app.request.getLocale()).title }}</td>
                             <td class="text-center">
                             {% if sector.highlighted %}
                                 <i class="fa fa-check m--font-success"></i>
@@ -52,7 +52,7 @@
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':sector.languages} %}
                             </td>
                             <td>
-                                <a class="btn btn-metal btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('sector_edit', {'id': sector.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('sector_edit', {'id': sector.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
