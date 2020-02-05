@@ -594,7 +594,7 @@ footer {
 
         position: absolute;
         top: $header-top;
-        width: 36vw;
+        width: 42vw;
         height: calc(#{$header-height} - #{$header-top});
         margin: 0 0;
         padding: 0 0;
@@ -708,7 +708,7 @@ footer {
             // height: 71vh;
 
             .header-info {
-                padding: 3em 6em 0 0;
+                padding: 8em 6em 0 0;
             }
         }
     }
@@ -1179,11 +1179,9 @@ footer {
                         // }
                 }
 
-                // &:focus,&:active {
-                //     &:hover,&:focus,&:active {
-                //         background-color: $complementary-color;
-                //     }
-                // }
+                &:focus,&:active {
+                    // opacity: 0.5;
+                }
             }
 
             .nav-btn {
@@ -1216,7 +1214,7 @@ footer {
             content: '';
             position: absolute;
             top: 0;
-            right: 22.8vw;
+            right: 21vw;
 
             display: block;
             width: 100%;
