@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block main %}
+{% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+{% set customAddress =event.translate(app.request.getLocale()).customAddress|split('<br>') %}
 
     <main role="main" class="event-detail">
 
@@ -18,11 +20,19 @@
                     <div class="col-8">
                         <div class="header-info event">
                             <big class="hash-text">EventosCuatrecasas</big>
-                            <h1>"Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020</h1>
-                            <div class="date-time">24 Febrero 2019 · De 18 h. a  20 h.</div>
+                            <h1>{{ event.translate(app.request.getLocale()).title|raw  }}
+                            {# "Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020 #}
+                            </h1>
+                            <div class="date-time">{{ event.translate(app.request.getLocale()).schedule|raw  }} 
+                            {# 24 Febrero 2019 · De 18 h. a  20 h. #}
+                            </div>
                             <address class="address">
-                                <span class="city">Barcelona</span>
-                                <span class="location">CUATRECASAS Avenida Diagonal, 141</span>
+                                <span class="city">{{  customAddress|last }}</span>
+                                <span class="location">
+                                {{ customAddress[:-1]|join(' ') }}
+                                
+                                {# CUATRECASAS Avenida Diagonal, 141 #}
+                                </span>
                             </address>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -46,12 +56,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 article-section detail">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi.</p>
+                    {{ event.translate(app.request.getLocale()).description|raw  }}
+                    
+                        {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi.</p>
                         <p>Tincidunt lobortis feugiat vivamus at augue eget. Suspendisse potenti nullam ac tortor vitae purus faucibus. Amet porttitor eget dolor morbi non arcu risus. Augue neque gravida in fermentum et sollicitudin ac orci. Nisl nisi scelerisque eu ultrices. Nulla at volutpat diam ut venenatis. Nulla porttitor massa id neque aliquam. Mauris a diam maecenas sed enim.</p>
                         <p>Erat velit scelerisque in dictum non consectetur a erat nam. Nibh cras pulvinar mattis nunc sed blandit libero volutpat sed. Egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Vulputate eu scelerisque felis imperdiet proin fermentum leo. Odio ut sem nulla pharetra diam sit amet nisl.</p>
                         <p>Blandit cursus risus at ultrices mi tempus imperdiet nulla. Venenatis cras sed felis eget velit aliquet sagittis id. In nisl nisi scelerisque eu ultrices. Ipsum a arcu cursus vitae congue mauris rhoncus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Non pulvinar neque laoreet suspendisse interdum. Sapien nec sagittis aliquam malesuada. Ornare massa eget egestas purus viverra. At urna condimentum mattis pellentesque id nibh. In arcu cursus euismod quis viverra nibh. Quam nulla porttitor massa id neque. Tristique nulla aliquet enim tortor at auctor urna nunc. Sit amet dictum sit amet justo donec enim.</p>
                         <p>Commodo elit at imperdiet dui. Est ultricies integer quis auctor elit sed vulputate. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Purus in mollis nunc sed. Tristique senectus et netus et malesuada fames ac turpis. Cras ornare arcu dui vivamus arcu. Leo vel fringilla est ullamcorper eget nulla facilisi etiam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Id cursus metus aliquam eleifend mi. Purus non enim praesent elementum. Ornare quam viverra orci sagittis eu volutpat odio facilisis mauris.</p>
-                        <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p>
+                        <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p> #}
                     </div>
 
                     <aside class="col-md-4 article-aside">
@@ -59,18 +71,31 @@
                             <h3>Información práctica</h3>
                             <div class="information-wrapper">
                                 <div class="date">
-                                    <strong>20</strong> noviembre 2019
+                                    <strong>
+                                    {{ fecha[0]  }}
+                                    {# 20 #}
+                                    </strong> 
+                                    {{  fecha[1:]|join(' ') }}
+{#                                     
+                                    noviembre 2019 #}
                                 </div>
                                 <time class="time">
-                                    de 15.45 a 18.30 h
+                                    {{ event.translate(app.request.getLocale()).schedule|raw  }}
                                 </time>
                                 <address class="address">
-                                    <span class="city">Barcelona</span>
-                                    <span class="location">CUATRECASAS Avenida Diagonal, 141</span>
+                                    <span class="city">{{  customAddress|last }}</span>
+                                    <span class="location"> {{ customAddress[:-1]|join(' ') }}
+                                    {# CUATRECASAS Avenida Diagonal, 141 #}
+                                    </span>
                                 </address>
                                 <div class="contact">
-                                    <span class="name">Marga Zaragoza</span>
-                                    <span class="tel">684 25 83 57</span>
+                                    <span class="name">
+                                    {{ event.contact ? event.contact : 'Marga Zaragoza' }}
+                                    </span>
+                                    <span class="tel">
+                                    {{ (event.phone) ? event.phone : '684 25 83 57' }}
+                                    
+                                    </span>
                                 </div>
                                 <button class="btn btn-naked white btn-arrow">Inscribirme</button>
                             </div>

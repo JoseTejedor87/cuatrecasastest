@@ -20,6 +20,16 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
+    lawyerCategoryTypes:
+      associate: Asociado
+      counsel: Consejero
+      honorary_partner: Socio de honor
+      honorary_president: Presidente de honor
+      managing_partner: Consejero delegado
+      no_position: Sin cargo
+      partner: Socio
+      senior_associate: Asociado sénior
+      senior_partner: Presidente
 
 # Menu
 # ###########################################

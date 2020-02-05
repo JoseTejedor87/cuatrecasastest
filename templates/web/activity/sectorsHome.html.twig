@@ -29,24 +29,9 @@
                     <div class="row">
                         <div class="col">
                             <ul class="list-button-link">
-                                <li><a href="#">Cometition and EU Law</a></li>
-                                <li><a href="#">Corporate and M&amp;A</a></li>
-                                <li><a href="#">Corporate Governance</a></li>
-                                <li><a href="#">Compliance</a></li>
-                                <li><a href="#">Dispute Resolution</a></li>
-                                <li><a href="#">Employement</a></li>
-                                <li><a href="#">Finance</a></li>
-                                <li><a href="#">Financial Regulation</a></li>
-                                <li><a href="#">Fintech</a></li>
-                                <li><a href="#">Intellectual Property</a></li>
-                                <li><a href="#">International Arbitration</a></li>
-                                <li><a href="#">Private Client &amp; Wealth Management</a></li>
-                                <li><a href="#">Public Law</a></li>
-                                <li><a href="#">Restructuring and Insolvency</a></li>
-                                <li><a href="#">Tax</a></li>
-                                <li><a href="#">Tax Litigation</a></li>
-                                <li><a href="#">Town Planning</a></li>
-                                <li><a href="#">White Collar Crime &amp; Investigations</a></li>
+                            {% for sector in sectors %}
+                                <li><a href="#">{{ sector.translate(app.request.getLocale()).title|raw  }}</a></li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </div>

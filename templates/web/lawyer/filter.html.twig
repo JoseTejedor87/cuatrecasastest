@@ -133,17 +133,19 @@
 
                     <!-- Boxes -->
                     <div class="search-results-boxes">
+                    {% for lawyer in lawyers %}
                         <a href="#" class="card">
                             <figure>
-                                <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="card-img-top" alt="">
+                                <img src="https://www.cuatrecasas.com/{{ lawyer.photo }}" class="card-img-top" alt="">
                             </figure>
                             <div class="card-body">
-                                <h3 class="card-title lawyer-name">Ramón Fernández García</h3>
-                                <div class="card-text lawyer-position">Socio</div>
+                                <h3 class="card-title lawyer-name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
+                                <div class="card-text lawyer-position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
                                 <div class="card-text lawyer-location">Madrid | España</div>
                             </div>
                         </a>
-                        <a href="#" class="card">
+                        {% endfor %}
+                        {# <a href="#" class="card">
                             <figure>
                                 <img src="{{ asset('web/assets/img/ehimetalor-unuabona-OK1hw9YJlt8-unsplash.jpg') }}" class="card-img-top" alt="">
                             </figure>
@@ -252,7 +254,7 @@
                                 <div class="card-text lawyer-position">Socio</div>
                                 <div class="card-text lawyer-location">Madrid | España</div>
                             </div>
-                        </a>
+                        </a> #}
                     </div>
 
                     <div class="button-wrapper">

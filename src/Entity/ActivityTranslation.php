@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use App\Entity\PublishableTranslation;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityTranslationRepository")
@@ -22,6 +23,12 @@ class ActivityTranslation extends PublishableTranslation
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function getTitle(): ?string
     {
@@ -45,5 +52,9 @@ class ActivityTranslation extends PublishableTranslation
         $this->description = $description;
 
         return $this;
+    }
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
