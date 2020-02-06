@@ -4,11 +4,14 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
+/node_modules/
 /var/
 /vendor/
 /public/web.config/
 ###< symfony/framework-bundle ###
-
+/public/web.config
+/public/resources
+/public/upload
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###

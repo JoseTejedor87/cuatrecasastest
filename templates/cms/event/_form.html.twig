@@ -3,16 +3,48 @@
 <div class="row">
     <div class="col-md-4">
         {{ form_row(form.eventType) }}
+        {{ form_row(form.speakers) }}
+        {{ form_row(form.activities) }}
         {{ form_row(form.contact) }}
+        {{ form_row(form.phone) }}
         {{ form_row(form.capacity) }}
         {{ form_row(form.customMap) }}
         {{ form_row(form.customSignup) }}
         {{ form_row(form.startDate) }}
         {{ form_row(form.endDate) }}
         {{ form_row(form.languages) }}
+
+        {{ form_label(form.attachments) }}
+        <div id="attachments-fields-list"
+            class="vich-attachment-list"
+            data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}"
+            data-widget-tags="{{ '<div class="vich-attachment-item col-md-12"></div>'|e }}"
+            data-widget-counter="{{ form.attachments|length }}">
+            {% for attachment in form.attachments %}
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(attachment) }}
+                    {{ form_widget(attachment) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button"
+            class="add-another-collection-widget btn btn-secondary"
+            data-list-selector="#attachments-fields-list">
+            <span>
+                <i class="fa flaticon-plus"></i>
+                <span>
+                    Añadir fichero
+                </span>
+            </span>
+        </button>
+
+        {% do form.attachments.setRendered %}
+
     </div>
     <div class="col-md-8">
         {{ form_row(form.translations) }}
     </div>
-    {{ form_rest(form) }}
 </div>
+
+{{ form_rest(form) }}

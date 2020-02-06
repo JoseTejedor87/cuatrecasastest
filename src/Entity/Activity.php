@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
@@ -14,22 +16,110 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 abstract class Activity extends Publishable
 {
-
     use ORMBehaviors\Translatable\Translatable;
-    
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $tags;
 
-    public function getTags(): ?string
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $highlighted;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="activities")
+     */
+    private $events;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", mappedBy="activities")
+     */
+    private $lawyers;
+
+    public function __construct()
     {
-        return $this->tags;
+        $this->events = new ArrayCollection();
+        $this->lawyers = new ArrayCollection();
     }
 
-    public function setTags(string $tags): self
+    public function getImage(): ?string
     {
-        $this->tags = $tags;
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getHighlighted(): ?bool
+    {
+        return $this->highlighted;
+    }
+
+    public function setHighlighted(bool $highlighted): self
+    {
+        $this->highlighted = $highlighted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            $event->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lawyer[]
+     */
+    public function getLawyers(): Collection
+    {
+        return $this->lawyers;
+    }
+
+    public function addLawyer(Lawyer $lawyer): self
+    {
+        if (!$this->lawyers->contains($lawyer)) {
+            $this->lawyers[] = $lawyer;
+            $lawyer->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLawyer(Lawyer $lawyer): self
+    {
+        if ($this->lawyers->contains($lawyer)) {
+            $this->lawyers->removeElement($lawyer);
+            $lawyer->removeActivity($this);
+        }
 
         return $this;
     }

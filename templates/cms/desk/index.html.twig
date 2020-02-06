@@ -1,63 +1,82 @@
 {% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
 
-{% block title %}Desk index{% endblock %}
+{% block title %}{{ 'sections.desks.index.title'|trans }}{% endblock %}
 
 {% block body %}
-<div class="m-grid m-grid--hor m-grid--root m-page">
-    {% include 'cms/tools/head.html.twig' %}
-    <!-- begin::Body -->
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-        <!-- BEGIN: Left Aside -->
-        <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
-            <i class="la la-close"></i>
-        </button>
-        {% include 'cms/tools/menu.html.twig' %}
-        <!-- END: Left Aside -->
-        <div class="m-grid__item m-grid__item--fluid m-wrapper">
-            <!-- BEGIN: Subheader -->
-            <div class="m-subheader ">
-                <div class="d-flex align-items-center">
-                    <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Desk
-                        </h3>
-                    </div>
-                </div>
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <i class="m-menu__link-icon flaticon-share"></i>
+                    {{ 'sections.desks.index.title'|trans }}
+                </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item">
+                        <a href="{{ path('desk_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- END: Subheader -->
-            <div class="m-content">
-                <table class="table">
-                    <thead>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        {% if pagination %}
+        <div class="m-section">
+            <div class="m-portlet">
+                <table class="table table-hover">
+                    <thead class="thead-light">
                         <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>actions</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.activity.fields.title'|trans, 'translate.title') }}</th>
+                            <th class="text-center" style="width:30px;">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.highlighted'|trans, 'highlighted') }}</th>
+                            <th colspan="2" style="width:10%;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for desk in desks %}
+                        {% for desk in pagination %}
                         <tr>
-                            <td>{{ desk.id }}</td>
-                             <td>{{ desk.translate('es').title }}</td>
-                            <td>{{ desk.translate('es').description|length > 150 ? desk.translate('es').description|slice(0, 150) ~ '...' : desk.translate('es').description  }} </td>
-                            <td>
-                                <a href="{{ path('desk_show', {'id': desk.id}) }}">show</a>
-                                <a href="{{ path('desk_edit', {'id': desk.id}) }}">edit</a>
+                            <td>{{ desk.translate(app.request.getLocale()).title }}</td>
+                            <td class="text-center">
+                            {% if desk.highlighted %}
+                                <i class="fa fa-check m--font-success"></i>
+                            {% else %}
+                                <i class="fa fa-check m--font-metal"></i>
+                            {% endif %}
                             </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="2">no records found</td>
+                            <td class="text-nowrap">
+                                {% include 'cms/tools/languageStatus.html.twig' with {'values':desk.languages} %}
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('desk_edit', {'id': desk.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <div class="m-section">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-elevate fade show" role="alert">
+                    {{ 'global.messages.noRecordsFound'|trans }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    <!-- end:: Body -->
-    {% include 'cms/tools/footer.html.twig' %}
 
 </div>
 {% endblock %}

@@ -36,8 +36,7 @@
                             <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.surname'|trans, 'surname') }}</th>
                             <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.email'|trans, 'email') }}</th>
                             <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.lawyerType'|trans, 'lawyerType') }}</th>
-                            <th class="text-nowrap">{{ knp_pagination_sortable(pagination, 'entities.item.fields.updatedAt'|trans, 'updatedAt') }}</th>
-                            <th></th>
+                            <th colspan="2" style="width:10%;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,9 +46,11 @@
                             <td>{{ lawyer.surname }}</td>
                             <td>{{ lawyer.email }}</td>
                             <td>{{ ('forms.choices.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</td>
-                            <td class="text-nowrap">{{ lawyer.updatedAt ? lawyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td class="text-nowrap">
+                                {% include 'cms/tools/languageStatus.html.twig' with {'values':lawyer.languages} %}
+                            </td>
                             <td>
-                                <a class="btn btn-metal btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('lawyer_edit', {'id': lawyer.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('lawyer_edit', {'id': lawyer.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
@@ -68,7 +69,7 @@
         <div class="row">
             <div class="col">
                 <div class="alert alert-elevate fade show" role="alert">
-                    No records found
+                    {{ 'global.messages.noRecordsFound'|trans }}
                 </div>
             </div>
         </div>

@@ -7,64 +7,75 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
 		m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('lawyer_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-users"></i>
 					<span class="m-menu__link-text">
 						{{ 'menu.lawyers.title'|trans }}
 					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
 				</a>
 			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('event_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-calendar"></i>
 					<span class="m-menu__link-text">
 						{{ 'menu.events.title'|trans }}
 					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
 				</a>
 			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
-				<a href="javascript:;" class="m-menu__link m-menu__toggle">
-					<i class="m-menu__link-icon flaticon-folder-1"></i>
-					<span class="m-menu__link-text">
-						{{ 'menu.desks.title'|trans }}
-					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
-				</a>
-			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
-				<a href="javascript:;" class="m-menu__link m-menu__toggle">
-					<i class="m-menu__link-icon flaticon-share"></i>
-					<span class="m-menu__link-text">
-						{{ 'menu.practices.title'|trans }}
-					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
-				</a>
-			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
-				<a href="javascript:;" class="m-menu__link m-menu__toggle">
-					<i class="m-menu__link-icon flaticon-share"></i>
-					<span class="m-menu__link-text">
-						{{ 'menu.products.title'|trans }}
-					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
-				</a>
-			</li>
-			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-				m-menu-submenu-toggle="hover">
-				<a href="javascript:;" class="m-menu__link m-menu__toggle">
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('sector_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-share"></i>
 					<span class="m-menu__link-text">
 						{{ 'menu.sectors.title'|trans }}
 					</span>
-					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+			</li>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('practice_index') }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-map"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.practices.title'|trans }}
+					</span>
+				</a>
+			</li>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('desk_index') }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-pin"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.desks.title'|trans }}
+					</span>
+				</a>
+			</li>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('product_index') }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-business"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.products.title'|trans }}
+					</span>
+				</a>
+			</li>
+
+			<li class="m-menu__section ">
+				<h4 class="m-menu__section-text">
+					{{ 'menu.metadata.title'|trans }}
+				</h4>
+				<i class="m-menu__section-icon flaticon-more-v3"></i>
+			</li>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('speaker_index') }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-avatar"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.events.speakers.title'|trans }}
+					</span>
+				</a>
+			</li>
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('mention_index') }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-chat"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.mentions.title'|trans }}
+					</span>
 				</a>
 			</li>
 		</ul>

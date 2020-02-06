@@ -1,0 +1,55 @@
+{% extends 'web/base.html.twig' %}
+{% block main %}
+
+    <main role="main" class="">
+
+        <article class="blog-article">
+            <header id="page-header" class="container">
+                <figure class="full-width">
+                    <img class="v-bottom" src="{{ asset('web/assets/img/clem-onojeghuo-T7gi_cyrkdg-unsplash.jpg') }}" alt="">
+                </figure>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="header-info">
+                            <big class="hash-text">ProductosCuatrecasas</big>
+                            <h1>Grid</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                    <li class="breadcrumb-item"><a href="#">Servicios</a></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Productos</a></li>
+                                </ol>
+                            </nav>
+                            <ul class="action-icons">
+                                <li><a href="#"><i class="material-icons">share</i></a></li>
+                                <li><a href="#"><i class="material-icons">print</i></a></li>
+                                <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                            </ul>
+                            <a href="#" class="back-button">volver</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container insights-grid">
+                <div class="row">
+                    <div class="col">
+                        <div class="grid-wrapper">
+                            <div class="box a">A</div>
+                            <div class="box b">B</div>
+                            <div class="box c">C</div>
+                            <div class="box d">D</div>
+                            <div class="box e">E</div>
+                            <div class="box f">F</div>
+                            <div class="box g">G</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </main>
+
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
@@ -53,9 +55,26 @@ class Event extends Publishable
     private $customSignup;
 
     /**
-     * @ORM\Column(type="string", length=512, nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Speaker", cascade="persist", inversedBy="events")
      */
-    private $attachment;
+    private $speakers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
+     */
+    private $activities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="event", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $attachments;
+
+    public function __construct()
+    {
+        $this->speakers = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+    }
 
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -141,18 +160,6 @@ class Event extends Publishable
         return $this;
     }
 
-    public function getAttachment(): ?string
-    {
-        return $this->attachment;
-    }
-
-    public function setAttachment(?string $attachment): self
-    {
-        $this->attachment = $attachment;
-
-        return $this;
-    }
-
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -165,6 +172,86 @@ class Event extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|Speaker[]
+     */
+    public function getSpeakers(): Collection
+    {
+        return $this->speakers;
+    }
 
+    public function addSpeaker(Speaker $speaker): self
+    {
+        if (!$this->speakers->contains($speaker)) {
+            $this->speakers[] = $speaker;
+        }
 
+        return $this;
+    }
+
+    public function removeSpeaker(Speaker $speaker): self
+    {
+        if ($this->speakers->contains($speaker)) {
+            $this->speakers->removeElement($speaker);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getEvent() === $this) {
+                $attachment->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -1,0 +1,110 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- Slider / Carousel CSS -->
+    <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="consumption-retail">
+
+        <article class="blog-article">
+            <header id="page-header">
+                <figure class="full-width">
+                    <img class="vt45" src="{{ asset('web/assets/img/christian-perner-fYO1T495QCM-unsplash.jpg') }}" alt="">
+                </figure>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="header-info d-flex flex-column">
+                                {# <big class="hash-text">SectoresCuatrecasas</big> #}
+                                <h1 class="order-2">
+                                {{ sector.translate(app.request.getLocale()).title|raw  }}
+                                </h1>
+                                <nav class="order-1" aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                        <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                        {{ sector.translate(app.request.getLocale()).title|raw  }}
+                                        {# Consumo y Retail #}
+                                        </a></li>
+                                    </ol>
+                                </nav>
+                                <ul class="action-icons order-3">
+                                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                                </ul>
+                                {# <a href="#" class="back-button">volver</a> #}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container article-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ sector.translate(app.request.getLocale()).description|raw  }}
+                        {# <h2>¿Qué hacemos en este sector?</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Tincidunt lobortis feugiat vivamus at augue eget. Suspendisse potenti nullam ac tortor vitae purus faucibus. Amet porttitor eget dolor morbi non arcu risus. Augue neque gravida in fermentum et sollicitudin ac orci. Nisl nisi scelerisque eu ultrices. Nulla at volutpat diam ut venenatis. Nulla porttitor massa id neque aliquam. Mauris a diam maecenas sed enim.</p>
+                        <blockquote class="cite-quote">
+                            <p>great efficiency in both oral and written arguments.</p>
+                            <cite>_Chambers, 2019</cite>
+                        </blockquote>
+                        <p>Commodo elit at imperdiet dui. Est ultricies integer quis auctor elit sed vulputate. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Purus in mollis nunc sed. Tristique senectus et netus et malesuada fames ac turpis. Cras ornare arcu dui vivamus arcu. Leo vel fringilla est ullamcorper eget nulla facilisi etiam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Id cursus metus aliquam eleifend mi. Purus non enim praesent elementum. Ornare quam viverra orci sagittis eu volutpat odio facilisis mauris.</p>
+                        <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p> #}
+                    </div>
+                </div>
+            </div>
+
+            {% include 'web/shared/expertise.html.twig' %}
+
+            <div class="container article-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>¿Cómo trabajamos en este sector?</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Tincidunt lobortis feugiat vivamus at augue eget. Suspendisse potenti nullam ac tortor vitae purus faucibus. Amet porttitor eget dolor morbi non arcu risus. Augue neque gravida in fermentum et sollicitudin ac orci. Nisl nisi scelerisque eu ultrices. Nulla at volutpat diam ut venenatis. Nulla porttitor massa id neque aliquam. Mauris a diam maecenas sed enim.</p>
+                        <blockquote class="cite-quote">
+                            <p>great efficiency in both oral and written arguments.</p>
+                            <cite>_Chambers, 2019</cite>
+                        </blockquote>
+                        <p>Commodo elit at imperdiet dui. Est ultricies integer quis auctor elit sed vulputate. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Purus in mollis nunc sed. Tristique senectus et netus et malesuada fames ac turpis. Cras ornare arcu dui vivamus arcu. Leo vel fringilla est ullamcorper eget nulla facilisi etiam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Id cursus metus aliquam eleifend mi. Purus non enim praesent elementum. Ornare quam viverra orci sagittis eu volutpat odio facilisis mauris.</p>
+                        <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor.</p>
+                        <p>Commodo elit at imperdiet dui. Est ultricies integer quis auctor elit sed vulputate. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Purus in mollis nunc sed. Tristique senectus et netus et malesuada fames ac turpis. Cras ornare arcu dui vivamus arcu. Leo vel fringilla est ullamcorper eget nulla facilisi etiam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container related-services">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Servicios relacionados</h3>
+                        <ul class="list-inline-dots">
+                            <li><a href="#" class="tag-link">Alimentación</a></li>
+                            <li><a href="#" class="tag-link">Retail</a></li>
+                            <li><a href="#" class="tag-link">Infraestructura</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </main>
+
+    {% include 'web/shared/team.html.twig' %}
+    {% include 'web/shared/slider-cases.html.twig' %}
+    {% include 'web/shared/carousel-awards.html.twig' %}
+    {% include 'web/shared/related-content.html.twig' %}
+    {% include 'web/shared/insights.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Slider / Carousel JavaScript-->
+    <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+{% endblock %}

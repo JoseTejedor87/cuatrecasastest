@@ -5,7 +5,6 @@ namespace App\Controller\CMS;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Event;
@@ -78,10 +77,24 @@ class EventController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (isset($request->request->get('event_form')['attachments'])) {
+                $attachments = $request->request->get('event_form')['attachments'];
+                foreach ($attachments as $key => $attachment) {
+                    if (isset($attachment['file']['delete']) && $attachment['file']['delete'] == "1") {
+                        $event->removeAttachment(
+                            $event->getAttachments()[$key]
+                        );
+                    }
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('event_edit', ['id'=>$event->getId()]);
         }
+
+        $a = $form->createView();
 
         return $this->render('cms/event/edit.html.twig', [
             'event' => $event,

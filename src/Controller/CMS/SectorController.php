@@ -2,27 +2,35 @@
 
 namespace App\Controller\CMS;
 
-use App\Entity\Sector;
-use App\Form\SectorType;
-use App\Repository\SectorRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Knp\Component\Pager\PaginatorInterface;
+
+use App\Entity\Sector;
+use App\Form\SectorFormType;
+use App\Repository\SectorRepository;
+use App\Controller\CMS\CMSController;
+
 /**
- * @Route("cms/sector")
+ * @Route("cms/sectors")
  */
-class SectorController extends AbstractController
+class SectorController extends CMSController
 {
     /**
      * @Route("/", name="sector_index", methods={"GET"})
      */
-    public function index(SectorRepository $sectorRepository): Response
+    public function index(SectorRepository $sectorRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $sectorRepository->findAll(),
+            $request->query->getInt('page', 1),
+            25
+        );
+
         return $this->render('cms/sector/index.html.twig', [
-            'sectors' => $sectorRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 
@@ -32,12 +40,13 @@ class SectorController extends AbstractController
     public function new(Request $request): Response
     {
         $sector = new Sector();
-        $form = $this->createForm(SectorType::class, $sector);
+        $form = $this->createForm(SectorFormType::class, $sector);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sector);
+            $sector->mergeNewTranslations();
             $entityManager->flush();
 
             return $this->redirectToRoute('sector_index');
@@ -64,7 +73,7 @@ class SectorController extends AbstractController
      */
     public function edit(Request $request, Sector $sector): Response
     {
-        $form = $this->createForm(SectorType::class, $sector);
+        $form = $this->createForm(SectorFormType::class, $sector);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

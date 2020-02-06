@@ -65,6 +65,17 @@ class MigrationCommand extends Command
                 case "event":
                     $this->Eventos($conn,$output);
                     break;
+                case "eventArea":
+                    $this->EventosArea($conn,$output);
+                    break;
+                case "eventosPonente":
+                    $this->EventosPonente($conn,$output);
+                    break;
+                case "abogadoArea":
+                    $this->AbogadoArea($conn,$output);
+                    break;
+
+                    
             }
             
         }
@@ -98,7 +109,7 @@ class MigrationCommand extends Command
     }
 
     public function Eventos($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted]  FROM eventos order by id";        $stmt = $conn->prepare($query);
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted], [status],[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi]  FROM eventos order by id";        $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
@@ -109,7 +120,7 @@ class MigrationCommand extends Command
         return 0;
     }
     public function Activity($conn){
-        $query = "SELECT [id] ,[lang] ,[titulo] ,[descripcion] ,[experiencia] ,[tags] ,[url_friend] ,[id_area] ,[url_image] ,[quote] ,[spractica] ,[sap]  FROM areas_practicas";
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[descripcion] ,[experiencia] ,[tags] ,[url_friend] ,[id_area] ,[url_image] ,[quote] ,[spractica] ,[sap] ,[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi] FROM areas_practicas";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -125,14 +136,44 @@ class MigrationCommand extends Command
     // - legal
     }
 
-    public function Permisos($conn){
 
-
-
+    public function EventosArea($conn,$output){
+        $query = "SELECT [id_evento] ,[id_area] ,[id_area_sub]  FROM eventos_area";        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('eventosArea.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_area');
+        $this->logger->info('Se ha guardado con el nombre eventosArea.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
     }
 
+    public function EventosPonente($conn,$output){
+        $query = "SELECT [id] ,[id_evento] ,[lang] ,[nombre] ,[apellidos] ,[cargo] ,[telefono] ,[email] ,[descripcion] ,[image] ,[link] ,[id_abogado] ,[empresa] ,[orden] ,[hash]  FROM eventos_ponente";        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('eventosPonente.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_Ponente');
+        $this->logger->info('Se ha guardado con el nombre eventosPonente.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
-
+    
+    public function AbogadoArea($conn,$output){
+        $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[abogado_area]";       
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('abogadoArea.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla abogado_area');
+        $this->logger->info('Se ha guardado con el nombre abogadoArea.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
 
 

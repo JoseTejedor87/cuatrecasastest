@@ -7,17 +7,48 @@ global:
     pt: Portugués
     zh: Chino
 
+  messages:
+    noRecordsFound: No se han encontrado registros
+
   actions:
     create: Crear nuevo
     save: Guardar
     update: Guardar cambios
-    back_to_list: Volver al listado
+    backToList: Volver al listado
 
 # Sections
 # ###########################################
 sections:
   dashboard:
     title: Escritorio
+  desks:
+    index:
+      title: Desks
+    new:
+      title: Nuevo Desk
+    edit:
+      title: Editar Desk
+  practices:
+    index:
+      title: Áreas de Práctica
+    new:
+      title: Nueva Área de Práctica
+    edit:
+      title: Editar Área de Práctica
+  products:
+    index:
+      title: Productos
+    new:
+      title: Nuevo Producto
+    edit:
+      title: Editar Producto
+  sectors:
+    index:
+      title: Sectores
+    new:
+      title: Nuevo Sector
+    edit:
+      title: Editar Sector
   lawyers:
     index:
       title: Abogados
@@ -25,6 +56,20 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
+  mentions:
+    index:
+      title: Menciones
+    new:
+      title: Nueva Mención
+    edit:
+      title: Editar Mención
+  speakers:
+    index:
+      title: Ponentes
+    new:
+      title: Nuevo Ponente
+    edit:
+      title: Editar Ponente
   events:
     index:
       title: Eventos
@@ -32,32 +77,34 @@ sections:
       title: Nuevo Evento
     edit:
       title: Editar Evento
+    actions:
+      addSpeaker: Crear Ponente
 
 # Menu
 # ###########################################
 menu:
   lawyers.title: Abogados
   events.title: Eventos
+  events.searcher.title: Buscador
+  events.speakers.title: Ponentes
+  services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
   practices.title: Áreas de Práctica
   products.title: Productos
+  metadata.title: Metadatos
+  mentions.title: Menciones
 
 # Entities
 # ###########################################
 entities:
-  lawyer:
+  activity:
     fields:
-      name: Nombre
-      surname: Apellido
-      email: Correo electrónico
-      phone: Teléfono
-      fax: Fax
-      photo: Foto
-      lawyerType: Tipo de abogado
+      title: Título
       description: Descripción
-      curriculum: Curriculum Vitae
-      training: Formación
+      image: Imagen
+      highlighted: Menú
+      experience: Experiencia
   event:
     fields:
       title: Título
@@ -71,18 +118,51 @@ entities:
       startDate: Inicio
       endDate: Fin
       eventType: Tipo de evento
-      contact: Datos de contacto
+      contact: Nombre de contacto
+      phone: Teléfono de contacto
       capacity: Aforo
-
+      speakers: Ponentes
+      attachments: Adjuntos
+      activities: Sectores / Servicios / Desks
+  item:
+    fields:
+      updatedAt: Última modificación
+  lawyer:
+    fields:
+      name: Nombre
+      surname: Apellido
+      email: Correo electrónico
+      phone: Teléfono
+      fax: Fax
+      photo: Fotografía
+      lawyerType: Tipo de abogado
+      description: Descripción
+      curriculum: Curriculum Vitae
+      training: Formación
+      activities: Sectores / Servicios / Desks
+      mentions: Menciones
+  mention:
+    fields:
+      body: Texto
+      lawyers: Abogados
   publishable:
     fields:
       languages: Idiomas de publicación
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
-  item:
+  resource:
     fields:
-      updatedAt: Última modificación
+      title: Título
+      file: Fichero
+  speaker:
+    fields:
+      name: Nombre
+      surname: Apellidos
+      position: Posición / Cargo
+      lawyer: Abogado
+    help:
+      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
 
 # Custom Form Types
 

@@ -3,3 +3,54 @@
 @import "typography";
 @import "colors";
 @import "global";
+@import "forms";
+@import "shared";
+@import "templates";
+
+
+/*
+// http://thesassway.com/beginner/how-to-structure-a-sass-project
+*/
+
+/*
+stylesheets/
+|
+|-- modules/              # Common modules
+|   |-- _all.scss         # Include to get all modules
+|   |-- _utility.scss     # Module name
+|   |-- _colors.scss      # Etc...
+|   ...
+|
+|-- partials/             # Partials
+|   |-- _base.sass        # imports for all mixins + global project variables
+|   |-- _buttons.scss     # buttons
+|   |-- _figures.scss     # figures
+|   |-- _grids.scss       # grids
+|   |-- _typography.scss  # typography
+|   |-- _reset.scss       # reset
+|   ...
+|
+|-- vendor/               # CSS or Sass from other projects
+|   |-- _colorpicker.scss
+|   |-- _jquery.ui.core.scss
+|   ...
+|
+-- main.scss            # primary Sass file
+*/
+
+/*
+// Modules and Variables
+@import "partials/base";
+
+// Partials
+@import "partials/reset";
+@import "partials/typography";
+@import "partials/buttons";
+@import "partials/figures";
+@import "partials/grids";
+// ...
+
+// Third-party
+@import "vendor/colorpicker";
+@import "vendor/jquery.ui.core";
+*/
