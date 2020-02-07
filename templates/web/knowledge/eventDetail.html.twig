@@ -1,4 +1,4 @@
-{% extends 'web/base.html.twig' %}
+{% extends 'web/baseNew.html.twig' %}
 
 {% block stylesheets %}
     <!-- Responsive Table CSS -->
@@ -12,14 +12,12 @@
     <main role="main" class="event-detail">
 
         <article>
-            <header id="page-header">
-                <figure class="full-width">
-                    <img class="v-middle" src="{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}" alt="">
-                </figure>
-                <div class="container">
+            {# <header id="page-header-new" style="background-image: url('{{ asset('web/assets/vector/47010585-seamless-geometric-pattern.jpg') }}');"> #}
+            <header id="page-header-new">
+                <div class="container header-info-wrapper">
                     <div class="row">
-                        <div class="col-8">
-                            <div class="header-info d-flex flex-column">
+                        <div class="col-md-8 header-info-new">
+                            <div class="d-flex flex-column">
                                 <h1 class="order-2">
                                     {{ event.translate(app.request.getLocale()).title|raw  }}
                                 </h1>
@@ -58,10 +56,10 @@
                 </div>
             </header>
 
-            <div class="container">
+            <section class="container">
                 <div class="row">
                     <div class="col-md-8 article-section detail">
-                    {{ event.translate(app.request.getLocale()).description|raw  }}
+                        {{ event.translate(app.request.getLocale()).description|raw  }}
 
                         {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc. Tortor aliquam nulla facilisi cras fermentum. Vitae auctor eu augue ut. Habitasse platea dictumst vestibulum rhoncus. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Aliquam vestibulum morbi blandit cursus risus at ultrices mi.</p>
                         <p>Tincidunt lobortis feugiat vivamus at augue eget. Suspendisse potenti nullam ac tortor vitae purus faucibus. Amet porttitor eget dolor morbi non arcu risus. Augue neque gravida in fermentum et sollicitudin ac orci. Nisl nisi scelerisque eu ultrices. Nulla at volutpat diam ut venenatis. Nulla porttitor massa id neque aliquam. Mauris a diam maecenas sed enim.</p>
@@ -72,7 +70,7 @@
                     </div>
 
                     <aside class="col-md-4 article-aside">
-                        <section class="practical-information">
+                        <section class="practical-information sticky-top">
                             <h3>Información práctica</h3>
                             <div class="information-wrapper">
                                 <div class="date">
@@ -96,7 +94,7 @@
                                         {{ (event.phone) ? event.phone : '684 25 83 57' }}
                                     </span>
                                 </div>
-                                <button class="btn btn-naked white btn-arrow">Inscribirme</button>
+                                <button class="btn btn-main hover-white btn-arrow">Inscribirme</button>
                             </div>
                         </section>
                         <section class="documentation">
@@ -120,7 +118,7 @@
                         </section>
                     </aside>
                 </div>
-            </div>
+            </section>
         </article>
 
         {% include 'web/knowledge/shared/eventProgramme.html.twig' %}

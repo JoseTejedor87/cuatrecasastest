@@ -1,41 +1,19 @@
-{% extends 'web/base.html.twig' %}
+{% extends 'web/baseNew.html.twig' %}
 {% block main %}
 
     <main role="main" class="sectors-home">
 
         <article>
-            {# <header id="page-header" class="container">
-                <figure class="full-width">
-                    <img class="v-center" src="{{ asset('web/assets/img/maarten-deckers-T5nXYXCf50I-unsplash.jpg') }}" alt="Juan García Hernández">
-                </figure>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="header-info">
-                            <big class="hash-text">SectoresCuatrecasas</big>
-                            <h1>Sectores</h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Sectores</a></li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </header> #}
 
-            <header id="page-header">
-                <figure class="full-width">
-                    <img class="v-center" src="{{ asset('web/assets/img/maarten-deckers-T5nXYXCf50I-unsplash.jpg') }}" alt="">
-                </figure>
-                <div class="container">
+            <header id="page-header-new">
+                <div class="container header-info-wrapper">
                     <div class="row">
-                        <div class="col-8">
-                            <div class="header-info d-flex flex-column">
-                                {# <big class="hash-text">SectoresCuatrecasas</big> #}
+                        <div class="col-md-8 header-info-new">
+                            <div class="d-flex flex-column">
                                 <h1 class="order-2">
                                     Sectores
                                 </h1>
+                                <big class="hash-text-new order-3">SectoresCuatrecasas</big>
                                 <nav class="order-1" aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
@@ -45,13 +23,12 @@
                                         </a></li>
                                     </ol>
                                 </nav>
-                                <ul class="action-icons order-3">
+                                <ul class="action-icons order-4">
                                     <li><a href="#"><i class="material-icons">share</i></a></li>
                                     <li><a href="#"><i class="material-icons">print</i></a></li>
                                     <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
                                     <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                                 </ul>
-                                {# <a href="#" class="back-button">volver</a> #}
                             </div>
                         </div>
                     </div>

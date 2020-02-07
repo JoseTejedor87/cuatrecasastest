@@ -109,7 +109,13 @@
     // width: 80%;
     // padding-right: 8em;
 
-    box-shadow: -6px 6px 0 $white;
+    // box-shadow: -6px 6px 0 $white;
+
+    box-shadow: -6px 6px 0 $white,
+                0 19px 38px rgba(0, 0, 0, 0.30),
+                0 15px 12px rgba(0, 0, 0, 0.22);
+
+
     // box-shadow: 0 0 8px $complementary-color;
 }
 
@@ -162,6 +168,18 @@
         color: $black;
         background-color: transparent;
         box-shadow: 0 3px 0 $black;
+    }
+}
+
+@mixin link-line-black-smaller {
+    color: $black;
+    box-shadow: 0 2px 0 transparent;
+
+    &:hover,&:focus,&:active {
+        text-decoration: none;
+        color: $black;
+        background-color: transparent;
+        box-shadow: 0 2px 0 $black;
     }
 }
 
