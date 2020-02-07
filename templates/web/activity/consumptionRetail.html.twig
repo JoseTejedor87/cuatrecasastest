@@ -1,10 +1,5 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-    <!-- Slider / Carousel CSS -->
-    <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
     <main role="main" class="consumption-retail">
@@ -61,7 +56,7 @@
                 </div>
             </div>
 
-            {% include 'web/shared/expertise.html.twig' %}
+            {# {% include 'web/shared/expertise.html.twig' %} #}
 
             <div class="container article-section">
                 <div class="row">
@@ -102,9 +97,4 @@
     {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 
-{% endblock %}
-
-{% block javascripts %}
-    <!-- Slider / Carousel JavaScript-->
-    <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 {% endblock %}

@@ -230,7 +230,8 @@
                     {% for lawyer in lawyers %}
                         <a href="#" class="card">
                             <figure>
-                                <img src="https://www.cuatrecasas.com/{{ lawyer.photo }}" class="card-img-top" alt="">
+                                {# <img src="https://www.cuatrecasas.com/{{ lawyer.photo }}" class="card-img-top" alt=""> #}
+                                <img src="{{ asset('web/assets/img/luis-villasmil-2McglrBFkns-unsplash.jpg') }}" class="card-img-top" alt="">
                             </figure>
                             <div class="card-body">
                                 <h3 class="card-title lawyer-name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>

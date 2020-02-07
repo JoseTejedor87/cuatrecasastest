@@ -1,4 +1,4 @@
-{% extends 'web/base.html.twig' %}
+{% extends 'web/baseNew.html.twig' %}
 
 {% block stylesheets %}
     <!-- Owl Carousel CSS -->
@@ -10,32 +10,55 @@
 
     <main role="main" class="home">
 
-        <header id="home-header">
-            <figure class="full-width">
-                {# <img class="vb125" src="{{ asset('web/assets/img/brian-kyed-G5HUMEHOsz4-unsplash.jpg') }}" alt=""> #}
-                <img src="{{ asset('web/assets/img/christian-perner-UKLIuV8rAks-unsplash.jpg') }}" alt="">
-            </figure>
-            <div class="container">
+        <header id="page-header-new">
+            <div class="container header-info-home">
                 <div class="row">
-                    <div class="header-wrapper">
-
+                    <div class="col-md-7 header-wrapper">
                         <div class="header-info">
                             <div class="category">Nota de prensa</div>
                             <h1>Best lawyers reconoce a tres abogados de Cuatrecasas en Zaragoza como los mejores de España</h1>
                             <a href="#" class="btn btn-main trans btn-arrow">Saber más</a>
                         </div>
-
+                        {# <a href="#" class="header-button">
+                            <div class="category">Logística y transporte</div>
+                            <div class="intro">Cuatrecasas asesora a DP World en la adquisición y OPA de la compañía chilena Puertos y Logística</div>
+                            <div class="icon ion-ios-arrow-forward"></div>
+                        </a> #}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 header-button-wrapper">
                         <a href="#" class="header-button">
                             <div class="category">Logística y transporte</div>
                             <div class="intro">Cuatrecasas asesora a DP World en la adquisición y OPA de la compañía chilena Puertos y Logística</div>
                             <div class="icon ion-ios-arrow-forward"></div>
                         </a>
-
                     </div>
                 </div>
             </div>
-
         </header>
+
+        {# <header id="home-header">
+            <figure class="full-width">
+                <img src="{{ asset('web/assets/vector/christian-perner-UKLIuV8rAks-unsplash.jpg') }}" alt="">
+            </figure>
+            <div class="container">
+                <div class="row">
+                    <div class="header-wrapper">
+                        <div class="header-info">
+                            <div class="category">Nota de prensa</div>
+                            <h1>Best lawyers reconoce a tres abogados de Cuatrecasas en Zaragoza como los mejores de España</h1>
+                            <a href="#" class="btn btn-main trans btn-arrow">Saber más</a>
+                        </div>
+                        <a href="#" class="header-button">
+                            <div class="category">Logística y transporte</div>
+                            <div class="intro">Cuatrecasas asesora a DP World en la adquisición y OPA de la compañía chilena Puertos y Logística</div>
+                            <div class="icon ion-ios-arrow-forward"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header> #}
 
         <article class="search-component">
             <div class="container">
@@ -256,7 +279,7 @@
                         </div>
 
                         <figure class="box-img">
-                            <img src="{{ asset('web/assets/img/frederick-tubiermont-N99V5GjTi-g-unsplash.jpg') }}" alt="Brexit">
+                            <img src="{{ asset('web/assets/vector/111865324-dollar-and-euro-money-pattern.jpg') }}" alt="Brexit">
                         </figure>
 
                     </article>
