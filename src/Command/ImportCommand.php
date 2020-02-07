@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\HttpFoundation\File\File;
 
 use App\Entity\Activity;
 use App\Entity\Desk;
@@ -15,6 +16,7 @@ use App\Entity\Event;
 use App\Entity\Lawyer;
 use App\Entity\Mention;
 use App\Entity\Practice;
+use App\Entity\Resource;
 use App\Entity\Sector;
 use App\Entity\Speaker;
 
@@ -26,6 +28,8 @@ class ImportCommand extends Command
     private $mappedLawyerIds;
     private $mappedEventIds;
     private $mappedActivityIds;
+
+    const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
 
     public function __construct(ContainerInterface $container, LoggerInterface $logger)
     {
@@ -99,6 +103,12 @@ class ImportCommand extends Command
     {
         $data = file_get_contents("abogados.json");
         $items = json_decode($data, true);
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/lawyer-*"));
+
+        // Removing registers from database
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
         $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
@@ -131,10 +141,22 @@ class ImportCommand extends Command
                 $lawyer->setPhone(($item['telefono']));
                 $lawyer->setFax(($item['fax']));
 
-                // Temporal exclusion of photo field.
-                // The new relation with the Resource Entity requires
-                // a little more complex process to do the import
-                // $lawyer->setPhoto($item['image']);
+                if ($item['image']) {
+                    // normalizing image paths
+                    $path = $item['image'];
+                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                    $path = self::SOURCE_DOMAIN.$path;
+                    // Importing image from source
+                    $photo = $this->importFile('lawyer', $path);
+                    if ($photo) {
+                        $resource = new Resource();
+                        $resource->setFile($photo);
+                        $resource->setFileName($photo->getFileName());
+                        $resource->setLawyer($lawyer);
+                        $lawyer->setPhoto($resource);
+                    }
+                }
 
                 $lawyer->setLawyerType(
                     self::getMappedLawyerType($item['idtipoabogado'])
@@ -213,7 +235,7 @@ class ImportCommand extends Command
             $mention = $lawyer->getMentions()[0];
             $this->em->persist($lawyer);
             $this->em->flush();
-            $this->logger->debug("Mention ".$mention->getId()." - ".substr($mention->translate('es')->getBody(),0,50)."... [ Lawyer : ".$lawyer->getFullName() ." ]");
+            $this->logger->debug("Mention ".$mention->getId()." - ".substr($mention->translate('es')->getBody(), 0, 50)."... [ Lawyer : ".$lawyer->getFullName() ." ]");
         }
     }
 
@@ -591,5 +613,21 @@ class ImportCommand extends Command
             "4" => "institutional"
         ];
         return isset($map[$code]) ? $map[$code] : null;
+    }
+
+    private function importFile($type, $source)
+    {
+        $target_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        $target_filename = $type . "-" . \uniqid() . (strrchr($source, '.') ?? '');
+        $target = $target_path . "/" . $target_filename;
+        try {
+            copy($source, $target);
+            $file = new File($target);
+        }
+        catch(\Exception $e) {
+            $this->logger->warning(">>>>>>>>>>>>>>>> ERROR COPYING $source into $target");
+            $file = null;
+        }
+        return $file;
     }
 }
