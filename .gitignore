@@ -9,6 +9,8 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /public/web.config
+/public/resources
+/public/upload
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###

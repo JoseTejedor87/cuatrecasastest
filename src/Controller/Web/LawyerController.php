@@ -36,7 +36,7 @@ class LawyerController extends WebController
     {
         $lawyers = $lawyerRepository->findAll();
         $this->isThisLocale($request, $request->attributes->get('idioma'));
-        // dd($lawyers);
+        //dd($lawyers);
         return $this->render('web/lawyer/filter.html.twig', [
             'controller_name' => 'LawyerController',
             'lawyers' => $lawyers,
