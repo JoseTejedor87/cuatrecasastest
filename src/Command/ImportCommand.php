@@ -64,7 +64,6 @@ class ImportCommand extends Command
         if ($table=="all") {
             $this->logger->info("Se van a importar todas las tablas");
             $this->Lawyers();
-            $this->Mentions();
             $this->Events();
             $this->Activities();
             $this->SpeakersByEvent();
@@ -74,9 +73,6 @@ class ImportCommand extends Command
             switch ($table) {
                 case "lawyer":
                     $this->Lawyers();
-                    break;
-                case "mentions":
-                    $this->Mentions();
                     break;
                 case "event":
                     $this->Events();
@@ -175,6 +171,7 @@ class ImportCommand extends Command
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
             $lawyer->translate($currentLang)->setTraining($item['formacion']);
+            $lawyer->translate($currentLang)->setMentions($item['menciones']);
             // Adding the current instance to map
             $processedLawyersMap[$oldLawyerId] = $lawyer;
         }
@@ -184,58 +181,6 @@ class ImportCommand extends Command
             $this->em->persist($lawyer);
             $this->em->flush();
             $this->logger->debug("Lawyer ".$lawyer->getOldId()." - ".$lawyer->getId()." ".$lawyer->getFullName());
-        }
-    }
-
-    public function Mentions()
-    {
-        $data = file_get_contents("abogados.json");
-        $items = json_decode($data, true);
-        $this->em->getConnection()->executeQuery("DELETE FROM [MentionTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Mention]");
-
-        $lawyerRepository = $this->em->getRepository(Lawyer::class);
-
-        $processedLawyersMap = [];
-
-        foreach ($items as $item) {
-
-            $oldLawyerId = $item['id_abogado'];
-            $lawyerId = $this->getMappedLawyerId($oldLawyerId);
-
-            // Has the current item the required conditions to be imported?
-            // if not, Skip it !
-            if ($item['status']=='0' || $lawyerId == null || empty($item['menciones'])) {
-                continue;
-            }
-
-            $currentLang = self::getMappedLanguageCode($item['lang']);
-
-            // Was processed the current lawyer instance in a previous iteration ?
-            if (isset($processedLawyersMap[$oldLawyerId])) {
-                // in that case, restore it from $processedLawyersMap
-                $lawyer = $processedLawyersMap[$oldLawyerId];
-                $mention = $lawyer->getMentions()[0];
-            }
-            else {
-                // in other case, restore it from the database
-                $lawyer = $lawyerRepository->find($lawyerId);
-                $mention = new Mention();
-            }
-
-            // Filling translatable fields
-            $mention->translate($currentLang)->setBody($item['menciones']);
-            $mention->mergeNewTranslations();
-            $lawyer->addMention($mention);
-            // Adding the current instance to map
-            $processedLawyersMap[$oldLawyerId] = $lawyer;
-        }
-
-        foreach ($processedLawyersMap as $lawyer) {
-            $mention = $lawyer->getMentions()[0];
-            $this->em->persist($lawyer);
-            $this->em->flush();
-            $this->logger->debug("Mention ".$mention->getId()." - ".substr($mention->translate('es')->getBody(), 0, 50)."... [ Lawyer : ".$lawyer->getFullName() ." ]");
         }
     }
 
