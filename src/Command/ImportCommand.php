@@ -107,8 +107,10 @@ class ImportCommand extends Command
         // Removing registers from database
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Speaker], RESEED, 1)");
         $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
 
         $processedLawyersMap = [];
 
@@ -140,8 +142,8 @@ class ImportCommand extends Command
                 if ($item['image']) {
                     // normalizing image paths
                     $path = $item['image'];
-                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
                     $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
                     $path = self::SOURCE_DOMAIN.$path;
                     // Importing image from source
                     $photo = $this->importFile('lawyer', $path);
@@ -189,11 +191,16 @@ class ImportCommand extends Command
         $data = file_get_contents("eventos.json");
         $items = json_decode($data, true);
 
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/event-*"));
+
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
 
         $processedEventsMap = [];
+        $processedAttachmentsMap = [];
 
         foreach ($items as $item) {
 
@@ -206,7 +213,7 @@ class ImportCommand extends Command
             $oldEventId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            // Was processed the current lawyer instance in a previous iteration ?
+            // Was processed the current event instance in a previous iteration ?
             if (isset($processedEventsMap[$oldEventId])) {
                 // in that case, restore it from $processedEventsMap
                 $event = $processedEventsMap[$oldEventId];
@@ -222,12 +229,6 @@ class ImportCommand extends Command
                 $event->setEndDate(
                     $endDate ? $endDate : date("Y-m-d H:i:s")
                 );
-
-                // Temporal exclusion of attachment field.
-                // The new attachments collections of files requires
-                // a little more complex process to do the import
-                //
-                //$event->setAttachment($item['url_pdf']);
 
                 $event->setCustomMap($item['mapa']);
                 $event->setCustomSignup($item['url_inscripcion']);
@@ -246,6 +247,35 @@ class ImportCommand extends Command
                     )
                 );
             }
+            // Importing attachments from source
+            if ($item['url_pdf']) {
+                // Was processed the current attachment instance in a previous iteration ?
+                if (isset($processedAttachmentsMap[$oldEventId][$item['url_pdf']])) {
+                    $resource = $processedAttachmentsMap[$oldEventId][$item['url_pdf']];
+                    $resource->setLanguages(
+                        array_unique(
+                            array_merge($resource->getLanguages(), [$currentLang])
+                        )
+                    );
+                }
+                else {
+                    // normalizing the attachment path
+                    $path = $item['url_pdf'];
+                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                    $path = self::SOURCE_DOMAIN.$path;
+
+                    $attachment = $this->importFile('event', $path);
+                    if ($attachment) {
+                        $resource = new Resource();
+                        $resource->setFile($attachment);
+                        $resource->setFileName($attachment->getFileName());
+                        $resource->setLanguages([$currentLang]);
+                        // Adding the current attachment to the attachments mapping
+                        $processedAttachmentsMap[$oldEventId][$item['url_pdf']] = $resource;
+                    }
+                }
+            }
             // Filling translatable fields
             $event->translate($currentLang)->setTitle($item['titulo']);
             $event->translate($currentLang)->setDescription($item['resumen']);
@@ -253,7 +283,7 @@ class ImportCommand extends Command
             $event->translate($currentLang)->setProgram($item['programa']);
             $event->translate($currentLang)->setCustomCity($item['ciudad']);
             $event->translate($currentLang)->setCustomAddress($item['ubicacion_lugar']);
-            // Adding the current instance to map
+            // Adding the current instance to the events mapping
             $processedEventsMap[$oldEventId] = $event;
         }
 
@@ -262,6 +292,13 @@ class ImportCommand extends Command
             if (!empty($event->getLanguages())) {
                 // Persiste the instance
                 $event->mergeNewTranslations();
+                // Adding attachments to each event
+                // using the unique collection $processedAttachmentsMap
+                if (isset($processedAttachmentsMap[$event->getOldId()])) {
+                    foreach ($processedAttachmentsMap[$event->getOldId()] as $key => $resource) {
+                        $event->addAttachment($resource);
+                    }
+                }
                 $this->em->persist($event);
                 $this->em->flush();
                 $this->logger->debug("Event ".$event->getId()." ".$event->translate('es')->getTitle());
@@ -276,6 +313,7 @@ class ImportCommand extends Command
 
         $this->em->getConnection()->executeQuery("DELETE FROM [ActivityTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Activity]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Activity], RESEED, 1)");
 
         $processedActivitiesMap = [];
 
@@ -290,7 +328,7 @@ class ImportCommand extends Command
             $oldActivityId = $item['id'];
             $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            // Was processed the current lawyer instance in a previous iteration ?
+            // Was processed the current activity instance in a previous iteration ?
             if (isset($processedActivitiesMap[$oldActivityId])) {
                 // in that case, restore it from $processedEventsMap
                 $activity = $processedActivitiesMap[$oldActivityId];
@@ -308,7 +346,6 @@ class ImportCommand extends Command
                 }
 
                 $activity->setOldId($oldActivityId);
-                $activity->setImage($item['url_image']);
                 $activity->setHighlighted(!(bool)$item['spractica']);
             }
 
@@ -422,6 +459,7 @@ class ImportCommand extends Command
 
         $this->em->getConnection()->executeQuery("DELETE FROM [event_speaker]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Speaker], RESEED, 1)");
 
         foreach ($items as $item) {
 
