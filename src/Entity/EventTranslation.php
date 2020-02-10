@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use App\Entity\PublishableTranslation;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventTranslationRepository")
  */
@@ -42,6 +42,13 @@ class EventTranslation extends PublishableTranslation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $customAddress;
+
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function getTitle(): ?string
     {
@@ -113,6 +120,11 @@ class EventTranslation extends PublishableTranslation
         $this->customAddress = $customAddress;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
 

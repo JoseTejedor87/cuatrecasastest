@@ -3,30 +3,42 @@
 namespace App\Controller\Web;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Sector;
+use App\Repository\SectorRepository;
+use App\Repository\ActivityTranslationRepository;
+use App\Controller\Web\WebController;
 /**
-* @Route("/activity", name="activity")
+* @Route("/{idioma}/activity", name="activity", methods={"GET"})
 */
-class ActivityController extends AbstractController
+class ActivityController extends WebController
 {
     /**
      * @Route("/sectorsHome", name="sectorsHome")
      */
-    public function sectorsHome()
+    public function sectorsHome(Request $request,SectorRepository $sectorRepository)
     {
+        $sectors = $sectorRepository->findAll();
+        $this->isThisLocale($request, $request->attributes->get('idioma'));
+
         return $this->render('web/activity/sectorsHome.html.twig', [
             'controller_name' => 'ActivityController',
+            'sectors' => $sectors, 
         ]);
     }
 
     /**
-     * @Route("/consumptionRetail", name="consumptionRetail")
+     * @Route("/consumptionRetail/{slug}", name="consumptionRetail")
      */
-    public function consumptionRetail()
+    public function consumptionRetail(Request $request,SectorRepository $sectorRepository, ActivityTranslationRepository $ActivityTranslationRepository)
     {
+        $ActivityTranslation = $ActivityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
+        $sector = $sectorRepository->findOneBy(['id' => $ActivityTranslation->getTranslatable()->getId()]);
+        $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/activity/consumptionRetail.html.twig', [
             'controller_name' => 'ActivityController',
+            'sector' => $sector, 
         ]);
     }
 

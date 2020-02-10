@@ -11,6 +11,26 @@
     position: relative;
     top: 129px;
 
+
+    .breadcrumb {
+        padding: 0 0;
+        margin: 1em 0 2.6rem;
+        list-style: none;
+        background-color: transparent;
+        border-radius: 0;
+
+        .breadcrumb-item {
+            font-size: 80%;
+            font-weight: bold;
+            color: $black;
+
+            a {
+                @include text-link($black,$secondary-color,transparent,$secondary-color);
+                font-weight: 300;
+            }
+        }
+    }
+
     .lawyer-header {
         min-height: $header-height;
 
@@ -142,8 +162,15 @@
 // --------------------------------------------------------------------------
 
 .sectors-home {
+
+    #page-header-new {
+        &:before {
+            background-image: url($photo-sectors-home);
+        }
+    }
+
     .sector-links {
-        margin-bottom: 8em;
+        margin: 4em 0 6em;
     }
 }
 
@@ -196,13 +223,42 @@
 // KNOWLEDGE
 // --------------------------------------------------------------------------
 .event-detail {
-    position: relative;
-    top: 129px;
+    // position: relative;
+    // top: 129px;
+
+    #page-header-new {
+        &:before {
+            background-image: url($photo-event-detail);
+            background-position: center bottom;
+        }
+    }
 
     .section-header {
-        margin-bottom: 1em;
+        // margin-bottom: 1em;
+    }
+
+    .event-programme,
+    .event-speakers {
+
+        .section-header {
+            margin-bottom: 1em;
+            text-align: center;
+        }
     }
 }
+
+
+
+//
+// INSIGHTS PAGE
+// --------------------------------------------------------------------------
+.insights-page {
+
+    ~ .article-highlight {
+        margin: 8em 0;
+    }
+}
+
 
 
 //
@@ -296,11 +352,12 @@
             .card {
                 @include card-boxes;
                 @include img-hover-fx;
+
                 width: calc(25% - 2em);
 
                 figure {
                     @include reset-figure;
-                    // height: 180px;
+                    min-height: 180px;
 
                     img {
                         width: auto;

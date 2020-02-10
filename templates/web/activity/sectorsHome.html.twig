@@ -1,24 +1,35 @@
-{% extends 'web/base.html.twig' %}
+{% extends 'web/baseNew.html.twig' %}
 {% block main %}
 
     <main role="main" class="sectors-home">
 
         <article>
-            <header id="page-header" class="container">
-                <figure class="full-width">
-                    <img class="v-center" src="{{ asset('web/assets/img/maarten-deckers-T5nXYXCf50I-unsplash.jpg') }}" alt="Juan García Hernández">
-                </figure>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="header-info">
-                            <big class="hash-text">SectoresCuatrecasas</big>
-                            <h1>Sectores</h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Sectores</a></li>
-                                </ol>
-                            </nav>
+
+            <header id="page-header-new">
+                <div class="container header-info-wrapper">
+                    <div class="row">
+                        <div class="col-md-8 header-info-new">
+                            <div class="d-flex flex-column">
+                                <h1 class="order-2">
+                                    Sectores
+                                </h1>
+                                <big class="hash-text-new order-3">SectoresCuatrecasas</big>
+                                <nav class="order-1" aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                        <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                        Sectores
+                                        </a></li>
+                                    </ol>
+                                </nav>
+                                <ul class="action-icons order-4">
+                                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -29,24 +40,9 @@
                     <div class="row">
                         <div class="col">
                             <ul class="list-button-link">
-                                <li><a href="#">Cometition and EU Law</a></li>
-                                <li><a href="#">Corporate and M&amp;A</a></li>
-                                <li><a href="#">Corporate Governance</a></li>
-                                <li><a href="#">Compliance</a></li>
-                                <li><a href="#">Dispute Resolution</a></li>
-                                <li><a href="#">Employement</a></li>
-                                <li><a href="#">Finance</a></li>
-                                <li><a href="#">Financial Regulation</a></li>
-                                <li><a href="#">Fintech</a></li>
-                                <li><a href="#">Intellectual Property</a></li>
-                                <li><a href="#">International Arbitration</a></li>
-                                <li><a href="#">Private Client &amp; Wealth Management</a></li>
-                                <li><a href="#">Public Law</a></li>
-                                <li><a href="#">Restructuring and Insolvency</a></li>
-                                <li><a href="#">Tax</a></li>
-                                <li><a href="#">Tax Litigation</a></li>
-                                <li><a href="#">Town Planning</a></li>
-                                <li><a href="#">White Collar Crime &amp; Investigations</a></li>
+                            {% for sector in sectors %}
+                                <li><a href="#">{{ sector.translate(app.request.getLocale()).title|raw  }}</a></li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -57,7 +53,7 @@
 
     </main>
 
-    {% include 'web/shared/highlightContentArticles.html.twig' %}
+    {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 
 {% endblock %}

@@ -4,11 +4,19 @@ namespace App\Controller\Web;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\Event;
+use App\Repository\EventRepository;
+use App\Repository\EventTranslationRepository;
+
+use App\Controller\Web\WebController;
+
 
 /**
-* @Route("/knowledge", name="knowledge")
+* @Route("/{idioma}/knowledge", name="knowledge")
 */
-class KnowledgeController extends AbstractController
+class KnowledgeController extends WebController
 {
     /**
      * @Route("/insights", name="insights")
@@ -21,12 +29,17 @@ class KnowledgeController extends AbstractController
     }
 
     /**
-     * @Route("/eventDetail", name="eventDetail")
+     * @Route("/eventDetail/{slug}", name="eventDetail")
      */
-    public function eventDetail()
+    public function eventDetail(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
     {
+        $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
+        $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
+        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        //dd($EventTranslation);
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'controller_name' => 'KnowledgeController',
+            'event' => $event,
         ]);
     }
 }
