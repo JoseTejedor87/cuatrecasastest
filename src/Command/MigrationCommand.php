@@ -74,6 +74,9 @@ class MigrationCommand extends Command
                 case "abogadoArea":
                     $this->AbogadoArea($conn,$output);
                     break;
+                case "areasQuotes":
+                    $this->AreasQuotes($conn,$output);
+                    break;
 
                     
             }
@@ -174,7 +177,18 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
-
-
+    
+    public function AreasQuotes($conn,$output){
+        $query = "SELECT  [id_area] ,[id_quote] ,[lang] ,[quote_text]  ,[orden] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[areas_quotes]";       
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('areasQuotes.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla areas_quotes');
+        $this->logger->info('Se ha guardado con el nombre areasQuotes.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
 }
