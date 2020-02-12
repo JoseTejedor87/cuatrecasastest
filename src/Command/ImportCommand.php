@@ -16,6 +16,7 @@ use App\Entity\Event;
 use App\Entity\Lawyer;
 use App\Entity\Mention;
 use App\Entity\Practice;
+use App\Entity\Quote;
 use App\Entity\Resource;
 use App\Entity\Sector;
 use App\Entity\Speaker;
@@ -88,6 +89,9 @@ class ImportCommand extends Command
                     break;
                 case "lawyer_activity":
                     $this->ActivitiesByLawyer();
+                    break;
+                case "quote":
+                    $this->Quote();
                     break;
             }
         }
@@ -290,7 +294,7 @@ class ImportCommand extends Command
         foreach ($processedEventsMap as $event) {
             // Persist only the registers with at least one active language
             if (!empty($event->getLanguages())) {
-                // Persiste the instance
+                // Persist the instance
                 $event->mergeNewTranslations();
                 // Adding attachments to each event
                 // using the unique collection $processedAttachmentsMap
@@ -369,11 +373,68 @@ class ImportCommand extends Command
         foreach ($processedActivitiesMap as $activity) {
             // Persist only the registers with at least one active language
             if (!empty($activity->getLanguages())) {
-                // Persiste the instance
+                // Persist the instance
                 $activity->mergeNewTranslations();
                 $this->em->persist($activity);
                 $this->em->flush();
                 $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
+            }
+        }
+    }
+
+    public function Quote()
+    {
+        $data = file_get_contents("areasQuotes.json");
+        $items = json_decode($data, true);
+
+        $this->em->getConnection()->executeQuery("DELETE FROM [QuoteTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Quote]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Quote], RESEED, 1)");
+
+        $processedQuotesMap = [];
+
+        foreach ($items as $item) {
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            if ($currentLang != 'en' || in_array($item['quote_text'], $processedQuotesMap)) {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+                continue;
+            }
+            else {
+                $body = $item['quote_text'];
+                $author = '';
+                $year = '';
+                // Trying to parse the body using a pattern
+                // in order to divide data into the new fields (author, year and body)
+                $matches = [];
+                preg_match('/^(.*)-(.*),(.*)/', $item['quote_text'], $matches);
+                if (count($matches) == 4) {
+                    // Removing double quotes and white spaces
+                    $body = str_replace('"','',trim($matches[1]));
+                    $author = trim($matches[2]);
+                    $year = trim($matches[3]);
+                }
+                // Create a new quote instance and fill it
+                $quote = new Quote();
+                $quote->setOldId($item['id_quote']);
+                $quote->setAuthor($author);
+                $quote->setYear($year);
+
+                // Filling translatable fields
+                foreach (['es','en','pt','zh'] as $lang) {
+                    $quote->translate($lang)->setBody($body);
+                }
+
+                // Persist the instance
+                $quote->mergeNewTranslations();
+                $this->em->persist($quote);
+                $this->em->flush();
+
+                $this->logger->debug("Quote ".$quote->getId()." ".substr($quote->translate('en')->getBody(), 0, 50)."...");
+
+                $processedQuotesMap[] = $item['quote_text'];
             }
         }
     }

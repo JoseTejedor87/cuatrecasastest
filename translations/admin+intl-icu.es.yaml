@@ -42,6 +42,13 @@ sections:
       title: Nuevo Producto
     edit:
       title: Editar Producto
+  quotes:
+    index:
+      title: Citas
+    new:
+      title: Nueva Cita
+    edit:
+      title: Editar Cita
   sectors:
     index:
       title: Sectores
@@ -86,7 +93,7 @@ menu:
   lawyers.title: Abogados
   events.title: Eventos
   events.searcher.title: Buscador
-  events.speakers.title: Ponentes
+  speakers.title: Ponentes
   services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
@@ -94,6 +101,7 @@ menu:
   products.title: Productos
   metadata.title: Metadatos
   mentions.title: Menciones
+  quotes.title: Citas
 
 # Entities
 # ###########################################
@@ -151,6 +159,11 @@ entities:
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
+  quote:
+    fields:
+      author: Autor
+      year: Año
+      body: Contenido
   resource:
     fields:
       title: Título
