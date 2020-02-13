@@ -147,8 +147,35 @@
                 <div class="row">
 
                     <div id="carouselHome" class="owl-carousel">
+                        {% for event in events %}
+                        {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+                        {% set customAddress =event.translate(app.request.getLocale()).customAddress|split('<br>') %}
+                        {% set schedule =event.translate(app.request.getLocale()).schedule|split(',') %}
 
-                        <article class="item box box-article">
+                            <article class="item box box-event">
+                                <div class="box-header">
+                                    <div class="info-date">{{  fecha[0:]|join(' ') }}
+                                    {# Del 24 Febrero al 2 Marzo 2019 #}
+                                    </div>
+                                    <div class="info-type">Evento</div>
+                                    <button type="button" class="button-bookmark"></button>
+                                </div>
+                                <div class="box-body">
+                                    <h3><a href="{{ relative_path('/es/knowledge/eventDetail/')}}{{ event.translate(app.request.getLocale()).slug  }}">{{ event.translate(app.request.getLocale()).title|raw  }}
+                                    {# "Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020 #}
+                                    </a></h3>
+                                    <div class="info-time">{{ schedule[1]|raw  }}
+                                    {# De 10.30 a 18.30 h #}
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="map-pin"><a href="#" class="map-pin-link">{{  customAddress|last|raw }}
+                                    {# Barcelona #}
+                                    </a></div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        {# <article class="item box box-article">
                             <div class="box-header">
                                 <div class="info-date">15 Enero 2020</div>
                                 <div class="info-type">Artículo</div>
@@ -246,7 +273,7 @@
                             <div class="box-footer">
                                 <div class="map-pin"><a href="#" class="map-pin-link">Barcelona</a></div>
                             </div>
-                        </article>
+                        </article> #}
 
                     </div>
 

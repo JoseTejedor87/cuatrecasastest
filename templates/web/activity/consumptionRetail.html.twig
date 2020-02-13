@@ -20,7 +20,7 @@
                                 <nav class="order-1" aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                        <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
+                                        <li class="breadcrumb-item"><a href="{{ relative_path('/es/activity/sectorsHome')}}">Sectores</a></a></li>
                                         <li class="breadcrumb-item active" aria-current="page">
                                         {{ sector.translate(app.request.getLocale()).title|raw  }}
                                         {# Consumo y Retail #}

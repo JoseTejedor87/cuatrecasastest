@@ -36,6 +36,7 @@ class ActivityController extends WebController
         $ActivityTranslation = $ActivityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $sector = $sectorRepository->findOneBy(['id' => $ActivityTranslation->getTranslatable()->getId()]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
+        //dd($sector->getEvents());
         return $this->render('web/activity/consumptionRetail.html.twig', [
             'controller_name' => 'ActivityController',
             'sector' => $sector, 
