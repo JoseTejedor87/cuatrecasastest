@@ -4,10 +4,14 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 use App\Form\Type\LanguageType;
+use App\Form\Type\OrderedCollectionType;
 
 abstract class ActivityFormType extends AbstractType
 {
@@ -24,8 +28,22 @@ abstract class ActivityFormType extends AbstractType
             ])
             ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
-            ->add('image', TextType::class, ['label'=>'entities.activity.fields.image']);
+            ->add('image', TextType::class, ['label'=>'entities.activity.fields.image'])
+            ->add('blocks', OrderedCollectionType::class, [
+                'label'=>'entities.activity.fields.blocks',
+                'entry_type' => BlockFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'admin'
+        ]);
     }
 
 }

@@ -11,9 +11,9 @@ class PracticeFormType extends ActivityFormType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
         $resolver->setDefaults([
             'data_class' => Practice::class,
-            'translation_domain' => 'admin',
             'required' => false
         ]);
     }

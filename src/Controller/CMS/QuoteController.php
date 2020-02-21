@@ -13,7 +13,7 @@ use App\Repository\QuoteRepository;
 use App\Controller\CMS\CMSController;
 
 /**
- * @Route("/quotes")
+ * @Route("cms/quotes")
  */
 class QuoteController extends CMSController
 {

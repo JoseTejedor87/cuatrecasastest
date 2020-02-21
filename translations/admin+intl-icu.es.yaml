@@ -15,6 +15,7 @@ global:
     save: Guardar
     update: Guardar cambios
     backToList: Volver al listado
+    addItem: Añadir elemento
 
 # Sections
 # ###########################################
@@ -113,6 +114,10 @@ entities:
       image: Imagen
       highlighted: Menú
       experience: Experiencia
+      blocks: Bloques
+  quoteBlock:
+    fields:
+      quote: Cita
   event:
     fields:
       title: Título
@@ -181,6 +186,9 @@ entities:
 
 forms:
   choices:
+    blockTypes:
+      quoteBlock: Bloque de cita
+      eventsBlock: Bloque de eventos
     eventCategoryTypes:
       standard: Estándar
       webinar: Webinar
