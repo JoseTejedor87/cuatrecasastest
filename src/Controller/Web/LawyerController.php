@@ -22,6 +22,12 @@ class LawyerController extends WebController
        
         $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
+        
+        $activities = $lawyer->getActivities();
+        //dd($activities);
+        // foreach ($activities as $key => $value) {
+        //     dd($value->translate('es')->getTitle());
+        // }
         return $this->render('web/lawyer/detail.html.twig', [
             'controller_name' => 'LawyerController',
             'lawyer' => $lawyer,

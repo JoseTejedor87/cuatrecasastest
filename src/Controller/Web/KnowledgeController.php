@@ -36,7 +36,6 @@ class KnowledgeController extends WebController
         $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
-        //dd($EventTranslation);
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'controller_name' => 'KnowledgeController',
             'event' => $event,

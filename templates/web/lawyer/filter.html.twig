@@ -228,10 +228,10 @@
                     <!-- Boxes -->
                     <div class="search-results-boxes">
                     {% for lawyer in lawyers %}
-                        <a href="#" class="card">
-                            <figure>
+                        <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="card">
+                            <figure style="background-image:url('{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}');background-size: cover; ">
                                 {# <img src="https://www.cuatrecasas.com/{{ lawyer.photo }}" class="card-img-top" alt=""> #}
-                                <img src="{{ asset('web/assets/img/luis-villasmil-2McglrBFkns-unsplash.jpg') }}" class="card-img-top" alt="">
+                                <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" class="card-img-top d-none" alt="">
                             </figure>
                             <div class="card-body">
                                 <h3 class="card-title lawyer-name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>

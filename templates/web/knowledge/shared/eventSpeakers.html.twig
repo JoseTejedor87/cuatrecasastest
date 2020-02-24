@@ -4,17 +4,18 @@
             <div class="col">
                 <h2 class="section-header">Ponentes</h2>
                 <div class="speakers-wrapper">
-                    <article class="speakers-item">
-                        <div class="name">Jordi Ferrer Beltrán</div>
-                        <div class="company">Telefónica Empresas</div>
-                        <div class="position">CEO y Director General</div>
-                        <a href="#" class="linked-in"><i class="fab fa-linkedin-in"></i></a>
-                        <figure class="photo">
-                            <img src="{{ asset('web/assets/img/zulmaury-saavedra-Z9GKfYmWOAM-unsplash.jpg') }}" alt="">
-                        </figure>
-                    </article>
-
-                    <article class="speakers-item">
+                    {% for speaker in event.speakers %}
+                         <article class="speakers-item">
+                            <div class="name">{{ speaker.lawyer.name }} {{ speaker.lawyer.name }}</div>
+                            <div class="company">Telefónica Empresas</div>
+                            <div class="position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</div>
+                            <a href="#" class="linked-in"><i class="fab fa-linkedin-in"></i></a>
+                            <figure class="photo">
+                                <img src="{{ relative_path('/resources/')}}{{ (speaker.lawyer.photo ? speaker.lawyer.photo.fileName : '' ) }}" alt="">
+                            </figure>
+                        </article> 
+                    {% endfor %}
+                    {#<article class="speakers-item">
                         <div class="name">Ainhoa Urrutikoetxea Olaizola</div>
                         <div class="company">Rocasalvatella</div>
                         <div class="position">Asociado Senior</div>
@@ -35,7 +36,7 @@
                         <div class="company">Rocasalvatella</div>
                         <div class="position">Marketing</div>
                         <a href="#" class="cv-link">Consultar el CV</a>
-                    </article>
+                    </article> #}
                 </div>
             </div>
         </div>

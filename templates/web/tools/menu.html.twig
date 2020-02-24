@@ -28,7 +28,7 @@
 
             <div class="container-fluid">
 
-                <a href="/" class="navbar-brand">
+                <a href="{{ relative_path('/home/index')}}" class="navbar-brand">
                     <img src="{{ asset('web/assets/img/Cuatrecasas-logo.png') }}" alt="Cuatrecasas">
                 </a>
 
@@ -42,10 +42,10 @@
                             <a class="nav-link" href="#">Conocimiento</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Abogados</a>
+                            <a class="nav-link" href="{{ relative_path('/es/lawyer/filter')}}">Abogados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sectores</a>
+                            <a class="nav-link" href="{{ relative_path('/es/activity/sectorsHome')}}">Sectores</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Servicios</a>
