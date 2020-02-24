@@ -137,6 +137,11 @@ entities:
       speakers: Ponentes
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+  eventsBlock:
+    fields:
+      activities: Filtrar eventos etiquetados con
+      eventType: Tipo de Evento
+      numberOfEvents: Cantidad de eventos a mostrar
   item:
     fields:
       updatedAt: Última modificación

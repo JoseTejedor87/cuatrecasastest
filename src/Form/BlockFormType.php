@@ -36,6 +36,7 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             // *******************************************
             ->add('type', ChoiceType::class, [
                 'label'=>false,
+                'attr' => ['class'=>'blockType-block'],
                 'choices' => $this->params->get('app.block_types'),
                 'choice_label' => function ($choice, $key, $value) {
                     return self::TRANSLATION_PREFIX . ".$value";
@@ -50,7 +51,7 @@ class BlockFormType extends AbstractType implements DataMapperInterface
                 'class' => Quote::class,
                 'label' => 'entities.quoteBlock.fields.quote',
                 'attr' => [
-                    'class' => 'm-select2',
+                    'class' => 'blockType-quoteBlock m-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => false,
@@ -62,17 +63,19 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             // EVENTS BLOCK
             // *******************************************
             ->add('eventType', EventCategoryType::class, [
+                'attr' => ['class'=>'blockType-eventsBlock'],
                 'label'=>'entities.eventsBlock.fields.eventType',
                 'required'=>false
             ])
             ->add('numberOfEvents', IntegerType::class, [
+                'attr' => ['class'=>'blockType-eventsBlock'],
                 'label'=>'entities.eventsBlock.fields.numberOfEvents'
             ])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.eventsBlock.fields.activities',
                 'attr' => [
-                    'class' => 'm-select2',
+                    'class' => 'blockType-eventsBlock m-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
@@ -111,6 +114,8 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             if ($quote = $viewData->getQuote()) {
                 $forms['quote']->setData($quote);
             }
+            unset($forms['activities']);
+            unset($forms['numberOfEvents']);
         }
         elseif ($blockType == 'eventsBlock') {
             $forms['numberOfEvents']->setData($viewData->getNumberOfEvents());

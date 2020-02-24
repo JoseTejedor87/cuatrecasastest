@@ -28,6 +28,8 @@ jQuery(document).ready(function () {
         // apply select2 behaviour over each dropdown selector
         newElement.find("select.m-select2").select2();
         // and add it to the list.
-        newElement.appendTo(list);
+        newElement.appendTo(list.find(
+            '#'+list.data('child-field-id')
+        ));
     });
 });
