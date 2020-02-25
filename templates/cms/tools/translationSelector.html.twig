@@ -1,0 +1,9 @@
+<ul id="translationSelector" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--right">
+    {% for language in languages %}
+        <li class="nav-item m-tabs__item">
+            <a href="#" title="{{ ('global.languages.'~language)|trans }}" data-locale="{{ language }}" class="nav-link m-tabs__link {% if app.request.locale == language %}active{% endif %}" data-toggle="tab">
+                {{ language }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

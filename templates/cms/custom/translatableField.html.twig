@@ -1,0 +1,23 @@
+{#
+Example:
+
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+{{ translatableField.partialTranslations(editForm.translations, ['title','description']) }}
+{{ translatableField.partialTranslations(editForm.translations, ['url']) }}
+#}
+
+{% macro partialTranslations(form, fieldsNames) %}
+    {{ form_errors(form) }}
+
+    {% for translatableFields in form %}
+        {% set locale = translatableFields.vars.name %}
+
+        <div class="translatable-field-wrapper" data-locale="{{ locale }}">
+        {% for translatableField in translatableFields|filter(translatableField => translatableField.vars.name in fieldsNames) %}
+            {{ form_row(translatableField) }}
+        {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endmacro %}

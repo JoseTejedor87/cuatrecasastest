@@ -29,7 +29,7 @@
     <div class="m-content">
         <div class="row">
             <div class="col-md-12">
-                <div class="m-portlet">
+                <div class="m-portlet m-portlet--tabs">
 
                     {{ form_start(form, {'attr':{'class':'m-form'}}) }}
 
@@ -42,13 +42,10 @@
                                 </div>
                             </div>
                             <div class="m-portlet__head-tools">
-                                <ul class="m-portlet__nav">
-                                    <li class="m-portlet__nav-item">
-                                        <button class="btn btn-primary btn-right">{{ 'global.actions.update'|trans }}</button>
-                                    </li>
-                                </ul>
+                                {{ include('cms/tools/translationSelector.html.twig') }}
                             </div>
                         </div>
+
                         <div class="m-portlet__body">
                             {{ include('cms/practice/_form.html.twig') }}
                         </div>
