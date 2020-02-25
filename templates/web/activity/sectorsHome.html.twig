@@ -41,7 +41,7 @@
                         <div class="col">
                             <ul class="list-button-link">
                             {% for sector in sectors %}
-                                <li><a href="#">{{ sector.translate(app.request.getLocale()).title|raw  }}</a></li>
+                                <li><a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a></li>
                             {% endfor %}
                             </ul>
                         </div>

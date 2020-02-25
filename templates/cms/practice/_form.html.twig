@@ -3,11 +3,12 @@
 <div class="row">
     <div class="col-md-4">
         {{ form_row(form.highlighted) }}
+        {{ form_row(form.translations) }}
         {{ form_row(form.languages) }}
         {{ form_row(form.image) }}
     </div>
-    <div class="col-md-8">
-        {{ form_row(form.translations) }}
+    <div class="col-md-5 offset-md-1">
+        {{ form_row(form.blocks) }}
     </div>
     {{ form_rest(form) }}
 </div>

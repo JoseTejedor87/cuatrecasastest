@@ -45,19 +45,6 @@ class LawyerFormType extends AbstractType
                     return $activity->translate('es')->getTitle();
                 }
             ])
-            ->add('mentions', EntityType::class, [
-                'class' => Mention::class,
-                'label' => 'entities.lawyer.fields.mentions',
-                'attr' => [
-                    'class' => 'm-select2',
-                    'data-allow-clear' => true
-                ],
-                'multiple' => true,
-                'expanded' => false,
-                'choice_label' => function ($mention) {
-                    return $mention->translate('es')->getBody();
-                }
-            ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
@@ -66,6 +53,7 @@ class LawyerFormType extends AbstractType
                     'description' => ['label'=>'entities.lawyer.fields.description', 'attr'=>['class'=>'summernote']],
                     'curriculum' => ['label'=>'entities.lawyer.fields.curriculum', 'attr'=>['class'=>'summernote']],
                     'training' => ['label'=>'entities.lawyer.fields.training', 'attr'=>['class'=>'summernote']],
+                    'mentions' => ['label'=>'entities.lawyer.fields.mentions', 'attr'=>['class'=>'summernote']],
                 ],
             ]);
     }

@@ -32,7 +32,9 @@ parameters:
         - webinar
         - breakfast
         - institutional
-
+    app.block_types:
+        - quoteBlock
+        - eventsBlock
     app.path.uploads.resources: '/resources'
 
 services:

@@ -74,6 +74,9 @@ class MigrationCommand extends Command
                 case "abogadoArea":
                     $this->AbogadoArea($conn,$output);
                     break;
+                case "areasQuotes":
+                    $this->AreasQuotes($conn,$output);
+                    break;
 
                     
             }
@@ -109,7 +112,7 @@ class MigrationCommand extends Command
     }
 
     public function Eventos($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted], [status],[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi]  FROM eventos order by id";        $stmt = $conn->prepare($query);
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[resumen] ,[fecha_inicio] ,[fecha_final] ,[url_pdf] ,[email] ,[lugar] ,[mapa] ,[rss] ,[twitter] ,[facebook] ,[url_friend] ,[tags] ,[status] ,[ciudad] ,[principal] ,[image] ,[url_video] ,[url_inscripcion] ,[descripcion_lugar] ,[ubicacion_lugar] ,[contacto] ,[telefono] ,[programa] ,[Notificado] ,[fechaNotificacion] ,[destacada] ,[image_slider] ,[tipo] ,[visible] ,[aforo] ,[image_mail] ,[restricted], [status],[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi], [url_friend]  FROM eventos order by id";        $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
@@ -120,7 +123,7 @@ class MigrationCommand extends Command
         return 0;
     }
     public function Activity($conn){
-        $query = "SELECT [id] ,[lang] ,[titulo] ,[descripcion] ,[experiencia] ,[tags] ,[url_friend] ,[id_area] ,[url_image] ,[quote] ,[spractica] ,[sap] ,[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi] FROM areas_practicas";
+        $query = "SELECT [id] ,[lang] ,[titulo] ,[descripcion] ,[experiencia] ,[tags] ,[url_friend] ,[id_area] ,[url_image] ,[quote] ,[spractica] ,[sap] ,[visio_esp] ,[visio_por] ,[visio_eng], [visio_chi], [url_friend] FROM areas_practicas";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -174,7 +177,18 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
-
-
+    
+    public function AreasQuotes($conn,$output){
+        $query = "SELECT  [id_area] ,[id_quote] ,[lang] ,[quote_text]  ,[orden] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[areas_quotes]";       
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('areasQuotes.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla areas_quotes');
+        $this->logger->info('Se ha guardado con el nombre areasQuotes.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
 
 }

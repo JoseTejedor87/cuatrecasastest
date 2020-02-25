@@ -1,7 +1,7 @@
 {% extends 'cms/base.html.twig' %}
 {% trans_default_domain "admin" %}
 
-{% block title %}{{ 'sections.mentions.edit.title'|trans }}{% endblock %}
+{% block title %}{{ 'sections.quotes.new.title'|trans }}{% endblock %}
 
 {% block body %}
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -11,12 +11,12 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <i class="m-menu__link-icon flaticon-map"></i>
-                    {{ 'sections.mentions.index.title'|trans }}
+                    <i class="m-menu__link-icon flaticon-calendar"></i>
+                    {{ 'sections.quotes.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('mention_index') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('quote_index') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-reply"></i> {{ 'global.actions.backToList'|trans }}
                         </a>
                     </li>
@@ -37,24 +37,24 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        {{ 'sections.mentions.edit.title'|trans }}
+                                        {{ 'sections.quotes.new.title'|trans }}
                                     </h3>
                                 </div>
                             </div>
                             <div class="m-portlet__head-tools">
                                 <ul class="m-portlet__nav">
                                     <li class="m-portlet__nav-item">
-                                        <button class="btn btn-primary btn-right">{{ 'global.actions.update'|trans }}</button>
+                                        <button class="btn btn-primary btn-right">{{ 'global.actions.save'|trans }}</button>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="m-portlet__body">
-                            {{ include('cms/mention/_form.html.twig') }}
+                            {{ include('cms/quote/_form.html.twig') }}
                         </div>
                         <div class="m-portlet__foot m-portlet__foot--fit m--align-right">
                             <div class="m-form__actions">
-                                <button class="btn btn-primary btn-right">{{ 'global.actions.update'|trans }}</button>
+                                <button class="btn btn-primary btn-right">{{ 'global.actions.save'|trans }}</button>
                             </div>
                         </div>
 

@@ -3,6 +3,9 @@ body{
 }
 
 /* Select2 Dropdown selectors */
+.select2-container {
+    width: 100%!important;
+}
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-results__option {
     min-height: 2.5em;

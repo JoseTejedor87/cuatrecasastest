@@ -79,7 +79,7 @@ class PracticeController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('practice_index');
+            return $this->redirectToRoute('practice_edit', ['id'=>$practice->getId()]);
         }
 
         return $this->render('cms/practice/edit.html.twig', [

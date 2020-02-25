@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MentionTranslationRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\QuoteTranslationRepository")
  */
-class MentionTranslation
+class QuoteTranslation
 {
     use ORMBehaviors\Translatable\Translation;
 
@@ -28,5 +28,4 @@ class MentionTranslation
 
         return $this;
     }
-
 }

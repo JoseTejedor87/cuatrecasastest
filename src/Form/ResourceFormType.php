@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+use App\Form\Type\LanguageType;
+
 class ResourceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,6 +26,7 @@ class ResourceFormType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true
             ])
+            ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
         ;
     }
 
