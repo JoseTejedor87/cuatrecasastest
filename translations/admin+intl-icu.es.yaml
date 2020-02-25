@@ -15,6 +15,7 @@ global:
     save: Guardar
     update: Guardar cambios
     backToList: Volver al listado
+    addItem: Añadir elemento
 
 # Sections
 # ###########################################
@@ -42,6 +43,13 @@ sections:
       title: Nuevo Producto
     edit:
       title: Editar Producto
+  quotes:
+    index:
+      title: Citas
+    new:
+      title: Nueva Cita
+    edit:
+      title: Editar Cita
   sectors:
     index:
       title: Sectores
@@ -86,7 +94,7 @@ menu:
   lawyers.title: Abogados
   events.title: Eventos
   events.searcher.title: Buscador
-  events.speakers.title: Ponentes
+  speakers.title: Ponentes
   services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
@@ -94,6 +102,7 @@ menu:
   products.title: Productos
   metadata.title: Metadatos
   mentions.title: Menciones
+  quotes.title: Citas
 
 # Entities
 # ###########################################
@@ -105,6 +114,10 @@ entities:
       image: Imagen
       highlighted: Menú
       experience: Experiencia
+      blocks: Bloques
+  quoteBlock:
+    fields:
+      quote: Cita
   event:
     fields:
       title: Título
@@ -124,6 +137,11 @@ entities:
       speakers: Ponentes
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+  eventsBlock:
+    fields:
+      activities: Filtrar eventos etiquetados con
+      eventType: Tipo de Evento
+      numberOfEvents: Cantidad de eventos a mostrar
   item:
     fields:
       updatedAt: Última modificación
@@ -151,6 +169,11 @@ entities:
       locations: Ubicación de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
+  quote:
+    fields:
+      author: Autor
+      year: Año
+      body: Contenido
   resource:
     fields:
       title: Título
@@ -168,6 +191,9 @@ entities:
 
 forms:
   choices:
+    blockTypes:
+      quoteBlock: Bloque de cita
+      eventsBlock: Bloque de eventos
     eventCategoryTypes:
       standard: Estándar
       webinar: Webinar

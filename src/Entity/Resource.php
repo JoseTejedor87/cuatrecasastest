@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Repository\ResourceRepository")
  * @Vich\Uploadable
  */
-class Resource extends Item
+class Resource extends Publishable
 {
 
      /**

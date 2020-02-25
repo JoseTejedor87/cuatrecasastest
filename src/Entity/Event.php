@@ -30,7 +30,7 @@ class Event extends Publishable
     private $eventType;
 
     /**
-     * @ORM\Column(type="text", nullable=true, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contact;
 

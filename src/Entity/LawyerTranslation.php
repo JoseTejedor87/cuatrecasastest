@@ -28,6 +28,11 @@ class LawyerTranslation extends PublishableTranslation
      */
     private $training;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $mentions;
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -60,6 +65,18 @@ class LawyerTranslation extends PublishableTranslation
     public function setTraining(?string $training): self
     {
         $this->training = $training;
+
+        return $this;
+    }
+
+    public function getMentions(): ?string
+    {
+        return $this->mentions;
+    }
+
+    public function setMentions(?string $mentions): self
+    {
+        $this->mentions = $mentions;
 
         return $this;
     }

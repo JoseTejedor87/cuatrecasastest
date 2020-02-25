@@ -1,0 +1,75 @@
+{% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
+
+{% block title %}{{ 'sections.quotes.index.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <i class="m-menu__link-icon flaticon-comment"></i>
+                    {{ 'sections.quotes.index.title'|trans }}
+                </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item">
+                        <a href="{{ path('quote_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        {% if pagination %}
+        <div class="m-section">
+            <div class="m-portlet">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>{{ 'entities.quote.fields.body'|trans }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.quote.fields.author'|trans, 'author') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'entities.quote.fields.year'|trans, 'year') }}</th>
+                            <th colspan="2" style="width:10%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quote in pagination %}
+                        <tr>
+                            <td>{{ quote.translate('es').body|striptags|length > 100 ? quote.translate('es').body|striptags|slice(0, 100) ~ '...' : quote.translate('es').body|striptags }}</td>
+                            <td>{{ quote.author() }}</td>
+                            <td>{{ quote.year }}</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('quote_edit', {'id': quote.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="m-section">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-elevate fade show" role="alert">
+                    {{ 'global.messages.noRecordsFound'|trans }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

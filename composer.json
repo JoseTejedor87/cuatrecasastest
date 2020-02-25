@@ -10,7 +10,7 @@
         "knplabs/doctrine-behaviors": "^1.6",
         "knplabs/knp-menu-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^5.0",
-        "liip/imagine-bundle": "^2.2",
+        "liip/imagine-bundle": "^2.3",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
@@ -33,6 +33,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/maker-bundle": "^1.14",
+        "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "4.4.*"
     },
     "config": {

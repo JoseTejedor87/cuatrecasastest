@@ -5,8 +5,10 @@
         <article class="container">
             <header class="row lawyer-header">
                 <div class="col-sm-4 col-md-12 col-lg-4">
-                    <figure class="stretch-to-left">
-                        <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández">
+                    <figure class="stretch-to-left" >
+                    
+                    <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="Juan García Hernández">
+                        {# <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández"> #}
                         {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
                     </figure>
                 </div>
@@ -19,8 +21,9 @@
                     {# Socio #}
                     </div>
                     <ul class="lawyer-scope d-flex">
-                        <li>Fical</li>
-                        <li>Alimentación</li>
+                    {% for activity in lawyer.activities %}
+                            <li>{{ activity.translate(app.request.getLocale()).title|raw}}</li>
+                    {% endfor %}
                     </ul>
                     <div class="lawyer-address"><strong>BARCELONA</strong> CUATRECASAS Avenida Diagonal, 141</div>
                     <div class="lawyer-tel">{{ lawyer.phone }}
@@ -48,8 +51,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="#">Abogados</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Juan García Hernández</li>
+                    <li class="breadcrumb-item"><a href="{{ relative_path('/es/lawyer/filter')}}">Abogados</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ lawyer.name }} {{ lawyer.surname }}</li>
                 </ol>
             </nav>
             <div class="row">
@@ -115,29 +118,27 @@
                     <section class="related-services-detail">
                         <h3>Servicios relacionados</h3>
                         <ul class="d-flex flex-wrap">
-                            <li><a href="#">Corporate Governance y Compliance</a></li>
-                            <li><a href="#">Fiscal</a></li>
-                            <li><a href="#">Alimentación</a></li>
-                            <li><a href="#">Energía y Recursos Naturales</a></li>
-                            <li><a href="#">Retail</a></li>
-                            <li><a href="#">Infraestructuras</a></li>
+                        {% for activity in lawyer.activities %}
+                            <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
+                        {% endfor %}
                         </ul>
                     </section>
-                    {# <section class="mentions">
+                     <section class="mentions">
                         <h3>Menciones</h3>
                         <div class="mentions-on">
-                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
-                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                        {{ lawyer.translate(app.request.getLocale()).mentions|raw  }}
+                            {# <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p> #}
                         </div>
-                        <a class="view-more" data-toggle="collapse" href="#collapseMentions" role="button" aria-expanded="false" aria-controls="collapseMentions">Ver más</a>
+                        {# <a class="view-more" data-toggle="collapse" href="#collapseMentions" role="button" aria-expanded="false" aria-controls="collapseMentions">Ver más</a>
                         <div class="mentions-off collapse" id="collapseMentions">
                             <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
                             <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
                             <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
                             <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
-                        </div>
+                        </div> #}
                     </section>
-                    <section class="training">
+                    {# <section class="training">
                         <h3>Formación</h3>
                         <dl>
                             <dt>Licenciado en Derecho</dt>
@@ -149,7 +150,7 @@
                             <dt>LLM in Taxation</dt>
                             <dd>London School of Economics, 2011</dd>
                         </dl>
-                    </section> #}
+                    </section>  #}
                 </aside>
 
             </div>

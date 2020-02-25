@@ -7,7 +7,7 @@
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set customAddress =event.translate(app.request.getLocale()).customAddress|split('<br>') %}
+{% set customAddress =event.translate(app.request.getLocale()).customAddress|split('<BR>') %}
 
     <main role="main" class="event-detail">
 
@@ -30,7 +30,7 @@
                                             {{  customAddress|last }}
                                         </span>
                                         <span class="location">
-                                            {{ customAddress[:-1]|join(' ') }}
+                                            {{ customAddress[:-1]|join(' ')|raw }}
                                         </span>
                                     </address>
                                 </div>
@@ -100,20 +100,23 @@
                         <section class="documentation">
                             <h3>Documentacion</h3>
                             <ul>
-                                <li><a href="#">Plan de Acción del IVA</a></li>
-                                <li><a href="#">Necesidades PYMES</a></li>
-                                <li><a href="#">Comisión Europea "Quick Fixes"</a></li>
+                                {% for attachment in event.attachments %}
+                                    <li><a href="#">{{ attachment.fileName|raw}}</a></li>
+                                {% endfor %}
                             </ul>
                         </section>
                         <section class="related-services-detail">
                             <h3>Servicios relacionados</h3>
                             <ul class="d-flex flex-wrap">
-                                <li><a href="#">Corporate Governance y Compliance</a></li>
+                            {% for activity in event.activities %}
+                                <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
+                            {% endfor %}
+                                {# <li><a href="#">Corporate Governance y Compliance</a></li>
                                 <li><a href="#">Fiscal</a></li>
                                 <li><a href="#">Alimentación</a></li>
                                 <li><a href="#">Energía y Recursos Naturales</a></li>
                                 <li><a href="#">Retail</a></li>
-                                <li><a href="#">Infraestructuras</a></li>
+                                <li><a href="#">Infraestructuras</a></li> #}
                             </ul>
                         </section>
                     </aside>
