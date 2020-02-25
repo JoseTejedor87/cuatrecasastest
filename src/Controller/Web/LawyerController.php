@@ -36,16 +36,32 @@ class LawyerController extends WebController
     }
 
     /**
-     * @Route("/filter", name="filter")
+     * @Route("/filter", name="filter", methods={"GET"})
      */
     public function filter(Request $request, LawyerRepository $lawyerRepository)
     {
-        $lawyers = $lawyerRepository->findAll();
+        $initial = $request->query->get('initial');
+        if(!$initial){
+            $initial = $request->query->get('search');
+        }
+        if(!$initial){
+            $lawyers = $lawyerRepository->findAll();
+        }else{
+            $lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
+            // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
+            $query = $lawyerRepository->createQueryBuilder('l')
+               ->where('l.surname LIKE :surname')
+               ->setParameter('surname', $initial.'%')
+               ->getQuery();
+               $lawyers = $query->getResult();
+        }
+        $countLawyers = count($lawyers);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($lawyers);
         return $this->render('web/lawyer/filter.html.twig', [
             'controller_name' => 'LawyerController',
             'lawyers' => $lawyers,
+            'countLawyers' => $countLawyers,
         ]);
     }
 }
