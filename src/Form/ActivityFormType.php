@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Form\Type\LanguageType;
-use App\Form\Type\OrderedCollectionType;
+use App\Form\Type\BlocksCollectionType;
 
 abstract class ActivityFormType extends AbstractType
 {
@@ -29,7 +29,7 @@ abstract class ActivityFormType extends AbstractType
             ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('image', TextType::class, ['label'=>'entities.activity.fields.image'])
-            ->add('blocks', OrderedCollectionType::class, [
+            ->add('blocks', BlocksCollectionType::class, [
                 'label'=>'entities.activity.fields.blocks',
                 'entry_type' => BlockFormType::class,
                 'allow_add' => true,
