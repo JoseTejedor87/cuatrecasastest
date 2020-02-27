@@ -50,7 +50,14 @@
 .form-control {}
 
 .custom-select {
-    padding-right: 3.2rem;
+
+  padding: 0 0;
+
+  &.icon-select {
+    border: 1px solid red;
+    padding: 1.4rem 2.4rem;
+    // padding-right: 3.2rem;
+  }
 }
 
 
@@ -533,7 +540,8 @@ $select-height: 42px;
     display: inline-block;
     position: relative;
     margin: 0 10px;
-    font-size: 16px;
+    font-size: 1.8rem;
+    line-height: 1;
     color: $select-color;
     width: $select-width;
     height: $select-height;

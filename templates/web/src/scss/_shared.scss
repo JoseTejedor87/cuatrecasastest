@@ -372,6 +372,126 @@
 
 
 //
+// SLIDER EVENTS
+// --------------------------------------------------------------------------
+
+.slider-events {
+    margin: 6rem 0 4rem;
+
+    .swiper-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-wrapper {
+        padding-bottom: 5rem;
+    }
+
+    .swiper-slide {
+        @include reset-flex-horizontal;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100%;
+        height: 100%;
+
+        > * {
+            flex: 1;
+        }
+
+        .slider-img {
+            @include reset-figure;
+            padding-right: 4rem;
+
+            img {
+                width: 100%;
+                height: 360px;
+                object-fit: cover;
+            }
+        }
+
+        .slider-info {
+            height: calc(100% - 6rem);
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            align-content: flex-start;
+
+            > * {
+                flex: 0 0 auto;
+            }
+
+            .event-info {}
+            .event-details {}
+            .event-button {}
+
+            .button-bookmark {
+                right: 40px;
+            }
+        }
+    }
+
+    .swiper-pagination-bullets {
+        bottom: 0;
+    }
+
+    .swiper-pagination-bullet,
+    .swiper-pagination-bullet-active {
+        background: $main-color;
+    }
+
+    .swiper-pagination-bullet {
+        width: 16px;
+        height: 16px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        top: calc(50% - 5rem);
+        width: 60px;
+        height: 60px;
+        margin-top: 0;
+        outline: none;
+        transition: 0.2s;
+
+        &:after {
+            font-size: 40px;
+        }
+
+        &:hover,&:focus {
+            transform: scale(1.2);
+            // background-color: $white;
+
+            &:after {
+                // color: $black;
+            }
+        }
+
+        &:active {
+            transform: scale(1);
+            opacity: 0.5;
+
+            &:after {
+                // color: $black;
+                // opacity: 0.5;
+            }
+        }
+    }
+
+    .swiper-button-prev {
+        // left: -80px;
+    }
+
+    .swiper-button-next {
+        // right: -80px;
+    }
+
+}
+
+
+//
 // CAROUSEL AWARDS
 // --------------------------------------------------------------------------
 
@@ -562,14 +682,15 @@
         .slider-img {
 
             @include reset-figure;
-            width: 55%;
+            width: 60%;
             top: -30px;
 
             // margin-right: 4em;
 
             img {
                 width: 100%;
-                height: auto;
+                height: 400px;
+                object-fit: cover;
             }
 
         }
@@ -577,7 +698,7 @@
         .slider-info {
             width: 45%;
             color: $white;
-            margin-left: 6em;
+            margin-left: 5em;
 
             .title {
                 margin-bottom: 0.6em;
@@ -941,15 +1062,15 @@
 }
 
 .grid-wrapper {
+    $col-width: (100% / 3);
+    $row-height: 250px;
+
     display: -ms-grid;
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 20px;
 
     // grid-gap IE11
-    padding: 10px 0 0 10px;
-
-    $col-width: (100% / 3);
-    $row-height: 140px;
+    padding: 20px 0 0 20px;
 
     -ms-grid-columns: $col-width $col-width $col-width;
     -ms-grid-rows: $row-height $row-height $row-height $row-height;
@@ -964,14 +1085,19 @@
     background-color: #fff;
 
     .grid-box {
-        font-size: 150%;
         padding: 20px;
+        font-size: 150%;
         color: #333;
-        background-color: #fcf;
+        // background-color: #fcf;
 
         // grid-gap IE11
-        border: 0 solid $white;
-        border-width: 0 10px 10px 0;
+        // border: 0 solid $white;
+        // border-width: 0 20px 20px 0;
+
+        // border: 1px solid red;
+
+        // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.12);
 
         &.a {
             -ms-grid-column: 1;
@@ -1102,3 +1228,10 @@
     }
 }
 
+
+
+.article-highlight {
+    &.style-guide {
+        padding: 4em 0 8em;
+    }
+}

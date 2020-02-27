@@ -1,40 +1,129 @@
-// Media Queries
-// $mq-620-down: "only screen and (max-width: 620px)";
-// $mq-620-up: "only screen and (min-width: 620px)";
-
-// $mq-760-down: "only screen and (max-width: 759px)";
-// $mq-760-up: "only screen and (min-width: 760px)";
-
-// $mq-900-down: "only screen and (max-width: 899px)";
-// $mq-900-up: "only screen and (min-width: 900px)";
-
-// $mq-1000-down: "only screen and (max-width: 999px)";
-// $mq-1000-up: "only screen and (min-width: 1000px)";
-
-// $mq-1180-up: "only screen and (min-width: 1180px)";
-
-// $mq-1400-up: "only screen and (min-width: 1400px)";
-
-
+// ==========================================================================
+// PAGE BG PHOTOS
+// ==========================================================================
 
 $photo-home: '/cuatrecasas/web/assets/vector/christian-perner-UKLIuV8rAks-unsplash.jpg';
 $photo-event-detail: '/cuatrecasas/web/assets/vector/christian-perner-fYO1T495QCM-unsplash.jpg';
 $photo-sectors-home: '/cuatrecasas/web/assets/vector/brian-kyed-G5HUMEHOsz4-unsplash.jpg';
 // $photo-sectors-home: '/cuatrecasas/web/assets/vector/maarten-deckers-T5nXYXCf50I-unsplash.jpg';
+// ==========================================================================
+// LAWYER DETAILS
+// ==========================================================================
 
+$header-height: 380px;
+// ==========================================================================
+// MEDIA QUERIES
+// ==========================================================================
+
+// Media Queries
+// $mq-620-down: "only screen and (max-width:620px)";
+// $mq-620-up: "only screen and (min-width:620px)";
+// $mq-760-down: "only screen and (max-width:759px)";
+// $mq-760-up: "only screen and (min-width:760px)";
+// $mq-900-down: "only screen and (max-width:899px)";
+// $mq-900-up: "only screen and (min-width:900px)";
+// $mq-1000-down: "only screen and (max-width:999px)";
+// $mq-1000-up: "only screen and (min-width:1000px)";
+// $mq-1180-up: "only screen and (min-width:1180px)";
+// $mq-1400-up: "only screen and (min-width:1400px)";
+
+// ==========================================================================
+// ASPECT RATIO
+// ==========================================================================
+
+/*
+https://ratiobuddy.com/
+*/
+
+/*
+.outer {
+    position: relative;
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: (384 / 683) * 100%;
+    }
+    > .inner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
+*/
+
+/*
+https://css-tricks.com/aspect-ratio-boxes/
+
+<div style="--aspect-ratio:815/419;">
+</div>
+
+<div style="--aspect-ratio:16/9;">
+</div>
+
+<!-- even single value -->
+<div style="--aspect-ratio:1.4;">
+</div>
+*/
+
+[style*="--aspect-ratio"] >:first-child {
+  width: 100%;
+}
+
+[style*="--aspect-ratio"] > img {
+  height: auto;
+}
+
+@supports (--custom:property) {
+  [style*="--aspect-ratio"] {
+    position: relative;
+  }
+
+  [style*="--aspect-ratio"]::before {
+    content: "";
+    display: block;
+    padding-bottom: calc(100% / (var(--aspect-ratio)));
+  }
+
+  [style*="--aspect-ratio"] >:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+
+}
+
+/*
+https://www.w3schools.com/howto/howto_css_aspect_ratio.asp
+*/
+
+// .container {
+  //     background-color: red;
+  //     width: 100%;
+  //     padding-top: 100%; /* 1:1 Aspect Ratio */
+  //     position: relative; /* If you want text inside of it */
+  //
+// }
+
+/* If you want text inside of the container */
+// .text {
+  //     position: absolute;
+  //     top: 0;
+  //     left: 0;
+  //     bottom: 0;
+  //     right: 0;
+  //
+// }
+
+// padding-top: 56.25%; /* 16:9 Aspect Ratio */
+// padding-top: 75%; /* 4:3 Aspect Ratio */
+// padding-top: 66.66%; /* 3:2 Aspect Ratio */
+// padding-top: 62.5%; /* 8:5 Aspect Ratio */
 // ==========================================================================
 // ¿?
 // ==========================================================================
 
-
-$breakpoints: (
-  'small': 767px,
-  'medium': 992px,
-  'large': 1200px,
-);
-
-//
-// LAWYER DETAILS
-// --------------------------------------------------------------------------
-$header-height: 380px;
-
+$breakpoints: ('small':767px, 'medium':992px, 'large':1200px, );

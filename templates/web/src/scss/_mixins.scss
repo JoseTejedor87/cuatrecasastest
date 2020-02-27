@@ -7,6 +7,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    > * {
+        line-height: 1;
+    }
 }
 
 @mixin reset-flex {
@@ -34,6 +38,7 @@
 }
 
 @mixin reset-button {
+    position: relative;
     padding: 0.8em 1.4em;
     font-size: 2rem;
     font-weight: 400;
@@ -64,10 +69,8 @@
     // font-weight: 600;
     text-align: left;
     text-transform: uppercase;
-
     // background-color: $complementary-color;
     // border-color: $complementary-color;
-
     // transition: all 0.2s;
 
     &:after {
@@ -79,6 +82,7 @@
         font-size: 32px;
         font-weight: normal;
     }
+
 }
 
 @mixin button-hover {
@@ -87,58 +91,51 @@
     border-color: $complementary-color;
 }
 
-
 @mixin button-hover-shadow {
     color: $white !important;
     background-color: $complementary-color !important;
-    border-color: $white !important;
-
+    border-color: transparent !important;
     // width: 80%;
     // padding-right: 8em;
-
-    box-shadow: -6px 6px 0 $main-color;
+    // box-shadow: -6px 6px 0 $main-color;
+    box-shadow: -6px 6px 0 $main-color, 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
     // box-shadow: 0 0 8px $complementary-color;
 }
-
 
 @mixin button-hover-shadow-white {
     color: $white !important;
     background-color: $complementary-color !important;
     border-color: $complementary-color !important;
-
     // width: 80%;
     // padding-right: 8em;
-
     // box-shadow: -6px 6px 0 $white;
-
-    box-shadow: -6px 6px 0 $white,
-                0 19px 38px rgba(0, 0, 0, 0.30),
-                0 15px 12px rgba(0, 0, 0, 0.22);
-
-
+    box-shadow: -6px 6px 0 $white, 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
     // box-shadow: 0 0 8px $complementary-color;
 }
 
-@mixin text-link($color,$hover,$shadow-color,$shadow-hover) {
+@mixin text-link($color, $hover, $shadow-color, $shadow-hover) {
     color: $color;
     font-weight: 600;
     box-shadow: 0 1px 0 $shadow-color;
     transition: all 0.2s linear;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $complementary-color;
         box-shadow: 0 1px 0 $shadow-hover;
     }
+
 }
 
 @mixin link {
+    font-weight: 600;
     color: $complementary-color;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $black;
     }
+
 }
 
 @mixin link-hover {
@@ -147,84 +144,85 @@
     // box-shadow: 0 2px 0 $black;
 }
 
-
 @mixin link-line($color) {
     color: $color;
     box-shadow: 0 2px 0 transparent;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $color;
         box-shadow: 0 2px 0 $color;
     }
+
 }
 
 @mixin link-line-black {
     color: $black;
     box-shadow: 0 3px 0 transparent;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $black;
         background-color: transparent;
         box-shadow: 0 3px 0 $black;
     }
+
 }
 
 @mixin link-line-black-smaller {
     color: $black;
     box-shadow: 0 2px 0 transparent;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $black;
         background-color: transparent;
         box-shadow: 0 2px 0 $black;
     }
+
 }
 
 @mixin link-line-color {
     color: $complementary-color;
     box-shadow: 0 1px 0 transparent;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         color: $black;
         box-shadow: 0 1px 0 $black;
     }
+
 }
 
 @mixin link-bg-color {
     color: $black;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         text-decoration: none;
         // color: $black;
-        background-color: rgba( $complementary-color, 0.3 );
-        // background-color: lighten( $complementary-color, 10% );
-        // background-color: desaturate( $complementary-color, 20% );
+        background-color: rgba($complementary-color, 0.3);
+        // background-color: lighten($complementary-color, 10%);
+        // background-color: desaturate($complementary-color, 20%);
     }
+
 }
 
-
-// @mixin link-hover {
-//     text-decoration: none;
-//     color: $complementary-color;
-//     box-shadow: 0 2px 0 $black;
-// }
-
+@mixin link-hover {
+    text-decoration: none;
+    color: $complementary-color;
+    box-shadow: 0 2px 0 $black;
+}
 
 @mixin br-to-space {
-    content:' ';
+    content: ' ';
 
     &:after {
-        content:' ';
+        content: ' ';
     }
+
 }
 
-
-
-@mixin icons-ionicons($top,$right,$bottom,$left) {
+@mixin icons-ionicons($top, $right, $bottom, $left) {
     position: absolute;
     top: $top;
     right: $right;
@@ -263,6 +261,7 @@
         max-width: 100%;
         height: auto;
     }
+
 }
 
 @mixin stretch-to-right {
@@ -274,6 +273,7 @@
         max-width: 100%;
         height: auto;
     }
+
 }
 
 @mixin marked-image {
@@ -288,6 +288,7 @@
         height: 50px;
         background-color: $black;
     }
+
 }
 
 @mixin marked-box {
@@ -302,6 +303,7 @@
         height: 40px;
         background-color: $black;
     }
+
 }
 
 @mixin flex-boxes {
@@ -323,8 +325,8 @@
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     transition: 0.3s;
 
-    &:hover,&:focus,&:active {
-        box-shadow: 0 15px 30px rgba(0,0,0,.2);
+    &:hover, &:focus, &:active {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, .2);
         // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
     }
 
@@ -345,6 +347,7 @@
     &:hover:after {
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.17)
     }
+
 }
 
 @mixin box-hover {
@@ -364,9 +367,10 @@
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     transition: 0.3s;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
+
 }
 
 @mixin box-hover-outline {
@@ -374,9 +378,10 @@
     // outline-offset: 4px;
     transition: 0.3s;
 
-    &:hover,&:focus,&:active {
+    &:hover, &:focus, &:active {
         outline: 4px solid $complementary-color;
     }
+
 }
 
 @mixin highlight-text {
@@ -406,15 +411,5 @@
     &:hover img {
         transform: scale(1.1) translate(0);
     }
-}
 
-
-@mixin keyframes($name) {
-    @keyframes #{$name} {
-        @content
-    }
-}
-
-@mixin animation($value) {
-    animation: $value;
 }
