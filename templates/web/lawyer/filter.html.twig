@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="search-filters">
-                                            <select id="area" class="custom-home-select">
+                                            <select id="area" class="custom-select">
                                                 <option value="hide">Por área de práctica</option>
                                                 <option value="">Competencia y Derecho de la UE</option>
                                                 <option value="">Corporate Governance y Compliance</option>
@@ -76,7 +76,7 @@
                                                 <option value="">Mediación</option>
                                                 <option value="">Mercado de valores</option>
                                             </select>
-                                            <select id="desk" class="custom-home-select">
+                                            <select id="desk" class="custom-select">
                                                 <option value="hide">Por sector o desk</option>
                                                 <option value="">Alimentación</option>
                                                 <option value="">Arte</option>
@@ -89,7 +89,7 @@
                                                 <option value="">Energía y Recursos Naturales</option>
                                                 <option value="">Farmacia y Sanitario</option>
                                             </select>
-                                            <select id="office" class="custom-home-select">
+                                            <select id="office" class="custom-select">
                                                 <option value="hide">Por oficina</option>
                                                 <option value="">Barcelona</option>
                                                 <option value="">Madrid</option>
@@ -226,7 +226,7 @@
                         <h2 class="section-header">Resultados de búsqueda</h2>
                         <div class="search-results-text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
                     </div>
-                    
+
                     <!-- Boxes -->
                     <div class="search-results-boxes">
                    {% for lawyer in lawyers %}
@@ -277,4 +277,17 @@
     {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(function () {
+        $('.button-wrapper .view-more').click(function () {
+            $('.search-results-boxes a:hidden').slice(0, 8).show();
+            if ($('.search-results-boxes a').length == $('.search-results-boxes a:visible').length) {
+                $('.button-wrapper .view-more').hide();
+            }
+        });
+    });
+</script>
 {% endblock %}
