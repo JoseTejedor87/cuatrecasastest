@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="search-filters">
-                                    <select id="area" class="custom-home-select">
+                                    <select id="area" class="custom-select">
                                         <option value="hide">Por área de práctica</option>
                                         <option value="">Competencia y Derecho de la UE</option>
                                         <option value="">Corporate Governance y Compliance</option>
@@ -100,7 +100,7 @@
                                         <option value="">Mediación</option>
                                         <option value="">Mercado de valores</option>
                                     </select>
-                                    <select id="desk" class="custom-home-select">
+                                    <select id="desk" class="custom-select">
                                         <option value="hide">Por sector o desk</option>
                                         <option value="">Alimentación</option>
                                         <option value="">Arte</option>
@@ -113,7 +113,7 @@
                                         <option value="">Energía y Recursos Naturales</option>
                                         <option value="">Farmacia y Sanitario</option>
                                     </select>
-                                    <select id="office" class="custom-home-select">
+                                    <select id="office" class="custom-select">
                                         <option value="hide">Por oficina</option>
                                         <option value="">Barcelona</option>
                                         <option value="">Madrid</option>
@@ -154,24 +154,40 @@
 
                             <article class="item box box-event">
                                 <div class="box-header">
-                                    <div class="info-date">{{  fecha[0:]|join(' ') }}
-                                    {# Del 24 Febrero al 2 Marzo 2019 #}
+                                    <div class="info-date">
+                                        {{  fecha[0:]|join(' ') }}
+                                        {# Del 24 Febrero al 2 Marzo 2019 #}
                                     </div>
                                     <div class="info-type">Evento</div>
+                                    {# <div class="info-type">Artículo</div> #}
                                     <button type="button" class="button-bookmark"></button>
                                 </div>
                                 <div class="box-body">
-                                    <h3><a href="{{ relative_path('/es/knowledge/eventDetail/')}}{{ event.translate(app.request.getLocale()).slug  }}">{{ event.translate(app.request.getLocale()).title|raw  }}
-                                    {# "Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020 #}
-                                    </a></h3>
-                                    <div class="info-time">{{ schedule[1]|raw  }}
-                                    {# De 10.30 a 18.30 h #}
+                                    <h3>
+                                        <a href="{{ relative_path('/es/knowledge/eventDetail/')}}{{ event.translate(app.request.getLocale()).slug  }}">
+                                            {{ event.translate(app.request.getLocale()).title|raw  }}
+                                            {# "Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020 #}
+                                        </a>
+                                    </h3>
+                                    <div class="info-time">
+                                        {{ schedule[1]|raw  }}
+                                        {# De 10.30 a 18.30 h #}
                                     </div>
                                 </div>
                                 <div class="box-footer">
-                                    <div class="map-pin"><a href="#" class="map-pin-link">{{  customAddress|last|raw }}
-                                    {# Barcelona #}
-                                    </a></div>
+                                    {# Event #}
+                                    <div class="map-pin">
+                                        <a href="#" class="map-pin-link">
+                                            {{ customAddress|last|raw }}
+                                            {# Barcelona #}
+                                        </a>
+                                    </div>
+
+                                    {# Article #}
+                                    {# <ul class="list-inline-dots">
+                                        <li><a href="#" class="tag-link">Empresas</a></li>
+                                        <li><a href="#" class="tag-link">Negocios</a></li>
+                                    </ul> #}
                                 </div>
                             </article>
                         {% endfor %}

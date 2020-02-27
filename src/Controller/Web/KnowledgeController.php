@@ -28,6 +28,17 @@ class KnowledgeController extends WebController
         ]);
     }
 
+
+    /**
+     * @Route("/events", name="events")
+     */
+    public function events()
+    {
+        return $this->render('web/knowledge/events.html.twig', [
+            'controller_name' => 'KnowledgeController',
+        ]);
+    }
+
     /**
      * @Route("/eventDetail/{slug}", name="eventDetail")
      */
