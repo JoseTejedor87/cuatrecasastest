@@ -7,9 +7,9 @@
 /node_modules/
 /var/
 /vendor/
-/public/web.config/
+# /public/web.config/
 ###< symfony/framework-bundle ###
-/public/web.config
+# /public/web.config
 /public/resources
 /public/upload
 ###> symfony/web-server-bundle ###
