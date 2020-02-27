@@ -15,17 +15,17 @@
                     <h1>{{ lawyer.name }} {{ lawyer.surname }}
                     {# Juan García Hernández #}
                     </h1>
-                    <div class="lawyer-position">{{ lawyer.lawyerType }}
+                    <div class="lawyer-position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }} 
                     {# Socio #}
                     </div>
-                    <ul class="lawyer-scope d-flex">
+                    <ul class="lawyer-scope d-flex flex-wrap">
                     {% for activity in lawyer.activities %}
-                            <li>{{ activity.translate(app.request.getLocale()).title|raw}}</li>
+                            <li>{{ activity.translate(app.request.getLocale()).title}}</li>
                     {% endfor %}
                     </ul>
                     <div class="lawyer-address"><strong>BARCELONA</strong> CUATRECASAS Avenida Diagonal, 141</div>
                     <div class="lawyer-tel">{{ lawyer.phone }}
-                    638 84 65 27
+                    {# 638 84 65 27 #}
                     </div>
                     <div class="lawyer-mail">
                         <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">{{ lawyer.email }}
@@ -154,7 +154,6 @@
             </div>
         </article>
     </main>
-
     {% include 'web/shared/insights.html.twig' %}
 
 {% endblock %}

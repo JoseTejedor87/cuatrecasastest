@@ -23,11 +23,11 @@ class LawyerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label'=>'entities.lawyer.fields.name'])
-            ->add('surname', TextType::class, ['label'=>'entities.lawyer.fields.surname'])
-            ->add('email', EmailType::class, ['label'=>'entities.lawyer.fields.email'])
-            ->add('phone', TextType::class, ['label'=>'entities.lawyer.fields.phone'])
-            ->add('fax', TextType::class, ['label'=>'entities.lawyer.fields.fax'])
+            ->add('name', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.name'])
+            ->add('surname', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.surname'])
+            ->add('email', EmailType::class, ['required' => true,'label'=>'entities.lawyer.fields.email'])
+            ->add('phone', TextType::class, ['required' => true,'help' => 'El telefono es texto','label'=>'entities.lawyer.fields.phone'])
+            ->add('fax', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.fax'])
             ->add('photo', ResourceFormType::class, [
                 'label'=>'entities.lawyer.fields.photo'
             ])
@@ -40,6 +40,7 @@ class LawyerFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => true,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
@@ -67,8 +68,7 @@ class LawyerFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Lawyer::class,
-            'translation_domain' => 'admin',
-            'required' => false
+            'translation_domain' => 'admin'
         ]);
     }
 }
