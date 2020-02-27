@@ -7,9 +7,7 @@
                 <div class="col-sm-4 col-md-12 col-lg-4">
                     <figure class="stretch-to-left" >
                     
-                    <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="Juan García Hernández">
-                        {# <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández"> #}
-                        {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
+                    <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }} " alt="{{ lawyer.name }} {{ lawyer.surname }}">
                     </figure>
                 </div>
                 <div class="col-sm-5 col-md-7 col-lg-5 detail-info">

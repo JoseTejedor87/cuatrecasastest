@@ -226,14 +226,12 @@
                         <h2 class="section-header">Resultados de búsqueda</h2>
                         <div class="search-results-text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
                     </div>
-                    
                     <!-- Boxes -->
                     <div class="search-results-boxes">
                    {% for lawyer in lawyers %}
-                    {% set img = relative_path('/resources/')~(lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ) %}
                         <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="card">
-                            <figure style="background-image:url('{{ img   }}');background-size: cover; ">
-                                <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" class="card-img-top d-none" alt="">
+                            <figure style="background-image:url('{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}');background-size: cover; ">
+                                <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}" class="card-img-top d-none" alt="">
                             </figure>
                             <div class="card-body">
                                 <h3 class="card-title lawyer-name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
