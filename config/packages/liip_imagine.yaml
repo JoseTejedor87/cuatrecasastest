@@ -17,8 +17,16 @@ liip_imagine:
         filter_action:         liip_imagine.controller:filterAction
         filter_runtime_action: liip_imagine.controller:filterRuntimeActio
     filter_sets: 
+        square1: # The name of the filter, can be later used in the twig template 
+            quality: 100 # Compression quality, this image will be 75% the quality 
+            filters: 
+                # These are the filters of the filter set, many filters can be applied 
+                # Scale and shrink the image to the given size, with a possible crop of the image 
+                thumbnail: 
+                    size: [200, 200] 
+                    mode: outbound
         square: # The name of the filter, can be later used in the twig template 
-            quality: 75 # Compression quality, this image will be 75% the quality 
+            quality: 100 # Compression quality, this image will be 75% the quality 
             filters: 
                 # These are the filters of the filter set, many filters can be applied 
                 # Scale and shrink the image to the given size, with a possible crop of the image 

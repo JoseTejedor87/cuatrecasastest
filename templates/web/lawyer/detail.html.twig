@@ -7,9 +7,7 @@
                 <div class="col-sm-4 col-md-12 col-lg-4">
                     <figure class="stretch-to-left" >
                     
-                    <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="Juan García Hernández">
-                        {# <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="Juan García Hernández"> #}
-                        {# <img src="https://via.placeholder.com/1920x1080" alt=""> #}
+                    <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }} " alt="{{ lawyer.name }} {{ lawyer.surname }}">
                     </figure>
                 </div>
                 <div class="col-sm-5 col-md-7 col-lg-5 detail-info">
@@ -17,17 +15,17 @@
                     <h1>{{ lawyer.name }} {{ lawyer.surname }}
                     {# Juan García Hernández #}
                     </h1>
-                    <div class="lawyer-position">{{ lawyer.lawyerType }}
+                    <div class="lawyer-position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }} 
                     {# Socio #}
                     </div>
-                    <ul class="lawyer-scope d-flex">
+                    <ul class="lawyer-scope d-flex flex-wrap">
                     {% for activity in lawyer.activities %}
-                            <li>{{ activity.translate(app.request.getLocale()).title|raw}}</li>
+                            <li>{{ activity.translate(app.request.getLocale()).title}}</li>
                     {% endfor %}
                     </ul>
                     <div class="lawyer-address"><strong>BARCELONA</strong> CUATRECASAS Avenida Diagonal, 141</div>
                     <div class="lawyer-tel">{{ lawyer.phone }}
-                    638 84 65 27
+                    {# 638 84 65 27 #}
                     </div>
                     <div class="lawyer-mail">
                         <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">{{ lawyer.email }}
@@ -156,7 +154,6 @@
             </div>
         </article>
     </main>
-
     {% include 'web/shared/insights.html.twig' %}
 
 {% endblock %}

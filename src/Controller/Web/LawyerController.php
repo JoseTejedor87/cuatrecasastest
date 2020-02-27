@@ -28,6 +28,8 @@ class LawyerController extends WebController
         // foreach ($activities as $key => $value) {
         //     dd($value->translate('es')->getTitle());
         // }
+        // var_dump($lawyer);
+        // dd($lawyer->translate('es'));
         return $this->render('web/lawyer/detail.html.twig', [
             'controller_name' => 'LawyerController',
             'lawyer' => $lawyer,
