@@ -77,6 +77,10 @@ class MigrationCommand extends Command
                 case "areasQuotes":
                     $this->AreasQuotes($conn,$output);
                     break;
+                case "premios":
+                    $this->Premios($conn,$output);
+                    break;
+                
 
                     
             }
@@ -187,6 +191,19 @@ class MigrationCommand extends Command
         $fs->dumpFile('areasQuotes.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla areas_quotes');
         $this->logger->info('Se ha guardado con el nombre areasQuotes.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+
+    public function Premios($conn,$output){
+        $query = "SELECT [id] ,[lang] ,[title] ,[otorgado] ,[fecha]  ,[desc_award] ,[desc_award_firma] ,[desc_award_indiv] ,[tags] ,[url_image] ,[url_friend] ,[destacado] ,[posicion] ,[rss] ,[facebook] ,[twitter] ,[visio_esp]  ,[visio_por] ,[visio_eng] ,[status] ,[otorgado_a] ,[orden] ,[visio_chi] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[premios]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('premios.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla premios');
+        $this->logger->info('Se ha guardado con el nombre premios.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
