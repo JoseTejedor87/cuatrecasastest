@@ -36,6 +36,17 @@ class Resource extends Publishable
     private $lawyer;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Office", inversedBy="img_office")
+     */
+    private $office;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Awards", inversedBy="img_office")
+     */
+    private $award;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
@@ -107,6 +118,28 @@ class Resource extends Publishable
     public function setLawyer(?Lawyer $lawyer): self
     {
         $this->lawyer = $lawyer;
+
+        return $this;
+    }
+    public function getOffice(): ?Office
+    {
+        return $this->office;
+    }
+
+    public function setOffice(?Office $office): self
+    {
+        $this->office = $office;
+
+        return $this;
+    }
+    public function getAward(): ?Awards
+    {
+        return $this->award;
+    }
+
+    public function setAward(?Awards $award): self
+    {
+        $this->award = $award;
 
         return $this;
     }
