@@ -1,0 +1,159 @@
+// ==========================================================================
+// NAVIGATION
+//
+// => Main Navs Header
+// => Action links (icons)
+// => Breadcrumb
+// ==========================================================================
+
+//
+// Primary Nav
+// --------------------------------------------------------------------------
+
+.main-nav-wrapper {
+
+    .navbar {
+        padding: 0.2rem 0.2rem;
+    }
+
+    .navbar-expand-md .navbar-nav .nav-link {
+        // padding-right: 0.5rem;
+        // padding-left: 0.5rem;
+    }
+
+    .nav-link {
+        margin-right: 0.3rem;
+        margin-left: 0.3rem;
+        font-weight: 400;
+        line-height: 1;
+        text-transform: uppercase;
+        color: $white;
+        box-shadow: 0 2px transparent;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+            box-shadow: 0 2px $white;
+        }
+    }
+
+    //
+    // Main options
+    //
+    #main-nav {
+        background-color: $main-color;
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+    }
+
+    //
+    // Secondary options
+    //
+    #about-nav {
+        background-color: $complementary-color;
+
+        .navbar-collapse {
+            justify-content: flex-start;
+        }
+    }
+
+    //
+    // Contact, webs, city, langs
+    //
+    #contact-nav {
+        background-color: $white;
+
+        .navbar {
+            padding: 0 0.2rem;
+        }
+
+        .nav-link {
+            font-size: small;
+            font-weight: 600;
+            color: $black;
+
+            &:hover {
+                color: $complementary-color;
+            }
+        }
+    }
+}
+
+
+//
+// Action links (icons)
+// --------------------------------------------------------------------------
+
+.action__links {
+    @include reset-list;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+
+    li {
+
+        a {
+            display: block;
+            width: 34px;
+            height: 34px;
+            text-align: center;
+            color: $white;
+            // border: 1px solid #c6c6c6;
+            border-radius: 50%;
+            transition: all 0.2s ease-in-out;
+
+            i {
+                font-size: 20px;
+                line-height: 34px;
+            }
+
+            &:hover, &:focus, &:active {
+                // @include button-hover;
+                color: $complementary-color;
+                background-color: $white;
+                border-color: $white;
+
+                i {
+                    color: $complementary-color;
+                }
+            }
+        }
+    }
+}
+
+
+//
+// Breadcrumb
+// --------------------------------------------------------------------------
+
+.breadcrumb {
+    @include reset-list;
+    @include fontFull(20px, 20px);
+    background-color: transparent;
+    border-radius: 0;
+
+    .breadcrumb-item {
+        font-size: 80%;
+        color: $white;
+
+        &+.breadcrumb-item {
+            &:before {
+                display: inline-block;
+                padding-right: 0.5rem;
+                color: $white;
+                content: "|";
+            }
+        }
+
+        a {
+            // @include classic-link($white, $complementary-color, $border: false);
+            @include background-link($white, $white, $complementary-color);
+            padding: 0 0.2rem 0.2rem;
+            font-weight: 400;
+
+            // padding: 0 0.8rem 0.2rem;
+            // border-radius: 20px;
+        }
+    }
+}

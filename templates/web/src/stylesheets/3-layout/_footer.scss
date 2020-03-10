@@ -1,0 +1,145 @@
+// ==========================================================================
+// FOOTER
+// ==========================================================================
+
+footer {
+    padding-bottom: 2em;
+    background-color: $white-medium;
+
+    .chat-button-wrapper {
+        position: relative;
+
+        .chat-button {
+            position: absolute;
+            top: -30px;
+            right: -36px;
+
+            a {
+                position: relative;
+                display: block;
+                width: 70px;
+                height: 70px;
+                text-align: center;
+                color: $white;
+                background-color: $complementary-color;
+                border-radius: 50%;
+                box-shadow: 0 0 0 0 $white;
+                transition: all 0.2s ease-out;
+
+                &:hover, &:focus, &:active {
+                    @include button-hover;
+                    color: $complementary-color;
+                    background-color: $white;
+                    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+                    // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+                    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+                    transform: scale(1.1);
+
+                    &:after {
+                        color: $complementary-color;
+                    }
+                }
+
+                &:after {
+                    position: absolute;
+                    top: 10px;
+                    left: 18px;
+                    content: '\e0b7';
+                    font-family: 'Material Icons';
+                    font-size: 36px;
+                }
+            }
+        }
+    }
+
+    img {
+        margin-bottom: 0.8em;
+    }
+
+    p {
+        font-size: 80%;
+        color: $black;
+    }
+
+    .footer-info {
+        padding: 1.6em 0;
+
+        p {
+            line-height: 1.2;
+            color: $black;
+        }
+    }
+
+    .footer-links {
+        padding: 0.8em 0;
+        border-top: 1px solid $gray-light;
+
+        p {
+            margin-bottom: 0;
+            color: $gray-medium;
+        }
+    }
+
+    .legal-info {
+        @include reset-list;
+
+        li {
+            position: relative;
+            margin-right: 0.4em;
+            padding-right: 0.6em;
+
+            &:after {
+                position: absolute;
+                top: 8px;
+                right: 0;
+                width: 1px;
+                height: 15px;
+                content: "";
+                background: $white;
+            }
+
+            &:last-child {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
+        a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: $gray-medium;
+
+            &:hover, &:focus, &:active {
+                @include link-hover;
+            }
+        }
+    }
+
+    .social-media {
+        @include reset-list;
+
+        li {
+            margin-left: 0.2em;
+        }
+
+        a {
+            display: block;
+            width: 38px;
+            height: 38px;
+            text-align: center;
+            color: $gray-medium;
+            border-radius: 50%;
+            transition: all 0.2s ease-in-out;
+
+            &:hover, &:focus, &:active {
+                @include button-hover;
+            }
+
+            i {
+                line-height: 2;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,123 @@
+// ==========================================================================
+// QUOTES
+// ==========================================================================
+
+q {
+    quotes: "“" "”" "‘" "’";
+
+    &:before {
+        content: open-quote;
+    }
+
+    &:after {
+        content: close-quote;
+    }
+}
+
+
+.cite__quote {
+    position: relative;
+    float: left;
+    width: calc(50% - 8em);
+    margin: 4em 4em;
+    padding: 0;
+    text-align: left;
+
+    p {
+        margin-bottom: 0.5em;
+        @include fontFull(32px, 40px);
+        font-weight: 600;
+        color: $main-color;
+    }
+
+    cite {
+        @include fontFull(24px, 32px);
+        font-weight: 600;
+        font-style: normal;
+        color: $complementary-color;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: 2px;
+        height: 30px;
+        background-color: $complementary-color;
+    }
+
+}
+
+.inline__quote {
+    position: relative;
+    margin: 0 0;
+    padding: 0 3.6rem 4.2rem;
+    @include fontFull(32px, 40px);
+    font-weight: 400;
+    text-align: center;
+    color: $black;
+    background-color: $complementary-color;
+
+    &:before {
+        content: '\201C';
+        position: relative;
+        top: 5px;
+        display: inline-block;
+        font-family: Georgia, serif;
+        font-size: 12rem;
+        font-weight: 600;
+        line-height: 1;
+        color: $white;
+    }
+
+    &:after {
+        content: '';
+        position: relative;
+        left: calc(50% - 10%);
+        display: block;
+        width: 20%;
+        height: 3px;
+        background-color: $black;
+    }
+
+    p {
+        margin-top: -4rem;
+        margin-bottom: 0;
+    }
+}
+
+@include new("mentions") {
+    @include reset-list;
+    display: flex;
+
+    @include mediaQuery($desktop-width, $mobile-width) {
+        display: block;
+    }
+
+    @include has("quote") {
+        flex: 1;
+        padding: 3rem 3rem 6rem;
+        // @include fontSize(30px);
+        @include fontFull(30px, 38px);
+        color: $white;
+
+        &:nth-child(1) {
+            background-color: rgba($main-color, 1);
+        }
+
+        &:nth-child(2) {
+            background-color: rgba($main-color, 0.8);
+        }
+
+        &:nth-child(3) {
+            background-color: rgba($main-color, 0.6);
+        }
+    }
+}
+
+.emphasis {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.2;
+}

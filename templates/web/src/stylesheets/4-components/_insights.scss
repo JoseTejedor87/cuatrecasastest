@@ -1,0 +1,17 @@
+// ==========================================================================
+// INSIGHTS COMPONENT
+// ==========================================================================
+
+.insights__block {
+    margin-top: 0;
+    padding: 4rem 0;
+    color: $white;
+    background-color: $main-color;
+
+    .choose-interests {
+        margin-bottom: 1.3rem;
+        font-size: 1.5rem;
+        font-weight: 300;
+        line-height: 1.3;
+    }
+}

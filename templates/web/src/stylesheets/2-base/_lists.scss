@@ -1,0 +1,67 @@
+// ==========================================================================
+// LISTS
+// ==========================================================================
+
+.related__services {
+    @include reset-list;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+
+    @include has("item") {
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: -12px;
+            width: 1px;
+            height: 75%;
+            background-color: $complementary-color;
+            opacity: 0.5;
+        }
+
+        &:first-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    @include has("link") {
+        // @include classic-link($complementary-color, $complementary-color);
+        @include fontFull(17px, 19px);
+        margin-right: 1.5rem;
+        text-transform: uppercase;
+    }
+}
+
+.training__list {
+    @include reset-list;
+    padding-bottom: 4rem;
+
+    > * {
+        margin-bottom: 0.8rem;
+        // line-height: 1.2;
+    }
+
+    [data-degree] {
+        position: relative;
+        margin-right: 1rem;
+        font-weight: 700;
+
+        &:before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            // display: inline-block;
+            width: 2px;
+            height: 20px;
+            background-color: rgba($black, 0.5);
+        }
+    }
+
+    [data-university] {}
+}

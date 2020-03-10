@@ -245,7 +245,7 @@ web.global = {
 }
 
 // Miscell Stuff
-$('.button-bookmark').click(function(e){
+$('.button__bookmark').click(function(e){
     e.preventDefault();
     $(this).toggleClass('on');
 });

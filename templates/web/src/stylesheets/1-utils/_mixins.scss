@@ -1,0 +1,375 @@
+// ==========================================================================
+// MIXINS
+// ==========================================================================
+
+
+//
+// XTRAS
+//
+/*
+https://www.sitepoint.com/structuring-css-class-selectors-with-sass/
+https://css-tricks.com/snippets/sass/mixin-to-qualify-a-selector/
+
+https://css-tricks.com/snippets/sass/custom-scrollbars-mixin/
+*/
+
+
+//
+// EVENTS & CONTEXT
+// --------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self (false) - Whether or not to include current selector
+/// @see https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+
+@mixin on-event($self: false) {
+    @if $self {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            @content;
+        }
+    } @else {
+        &:hover,
+        &:focus,
+        &:active {
+            @content;
+        }
+    }
+}
+
+//
+// USAGE
+//
+/*
+.my-element {
+    @include on-event($self: true) {
+        color: blue;
+    }
+}
+*/
+
+
+@mixin when-inside($selector) {
+    #{$selector} & {
+        @content;
+    }
+}
+
+//
+// USAGE
+//
+/*
+img {
+    display: block;
+
+    @include when-inside(".media-inline") {
+        display: inline;
+    }
+}
+*/
+
+
+//
+// BEM mixins
+// https://www.sitepoint.com/structuring-css-class-selectors-with-sass/
+// --------------------------------------------------------------------------
+
+@mixin new($block) {
+    @at-root .#{$block} {
+        @content;
+    }
+}
+
+@mixin has($element) {
+    &__#{$element} {
+        @content;
+    }
+}
+
+@mixin when($modifier) {
+    &--#{$modifier} {
+        @content;
+    }
+}
+
+//
+// USAGE
+//
+/*
+@include new("media") {
+    // Styles for `.media` block
+
+    @include has("image") {
+        // Styles for `.media__image` element
+
+        @include when("full") {
+            // Styles for `.media__image--full` modified element
+        }
+    }
+
+    @include when("new") {
+        // Styles for `.media--new` midifier
+    }
+}
+*/
+
+
+//
+// LINKS
+// --------------------------------------------------------------------------
+
+@mixin fancy-link($color) {
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    text-decoration: none;
+    color: $color;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    cursor: pointer;
+
+    &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        -webkit-transform: scaleX(0);
+        -ms-transform: scaleX(0);
+        transform: scaleX(0);
+        height: 0.125rem;
+        bottom: 0.125rem;
+        left: 0.0625rem;
+        background-color: $color;
+        text-decoration: none;
+        -webkit-transform-origin: 100% 50%;
+        -ms-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        transition: -webkit-transform .4s cubic-bezier(.23,1,.32,1);
+        transition: transform .4s cubic-bezier(.23,1,.32,1);
+        transition: transform .4s cubic-bezier(.23,1,.32,1), -webkit-transform .4s cubic-bezier(.23,1,.32,1);
+        will-change: transform;
+    }
+
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+
+    &:hover:after, &:focus:after {
+        -webkit-transform: scaleX(1);
+        -ms-transform: scaleX(1);
+        transform: scaleX(1);
+        -webkit-transform-origin: 0 50%;
+        -ms-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+    }
+
+    &:hover, &:focus {
+        color: $color;
+    }
+}
+
+@mixin classic-link($color, $hover, $border: true) {
+    text-decoration: none;
+    color: $color;
+    box-shadow: 0 1px 0 transparent;
+    transition: all 0.2s ease-in-out;
+
+    @include on-event {
+        color: $hover;
+        text-decoration: none;
+
+        @if $border {
+            box-shadow: 0 1px 0 $hover;
+        }
+    }
+}
+
+@mixin border-link($color, $hover) {
+    text-decoration: none;
+    color: $color;
+    box-shadow: 0 2px 0 transparent;
+    transition: all 0.2s ease-in-out;
+
+    @include on-event {
+        color: $hover;
+        text-decoration: none;
+        box-shadow: 0 2px 0 $hover;
+    }
+}
+
+@mixin box-link($color, $hover) {
+    // position: relative;
+    text-decoration: none;
+    color: $color;
+    box-shadow: 0 1px 0 transparent;
+    transition: all 0.2s ease-in-out;
+
+    // &:after {
+    //     content: '';
+    //     position: relative;
+
+    //     display: inline-block;
+    //     width: 100%;
+    //     height: 11px;
+    //     background-color: $black;
+    // }
+
+    @include on-event {
+        color: $hover;
+        text-decoration: none;
+        box-shadow: 0 1px 0 rgba($hover, 0.2);
+    }
+}
+
+@mixin background-link($color, $colorhover, $bghover) {
+    padding: 0 0.2rem;
+    text-decoration: none;
+    color: $color;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+
+    @include on-event {
+        color: $colorhover;
+        background-color: $bghover;
+        text-decoration: none;
+    }
+}
+
+@mixin text-shadow-link() {
+    text-decoration: none;
+    color: $black;
+    transition: all 0.2s ease-in-out;
+
+    @include on-event {
+        color: $complementary-color;
+        text-decoration: none;
+        // text-shadow: 0 0 1px $complementary-color;
+        text-shadow: 0 1px 0 black, 0 2px 1px black;
+        // text-shadow: 1px 1px 1px $white, 1px 1px 1px $black;
+    }
+}
+
+//
+// ¿? delete
+//
+@mixin link-hover {
+    text-decoration: none;
+    color: $complementary-color;
+    // box-shadow: 0 2px 0 $black;
+}
+
+
+
+//
+// BUTTONS
+// --------------------------------------------------------------------------
+
+@mixin reset-button {
+    position: relative;
+    padding: 0.8em 1.4em;
+    @include fontFull(19px, 19px);
+    font-weight: 400;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    border-radius: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+@mixin button-hover {
+    color: $white;
+    background-color: $complementary-color;
+    border-color: $complementary-color;
+}
+
+
+
+//
+// IMAGES
+// --------------------------------------------------------------------------
+
+@mixin reset-figure {
+    position: relative;
+    margin: 0 0;
+    padding: 0 0;
+    overflow: hidden;
+}
+
+@mixin cover-img() {
+    width: 100%;
+    height: auto;
+    position: relative;
+    background-color: $white;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+
+    // filter: contrast(70%);
+    // filter: saturate(180%);
+    transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);
+
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 56.25%; // 16:9 aspect ratio
+    }
+
+    @media(min-width: 40rem) {
+        &:before {
+            padding-top: 66.6%; // 3:2 aspect ratio
+        }
+    }
+}
+
+
+//
+// RESETS MISCELL ELEMENTS
+// --------------------------------------------------------------------------
+
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > * {
+        line-height: 1;
+    }
+}
+
+@mixin reset-pseudo($color) {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: $color;
+}
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+    // For Google Chrome
+    &::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+
+    // For Internet Explorer
+    & {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}

@@ -2,10 +2,6 @@
 // COMMON ELEMENTS
 // ==========================================================================
 
-.sf-toolbar {
-    display: none !important;
-}
-
 //
 // TYPOGRAPHY
 // --------------------------------------------------------------------------
@@ -191,15 +187,33 @@ button {
     width: 100%;
     // background-color: white;
 
-    nav {
-        text-transform: uppercase;
+    #nav01 {
+        background-color: $main-color;
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
     }
-    .nav-link {
-        font-weight: 400;
+
+    #nav02 {
+        background-color: $complementary-color;
+
+        .navbar-collapse {
+            justify-content: flex-start;
+        }
     }
 
     .navbar {
-        padding: 0 1rem;
+        padding: 1rem 1rem;
+    }
+
+    .nav-link {
+        padding-right: 1.5rem !important;
+        padding-left: 1.5rem !important;
+
+        font-weight: 400;
+        text-transform: uppercase;
+        color: $white !important;
     }
 }
 
@@ -1737,6 +1751,16 @@ html.no-touchevents .mainBttn:hover .mainBttn__text,
     position: relative;
     background-color: $white;
     background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cover-photo-contain {
+    position: relative;
+    background-color: $white;
+    // background-attachment: fixed;
+    // background-position: 100% 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

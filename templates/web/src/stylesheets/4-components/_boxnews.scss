@@ -1,0 +1,250 @@
+// ==========================================================================
+// BOX NEWS (articles, publications, news, etc...)
+// ==========================================================================
+
+@include new("boxnews") {
+
+    @include when("insight") {
+        background-color: rgba($black, 0.02);
+    }
+
+    @include when("article") {
+        background-color: rgba($black, 0.05);
+    }
+
+    @include when("event") {
+        background-color: rgba($black, 0.2);
+    }
+
+    @include has("list") {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        align-content: stretch;
+        margin: 0 -0.8rem;
+    }
+
+    @include has("item") {
+        flex: 0 1 33.333333%;
+        height: auto;
+        margin: 0 0.8rem;
+        background-color: $white;
+        border-top: 8px solid transparent;
+        // box-shadow: 0 0 0 transparent;
+        // box-shadow: 0 3px 12px rgba(255, 255, 255, 0.16), 0 3px 12px rgba(255, 255, 255, 0.23);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0),
+                    0 0 0 rgba(0, 0, 0, 0);
+        transition: all 0.2s ease-out;
+
+        @include when-inside(".boxnews--article") {
+            color: $article-bg-color;
+            border-top-color: $article-bg-color;
+        }
+
+        @include when-inside(".boxnews--event") {
+            color: $main-color;
+            background-color: $event-bg-color;
+            border-top-color: $main-color;
+        }
+
+        @include when-inside(".boxnews--insight") {
+            color: $complementary-color;
+            border-top-color: transparent;
+            flex: 0 1 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        @include on-event() {
+            // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
+                        0 15px 12px rgba(0, 0, 0, 0.1);
+
+             &:hover {
+                .card__image {
+                    filter: contrast(100%);
+                }
+            }
+        }
+    }
+
+    @include has("header") {
+        position: relative;
+        display: flex;
+        padding: 1rem;
+        border-bottom: 1px solid $black;
+
+        @include when-inside(".boxnews--insight") {
+            padding-top: 0.5rem;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    }
+
+        @include has("type") {
+            @include fontFull(18px, 18px);
+            font-weight: 600;
+            text-transform: uppercase;
+
+            @include when-inside(".boxnews--insight") {
+                @include fontFull(41px, 41px);
+                font-weight: 400;
+                letter-spacing: -1px;
+                text-transform: none;
+            }
+        }
+
+        @include has("info") {
+            position: relative;
+            margin-left: 1.5rem;
+            @include fontFull(18px, 18px);
+            font-weight: 400;
+            text-transform: uppercase;
+            color: $black;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 2px;
+                left: -12px;
+                width: 2px;
+                height: 80%;
+                background-color: $black;
+                opacity: 0.5;
+            }
+        }
+
+        @include has("button") {
+            position: absolute;
+            top: 3px;
+            right: 6px;
+        }
+
+    @include has("content") {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+        align-items: stretch;
+        min-height: 20rem;
+        padding: 1rem;
+        transition: all 0.2s ease-out;
+
+        @include when-inside(".boxnews--insight") {
+            min-height: auto;
+            height: calc(100% - 3rem);
+            padding-top: 0.5rem;
+        }
+    }
+
+        @include has("copy") {
+            // align-self: flex-start;
+            margin-bottom: auto;
+            padding-right: 1rem;
+            padding-bottom: 2rem;
+
+            a {
+                @include fontFull(28px, 32px);
+                // @include text-shadow-link();
+                @include box-link($black, $complementary-color);
+
+                @include when-inside(".boxnews--insight") {
+                    @include fontFull(41px, 45px);
+                    font-weight: 400;
+                    letter-spacing: -1px;
+                    text-transform: none;
+                }
+            }
+
+            @include when-inside(".boxnews--insight") {
+                height: auto;
+                padding-bottom: 1rem;
+            }
+        }
+
+        @include has("meta") {
+            // align-self: flex-start;
+            margin-top: auto;
+            color: $black;
+
+            > * {
+                @include fontFull(17px, 19px);
+                text-transform: uppercase;
+            }
+
+            @include has("place") {
+                color: $complementary-color;
+            }
+            @include has("date") {}
+            @include has("time") {}
+            @include has("author") {}
+        }
+
+        @include has("action") {
+            margin-top: 1rem;
+            margin-bottom: 2.5rem;
+
+            a {
+                @include fontFull(27px, 27px);
+                text-decoration: none;
+                letter-spacing: -1px;
+                color: $complementary-color;
+                box-shadow: 0 2px 0 $complementary-color;
+                transition: all 0.2s ease-in-out;
+
+                @include on-event {
+                    color: $black;
+                    text-decoration: none;
+                    box-shadow: 0 2px 0 $black;
+                }
+            }
+        }
+
+        @include has("img") {
+            @include cover-img();
+
+            @include when-inside(".boxnews--insight") {
+                align-self: flex-start;
+                margin-top: auto;
+            }
+        }
+
+        /*
+        @include has("media") {
+            @include reset-figure;
+            width: 100%;
+            height: 100%;
+
+            @include has("img") {
+                @include cover-img();
+                width: 100%;
+                height: 100%;
+            }
+        }
+        */
+
+    @include has("footer") {
+        padding: 0.5rem 1rem;
+        border-top: 1px solid $black;
+
+        .related__services__item {
+            margin-bottom: 0.2rem;
+        }
+
+        .related__services__link {
+            @include fontFull(17px, 17px);
+            @include background-link($complementary-color, $white, $complementary-color);
+
+            // @include when-inside(".boxnews--article") {
+            //     @include background-link($complementary-color, $white, $article-bg-color);
+            // }
+
+            // @include when-inside(".boxnews--event") {
+            //     @include background-link($complementary-color, $white, $main-color);
+            // }
+
+            // @include background-link($complementary-color, $black, $complementary-color, 1);
+        }
+    }
+}
+
+
