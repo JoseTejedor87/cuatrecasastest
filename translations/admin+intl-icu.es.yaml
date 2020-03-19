@@ -87,6 +87,20 @@ sections:
       title: Editar Evento
     actions:
       addSpeaker: Crear Ponente
+  awards:
+    index:
+      title: Premios
+    new:
+      title: Nuevo Premio
+    edit:
+      title: Editar Premio
+  office:
+    index:
+      title: Oficinas
+    new:
+      title: Nuevo Oficina
+    edit:
+      title: Editar Oficina
 
 # Menu
 # ###########################################
@@ -103,6 +117,8 @@ menu:
   metadata.title: Metadatos
   mentions.title: Menciones
   quotes.title: Citas
+  awards.title: Premios
+  office.title: Oficinas
 
 # Entities
 # ###########################################
@@ -159,6 +175,7 @@ entities:
       training: Formación
       activities: Sectores / Servicios / Desks
       mentions: Menciones
+      office: Oficina
   mention:
     fields:
       body: Texto
@@ -186,6 +203,36 @@ entities:
       lawyer: Abogado
     help:
       lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
+  awards:
+    fields:
+      title: Título
+      granted: Concedido
+      status: Estado
+      img_office: Imagen premio
+      desc_award: Descripción del premio
+      desc_award_firma: Descripción de la firma del premio
+      desc_award_indiv: Descripción del premio 
+      tags: Tags
+  office:
+    fields:
+      city: Ciudad
+      address: Dirección
+      country: Pais
+      cp: CP
+      contact: Contacto
+      email: Email
+      fax: Fax
+      phone: Teléfono
+      img_map: img_map
+      link_google: Link Google
+      status: Estado
+      place: Lugar
+      geographical_area: Area geográfica
+      sap: Sap
+      img_office: Imagen oficina
+      descriptions: Descripción
+      tags: Tags
+
 
 # Custom Form Types
 

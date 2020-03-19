@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 use App\Entity\Activity;
 use App\Entity\Lawyer;
+use App\Entity\Office;
 use App\Entity\Mention;
 use App\Form\Type\LawyerCategoryType;
 use App\Form\Type\LanguageType;
@@ -28,10 +29,25 @@ class LawyerFormType extends AbstractType
             ->add('email', EmailType::class, ['required' => true,'label'=>'entities.lawyer.fields.email'])
             ->add('phone', TextType::class, ['required' => true,'help' => 'El telefono es texto','label'=>'entities.lawyer.fields.phone'])
             ->add('fax', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.fax'])
+            ->add('office', EntityType::class, [
+                'class' => Office::class,
+                'label' => 'entities.lawyer.fields.office',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => false,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($office) {
+                    return $office->translate('es')->getCity();
+                }
+            ])
             ->add('photo', ResourceFormType::class, [
                 'label'=>'entities.lawyer.fields.photo'
             ])
             ->add('lawyerType', LawyerCategoryType::class, ['label'=>'entities.lawyer.fields.lawyerType'])
+            
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.lawyer.fields.activities',
@@ -46,6 +62,7 @@ class LawyerFormType extends AbstractType
                     return $activity->translate('es')->getTitle();
                 }
             ])
+            
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [

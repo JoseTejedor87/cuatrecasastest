@@ -49,7 +49,7 @@ class Awards extends Publishable
     }
 
 
-    public function getImgOffice(): ?string
+    public function getImgOffice(): ?Resource
     {
         return $this->img_office;
     }

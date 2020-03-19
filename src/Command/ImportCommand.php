@@ -593,6 +593,7 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE office_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [OfficeTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Office]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Office], RESEED, 1)");
 
         $processedOfficeMap = [];
         $processedAttachmentsMap = [];
@@ -629,10 +630,23 @@ class ImportCommand extends Command
                 $office->setPlace($item['lugar']);
                 $office->setGeographicalArea($item['zonageografica'] ? $item['zonageografica'] : 0);
                 $office->setSap($item['sap'] ? $item['sap'] : '');
+                // Updating the languages field using the correspondent visio_* field
+                
             }
             foreach ($items1 as $item1) {
                 if($item1['id_oficina'] == $oldOfficeId){
                     $currentLang = self::getMappedLanguageCode($item1['lang']);
+                    if($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi" ){
+                    if ($item['visio_'.$item1['lang']] == "1") {
+                        $office->setLanguages(
+                            array_unique(
+                                array_merge($office
+                                ->getLanguages(), [$currentLang])
+                            )
+                        );
+                    }
+                    }
+                   
                     $office->translate($currentLang)->setDescriptions($item1['descripcion']);
                     $office->translate($currentLang)->setTags($item1['tags']);
                     $office->translate($currentLang)->setCity($item1['ciudad']);

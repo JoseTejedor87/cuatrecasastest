@@ -16,7 +16,7 @@
                     <ul class="lawyer__scope related__services">
                         {% for activity in lawyer.activities %}
                         <li class="related__services__item">
-                            <a href="#" class="related__services__link">
+                            <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
                                 {{ activity.translate(app.request.getLocale()).title}}
                             </a>
                         </li>
@@ -30,7 +30,7 @@
                             {{ lawyer.phone }}
                         </div>
                         <div data-email>
-                            <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">
+                            <a href="mailto:{{ lawyer.email }}">
                                 {{ lawyer.email }}
                             </a>
                         </div>
@@ -52,8 +52,7 @@
                 </div>
                 <div class="col-md-5">
                     <figure class="lawyer__media">
-                        <img class="lawyer__media__photo" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="{{ lawyer.name }} {{ lawyer.surname }}">
-                        {# <img class="lawyer__media__photo" src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}"> #}
+                        <img class="lawyer__media__photo" src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}">
                     </figure>
                 </div>
             </header>
@@ -65,6 +64,7 @@
                         <div class="inline__quote__text">La formación es diaria y constante, desde el inicio del proceso hasta su conclusión.</div>
                     </blockquote>
                     {{ lawyer.translate(app.request.getLocale()).description|raw  }}
+                    {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
                 </div>
             </section>
             <section class="row page__block">
@@ -76,6 +76,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum posuere urna nec tincidunt. Facilisis gravida neque convallis a cras.</p>
                         <p>Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Scelerisque in dictum non consectetur a erat nam at lectus.</p>
                         <p>Metus dictum at tempor commodo ullamcorper. Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut.</p>
+
                     </div>
                 </div>
             </section>

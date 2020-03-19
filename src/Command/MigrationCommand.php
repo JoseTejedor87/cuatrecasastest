@@ -87,7 +87,13 @@ class MigrationCommand extends Command
                     break;
                 case "oficinaAbogado":
                     $this->OficinaAbogado($conn,$output);
-                    break;       
+                    break;
+                case "noticias":
+                    $this->Noticias($conn,$output);
+                    break;     
+                case "noticiasIdioma":
+                    $this->NoticiasIdioma($conn,$output);
+                    break;  
             } 
         }
         $output->writeln("Se ha conectado con el servidor");
@@ -224,6 +230,30 @@ class MigrationCommand extends Command
         $fs->dumpFile('OficinaAbogado.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla OficinaAbogado');
         $this->logger->info('Se ha guardado con el nombre OficinaAbogado.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function Noticias($conn,$output){
+        $query = "SELECT [id] ,[lang] ,[title] ,[summary] ,[contenido] ,[medio] ,[tipo_noticia] ,[fecha_noticia] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_pdf] ,[url_imagen] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[status] ,[rss] ,[facebook] ,[twitter] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[destacada] ,[pub_o_new] ,[Notificado] ,[fechaNotificacion] ,[thumbnail] ,[subtipopub] ,[visio_chi] ,[is_flipping] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[noticias]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('noticias.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla noticias');
+        $this->logger->info('Se ha guardado con el nombre noticias.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function NoticiasIdioma($conn,$output){
+        $query = "SELECT  [id] ,[noticias_id] ,[title] ,[summary] ,[contenido] ,[url_pdf] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[idiomas_id] ,[pie_foto] ,[url_imgs] ,[url_docs] ,[metadescription] ,[abogado_tags] ,[oficina_tags],[practica_tags] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[noticiasidioma]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('noticiasIdioma.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla noticiasIdioma');
+        $this->logger->info('Se ha guardado con el nombre noticiasIdioma.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
