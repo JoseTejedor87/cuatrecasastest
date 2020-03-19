@@ -228,11 +228,10 @@ class Office extends Publishable
         return $this;
     }
 
-    public function getImgOffice(): ?string
+    public function getImgOffice(): ?Resource
     {
         return $this->img_office;
     }
-
 
     public function setImgOffice(?Resource $img_office): self
     {
@@ -240,7 +239,6 @@ class Office extends Publishable
         if ($img_office) {
             $img_office->setOffice($this);
         }
-
         return $this;
     }
 
