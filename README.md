@@ -12,6 +12,8 @@ You can read that on my blog [here](https://coder-coder.com/gulp-4-walk-through)
 
 * Clone or download this Git repo onto your computer.
 * Install [Node.js](https://nodejs.org/en/) if you don't have it yet.
+* Install the [Gulp Command Line Utility] [https://gulpjs.com/] by running `npm install --global gulp-cli`
+* Go to project folder and...
 * Run `npm install`
 * Run `gulp` to run the default Gulp task
 

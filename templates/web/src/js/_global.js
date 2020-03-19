@@ -1,16 +1,26 @@
 // Global
 web.global = {
     init: function(){ // Load all global functions here
-        console.log("load global functions");
-        web.global.homeSelect();
-        web.global.carouselAwards();
-        web.global.sliderCases();
+        // web.global.loadMiscell();
+        // web.global.homeSelect();
+        // web.global.carouselAwards();
+        // web.global.sliderCases();
         // web.global.loadCalendar();
         // web.global.loadHeader();
     },
 
-    loadHeader: function(){ // Some specific function
-        console.log("loadHeader()");
+    loadMiscell: function(){
+        // Miscell Stuff
+        $(document).ready(function () {
+            $('.button__bookmark').click(function(e){
+                e.preventDefault();
+                $(this).toggleClass('on');
+            });
+
+            $('.no-link').click(function(e){
+                e.preventDefault();
+            });
+        });
     },
 
     homeSelect: function(){
@@ -243,12 +253,6 @@ web.global = {
         });
     }
 }
-
-// Miscell Stuff
-$('.button__bookmark').click(function(e){
-    e.preventDefault();
-    $(this).toggleClass('on');
-});
 
 // Run the global stuff
 web.global.init();

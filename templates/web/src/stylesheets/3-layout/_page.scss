@@ -112,7 +112,8 @@
         }
 
         @include has("title") {
-            flex: 0 0 calc(30% + 2rem);
+            flex: 0 0 calc(30% - 2rem);
+            margin-right: 2rem;
 
             p {
                 @include fontSet(38px, 46px);

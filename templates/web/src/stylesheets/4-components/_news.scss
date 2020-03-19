@@ -234,16 +234,6 @@
     @include has("footer") {
         padding: 0.5rem 1rem;
         border-top: 1px solid $black;
-
-        // .related__services {
-        //     position: relative;
-        //     left: -.2rem;
-        // }
-
-        // .related__services__link {
-        //     @include fontSet(16px, 16px);
-        //     @include background-link($complementary-color, $white, $complementary-color);
-        // }
     }
 }
 

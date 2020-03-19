@@ -20,6 +20,11 @@
         left: -4px;
     }
 
+    @include when-inside(".insight") {
+        position: relative;
+        left: -4px;
+    }
+
     @include has("item") {
         position: relative;
         margin: 0 24px 0 0;
@@ -60,6 +65,11 @@
         }
 
         @include when-inside(".services") {
+            @include background-link($complementary-color, $white, $complementary-color);
+            padding: 2px 4px 0;
+        }
+
+        @include when-inside(".insight") {
             @include background-link($complementary-color, $white, $complementary-color);
             padding: 2px 4px 0;
         }
