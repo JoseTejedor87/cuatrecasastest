@@ -121,10 +121,10 @@ img {
 // LINKS
 // --------------------------------------------------------------------------
 
-@mixin fancy-link($color) {
+@mixin fancy-link($color, $hover) {
     position: relative;
     display: inline-block;
-    font-weight: 400;
+    font-weight: normal;
     text-decoration: none;
     color: $color;
     -webkit-backface-visibility: hidden;
@@ -132,6 +132,7 @@ img {
     -webkit-perspective: 1000px;
     perspective: 1000px;
     cursor: pointer;
+    // text-shadow: -4px -4px $main-color, -4px 4px $main-color, 4px -4px $main-color, 4px 4px $main-color;
 
     &:after {
         content: "";
@@ -144,7 +145,7 @@ img {
         height: 0.125rem;
         bottom: 0.125rem;
         left: 0.0625rem;
-        background-color: $color;
+        background-color: $hover;
         text-decoration: none;
         -webkit-transform-origin: 100% 50%;
         -ms-transform-origin: 100% 50%;
@@ -155,21 +156,18 @@ img {
         will-change: transform;
     }
 
-    &:hover, &:focus {
+    @include on-event {
+        color: $hover;
         text-decoration: none;
-    }
 
-    &:hover:after, &:focus:after {
-        -webkit-transform: scaleX(1);
-        -ms-transform: scaleX(1);
-        transform: scaleX(1);
-        -webkit-transform-origin: 0 50%;
-        -ms-transform-origin: 0 50%;
-        transform-origin: 0 50%;
-    }
-
-    &:hover, &:focus {
-        color: $color;
+        &:after {
+            -webkit-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            transform: scaleX(1);
+            -webkit-transform-origin: 0 50%;
+            -ms-transform-origin: 0 50%;
+            transform-origin: 0 50%;
+        }
     }
 }
 
@@ -202,32 +200,22 @@ img {
     }
 }
 
-@mixin box-link($color, $hover) {
-    // position: relative;
+@mixin box-link($color, $hover, $bg) {
+    padding-bottom: 0.1rem;
     text-decoration: none;
     color: $color;
-    box-shadow: 0 1px 0 transparent;
     transition: all 0.2s ease-in-out;
-
-    // &:after {
-    //     content: '';
-    //     position: relative;
-
-    //     display: inline-block;
-    //     width: 100%;
-    //     height: 11px;
-    //     background-color: $black;
-    // }
 
     @include on-event {
         color: $hover;
         text-decoration: none;
-        box-shadow: 0 1px 0 rgba($hover, 0.2);
+        text-shadow: -2px -2px $bg, -2px 2px $bg, 2px -2px $bg, 2px 2px $bg;
+        box-shadow: inset 0 -0.175em $bg, inset 0 -0.2em $hover;
+        // background-image: linear-gradient(to right, $hover 75%, transparent 75%);
     }
 }
 
 @mixin background-link($color, $colorhover, $bghover) {
-    padding: 0 0.2rem;
     text-decoration: none;
     color: $color;
     background-color: transparent;
@@ -271,9 +259,9 @@ img {
 
 @mixin reset-button {
     position: relative;
-    padding: 0.8em 1.4em;
-    @include fontFull(19px, 19px);
-    font-weight: 400;
+    padding: 1em 1.4em 0.8em 1.4em;
+    @include fontSet(18px, 18px);
+    letter-spacing: 0;
     text-transform: uppercase;
     white-space: nowrap;
     background: none;
@@ -283,6 +271,7 @@ img {
 }
 
 @mixin button-hover {
+    text-decoration: none;
     color: $white;
     background-color: $complementary-color;
     border-color: $complementary-color;

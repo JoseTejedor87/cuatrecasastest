@@ -3,18 +3,18 @@
 // ==========================================================================
 
 footer {
-    padding-bottom: 2em;
+    padding: 0 10vw 2rem;
     background-color: $white-medium;
 
-    .chat-button-wrapper {
+    .chat__wrapper {
         position: relative;
 
-        .chat-button {
+        .chat__button {
             position: absolute;
             top: -30px;
             right: -36px;
 
-            a {
+            .chat__link {
                 position: relative;
                 display: block;
                 width: 70px;
@@ -26,20 +26,6 @@ footer {
                 box-shadow: 0 0 0 0 $white;
                 transition: all 0.2s ease-out;
 
-                &:hover, &:focus, &:active {
-                    @include button-hover;
-                    color: $complementary-color;
-                    background-color: $white;
-                    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-                    // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-                    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-                    transform: scale(1.1);
-
-                    &:after {
-                        color: $complementary-color;
-                    }
-                }
-
                 &:after {
                     position: absolute;
                     top: 10px;
@@ -48,54 +34,66 @@ footer {
                     font-family: 'Material Icons';
                     font-size: 36px;
                 }
+
+                @include on-event {
+                    @include button-hover;
+                    color: $complementary-color;
+                    background-color: $white;
+                    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+                    transform: scale(1.1);
+
+                    &:after {
+                        color: $complementary-color;
+                    }
+                }
             }
         }
     }
 
-    img {
+    .footer__logo {
+        margin-left: -0.6em;
         margin-bottom: 0.8em;
     }
 
-    p {
-        font-size: 80%;
-        color: $black;
-    }
-
-    .footer-info {
+    .footer__info {
         padding: 1.6em 0;
 
         p {
-            line-height: 1.2;
+            @include fontSet(14px, 18px);
             color: $black;
         }
     }
 
-    .footer-links {
-        padding: 0.8em 0;
+    .footer__links {
+        padding: 0.8rem 0;
         border-top: 1px solid $gray-light;
 
         p {
+            @include fontSet(14px, 18px);
             margin-bottom: 0;
             color: $gray-medium;
         }
     }
 
-    .legal-info {
+    .legal__info {
         @include reset-list;
+        display: flex;
+        margin-top: 0.2rem;
 
-        li {
+        .legal__item {
             position: relative;
             margin-right: 0.4em;
             padding-right: 0.6em;
 
             &:after {
                 position: absolute;
-                top: 8px;
+                top: 5px;
                 right: 0;
-                width: 1px;
+                width: 2px;
                 height: 15px;
                 content: "";
-                background: $white;
+                background: $gray-medium;
+                opacity: 0.5;
             }
 
             &:last-child {
@@ -105,25 +103,27 @@ footer {
             }
         }
 
-        a {
-            font-size: 1rem;
-            font-weight: 600;
+        .legal__link {
+            @include fontSet(14px, 14px);
+            font-weight: bold;
             color: $gray-medium;
 
-            &:hover, &:focus, &:active {
+            @include on-event {
                 @include link-hover;
             }
         }
     }
 
-    .social-media {
+    .social__media {
         @include reset-list;
+        display: flex;
+        justify-content: flex-end;
 
-        li {
+        .social__item {
             margin-left: 0.2em;
         }
 
-        a {
+        .social__link {
             display: block;
             width: 38px;
             height: 38px;
@@ -132,11 +132,11 @@ footer {
             border-radius: 50%;
             transition: all 0.2s ease-in-out;
 
-            &:hover, &:focus, &:active {
+            @include on-event {
                 @include button-hover;
             }
 
-            i {
+            .fab {
                 line-height: 2;
             }
         }

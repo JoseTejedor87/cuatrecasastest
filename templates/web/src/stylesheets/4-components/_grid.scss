@@ -2,7 +2,7 @@
 // GRID INSIGHTS
 // ==========================================================================
 
-.grid {
+@include new("grid") {
 
     @include has("wrapper") {
         display: -ms-grid;
@@ -64,8 +64,8 @@
                 flex: 0 0 50%;
             }
 
-            a {
-                @include fontFull(46px, 50px);
+            .boxnews__link {
+                @include fontSet(46px, 50px);
             }
         }
 
@@ -77,8 +77,8 @@
                 flex: 1 1 auto;
             }
 
-            a {
-                @include fontFull(30px, 36px);
+            .boxnews__link {
+                @include fontSet(30px, 36px);
             }
         }
 
@@ -87,8 +87,8 @@
                 min-height: calc(100% - 4rem);
             }
 
-            a {
-                @include fontFull(24px, 30px);
+            .boxnews__link {
+                @include fontSet(24px, 32px);
             }
         }
 

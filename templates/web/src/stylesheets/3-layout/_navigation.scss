@@ -22,18 +22,14 @@
     }
 
     .nav-link {
+        position: relative;
         margin-right: 0.3rem;
         margin-left: 0.3rem;
-        font-weight: 400;
-        line-height: 1;
+        @include cuatrecasas-font();
+        @include fontSet(18px, 18px);
+        @include fancy-link($white, $white);
         text-transform: uppercase;
-        color: $white;
-        box-shadow: 0 2px transparent;
         transition: all 0.3s ease-out;
-
-        &:hover {
-            box-shadow: 0 2px $white;
-        }
     }
 
     //
@@ -47,6 +43,7 @@
         }
     }
 
+
     //
     // Secondary options
     //
@@ -57,6 +54,7 @@
             justify-content: flex-start;
         }
     }
+
 
     //
     // Contact, webs, city, langs
@@ -69,13 +67,12 @@
         }
 
         .nav-link {
-            font-size: small;
-            font-weight: 600;
             color: $black;
-
-            &:hover {
-                color: $complementary-color;
-            }
+            @include fontSet(14px, 10px);
+            @include fancy-link($black, $complementary-color);
+            font-weight: bold;
+            padding-right: .3rem;
+            padding-left: .3rem;
         }
     }
 }
@@ -108,7 +105,7 @@
                 line-height: 34px;
             }
 
-            &:hover, &:focus, &:active {
+            @include on-event() {
                 // @include button-hover;
                 color: $complementary-color;
                 background-color: $white;
@@ -129,31 +126,27 @@
 
 .breadcrumb {
     @include reset-list;
-    @include fontFull(20px, 20px);
     background-color: transparent;
     border-radius: 0;
 
     .breadcrumb-item {
-        font-size: 80%;
+        @include cuatrecasas-font();
+        @include fontSet(16px, 16px);
         color: $white;
 
         &+.breadcrumb-item {
             &:before {
                 display: inline-block;
-                padding-right: 0.5rem;
+                padding-right: 0.6rem;
+                padding-left: 0.6rem;
                 color: $white;
                 content: "|";
             }
         }
 
         a {
-            // @include classic-link($white, $complementary-color, $border: false);
-            @include background-link($white, $white, $complementary-color);
-            padding: 0 0.2rem 0.2rem;
-            font-weight: 400;
-
-            // padding: 0 0.8rem 0.2rem;
-            // border-radius: 20px;
+            @include fancy-link($white, $white);
+            padding: 0 0.1rem 0.4rem 0.3rem;
         }
     }
 }

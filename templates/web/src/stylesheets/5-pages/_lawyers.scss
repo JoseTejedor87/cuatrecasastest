@@ -1,0 +1,149 @@
+// ==========================================================================
+// LAWYERS
+// ==========================================================================
+
+@include new("lawyer") {
+
+    //
+    // HEADER
+    // --------------------------------------------------------------------------
+
+    @include has("header") {
+        color: $white;
+        background-color: $main-color;
+
+        > div:first-child {
+            padding: 6rem 10vw;
+        }
+
+        > div:last-child {
+            padding: 0 0;
+        }
+    }
+
+    @include has("name") {
+        @include fontSet(64px, 64px);
+        line-height: 1;
+        margin-bottom: 0;
+    }
+
+    @include has("position") {
+        @include fontSet(64px, 64px);
+        margin-bottom: 2rem;
+        line-height: 1;
+        color: $complementary-color;
+    }
+
+    @include has("scope") {
+        margin-bottom: 2rem;
+    }
+
+    @include has("contact") {
+        margin-bottom: 2rem;
+
+        > * {
+            @include cuatrecasas-font();
+            @include fontSet(16px, 22px);
+        }
+
+        [data-address] {
+            text-transform: uppercase;
+        }
+
+        [data-telephone] {
+            position: relative;
+            padding-left: 1em;
+
+            &:after {
+                content: "T.";
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        [data-email] {
+            a {
+                padding-bottom: 0.2rem;
+                @include fancy-link($white, $white);
+            }
+        }
+    }
+
+    @include has("details") {
+
+        > * {
+            @include cuatrecasas-font();
+            @include fontSet(16px, 20px);
+        }
+
+        [data-langs] {
+            opacity: 0.5;
+        }
+
+        [data-vcard] {
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+
+            a {
+                // @include classic-link($complementary-color, $complementary-color);
+                padding-bottom: 0.2rem;
+                @include fancy-link($complementary-color, $complementary-color);
+            }
+        }
+    }
+
+    .action__links {
+        position: relative;
+        bottom: -4.5rem;
+        margin-left: -0.5rem;
+    }
+
+    @include has("media") {
+        @include reset-figure;
+        width: 100%;
+        height: 100%;
+
+        @include has("photo") {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    //
+    // MAIN SECTION
+    // --------------------------------------------------------------------------
+
+    @include has("resume") {
+
+        p:first-child {
+            margin-bottom: 2.4rem;
+            @include fontSet(38px, 46px);
+        }
+
+        p {
+            @include fontSet(30px, 36px);
+
+            a {
+                @include fancy-link($complementary-color, $complementary-color);
+            }
+        }
+
+        .inline__quote {
+            float: left;
+            width: 30%;
+            margin: 0 2rem 0 0;
+        }
+    }
+
+    //
+    // SECTIONS GENERAL
+    // --------------------------------------------------------------------------
+
+    .page__block {
+        p {
+            @include fontSet(30px, 34px);
+        }
+    }
+}

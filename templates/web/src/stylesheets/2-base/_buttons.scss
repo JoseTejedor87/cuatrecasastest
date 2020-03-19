@@ -2,6 +2,10 @@
 // BUTTONS
 // ==========================================================================
 
+//
+// MAIN BUTTON
+// --------------------------------------------------------------------------
+
 .btn__main {
     @include reset-button;
     color: $white;
@@ -46,7 +50,7 @@
 
 
 //
-// Favorites
+// FAVORITES
 // --------------------------------------------------------------------------
 
 .button__bookmark {
@@ -63,12 +67,15 @@
     transition: all 0.3s ease-out;
 
     &:after {
-        position: relative;
-        top: -2px;
-        left: -2px;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        // display: inline-block;
+        // width: 1px;
+        // height: 1px;
         content: '\e867';
         font-family: 'Material Icons';
-        @include fontFull(40px, 40px);
+        @include fontSet(40px, 40px);
         font-weight: normal;
     }
 
@@ -77,6 +84,12 @@
         background-color: $complementary-color;
         border-color: $complementary-color;
         outline: none;
+
+        &:after {
+            top: 6px;
+            left: 6px;
+            @include fontSet(32px, 32px);
+        }
     }
 
     &.on {
@@ -88,7 +101,7 @@
 
 
 //
-// View more
+// VIEW MORE (BOXES)
 // --------------------------------------------------------------------------
 
 .viewmore__button {
@@ -99,9 +112,9 @@
 
 .btn__viewmore {
     position: relative;
-    padding: 0.5rem 3rem;
-    @include fontFull(17px, 17px);
-    font-weight: 600;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    @include fontSet(16px, 16px);
+    font-weight: bold;
     text-align: right;
     color: $black;
     background: none;
@@ -112,7 +125,7 @@
     &:after {
         display: inline-block;
         position: absolute;
-        top: 7px;
+        top: 6px;
         right: 2px;
         content: '\e148';
         font-family: 'Material Icons';
@@ -123,6 +136,10 @@
         transform: scale(1);
         transition: all 0.3s ease-out;
         will-change: transform;
+    }
+
+    @include when("oneline") {
+        padding: 1rem 3rem;
     }
 
     @include on-event() {

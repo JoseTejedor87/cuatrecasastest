@@ -1,8 +1,12 @@
 // ==========================================================================
-// BOX NEWS (articles, publications, news, etc...)
+// NEWS BOXES (articles, publications, news, etc...)
 // ==========================================================================
 
 @include new("boxnews") {
+
+    //
+    // SECTION BG COLORS
+    // --------------------------------------------------------------------------
 
     @include when("insight") {
         background-color: rgba($black, 0.02);
@@ -16,18 +20,20 @@
         background-color: rgba($black, 0.2);
     }
 
+    //
+    // BOXES
+    // --------------------------------------------------------------------------
+
     @include has("list") {
         display: flex;
         justify-content: space-between;
         align-items: stretch;
         align-content: stretch;
-        margin: 0 -0.8rem;
     }
 
     @include has("item") {
-        flex: 0 1 33.333333%;
+        flex: 0 1 calc(33.333333% - 0.8rem);
         height: auto;
-        margin: 0 0.8rem;
         background-color: $white;
         border-top: 8px solid transparent;
         // box-shadow: 0 0 0 transparent;
@@ -35,6 +41,26 @@
         box-shadow: 0 0 0 rgba(0, 0, 0, 0),
                     0 0 0 rgba(0, 0, 0, 0);
         transition: all 0.2s ease-out;
+
+        @include on-event() {
+            // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
+                        0 15px 12px rgba(0, 0, 0, 0.1);
+
+            // .boxnews__link {
+            //     color: $complementary-color;
+            // }
+
+             &:hover {
+                .card__image {
+                    // filter: contrast(100%);
+                }
+            }
+        }
+
+        //
+        // BOXES COLORS
+        // --------------------------------------------------------------------------
 
         @include when-inside(".boxnews--article") {
             color: $article-bg-color;
@@ -50,22 +76,14 @@
         @include when-inside(".boxnews--insight") {
             color: $complementary-color;
             border-top-color: transparent;
-            flex: 0 1 50%;
+            flex: 0 1 calc(50% - 0.8rem);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         }
-
-        @include on-event() {
-            // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
-                        0 15px 12px rgba(0, 0, 0, 0.1);
-
-             &:hover {
-                .card__image {
-                    filter: contrast(100%);
-                }
-            }
-        }
     }
+
+    //
+    // BOX HEADER
+    // --------------------------------------------------------------------------
 
     @include has("header") {
         position: relative;
@@ -81,14 +99,14 @@
     }
 
         @include has("type") {
-            @include fontFull(18px, 18px);
-            font-weight: 600;
+            @include cuatrecasas-font();
+            @include fontSet(18px, 18px);
+            font-weight: bold;
             text-transform: uppercase;
 
             @include when-inside(".boxnews--insight") {
-                @include fontFull(41px, 41px);
-                font-weight: 400;
-                letter-spacing: -1px;
+                @include fontSet(40px, 40px);
+                font-weight: normal;
                 text-transform: none;
             }
         }
@@ -96,16 +114,17 @@
         @include has("info") {
             position: relative;
             margin-left: 1.5rem;
-            @include fontFull(18px, 18px);
-            font-weight: 400;
+            @include cuatrecasas-font();
+            @include fontSet(18px, 18px);
             text-transform: uppercase;
             color: $black;
 
             &:before {
                 content: "";
                 position: absolute;
-                top: 2px;
+                top: 0;
                 left: -12px;
+                display: inline-block;
                 width: 2px;
                 height: 80%;
                 background-color: $black;
@@ -118,6 +137,10 @@
             top: 3px;
             right: 6px;
         }
+
+    //
+    // BOX CONTENT
+    // --------------------------------------------------------------------------
 
     @include has("content") {
         display: flex;
@@ -142,24 +165,28 @@
             padding-right: 1rem;
             padding-bottom: 2rem;
 
-            a {
-                @include fontFull(28px, 32px);
-                // @include text-shadow-link();
-                @include box-link($black, $complementary-color);
-
-                @include when-inside(".boxnews--insight") {
-                    @include fontFull(41px, 45px);
-                    font-weight: 400;
-                    letter-spacing: -1px;
-                    text-transform: none;
-                }
-            }
-
             @include when-inside(".boxnews--insight") {
                 height: auto;
                 padding-bottom: 1rem;
             }
         }
+
+            @include has("link") {
+                // padding-bottom: 0.1rem;
+                @include fontSet(28px, 32px);
+                @include box-link($black, $complementary-color, $white);
+
+                @include when-inside(".boxnews--event") {
+                    @include box-link($black, $complementary-color, $event-bg-color);
+                }
+
+                @include when-inside(".boxnews--insight") {
+                    @include fontSet(40px, 44px);
+                    @include box-link($black, $black, $white);
+                    letter-spacing: -1px;
+                    text-transform: none;
+                }
+            }
 
         @include has("meta") {
             // align-self: flex-start;
@@ -167,7 +194,7 @@
             color: $black;
 
             > * {
-                @include fontFull(17px, 19px);
+                @include fontSet(16px, 18px);
                 text-transform: uppercase;
             }
 
@@ -182,68 +209,41 @@
         @include has("action") {
             margin-top: 1rem;
             margin-bottom: 2.5rem;
+        }
 
-            a {
-                @include fontFull(27px, 27px);
-                text-decoration: none;
-                letter-spacing: -1px;
-                color: $complementary-color;
-                box-shadow: 0 2px 0 $complementary-color;
+            @include has("more") {
+                @include fancy-link($complementary-color, $complementary-color);
+                @include fontSet(24px, 24px);
+                padding-bottom: 4px;
                 transition: all 0.2s ease-in-out;
-
-                @include on-event {
-                    color: $black;
-                    text-decoration: none;
-                    box-shadow: 0 2px 0 $black;
-                }
             }
-        }
-
-        @include has("img") {
-            @include cover-img();
-
-            @include when-inside(".boxnews--insight") {
-                align-self: flex-start;
-                margin-top: auto;
-            }
-        }
-
-        /*
-        @include has("media") {
-            @include reset-figure;
-            width: 100%;
-            height: 100%;
 
             @include has("img") {
                 @include cover-img();
-                width: 100%;
-                height: 100%;
+
+                @include when-inside(".boxnews--insight") {
+                    align-self: flex-start;
+                    // margin-top: auto;
+                }
             }
-        }
-        */
+
+    //
+    // BOX FOOTER
+    // --------------------------------------------------------------------------
 
     @include has("footer") {
         padding: 0.5rem 1rem;
         border-top: 1px solid $black;
 
-        .related__services__item {
-            margin-bottom: 0.2rem;
-        }
+        // .related__services {
+        //     position: relative;
+        //     left: -.2rem;
+        // }
 
-        .related__services__link {
-            @include fontFull(17px, 17px);
-            @include background-link($complementary-color, $white, $complementary-color);
-
-            // @include when-inside(".boxnews--article") {
-            //     @include background-link($complementary-color, $white, $article-bg-color);
-            // }
-
-            // @include when-inside(".boxnews--event") {
-            //     @include background-link($complementary-color, $white, $main-color);
-            // }
-
-            // @include background-link($complementary-color, $black, $complementary-color, 1);
-        }
+        // .related__services__link {
+        //     @include fontSet(16px, 16px);
+        //     @include background-link($complementary-color, $white, $complementary-color);
+        // }
     }
 }
 

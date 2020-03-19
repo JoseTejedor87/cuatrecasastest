@@ -1,0 +1,110 @@
+// ==========================================================================
+// CAROUSEL AWARDS
+// ==========================================================================
+
+.carousel-awards {
+  margin: 4em 0 6em;
+
+  .section-header {
+    margin-bottom: 0.6em;
+    text-align: center;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .awards-title, .awards-date {
+    font-size: 90%;
+    line-height: 1.2;
+    text-align: center;
+    color: $main-color;
+  }
+
+  .awards-title {
+    margin-bottom: 0.6em;
+    font-weight: 600;
+  }
+
+  .awards-date {
+    font-size: 80%;
+    color: $black;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+    padding: 1em 0 2em 0;
+  }
+
+  .swiper-wrapper {
+  }
+
+  .swiper-slide {
+    width: 100%;
+    height: auto;
+    padding: 0 1em 3em;
+    border: 4px solid transparent;
+    // cursor: default;
+    transition: 0.2s;
+
+    &:hover {
+      border: 4px solid $gray-light;
+      // border-radius: 12px;
+      // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    width: 60px;
+    height: 60px;
+    color: $black;
+    border-radius: 50%;
+    outline: none;
+    transition: 0.2s;
+
+    &:hover, &:focus {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      color: inherit;
+      background-color: $light-black;
+    }
+
+  }
+
+  .swiper-button-prev {
+    left: -60px;
+  }
+
+  .swiper-button-next {
+    right: -60px;
+  }
+
+  .swiper-scrollbar {
+    border-radius: 0;
+    background: $gray-light;
+  }
+
+  .swiper-container-horizontal>.swiper-scrollbar {
+    position: absolute;
+    left: 1%;
+    bottom: 4px;
+    z-index: 50;
+    height: 1px;
+    width: 100%;
+  }
+
+  .swiper-scrollbar-drag {
+    height: 8px;
+    background: $complementary-color;
+    border-radius: 2px;
+    top: -4px;
+  }
+
+}

@@ -53,36 +53,38 @@
                 <div class="col-md-5">
                     <figure class="lawyer__media">
                         <img class="lawyer__media__photo" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" alt="{{ lawyer.name }} {{ lawyer.surname }}">
+                        {# <img class="lawyer__media__photo" src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}"> #}
                     </figure>
                 </div>
             </header>
-            <section class="row main__section lawyer__resume">
+            <section class="row page__section--full lawyer__resume">
                 <div class="col">
-                    <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+                    {# <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p> #}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
                     <blockquote class="inline__quote">
-                        <p>La formación es diaria y constante, desde el inicio del proceso hasta su conclusión.</p>
+                        <div class="inline__quote__text">La formación es diaria y constante, desde el inicio del proceso hasta su conclusión.</div>
                     </blockquote>
                     {{ lawyer.translate(app.request.getLocale()).description|raw  }}
                 </div>
             </section>
-            <section class="row main__section">
-                <div class="col lawyer__section">
-                    <div class="block__title">
+            <section class="row page__block">
+                <div class="col">
+                    <div class="page__block__title">
                         <h3 class="subsection__title">Experiencia relevante</h3>
                     </div>
-                    <div class="block__content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum posuere urna nec tincidunt. Facilisis gravida neque convallis a cras. Magnis dis parturient montes nascetur ridiculus mus mauris vitae. Libero nunc consequat interdum varius sit amet mattis vulputate. Quis lectus nulla at volutpat diam ut venenatis. Sit amet nisl suscipit adipiscing bibendum est. Id interdum velit laoreet id donec ultrices tincidunt arcu. Metus dictum at tempor commodo ullamcorper.</p>
-                        <p>Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Scelerisque in dictum non consectetur a erat nam at lectus. Pulvinar neque laoreet suspendisse interdum consectetur libero id. Purus gravida quis blandit turpis cursus in hac habitasse platea. Enim ut tellus elementum sagittis vitae et leo duis ut. Sit amet cursus sit amet dictum sit amet justo. Penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-                        <p>Metus dictum at tempor commodo ullamcorper. Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Scelerisque in dictum non consectetur a erat nam at lectus.</p>
+                    <div class="page__block__content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum posuere urna nec tincidunt. Facilisis gravida neque convallis a cras.</p>
+                        <p>Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Scelerisque in dictum non consectetur a erat nam at lectus.</p>
+                        <p>Metus dictum at tempor commodo ullamcorper. Libero id faucibus nisl tincidunt eget nullam non nisi. Euismod nisi porta lorem mollis aliquam ut.</p>
                     </div>
                 </div>
             </section>
-            <section class="row main__section">
-                <div class="col lawyer__section lawyer__section--block">
-                    <div class="block__title">
+            <section class="row page__block page__block--full">
+                <div class="col">
+                    <div class="page__block__title">
                         <h3 class="subsection__title">Menciones</h3>
                     </div>
-                    <div class="block__content">
+                    <div class="page__block__content">
                         <ul class="mentions">
                             <li class="mentions__quote">Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</li>
                             <li class="mentions__quote">Recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para las prácticas de Tax y Family Business.</li>
@@ -92,12 +94,12 @@
                     </div>
                 </div>
             </section>
-            <section class="row main__section">
-                <div class="col d-flex lawyer__section">
-                    <div class="block__title">
+            <section class="row page__block">
+                <div class="col">
+                    <div class="page__block__title">
                         <h3 class="subsection__title">Formación</h3>
                     </div>
-                    <div class="block__content">
+                    <div class="page__block__content">
                         <ul class="training__list">
                             <li>
                                 <span data-degree>Licenciado en Derecho</span>
@@ -121,6 +123,7 @@
             </section>
         </article>
     </main>
+
     {% include 'web/shared/publications.html.twig' %}
     {% include 'web/shared/events.html.twig' %}
     {% include 'web/shared/insightsNew.html.twig' %}

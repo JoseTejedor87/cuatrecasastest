@@ -25,14 +25,14 @@ q {
 
     p {
         margin-bottom: 0.5em;
-        @include fontFull(32px, 40px);
-        font-weight: 600;
+        @include fontSet(32px, 40px);
+        font-weight: bold;
         color: $main-color;
     }
 
     cite {
-        @include fontFull(24px, 32px);
-        font-weight: 600;
+        @include fontSet(24px, 32px);
+        font-weight: bold;
         font-style: normal;
         color: $complementary-color;
     }
@@ -53,8 +53,7 @@ q {
     position: relative;
     margin: 0 0;
     padding: 0 3.6rem 4.2rem;
-    @include fontFull(32px, 40px);
-    font-weight: 400;
+    @include cuatrecasas-font();
     text-align: center;
     color: $black;
     background-color: $complementary-color;
@@ -62,13 +61,12 @@ q {
     &:before {
         content: '\201C';
         position: relative;
-        top: 5px;
+        top: 8rem;
         display: inline-block;
-        font-family: Georgia, serif;
-        font-size: 12rem;
-        font-weight: 600;
+        font-size: 9rem;
         line-height: 1;
         color: $white;
+        transform: scale(3);
     }
 
     &:after {
@@ -81,13 +79,14 @@ q {
         background-color: $black;
     }
 
-    p {
-        margin-top: -4rem;
-        margin-bottom: 0;
+    .inline__quote__text {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        @include fontSet(32px, 36px);
     }
 }
 
-@include new("mentions") {
+.mentions {
     @include reset-list;
     display: flex;
 
@@ -98,8 +97,7 @@ q {
     @include has("quote") {
         flex: 1;
         padding: 3rem 3rem 6rem;
-        // @include fontSize(30px);
-        @include fontFull(30px, 38px);
+        @include fontSet(32px, 40px);
         color: $white;
 
         &:nth-child(1) {
@@ -114,10 +112,4 @@ q {
             background-color: rgba($main-color, 0.6);
         }
     }
-}
-
-.emphasis {
-    font-size: 3rem;
-    font-weight: 300;
-    line-height: 1.2;
 }
