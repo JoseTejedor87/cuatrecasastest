@@ -189,7 +189,7 @@
                             </figure>
                             <div class="card-body">
                                 <h5 class="card-title">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h5>
-                                <p class="card-text">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</p>
+                                <div class="card-text">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
                             </div>
                             <div class="card-footer">
                                 Madrid | España
