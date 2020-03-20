@@ -1,7 +1,7 @@
 // Global
 web.global = {
     init: function(){ // Load all global functions here
-        // web.global.loadMiscell();
+        web.global.loadMiscell();
         // web.global.homeSelect();
         // web.global.carouselAwards();
         // web.global.sliderCases();

@@ -119,6 +119,7 @@
     }
 
     .card-deck {
+
         .card {
             flex: 0 1 calc(25% - 30px);
             margin-bottom: 30px;
@@ -128,6 +129,10 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
                         0 1px 2px rgba(0, 0, 0, 0.24);
             transition: all 0.2s ease-out;
+
+            &:nth-child(n+9) {
+                display:none;
+            }
 
             @include on-event() {
                 background-color: $complementary-color;
@@ -151,6 +156,14 @@
 
         figure {
             @include reset-figure;
+
+            @include mediaQuery($large-width, $desktop-width) {
+                max-height: 190px;
+            }
+
+            @include mediaQuery($massive-width, $large-width) {
+                max-height: 280px;
+            }
 
             .card-img-top {
                 position: relative;
