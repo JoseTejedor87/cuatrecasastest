@@ -185,7 +185,7 @@
                         <div class="card">
                             <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="search_results__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</a>
                             <figure>
-                                <img src="{{ asset('/web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg')|imagine_filter('square') }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
+                                <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
                             </figure>
                             <div class="card-body">
                                 <h5 class="card-title">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h5>
