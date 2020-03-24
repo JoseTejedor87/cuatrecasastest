@@ -61,6 +61,12 @@ class Lawyer extends Publishable
      */
     private $photo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="lawyer")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $office;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -187,6 +193,17 @@ class Lawyer extends Publishable
         if ($photo) {
             $photo->setLawyer($this);
         }
+
+        return $this;
+    }
+    public function getOffice(): ?Office
+    {
+        return $this->office;
+    }
+
+    public function setOffice(?Office $office): self
+    {
+        $this->office = $office;
 
         return $this;
     }

@@ -1,0 +1,64 @@
+// ==========================================================================
+// SERVIES
+// ==========================================================================
+
+@include new("services") {
+
+    .h5 {
+        margin-bottom: 1rem;
+        @include fontSet(30px, 30px);
+        text-transform: uppercase;
+    }
+
+    .page__block__title {
+
+        .btn__main {
+            position: relative;
+            padding-right: 5rem;
+            text-align: left;
+
+            .icon {
+                position: absolute;
+                top: 4px;
+                right: 14px;
+                @include fontSet(40px, 40px);
+            }
+        }
+    }
+
+    .page__block:first-of-type {
+
+        > .col {
+            &:before {
+                display: none;
+            }
+        }
+
+        .page__block__content {
+            p {
+                margin-top: 7px;
+            }
+        }
+    }
+
+    .page__block:last-of-type {
+
+        > .col {
+            padding-bottom: 10rem;
+        }
+
+        .page__block__content {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -5rem;
+                width: calc(100% - 2rem);
+                height: 2px;
+                background-color: rgba($black, 0.5);
+            }
+        }
+    }
+
+}

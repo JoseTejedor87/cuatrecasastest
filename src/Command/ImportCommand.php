@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpFoundation\File\File;
 
 use App\Entity\Activity;
+use App\Entity\Awards;
 use App\Entity\Desk;
 use App\Entity\Event;
 use App\Entity\Lawyer;
@@ -20,6 +21,7 @@ use App\Entity\Quote;
 use App\Entity\Resource;
 use App\Entity\Sector;
 use App\Entity\Speaker;
+use App\Entity\Office;
 
 class ImportCommand extends Command
 {
@@ -29,6 +31,7 @@ class ImportCommand extends Command
     private $mappedLawyerIds;
     private $mappedEventIds;
     private $mappedActivityIds;
+    private $mappedOfficeIds;
 
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
 
@@ -93,6 +96,17 @@ class ImportCommand extends Command
                 case "quote":
                     $this->Quote();
                     break;
+                case "office":
+                    $this->Office();
+                    break;
+                case "OfficeByLawyer":
+                    $this->OfficeByLawyer();
+                    break;
+                case "awards":
+                    $this->awards();
+                    break;
+                    
+
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -109,6 +123,8 @@ class ImportCommand extends Command
         array_map('unlink', glob($resources_path."/lawyer-*"));
 
         // Removing registers from database
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Speaker], RESEED, 1)");
@@ -119,7 +135,6 @@ class ImportCommand extends Command
         $processedLawyersMap = [];
 
         foreach ($items as $item) {
-
             // Has the current item the required conditions to be imported?
             // if not, Skip it !
             if ($item['status']=='0') {
@@ -562,6 +577,256 @@ class ImportCommand extends Command
             }
         }
     }
+    public function Office()
+    {
+        $data = file_get_contents("oficinas.json");
+        $items = json_decode($data, true);
+
+        $data1 = file_get_contents("OficinaDescripcion.json");
+        $items1 = json_decode($data1, true);
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/office-*"));
+
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE office_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [OfficeTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Office]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Office], RESEED, 1)");
+
+        $processedOfficeMap = [];
+        $processedAttachmentsMap = [];
+        foreach ($items as $item) {
+
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            // if ($item['status']=='0' || $item['visible']=='0' || empty($item['titulo'])) {
+            //     continue;
+            // }
+
+            $oldOfficeId = $item['id'];
+            // Was processed the current event instance in a previous iteration ?
+            if (isset($processedOfficeMap[$oldOfficeId])) {
+                // in that case, restore it from $processedEventsMap
+                
+                $office = $processedOfficeMap[$oldOfficeId];
+            } else {
+                
+                // in other case, create a new instance and fill it
+                $office = new Office();
+                $office->setOldId($oldOfficeId);
+                $office->setCity($item['ciudad']);
+                $office->setAddress($item['direccion']);
+                $office->setCp($item['cp']);
+                $office->setCountry($item['pais']);
+                $office->setContact($item['contacto']);
+                $office->setEmail($item['email']);
+                $office->setFax($item['fax']);
+                $office->setPhone($item['tel']);
+                $office->setImgMap($item['img_map'] ? $item['img_map'] : '');
+                $office->setLinkGoogle($item['link_google']);
+                $office->setStatus($item['status']);
+                $office->setPlace($item['lugar']);
+                $office->setGeographicalArea($item['zonageografica'] ? $item['zonageografica'] : 0);
+                $office->setSap($item['sap'] ? $item['sap'] : '');
+                // Updating the languages field using the correspondent visio_* field
+                
+            }
+            foreach ($items1 as $item1) {
+                if($item1['id_oficina'] == $oldOfficeId){
+                    $currentLang = self::getMappedLanguageCode($item1['lang']);
+                    if($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi" ){
+                    if ($item['visio_'.$item1['lang']] == "1") {
+                        $office->setLanguages(
+                            array_unique(
+                                array_merge($office
+                                ->getLanguages(), [$currentLang])
+                            )
+                        );
+                    }
+                    }
+                   
+                    $office->translate($currentLang)->setDescriptions($item1['descripcion']);
+                    $office->translate($currentLang)->setTags($item1['tags']);
+                    $office->translate($currentLang)->setCity($item1['ciudad']);
+                    $office->translate($currentLang)->setCountry($item1['pais'] ? $item1['pais'] : '');
+                }
+            }
+            
+            // Importing attachments from source
+            if ($item['img_office']) {
+                
+                // Was processed the current attachment instance in a previous iteration ?
+                if (isset($processedAttachmentsMap[$oldOfficeId][$item['img_office']])) {
+                    $resource = $processedAttachmentsMap[$oldOfficeId][$item['img_office']];
+                    $resource->setLanguages(
+                        array_unique(
+                            array_merge($resource->getLanguages(), [$currentLang])
+                        )
+                    );
+                }
+                else {
+                    // normalizing the attachment path
+                    $path = $item['img_office'];
+                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                    $path = self::SOURCE_DOMAIN.$path;
+
+                    $attachment = $this->importFile('office', $path);
+                    if ($attachment) {
+                        $resource = new Resource();
+                        $resource->setFile($attachment);
+                        $resource->setFileName($attachment->getFileName());
+                        $resource->setLanguages([$currentLang]);
+                        $office->setImgOffice($resource);
+                        // Adding the current attachment to the attachments mapping
+                        $processedAttachmentsMap[$oldOfficeId][$item['img_office']] = $resource;
+                    }
+                }
+            }
+            ///////////////////MIRARRRRRR/////////////////////////////
+        
+            // Adding the current instance to the offices mapping
+            $processedOfficeMap[$oldOfficeId] = $office;
+        }
+        foreach ($processedOfficeMap as $office) {
+            // Persist only the registers with at least one active language
+                $office->mergeNewTranslations();
+                $this->em->persist($office);
+                $this->em->flush();
+                $this->logger->debug("Office ".$office->getId());
+        }
+    }
+
+    public function OfficeByLawyer()
+    {
+        $data = file_get_contents("OficinaAbogado.json");
+        $items = json_decode($data, true);
+        $lawerRepository = $this->em->getRepository(Lawyer::class);
+        $officeRepository = $this->em->getRepository(Office::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
+
+        foreach ($items as $item) {
+            // $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            $officeId = $this->getMappedOfficeId($item['id_oficina']);
+            if ($lawyerId && $officeId) {
+            
+                $lawyer = $lawerRepository->find($lawyerId);
+                $office = $officeRepository->find($officeId);
+                $lawyer->setOffice($office);
+                $this->em->persist($lawyer);
+                $this->em->flush();
+            }
+            else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function awards()
+    {
+        $data = file_get_contents("premios.json");
+        $items = json_decode($data, true);
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/award-*"));
+
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE award_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [AwardsTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Awards]");
+
+        $processedAwardsMap = [];
+        $processedAttachmentsMap = [];
+
+        foreach ($items as $item) {
+
+            // Has the current item the required conditions to be imported?
+            // if not, Skip it !
+            if ( !empty($item['title'])) {
+    
+
+            $oldAwardId = $item['id'];
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+
+            // Was processed the current event instance in a previous iteration ?
+            if (isset($processedAwardsMap[$oldAwardId])) {
+                // in that case, restore it from $processedEventsMap
+                $Award = $processedAwardsMap[$oldAwardId];
+            } else {
+                // in other case, create a new instance and fill it
+                $Award = new Awards();
+                $Award->setOldId($oldAwardId);
+                $Date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
+                $Award->setDate(
+                    $Date ? $Date : date("Y-m-d H:i:s")
+                );
+                $Award->setStatus($item['status']);
+            }
+            // Updating the languages field using the correspondent visio_* field
+            if ($item['visio_'.$item['lang']] == "1") {
+                $Award->setLanguages(
+                    array_unique(
+                        array_merge($Award
+                        ->getLanguages(), [$currentLang])
+                    )
+                );
+            }
+            // Importing attachments from source
+            if ($item['url_image']) {
+                // Was processed the current attachment instance in a previous iteration ?
+                if (isset($processedAttachmentsMap[$oldAwardId][$item['url_image']])) {
+                    $resource = $processedAttachmentsMap[$oldAwardId][$item['url_image']];
+                    $resource->setLanguages(
+                        array_unique(
+                            array_merge($resource->getLanguages(), [$currentLang])
+                        )
+                    );
+                }
+                else {
+                    // normalizing the attachment path
+                    $path = $item['url_image'];
+                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                    $path = self::SOURCE_DOMAIN.$path;
+
+                    $attachment = $this->importFile('award', $path);
+                    if ($attachment) {
+                        $resource = new Resource();
+                        $resource->setFile($attachment);
+                        $resource->setFileName($attachment->getFileName());
+                        $resource->setLanguages([$currentLang]);
+                        $Award->setImgOffice($resource);
+                        // Adding the current attachment to the attachments mapping
+                        $processedAttachmentsMap[$oldAwardId][$item['url_image']] = $resource;
+                    }
+                }
+            }
+            // Filling translatable fields
+            $Award->translate($currentLang)->setTitle($item['title']);
+            $Award->translate($currentLang)->setGranted($item['otorgado']);
+            $Award->translate($currentLang)->setDescAward($item['desc_award']);
+            $Award->translate($currentLang)->setDescAwardFirma($item['desc_award_firma']);
+            $Award->translate($currentLang)->setDescAwardIndiv($item['desc_award_indiv']);
+            $Award->translate($currentLang)->setTags($item['tags']);
+            // Adding the current instance to the events mapping
+            $processedAwardsMap[$oldAwardId] = $Award;
+        }
+        }
+
+        foreach ($processedAwardsMap as $Award) {
+            // Persist only the registers with at least one active language
+             if (!empty($Award->getLanguages())) {
+                // Persist the instance
+                $Award->mergeNewTranslations();
+                $this->em->persist($Award);
+                $this->em->flush();
+                $this->logger->debug("Award ".$Award->getId()." ".$Award->translate('es')->getTitle());
+            }
+        }
+    }
 
     private function getMappedEventId(?string $id): ?string
     {
@@ -611,6 +876,25 @@ class ImportCommand extends Command
         $lawyers = $repository->findAll();
         foreach ($lawyers as $lawyer) {
             $this->mappedLawyerIds[$lawyer->getOldId()] = $lawyer->getId();
+        }
+    }
+
+    private function getMappedOfficeId(?string $id): ?string
+    {
+        if (empty($this->mappedOfficeIds)) {
+            $this->loadMappedOfficeIds();
+        }
+        return isset($this->mappedOfficeIds[$id]) ? $this->mappedOfficeIds[$id] : null;
+    }
+
+    private function loadMappedOfficeIds()
+    {
+        
+        $repository = $this->em->getRepository(Office::class);
+        $Offices = $repository->findAll();
+        foreach ($Offices as $Office) {
+            $this->mappedOfficeIds[$Office
+            ->getOldId()] = $Office->getId();
         }
     }
 

@@ -1,0 +1,54 @@
+// ==========================================================================
+// CALL TO ACTION (Insights chooser pre-footer)
+// ==========================================================================
+
+
+@include new("call-to-action") {
+    margin-top: 0;
+    padding: 4rem 0;
+    color: $white;
+    background-color: $main-color;
+
+    @include has("block") {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 1.2rem 10vw;
+        align-items: center;
+    }
+
+    .emphasis {
+        margin-top: -0.5rem;
+        margin-bottom: 0;
+    }
+
+    .choose__interests {
+        @include copy-font(300, normal);
+        @include fontSet(22px, 30px);
+        margin-right: 8vw;
+        margin-bottom: 1.3rem;
+        color: $white;
+    }
+
+}
+
+// .insights__block {
+//     margin-top: 0;
+//     padding: 4rem 0;
+//     color: $white;
+//     background-color: $main-color;
+
+//     .insights__wrapper {
+//         padding: 1.2rem 10vw;
+//         align-items: center;
+//     }
+
+//     .choose__interests {
+//         margin-right: 8vw;
+//         margin-bottom: 1.3rem;
+//         @include copy-font(300, normal);
+//         @include fontSet(22px, 30px);
+//         color: $white;
+//     }
+// }

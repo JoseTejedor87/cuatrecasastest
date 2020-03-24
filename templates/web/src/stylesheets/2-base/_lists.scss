@@ -1,0 +1,153 @@
+// ==========================================================================
+// LISTS
+// ==========================================================================
+
+@include new("related__services") {
+    @include reset-list;
+    padding: 2px 0;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    @include when-inside(".boxnews") {
+        position: relative;
+        left: -4px;
+        padding: 0 0;
+    }
+
+    @include when-inside(".services") {
+        position: relative;
+        left: -4px;
+    }
+
+    @include when-inside(".insight") {
+        position: relative;
+        left: -4px;
+    }
+
+    @include has("item") {
+        position: relative;
+        margin: 0 24px 0 0;
+        padding: 0 0;
+
+        @include when-inside(".boxnews") {
+            margin-bottom: 2px;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -12px;
+            width: 1px;
+            height: 90%;
+            background-color: $complementary-color;
+            opacity: 0.8;
+        }
+
+        &:first-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    @include has("link") {
+        margin: 0 0;
+        padding: 2px 0 0;
+        @include fontSet(16px, 16px);
+        @include classic-link($complementary-color, $white, $border: false);
+        text-transform: uppercase;
+
+        @include when-inside(".boxnews") {
+            @include background-link($complementary-color, $white, $complementary-color);
+            padding: 2px 4px 0;
+        }
+
+        @include when-inside(".services") {
+            @include background-link($complementary-color, $white, $complementary-color);
+            padding: 2px 4px 0;
+        }
+
+        @include when-inside(".insight") {
+            @include background-link($complementary-color, $white, $complementary-color);
+            padding: 2px 4px 0;
+        }
+    }
+}
+
+@include new("training__list") {
+    @include reset-list;
+    padding-bottom: 4rem;
+
+    > * {
+        margin-bottom: 0.8rem;
+        @include fontSet(26px, 30px);
+    }
+
+    [data-degree] {
+        position: relative;
+        margin-right: 1rem;
+        font-weight: bold;
+        color: $main-color;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: -12px;
+            display: inline-block;
+            width: 2px;
+            height: 26px;
+            background-color: rgba($black, 0.5);
+        }
+    }
+
+    [data-university] {
+        color: $gray-dark;
+    }
+}
+
+@include new("bullet__list") {
+    @include reset-list;
+    padding-bottom: 4rem;
+
+    > li {
+        position: relative;
+        margin-bottom: 1rem;
+        padding-left: 1.4rem;
+        @include fontSet(26px, 30px);
+        color: $main-color;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: $main-color;
+        }
+    }
+
+    [data-degree] {
+        position: relative;
+        margin-right: 1rem;
+        font-weight: bold;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: -12px;
+            display: inline-block;
+            width: 2px;
+            height: 26px;
+            background-color: rgba($black, 0.5);
+        }
+    }
+
+    [data-university] {}
+}

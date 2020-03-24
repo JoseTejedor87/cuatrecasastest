@@ -1,0 +1,115 @@
+// ==========================================================================
+// QUOTES
+// ==========================================================================
+
+q {
+    quotes: "“" "”" "‘" "’";
+
+    &:before {
+        content: open-quote;
+    }
+
+    &:after {
+        content: close-quote;
+    }
+}
+
+
+.cite__quote {
+    position: relative;
+    float: left;
+    width: calc(50% - 8em);
+    margin: 4em 4em;
+    padding: 0;
+    text-align: left;
+
+    p {
+        margin-bottom: 0.5em;
+        @include fontSet(32px, 40px);
+        font-weight: bold;
+        color: $main-color;
+    }
+
+    cite {
+        @include fontSet(24px, 32px);
+        font-weight: bold;
+        font-style: normal;
+        color: $complementary-color;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: 2px;
+        height: 30px;
+        background-color: $complementary-color;
+    }
+
+}
+
+.inline__quote {
+    position: relative;
+    margin: 0 0;
+    padding: 0 3.6rem 4.2rem;
+    @include cuatrecasas-font();
+    text-align: center;
+    color: $black;
+    background-color: $complementary-color;
+
+    &:before {
+        content: '\201C';
+        position: relative;
+        top: 8rem;
+        display: inline-block;
+        font-size: 9rem;
+        line-height: 1;
+        color: $white;
+        transform: scale(3);
+    }
+
+    &:after {
+        content: '';
+        position: relative;
+        left: calc(50% - 10%);
+        display: block;
+        width: 20%;
+        height: 3px;
+        background-color: $black;
+    }
+
+    .inline__quote__text {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        @include fontSet(32px, 36px);
+    }
+}
+
+.mentions {
+    @include reset-list;
+    display: flex;
+
+    @include mediaQuery($desktop-width, $mobile-width) {
+        display: block;
+    }
+
+    @include has("quote") {
+        flex: 1;
+        padding: 3rem 3rem 6rem;
+        @include fontSet(32px, 40px);
+        color: $white;
+
+        &:nth-child(1) {
+            background-color: rgba($main-color, 1);
+        }
+
+        &:nth-child(2) {
+            background-color: rgba($main-color, 0.8);
+        }
+
+        &:nth-child(3) {
+            background-color: rgba($main-color, 0.6);
+        }
+    }
+}

@@ -1,0 +1,145 @@
+// ==========================================================================
+// FOOTER
+// ==========================================================================
+
+footer {
+    padding: 0 10vw 2rem;
+    background-color: $white-medium;
+
+    .chat__wrapper {
+        position: relative;
+
+        .chat__button {
+            position: absolute;
+            top: -30px;
+            right: -36px;
+
+            .chat__link {
+                position: relative;
+                display: block;
+                width: 70px;
+                height: 70px;
+                text-align: center;
+                color: $white;
+                background-color: $complementary-color;
+                border-radius: 50%;
+                box-shadow: 0 0 0 0 $white;
+                transition: all 0.2s ease-out;
+
+                &:after {
+                    position: absolute;
+                    top: 10px;
+                    left: 18px;
+                    content: '\e0b7';
+                    font-family: 'Material Icons';
+                    font-size: 36px;
+                }
+
+                @include on-event {
+                    @include button-hover;
+                    color: $complementary-color;
+                    background-color: $white;
+                    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+                    transform: scale(1.1);
+
+                    &:after {
+                        color: $complementary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer__logo {
+        margin-left: -0.6em;
+        margin-bottom: 0.8em;
+    }
+
+    .footer__info {
+        padding: 1.6em 0;
+
+        p {
+            @include fontSet(14px, 18px);
+            color: $black;
+        }
+    }
+
+    .footer__links {
+        padding: 0.8rem 0;
+        border-top: 1px solid $gray-light;
+
+        p {
+            @include fontSet(14px, 18px);
+            margin-bottom: 0;
+            color: $gray-medium;
+        }
+    }
+
+    .legal__info {
+        @include reset-list;
+        display: flex;
+        margin-top: 0.2rem;
+
+        .legal__item {
+            position: relative;
+            margin-right: 0.4em;
+            padding-right: 0.6em;
+
+            &:after {
+                position: absolute;
+                top: 5px;
+                right: 0;
+                width: 2px;
+                height: 15px;
+                content: "";
+                background: $gray-medium;
+                opacity: 0.5;
+            }
+
+            &:last-child {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
+        .legal__link {
+            @include fontSet(14px, 14px);
+            font-weight: bold;
+            color: $gray-medium;
+
+            @include on-event {
+                @include link-hover;
+            }
+        }
+    }
+
+    .social__media {
+        @include reset-list;
+        display: flex;
+        justify-content: flex-end;
+
+        .social__item {
+            margin-left: 0.2em;
+        }
+
+        .social__link {
+            display: block;
+            width: 38px;
+            height: 38px;
+            text-align: center;
+            color: $gray-medium;
+            border-radius: 50%;
+            transition: all 0.2s ease-in-out;
+
+            @include on-event {
+                @include button-hover;
+            }
+
+            .fab {
+                line-height: 2;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,34 @@
+// ==========================================================================
+// COLORS
+// ==========================================================================
+
+//
+// RGB
+//
+
+$black:                 rgba(0, 0, 0, 1) !default;
+$white:                 rgba(255, 255, 255 , 1) !default;
+
+$text-color:            rgb(52, 52, 52) !default;           // #343434
+
+$main-color:            rgb(70, 0, 29) !default;            // #46001d
+$complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60
+
+$gray-dark:             rgb(72, 72, 72) !default;           // #484848
+$gray-medium:           rgb(128, 128, 128) !default;        // #808080
+$gray-light:            rgb(212, 212, 212) !default;        // #d4d4d4
+
+$white-dark:            rgb(239, 239, 239) !default;        // #efefef
+$white-medium:          rgb(247, 247, 247) !default;        // #f7f7f7
+$white-light:           rgb(253, 253, 253) !default;        // #fdfdfd
+
+
+//
+// BOX NEWS / EVENTS COLORS
+//
+
+$article-bg-color:      rgb(0, 151, 143) !default;          // #00978f
+$event-bg-color:        rgb(246, 237, 241) !default;        // #f6edf1
+// $news-color:            rgb(0, 151, 143) !default;          // #00978f
+// $events-bg-color:       rgb(246, 237, 241) !default;        // #f6edf1
+

@@ -1,0 +1,70 @@
+{% block menu %}
+    <div class="main-nav-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="main-nav" class="col-md-7 navbar navbar-expand-md justify-content-end" aria-label="main-nav">
+                    <a href="{{ relative_path('/home/index')}}" class="navbar-brand">
+                        <img src="{{ asset('web/assets/logos/4casas.png') }}" alt="Cuatrecasas">
+                    </a>
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ relative_path('/es/knowledge/events')}}">Conocimiento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ relative_path('/es/lawyer/filter')}}">Abogados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ relative_path('/es/activity/sectorsHome')}}">Sectores</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav id="about-nav" class="col-md-5 navbar navbar-expand-md justify-content-start" aria-label="about-nav">
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Talento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Estamos en</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">La Firma</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="row">
+                <nav id="contact-nav" class="col-md-12 navbar navbar-expand-md" aria-label="contact-nav">
+                    <a href="{{ relative_path('/home/index')}}" class="navbar-brand">
+                        <img src="{{ asset('web/assets/logos/cuatrecasas.png') }}" alt="Cuatrecasas">
+                    </a>
+                    <div class="navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Webs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Portugal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">ES <i class="icon ion-ios-arrow-down"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

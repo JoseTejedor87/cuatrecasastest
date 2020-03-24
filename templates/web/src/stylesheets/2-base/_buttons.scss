@@ -1,0 +1,159 @@
+// ==========================================================================
+// BUTTONS
+// ==========================================================================
+
+//
+// MAIN BUTTON
+// --------------------------------------------------------------------------
+
+.btn__main {
+    @include reset-button;
+    color: $white;
+    background-color: $complementary-color;
+    border: 1px solid transparent;
+    border-color: $complementary-color;
+
+    @include on-event() {
+        color: $white;
+        text-decoration: none;
+        box-shadow: -8px 8px 0 $main-color,
+                    0 19px 38px rgba(0, 0, 0, 0.30),
+                    0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+    @include when("transparent") {
+        text-transform: none;
+        color: $complementary-color;
+        background-color: transparent;
+        border: 2px solid transparent;
+        border-color: $complementary-color;
+
+        @include on-event() {
+            background-color: $complementary-color !important;
+            border-color: $complementary-color !important;
+            box-shadow: -8px 8px 0 $main-color,
+                        0 19px 38px rgba(0, 0, 0, 0.30),
+                        0 15px 12px rgba(0, 0, 0, 0.22);
+        }
+    }
+
+    @include when("bgcolor"){
+        @include on-event() {
+            background-color: $complementary-color !important;
+            border-color: $complementary-color !important;
+            box-shadow: -8px 8px 0 $white,
+                        0 19px 38px rgba(0, 0, 0, 0.30),
+                        0 15px 12px rgba(0, 0, 0, 0.22);
+        }
+    }
+}
+
+
+//
+// FAVORITES
+// --------------------------------------------------------------------------
+
+.button__bookmark {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    margin: 0 0;
+    padding: 0.2em;
+    color: red;
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease-out;
+
+    &:after {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        // display: inline-block;
+        // width: 1px;
+        // height: 1px;
+        content: '\e867';
+        font-family: 'Material Icons';
+        @include fontSet(40px, 40px);
+        font-weight: normal;
+    }
+
+    @include on-event() {
+        color: $white;
+        background-color: $complementary-color;
+        border-color: $complementary-color;
+        outline: none;
+
+        &:after {
+            top: 6px;
+            left: 6px;
+            @include fontSet(32px, 32px);
+        }
+    }
+
+    &.on {
+        &:after {
+            content: '\e866';
+        }
+    }
+}
+
+
+//
+// VIEW MORE (BOXES)
+// --------------------------------------------------------------------------
+
+.viewmore__button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn__viewmore {
+    position: relative;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    @include fontSet(16px, 16px);
+    font-weight: bold;
+    text-align: right;
+    color: $black;
+    background: none;
+    border: none;
+    border-radius: 0;
+    transition: all 0.3s ease-out;
+
+    &:after {
+        display: inline-block;
+        position: absolute;
+        top: 6px;
+        right: 2px;
+        content: '\e148';
+        font-family: 'Material Icons';
+        font-size: 36px;
+        font-weight: normal;
+        line-height: 1;
+        color: $complementary-color;
+        transform: scale(1);
+        transition: all 0.3s ease-out;
+        will-change: transform;
+    }
+
+    @include when("oneline") {
+        padding: 1rem 3rem;
+    }
+
+    @include on-event() {
+        padding-right: 4rem;
+        // color: $complementary-color;
+
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+        }
+
+        &:after {
+            right: 6px;
+            transform: scale(1.5) rotate(180deg);
+        }
+    }
+}
+

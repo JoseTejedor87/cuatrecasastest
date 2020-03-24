@@ -87,7 +87,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
-        return new RedirectResponse($request->getPathInfo(), 301);
+        return new RedirectResponse($request->getBasePath() . $request->getPathInfo(), 301);
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)

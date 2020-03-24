@@ -1,0 +1,336 @@
+{% extends 'web/baseCalendar.html.twig' %}
+{% block main %}
+<main role="main" class="">
+    <article class="blog-article">
+        <header id="page-header">
+            <figure class="full-width">
+                <img class="vt45" src="{{ asset('web/assets/img/christian-perner-fYO1T495QCM-unsplash.jpg') }}" alt="">
+            </figure>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="header-info d-flex flex-column">
+                            {# <big class="hash-text">SectoresCuatrecasas</big> #}
+                            <h1 class="order-2">
+                                Lorem ipsum dolor
+                            </h1>
+                            <nav class="order-1" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
+                                    <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Lorem ipsum dolor</li>
+                                </ol>
+                            </nav>
+                            <ul class="action-icons order-3">
+                                <li><a href="#"><i class="material-icons">share</i></a></li>
+                                <li><a href="#"><i class="material-icons">print</i></a></li>
+                                <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                            </ul>
+                            {# <a href="#" class="back-button">volver</a> #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="event-info-wrapper">
+            <div class="container">
+                <div class="row event-search">
+                    <div class="col-8 form-group">
+                        <div class="search-name">
+                            <input type="text" class="form-control" placeholder="Buscar">
+                            <div class="input-group">
+                                <button class="" type="button">
+                                    <i class="icon ion-ios-search-strong"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group">
+                        <a href="#" class="toggle-filters">Ocultar filtros</a>
+                    </div>
+                </div>
+                <div class="row event-filters">
+                    <div class="col form-group">
+                        <div class="event-filters-selects">
+                            <div class="filter-toggler">Ciudad</div>
+                            <div class="filter-toggler">Expertise</div>
+                            <div class="filter-toggler fecha">Fecha</div>
+
+                            {# <div class="input-group date" id="datePicker">
+                                <span class="input-group-addon">
+                                    <div class="filter-toggler fecha">Fecha</div>
+                                </span>
+                                <input type="text" class="input-date d-none" placeholder="Selecciona una fecha o rango de fechas">
+                            </div> #}
+
+                            <input type="text" id="datePlaceholder" placeholder="Selecciona una fecha o rango de fechas">
+
+                            <div id="datePicker" class="input-group input-daterange">
+                                <span class="input-group-addon">de</span>
+                                <input type="text" class="input-date" name="start" placeholder="fecha inicio" autocomplete="off">
+                                <span class="input-group-addon">a</span>
+                                <input type="text" class="input-date" name="end" placeholder="fecha fin" autocomplete="off">
+                            </div>
+
+                            {# <div id="datePickerInline">
+                                <div></div>
+                            </div> #}
+                        </div>
+                    </div>
+                </div>
+                {# <div id="datePickerInline" class="row">
+                    <div class="col"></div>
+                </div> #}
+            </div>
+        </section>
+        <section class="event-results-wrapper">
+            <div class="container">
+                <div class="row event-toolbar d-flex justify-content-between">
+                    <ul class="event-chooser">
+                        <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/calendar-small.png') }}" alt=""> Ver todos los eventos</a></li>
+                        <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/favorite.png') }}" alt=""> Ver eventos favoritos</a></li>
+                    </ul>
+                    <ul class="event-view">
+                        <li><a href="#" id="viewEventList"><img src="{{ asset('web/assets/icons/list.png') }}" alt="list view"></a></li>
+                        <li><a href="#" id="viewEventCalendar"><img src="{{ asset('web/assets/icons/calendar.png') }}" alt="calendar view"></a></li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="eventCalendar" style="display:none"></div>
+                        <div id="eventList">
+                            <article class="event-box">
+                                <div class="event-info">
+                                    <div class="event-dates">
+                                        <div data-day>24 Feb</div>
+                                        <div data-year>2019</div>
+                                    </div>
+                                    <ul class="event-actions">
+                                        <li><a href="#" class="button-favorite">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar">Añadir calendario</a></li>
+                                    </ul>
+                                </div>
+                                <div class="event-details">
+                                    <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
+                                    <div data-where><i class="material-icons">place</i> Barcelona</div>
+                                    <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
+                                </div>
+                                <div class="event-button">
+                                    <a href="#" class="btn-arrow-new">inscribirme</a>
+                                </div>
+                            </article>
+                            <article class="event-box">
+                                <div class="event-info">
+                                    <div class="event-dates">
+                                        <div data-day>24 Feb</div>
+                                        <div data-day>02 Mar</div>
+                                        <div data-year>2019</div>
+                                    </div>
+                                    <ul class="event-actions">
+                                        <li><a href="#" class="button-favorite on">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar on">Quitar calendario</a></li>
+                                    </ul>
+                                </div>
+                                <div class="event-details">
+                                    <div data-when>De 10 a 12 h <span data-duration>(2 horas)</span></div>
+                                    <div data-where><i class="material-icons">place</i> Lisboa</div>
+                                    <h2 data-info>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt tincidunt tortor aliquam nulla. Purus in mollis nunc sed id semper risus libero volutpat sed.</h2>
+                                </div>
+                                <div class="event-button">
+                                    <a href="#" class="btn-arrow-new">inscribirme</a>
+                                    {# <a href="#" class="btn-arrow-new"><span>inscribirme</span></a> #}
+                                    {# <a href="#" class="mainBttn">
+                                        <div class="mainBttn__text">inscribirme</div>
+                                        <div class="mainBttn__border"></div>
+                                        <div class="mainBttn__bg"></div>
+                                    </a> #}
+                                </div>
+                            </article>
+                            <article class="event-box">
+                                <div class="event-info">
+                                    <div class="event-dates">
+                                        <div data-day>24 Feb</div>
+                                        <div data-year>2019</div>
+                                    </div>
+                                    <ul class="event-actions">
+                                        <li><a href="#" class="button-favorite">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar">Añadir calendario</a></li>
+                                    </ul>
+                                </div>
+                                <div class="event-details">
+                                    <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
+                                    <div data-where><i class="material-icons">place</i> Barcelona</div>
+                                    <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
+                                    <ul class="speakers-wrapper">
+                                        <li data-speakers>
+                                            <figure data-speaker-photo>
+                                                <img src="{{ asset('web/assets/img/peter-van-eijk-eiDw0oX8YQQ-unsplash.jpg') }}" alt="Nombre Apellido">
+                                            </figure>
+                                            <div data-speaker-details>
+                                                <div data-speaker-name>José Luis Gutierrez García</div>
+                                                <div data-speaker-position>Asociado senior</div>
+                                            </div>
+                                        </li>
+                                        <li data-speakers>
+                                            <figure data-speaker-photo>
+                                                <img src="{{ asset('web/assets/img/yuliya-kosolapova-6agC_7WU5_0-unsplash.jpg') }}" alt="Nombre Apellido">
+                                            </figure>
+                                            <div data-speaker-details>
+                                                <div data-speaker-name>Paloma Gómez Pascual</div>
+                                                <div data-speaker-position>Asociada senior</div>
+                                            </div>
+                                        </li>
+                                        <li data-speakers>
+                                            <figure data-speaker-photo>
+                                                <img src="{{ asset('web/assets/img/anastasia-vityukova-S9gIUu5riYs-unsplash.jpg') }}" alt="Nombre Apellido">
+                                            </figure>
+                                            <div data-speaker-details>
+                                                <div data-speaker-name>María Gomez Urrutia</div>
+                                                <div data-speaker-position>Asociada senior</div>
+                                            </div>
+                                        </li>
+                                        <li data-speakers>
+                                            <figure data-speaker-photo>
+                                                <img src="{{ asset('web/assets/img/reza-biazar-eSjmZW97cH8-unsplash.jpg') }}" alt="Nombre Apellido">
+                                            </figure>
+                                            <div data-speaker-details>
+                                                <div data-speaker-name>Juan José Lopez Fernández</div>
+                                                <div data-speaker-position>Asociado senior</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="event-button">
+                                    <a href="#" class="btn-arrow-new">inscribirme</a>
+                                </div>
+                            </article>
+                            <div class="button-wrapper">
+                                <button class="btn btn-color ">Cargar más</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+</main>
+{% include 'web/shared/insights.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+    // Load Calendar
+    web.global.loadCalendar();
+
+
+    $(document).ready(function () {
+        // Toggle calendar
+        $('.filter-toggler.fecha').click(function(e){
+            e.preventDefault();
+            // $('#datePlaceholder').show();
+            $('#datePicker').toggle();
+        });
+
+        // $('#datePlaceholder').focus(function(e){
+        //     e.preventDefault();
+        //     $(this).hide();
+        //     $('#datePicker').show();
+        // });
+
+        // Fav & Cal buttons
+        $('.button-favorite').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('on');
+        });
+        $('.button-calendar').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('on');
+
+            // change literal
+            var el = $(this);
+            el.text() == el.data("text-original")
+                ? el.text(el.data("text-swap"))
+                : el.text(el.data("text-original"));
+        });
+
+        $('.no-link').click(function(e){
+            e.preventDefault();
+        });
+
+    });
+
+    // Inline DatePicker
+    // $('#datePickerInline div').datepicker({
+    //     weekStart: 1,
+    //     todayHighlight: true,
+    //     autoclose: true,
+    //     language: "es"
+    // });
+
+    // Load DatePicker
+    var bd = $('<div class="modal-backdrop calendar"></div>');
+
+    // $('.input-daterange').datepicker({
+    $('#datePicker').datepicker({
+        weekStart: 1,
+        // todayHighlight: true,
+        autoclose: true,
+        orientation: "left bottom",
+        language: "es"
+    })
+    .on('show', function(e) {
+        bd.appendTo(document.body);
+    })
+    .on('hide', function(e) {
+        bd.remove();
+    });
+
+    // $("#datePicker").click(function() {
+    //     var bd = $('<div class="modal-backdrop"></div>');
+    //     bd.appendTo(document.body);
+    //     setTimeout(function() {
+    //         bd.remove();
+    //     }, 2000);
+    // });
+
+    // $('#datePicker').datepicker()
+    // .on('show', function(e) {
+    //     alert('go');
+    //     // `e` here contains the extra attributes
+    // });
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var eventCalendar = document.getElementById('eventCalendar');
+        var eventList = document.getElementById('eventList');
+
+        $('#viewEventCalendar').click(function(e){
+            e.preventDefault();
+            $('#eventCalendar').show();
+            $('#eventList').hide();
+        });
+
+        $('#viewEventList').click(function(e){
+            e.preventDefault();
+            $('#eventCalendar').hide();
+            $('#eventList').show();
+        });
+
+        // icon change
+        $('#datePicker').focusin(function(){
+            $('.icon').addClass('ion-ios-arrow-up');
+            $('.icon').removeClass('ion-ios-arrow-down');
+        });
+        $('#datePicker').focusout(function(){
+            $('.icon').removeClass('ion-ios-arrow-up');
+            $('.icon').addClass('ion-ios-arrow-down');
+        });
+    });
+
+</script>
+{% endblock %}
+

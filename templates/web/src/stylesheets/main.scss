@@ -1,0 +1,121 @@
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import
+  '1-utils/variables',
+  '1-utils/functions',
+  '1-utils/colors',
+  '1-utils/shared',
+  '1-utils/mixins';
+
+// 2. Base stuff
+@import
+  '2-base/base',
+  '2-base/fonts',
+  '2-base/typography',
+  '2-base/quotes',
+  '2-base/lists',
+  '2-base/forms',
+  '2-base/buttons';
+
+// 3. Layout-related sections
+@import
+  '3-layout/global',
+  '3-layout/navigation',
+  '3-layout/page',
+  '3-layout/footer';
+
+// 4. Components
+@import
+  '4-components/news',
+  '4-components/grid',
+  '4-components/insight',
+  '4-components/call-to-action',
+  '4-components/contact',
+  '4-components/team';
+// @import
+//   '4-components/awards',
+//   '4-components/calendar',
+//   '4-components/call-to-action',
+//   '4-components/carousel',
+//   '4-components/date-range',
+//   '4-components/events',
+//   '4-components/expertise',
+//   '4-components/grid',
+//   '4-components/highlights',
+//   '4-components/insights',
+//   '4-components/related',
+//   '4-components/search',
+//   '4-components/services',
+//   '4-components/slider',
+//   '4-components/team',
+//   '4-components/tech-channel',
+//   '4-components/testimonials';
+
+// 5. Page-specific styles
+@import
+  '5-pages/search',
+  '5-pages/lawyers',
+  '5-pages/services',
+  '5-pages/insights';
+// @import
+//   '5-pages/home',
+//   '5-pages/knowledge',
+//   '5-pages/lawyers',
+//   '5-pages/sectors',
+//   '5-pages/services';
+
+
+/*
+ * Sass Boilerplate
+   ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
+ * https://sass-guidelin.es/#architecture
+  * https://github.com/HugoGiraudel/sass-boilerplate
+ * https://itnext.io/structuring-your-sass-projects-c8d41fa55ed4
+
+sass/
+|
+|– abstracts/ (or utilities/)
+|   |– _variables.scss    # Sass Variables
+|   |– _functions.scss    # Sass Functions
+|   |– _mixins.scss       # Sass Mixins
+|   |– _placeholders.scss # Sass Placeholders
+|
+|– base/
+|   |– _reset.scss        # Reset/normalize
+|   |– _typography.scss   # Typography rules
+|   …                     # Etc.
+|
+|– components/
+|   |– _buttons.scss      # Buttons
+|   |– _carousel.scss     # Carousel
+|   |– _cover.scss        # Cover
+|   |– _dropdown.scss     # Dropdown
+|   …                     # Etc.
+|
+|– layout/
+|   |– _navigation.scss   # Navigation
+|   |– _grid.scss         # Grid system
+|   |– _header.scss       # Header
+|   |– _footer.scss       # Footer
+|   |– _sidebar.scss      # Sidebar
+|   |– _forms.scss        # Forms
+|   …                     # Etc.
+|
+|– pages/
+|   |– _home.scss         # Home specific styles
+|   |– _contact.scss      # Contact specific styles
+|   …                     # Etc.
+|
+|– themes/
+|   |– _theme.scss        # Default theme
+|   |– _admin.scss        # Admin theme
+|   …                     # Etc.
+|
+|– vendors/
+|   |– _bootstrap.scss    # Bootstrap
+|   |– _jquery-ui.scss    # jQuery UI
+|   …                     # Etc.
+|
+`– main.scss              # Main Sass file
+*/

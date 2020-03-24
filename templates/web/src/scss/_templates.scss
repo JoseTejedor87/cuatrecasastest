@@ -11,7 +11,6 @@
     position: relative;
     top: 129px;
 
-
     .breadcrumb {
         padding: 0 0;
         margin: 1em 0 2.6rem;
@@ -25,10 +24,12 @@
             color: $black;
 
             a {
-                @include text-link($black,$secondary-color,transparent,$secondary-color);
+                @include text-link($black, $secondary-color, transparent, $secondary-color);
                 font-weight: 300;
             }
+
         }
+
     }
 
     .lawyer-header {
@@ -43,6 +44,7 @@
                 font-size: 90%;
                 line-height: 1.6;
             }
+
         }
 
         h1 {
@@ -50,7 +52,7 @@
         }
 
         a {
-            @include text-link($black,$secondary-color,$white,$secondary-color);
+            @include text-link($black, $secondary-color, $white, $secondary-color);
         }
 
         .lawyer-position {
@@ -84,8 +86,11 @@
                     &:after {
                         display: none;
                     }
+
                 }
+
             }
+
         }
 
         .lawyer-address {
@@ -97,9 +102,10 @@
                 font-weight: 400;
             }
 
-            // br {
-            //     @include br-to-space;
-            // }
+            br {
+                @include br-to-space;
+            }
+
         }
 
         .lawyer-tel {
@@ -113,6 +119,7 @@
                 top: 0;
                 left: 0;
             }
+
         }
 
         .lawyer-langs {
@@ -135,34 +142,30 @@
             img {
                 width: 100%;
             }
+
         }
 
-        // @media (max-width: 992px) {
-        //     figure {
-        //         margin-left: 0;
-        //     }
-        // }
     }
+
 }
 
 .lawyer-filter {
     // border: 1px solid red;
 
-    // h2 {
-    //     font-size: 4rem;
-    //     font-weight: 700;
-    //     line-height: 1.138888889;
-    //     letter-spacing: 0.05rem;
-    // }
-}
+    h2 {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.138888889;
+        letter-spacing: 0.05rem;
+    }
 
+}
 
 //
 // ACTIVITY
 // --------------------------------------------------------------------------
 
 .sectors-home {
-
     #page-header-new {
         &:before {
             background-image: url($photo-sectors-home);
@@ -172,6 +175,7 @@
     .sector-links {
         margin: 4em 0 6em;
     }
+
 }
 
 .consumption-retail {
@@ -183,8 +187,83 @@
         font-size: 2.4rem;
         text-transform: none !important;
     }
+
 }
 
+//
+// SERVICES
+// --------------------------------------------------------------------------
+
+.labour-law {
+    .doble-accordion {
+        margin-bottom: 4em;
+    }
+
+}
+
+.product-detail {
+    .contact-box {
+        margin: 3em auto;
+        padding: 2em 3em;
+        background-color: $light-black;
+
+        .emphasis {
+            font-size: 3rem;
+        }
+
+    }
+
+    .email-subscribe {
+        .group {
+            margin: 1.5em 0 1em;
+        }
+
+        .form-group {
+            // margin-top: 1em;
+        }
+
+    }
+
+}
+
+//
+// KNOWLEDGE
+// --------------------------------------------------------------------------
+.event-detail {
+    // position: relative;
+    // top: 129px;
+
+    #page-header-new {
+        &:before {
+            background-image: url($photo-event-detail);
+            background-position: center bottom;
+        }
+
+    }
+
+    .section-header {
+        // margin-bottom: 1em;
+    }
+
+    .event-programme, .event-speakers {
+        .section-header {
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+    }
+
+}
+
+//
+// INSIGHTS PAGE
+// --------------------------------------------------------------------------
+.insights-page {
+    ~ .article-highlight {
+        margin: 8em 0;
+    }
+
+}
 
 //
 // SERVICES
@@ -196,11 +275,41 @@
     }
 }
 
-.product-detail {
-    .contact-box {
-        margin: 3em auto;
-        padding: 2em 3em;
-        background-color: $light-black;
+.search-name {
+    text-align: center;
+
+    button {
+        @include reset-button;
+        position: absolute;
+        top: -57px;
+        right: 0;
+        height: 57px;
+        padding: 0.3em 0.6em;
+        font-size: 32px;
+        background: transparent;
+        border: none;
+
+        .icon {
+            color: $complementary-color;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+            background-color: $complementary-color;
+
+            .icon {
+                color: $white;
+            }
+
+        }
+
+    }
+
+}
+
+.search-filters {
+    margin: 6rem auto 0;
+    // border: 1px solid blue;
 
         .emphasis {
             font-size: 3rem;
@@ -215,26 +324,18 @@
         .form-group {
             // margin-top: 1em;
         }
+
     }
 }
 
-
-//
-// KNOWLEDGE
-// --------------------------------------------------------------------------
-.event-detail {
-    // position: relative;
-    // top: 129px;
-
-    #page-header-new {
-        &:before {
-            background-image: url($photo-event-detail);
-            background-position: center bottom;
-        }
+    h2, h5 {
+        color: $soft-black;
+        letter-spacing: 0.02rem;
     }
 
-    .section-header {
-        // margin-bottom: 1em;
+    h2 {
+        margin-bottom: 0.6em;
+        font-size: 3rem;
     }
 
     .event-programme,
@@ -245,6 +346,7 @@
             text-align: center;
         }
     }
+
 }
 
 
@@ -254,26 +356,10 @@
 // --------------------------------------------------------------------------
 .insights-page {
 
-    ~ .article-highlight {
-        margin: 8em 0;
-    }
-}
+            &:hover, &:focus, &:active, .active {
+                @include button-hover;
+            }
 
-
-
-//
-// SEARCH
-// --------------------------------------------------------------------------
-
-.search-page {
-    margin-bottom: 8rem;
-
-    .search-filters {
-        margin: 6rem auto 4rem;
-        // border: 1px solid blue;
-
-        .find-lawyer {
-            margin-bottom: 4em;
         }
 
         .filter-lawyer {
@@ -287,22 +373,32 @@
             letter-spacing: 0.02rem;
         }
 
+    }
+
         h2 {
             margin-bottom: 0.6em;
             font-size: 3rem;
         }
 
-        h5 {
-            margin-bottom: 1em;
-            font-size: 1.8rem;
+        .search-results-text {
+            margin-top: 0.6em;
+            color: $medium-black;
         }
+
     }
 
-    .search-results-wrapper {
-        text-align: center;
+    .search-results-boxes {
+        @include flex-boxes;
+        justify-content: flex-start;
 
-        .pagination {
-            margin-bottom: 4em;
+        .card {
+            @include card-boxes;
+            @include img-hover-fx;
+            width: calc(25% - 2em);
+
+            figure {
+                @include reset-figure;
+                min-height: 180px;
 
             .page-link {
                 position: relative;
@@ -322,12 +418,11 @@
                 &:hover,&:focus,&:active,.active {
                     @include button-hover;
                 }
+
             }
 
-            .page-item:first-child .page-link {
-                margin-left: 0;
-                border-top-left-radius: 50%;
-                border-bottom-left-radius: 50%;
+            .card-title {
+                margin-bottom: 0.75rem;
             }
 
             .page-item:last-child .page-link {
@@ -337,8 +432,9 @@
             }
         }
 
-        .search-results-info {
-            margin-bottom: 3em;
+                .lawyer-name {
+                    padding-bottom: 0.5em;
+                }
 
             .search-results-text {
                 margin-top: 0.6em;
@@ -365,30 +461,19 @@
                     }
                 }
 
-                .card-title {
-                    margin-bottom: 0.75rem;
+                &:after {
+                    @include icons-ionicons(auto, 10px, 5px, auto);
+                    content: '\f3d1';
+                    font-size: 20px;
+                    color: $half-black;
                 }
 
+            }
+
+            &:hover, &:focus, &:active {
                 .card-body {
-                    display: flex;
-                    flex-direction: column;
-                    position: relative;
-                    padding: 2rem;
-                    color: $black;
-                    background-color: $light-black;
-
-                    .lawyer-name {
-                        padding-bottom: 0.5em;
-                    }
-
-                    .lawyer-position {
-                        margin-top: auto;
-                        line-height: 1;
-                    }
-
-                    .lawyer-location {
-                        line-height: 1;
-                    }
+                    @include box-hover;
+                    // outline: 2px solid $black;
 
                     &:after {
                         @include icons-ionicons(auto,10px,5px,auto);
@@ -407,14 +492,904 @@
                             color: $white;
                         }
                     }
+
                 }
+
             }
+
         }
+
+    }
 
         .view-more {
             margin: 6rem 0 3rem;
         }
     }
+
+}
+
+//
+// EVENTS
+// --------------------------------------------------------------------------
+
+.event-info-wrapper {
+    // border: 1px solid red;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06), 0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-results-wrapper {
+    // border: 1px solid red;
+    margin: 0 auto 10rem;
+
+    .event-toolbar {
+        border-bottom: 2px solid $gray-medium;
+        // margin: 2rem auto 10rem;
+    }
+
+    .button-wrapper {
+        padding-top: 8rem;
+    }
+}
+
+.event-search {
+    display: flex;
+    align-items: center;
+    padding: 0 0 3rem;
+    // border: 1px solid blue;
+
+    .toggle-filters {
+        font-weight: 600;
+        color: $complementary-color;
+
+        // &:hover, &:focus, &:active {
+        &:hover {
+            text-decoration: none;
+            color: $black;
+            box-shadow: 0 1px 0 $black;
+        }
+
+        &.on {
+            // box-shadow: 0 1px 0 $complementary-color;
+        }
+    }
+}
+
+.event-filters {
+    display: none;
+    // height: 60px;
+    margin: 0 0;
+    padding: 0 0 2rem;
+    // border: 1px solid cyan;
+
+    &.on {}
+}
+
+.event-filters-selects {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    height: 30px;
+
+    .select {
+        width: 100%;
+        height: 54px;
+    }
+}
+
+.event-chooser,
+.event-view {
+    @include reset-list;
+    @include reset-flex-horizontal;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    height: 6rem;
+}
+
+.event-chooser {
+    li {
+        position: relative;
+        margin-right: 1.4rem;
+        padding-right: 2.4rem;
+        color: $gray-600;
+
+        a {
+            @include link;
+            font-weight: 600;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 12px;
+            right: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $gray-600;
+        }
+
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+
+.event-view {
+    justify-content: flex-end;
+
+    li {
+        margin-left: 1rem;
+
+        a {
+            outline: 3px solid transparent;
+
+            &:hover {
+                outline-color: $complementary-color;
+            }
+
+        }
+    }
 }
 
 
+//
+// LISTADO EVENTOS
+// --------------------------------------------------------------------------
+.event-box {
+    // border: 1px solid red;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 3rem 0 4rem;
+    border-bottom: 1px solid $gray-light;
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX( -50%);
+        width: 100vw;
+        height: 100%;
+        content: '';
+        background-color: $white-medium;
+        opacity: 0;
+        transition: opacity .2s ease-out;
+    }
+
+    &:hover {
+        &:before {
+            opacity: 1;
+        }
+    }
+}
+
+.event-info {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 20%;
+
+    > * {
+        flex: 1 100%;
+    }
+
+    > div > * {
+        display: block;
+    }
+
+    .event-dates {
+        min-height: 82px;
+        padding-left: 1rem;
+        border-left: 2px solid $main-color;
+
+        [data-day] {
+            font-size: 2.8rem;
+            font-weight: 600;
+            line-height: 1;
+            text-transform: uppercase;
+            color: $main-color;
+        }
+
+        [data-year] {
+            margin-top: 0.5rem;
+            font-size: 2rem;
+            line-height: 1;
+            color: $gray-medium;
+        }
+    }
+
+    .event-actions {
+        @include reset-list;
+        margin-top: 1rem;
+
+        > * {
+            line-height: 1.5;
+        }
+    }
+}
+
+.event-details {
+    flex: 0 0 64%;
+    padding-right: 12%;
+
+    [data-when] {
+        font-size: 2rem;
+        font-weight: 600;
+        color: $gray-medium;
+    }
+
+    [data-duration] {
+        font-weight: 400;
+        color: $gray-medium;
+    }
+
+    [data-where] {
+        position: relative;
+        margin: 1rem 0 1.2rem;
+        padding-left: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $complementary-color;
+
+        i {
+            position: absolute;
+            top: -2px;
+            left: -5px;
+            font-size: 3rem;
+            color: $gray-light;
+        }
+    }
+
+    [data-info] {
+        font-size: 2rem;
+    }
+
+    .speakers-wrapper {
+        @include reset-list;
+        @include reset-flex-horizontal;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    [data-speakers] {
+        display: flex;
+        flex-flow: row nowrap;
+        flex: 0 0 calc(50% - 1rem);
+        margin-bottom: 2rem;
+        font-size: 1.6rem;
+        line-height: 1.2;
+
+        [data-speaker-photo] {}
+
+        figure {
+            @include reset-figure;
+            width: 70px;
+            height: 70px;
+            margin-right: 1.8rem;
+            border-radius: 50%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        [data-speaker-details] {
+            display: flex;
+            flex-flow: column nowrap;
+            padding: 0.2rem 0;
+        }
+
+        [data-speaker-name] {
+            font-weight: 600;
+            text-transform: uppercase;
+            color: $gray-medium;
+        }
+
+        [data-speaker-position] {
+            margin-top: auto;
+            color: $gray-medium;
+        }
+    }
+}
+
+.event-box {
+    .event-button {
+        position: relative;
+        flex: 0 0 16%;
+        align-self: stretch;
+
+        .btn-arrow-new {
+            position: absolute;
+            bottom: -40px;
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+
+//
+// EVENT SUBSCRIBE
+//
+
+.button-favorite,.button-calendar {
+    @include link;
+    position: relative;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-radius: 0;
+    transition: 0.3s ease-in-out;
+
+    &:before {
+        position: relative;
+        top: 7px;
+        left: 0;
+        display: inline-block;
+        width: 33px;
+        font-family: 'Material Icons';
+        font-size: 24px;
+        font-weight: normal;
+        line-height: 1;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 33px;
+        display: block;
+        width: calc(100% - 33px);
+        height: 1px;
+        background-color: $black;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    &:hover, &:focus, &:active {
+        &:after {
+            opacity: 1;
+        }
+    }
+}
+
+.button-favorite {
+    &:before {
+        content: '\e867';
+    }
+
+    &.on {
+        &:before {
+            content: '\e866';
+        }
+    }
+}
+
+.button-calendar {
+    &:before {
+        content: '\e614';
+    }
+
+    &.on {
+        &:before {
+            content: '\e615';
+        }
+    }
+}
+
+
+//
+// DATEPICKER
+// --------------------------------------------------------------------------
+
+.custom-select.calendar {
+    ~ .select-styled {
+        height: 57px;
+        padding: 1.4rem 1rem 1rem;
+        background-color: pink;
+
+        &:after {
+            position: relative;
+            top: 4px;
+            right: auto;
+            bottom: auto;
+            left: 12px;
+            content: "\f3d0";
+            font-size: 24px;
+        }
+    }
+
+    ~ .select-options {
+        top: calc(100% + 16px);
+        min-width: 26rem;
+        max-height: 295px;
+
+        li {
+            padding: 1rem 1rem;
+            font-size: 90%;
+        }
+    }
+}
+
+
+//
+// Input calendar picker
+//
+
+#datePlaceholder {
+    display: none;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+#datePicker {
+    display: none;
+    position: relative;
+    top: -5px;
+    z-index: 3;
+
+    &.input-group {
+        // align-items: center;
+    }
+
+    .input-date {
+        line-height: 1;
+        text-align: center;
+        border: none;
+        outline: none;
+        background: transparent;
+        // box-shadow: 0 1px 0 $white-dark;
+    }
+
+
+    .input-group-addon {
+        position: absolute;
+        top: 3px;
+        opacity: 0.3;
+
+        // DateRange
+        // display: inline-block;
+        // padding: 0 2rem;
+        // line-height: 1;
+        // text-align: center;
+    }
+}
+
+
+//
+// Days colors / hover
+//
+
+%date-hover-color {
+    color: $white;
+    background-color: $complementary-color;
+    border-color: $complementary-color;
+}
+
+%date-active-color {
+    color: $white;
+    background-color: $main-color;
+    border-color: $main-color;
+}
+
+
+.datepicker-dropdown.datepicker-orient-bottom:before,
+.datepicker-dropdown.datepicker-orient-bottom:after {
+    display: none;
+}
+
+
+.datepicker {
+    z-index: 999;
+
+    &.dropdown-menu {
+        // min-width: 32rem;
+        // margin-top: 2rem;
+        // padding: 0 1rem;
+        font-size: 2rem;
+        border-radius: 0;
+    }
+
+    .datepicker-switch {
+        font-weight: 600;
+        color: $black;
+
+        &:hover {
+            @extend %date-hover-color;
+        }
+    }
+
+    .prev,.next {
+        &:hover {
+            @extend %date-hover-color;
+        }
+    }
+
+    table {
+        width: 100%;
+        font-size: 90%;
+        border-collapse: separate;
+
+        thead {
+            tr {
+                // Month Year // Prev Next buttons
+                &:nth-of-type(2) {
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 55px;
+                        left: 0;
+                        width: 100%;
+                        height: 1px;
+                        background-color: $gray-light;
+                    }
+
+                    th {
+                        padding: 1rem 0;
+                    }
+                }
+
+                // Days of the week
+                &:nth-of-type(3) {
+                    th {
+                        padding: 1.2rem 0;
+                        font-size: 80%;
+                    }
+                }
+            }
+        }
+
+        tr {
+            th {
+                padding: 0 0;
+                font-weight: 400;
+                border-radius: 0;
+                color: $gray-medium;
+            }
+
+            td {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+
+                &.day {
+                    &:hover, &:focus, &:active {
+                        @extend %date-hover-color;
+                    }
+
+                    &.active {
+                        @extend %date-active-color;
+
+                         &.active {
+                            @extend %date-active-color;
+
+                            &:hover, &:focus, &:active {
+                                @extend %date-hover-color;
+                            }
+                        }
+                    }
+                }
+
+                &.today {
+                    color: #fff;
+                    background-color: #777;
+                    border-color: #555;
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+
+                    &:hover, &:focus, &:active {
+                        @extend %date-hover-color;
+
+                        &.focus, &.focused {
+                            @extend %date-hover-color;
+                        }
+                    }
+
+                    &.active, &.focus, &.focused {
+                        @extend %date-hover-color;
+
+                        &:hover, &:focus, &:active {
+                            @extend %date-hover-color;
+                        }
+
+                        &.focus {
+                            @extend %date-hover-color;
+
+                            &:hover, &:focus, &:active {
+                                @extend %date-hover-color;
+                            }
+                        }
+                    }
+                }
+
+                &.range {
+                    color: #000;
+                    background-color: #eee;
+                    border-color: #bbb;
+                    border-radius: 50%;
+                }
+
+                &.selected,
+                &.highlighted {
+                    // color: #fff;
+                    // background-color: #777;
+                    // border-color: #555;
+                    // text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+
+                    @extend %date-active-color;
+                }
+
+                &.active {
+                    @extend %date-active-color;
+
+                    &:hover, &:focus, &:active {
+                        @extend %date-active-color;
+                    }
+
+                    &.focus {
+                        @extend %date-hover-color;
+
+                        &:hover, &:focus, &:active {
+                            @extend %date-hover-color;
+                        }
+                    }
+                }
+
+                &.focus, &.focused {
+                    @extend %date-hover-color;
+
+                    &:hover, &:focus, &:active {
+                        @extend %date-hover-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal-backdrop {
+    &.calendar {
+        background-color: #fff;
+        z-index: 1;
+        opacity: 0.9;
+    }
+}
+
+
+//
+// FULLCALENDAR
+// --------------------------------------------------------------------------
+
+/* Global Event Styles (core)
+--------------------------------------------------------------------------------------------------*/
+.fc-event {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    font-size: 85%;
+    line-height: 1.4;
+    color: $black;
+    background-color: $white-dark;
+    border-radius: 0;
+    border: 1px solid $white-dark;
+    border-left: 3px solid $main-color;
+
+    &:hover {
+        color: $white;
+        background-color: $complementary-color;
+    }
+
+}
+
+.fc-day-grid-event {
+    margin: 0 0;
+    padding: 0 0;
+
+    .fc-content {
+        white-space: unset;
+        padding: 0.5rem 1rem;
+
+        .fc-title {
+            // https: //css-tricks.com/almanac/properties/l/line-clamp/
+            display:-webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-weight: 600
+        }
+
+        .fc-place {
+            margin-top: 1rem;
+            text-transform: uppercase;
+        }
+
+    }
+
+}
+
+.fc-day-grid-event {
+    .fc-time {
+        font-weight: 700
+    }
+
+}
+
+.fc .fc-row .fc-content-skeleton tr .fc-event-container {
+    padding-bottom: 1rem;
+}
+
+.fc .fc-row .fc-content-skeleton tr:nth-last-child(1) .fc-event-container {
+    padding-bottom: 0;
+}
+
+.fc-unthemed td.fc-today {
+    background: none;
+}
+
+.fc-dayGrid-view .fc-day-number {
+    margin: .6rem;
+}
+
+.fc-today .fc-day-number {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    color: $white;
+    background-color: $complementary-color;
+    border-radius: 50%;
+}
+
+.fc-day-header.fc-widget-header {
+    padding: 1rem 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: $gray-light;
+}
+
+.fc-day.fc-widget-content.fc-other-month {
+    background-color: $white-light;
+}
+
+// buttons
+
+.fc-toolbar {
+    margin: 3rem 0 0;
+    justify-content: center;
+
+    h2 {
+        font-size: 2.4rem;
+    }
+
+    .fc-left, .fc-right {
+        margin-top: 0.2rem;
+    }
+
+    .fc-center {
+        min-width: 30%;
+        text-align: center;
+    }
+
+    .fc-right {
+    }
+
+}
+
+.fc-prev-button, .fc-next-button {
+    .fc-icon {
+        top: -1px;
+    }
+
+}
+
+.fc-prev-button {
+    .fc-icon {
+        left: -12px;
+    }
+
+}
+
+.fc-next-button {
+    .fc-icon {
+        right: 8px;
+    }
+
+}
+
+.fc-button {
+    width: 5rem;
+    height: 5rem;
+    text-align: center;
+    color: $white;
+    background-color: transparent;
+    // border: none;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    transition: all 0.3s;
+
+    .fc-icon {
+        position: relative;
+        font-size: 4rem;
+        line-height: 0.8;
+        font-weight: normal;
+        text-align: center;
+        color: $complementary-color;
+    }
+
+    &:hover, &:not(:disabled):active, &:focus, &:not(:disabled):focus, &:not(:disabled):active:focus {
+        background-color: transparent;
+        border-color: $complementary-color;
+    }
+
+    &:focus, &:not(:disabled):focus, &:not(:disabled):active:focus {
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+}
+
+
+
+
+//
+// Isotope Grid
+// --------------------------------------------------------------------------
+
+.grid-masonry {
+    width: 100%;
+    background: yellow;
+}
+
+/* clear fix */
+.grid-masonry:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-item,
+.grid-sizer {
+    width: 33.3333%;
+}
+
+.grid-item {
+    float: left;
+    height: 260px;
+    background: #fcf;
+    border: 2px solid black;
+    // border-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.grid-item--width2 { width: 66.6666%; }
+.grid-item--height2 { height: 520px; }
+
+// .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
+// .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }
+// .grid-item:nth-child(10n+2) { background: hsl(  72, 100%, 50%); }
+// .grid-item:nth-child(10n+3) { background: hsl( 108, 100%, 50%); }
+// .grid-item:nth-child(10n+4) { background: hsl( 144, 100%, 50%); }
+// .grid-item:nth-child(10n+5) { background: hsl( 180, 100%, 50%); }
+// .grid-item:nth-child(10n+6) { background: hsl( 216, 100%, 50%); }
+// .grid-item:nth-child(10n+7) { background: hsl( 252, 100%, 50%); }
+// .grid-item:nth-child(10n+8) { background: hsl( 288, 100%, 50%); }
+// .grid-item:nth-child(10n+9) { background: hsl( 324, 100%, 50%); }

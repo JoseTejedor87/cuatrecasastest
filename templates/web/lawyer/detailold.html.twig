@@ -1,0 +1,159 @@
+{% extends 'web/base.html.twig' %}
+{% block main %}
+
+    <main role="main" class="lawyer-details">
+        <article class="container">
+            <header class="row lawyer-header">
+                <div class="col-sm-4 col-md-12 col-lg-4">
+                    <figure class="stretch-to-left" >
+
+                    <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }} " alt="{{ lawyer.name }} {{ lawyer.surname }}">
+                    </figure>
+                </div>
+                <div class="col-sm-5 col-md-7 col-lg-5 detail-info">
+                    <big class="hash-text">{{ 'global.general.hashtag'|trans }}</big>
+                    <h1>{{ lawyer.name }} {{ lawyer.surname }}
+                    {# Juan García Hernández #}
+                    </h1>
+                    <div class="lawyer-position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
+                    {# Socio #}
+                    </div>
+                    <ul class="lawyer-scope d-flex flex-wrap">
+                    {% for activity in lawyer.activities %}
+                            <li>{{ activity.translate(app.request.getLocale()).title}}</li>
+                    {% endfor %}
+                    </ul>
+                    <div class="lawyer-address"><strong>BARCELONA</strong> CUATRECASAS Avenida Diagonal, 141</div>
+                    <div class="lawyer-tel">{{ lawyer.phone }}
+                    {# 638 84 65 27 #}
+                    </div>
+                    <div class="lawyer-mail">
+                        <a href="mailto:juan.garcia.hernandez@cuatrecasas.com">{{ lawyer.email }}
+                        {# juan.garcia.hernandez@cuatrecasas.com #}
+                        </a>
+                    </div>
+                    <div class="lawyer-langs">Español / Inglés</div>
+                    <div class="lawyer-vcard">
+                        <a href="#">vcar</a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-5 col-lg-3">
+                    <ul class="action-icons">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="{{ relative_path('/es/lawyer/filter')}}">Abogados</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ lawyer.name }} {{ lawyer.surname }}</li>
+                </ol>
+            </nav>
+            <div class="row">
+                <section class="col-sm-8 article-section detail">
+                    {{ lawyer.translate(app.request.getLocale()).description|raw  }}
+                    {# <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Pretium lectus quam id leo in vitae. Viverra vitae congue eu consequat ac felis donec. Commodo nulla facilisi nullam vehicula ipsum a arcu cursus. Aenean euismod elementum nisi quis eleifend quam. Risus commodo viverra maecenas accumsan lacus vel. Enim eu turpis egestas pretium. Molestie ac feugiat sed lectus vestibulum. A cras semper auctor neque vitae tempus. Nulla porttitor massa id neque. Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus.</strong></p>
+                    <p>Volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim. Arcu dui vivamus arcu felis bibendum ut tristique. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Nullam eget felis eget nunc lobortis. Scelerisque eu ultrices vitae auctor eu. Ut tristique et egestas quis ipsum. Tellus in hac <a href="">habitasse platea dictumst</a> vestibulum rhoncus. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor. Odio tempor orci dapibus ultrices. Quis hendrerit dolor magna eget est lorem.</p>
+                    <blockquote class="inline-quote">
+                        <p>Aliquam vestibulum morbi blandit cursus risus. Quam id leo in vitae turpis massa. Non blandit massa enim dui nunc.</p>
+                    </blockquote>
+                    <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p>#}
+
+                    {# <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h3 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Experiencia relevante</a>
+                                </h3>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h3 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Publicaciones y eventos</a>
+                                </h3>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <h3>Publicaciones</h3>
+                                    <ul class="bullet-list">
+                                        <li>Lorem ipsum dolor sit amet</li>
+                                        <li>Excepteur sint occaecat cupidatat non proident</li>
+                                        <li>Excepteur sint occaecat cupidatat non proident</li>
+                                    </ul>
+                                    <h3>Eventos</h3>
+                                    <ul class="date-list">
+                                        <li>
+                                            <strong>01 / 05 / 2019</strong>
+                                            Lorem ipsum dolor sit amet
+                                        </li>
+                                        <li>
+                                            <strong>15 / 10 / 2018</strong>
+                                            Lorem ipsum dolor sit amet
+                                        </li>
+                                        <li>
+                                            <strong>24 / 02 / 2018</strong>
+                                            Lorem ipsum dolor sit amet
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> #}
+                </section>
+
+                <aside class="col-md-4 article-aside">
+                    <section class="related-services-detail">
+                        <h3>Servicios relacionados</h3>
+                        <ul class="d-flex flex-wrap">
+                        {% for activity in lawyer.activities %}
+                            <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </section>
+                     <section class="mentions">
+                        <h3>Menciones</h3>
+                        <div class="mentions-on">
+                        {{ lawyer.translate(app.request.getLocale()).mentions|raw  }}
+                            {# <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p> #}
+                        </div>
+                        {# <a class="view-more" data-toggle="collapse" href="#collapseMentions" role="button" aria-expanded="false" aria-controls="collapseMentions">Ver más</a>
+                        <div class="mentions-off collapse" id="collapseMentions">
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                            <p>Abogado recomendado por diferentes anuarios jurídicos como Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax.</p>
+                        </div> #}
+                    </section>
+                    {# <section class="training">
+                        <h3>Formación</h3>
+                        <dl>
+                            <dt>Licenciado en Derecho</dt>
+                            <dd>Universidad Oberta de Catalunya, 2004</dd>
+                            <dt>LLM in Taxation</dt>
+                            <dd>London School of Economics, 2011</dd>
+                            <dt>Licenciado en Derecho</dt>
+                            <dd>Universidad Oberta de Catalunya, 2004</dd>
+                            <dt>LLM in Taxation</dt>
+                            <dd>London School of Economics, 2011</dd>
+                        </dl>
+                    </section>  #}
+                </aside>
+
+            </div>
+        </article>
+    </main>
+    {% include 'web/shared/insights.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,147 @@
+// ==========================================================================
+// PAGE
+// ==========================================================================
+
+.page {
+
+    //
+    // HEADER
+    // --------------------------------------------------------------------------
+
+    @include has("header") {
+        height: 50vh;
+        position: relative;
+        background-color: $main-color;
+        background-attachment: fixed;
+        background-position: 50% 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+
+        @include when("opacity") {
+            &:before {
+                @include reset-pseudo($black);
+                opacity: 0.3;
+            }
+        }
+
+        > .col {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-end;
+            padding: 4rem 10vw;
+        }
+
+        .info__block {
+            flex: 0 0 75%;
+        }
+
+        .action__links {
+            flex: 0 0 25%;
+            justify-content: flex-end;
+            position: relative;
+            top: 12px;
+        }
+    }
+
+    @include has("title") {
+        @include fontSet(60px, 60px);
+        margin-bottom: 1.4rem;
+        color: $white;
+    }
+
+
+    //
+    // FULL WIDTH SECTION
+    // --------------------------------------------------------------------------
+
+    @include has("section") {
+        > .col {
+            padding: 4rem 10vw;
+        }
+
+         @include when("full") {
+            > .col {
+                padding: 2rem 10vw;
+            }
+        }
+    }
+
+
+    //
+    // DOBLE BLOCK SECTION
+    // --------------------------------------------------------------------------
+
+    @include has("block") {
+
+        > .col {
+            display: flex;
+            position: relative;
+            padding: 2rem 10vw;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                width: calc(100% - 20vw);
+                height: 2px;
+                background-color: rgba($black, 0.5);
+            }
+        }
+
+        @include when("full") {
+
+            > .col {
+                display: block;
+            }
+
+            .page__block__title {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @include when("flex") {
+
+            > .col {
+                padding: 4rem 10vw;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        @include has("title") {
+            flex: 0 0 calc(30% - 2rem);
+            margin-right: 2rem;
+
+            p {
+                @include fontSet(38px, 46px);
+            }
+        }
+
+        @include has("content") {
+            flex: 0 0 70%;
+
+            p {
+                @include fontSet(30px, 36px);
+
+                a {
+                    @include fancy-link($complementary-color, $complementary-color);
+                    padding-bottom: 2px;
+                }
+            }
+        }
+    }
+
+
+    //
+    // BLOCKS SECTION
+    // --------------------------------------------------------------------------
+
+    // @include has("block") {
+
+    // }
+
+}
+

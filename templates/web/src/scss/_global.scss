@@ -13,10 +13,11 @@
 
 html {
     font-size: 62.5%;
+    // ojo!
+    overflow-x: hidden;
 }
 
 body {
-    box-sizing: border-box;
     color: $black;
     font-family: $body-font;
     font-size: 1.8rem;
@@ -124,6 +125,29 @@ button {
     }
 }
 
+.section-title {
+    @include reset-margins;
+    position: relative;
+    max-width: calc(100% - 50px);
+    padding: 1.2em 0 0 1em;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: $black;
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 40px;
+        background-color: $black;
+    }
+}
+
 // .img-responsive {
 //     display: block;
 //     max-width: 100%;
@@ -162,11 +186,33 @@ button {
     width: 100%;
     // background-color: white;
 
-    nav {
-        text-transform: uppercase;
+    #nav01 {
+        background-color: $main-color;
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
     }
+
+    #nav02 {
+        background-color: $complementary-color;
+
+        .navbar-collapse {
+            justify-content: flex-start;
+        }
+    }
+
+    .navbar {
+        padding: 1rem 1rem;
+    }
+
     .nav-link {
+        padding-right: 1.5rem !important;
+        padding-left: 1.5rem !important;
+
         font-weight: 400;
+        text-transform: uppercase;
+        color: $white !important;
     }
 
     .navbar {
@@ -403,6 +449,22 @@ footer {
     border-color: $medium-black;
 }
 
+.btn-color {
+    @include reset-button;
+    min-width: 25%;
+    text-transform: uppercase;
+    color: $white;
+    background-color: $complementary-color;
+    border-color: $complementary-color;
+
+    &:hover, &:focus, &:active {
+        color: $white;
+        box-shadow: -6px 6px 0 $main-color,
+                    0 19px 38px rgba(0, 0, 0, 0.30),
+                    0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+}
+
 .btn-main {
     @include reset-button;
     color: $white;
@@ -434,6 +496,9 @@ footer {
 
     &:hover, &:focus, &:active {
         // @include button-hover-shadow;
+        box-shadow: -6px 6px 0 $main-color,
+                0 19px 38px rgba(0, 0, 0, 0.30),
+                0 15px 12px rgba(0, 0, 0, 0.22);
     }
 
     &.hover-white {
@@ -548,13 +613,158 @@ footer {
         border-color: $complementary-color;
     }
 
-    &.bookmark-on {
+    &.on {
         &:after {
             content: '\e866';
         }
     }
 }
 
+
+
+
+
+.btn-arrow-new {
+    position: relative;
+    // display: block;
+    // width: 100%;
+    padding: 1.2rem 6rem 1.2rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: left;
+    text-transform: uppercase;
+    color: $complementary-color;
+    background-color: transparent;
+
+    // span {
+    //     position: relative;
+    //     z-index: 1;
+    //     color: red;
+    // }
+
+    &:after {
+        position: absolute;
+        top: 4px;
+        right: 20px;
+        content: '\f3d3';
+        font-family: 'Ionicons';
+        font-size: 32px;
+        font-weight: normal;
+        line-height: 1;
+    }
+
+    // &:before {
+    //     display: none;
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     content: '';
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: pink;
+    //     opacity: 0;
+    // }
+
+    &:hover, &:focus, &:active {
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+    }
+}
+
+
+
+//
+// https://travelshift.com/what-we-do/
+// --------------------------------------------------------------------------
+
+.mainBttn {
+    // display: inline-flex;
+    // justify-content: center;
+    // align-items: center;
+
+    position: relative;
+    display: block;
+    padding: 1.25em 2.5em;
+
+
+    cursor: pointer;
+
+
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+}
+
+.mainBttn__bg, .mainBttn__border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 35px;
+    box-sizing: border-box;
+}
+
+.mainBttn__border, .mainBttn__text {
+    transition: opacity .4s cubic-bezier(.165,.84,.44,1);
+}
+
+.mainBttn__border {
+
+        border-color: #000;
+
+        border: 2px solid;
+    opacity: .18;
+
+
+    transition: transform .4s cubic-bezier(.19,1,.22,1),opacity .4s cubic-bezier(.19,1,.22,1);
+    pointer-events: none;
+    will-change: transform;
+}
+
+.mainBttn__bg {
+    background: #000;
+
+    opacity: 0;
+    transform: scale(.6);
+    transition: transform .7s cubic-bezier(.19,1,.22,1),opacity .15s cubic-bezier(.165,.84,.44,1);
+    pointer-events: none;
+    will-change: opacity,transform;
+}
+
+.mainBttn__text {
+    position: relative;
+    color: #000;
+    transition: color .4s cubic-bezier(.165,.84,.44,1);
+    will-change: color;
+    z-index: 1;
+}
+
+
+html.no-touchevents .mainBttn:hover .mainBttn__border,
+.mainBttn:hover .mainBttn__border {
+    opacity: 0;
+    transform: scale(1.2,1.44);
+    // transition: transform .4s cubic-bezier(.19,1,.22,1),opacity .3s cubic-bezier(.19,1,.22,1);
+}
+
+html.no-touchevents .mainBttn:hover .mainBttn__bg,
+.mainBttn:hover .mainBttn__bg {
+    opacity: 1;
+    transform: scale(1);
+}
+
+html.no-touchevents .mainBttn:hover .mainBttn__text,
+.mainBttn:hover .mainBttn__text {
+    color: #fff;
+}
 
 
 //
@@ -786,44 +996,106 @@ footer {
         background-color: $white-medium;
     }
 
-    .search-name {
-        margin-bottom: 1.4em;
-        text-align: center;
-
-        button {
-            @include reset-button;
-            position: absolute;
-            top: -57px;
-            right: 0;
-
-            height: 57px;
-
-
-            padding: 0.3em 0.6em;
-            font-size: 32px;
-
-            background: transparent;
-            border: none;
-
-            .icon {
-                color: $complementary-color;
-                transition: all 0.3s ease-in-out;
-            }
-
-            &:hover {
-                background-color: $complementary-color;
-
-                .icon {
-                    color: $white;
-                }
-            }
-        }
-    }
-
     .search-filters {
         text-align: center;
     }
 }
+
+.cover-photo-repeat {
+    position: relative;
+    background-color: $white;
+    background-attachment: fixed;
+    background-position: top center;
+    background-repeat: repeat;
+    background-size: 200px auto;
+    height: 60vh !important;
+
+    position: relative;
+    top: -130px;
+
+    opacity: 0.6;
+}
+
+
+//
+// ICONS
+// --------------------------------------------------------------------------
+
+.date,
+.time,
+.date-time,
+.address,
+.contact {
+    position: relative;
+    padding-left: 1.6em;
+
+    &:before {
+        @include icons-ionicons(0,auto,auto,0);
+        // opacity: 0.5;
+    }
+}
+
+.date {
+    font-variant: small-caps;
+
+    strong {
+        font-size: 110%;
+    }
+
+    &:before {
+        content: '\f2d1';
+    }
+}
+
+.time {
+    &:before {
+        content: '\f402';
+    }
+}
+
+.date-time {
+    &:before {
+        content: '\f2d1';
+    }
+}
+
+.address {
+    .city {
+        text-transform: uppercase;
+    }
+
+    .location {
+        font-size: 90%;
+        opacity: 0.5;
+    }
+
+    &:before {
+        content: '\f3a3';
+    }
+}
+
+.contact {
+    .name {
+        font-weight: 600;
+    }
+
+    .tel {
+        position: relative;
+        padding-left: 10px;
+
+        &:before {
+            position: relative;
+            left: -5px;
+            content: "|";
+        }
+
+    }
+
+    &:before {
+        content: '\f3a0';
+    }
+}
+
 
 
 
@@ -986,7 +1258,7 @@ footer {
         .box-body {
             h3 {
                 a {
-                    background-color: rgba($complementary-color, 0.2);
+                    background-color: rgba($complementary-color, 0.1);
                     // box-shadow: 0 1px 0 rgba($complementary-color, 0.3);
 
                     &:hover,&:focus,&:active {
@@ -1102,7 +1374,7 @@ footer {
         flex: 60%;
         @include reset-figure;
 
-            box-shadow: 2px 2px 20px rgba(0,0,0,.25);
+            box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);
 
         img {
             // display: none;
@@ -1110,6 +1382,7 @@ footer {
             height: auto;
             max-height: 400px;
             object-fit: cover;
+            opacity: 0.8;
         }
     }
 
@@ -1118,9 +1391,10 @@ footer {
         .box-news {
             h3 {
                 a {
+                    color: $black;
                     // box-shadow: 0 3px 0 $complementary-color;
                     // color: $complementary-color;
-                    box-shadow: 0 1px 0 rgba($complementary-color, 0.5);
+                    // box-shadow: 0 1px 0 rgba($complementary-color, 0.5);
                 }
             }
         }
@@ -1306,6 +1580,7 @@ footer {
     .owl-carousel {
 
         // https://stackoverflow.com/questions/48321377/box-shadow-on-items-in-owl-carousel-being-cut-off
+
         .owl-stage-outer {
             overflow: visible;
         }
@@ -1575,6 +1850,16 @@ footer {
     position: relative;
     background-color: $white;
     background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cover-photo-contain {
+    position: relative;
+    background-color: $white;
+    // background-attachment: fixed;
+    // background-position: 100% 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1955,7 +2240,9 @@ footer {
         color: $main-color;
 
         &:hover, &:focus, &:active {
-            @include link-hover;
+            text-decoration: none;
+            color: $complementary-color;
+            box-shadow: 0 2px 0 $complementary-color;
         }
     }
 
@@ -2177,7 +2464,7 @@ footer {
 //
 // ICONS
 // --------------------------------------------------------------------------
-
+/*
 .date,
 .time,
 .date-time,
@@ -2215,6 +2502,7 @@ footer {
         content: '\f2d1';
     }
 }
+*/
 
 .address {
     .city {
@@ -2830,7 +3118,7 @@ footer {
 .nav-tabs .nav-item.show .nav-link,.nav-tabs .nav-link.active {
     color: $black;
     background-color: $white-medium;
-    border-color: $white-dark $white-dark $white
+    border-color: $white-dark $white-dark transparent
 }
 
 .nav-tabs .nav-link.disabled {
@@ -2940,4 +3228,57 @@ footer {
 
 
 
+//
+// FILTERS
+// --------------------------------------------------------------------------
 
+.filter-toggler {
+    position: relative;
+    display: block;
+    margin-right: 2em;
+    padding-right: 3rem;
+    line-height: 1;
+    font-weight: 600;
+    text-align: left;
+    color: $black;
+    cursor: pointer;
+    // transition: all 0.1s ease-in;
+
+    &.fecha {
+        // border: 1px solid blue;
+        z-index: 3;
+    }
+
+    &:after {
+        @include icons-ionicons(-2px,2px,auto,auto);
+        position: absolute;
+        content: "\f3d0";
+        font-size: 24px;
+        line-height: 1;
+        color: $complementary-color;
+        transition: all 0.2s;
+    }
+
+    &:hover {
+        color: $complementary-color;
+
+        // &:after {
+        //     transform: rotate(180deg);
+        // }
+    }
+
+    &.active {
+        color: $black;
+        // background-color: rgba(255,90,96,.1);
+        box-shadow: 0 1px 0 $complementary-color;
+
+        &:after {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+
+.search-results-boxes a:nth-child(n+9) {
+    display:none;
+}

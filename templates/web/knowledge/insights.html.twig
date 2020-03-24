@@ -1,64 +1,230 @@
-{% extends 'web/base.html.twig' %}
+{% extends 'web/baseFinal.html.twig' %}
 {% block main %}
 
-    <main role="main" class="insights-page">
+    <main role="main" class="page insights">
 
-        <article class="blog-article">
-            <header id="page-header">
-                <figure class="full-width">
-                    <img class="vt45" src="{{ asset('web/assets/img/david-jorre-9f1gCaLkZBU-unsplash.jpg') }}" alt="">
-                </figure>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="header-info d-flex flex-column">
-                                <h1 class="order-2">
-                                    Conocimiento
-                                </h1>
-                                <nav class="order-1" aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Conocimiento
-                                        </a></li>
-                                    </ol>
-                                </nav>
-                                <ul class="action-icons order-3">
-                                    <li><a href="#"><i class="material-icons">share</i></a></li>
-                                    <li><a href="#"><i class="material-icons">print</i></a></li>
-                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
-                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                                </ul>
-                                {# <a href="#" class="back-button">volver</a> #}
-                            </div>
-                        </div>
+        <article class="container-fluid">
+            {# <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/joshua-coleman-iNrBHgUBDSg-unsplash.jpg') }}');"> #}
+
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrew-buchanan-7IcnYYVgdn8-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Conocimiento
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Tema destacado
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
+
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
                 </div>
             </header>
 
-            <div class="container insights-grid">
-                <div class="row">
-                    <div class="col">
-                        <div class="grid-wrapper">
-                            <div class="grid-box a">A</div>
-                            <div class="grid-box b">B</div>
-                            <div class="grid-box c">C</div>
-                            <div class="grid-box d">D</div>
-                            <div class="grid-box e">E</div>
-                            <div class="grid-box f">F</div>
-                            <div class="grid-box g">G</div>
+            <section class="row page__section search_box">
+                <div class="col search_box__wrapper">
+                    <div class="search_box__name">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                        <div class="input-group">
+                            <button class="search_box__button" type="button">
+                                <i class="icon ion-ios-search-strong"></i>
+                            </button>
                         </div>
                     </div>
+                    <div class="search_box__link">
+                        <a href="#" class="toggle__filters" data-text-original="Ver filtros" data-text-swap="Ocultar filtros">Ver filtros</a>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <section class="row page__section search_filters search_filters--hidden">
+                <div class="col search_filters__wrapper">
+                    Filters > to do...
+                </div>
+            </section>
+
+            <section class="row page__section boxnews--article">
+                <div class="col">
+                    <h4 class="section__title section__title--article">Artículos recomendados</h4>
+                    <div class="grid__wrapper">
+                        <div class="grid__box grid__box--dobleXY">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Articulo</div>
+                                    <div class="boxnews__info">19 Febrero 2020</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciatarios
+                                        </a>
+                                    </h5>
+                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--dobleY">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Artículo</div>
+                                    <div class="boxnews__info">3 Marzo 2020</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
+                                        </a>
+                                    </h5>
+                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--dobleY">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Noticia</div>
+                                    <div class="boxnews__info">Innovación</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
+                                        </a>
+                                    </h5>
+                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--normal">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Noticia</div>
+                                    <div class="boxnews__info">Becas y ayudas</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            La Fundación Cuatrecasas convoca la II edición de la Beca Manuel Olivencia para estudiantes de Derecho
+                                        </a>
+                                    </h5>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--normal">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Noticia</div>
+                                    <div class="boxnews__info">New business</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            El outlet de lujo McArthurGlen Designer abre sus puertas en Málaga con el asesoramiento de Cuatrecasas
+                                        </a>
+                                    </h5>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--normal">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Noticia</div>
+                                    <div class="boxnews__info">Educación</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            La Universidad Carlos III de Madrid gana la edición nacional del torneo de Derecho Jessup Moot Competition
+                                        </a>
+                                    </h5>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="grid__box grid__box--normal">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Artículo</div>
+                                    <div class="boxnews__info">19 enero 2020</div>
+                                    <div class="boxnews__button">
+                                        <button type="button" class="button__bookmark"></button>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="#" class="boxnews__link">
+                                            Publicado el Proyecto de Real Decreto de Comunicaciones Comerciales de las Actividades de Juego
+                                        </a>
+                                    </h5>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="viewmore__button">
+                        <a href="#" class="btn btn__viewmore">Ver más<br>recomendaciones</a>
+                    </div>
+                </div>
+            </section>
 
         </article>
 
     </main>
 
-    {% include 'web/shared/slider-cases.html.twig' %}
-    {# {% include 'web/shared/related-content.html.twig' %} #}
-    {% include 'web/shared/article-highlight.html.twig' %}
-    {% include 'web/shared/insights.html.twig' %}
+    {% include 'web/shared/insightsBoxes.html.twig' %}
+    {% include 'web/shared/events.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready(function () {
+        $('.toggle__filters').click(function(e){
+            e.preventDefault();
+            $('.search_filters').slideToggle();
+        });
+
+        // Toggle text literal buttons
+        $('.toggle__filters').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('on');
+
+            var el = $(this);
+            el.text() == el.data("text-original")
+                ? el.text(el.data("text-swap"))
+                : el.text(el.data("text-original"));
+        });
+    });
+</script>
 {% endblock %}
