@@ -94,6 +94,14 @@ class MigrationCommand extends Command
                 case "noticiasIdioma":
                     $this->NoticiasIdioma($conn,$output);
                     break;  
+                case "publicaciones":
+                    $this->Publicaciones($conn,$output);
+                    $this->PublicacionesIdiomas($conn,$output);
+                    $this->PublicacionesAbogados($conn,$output);
+                    $this->PublicacionesLegislacion($conn,$output);
+                    $this->PublicacionesPractica($conn,$output);
+                    $this->PublicacionesOficina($conn,$output);
+                    break; 
             } 
         }
         $output->writeln("Se ha conectado con el servidor");
@@ -254,6 +262,78 @@ class MigrationCommand extends Command
         $fs->dumpFile('noticiasIdioma.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla noticiasIdioma');
         $this->logger->info('Se ha guardado con el nombre noticiasIdioma.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function Publicaciones($conn,$output){
+        $query = "SELECT [id] ,[medio_id] ,[fecha] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[visio_es] ,[visio_en] ,[visio_pt] ,[status] ,[destacada] ,[pub_o_new] ,[tipo_publicacion] ,[visio_cn] ,[thumbnail] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicaciones]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('Publicaciones.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla Publicaciones');
+        $this->logger->info('Se ha guardado con el nombre Publicaciones.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PublicacionesIdiomas($conn,$output){
+        $query = "SELECT [id] ,[idiomas_id] ,[publicacion_id] ,[title] ,[summary] ,[contenido] ,[pie_foto] ,[url_pdf] ,[url_link] ,[url_friend] ,[url_video] ,[url_imgs] ,[url_docs] ,[url_podcast] ,[tags] ,[metadescription] ,[abogado_tags] ,[oficina_tags] ,[practica_tags] ,[is_flipping] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicacionesidioma]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('PublicacionesIdiomas.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla PublicacionesIdiomas');
+        $this->logger->info('Se ha guardado con el nombre PublicacionesIdiomas.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PublicacionesAbogados($conn,$output){
+        $query = "SELECT [publicacion_id] ,[abogado_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesAbogado]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('PublicacionesAbogados.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla PublicacionesAbogados');
+        $this->logger->info('Se ha guardado con el nombre PublicacionesAbogados.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PublicacionesLegislacion($conn,$output){
+        $query = "SELECT [publicacion_id] ,[legislacion_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesLegislacion]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('PublicacionesLegislacion.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla PublicacionesLegislacion');
+        $this->logger->info('Se ha guardado con el nombre PublicacionesLegislacion.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PublicacionesPractica($conn,$output){
+        $query = "SELECT [publicacion_id] ,[practica_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesPractica]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('PublicacionesPractica.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla PublicacionesPractica');
+        $this->logger->info('Se ha guardado con el nombre PublicacionesPractica.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PublicacionesOficina($conn,$output){
+        $query = "SELECT [publicacion_id] ,[oficina_id]  FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesOficina]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('PublicacionesOficina.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla PublicacionesOficina');
+        $this->logger->info('Se ha guardado con el nombre PublicacionesOficina.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
