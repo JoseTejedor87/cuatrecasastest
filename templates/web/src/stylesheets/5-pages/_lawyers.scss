@@ -110,40 +110,4 @@
             object-fit: cover;
         }
     }
-
-    //
-    // MAIN SECTION
-    // --------------------------------------------------------------------------
-
-    @include has("resume") {
-
-        p:first-child {
-            margin-bottom: 2.4rem;
-            @include fontSet(38px, 46px);
-        }
-
-        p {
-            @include fontSet(30px, 36px);
-
-            a {
-                @include fancy-link($complementary-color, $complementary-color);
-            }
-        }
-
-        .inline__quote {
-            float: left;
-            width: 30%;
-            margin: 0 2rem 0 0;
-        }
-    }
-
-    //
-    // SECTIONS GENERAL
-    // --------------------------------------------------------------------------
-
-    .page__block {
-        p {
-            @include fontSet(30px, 34px);
-        }
-    }
 }

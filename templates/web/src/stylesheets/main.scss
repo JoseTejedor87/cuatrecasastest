@@ -15,6 +15,7 @@
   '2-base/typography',
   '2-base/quotes',
   '2-base/lists',
+  '2-base/accordion',
   '2-base/forms',
   '2-base/buttons';
 
@@ -27,12 +28,13 @@
 
 // 4. Components
 @import
-  '4-components/news',
+  '4-components/boxnews',
   '4-components/grid',
   '4-components/insight',
   '4-components/call-to-action',
   '4-components/contact',
-  '4-components/team';
+  '4-components/team',
+  '4-components/awards';
 // @import
 //   '4-components/awards',
 //   '4-components/calendar',

@@ -2,7 +2,7 @@
 // PAGE
 // ==========================================================================
 
-.page {
+@include new("page") {
 
     //
     // HEADER
@@ -69,14 +69,14 @@
 
 
     //
-    // DOBLE BLOCK SECTION
+    // DOBLE BLOCK SECTION (content page section)
     // --------------------------------------------------------------------------
 
     @include has("block") {
 
         > .col {
-            display: flex;
             position: relative;
+            display: flex;
             padding: 2rem 10vw;
 
             &:before {
@@ -90,13 +90,30 @@
         }
 
         @include when("full") {
-
             > .col {
                 display: block;
+                padding: 2rem 10vw;
             }
 
             .page__block__title {
                 margin-bottom: 1rem;
+            }
+        }
+
+         @include when("full-line") {
+            > .col {
+                position: relative;
+                display: block;
+                padding: 2rem 10vw 6rem;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    width: calc(100% - 20vw);
+                    height: 2px;
+                    background-color: rgba($black, 0.5);
+                }
             }
         }
 
@@ -131,6 +148,28 @@
                     padding-bottom: 2px;
                 }
             }
+
+            @include when("full") {
+                p:first-child {
+                    margin-bottom: 2.4rem;
+                    @include fontSet(38px, 46px);
+                }
+
+                p {
+                    @include fontSet(30px, 36px);
+                    overflow: hidden;
+
+                    a {
+                        @include fancy-link($complementary-color, $complementary-color);
+                    }
+                }
+
+                .inline__quote {
+                    float: left;
+                    width: 30%;
+                    margin: 0 2rem 0 0;
+                }
+            }
         }
     }
 
@@ -144,4 +183,3 @@
     // }
 
 }
-

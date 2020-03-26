@@ -2,24 +2,116 @@
 // INSIGHTS COMPONENT
 // ==========================================================================
 
-
 @include new("insight") {
 
     .col {
         padding-right: 0;
     }
 
-    @include has("wrapper") {
+    //
+    // JUST ONE ITEM
+    //
+
+    @include has("highlight") {
         display: flex;
 
         > * {
-            flex-basis: 50%;
-            max-width: 50%;
+            flex: 1;
+            width: 100%;
+        }
+
+    }
+
+    //
+    // CAROUSEL ADJUSTMENTS
+    //
+
+    @include when("carousel") {
+        background-color: rgba($black, 0.05);
+
+        .swiper-container {
+            // full screen slider (overflow)
+            overflow: visible;
+            // shadow trick
+            padding: 1rem;
+            margin-left: -1rem;
+            margin-right: -1rem;
+            // extra space
+            margin-bottom: 3rem;
+        }
+
+        .swiper-slide {
+            // reset width
+            width: 67%;
+            // forze same height items
+            height: auto;
+            // outside elements opacity
+            opacity: 0.3;
+            transition: opacity 0.2s ease-in-out;
+
+            // focus element opacity
+            &-active,
+            &-next {
+                opacity: 1;
+            }
+
+            // don't make sense!
+            // &-next {
+            //     .insight__img {
+            //         opacity: 0.3;
+            //     }
+            // }
+        }
+
+        // last child reset
+        // .swiper-slide-active + .swiper-slide-next:last-child {
+        //     border: 1px solid blue;
+
+        //     .insight__img {
+        //         border: 1px solid red;
+        //         opacity: 1;
+        //     }
+        // }
+    }
+
+    //
+    // MULTIPLE ITEMS
+    //
+
+    @include has("item") {
+        display: flex;
+        height: 100%;
+        background-color: $white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: box-shadow 0.2s ease-out;
+
+        .insight__article {
+            width: 50%;
+        }
+
+        .insight__img {
+            width: 50%;
+        }
+
+        // > * {
+        //     width: 50%;
+        // }
+
+        @include on-event() {
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 12px rgba(0, 0, 0, 0.1);
         }
     }
 
+    //
+    // CONTENT
+    //
+
     @include has("article") {
         padding: 2rem 4vw 2rem 10vw;
+
+        @include when-inside(".insight--carousel") {
+            padding: 1rem 2rem;
+        }
     }
 
         @include has("header") {
@@ -31,18 +123,47 @@
 
         @include has("content") {
             margin-bottom: 6rem;
+
+            @include when-inside(".insight--carousel") {
+                margin-bottom: 10rem;
+            }
         }
 
             @include has("title") {
                 @include fontSet(44px, 44px);
+                color: $main-color;
+
+                @include when-inside(".insight--carousel") {
+                    @include fontSet(40px, 44px);
+                    color: $cases-color;
+                }
             }
 
             @include has("link") {
                 @include fontSet(44px, 46px);
                 @include box-link($complementary-color, $complementary-color, $white);
+
+                @include when-inside(".insight--carousel") {
+                    @include box-link($main-color, $main-color, $white);
+                }
             }
 
+            @include has("excerpt") {
+                @include fontSet(40px, 44px);
+                color: $complementary-color;
+
+                @include when-inside(".insight--carousel") {
+                    color: $main-color;
+                }
+            }
+
+        @include has("viewmore") {
+            position: absolute;
+            bottom: 2rem;
+        }
+
         @include has("meta") {
+            margin-bottom: 4rem;
 
             @include has("info") {
                 @include fontSet(16px, 16px);
@@ -64,6 +185,5 @@
     @include has("img") {
         @include cover-vector();
     }
-
 }
 

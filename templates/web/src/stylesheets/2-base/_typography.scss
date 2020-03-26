@@ -71,22 +71,42 @@ $rem-base-font: 16px !default;
     color: $white;
     background-color: rgba($black, 0.5);
 
+    //
+    // BG COLORS
+    //
+
     @include when("article") {
-        background-color: $article-bg-color;
+        background-color: $article-color;
     }
 
     @include when("event") {
-        background-color: $main-color;
+        background-color: $event-color;
     }
 
     @include when("insight") {
-        background-color: $complementary-color;
+        background-color: $insight-color;
+    }
+
+    @include when("related") {
+        background-color: $related-color;
+    }
+
+    @include when("insight") {
+        background-color: $insight-color;
+    }
+
+    @include when("cases") {
+        background-color: $cases-color;
+    }
+
+    @include when("awards") {
+        background-color: $black;
     }
 }
 
 
 //
-// HALF SECIONS (lawyers, pages, etc...)
+// HALF SECIONS (2 col layout: lawyers, pages, etc...)
 // --------------------------------------------------------------------------
 
 .subsection__title {
@@ -98,7 +118,7 @@ $rem-base-font: 16px !default;
 
 
 //
-// MIESCELL
+// BIG HIGHLIGHT TEXT
 // --------------------------------------------------------------------------
 
 .emphasis {

@@ -50,6 +50,78 @@
 
 
 //
+// VIEW MORE (PLUS SYMBOL)
+// --------------------------------------------------------------------------
+
+.viewmore__button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+
+    .btn__viewmore {
+        position: relative;
+        padding: 0.5rem 3rem 0.5rem 1rem;
+        @include fontSet(16px, 16px);
+        font-weight: bold;
+        text-align: right;
+        color: $black;
+        background: none;
+        border: none;
+        border-radius: 0;
+        transition: all 0.3s ease-out;
+
+        &:after {
+            display: inline-block;
+            position: absolute;
+            top: 6px;
+            right: 2px;
+            content: '\e148';
+            font-family: 'Material Icons';
+            font-size: 36px;
+            font-weight: normal;
+            line-height: 1;
+            color: $complementary-color;
+            transform: scale(1);
+            transition: all 0.3s ease-out;
+            will-change: transform;
+        }
+
+        @include when("oneline") {
+            padding: 1rem 3rem;
+        }
+
+        @include on-event() {
+            padding-right: 4rem;
+            // color: $complementary-color;
+
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+            }
+
+            &:after {
+                right: 6px;
+                transform: scale(1.5) rotate(180deg);
+            }
+        }
+    }
+}
+
+
+//
+// VIEW MORE (ARROW SYMBOL)
+// --------------------------------------------------------------------------
+
+.viewmore__arrow__button {
+    @include arrow-link($complementary-color);
+    @include fontSet(24px, 24px);
+
+    // @include when-inside("team") {
+    //     @include arrow-link($main-color);
+    // }
+}
+
+
+//
 // FAVORITES
 // --------------------------------------------------------------------------
 
@@ -95,64 +167,6 @@
     &.on {
         &:after {
             content: '\e866';
-        }
-    }
-}
-
-
-//
-// VIEW MORE (BOXES)
-// --------------------------------------------------------------------------
-
-.viewmore__button {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 2rem;
-}
-
-.btn__viewmore {
-    position: relative;
-    padding: 0.5rem 3rem 0.5rem 1rem;
-    @include fontSet(16px, 16px);
-    font-weight: bold;
-    text-align: right;
-    color: $black;
-    background: none;
-    border: none;
-    border-radius: 0;
-    transition: all 0.3s ease-out;
-
-    &:after {
-        display: inline-block;
-        position: absolute;
-        top: 6px;
-        right: 2px;
-        content: '\e148';
-        font-family: 'Material Icons';
-        font-size: 36px;
-        font-weight: normal;
-        line-height: 1;
-        color: $complementary-color;
-        transform: scale(1);
-        transition: all 0.3s ease-out;
-        will-change: transform;
-    }
-
-    @include when("oneline") {
-        padding: 1rem 3rem;
-    }
-
-    @include on-event() {
-        padding-right: 4rem;
-        // color: $complementary-color;
-
-        &:focus {
-            box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
-        }
-
-        &:after {
-            right: 6px;
-            transform: scale(1.5) rotate(180deg);
         }
     }
 }

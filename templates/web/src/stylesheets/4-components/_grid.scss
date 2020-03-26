@@ -39,8 +39,8 @@
             flex: 0 0 100%;
             height: 100%;
             margin: 0 0;
-            color: $article-bg-color;
-            border-top-color: $article-bg-color;
+            color: $article-color;
+            border-top-color: $article-color;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
              @include on-event() {

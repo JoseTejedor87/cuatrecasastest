@@ -14,8 +14,7 @@ q {
     }
 }
 
-
-.cite__quote {
+@include new("cite__quote") {
     position: relative;
     float: left;
     width: calc(50% - 8em);
@@ -49,7 +48,7 @@ q {
 
 }
 
-.inline__quote {
+@include new("inline__quote") {
     position: relative;
     margin: 0 0;
     padding: 0 3.6rem 4.2rem;
@@ -58,6 +57,9 @@ q {
     color: $black;
     background-color: $complementary-color;
 
+    //
+    // quote sign
+    //
     &:before {
         content: '\201C';
         position: relative;
@@ -69,24 +71,34 @@ q {
         transform: scale(3);
     }
 
-    &:after {
-        content: '';
-        position: relative;
-        left: calc(50% - 10%);
-        display: block;
-        width: 20%;
-        height: 3px;
-        background-color: $black;
+    > * {
+        @include fontSet(32px, 36px);
     }
 
-    .inline__quote__text {
+    @include has("text") {
+        position: relative;
         margin-top: 0;
-        margin-bottom: 2rem;
-        @include fontSet(32px, 36px);
+        margin-bottom: 0;
+        padding-bottom: 2rem;
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 10%);
+            display: block;
+            width: 20%;
+            height: 3px;
+            background-color: $black;
+        }
+    }
+
+    @include has("author") {
+        margin-top: 1rem;
     }
 }
 
-.mentions {
+@include new("mentions") {
     @include reset-list;
     display: flex;
 

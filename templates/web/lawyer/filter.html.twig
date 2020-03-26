@@ -5,10 +5,6 @@
 
         <article class="container-fluid">
 
-            {# andrej-lisakov-7G8ARu_DJTc-unsplash #}
-            {# martin-adams-Y8MQEl3N3Xs-unsplash #}
-            {# who-s-denilo-ItuL0w2zvTo-unsplash #}
-
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
@@ -41,7 +37,7 @@
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
                         <form action="{{ relative_path('/es/lawyer/filter')}}" method="get">
-                            <input type="text" class="form-control" placeholder="Buscar" name="search">
+                            <input type="text" class="form-control" placeholder="Buscar abogado" name="search">
                             <div class="input-group">
                                 <button class="search_box__button" type="submit">
                                     <i class="icon ion-ios-search-strong"></i>
@@ -55,7 +51,8 @@
             <section class="row search_filters search_filters--selects">
                 <div class="col">
                     <div class="search_selects">
-                        <select id="area" class="custom-select">
+
+                        <select id="area" class="custom__select">
                             <option value="hide">Por área de práctica</option>
                             <option value="">Competencia y Derecho de la UE</option>
                             <option value="">Corporate Governance y Compliance</option>
@@ -70,7 +67,7 @@
                             <option value="">Mediación</option>
                             <option value="">Mercado de valores</option>
                         </select>
-                        <select id="desk" class="custom-select">
+                        <select id="desk" class="custom__select">
                             <option value="hide">Por sector o desk</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
@@ -83,7 +80,7 @@
                             <option value="">Energía y Recursos Naturales</option>
                             <option value="">Farmacia y Sanitario</option>
                         </select>
-                        <select id="office" class="custom-select">
+                        <select id="office" class="custom__select">
                             <option value="hide">Por oficina</option>
                             <option value="">Barcelona</option>
                             <option value="">Madrid</option>
@@ -101,6 +98,54 @@
                             <option value="">Sao Paulo</option>
                             <option value="">Shanghai</option>
                         </select>
+
+                        <!-- v2 -->
+                        <!-- <select id="selectbox1" class="custom__select">
+                            <option value="hide">Por área de práctica</option>
+                            <option value="">Competencia y Derecho de la UE</option>
+                            <option value="">Corporate Governance y Compliance</option>
+                            <option value="">Derecho contable</option>
+                            <option value="">Derecho Laboral</option>
+                            <option value="">Financiero</option>
+                            <option value="">Fiscal</option>
+                            <option value="">Fiscalidad Contenciosa</option>
+                            <option value="">Fiscalidad Financiera</option>
+                            <option value="">Fusiones y Adquisiciones</option>
+                            <option value="">Litigación</option>
+                            <option value="">Mediación</option>
+                            <option value="">Mercado de valores</option>
+                        </select>
+                        <select id="selectbox2" class="custom__select">
+                            <option value="hide">Por sector o desk</option>
+                            <option value="">Alimentación</option>
+                            <option value="">Arte</option>
+                            <option value="">Brexit</option>
+                            <option value="">Canadian Desk</option>
+                            <option value="">Ciberseguridad</option>
+                            <option value="">Consumo y Retail</option>
+                            <option value="">Deporte</option>
+                            <option value="">Empresa Familiar</option>
+                            <option value="">Energía y Recursos Naturales</option>
+                        </select>
+                        <select id="selectbox3" class="custom__select">
+                            <option value="hide">Por oficina</option>
+                            <option value="">Barcelona</option>
+                            <option value="">Madrid</option>
+                            <option value="">Lisboa</option>
+                            <option value="">Beijing</option>
+                            <option value="">Bogotá</option>
+                            <option value="">Brussels</option>
+                            <option value="">Casablanca</option>
+                            <option value="">Lima</option>
+                            <option value="">London</option>
+                            <option value="">Luanda</option>
+                            <option value="">Maputo</option>
+                            <option value="">Mexico City</option>
+                            <option value="">New York</option>
+                            <option value="">Sao Paulo</option>
+                            <option value="">Shanghai</option>
+                        </select> -->
+
                     </div>
                     <div class="search_alphabet">
                         <ul class="pagination">
@@ -145,47 +190,20 @@
                         <div class="search_results__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
                     </div>
 
-                    <!-- Pagination -->
-                    {# <div class="search_results__pagination">
-                        <div class="search_alphabet">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=a')}}">a</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=b')}}">b</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=c')}}">c</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=d')}}">d</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=e')}}">e</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=f')}}">f</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=g')}}">g</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=h')}}">h</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=i')}}">i</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=j')}}">j</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=k')}}">k</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=l')}}">l</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=m')}}">m</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=n')}}">n</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=o')}}">o</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=p')}}">p</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=q')}}">q</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=r')}}">r</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=s')}}">s</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=t')}}">t</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=u')}}">u</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=v')}}">v</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=w')}}">w</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=x')}}">x</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=y')}}">y</a></li>
-                                <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=z')}}">z</a></li>
-                            </ul>
-                        </div>
-                    </div> #}
-
                     <!-- Lawyers Links -->
                     <div class="card-deck">
                         {% for lawyer in lawyers %}
                         <div class="card">
                             <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="search_results__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</a>
                             <figure>
-                                <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
+                                <!-- local -->
+                                <img src="{{ asset('/web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg')|imagine_filter('square') }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
+
+                                <!-- server -->
+                                <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}"> -->
+
+                                <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}"> -->
+
                             </figure>
                             <div class="card-body">
                                 <h5 class="card-title">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h5>
@@ -217,6 +235,59 @@
 {% block javascripts %}
 <script>
     $(function () {
+
+        /*
+        Custom Selects
+        Reference: http://jsfiddle.net/BB3JK/47/
+        */
+        $('.custom__select').each(function(){
+            var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+            $this.addClass('select-hidden');
+            $this.wrap('<div class="select"></div>');
+            $this.after('<div class="select-styled"></div>');
+
+            var $styledSelect = $this.next('div.select-styled');
+            // $styledSelect.text($this.children('option').eq(0).text());
+            $styledSelect.text($this.children('option:selected').text())
+
+            var $list = $('<ul/>', {
+                'class': 'select-options'
+            }).insertAfter($styledSelect);
+
+            for (var i = 0; i < numberOfOptions; i++) {
+                $('<li/>', {
+                    text: $this.children('option').eq(i).text(),
+                    rel: $this.children('option').eq(i).val()
+                }).appendTo($list);
+            }
+
+            var $listItems = $list.children('li');
+
+            $styledSelect.click(function(e) {
+                e.stopPropagation();
+                $('div.select-styled.active').not(this).each(function(){
+                    $(this).removeClass('active').next('ul.select-options').hide();
+                });
+                $(this).toggleClass('active').next('ul.select-options').toggle();
+            });
+
+            $listItems.click(function(e) {
+                e.stopPropagation();
+                $styledSelect.text($(this).text()).removeClass('active');
+                $this.val($(this).attr('rel'));
+                $list.hide();
+                //console.log($this.val());
+            });
+
+            $(document).click(function() {
+                $styledSelect.removeClass('active');
+                $list.hide();
+            });
+        });
+
+
+        // View more button
         $('.viewmore__button .btn__viewmore').click(function () {
             $('.card-deck .card:hidden').slice(0, 8).show();
             if ($('.card-deck a').length == $('.card-deck .card:visible').length) {

@@ -27,8 +27,15 @@ $white-light:           rgb(253, 253, 253) !default;        // #fdfdfd
 // BOX NEWS / EVENTS COLORS
 //
 
-$article-bg-color:      rgb(0, 151, 143) !default;          // #00978f
-$event-bg-color:        rgb(246, 237, 241) !default;        // #f6edf1
-// $news-color:            rgb(0, 151, 143) !default;          // #00978f
-// $events-bg-color:       rgb(246, 237, 241) !default;        // #f6edf1
+$article-color:         rgb(0, 151, 143) !default;          // #00978f
+$event-color:           rgb(70, 0, 29) !default;            // #46001d
+$insight-color:         rgb(255, 90, 96) !default;          // #ff5a60
+$cases-color:           rgb(233, 155, 0) !default;          // #e99b00
+$related-color:         rgb(51, 117, 181) !default;         // #3375b5
+
+//
+// BG BOX COLORS
+//
+
+$event-box-color:        rgb(246, 237, 241) !default;        // #f6edf1
 

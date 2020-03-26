@@ -12,7 +12,7 @@
                         <div class="header-info d-flex flex-column">
                             {# <big class="hash-text">SectoresCuatrecasas</big> #}
                             <h1 class="order-2">
-                                Lorem ipsum dolor
+                                Eventos
                             </h1>
                             <nav class="order-1" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -64,18 +64,25 @@
                                 <input type="text" class="input-date d-none" placeholder="Selecciona una fecha o rango de fechas">
                             </div> #}
 
-                            <input type="text" id="datePlaceholder" placeholder="Selecciona una fecha o rango de fechas">
 
+                            {# /* Date range
+                            <input type="text" id="datePlaceholder" placeholder="Selecciona una fecha o rango de fechas">
                             <div id="datePicker" class="input-group input-daterange">
                                 <span class="input-group-addon">de</span>
                                 <input type="text" class="input-date" name="start" placeholder="fecha inicio" autocomplete="off">
                                 <span class="input-group-addon">a</span>
                                 <input type="text" class="input-date" name="end" placeholder="fecha fin" autocomplete="off">
+                            </div> #}
+
+                            <div id="datePicker" class="input-group date">
+                                <input type="text" class="input-date" placeholder="Selecciona una fecha">
+                                <span class="input-group-addon"><i class="material-icons">event</i></span>
                             </div>
 
-                            {# <div id="datePickerInline">
-                                <div></div>
+                            {# <div id="datePicker" class="input-group date">
+                                <input type="text" class="" placeholder="" autocomplete="off">
                             </div> #}
+
                         </div>
                     </div>
                 </div>
@@ -84,6 +91,9 @@
                 </div> #}
             </div>
         </section>
+
+        {% include 'web/shared/slider-events.html.twig' %}
+
         <section class="event-results-wrapper">
             <div class="container">
                 <div class="row event-toolbar d-flex justify-content-between">
@@ -107,7 +117,7 @@
                                         <div data-year>2019</div>
                                     </div>
                                     <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar favorito" data-text-original="Añadir favorito" class="button-favorite">Añadir favorito</a></li>
                                         <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar">Añadir calendario</a></li>
                                     </ul>
                                 </div>
@@ -128,7 +138,7 @@
                                         <div data-year>2019</div>
                                     </div>
                                     <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite on">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar favorito" data-text-original="Añadir favorito" class="button-favorite on">Quitar favorito</a></li>
                                         <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar on">Quitar calendario</a></li>
                                     </ul>
                                 </div>
@@ -154,7 +164,7 @@
                                         <div data-year>2019</div>
                                     </div>
                                     <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite">Favoritos</a></li>
+                                        <li><a href="#" data-text-swap="Quitar favorito" data-text-original="Añadir favorito" class="button-favorite">Añadir favorito</a></li>
                                         <li><a href="#" data-text-swap="Quitar calendario" data-text-original="Añadir calendario" class="button-calendar">Añadir calendario</a></li>
                                     </ul>
                                 </div>
@@ -220,89 +230,71 @@
 
 {% block javascripts %}
 <script>
-
     // Load Calendar
     web.global.loadCalendar();
 
+    $(document).ready(function () {
+        //initialize swiper when document ready
+        var mySwiper = new Swiper ('#sliderEvents', {
+            loop: true,
+            // navigation: {
+            //     nextEl: '.swiper-button-next',
+            //     prevEl: '.swiper-button-prev',
+            // },
+            pagination: {
+                el: '.swiper-pagination',
+                // dynamicBullets: true,
+            },
+        })
+    });
+
+    // Fav & Cal buttons
+    $('.button-favorite, .button-calendar').click(function(e){
+        e.preventDefault();
+        $(this).toggleClass('on');
+        // change literal
+        var el = $(this);
+        el.text() == el.data("text-original")
+            ? el.text(el.data("text-swap"))
+            : el.text(el.data("text-original"));
+    });
+
+    $('.no-link').click(function(e){
+        e.preventDefault();
+    });
 
     $(document).ready(function () {
+        // Load DatePicker
+        var bd = $('<div class="modal-backdrop calendar"></div>');
+
+        $('#datePicker').datepicker({
+            weekStart: 1,
+            // todayHighlight: true,
+            autoclose: true,
+            // clearBtn: true,
+            orientation: "left bottom",
+            language: "es"
+        })
+        .on('show', function(e) {
+            bd.appendTo(document.body);
+        })
+        .on('hide', function(e) {
+            bd.remove();
+        });
+
         // Toggle calendar
         $('.filter-toggler.fecha').click(function(e){
             e.preventDefault();
             // $('#datePlaceholder').show();
             $('#datePicker').toggle();
-        });
-
-        // $('#datePlaceholder').focus(function(e){
-        //     e.preventDefault();
-        //     $(this).hide();
-        //     $('#datePicker').show();
-        // });
-
-        // Fav & Cal buttons
-        $('.button-favorite').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('on');
-        });
-        $('.button-calendar').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('on');
-
-            // change literal
-            var el = $(this);
-            el.text() == el.data("text-original")
-                ? el.text(el.data("text-swap"))
-                : el.text(el.data("text-original"));
-        });
-
-        $('.no-link').click(function(e){
-            e.preventDefault();
+            $('#datePicker .input-date').val('');
+            $('#datePicker ').datepicker('update');
         });
 
     });
 
-    // Inline DatePicker
-    // $('#datePickerInline div').datepicker({
-    //     weekStart: 1,
-    //     todayHighlight: true,
-    //     autoclose: true,
-    //     language: "es"
-    // });
 
-    // Load DatePicker
-    var bd = $('<div class="modal-backdrop calendar"></div>');
-
-    // $('.input-daterange').datepicker({
-    $('#datePicker').datepicker({
-        weekStart: 1,
-        // todayHighlight: true,
-        autoclose: true,
-        orientation: "left bottom",
-        language: "es"
-    })
-    .on('show', function(e) {
-        bd.appendTo(document.body);
-    })
-    .on('hide', function(e) {
-        bd.remove();
-    });
-
-    // $("#datePicker").click(function() {
-    //     var bd = $('<div class="modal-backdrop"></div>');
-    //     bd.appendTo(document.body);
-    //     setTimeout(function() {
-    //         bd.remove();
-    //     }, 2000);
-    // });
-
-    // $('#datePicker').datepicker()
-    // .on('show', function(e) {
-    //     alert('go');
-    //     // `e` here contains the extra attributes
-    // });
-
-
-
+    // Calendar & List Stuff
     document.addEventListener('DOMContentLoaded', function() {
 
         var eventCalendar = document.getElementById('eventCalendar');
@@ -318,16 +310,6 @@
             e.preventDefault();
             $('#eventCalendar').hide();
             $('#eventList').show();
-        });
-
-        // icon change
-        $('#datePicker').focusin(function(){
-            $('.icon').addClass('ion-ios-arrow-up');
-            $('.icon').removeClass('ion-ios-arrow-down');
-        });
-        $('#datePicker').focusout(function(){
-            $('.icon').removeClass('ion-ios-arrow-up');
-            $('.icon').addClass('ion-ios-arrow-down');
         });
     });
 

@@ -29,4 +29,14 @@ class ServicesController extends AbstractController
             'controller_name' => 'ServicesController',
         ]);
     }
+
+    /**
+     * @Route("/fiscal", name="fiscal")
+     */
+    public function fiscal()
+    {
+        return $this->render('web/services/fiscal.html.twig', [
+            'controller_name' => 'ServicesController',
+        ]);
+    }
 }

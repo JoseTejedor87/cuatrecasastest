@@ -52,19 +52,28 @@
                 </div>
                 <div class="col-md-5">
                     <figure class="lawyer__media">
-                        <img class="lawyer__media__photo" src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}">
+
+                        <!-- server -->
+                        <!-- <img class="lawyer__media__photo" src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}"> -->
+
+                        <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}"> -->
+
+                        <!-- local -->
+                        <img class="lawyer__media__photo" src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}">
+
                     </figure>
                 </div>
             </header>
-            <section class="row page__section--full lawyer__resume">
+            <section class="row page__block--full">
                 <div class="col">
-                    {# <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p> #}
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-                    <blockquote class="inline__quote">
-                        <div class="inline__quote__text">La formación es diaria y constante, desde el inicio del proceso hasta su conclusión.</div>
-                    </blockquote>
-                    {{ lawyer.translate(app.request.getLocale()).description|raw  }}
-                    {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                    <div class="page__block__content page__block__content--full">
+                        <p>Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service. Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.</p>
+                        <blockquote class="inline__quote">
+                            <div class="inline__quote__text">La formación es diaria y constante, desde el inicio del proceso hasta su conclusión.</div>
+                        </blockquote>
+                        {{ lawyer.translate(app.request.getLocale()).description|raw  }}
+                        {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                    </div>
                 </div>
             </section>
             <section class="row page__block">

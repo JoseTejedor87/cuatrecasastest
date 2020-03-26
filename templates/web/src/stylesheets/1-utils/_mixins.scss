@@ -228,7 +228,7 @@ img {
     }
 }
 
-@mixin text-shadow-link() {
+@mixin text-shadow-link {
     text-decoration: none;
     color: $black;
     transition: all 0.2s ease-in-out;
@@ -242,6 +242,79 @@ img {
     }
 }
 
+@mixin arrow-link($color) {
+    position: relative;
+    padding: .2rem 1.6rem .2rem 0;
+    text-decoration: none;
+    color: $color;
+    // box-shadow: 0 2px 0 transparent;
+    transition: all 0.2s ease-out;
+
+    &:before,
+    &:after {
+        display: inline-block;
+        position: absolute;
+        top: 1px;
+        content: '\f3d1';
+        font-family: 'Ionicons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 32px;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    &:before {
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+    }
+
+    &:after {
+        right: 0;
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    @include on-event {
+        padding-right: .2rem;
+        padding-left: 1.6rem;
+        color: $color;
+        text-decoration: none;
+        // box-shadow: 0 2px 0 $complementary-color;
+
+        &:before {
+            opacity: 1;
+        }
+
+        &:after {
+            opacity: 0;
+            transform: translateX(12px);
+        }
+    }
+}
+
+@mixin box-hidden-link {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-indent: -99999px;
+    z-index: 3;
+    // to allow text selection >
+    // z-index: 0;
+}
+
+
 //
 // ¿? delete
 //
@@ -252,10 +325,37 @@ img {
 }
 
 
+//
+// ICONS
+//--------------------------------------------------------------------------
+
+@mixin icons-ionicons($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    font-family: 'Ionicons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    transition: transform 0.3s ease-in-out;
+}
+
 
 //
 // BUTTONS
-// --------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 
 @mixin reset-button {
     position: relative;
@@ -281,7 +381,7 @@ img {
 
 //
 // IMAGES
-// --------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 
 @mixin reset-figure {
     position: relative;
@@ -335,7 +435,7 @@ img {
 
 //
 // RESETS MISCELL ELEMENTS
-// --------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 
 @mixin reset-list {
     margin: 0;
@@ -377,3 +477,105 @@ img {
         scrollbar-track-color: $background-color;
     }
 }
+
+
+
+//
+// RESETS MISCELL ELEMENTS
+//--------------------------------------------------------------------------
+
+@mixin quantity-query( $number, $comparison: 'equal' ) {
+    $nth: '';
+
+    @if index( ('greater' 'more' '>'), $comparison ) {
+        $nth: 'n + #{$number}';
+    } @else if index( ('less' 'fewer' '<'), $comparison ) {
+        $nth: '-n + #{$number}';
+    } @else if index( ('equal' 'same' '='), $comparison ) {
+        $nth: $number;
+    } @else {
+        @warn "Sorry, that's an invalid $comparison value."
+    }
+
+    &:nth-last-child(#{$nth}):first-child {
+        &,
+        & ~ * {
+            @content;
+        }
+    }
+}
+
+@mixin qq-equal($number) {
+    @include quantity-query($number, equal) {
+        @content;
+    }
+}
+
+@mixin qq-greater($number) {
+    @include quantity-query($number, greater) {
+        @content;
+    }
+}
+
+@mixin qq-less($number) {
+    @include quantity-query($number, less) {
+        @content;
+    }
+}
+
+/*
+.test {
+    @include quantity-query(6, greater) {
+        content: 'n + 6';
+    }
+
+    @include quantity-query(6, more) {
+        content: 'n + 6';
+    }
+
+    @include quantity-query(6, '>') {
+        content: 'n + 6';
+    }
+
+    @include qq-greater(6) {
+        content: 'n + 6';
+    }
+
+    @include quantity-query(6, less) {
+        content: '-n + 6';
+    }
+
+    @include quantity-query(6, fewer) {
+        content: '-n + 6';
+    }
+
+    @include quantity-query(6, '<') {
+        content: '-n + 6';
+    }
+
+    @include qq-less(6) {
+        content: '-n + 6';
+    }
+
+    @include quantity-query(6) {
+        content: '6';
+    }
+
+    @include quantity-query(6, equal) {
+        content: '6';
+    }
+
+    @include quantity-query(6, same) {
+        content: '6';
+    }
+
+    @include quantity-query(6, '=') {
+        content: '6';
+    }
+
+    @include qq-equal(6) {
+        content: '6';
+    }
+
+}
+*/

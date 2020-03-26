@@ -1,3 +1,56 @@
 // ==========================================================================
 // AWARDS
 // ==========================================================================
+
+@include new("awards") {
+    background-color: rgba($black, 0.1);
+
+    .swiper-container {
+        // full screen slider (overflow)
+        overflow: visible;
+        margin: 4rem 0;
+    }
+
+    .swiper-slide {
+        // reset width
+        width: 25%;
+        // forze same height items
+        height: auto;
+        // outside elements opacity
+        opacity: 0.3;
+        transition: opacity 0.2s ease-in-out;
+
+        // focus element opacity
+        &-active,
+        &-prev,
+        &-next {
+            opacity: 1;
+        }
+    }
+
+    @include has("logo") {
+        @include reset-figure;
+        width: 100%;
+        height: 60px;
+        margin-bottom: 1rem;
+
+        img {
+            width: auto;
+            height: 60px;
+            object-fit: cover;
+        }
+    }
+
+    @include has("title") {
+        width: 75%;
+        @include fontSet(16px, 20px);
+        font-weight: bold;
+        color: $black;
+    }
+
+    @include has("date") {
+        margin-top: 0.5rem;
+        @include fontSet(16px, 20px);
+        color: rgba($black, 0.6);
+    }
+}

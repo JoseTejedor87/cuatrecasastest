@@ -2,7 +2,8 @@
 // FORMS
 // ==========================================================================
 
-.form-control {
+.form-control,
+.custom-select {
     height: auto;
     padding: 0.8rem 1rem;
     @include fontSet(18px, 24px);
@@ -24,6 +25,195 @@
     justify-content: space-between;
     align-items: center;
 }
+
+
+
+//
+// CUSTOM SELECT
+// --------------------------------------------------------------------------
+
+// https://custom-select.github.io/custom-select/
+// https://github.com/custom-select/custom-select
+
+// http://jsfiddle.net/BB3JK/47/
+
+// https://codepen.io/afalchi82/pen/aNXjgb
+// https://codepen.io/vulchivijay/pen/rxyBpg
+
+// https://speckyboy.com/open-source-css-javascript-select-box-snippets/
+
+// https://codepen.io/wallaceerick/pen/ctsCz
+
+
+$select-color: $black;
+$select-background: transparent;
+
+.select-hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 50px;
+
+    margin: 0 10px;
+    color: $select-color;
+}
+
+.select-styled {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem 2rem 0 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include fontSet(26px, 26px);
+    text-align: left;
+
+    background-color: $select-background;
+    box-shadow: 0 1px 0 $black;
+    transition: all 0.2s ease-in;
+
+    &:after {
+        @include icons-ionicons(12px,4px,auto,auto);
+        content: '\f3d1';
+        font-size: 36px;
+        transform: rotate(90deg);
+        color: $complementary-color;
+        transition: all 0.2s;
+    }
+
+    @include on-event {
+        color: $complementary-color;
+        box-shadow: 0 1px 0 $complementary-color;
+    }
+
+    &:active, &.active {
+        color: $complementary-color;
+        box-shadow: 0 2px 0 $complementary-color;
+
+        &:after {
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+.select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    max-height: 272px;
+    margin: 2px 0 0 0;
+    padding: 0;
+    overflow-y: scroll;
+    z-index: 999;
+    list-style: none;
+    background-color: $white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+    li {
+        margin: 0;
+        padding: 0.5rem 1rem 0.5rem 1.5rem;
+        @include fontSet(20px, 22px);
+        text-align: left;
+        border-bottom: 1px solid rgba($black, 0.1);
+        transition: all 0.15s ease-in;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        @include on-event {
+            color: $white;
+            background-color: $complementary-color;
+            border-bottom: 1px solid $white;
+        }
+
+        &[rel="hide"] {
+            display: none;
+        }
+    }
+}
+
+
+
+/*
+// v2
+
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    @include fontSet(26px, 26px);
+
+    color:black;
+    border:1px solid #ccc;
+}
+.styledSelect {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:white;
+    padding:0 10px;
+    font-weight:bold;
+}
+.styledSelect {
+    &:after {
+        @include icons-ionicons(12px,4px,auto,auto);
+        content: '\f3d1';
+        font-size: 36px;
+        transform: rotate(90deg);
+        color: $complementary-color;
+        transition: all 0.2s;
+    }
+}
+.styledSelect:active, .styledSelect.active {
+    background-color:#eee;
+}
+.options {
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:999;
+    margin:0 0;
+    padding:0 0;
+    list-style:none;
+    border:1px solid #ccc;
+    background-color:white;
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+    padding:0 6px;
+    margin:0 0;
+    padding:0 10px;
+}
+.options li:hover {
+    background-color:#39f;
+    color:white;
+}
+*/
+
 
 
 //
@@ -174,5 +364,7 @@ $color-off: #ffffff;
         }
     }
 }
+
+
 
 
