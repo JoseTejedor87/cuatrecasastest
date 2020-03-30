@@ -101,6 +101,13 @@ sections:
       title: Nuevo Oficina
     edit:
       title: Editar Oficina
+  pages:
+    index:
+      title: Páginas
+    new:
+      title: Nueva Página
+    edit:
+      title: Nueva Página
 
 # Menu
 # ###########################################
@@ -119,6 +126,7 @@ menu:
   quotes.title: Citas
   awards.title: Premios
   office.title: Oficinas
+  page.title: Páginas
 
 # Entities
 # ###########################################
@@ -211,7 +219,7 @@ entities:
       img_office: Imagen premio
       desc_award: Descripción del premio
       desc_award_firma: Descripción de la firma del premio
-      desc_award_indiv: Descripción del premio 
+      desc_award_indiv: Descripción del premio
       tags: Tags
   office:
     fields:
@@ -232,6 +240,10 @@ entities:
       img_office: Imagen oficina
       descriptions: Descripción
       tags: Tags
+  page:
+    fields:
+      title: Título
+      blocks: Bloques
 
 
 # Custom Form Types

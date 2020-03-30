@@ -21,12 +21,17 @@ abstract class Block extends Item
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="blocks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $activity;
 
-    abstract public function getBlockType(): ?string;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocks")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $page;
 
+    abstract public function getBlockType(): ?string;
 
     public function getPosition(): ?int
     {
@@ -49,6 +54,17 @@ abstract class Block extends Item
     {
         $this->activity = $activity;
 
+        return $this;
+    }
+
+    public function getPage(): ?Page
+    {
+        return $this->page;
+    }
+
+    public function setPage(?Page $page): self
+    {
+        $this->page = $page;
         return $this;
     }
 }

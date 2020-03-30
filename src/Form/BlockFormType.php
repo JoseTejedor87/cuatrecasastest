@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Activity;
@@ -34,16 +34,12 @@ class BlockFormType extends AbstractType implements DataMapperInterface
         $builder
             // BLOCK
             // *******************************************
-            ->add('type', ChoiceType::class, [
+            ->add('type', HiddenType::class, [
                 'label'=>false,
-                'attr' => ['class'=>'blockType-block'],
-                'choices' => $this->params->get('app.block_types'),
-                'choice_label' => function ($choice, $key, $value) {
-                    return self::TRANSLATION_PREFIX . ".$value";
-                },
+                'attr' => ['class'=>'item-type-selector'],
             ])
-            ->add('position', TextType::class, [
-                'label'=>false
+            ->add('position', HiddenType::class, [
+                'label'=>false,
             ])
             // QUOTE BLOCK
             // *******************************************
@@ -51,7 +47,8 @@ class BlockFormType extends AbstractType implements DataMapperInterface
                 'class' => Quote::class,
                 'label' => 'entities.quoteBlock.fields.quote',
                 'attr' => [
-                    'class' => 'blockType-quoteBlock m-select2',
+                    'data-item-type' => 'blockQuote',
+                    'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => false,
@@ -63,19 +60,20 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             // EVENTS BLOCK
             // *******************************************
             ->add('eventType', EventCategoryType::class, [
-                'attr' => ['class'=>'blockType-eventsBlock'],
+                'attr' => ['data-item-type' => 'eventsBlock'],
                 'label'=>'entities.eventsBlock.fields.eventType',
                 'required'=>false
             ])
             ->add('numberOfEvents', IntegerType::class, [
-                'attr' => ['class'=>'blockType-eventsBlock'],
+                'attr' => ['data-item-type' => 'eventsBlock'],
                 'label'=>'entities.eventsBlock.fields.numberOfEvents'
             ])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.eventsBlock.fields.activities',
                 'attr' => [
-                    'class' => 'blockType-eventsBlock m-select2',
+                    'data-item-type' => 'eventsBlock',
+                    'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,

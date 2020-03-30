@@ -5,7 +5,6 @@ namespace App\Controller\CMS;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Practice;

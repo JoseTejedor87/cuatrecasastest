@@ -52,3 +52,18 @@ body{
     white-space: nowrap;
     overflow: hidden;
 }
+
+/* Blocks Collection Fields */
+.blocks-collection-field fieldset.form-group:first-child {
+    margin-top: 1em;
+}
+.blocks-collection-field fieldset.form-group {
+    padding: 1em;
+    border: 1px solid #ececec;
+    box-shadow: 3px 3px 10px #bbb;
+    background-color: #efefef;
+    margin-bottom: 2em;
+}
+.blocks-collection-field fieldset.form-group legend {
+    display: none;
+}
