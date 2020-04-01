@@ -22,6 +22,7 @@ use App\Entity\Resource;
 use App\Entity\Sector;
 use App\Entity\Speaker;
 use App\Entity\Office;
+use App\Entity\Articles;
 
 class ImportCommand extends Command
 {
@@ -104,6 +105,9 @@ class ImportCommand extends Command
                     break;
                 case "awards":
                     $this->awards();
+                    break;
+                case "articles":
+                    $this->Articles();
                     break;
                     
 
@@ -828,6 +832,85 @@ class ImportCommand extends Command
         }
     }
 
+    public function Articles()
+    {
+        $data = file_get_contents("Publicaciones.json");
+        $items = json_decode($data, true);
+
+        $data1 = file_get_contents("PublicacionesIdiomas.json");
+        $items1 = json_decode($data1, true);
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/article-*"));
+
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE url_imageArticles_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE thumbnailArticles_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE url_pdfArticlesTranslation_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [ArticlesTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Articles]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Articles], RESEED, 1)");
+
+        $processedArticleMap = [];
+        $processedAttachmentsMap = [];
+        foreach ($items as $item) {
+
+            $oldArticleId = $item['id'];
+            // Was processed the current event instance in a previous iteration ?
+            if (isset($processedArticleMap[$oldArticleId])) {
+                // in that case, restore it from $processedEventsMap
+                $article = $processedArticleMap[$oldArticleId];
+            } else {
+                
+                // in other case, create a new instance and fill it
+                $article = new Articles();
+                $article->setOldId($oldArticleId);
+                $article->setStatus($item['status']);
+                $article->setFeatured($item['destacada']);
+                
+            }
+            foreach ($items1 as $item1) {
+                if($item1['publicacion_id'] == $oldArticleId){
+                    $currentLang = self::getMappedLanguageCode($item1['lang']);
+
+                    $article->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : '');
+                    $article->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
+                    $article->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
+                    $article->translate($currentLang)->setCaption($item1['pie_foto'] ? $item1['pie_foto'] : '');
+                    $article->translate($currentLang)->setUrlLink($item1['url_link'] ? $item1['url_link'] : '');
+                    $article->translate($currentLang)->setTags($item1['tags'] ? $item1['tags'] : '');
+                    $article->translate($currentLang)->setLawyerTags($item1['abogado_tags'] ? $item1['abogado_tags'] :'');
+                    $article->translate($currentLang)->setOfficeTags($item1['oficina_tags'] ? $item1['oficina_tags'] : '');
+                    $article->translate($currentLang)->setPracticeTags($item1['practica_tags'] ? $item1['practica_tags'] :'');
+                    
+                    if($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi" ){
+                        if ($item['visio_'.$item1['lang']] == "1") {
+                            $article->setLanguages(
+                                array_unique(
+                                    array_merge($article
+                                    ->getLanguages(), [$currentLang])
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+        
+            // Adding the current instance to the offices mapping
+            $processedArticleMap[$oldArticleId] = $article;
+        }
+        foreach ($processedArticleMap as $article) {
+            // Persist only the registers with at least one active language
+                $article->mergeNewTranslations();
+                $this->em->persist($article);
+                $this->em->flush();
+                $this->logger->debug("Article ".$article->getId());
+        }
+    }
+
+
+
+
     private function getMappedEventId(?string $id): ?string
     {
         if (empty($this->mappedEventIds)) {
@@ -931,6 +1014,8 @@ class ImportCommand extends Command
         ];
         return isset($map[$code]) ? $map[$code] : null;
     }
+
+
 
     private static function getMappedEventTypeCode(?string $code): ?string
     {
