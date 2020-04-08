@@ -20,8 +20,48 @@
         @include has("wrapper") {
             display: flex;
             flex-flow: row wrap;
+            justify-content: space-between;
             margin: 0 -15px;
             background-color: rgba($white, 0.5);
+
+            @include when("list") {
+                margin-bottom: 4rem;
+            }
+
+            //
+            // FAKE LOADER
+            //
+            @include when("loading") {
+                position: relative;
+                min-height: 200px;
+
+                &:after {
+                    @include reset-pseudo($white);
+                }
+            }
+
+            @include has("loader") {
+                // display: flex;
+                // opacity: 0.5;
+                display: none;
+                position: absolute;
+                width: calc(100% - #{$screen-width}*2);
+                height: calc(100% - 380px);
+                background: $white;
+                z-index: 1;
+
+                svg {
+                    width: 200px;
+                    height: 200px;
+                    margin: auto;
+                    display: block;
+                }
+
+                path {
+                    transform: scale(0.8);
+                    transform-origin: 50px 50px;
+                }
+            }
         }
 
         @include has("item") {
@@ -40,16 +80,24 @@
                 background-color: rgba($black, 0.5);
                 transition: background-blend-mode 0.2s ease-out,
                             background-size 0.6s,
-                            background-position 0.6s,
-                            background-image 8s;
+                            background-position 0.6s;
 
                 @include on-event() {
                     // background-size: auto 180%;
                     // background-position: 98% 62%;
                     background-size: auto 260%;
-                    background-position: 94% 46%;
+                    background-position: 95% 46%;
                     background-blend-mode: luminosity;
                     background-color: rgba($complementary-color, 0.3);
+                }
+
+                &:first-child:nth-last-child(1) {
+                    flex: 0 1 100%;
+                }
+
+                &:first-child:nth-last-child(2),
+                &:first-child:nth-last-child(2) ~ div {
+                    flex: 0 1 calc(50% - 30px);
                 }
             }
 
@@ -66,8 +114,17 @@
                 transition: all 0.2s ease-out;
 
                 @include on-event() {
-                    background: rgba($complementary-color, 0.1) !important;
+                    background: rgba($black, 0.03) !important;
                     border-bottom: 2px solid rgba($complementary-color, 0.8);
+                }
+
+                &:first-child:nth-last-child(1) {
+                    flex: 0 1 100%;
+                }
+
+                &:first-child:nth-last-child(3),
+                &:first-child:nth-last-child(3) ~ div {
+                    flex: 0 1 calc(33.3333% - 20px);
                 }
             }
         }

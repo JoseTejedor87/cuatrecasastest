@@ -6,7 +6,7 @@ web.global = {
 
     loadMiscell: function(){
         // Miscell Stuff
-        $(document).ready(function () {
+        $(function () {
             $('.button__bookmark').click(function(e){
                 e.preventDefault();
                 $(this).toggleClass('on');
@@ -14,6 +14,53 @@ web.global = {
 
             $('.no-link').click(function(e){
                 e.preventDefault();
+            });
+        });
+    },
+
+    lawyerResults: function(){
+        // Toogle Results View
+        $(function () {
+            $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
+
+            $('.list').click(function(e){
+                e.preventDefault();
+
+                $('.icon__button.grid').removeClass('active');
+                $(this).addClass('active');
+
+                $('.lawyer__search__wrapper__loader').fadeIn();
+
+                $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--loading');
+                $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
+                $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
+
+                setTimeout(
+                    function(){
+                        $('.lawyer__search__wrapper__loader').fadeOut();
+                        $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--loading');
+                    }
+                , 600);
+            });
+
+            $('.grid').click(function(e){
+                e.preventDefault();
+
+                $('.icon__button.list').removeClass('active');
+                $(this).addClass('active');
+
+                $('.lawyer__search__wrapper__loader').fadeIn();
+
+                $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--loading');
+                $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
+                $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
+
+                setTimeout(
+                    function(){
+                        $('.lawyer__search__wrapper__loader').fadeOut();
+                        $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--loading');
+                    }
+                , 600);
             });
         });
     },

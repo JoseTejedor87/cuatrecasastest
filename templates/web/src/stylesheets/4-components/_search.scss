@@ -155,7 +155,7 @@
 }
 
 @include new("search_pagination") {
-    margin: 2rem 0;
+    margin: 2rem 0 4rem;
 }
 
 
@@ -172,13 +172,30 @@
     border-radius: 0;
 }
 
+.page-item {
+
+    &:first-child .page-link {
+        margin-left: 0;
+        line-height: 1.4;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+    }
+
+    &:last-child .page-link {
+        margin-right: 0;
+        line-height: 1.4;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+}
+
 .page-link {
     position: relative;
     display: block;
     width: 34px;
     height: 34px;
     padding: 0 0;
-    margin: 0 0;
+    margin: 0 1px;
     @include fontSet(24px, 32px);
     text-align: center;
     color: $black;
@@ -202,19 +219,8 @@
 
     &.active {
         color: $complementary-color;
+        pointer-events: none;
     }
-}
-
-.page-item:first-child .page-link {
-    margin-left: 0;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-}
-
-.page-item:last-child .page-link {
-    margin-right: 0;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
 }
 
 

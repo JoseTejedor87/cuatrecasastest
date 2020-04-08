@@ -194,8 +194,8 @@
     display: block;
     width: 50px;
     height: 50px;
-    margin-left: 10px;
-    outline: 2px solid transparent;
+    margin-left: 14px;
+    outline: 4px solid transparent;
     transition: all 0.2s ease-out;
 
     img {
@@ -205,11 +205,10 @@
     }
 
     @include on-event() {
-        outline: 2px solid $complementary-color;
-        // background-color: rgba($complementary-color, 1);
+        outline: 4px solid $complementary-color;
     }
 
     &.active {
-        // outline-color: $complementary-color;
+        outline: 4px solid $complementary-color;
     }
 }

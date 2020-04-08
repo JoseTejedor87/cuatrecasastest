@@ -169,13 +169,22 @@
                             <a href="#" class="icon__button list">
                                 <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="List">
                             </a>
-                            <a href="#" class="icon__button grid">
+                            <a href="#" class="icon__button grid active">
                                 <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Grid">
                             </a>
                         </div>
                     </div>
 
-                    <!-- Lawyers List Results -->
+                    <!-- Fake loader -->
+                    <div class="lawyer__search__wrapper__loader">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+                            </path>
+                        </svg>
+                    </div>
+
+                    <!-- List Results -->
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
                         {% for lawyer in lawyers %}
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
@@ -193,6 +202,7 @@
                         {% endfor %}
                     </div>
 
+                    <!-- Pagination -->
                     <nav class="search_pagination" aria-label="Results pagination">
                         <ul class="pagination">
                             <li class="page-item">
@@ -203,7 +213,7 @@
                             </li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link active" href="#">3</a></li>
                             <li class="page-item"><a class="page-link" href="#">4</a></li>
                             <li class="page-item"><a class="page-link" href="#">5</a></li>
                             <li class="page-item">
@@ -235,51 +245,8 @@
 <script>
     $(function () {
         web.global.customSelects();
+        web.global.lawyerResults();
         web.global.sliderNews();
-
-        $('.list').click(function(e){
-            e.preventDefault();
-
-            // alert('go list');
-
-            // $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list').delay(1000).queue(function(next){
-            //     $(this).removeClass('lawyer__search__wrapper--grid');
-            //     next();
-            // });
-
-            // $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list').delay(1000).queue(function(next){
-            //     $(this).removeClass('lawyer__search__wrapper--grid');
-            //     next();
-            // });
-
-
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
-        });
-
-        $('.grid').click(function(e){
-            e.preventDefault();
-
-            // alert('go grid');
-
-            // $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid').delay(1000).queue(function(next){
-            //     $(this).removeClass('lawyer__search__wrapper--list');
-            //     next();
-            // });
-
-
-
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
-        });
-
-        // View more button (delete)
-        $('.viewmore__button .btn__viewmore').click(function () {
-            $('.lawyer__search__wrapper .lawyer__search__item:hidden').slice(0, 8).show();
-            if ($('.lawyer__search__wrapper div').length == $('.lawyer__search__wrapper .lawyer__search__item:visible').length) {
-                $('.viewmore__button .btn__viewmore').hide();
-            }
-        });
     });
 </script>
 {% endblock %}
