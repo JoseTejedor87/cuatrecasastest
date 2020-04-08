@@ -1,5 +1,5 @@
 // ==========================================================================
-// NEWS BOXES (articles, publications, news, etc...)
+// BOX NEWS (articles, publications, news, etc...)
 // ==========================================================================
 
 @include new("boxnews") {
@@ -21,6 +21,10 @@
 
     @include when("insight") {
         background-color: rgba($black, 0.02);
+    }
+
+    @include when("slider") {
+        background-color: rgba($black, 0.2);
     }
 
 
@@ -58,21 +62,27 @@
         }
     }
 
+    @include when("slider") {
+        .section__title {
+            background-color: $insight-color;
+        }
+    }
+
     //
     // BOXES
     // --------------------------------------------------------------------------
 
     @include has("list") {
         display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-        align-content: stretch;
+        // justify-content: space-between;
+        // align-items: stretch;
+        // align-content: stretch;
         margin: 0 -0.8rem;
     }
 
     @include has("item") {
         flex: 1;
-        width: 0;
+        // width: 0;
         height: auto;
         margin: 0 0.8rem;
         background-color: $white;
@@ -114,6 +124,12 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         }
 
+        @include when-inside(".swiper-slide") {
+            width: 100%;
+            margin: 0 0;
+            // border: 1px solid red;
+        }
+
 
         //
         // HOVER FX
@@ -138,7 +154,7 @@
         // A VER SI SE ACLARAN!!!
         // --------------------------------------------------------------------------
 
-         @include when("article") {
+        @include when("article") {
             color: $article-color;
             border-top-color: $article-color;
         }
@@ -166,9 +182,74 @@
             border-top-color: transparent;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         }
-
-
     }
+
+
+    //
+    // CAROUSEL ADJUSTMENTS
+    // --------------------------------------------------------------------------
+    .swiper-container {
+        // full screen slider (overflow)
+        overflow: visible;
+        // shadow trick
+        padding: 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        // extra space
+        margin-bottom: 2rem;
+    }
+
+    .swiper-slide {
+        // reset width
+        width: 100%;
+        // forze same height items
+        height: auto;
+
+        .boxnews__item {
+            height: 100%;
+        }
+    }
+
+    .swiper__nav__wrapper {
+        position: relative;
+        top: -30px;
+
+        .swiper__nav__buttons {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 44px;
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                color: $complementary-color;
+                outline: none;
+
+                &:after {
+                    font-size: 24px;
+                    font-weight: bold;
+                    transform: scale(1);
+                    transition: all 0.2s ease-out;
+                }
+
+                @include on-event {
+                    &:after {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+
+            .swiper-button-next {
+                right: 0;
+            }
+
+            .swiper-button-prev {
+                left: 0;
+            }
+        }
+    }
+
 
     //
     // BOX HEADER
@@ -259,10 +340,14 @@
             @include has("link") {
                 // padding-bottom: 0.1rem;
                 @include fontSet(28px, 32px);
-                @include box-link($black, $black, $white);
+                @include box-link($black, $complementary-color, $white);
 
                 @include when-inside(".boxnews--event") {
-                    @include box-link($black, $black, $event-box-color);
+                    @include box-link($black, $complementary-color, $event-box-color);
+                }
+
+                @include when-inside(".boxnews__item--event") {
+                    @include box-link($black, $complementary-color, $event-box-color);
                 }
 
                 // @include when-inside(".boxnews--insight") {

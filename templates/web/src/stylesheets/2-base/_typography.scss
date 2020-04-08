@@ -91,7 +91,7 @@ $rem-base-font: 16px !default;
         background-color: $related-color;
     }
 
-    @include when("insight") {
+    @include when("slider") {
         background-color: $insight-color;
     }
 
@@ -111,7 +111,7 @@ $rem-base-font: 16px !default;
 
 .subsection__title {
     @include cuatrecasas-font();
-    @include fontSet(40px, 40px);
+    @include fontSet(32px, 32px);
     text-transform: uppercase;
     color: $main-color;
 }

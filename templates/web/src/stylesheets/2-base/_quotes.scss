@@ -45,7 +45,6 @@ q {
         height: 30px;
         background-color: $complementary-color;
     }
-
 }
 
 @include new("inline__quote") {
@@ -96,6 +95,8 @@ q {
     @include has("author") {
         margin-top: 1rem;
     }
+
+    @include has("position") {}
 }
 
 @include new("mentions") {

@@ -31,10 +31,13 @@
   '4-components/boxnews',
   '4-components/grid',
   '4-components/insight',
+  '4-components/search',
   '4-components/call-to-action',
   '4-components/contact',
   '4-components/team',
-  '4-components/awards';
+  '4-components/awards',
+  '4-components/testimonials',
+  '4-components/brands';
 // @import
 //   '4-components/awards',
 //   '4-components/calendar',
@@ -56,7 +59,7 @@
 
 // 5. Page-specific styles
 @import
-  '5-pages/search',
+  '5-pages/home',
   '5-pages/lawyers',
   '5-pages/services',
   '5-pages/insights';

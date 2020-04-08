@@ -2,11 +2,6 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.loadMiscell();
-        // web.global.homeSelect();
-        // web.global.carouselAwards();
-        // web.global.sliderCases();
-        // web.global.loadCalendar();
-        // web.global.loadHeader();
     },
 
     loadMiscell: function(){
@@ -23,11 +18,12 @@ web.global = {
         });
     },
 
-    homeSelect: function(){
+    customSelects: function(){
         /*
+        Custom Selects
         Reference: http://jsfiddle.net/BB3JK/47/
         */
-        $('.custom-select').each(function(){
+        $('.custom__select').each(function(){
             var $this = $(this), numberOfOptions = $(this).children('option').length;
 
             $this.addClass('select-hidden');
@@ -35,14 +31,15 @@ web.global = {
             $this.after('<div class="select-styled"></div>');
 
             var $styledSelect = $this.next('div.select-styled');
-            $styledSelect.text($this.children('option').eq(0).text());
+            // $styledSelect.text($this.children('option').eq(0).text());
+            $styledSelect.text($this.children('option:selected').text())
 
-            var $list = $('<ul />', {
+            var $list = $('<ul/>', {
                 'class': 'select-options'
             }).insertAfter($styledSelect);
 
             for (var i = 0; i < numberOfOptions; i++) {
-                $('<li />', {
+                $('<li/>', {
                     text: $this.children('option').eq(i).text(),
                     rel: $this.children('option').eq(i).val()
                 }).appendTo($list);
@@ -70,45 +67,54 @@ web.global = {
                 $styledSelect.removeClass('active');
                 $list.hide();
             });
-
         });
     },
 
-    carouselItems: function(){
-        $(document).ready(function() {
-            $('#carouselHome').owlCarousel({
-                center: true,
-                items: 3,
-                loop: false,
-                margin: 30,
-                nav: true,
-                navText:["<div class='nav-btn prev-slide'><i class='icon ion-ios-arrow-left'></i></div>","<div class='nav-btn next-slide'><i class='icon ion-ios-arrow-right'></i></div>"],
-                dots: false
-            })
+    sliderHome: function(){
+        // Slider Home
+        var swiperCarousel = new Swiper ('#sliderHome', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: true,
+            grabCursor: true,
+            // navigation: {
+            //     nextEl: '.home__preview'
+            // }
         });
     },
 
-    carouselAwards: function(){
-        $(document).ready(function () {
-            var swiperCarousel = new Swiper ('#carouselAwards', {
-                slidesPerView: 4,
-                grabCursor: true,
-                loop: true,
-                scrollbar: {
-                    el: '.swiper-scrollbar',
-                    draggable: true,
-                    dragSize: 200,
-                }
-            });
-        });
-    },
-
-    sliderCases: function(){
-        var swiperSlider = new Swiper ('#sliderCases', {
+    sliderNews: function(){
+        // Slider News
+        var swiperCarousel = new Swiper ('#sliderNews', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            loop: true,
+            grabCursor: true,
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             }
+        });
+    },
+
+    sliderCases: function(){
+        // Slider Cases
+         var swiperSlider = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            // loop: true,
+            grabCursor: true
+        });
+    },
+
+    sliderAwards: function(){
+        // Slider Awards
+        var swiperCarousel = new Swiper ('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 60,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true
         });
     },
 
