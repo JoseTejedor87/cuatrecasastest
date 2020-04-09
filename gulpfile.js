@@ -32,7 +32,7 @@ const files = {
 // https://github.com/HosseinKarami/fastshell/blob/master/gulpfile.js
 function scssTask() {
   return src(files.scssFile)
-        .pipe(concat('main.css'))
+        .pipe(concat('styles.css'))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([autoprefixer(), cssnano()]))

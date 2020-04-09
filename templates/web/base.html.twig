@@ -11,15 +11,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-
         {% include 'web/tools/menu.html.twig' %}
-        {# {% include 'web/tools/header.html.twig' %} #}
-
         {% block main %}{% endblock %}
-
         {% include 'web/tools/footer.html.twig' %}
         {% include 'web/tools/javascripts.html.twig' %}
         {% block javascripts %}{% endblock %}
-
     </body>
 </html>

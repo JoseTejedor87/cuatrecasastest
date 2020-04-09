@@ -173,6 +173,7 @@
 
         @include has("link") {
             @include box-hidden-link;
+            margin: -1rem 0 0 -1rem;
         }
 
         @include has("position") {}

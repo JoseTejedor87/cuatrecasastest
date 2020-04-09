@@ -1,4 +1,4 @@
-{% extends 'web/baseNew.html.twig' %}
+{% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
     <!-- Slider / Carousel CSS -->
@@ -12,7 +12,7 @@
         <article class="blog-article">
             <header id="page-header" class="container">
                 <figure class="full-width">
-                    <img class="v-middle" src="{{ asset('web/assets/img/artificial-photography-vB5qtt8X4NA-unsplash.jpg') }}" alt="Juan García Hernández">
+                    <!-- <img class="v-middle" src="{{ asset('web/assets/img/artificial-photography-vB5qtt8X4NA-unsplash.jpg') }}" alt="Juan García Hernández"> -->
                 </figure>
                 <div class="row">
                     <div class="col-8">
@@ -75,9 +75,7 @@
 
     </main>
 
-    {% include 'web/shared/slider-cases.html.twig' %}
-    {% include 'web/shared/highlightContentMix.html.twig' %}
-    {% include 'web/shared/insights.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
 

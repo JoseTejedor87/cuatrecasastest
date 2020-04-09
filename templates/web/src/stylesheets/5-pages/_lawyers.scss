@@ -45,7 +45,7 @@
                 display: none;
                 position: absolute;
                 width: calc(100% - #{$screen-width}*2);
-                height: calc(100% - 380px);
+                height: calc(100% - 378px);
                 background: $white;
                 z-index: 1;
 
@@ -64,7 +64,6 @@
         }
 
         @include has("item") {
-
             //
             // GRID
             //
@@ -129,7 +128,7 @@
         }
 
         @include has("info") {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -140,8 +139,6 @@
             @include has("chooser") {
                 display: flex;
             }
-
-        @include has("pagination") {}
     }
 
     @include has("link") {
@@ -225,29 +222,17 @@
     }
 
     @include has("office") {
-        // position: relative;
         float: left;
-        // margin-left: 1rem;
         @include fontSet(16px, 16px);
         font-weight: bold;
         text-transform: uppercase;
         color: $main-color;
-
-        // &:before {
-        //     content: "";
-        //     position: absolute;
-        //     top: 0;
-        //     left: -0.5rem;
-        //     width: 2px;
-        //     height: 80%;
-        //     background-color: $main-color;
-        // }
     }
 }
 
 
 //
-// HEADER INFO
+// HEADER INFO DETAILS
 // --------------------------------------------------------------------------
 
 @include new("lawyer__details") {
@@ -257,14 +242,14 @@
         background-color: $main-color;
 
         //
-        // content
+        // CONTENT BOX
         //
         > div:first-child {
             padding: 7rem $screen-width 5rem;
         }
 
         //
-        // photo
+        // PHOTO BOX
         //
         > div:last-child {
             padding: 0 0;
@@ -377,7 +362,6 @@
         }
 
         /*
-
         @include mediaQuery($massive-width, $large-width) {
             // border: 1px solid yellow;
             // background-size: 110% auto;
