@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "web_cuatrecasas_cms_symfony",
+            "dialect": "MSSQL",
+            "name": "SRVSQL4DEV",
+            "password": "conectxion",
+            "port": 1433,
+            "server": "SRVSQL4DEV",
+            "username": "conexion"
+        }
+    ]
+}

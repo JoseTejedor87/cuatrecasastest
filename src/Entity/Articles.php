@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticlesRepository")
@@ -13,6 +14,7 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 class Articles extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
+
 
     /**
      * @ORM\Column(type="integer")
@@ -24,6 +26,10 @@ class Articles extends Publishable
      */
     private $featured;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="article", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $attachments;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="Articles")
@@ -40,8 +46,14 @@ class Articles extends Publishable
      */
     private $offices;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $publication_date;
+
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
         $this->offices = new ArrayCollection();
@@ -73,6 +85,37 @@ class Articles extends Publishable
     public function setFeatured(int $featured): self
     {
         $this->featured = $featured;
+
+        return $this;
+    }
+
+ /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getArticle() === $this) {
+                $attachment->setArticle(null);
+            }
+        }
 
         return $this;
     }
@@ -151,6 +194,18 @@ class Articles extends Publishable
         if ($this->offices->contains($office)) {
             $this->offices->removeElement($office);
         }
+
+        return $this;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publication_date;
+    }
+
+    public function setPublicationDate(\DateTimeInterface $publication_date): self
+    {
+        $this->publication_date = $publication_date;
 
         return $this;
     }

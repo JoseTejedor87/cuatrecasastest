@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -108,6 +109,12 @@ class Office extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="offices")
      */
     private $Articles;
+
+    public function __construct()
+    {
+        $this->lawyer = new ArrayCollection();
+        $this->Articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -296,10 +303,10 @@ class Office extends Publishable
         return $this;
     }
     
-    /**
+     /**
      * @return Collection|Lawyer[]
      */
-    public function getLawyers(): Collection
+    public function getLawyer(): Collection
     {
         return $this->lawyer;
     }
@@ -354,4 +361,18 @@ class Office extends Publishable
 
         return $this;
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
 }
