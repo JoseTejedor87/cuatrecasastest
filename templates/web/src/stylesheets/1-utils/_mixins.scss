@@ -118,6 +118,35 @@ img {
 
 
 //
+// ICONS
+//--------------------------------------------------------------------------
+
+@mixin icons-ionicons($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    display: inline-block;
+    font-family: 'Ionicons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+//
 // LINKS
 // --------------------------------------------------------------------------
 
@@ -219,12 +248,14 @@ img {
     text-decoration: none;
     color: $color;
     background-color: transparent;
-    transition: all 0.2s ease-in-out;
+    outline: 1px solid transparent;
+    transition: all 0.2s ease-out;
 
     @include on-event {
+        text-decoration: none;
         color: $colorhover;
         background-color: $bghover;
-        text-decoration: none;
+        outline-color: $bghover;
     }
 }
 
@@ -244,7 +275,7 @@ img {
 
 @mixin arrow-link($color) {
     position: relative;
-    padding: .2rem 1.6rem .2rem 0;
+    padding: 0.2rem 1.6rem 0.2rem 0;
     text-decoration: none;
     color: $color;
     // box-shadow: 0 2px 0 transparent;
@@ -252,23 +283,9 @@ img {
 
     &:before,
     &:after {
-        display: inline-block;
-        position: absolute;
-        top: 1px;
+        @include icons-ionicons(1px, 0, auto, auto);
         content: '\f3d1';
-        font-family: 'Ionicons';
-        font-weight: normal;
-        font-style: normal;
         font-size: 32px;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -moz-osx-font-smoothing: grayscale;
     }
 
     &:before {
@@ -286,11 +303,10 @@ img {
     }
 
     @include on-event {
-        padding-right: .2rem;
+        padding-right: 0.2rem;
         padding-left: 1.6rem;
         color: $color;
         text-decoration: none;
-        // box-shadow: 0 2px 0 $complementary-color;
 
         &:before {
             opacity: 1;
@@ -298,7 +314,53 @@ img {
 
         &:after {
             opacity: 0;
-            transform: translateX(12px);
+            transform: translateX(10px);
+        }
+    }
+}
+
+@mixin arrow-link-reverse($color) {
+    position: relative;
+    padding: 0.3rem 0 0.2rem 1.2rem;
+    text-decoration: none;
+    color: $color;
+    transition: all 0.2s ease-out;
+
+    &:before,
+    &:after {
+        @include icons-ionicons(-5px, 0, auto, auto);
+        content: '\f3d2';
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    &:before {
+        left: 0;
+        opacity: 1;
+        transition: opacity 0.2s ease-out;
+    }
+
+    &:after {
+        right: 0;
+        visibility: visible;
+        opacity: 0;
+        transform: translateX(10px);
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    @include on-event {
+        padding-right: 1.4rem;
+        padding-left: 0;
+        color: $color;
+        text-decoration: none;
+
+        &:before {
+            opacity: 0;
+        }
+
+        &:after {
+            opacity: 1;
+            transform: translateX(0);
         }
     }
 }
@@ -324,33 +386,6 @@ img {
     // box-shadow: 0 2px 0 $black;
 }
 
-
-//
-// ICONS
-//--------------------------------------------------------------------------
-
-@mixin icons-ionicons($top, $right, $bottom, $left) {
-    position: absolute;
-    top: $top;
-    right: $right;
-    bottom: $bottom;
-    left: $left;
-    font-family: 'Ionicons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    -moz-osx-font-smoothing: grayscale;
-    transition: transform 0.3s ease-in-out;
-}
 
 
 //
@@ -454,9 +489,10 @@ img {
     width: 100%;
     height: 100%;
     background-color: $color;
+    // z-index: -1;
 }
 
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+@mixin scrollbars($size, $border, $border-color, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
     // For Google Chrome
     &::-webkit-scrollbar {
         width:  $size;
@@ -465,6 +501,8 @@ img {
 
     &::-webkit-scrollbar-thumb {
         background: $foreground-color;
+        // padding hack
+        border: $border solid $border-color;
     }
 
     &::-webkit-scrollbar-track {
@@ -477,6 +515,12 @@ img {
         scrollbar-track-color: $background-color;
     }
 }
+
+// USE
+// @include scrollbars(15px, $complementary-color, $white);
+
+// WITH HACK
+// @include scrollbars(24px, 8px, $white, $complementary-color, $white);
 
 
 

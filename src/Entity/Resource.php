@@ -49,6 +49,11 @@ class Resource extends Publishable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $type;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $title;
 
     /**
@@ -98,6 +103,18 @@ class Resource extends Publishable
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -143,5 +160,7 @@ class Resource extends Publishable
 
         return $this;
     }
+
+
 
 }

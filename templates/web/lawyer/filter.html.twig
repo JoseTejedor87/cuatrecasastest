@@ -1,8 +1,13 @@
-{% extends 'web/baseFinal.html.twig' %}
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
 
-    <main role="main" class="search">
-
+    <main role="main" class="lawyer">
         <article class="container-fluid">
 
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
@@ -48,12 +53,11 @@
                 </div>
             </section>
 
-            <section class="row search_filters search_filters--selects">
+            <section class="row search_filters search_filters--lawyers">
                 <div class="col">
                     <div class="search_selects">
-
-                        <select id="area" class="custom__select">
-                            <option value="hide">Por área de práctica</option>
+                        <select id="services" class="custom__select">
+                            <option value="hide">Por servicios</option>
                             <option value="">Competencia y Derecho de la UE</option>
                             <option value="">Corporate Governance y Compliance</option>
                             <option value="">Derecho contable</option>
@@ -67,8 +71,8 @@
                             <option value="">Mediación</option>
                             <option value="">Mercado de valores</option>
                         </select>
-                        <select id="desk" class="custom__select">
-                            <option value="hide">Por sector o desk</option>
+                        <select id="sector" class="custom__select">
+                            <option value="hide">Por sector</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
                             <option value="">Brexit</option>
@@ -98,25 +102,8 @@
                             <option value="">Sao Paulo</option>
                             <option value="">Shanghai</option>
                         </select>
-
-                        <!-- v2 -->
-                        <!-- <select id="selectbox1" class="custom__select">
-                            <option value="hide">Por área de práctica</option>
-                            <option value="">Competencia y Derecho de la UE</option>
-                            <option value="">Corporate Governance y Compliance</option>
-                            <option value="">Derecho contable</option>
-                            <option value="">Derecho Laboral</option>
-                            <option value="">Financiero</option>
-                            <option value="">Fiscal</option>
-                            <option value="">Fiscalidad Contenciosa</option>
-                            <option value="">Fiscalidad Financiera</option>
-                            <option value="">Fusiones y Adquisiciones</option>
-                            <option value="">Litigación</option>
-                            <option value="">Mediación</option>
-                            <option value="">Mercado de valores</option>
-                        </select>
-                        <select id="selectbox2" class="custom__select">
-                            <option value="hide">Por sector o desk</option>
+                        <select id="category" class="custom__select">
+                            <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
                             <option value="">Brexit</option>
@@ -126,28 +113,10 @@
                             <option value="">Deporte</option>
                             <option value="">Empresa Familiar</option>
                             <option value="">Energía y Recursos Naturales</option>
+                            <option value="">Farmacia y Sanitario</option>
                         </select>
-                        <select id="selectbox3" class="custom__select">
-                            <option value="hide">Por oficina</option>
-                            <option value="">Barcelona</option>
-                            <option value="">Madrid</option>
-                            <option value="">Lisboa</option>
-                            <option value="">Beijing</option>
-                            <option value="">Bogotá</option>
-                            <option value="">Brussels</option>
-                            <option value="">Casablanca</option>
-                            <option value="">Lima</option>
-                            <option value="">London</option>
-                            <option value="">Luanda</option>
-                            <option value="">Maputo</option>
-                            <option value="">Mexico City</option>
-                            <option value="">New York</option>
-                            <option value="">Sao Paulo</option>
-                            <option value="">Shanghai</option>
-                        </select> -->
-
                     </div>
-                    <div class="search_alphabet">
+                    <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
                             <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=a')}}">a</a></li>
                             <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=b')}}">b</a></li>
@@ -176,48 +145,84 @@
                             <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=y')}}">y</a></li>
                             <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=z')}}">z</a></li>
                         </ul>
-                    </div>
+                    </nav>
+                    <!-- <div class="search_tags__wrapper">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Competencia y Derecho de la UE
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div> -->
                 </div>
             </section>
 
-            <section class="row search_results">
+            <section class="row lawyer__search">
 
                 <div class="col">
 
-                    <!-- Info -->
-                    <div class="search_results__info">
-                        <h2 class="search_results__header">Resultados de la búsqueda</h2>
-                        <div class="search_results__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
+                    <!-- Info Results -->
+                    <h2 class="section__title">Resultados de búsqueda</h2>
+                    <div class="lawyer__search__info">
+                        <div class="lawyer__search__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
+                        <div class="lawyer__search__chooser">
+                            <a href="#" class="icon__button list">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="List">
+                            </a>
+                            <a href="#" class="icon__button grid active">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Grid">
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Lawyers Links -->
-                    <div class="card-deck">
+                    <!-- Fake loader -->
+                    <div class="lawyer__search__wrapper__loader">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+                            </path>
+                        </svg>
+                    </div>
+
+                    <!-- List Results -->
+                    <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
                         {% for lawyer in lawyers %}
-                        <div class="card">
-                            <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="search_results__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</a>
-                            <figure>
-                                <!-- local -->
-                                <img src="{{ asset('/web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg')|imagine_filter('square') }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
-
-                                <!-- server -->
-                                <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square')  }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}"> -->
-
-                                <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" class="card-img-top" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}"> -->
-
-                            </figure>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h5>
-                                <div class="card-text">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
-                            </div>
-                            <div class="card-footer">
-                                Madrid | España
-                            </div>
+                        <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
+                            <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="lawyer__link">
+                                <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
+                                <!-- <h4 class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</h4> -->
+                                <div class="lawyer__details">
+                                    <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
+                                    <div class="lawyer__practice">Laboral</div>
+                                    <div class="lawyer__office">Bilbao</div>
+                                </div>
+                                <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
+                            </a>
                         </div>
                         {% endfor %}
                     </div>
 
-                    <div class="viewmore__button">
-                        <a href="#" class="btn btn__viewmore btn__viewmore--oneline">Ver más</a>
+                    <!-- Pagination -->
+                    <nav class="search_pagination" aria-label="Results pagination">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link active" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
@@ -227,73 +232,21 @@
         </article>
     </main>
 
-    {% include 'web/shared/events.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/insightsHighlight.html.twig' %}
+    {% include 'web/shared/related-content2.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
     $(function () {
-
-        /*
-        Custom Selects
-        Reference: http://jsfiddle.net/BB3JK/47/
-        */
-        $('.custom__select').each(function(){
-            var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-            $this.addClass('select-hidden');
-            $this.wrap('<div class="select"></div>');
-            $this.after('<div class="select-styled"></div>');
-
-            var $styledSelect = $this.next('div.select-styled');
-            // $styledSelect.text($this.children('option').eq(0).text());
-            $styledSelect.text($this.children('option:selected').text())
-
-            var $list = $('<ul/>', {
-                'class': 'select-options'
-            }).insertAfter($styledSelect);
-
-            for (var i = 0; i < numberOfOptions; i++) {
-                $('<li/>', {
-                    text: $this.children('option').eq(i).text(),
-                    rel: $this.children('option').eq(i).val()
-                }).appendTo($list);
-            }
-
-            var $listItems = $list.children('li');
-
-            $styledSelect.click(function(e) {
-                e.stopPropagation();
-                $('div.select-styled.active').not(this).each(function(){
-                    $(this).removeClass('active').next('ul.select-options').hide();
-                });
-                $(this).toggleClass('active').next('ul.select-options').toggle();
-            });
-
-            $listItems.click(function(e) {
-                e.stopPropagation();
-                $styledSelect.text($(this).text()).removeClass('active');
-                $this.val($(this).attr('rel'));
-                $list.hide();
-                //console.log($this.val());
-            });
-
-            $(document).click(function() {
-                $styledSelect.removeClass('active');
-                $list.hide();
-            });
-        });
-
-
-        // View more button
-        $('.viewmore__button .btn__viewmore').click(function () {
-            $('.card-deck .card:hidden').slice(0, 8).show();
-            if ($('.card-deck a').length == $('.card-deck .card:visible').length) {
-                $('.viewmore__button .btn__viewmore').hide();
-            }
-        });
+        web.global.customSelects();
+        web.global.lawyerResults();
+        web.global.sliderNews();
     });
 </script>
 {% endblock %}

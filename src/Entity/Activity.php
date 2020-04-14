@@ -39,6 +39,11 @@ abstract class Activity extends Publishable
     private $lawyers;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="activities")
+     */
+    private $Articles;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Block", mappedBy="activity", cascade={"persist"}, orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -126,6 +131,34 @@ abstract class Activity extends Publishable
         if ($this->lawyers->contains($lawyer)) {
             $this->lawyers->removeElement($lawyer);
             $lawyer->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Articles[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Articles $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Articles $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removeActivity($this);
         }
 
         return $this;

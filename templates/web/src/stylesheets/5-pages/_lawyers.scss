@@ -2,20 +2,255 @@
 // LAWYERS
 // ==========================================================================
 
+//
+// SEARCH RESULTS
+// --------------------------------------------------------------------------
 @include new("lawyer") {
 
-    //
-    // HEADER
-    // --------------------------------------------------------------------------
+    @include has("search") {
+
+        > .col {
+            padding: 2rem $screen-width;
+        }
+
+        .section__title {
+            background-color: $main-color;
+        }
+
+        @include has("wrapper") {
+            display: flex;
+            flex-flow: row wrap;
+            margin: 0 -15px;
+            background-color: rgba($white, 0.5);
+
+            @include when("list") {
+                margin-bottom: 4rem;
+            }
+
+            //
+            // FAKE LOADER
+            //
+            @include when("loading") {
+                position: relative;
+                min-height: 200px;
+
+                &:after {
+                    @include reset-pseudo($white);
+                }
+            }
+
+            @include has("loader") {
+                // display: flex;
+                // opacity: 0.5;
+                display: none;
+                position: absolute;
+                width: calc(100% - #{$screen-width}*2);
+                height: calc(100% - 378px);
+                background: $white;
+                z-index: 1;
+
+                svg {
+                    width: 200px;
+                    height: 200px;
+                    margin: auto;
+                    display: block;
+                }
+
+                path {
+                    transform: scale(0.8);
+                    transform-origin: 50px 50px;
+                }
+            }
+        }
+
+        @include has("item") {
+            //
+            // GRID
+            //
+            @include when-inside(".lawyer__search__wrapper--grid") {
+                flex: 1 1 calc(33.3333% - 30px);
+                margin: 0 15px;
+                margin-bottom: 30px;
+                background-size: auto 180%;
+                background-position: 98% 62%;
+                background-repeat: no-repeat;
+                background-blend-mode: normal;
+                background-color: rgba($black, 0.5);
+                transition: background-blend-mode 0.2s ease-out,
+                            background-size 0.6s,
+                            background-position 0.6s;
+
+                @include on-event() {
+                    // background-size: auto 180%;
+                    // background-position: 98% 62%;
+                    background-size: auto 260%;
+                    background-position: 95% 46%;
+                    background-blend-mode: luminosity;
+                    background-color: rgba($complementary-color, 0.3);
+                }
+
+                // &:first-child:nth-last-child(1) {
+                //     flex: 0 1 100%;
+                // }
+
+                // &:first-child:nth-last-child(2),
+                // &:first-child:nth-last-child(2) ~ div {
+                //     flex: 0 1 calc(50% - 30px);
+                // }
+            }
+
+            //
+            // LIST
+            //
+            @include when-inside(".lawyer__search__wrapper--list") {
+                flex: 1 1 calc(50% - 20px);
+                margin: 0 10px;
+                margin-bottom: 0;
+                background-image: none !important;
+                background-color: $white !important;
+                border-bottom: 2px solid rgba($black, 0.1);
+                transition: all 0.2s ease-out;
+
+                @include on-event() {
+                    background: rgba($black, 0.03) !important;
+                    border-bottom: 2px solid rgba($complementary-color, 0.8);
+                }
+
+                // &:first-child:nth-last-child(1) {
+                //     flex: 0 1 100%;
+                // }
+
+                // &:first-child:nth-last-child(3),
+                // &:first-child:nth-last-child(3) ~ div {
+                //     flex: 0 1 calc(33.3333% - 20px);
+                // }
+            }
+        }
+
+        @include has("info") {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            @include has("text") {}
+
+            @include has("chooser") {
+                display: flex;
+            }
+    }
+
+    @include has("link") {
+        display: flex;
+        flex-flow: column wrap;
+        width: 100%;
+        height: 100%;
+        min-height: 190px;
+        padding: 1rem;
+
+        @include when-inside(".lawyer__search__wrapper--list") {
+            min-height: auto;
+        }
+
+        @include on-event() {
+            text-decoration: none;
+        }
+    }
+
+    @include has("photo") {
+        display: none;
+    }
+
+    @include has("name") {
+        order: 2;
+        width: 40%;
+        margin-top: 1rem;
+        @include fontSet(24px, 26px);
+        font-weight: normal;
+        color: $white;
+
+        @include when-inside(".lawyer__search__wrapper--list") {
+            order: 1;
+            width: 100%;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            @include fontSet(34px, 34px);
+            color: $complementary-color;
+        }
+    }
+
+    @include has("details") {
+        order: 1;
+        margin-top: 0.2rem;
+
+        @include when-inside(".lawyer__search__wrapper--list") {
+            order: 2;
+        }
+    }
+
+    @include has("position") {
+        @include fontSet(16px, 16px);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $main-color;
+
+        @include when-inside(".lawyer__search__wrapper--list") {
+            float: left;
+            margin-right: 0.2rem;
+        }
+    }
+
+    @include has("practice") {
+        position: relative;
+        float: left;
+        margin-right: 1rem;
+        @include fontSet(16px, 16px);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $main-color;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -0.5rem;
+            width: 2px;
+            height: 80%;
+            background-color: $main-color;
+        }
+    }
+
+    @include has("office") {
+        float: left;
+        @include fontSet(16px, 16px);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $main-color;
+    }
+}
+
+
+//
+// HEADER INFO DETAILS
+// --------------------------------------------------------------------------
+
+@include new("lawyer__details") {
 
     @include has("header") {
         color: $white;
         background-color: $main-color;
 
+        //
+        // CONTENT BOX
+        //
         > div:first-child {
-            padding: 6rem 10vw;
+            padding: 7rem $screen-width 5rem;
         }
 
+        //
+        // PHOTO BOX
+        //
         > div:last-child {
             padding: 0 0;
         }
@@ -29,17 +264,17 @@
 
     @include has("position") {
         @include fontSet(64px, 64px);
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         line-height: 1;
         color: $complementary-color;
     }
 
     @include has("scope") {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
 
     @include has("contact") {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
 
         > * {
             @include cuatrecasas-font();
@@ -70,7 +305,7 @@
         }
     }
 
-    @include has("details") {
+    @include has("langs") {
 
         > * {
             @include cuatrecasas-font();
@@ -86,16 +321,22 @@
             text-transform: uppercase;
 
             a {
-                // @include classic-link($complementary-color, $complementary-color);
-                padding-bottom: 0.2rem;
-                @include fancy-link($complementary-color, $complementary-color);
+                @include classic-link($complementary-color, $white, $border: false);
+            }
+        }
+
+        [data-cv] {
+            // margin-top: 0.2rem;
+
+            a {
+                @include classic-link($complementary-color, $white, $border: false);
             }
         }
     }
 
     .action__links {
         position: relative;
-        bottom: -4.5rem;
+        bottom: -4rem;
         margin-left: -0.5rem;
     }
 
@@ -103,11 +344,57 @@
         @include reset-figure;
         width: 100%;
         height: 100%;
+        // background-size: 160% auto;
+        // background-position: 90% 70%;
+        // background-repeat: no-repeat;
+
+        background-position: 100% 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        // border: 1px solid blue;
 
         @include has("photo") {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: none;
+            // width: 100%;
+            // height: 100%;
+            // object-fit: cover;
         }
+
+        /*
+        @include mediaQuery($massive-width, $large-width) {
+            // border: 1px solid yellow;
+            // background-size: 110% auto;
+            // background-position: 100% 60%;
+
+            background-size: 120% auto;
+            background-position: 100% 66%;
+        }
+
+        @include mediaQuery($large-width, $desktop-width) {
+            // border: 1px solid cyan;
+            // background-size: 140% auto;
+            // background-position: 100% 70%;
+
+            background-size: 160% auto;
+            background-position: 84% 72%;
+        }
+
+        @include mediaQuery($desktop-width, $tablet-width) {
+            // border: 1px solid magenta;
+            // background-size: 170% auto;
+            // background-position: 90% 80%;
+
+            background-size: 130% auto;
+            background-position: 100% 62%;
+        }
+
+        @include mediaQuery($tablet-width, $mobile-width) {
+            // border: 1px solid blue;
+            display: none;
+        }
+        */
+
+
     }
 }

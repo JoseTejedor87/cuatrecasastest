@@ -18,14 +18,20 @@
 
 @include new("team") {
 
+    //
+    // MORE THAN ONE MEMBER
+   //
     @include when("full") {
         background-color: $white;
 
         .team__member {
-            height: 40rem;
+            height: 30rem;
         }
     }
 
+    //
+    // JUST ONE MEMBER
+    //
     @include when("contact") {
         background-color: rgba($black, 0.1);
 
@@ -39,7 +45,7 @@
     // --------------------------------------------------------------------------
 
     h3 {
-        margin-bottom: 1.4rem;
+        margin-bottom: 1rem;
         @include fontSet(16px, 18px);
         font-weight: bold;
         text-transform: uppercase;
@@ -47,13 +53,13 @@
     }
 
     h4 {
-        @include fontSet(24px, 26px);
+        @include fontSet(28px, 30px);
         font-weight: normal;
         color: $white;
     }
 
     p {
-        @include fontSet(20px, 20px);
+        @include fontSet(20px, 24px);
         color: $white;
     }
 
@@ -97,7 +103,7 @@
 
     @include has("member") {
         flex: 1;
-        height: 100%;
+        width: 100%;
         height: auto;
         margin-right: 0.5rem;
         padding: 1rem;
@@ -105,13 +111,15 @@
         overflow: hidden;
         display: flex;
         flex-flow: column nowrap;
+
         // background-size: cover;
         // background-position: 0 30%;
         background-size: auto 100%;
-        background-position: 92% 0;
+        background-position: 94% 0;
         background-repeat: no-repeat;
         // background-blend-mode: normal;
         background-color: rgba($black, 0.5);
+
         // background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
         transition: all 0.4s ease-in-out;
 
@@ -119,8 +127,53 @@
             margin-right: 0;
         }
 
+
+        //
+        // Advanced Numeric Selection
+        //
+        // https://css-tricks.com/solved-with-css-logical-styling-based-on-the-number-of-given-elements/
+        // https://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
+        //
+        // https://codepen.io/mattlubner-the-decoder/pen/ExaQZQR
+        // --------------------------------------------------------------------------
+
+
+        // /* one item */
+        &:first-child:nth-last-child(1) {
+            // width: 100%;
+            // outline: 5px solid #4b6cb7;
+        }
+
+        // /* two items */
+        &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
+            // width: 50%;
+            // outline: 5px solid #00C9FF;
+        }
+
+        // /* three items */
+        &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
+            // width: 33.3333%;
+            // outline: 5px solid #FC466B;
+        }
+
+        // /* four items */
+        &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
+            // width: 25%;
+            // outline: 5px solid #3F2B96;
+        }
+
+        // /* five items */
+        &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
+            // width: 20%;
+            // outline: 5px solid #FDBB2D;
+        }
+
+
+
+
         @include has("link") {
             @include box-hidden-link;
+            margin: -1rem 0 0 -1rem;
         }
 
         @include has("position") {}
@@ -129,16 +182,20 @@
         @include has("resume") {
             position: absolute;
             bottom: 1rem;
-            height: 60px;
+            width: 75%;
+            height: 76px;
             overflow: hidden;
             opacity: 0;
-            transition: opacity 0.8s ease-out;
+            transition: width 0.2s ease-out, opacity 0.8s ease-out;
 
             p {
                 margin-bottom: 0;
             }
         }
 
+        //
+        // JUST ONE MEMBER
+        //
         &:only-child {
             background-position: 100% 100%;
             background-size: auto 130%;
@@ -156,7 +213,7 @@
             // background-blend-mode: overlay;
 
             flex-grow: 10;
-            background-position: 94% 0;
+            // background-position: 94% 0;
             background-blend-mode: luminosity;
             background-color: rgba($complementary-color, 0.3);
 

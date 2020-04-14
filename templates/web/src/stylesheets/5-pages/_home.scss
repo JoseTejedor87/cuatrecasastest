@@ -1,3 +1,151 @@
-// -----------------------------------------------------------------------------
-// This file contains styles that are specific to the home page.
-// -----------------------------------------------------------------------------
+// ==========================================================================
+// HOME SLIDER
+// ==========================================================================
+
+@include new("home") {
+
+    $triangle-size: 280px;
+    $triangle-half: 100px;
+
+    //
+    // HEADER
+    // --------------------------------------------------------------------------
+
+    @include has("header") {
+        height: calc(100vh - 122px);
+        background-color: $main-color;
+    }
+
+    //
+    // SLIDER
+    // --------------------------------------------------------------------------
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        position: relative;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .home__item,
+        .home__preview:after,
+        .home__preview__content {
+            opacity: 0;
+            transition: opacity 0.6s ease-out 0.4s;
+        }
+
+        .home__preview:before {
+            top: $triangle-size;
+            transition: top 0.4s ease-out;
+        }
+
+        // focus element opacity
+        &-active {
+            .home__item,
+            .home__preview:after,
+            .home__preview__content {
+                opacity: 1;
+            }
+            .home__preview:before {
+                top: 0;
+            }
+        }
+
+        &-prev,
+        &-next {
+            .home__item,
+            .home__preview:after,
+            .home__preview__content {
+                opacity: 0;
+            }
+            .home__preview:before {
+                top: $triangle-size;
+                transform: positionY($triangle-size);
+            }
+        }
+
+        // bg img opacity >>> delete maybbe ¿?
+        &.opacity2 {
+            &:before {
+                @include reset-pseudo($black);
+                opacity: 0.2;
+            }
+        }
+
+        &.opacity4 {
+            &:before {
+                @include reset-pseudo($black);
+                opacity: 0.4;
+            }
+        }
+    }
+
+    @include has("item") {
+        position: relative;
+        width: 58%;
+        height: 100%;
+        padding-left: $screen-width;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        color: $white;
+        z-index: 1;
+
+        @include has("type") {
+            margin-bottom: 1rem;
+            @include fontSet(20px, 20px);
+            text-transform: uppercase;
+        }
+
+        @include has("content") {
+            @include fontSet(56px, 60px);
+        }
+
+        @include has("link") {
+            margin-top: 2rem;
+        }
+    }
+
+
+    @include has("preview") {
+
+        width: $triangle-size;
+        height: $triangle-size;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-bottom: $triangle-size solid $complementary-color;
+            border-left: $triangle-size solid transparent;
+        }
+
+        &:after {
+            @include icons-ionicons($triangle-half, 1rem, auto, auto);
+            content: '\f3d1';
+            font-size: 60px;
+            color: $white;
+        }
+
+        @include has("content") {
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
+            margin-left: $triangle-half;
+            @include fontSet(16px, 16px);
+            color: $white;
+        }
+    }
+
+}

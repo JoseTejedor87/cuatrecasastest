@@ -1,0 +1,71 @@
+// ==========================================================================
+// EXPERTISE
+// ==========================================================================
+
+@include new("brands") {
+    display: block;
+    margin: 0 0;
+    padding: 3em 0;
+    background-color: rgba($black, 0.03);
+
+    @include has("wrapper") {
+        align-items: flex-start;
+        padding: 4rem $screen-width;
+    }
+
+    @include has("item") {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    @include has("link") {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+        color: $black;
+
+        > img {
+            position: relative;
+            z-index: 1;
+
+            &:first-child {
+                margin-top: 2px;
+                margin-bottom: 8px;
+            }
+        }
+
+        &:before {
+            @include reset-pseudo(transparent);
+            width: 100%;
+            height: 50px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        @include when("acelera") {
+            &:before {
+                background-color: #61d1ff;
+            }
+        }
+
+        @include when("rrhh") {
+            &:before {
+                background-color: #80b0cd;
+            }
+        }
+
+        @include when("fundacion") {
+            &:before {
+                background-color: #cea77b;
+            }
+        }
+
+        @include on-event() {
+            &:before {
+                background-color: $main-color;
+            }
+        }
+    }
+}

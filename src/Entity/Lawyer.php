@@ -57,6 +57,10 @@ class Lawyer extends Publishable
     private $activities;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="lawyers")
+     */
+    private $Articles;
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
     private $photo;
@@ -204,6 +208,34 @@ class Lawyer extends Publishable
     public function setOffice(?Office $office): self
     {
         $this->office = $office;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Articles[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Articles $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Articles $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removeActivity($this);
+        }
 
         return $this;
     }

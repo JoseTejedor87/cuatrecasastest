@@ -103,6 +103,12 @@ class Office extends Publishable
      */
     private $lawyer;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="offices")
+     */
+    private $Articles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -316,6 +322,34 @@ class Office extends Publishable
             if ($lawyer->getOffice() === $this) {
                 $lawyer->setOffice(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Articles[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Articles $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Articles $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removeActivity($this);
         }
 
         return $this;

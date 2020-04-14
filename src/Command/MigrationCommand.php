@@ -266,7 +266,7 @@ class MigrationCommand extends Command
         return 0;
     }
     public function Publicaciones($conn,$output){
-        $query = "SELECT [id] ,[medio_id] ,[fecha] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[visio_es] ,[visio_en] ,[visio_pt] ,[status] ,[destacada] ,[pub_o_new] ,[tipo_publicacion] ,[visio_cn] ,[thumbnail] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicaciones]";  
+        $query = "SELECT [id] ,[medio_id] ,[fecha] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[visio_es] as visio_esp ,[visio_en] as visio_eng ,[visio_pt] as visio_por ,[status] ,[destacada] ,[pub_o_new] ,[tipo_publicacion] ,[visio_cn] as visio_chi ,[thumbnail] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicaciones]";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -278,7 +278,7 @@ class MigrationCommand extends Command
         return 0;
     }
     public function PublicacionesIdiomas($conn,$output){
-        $query = "SELECT [id] ,[idiomas_id] ,[publicacion_id] ,[title] ,[summary] ,[contenido] ,[pie_foto] ,[url_pdf] ,[url_link] ,[url_friend] ,[url_video] ,[url_imgs] ,[url_docs] ,[url_podcast] ,[tags] ,[metadescription] ,[abogado_tags] ,[oficina_tags] ,[practica_tags] ,[is_flipping] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicacionesidioma]";  
+        $query = "SELECT p.[id] ,p.[idiomas_id] ,p.[publicacion_id] ,p.[title] ,p.[summary] ,p.[contenido] ,p.[pie_foto] ,p.[url_pdf] ,p.[url_link] ,p.[url_friend] ,p.[url_video] ,p.[url_imgs] ,p.[url_docs] ,p.[url_podcast] ,p.[tags] ,p.[metadescription] ,p.[abogado_tags] ,p.[oficina_tags] ,p.[practica_tags] ,p.[is_flipping] ,i.[lang] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicacionesidioma] P inner JOIN [web_cuatrecasas_cms_desarrollo].[dbo].[Idiomas]  i ON p.[idiomas_id] = i.id";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
