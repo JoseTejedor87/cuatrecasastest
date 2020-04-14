@@ -55,15 +55,21 @@ class Lawyer extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
     private $activities;
+    
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="lawyers")
      */
-    private $Articles;
+    private $articles;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
     private $photo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Speaker", mappedBy="lawyer", orphanRemoval=true)
+     */
+    private $speaker;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="lawyer")
@@ -74,6 +80,7 @@ class Lawyer extends Publishable
     public function __construct()
     {
         $this->activities = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
 
@@ -239,4 +246,31 @@ class Lawyer extends Publishable
 
         return $this;
     }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSpeaker(): ?Speaker
+    {
+        return $this->speaker;
+    }
+
+    public function setSpeaker(?Speaker $speaker): self
+    {
+        $this->speaker = $speaker;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newLawyer = null === $speaker ? null : $this;
+        if ($speaker->getLawyer() !== $newLawyer) {
+            $speaker->setLawyer($newLawyer);
+        }
+
+        return $this;
+    }
+
+
 }

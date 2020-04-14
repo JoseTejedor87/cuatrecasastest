@@ -35,32 +35,27 @@ class ArticlesTranslation extends PublishableTranslation
     private $caption;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="url_pdfArticlesTranslation", cascade={"persist"}, orphanRemoval=true)
-     */
-    private $url_pdf;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $url_link;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $tags;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $lawyer_tags;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $office_tags;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $practice_tags;
 
@@ -116,20 +111,7 @@ class ArticlesTranslation extends PublishableTranslation
 
         return $this;
     }
-    public function getUrlPdf(): ?Resource
-    {
-        return $this->url_pdf;
-    }
 
-    public function setUrlPdf(?Resource $url_pdf): self
-    {
-        $this->url_pdf = $url_pdf;
-        if ($url_pdf) {
-            $url_pdf->setUrl_pdfArticlesTranslation($this);
-        }
-
-        return $this;
-    }
 
     public function getUrlLink(): ?string
     {

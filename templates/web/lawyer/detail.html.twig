@@ -9,11 +9,9 @@
                     <a href="#" class="back__button">volver</a>
                     <h1 class="lawyer__details__name">
                         {{ lawyer.name }} {{ lawyer.surname }}
-                        {# Juan García Hernández #}
                     </h1>
                     <h2 class="lawyer__details__position">
                         {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
-                        {# Consejera Cuatrecasas #}
                     </h2>
                     <ul class="lawyer__details__scope related__services">
                         {% for activity in lawyer.activities %}
@@ -26,7 +24,7 @@
                     </ul>
                     <div class="lawyer__details__contact">
                         <div data-address>
-                            CUATRECASAS BARCELONA
+                            CUATRECASAS {{ lawyer.office.city }}
                         </div>
                         <div data-telephone>
                             {{ lawyer.phone }}
@@ -99,9 +97,12 @@
                                     <div>Licenciado en Derecho</div>
                                     <div>Universidad Palmas de Gran Canaria, 1996</div>
                                 </li>
-                                <li>
+                                {# <li>
                                     <div>Master en Derecho Comunitario</div>
                                     <div>Especialización en derecho de empresa Université Libre de Bruxelles, 1996/97</div>
+                                </li> #}
+                                <li>
+                                    {{ lawyer.translate(app.request.getLocale()).training|raw  }}
                                 </li>
                             </ul>
                             <h3 class="page__aside__title">Menciones</h3>
@@ -110,10 +111,10 @@
                                     <div>Abogado recomendado</div>
                                     <div>Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax</div>
                                 </li>
-                                <li>
+                                {# <li>
                                     <div>Antitrust Law. Lawyer of the Year</div>
                                     <div>Best Lawyers en 2012</div>
-                                </li>
+                                </li> #}
                                 <li>
                                     {{ lawyer.translate(app.request.getLocale()).mentions|raw  }}
                                 </li>
@@ -138,27 +139,29 @@
                     </div>
                 </div>
             </section>
-
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h3 class="subsection__title">Publicaciones</h3>
+            {% if lawyer.articles|length > 1 %}
+                <section class="row page__block">
+                    <div class="col">
+                        <div class="page__block__title">
+                            <h3 class="subsection__title">Publicaciones</h3>
+                        </div>
+                        <div class="page__block__content">
+                            <ul class="page__block__content__details">
+                            {% for article in lawyer.articles %}
+                            {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                {% if (article.translate(app.request.getLocale()).title) %}
+                                    <li>
+                                        <div>{{ PublicationDate[1] }}</div>
+                                        <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="page__block__content">
-                        <ul class="page__block__content__details">
-                            <li>
-                                <div>1 de julio de 2019</div>
-                                <a href="#">Transparencia y competencia en el sector farmacéutico, un complejo equilibrio cuadernos de derecho.</a>
-                            </li>
-                            <li>
-                                <div>16 de enero de 2018</div>
-                                <a href="#">Precios excesivos. El marco jurídico actual de comunicaciones en propiedad industrial y derecho de la competencia.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
+                </section>
+            {% endif %}
+            {% if lawyer.speaker.events|length > 1 %}
             <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
@@ -166,19 +169,20 @@
                     </div>
                     <div class="page__block__content">
                         <ul class="page__block__content__details">
-                            <li>
-                                <div>26 de mayo de 2019</div>
-                                <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Competencia en la Contratación Pública.</a>
-                            </li>
-                            <li>
-                                <div>9 de enero de 2018</div>
-                                <div>Meeting anual sobre el deporte con JD Sports y Sprinter, para la integración con Sport Zone en España y Portugal.</div>
-                            </li>
+                            {% for event in lawyer.speaker.events %}
+                            {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                {% if (event.translate(app.request.getLocale()).title) %}
+                                    <li>
+                                        <div>{{ StartDate[1] }}</div>
+                                        <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </section>
-
+            {% endif %}
         </article>
     </main>
 

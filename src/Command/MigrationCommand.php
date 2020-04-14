@@ -114,7 +114,7 @@ class MigrationCommand extends Command
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('abogados.json', json_encode($results));
+        $fs->dumpFile('JsonExports/abogados.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla abogados');
         $this->logger->info('Se ha guardado con el nombre abogados.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
@@ -125,7 +125,7 @@ class MigrationCommand extends Command
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('eventos.json', json_encode($results));
+        $fs->dumpFile('JsonExports/eventos.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla eventos');
         $this->logger->info('Se ha guardado con el nombre eventos.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
@@ -137,7 +137,7 @@ class MigrationCommand extends Command
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('areas_practicas.json', json_encode($results));
+        $fs->dumpFile('JsonExports/areas_practicas.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla areas_practicas');
         $this->logger->info('Se ha guardado con el nombre areas_practicas.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
@@ -152,7 +152,7 @@ class MigrationCommand extends Command
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('eventosArea.json', json_encode($results));
+        $fs->dumpFile('JsonExports/eventosArea.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla eventos_area');
         $this->logger->info('Se ha guardado con el nombre eventosArea.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
@@ -163,175 +163,175 @@ class MigrationCommand extends Command
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('eventosPonente.json', json_encode($results));
+        $fs->dumpFile('JsonExports/eventosPonente.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla eventos_Ponente');
         $this->logger->info('Se ha guardado con el nombre eventosPonente.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     } 
     public function AbogadoArea($conn,$output){
-        $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[abogado_area]";       
+        $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM abogado_area";       
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('abogadoArea.json', json_encode($results));
+        $fs->dumpFile('JsonExports/abogadoArea.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla abogado_area');
         $this->logger->info('Se ha guardado con el nombre abogadoArea.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function AreasQuotes($conn,$output){
-        $query = "SELECT  [id_area] ,[id_quote] ,[lang] ,[quote_text]  ,[orden] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[areas_quotes]";       
+        $query = "SELECT  [id_area] ,[id_quote] ,[lang] ,[quote_text]  ,[orden] FROM areas_quotes";       
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('areasQuotes.json', json_encode($results));
+        $fs->dumpFile('JsonExports/areasQuotes.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla areas_quotes');
         $this->logger->info('Se ha guardado con el nombre areasQuotes.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function Premios($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[title] ,[otorgado] ,[fecha]  ,[desc_award] ,[desc_award_firma] ,[desc_award_indiv] ,[tags] ,[url_image] ,[url_friend] ,[destacado] ,[posicion] ,[rss] ,[facebook] ,[twitter] ,[visio_esp]  ,[visio_por] ,[visio_eng] ,[status] ,[otorgado_a] ,[orden] ,[visio_chi] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[premios]";  
+        $query = "SELECT [id] ,[lang] ,[title] ,[otorgado] ,[fecha]  ,[desc_award] ,[desc_award_firma] ,[desc_award_indiv] ,[tags] ,[url_image] ,[url_friend] ,[destacado] ,[posicion] ,[rss] ,[facebook] ,[twitter] ,[visio_esp]  ,[visio_por] ,[visio_eng] ,[status] ,[otorgado_a] ,[orden] ,[visio_chi] FROM premios";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('premios.json', json_encode($results));
+        $fs->dumpFile('JsonExports/premios.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla premios');
         $this->logger->info('Se ha guardado con el nombre premios.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function Oficinas($conn,$output){
-        $query = "SELECT [id] ,[ciudad] ,[direccion] ,[cp] ,[pais] ,[contacto] ,[url_friend] ,[email] ,[fax] ,[tel] ,[img_map] ,[link_google] ,[img_office] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[facebook] ,[twitter] ,[rss] ,[status] ,[lugar] ,[ciudad_por] ,[ciudad_eng] ,[visio_chi] ,[zonageografica] ,[sap] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[oficina]";  
+        $query = "SELECT [id] ,[ciudad] ,[direccion] ,[cp] ,[pais] ,[contacto] ,[url_friend] ,[email] ,[fax] ,[tel] ,[img_map] ,[link_google] ,[img_office] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[facebook] ,[twitter] ,[rss] ,[status] ,[lugar] ,[ciudad_por] ,[ciudad_eng] ,[visio_chi] ,[zonageografica] ,[sap] FROM oficina";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('oficinas.json', json_encode($results));
+        $fs->dumpFile('JsonExports/oficinas.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla oficinas');
         $this->logger->info('Se ha guardado con el nombre oficinas.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function OficinaDescripcion($conn,$output){
-        $query = "SELECT [id] ,[id_oficina] ,[lang] ,[descripcion] ,[tags] ,[ciudad] ,[pais] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[oficina_desc]";  
+        $query = "SELECT [id] ,[id_oficina] ,[lang] ,[descripcion] ,[tags] ,[ciudad] ,[pais] FROM oficina_desc";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('OficinaDescripcion.json', json_encode($results));
+        $fs->dumpFile('JsonExports/OficinaDescripcion.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla OficinaDesc');
         $this->logger->info('Se ha guardado con el nombre OficinaDescripcion.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function OficinaAbogado($conn,$output){
-        $query = "SELECT [id_abogado] ,[id_oficina] ,[id_direccion]  ,[director] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[oficina_abogado]";  
+        $query = "SELECT [id_abogado] ,[id_oficina] ,[id_direccion]  ,[director] FROM oficina_abogado";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('OficinaAbogado.json', json_encode($results));
+        $fs->dumpFile('JsonExports/OficinaAbogado.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla OficinaAbogado');
         $this->logger->info('Se ha guardado con el nombre OficinaAbogado.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function Noticias($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[title] ,[summary] ,[contenido] ,[medio] ,[tipo_noticia] ,[fecha_noticia] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_pdf] ,[url_imagen] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[status] ,[rss] ,[facebook] ,[twitter] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[destacada] ,[pub_o_new] ,[Notificado] ,[fechaNotificacion] ,[thumbnail] ,[subtipopub] ,[visio_chi] ,[is_flipping] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[noticias]";  
+        $query = "SELECT [id] ,[lang] ,[title] ,[summary] ,[contenido] ,[medio] ,[tipo_noticia] ,[fecha_noticia] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_pdf] ,[url_imagen] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[status] ,[rss] ,[facebook] ,[twitter] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[destacada] ,[pub_o_new] ,[Notificado] ,[fechaNotificacion] ,[thumbnail] ,[subtipopub] ,[visio_chi] ,[is_flipping] FROM noticias";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('noticias.json', json_encode($results));
+        $fs->dumpFile('JsonExports/noticias.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla noticias');
         $this->logger->info('Se ha guardado con el nombre noticias.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function NoticiasIdioma($conn,$output){
-        $query = "SELECT  [id] ,[noticias_id] ,[title] ,[summary] ,[contenido] ,[url_pdf] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[idiomas_id] ,[pie_foto] ,[url_imgs] ,[url_docs] ,[metadescription] ,[abogado_tags] ,[oficina_tags],[practica_tags] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[noticiasidioma]";  
+        $query = "SELECT  [id] ,[noticias_id] ,[title] ,[summary] ,[contenido] ,[url_pdf] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[idiomas_id] ,[pie_foto] ,[url_imgs] ,[url_docs] ,[metadescription] ,[abogado_tags] ,[oficina_tags],[practica_tags] FROM noticiasidioma";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('noticiasIdioma.json', json_encode($results));
+        $fs->dumpFile('JsonExports/noticiasIdioma.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla noticiasIdioma');
         $this->logger->info('Se ha guardado con el nombre noticiasIdioma.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function Publicaciones($conn,$output){
-        $query = "SELECT [id] ,[medio_id] ,[fecha] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[visio_es] as visio_esp ,[visio_en] as visio_eng ,[visio_pt] as visio_por ,[status] ,[destacada] ,[pub_o_new] ,[tipo_publicacion] ,[visio_cn] as visio_chi ,[thumbnail] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicaciones]";  
+        $query = "SELECT [id] ,[medio_id] ,[fecha] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[visio_es] as visio_esp ,[visio_en] as visio_eng ,[visio_pt] as visio_por ,[status] ,[destacada] ,[pub_o_new] ,[tipo_publicacion] ,[visio_cn] as visio_chi ,[thumbnail] FROM publicaciones";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('Publicaciones.json', json_encode($results));
+        $fs->dumpFile('JsonExports/Publicaciones.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla Publicaciones');
         $this->logger->info('Se ha guardado con el nombre Publicaciones.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function PublicacionesIdiomas($conn,$output){
-        $query = "SELECT p.[id] ,p.[idiomas_id] ,p.[publicacion_id] ,p.[title] ,p.[summary] ,p.[contenido] ,p.[pie_foto] ,p.[url_pdf] ,p.[url_link] ,p.[url_friend] ,p.[url_video] ,p.[url_imgs] ,p.[url_docs] ,p.[url_podcast] ,p.[tags] ,p.[metadescription] ,p.[abogado_tags] ,p.[oficina_tags] ,p.[practica_tags] ,p.[is_flipping] ,i.[lang] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[publicacionesidioma] P inner JOIN [web_cuatrecasas_cms_desarrollo].[dbo].[Idiomas]  i ON p.[idiomas_id] = i.id";  
+        $query = "SELECT p.[id] ,p.[idiomas_id] ,p.[publicacion_id] ,p.[title] ,p.[summary] ,p.[contenido] ,p.[pie_foto] ,p.[url_pdf] ,p.[url_link] ,p.[url_friend] ,p.[url_video] ,p.[url_imgs] ,p.[url_docs] ,p.[url_podcast] ,p.[tags] ,p.[metadescription] ,p.[abogado_tags] ,p.[oficina_tags] ,p.[practica_tags] ,p.[is_flipping] ,i.[lang] FROM publicacionesidioma P inner JOIN Idiomas  i ON p.[idiomas_id] = i.id";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('PublicacionesIdiomas.json', json_encode($results));
+        $fs->dumpFile('JsonExports/PublicacionesIdiomas.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesIdiomas');
         $this->logger->info('Se ha guardado con el nombre PublicacionesIdiomas.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function PublicacionesAbogados($conn,$output){
-        $query = "SELECT [publicacion_id] ,[abogado_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesAbogado]";  
+        $query = "SELECT [publicacion_id] ,[abogado_id] FROM PublicacionesAbogado";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('PublicacionesAbogados.json', json_encode($results));
+        $fs->dumpFile('JsonExports/PublicacionesAbogados.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesAbogados');
         $this->logger->info('Se ha guardado con el nombre PublicacionesAbogados.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function PublicacionesLegislacion($conn,$output){
-        $query = "SELECT [publicacion_id] ,[legislacion_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesLegislacion]";  
+        $query = "SELECT [publicacion_id] ,[legislacion_id] FROM PublicacionesLegislacion";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('PublicacionesLegislacion.json', json_encode($results));
+        $fs->dumpFile('JsonExports/PublicacionesLegislacion.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesLegislacion');
         $this->logger->info('Se ha guardado con el nombre PublicacionesLegislacion.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function PublicacionesPractica($conn,$output){
-        $query = "SELECT [publicacion_id] ,[practica_id] FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesPractica]";  
+        $query = "SELECT [publicacion_id] ,[practica_id] FROM PublicacionesPractica";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('PublicacionesPractica.json', json_encode($results));
+        $fs->dumpFile('JsonExports/PublicacionesPractica.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesPractica');
         $this->logger->info('Se ha guardado con el nombre PublicacionesPractica.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
     public function PublicacionesOficina($conn,$output){
-        $query = "SELECT [publicacion_id] ,[oficina_id]  FROM [web_cuatrecasas_cms_desarrollo].[dbo].[PublicacionesOficina]";  
+        $query = "SELECT [publicacion_id] ,[oficina_id]  FROM PublicacionesOficina";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $fs = new \Symfony\Component\Filesystem\Filesystem();
-        $fs->dumpFile('PublicacionesOficina.json', json_encode($results));
+        $fs->dumpFile('JsonExports/PublicacionesOficina.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesOficina');
         $this->logger->info('Se ha guardado con el nombre PublicacionesOficina.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());

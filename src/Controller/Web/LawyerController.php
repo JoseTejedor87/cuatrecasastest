@@ -23,9 +23,17 @@ class LawyerController extends WebController
         $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($lawyer->translate('es'));
-        $activities = $lawyer->getActivities();
-        //dd($activities);
-        // foreach ($activities as $key => $value) {
+        // $Speaker = $lawyer->getSpeaker();
+        // $Events = $Speaker->getEvents();
+        // $Office = $lawyer->getOffice();
+        // var_dump($Speaker);
+        // $descrip = $Office->translate('es')->getDescriptions();
+        // var_dump($Office);
+        // $Officeid = $Office->getId();
+        // var_dump($Office->translate('es')->getDescriptions());
+        // die();
+        // dd(var_dump($lawyer));
+        // foreach ($Events as $key => $value) {
         //     dd($value->translate('es')->getTitle());
         // }
         // var_dump($lawyer);
@@ -43,27 +51,47 @@ class LawyerController extends WebController
     public function filter(Request $request, LawyerRepository $lawyerRepository)
     {
         $initial = $request->query->get('initial');
-        if(!$initial){
-            $initial = $request->query->get('search');
+        $page = $request->query->get('page');
+        if(!isset($page))
+        $page = 1;  
+        $limit = 6;
+        if(!$initial ){
+        $initial = $request->query->get('search');
+        
         }
-        if(!$initial){
-            $lawyers = $lawyerRepository->findAll();
-        }else{
-            $lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
+        if($initial ){
+            //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
             // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
             $query = $lawyerRepository->createQueryBuilder('l')
                ->where('l.surname LIKE :surname')
-               ->setParameter('surname', $initial.'%')
+               ->setParameter('surname', $initial .'%')
+               ->setFirstResult($limit * ($page - 1))
+               ->setMaxResults($limit)
                ->getQuery();
-               $lawyers = $query->getResult();
+            $lawyers = $query->getResult();
+            $query = $lawyerRepository->createQueryBuilder('l')
+               ->where('l.surname LIKE :surname')
+               ->setParameter('surname', $initial .'%')
+               ->getQuery();
+               if($lawyers){
+                $countLawyers = count($query->getResult());
+                $pagesTotal = $countLawyers/6;
+                if(is_float($pagesTotal)){
+                    $pagesTotal = $pagesTotal + 1;
+                }
+               }
+            
+            //dd($lawyers);
         }
-        $countLawyers = count($lawyers);
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
-        //dd($lawyers);
+
+        
+        // dd($_SERVER['REQUEST_URI']);
         return $this->render('web/lawyer/filter.html.twig', [
             'controller_name' => 'LawyerController',
-            'lawyers' => $lawyers,
-            'countLawyers' => $countLawyers,
+            'lawyers' => isset($lawyers) ? $lawyers : '',
+            'countLawyers' => isset($countLawyers) ? $countLawyers : '',
+            'page' => isset($page) ? $page : '',
+            'pagesTotal' => isset($pagesTotal) ? $pagesTotal : '',
         ]);
     }
 }

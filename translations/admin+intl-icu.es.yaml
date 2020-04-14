@@ -108,6 +108,13 @@ sections:
       title: Nueva Página
     edit:
       title: Nueva Página
+  articles:
+      index:
+        title: Artículos
+      new:
+        title: Nuevo Articulo
+      edit:
+        title: Editar Articulo
 
 # Menu
 # ###########################################
@@ -127,7 +134,7 @@ menu:
   awards.title: Premios
   office.title: Oficinas
   page.title: Páginas
-
+  articles.title: Artículos
 # Entities
 # ###########################################
 entities:
@@ -244,6 +251,10 @@ entities:
     fields:
       title: Título
       blocks: Bloques
+  article:
+    fields:
+      title: Título
+      publication_date: Fecha de publicación
 
 
 # Custom Form Types
