@@ -63,7 +63,14 @@ body{
     box-shadow: 3px 3px 10px #bbb;
     background-color: #efefef;
     margin-bottom: 2em;
+    position: relative;
 }
 .blocks-collection-field fieldset.form-group legend {
     display: none;
+}
+.blocks-collection-field fieldset.form-group i.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }

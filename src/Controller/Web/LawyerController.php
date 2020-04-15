@@ -56,7 +56,7 @@ class LawyerController extends WebController
         $page = 1;  
         $limit = 6;
         if(!$initial ){
-        $initial = $request->query->get('search');
+        $initial = $request->query->get('initial');
         
         }
         if($initial ){
