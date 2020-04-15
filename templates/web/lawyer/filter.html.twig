@@ -213,7 +213,8 @@
                                 </a>
                             </li>
                             {% for i in 1..pagesTotal %}
-                            <li class="page-item"><a class="page-link {{ i==page ? 'active' : '' }}" onclick="return false;" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}"  data-page="{{ i }}" >{{ i }}</a></li>
+                            <li class="page-item"><a class="page-link {{ i==page ? 'active' : '' }}"    data-page="{{ i }}" >{{ i }}</a></li>
+                            {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" #}
                             {% endfor %}
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
