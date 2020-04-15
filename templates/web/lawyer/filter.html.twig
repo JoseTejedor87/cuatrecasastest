@@ -213,8 +213,7 @@
                                 </a>
                             </li>
                             {% for i in 1..pagesTotal %}
-                            <li class="page-item"><a class="page-link {{ i==page ? 'active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" >{{ i }}</a></li>
-                            {# href="{{ app.request.uri }}&page={{ i }}" #}
+                            <li class="page-item"><a class="page-link {{ i==page ? 'active' : '' }}" onclick="return false;" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}"  data-page="{{ i }}" >{{ i }}</a></li>
                             {% endfor %}
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
@@ -223,7 +222,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </nav>
 
                 </div>
 
@@ -245,28 +244,59 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
     $(function () {
-
         web.global.customSelects();
         web.global.lawyerResults();
         web.global.sliderNews();
     });
-    {# $(document).ready(function(){  
-         
-        $(".page-link").on("click", function(event){ 
+    $(document).ready(function(){  
+         $(document).on('click', '.page-link', function(event){
+             event.stopPropagation();
             var page = $(this).data("page");
             var initial = "{{ app.request.get('initial') }}";
+            $(".page-link").removeClass("active");
+            $(this).addClass("active");
             $.ajax({
                 method: "POST",
                 url: "/ajax",
                 data: { page: page, initial: initial },
-                dataType: 'application/json; charset=utf-8',
+                beforeSend: function( xhr ) {
+                    $('.lawyer__search__wrapper__loader').show();
+                }
                 })
                 .done(function( msg ) {
-                    console.log(JSON.parse(msg['lawyers']));
-                    alert( "Data Saved: " + msg );
+                    $('.lawyer__search__wrapper__loader').hide();
+                    $(".lawyer__search__wrapper").empty();
+                    var html = '';
+
+                                            msg['lawyers'].forEach(function(lawyer){
+                    html = html + `
+                                            <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
+                                                <a href="{{ relative_path('/es/lawyer/detail/')}} `+ lawyer['Slug']  + `" class="lawyer__link">
+                                                    <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
+                                                    <div class="lawyer__details">
+                                                        <div class="lawyer__position">`+ lawyer['LawyerType']  + `</div>
+                                                        <div class="lawyer__practice">Laboral</div>
+                                                        <div class="lawyer__office">Bilbao</div>
+                                                    </div>
+                                                    <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName']  + `">
+                                                </a>
+                                            </div>
+                                            `;
+                                            });
+                    $( ".lawyer__search__wrapper" ).append( html );
+                    window.history.replaceState(null, null, "filter?initial="+msg['initial']+"&page="+msg['page']);
+                })
+                .fail(function() {
+                    var URLactual = window.location;
+                    var n = String(URLactual).search('page');
+                    if(n > -1){
+                        URLactual = String(URLactual).slice(0, -1);
+                        $(location).attr('href',URLactual+page);
+                    }else{
+                        $(location).attr('href',URLactual+"&page="+page);
+                    }
                 });
          }); 
-         
-    });   #}
+    });  
 </script>
 {% endblock %}
