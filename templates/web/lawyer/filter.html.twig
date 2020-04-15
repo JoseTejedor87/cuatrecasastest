@@ -250,8 +250,7 @@
         web.global.sliderNews();
     });
     $(document).ready(function(){  
-         $(document).on('click', '.page-link', function(event){
-             event.stopPropagation();
+         $(document).on('click', '.search_pagination .page-link', function(event){
             var page = $(this).data("page");
             var initial = "{{ app.request.get('initial') }}";
             $(".page-link").removeClass("active");
