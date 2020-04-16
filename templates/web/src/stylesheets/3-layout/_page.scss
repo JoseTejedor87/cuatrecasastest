@@ -73,7 +73,6 @@
     // --------------------------------------------------------------------------
 
     @include has("block") {
-
         > .col {
             position: relative;
             display: flex;
@@ -116,6 +115,43 @@
                 padding: 3rem $screen-width;
             }
 
+            h3,
+            .h3 {
+                @include fontSet(32px, 38px);
+                margin-bottom: 1.4rem;
+            }
+
+            p {
+                @include fontSet(20px, 28px);
+
+                a {
+                    // @include fancy-link($complementary-color, $complementary-color);
+                    // @include classic-link($complementary-color, $complementary-color);
+                    // @include border-link($complementary-color, $complementary-color);
+                    @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+                }
+            }
+
+            p ~ ul {
+                @include reset-list;
+                margin-top: -2rem;
+                display: block;
+                list-style-type: none !important;
+
+                li {
+                    position: relative;
+                    margin-bottom: 0.6rem;
+                    padding-left: 1rem;
+                    @include fontSet(20px, 26px);
+
+                    &:before {
+                        @include icons-ionicons(7px,auto,auto,0);
+                        content: '\f10a';
+                        font-size: 12px;
+                    }
+                }
+            }
+
             .page__block__title {
                 margin-bottom: 1rem;
             }
@@ -151,6 +187,16 @@
         @include has("content") {
             flex: 0 0 60%;
             order: 2;
+
+            h2,
+            .h2 {
+                @include fontSet(34px, 34px);
+                margin-top: 3.2rem;
+                margin-bottom: 2rem;
+                padding-top: 0.4rem;
+                text-transform: uppercase;
+                border-top: 1px solid rgba($black, 0.3);
+            }
 
             p {
                 @include fontSet(22px, 30px);
@@ -225,9 +271,29 @@
     // --------------------------------------------------------------------------
 
     @include has("aside") {
-        margin: 0 0 2em;
+        margin: 0 0 2rem;
         padding: 1.5rem;
         background-color: rgba($black, 0.05);
+
+        //
+        // delete maybe ¿?
+        //
+        @include when("nobg") {
+            padding: 0;
+        }
+
+        //
+        // delete maybe ¿?
+        //
+        @include when("practices") {
+            margin-top: 2rem;
+            padding: 1rem 0 0;
+            border-top: 1px solid rgba($black, 0.3);
+        }
+
+        .cite__quote {
+            margin-bottom: 2em;
+        }
 
         @include has("title") {
             @include fontSet(22px, 22px);
@@ -238,6 +304,13 @@
             &:not(:first-child) {
                 margin-top: 1.5rem;
             }
+        }
+
+        @include has("subtitle") {
+            @include fontSet(18px, 18px);
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+            color: $main-color;
         }
 
         @include has("list") {
