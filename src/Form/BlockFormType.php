@@ -47,7 +47,7 @@ class BlockFormType extends AbstractType implements DataMapperInterface
                 'class' => Quote::class,
                 'label' => 'entities.quoteBlock.fields.quote',
                 'attr' => [
-                    'data-item-type' => 'blockQuote',
+                    'data-item-type' => 'quoteBlock',
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
@@ -112,10 +112,9 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             if ($quote = $viewData->getQuote()) {
                 $forms['quote']->setData($quote);
             }
-            unset($forms['activities']);
-            unset($forms['numberOfEvents']);
-        }
-        elseif ($blockType == 'eventsBlock') {
+//            unset($forms['activities']);
+//            unset($forms['numberOfEvents']);
+        } elseif ($blockType == 'eventsBlock') {
             $forms['numberOfEvents']->setData($viewData->getNumberOfEvents());
             $forms['eventType']->setData($viewData->getEventType());
             $forms['activities']->setData($viewData->getActivities());
@@ -132,8 +131,7 @@ class BlockFormType extends AbstractType implements DataMapperInterface
         if ($blockType == 'quoteBlock') {
             $block = new QuoteBlock();
             $block->setQuote($forms['quote']->getData());
-        }
-        elseif ($blockType == 'eventsBlock') {
+        } elseif ($blockType == 'eventsBlock') {
             $block = new EventsBlock();
             $block->setNumberOfEvents($forms['numberOfEvents']->getData());
             $block->setEventType($forms['eventType']->getData());
