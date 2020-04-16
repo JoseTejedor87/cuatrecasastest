@@ -176,7 +176,7 @@
                         </div>
                     </div>
 
-                    <!-- Fake loader -->
+                    <!-- Fake Loader -->
                     <div class="lawyer__search__wrapper__loader">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
@@ -212,7 +212,9 @@
                                 </a>
                             </li>
                             {% for i in 1..pagesTotal %}
-                            <li class="page-item"><a class="page-link {{ i==page ? 'active' : '' }}"    data-page="{{ i }}" >{{ i }}</a></li>
+                            <li class="page-item">
+                                <a href="#" class="page-link {{ i==page ? 'active' : '' }}" data-page="{{ i }}" >{{ i }}</a>
+                            </li>
                             {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" #}
                             {% endfor %}
                             <li class="page-item">
@@ -248,7 +250,7 @@
         web.global.lawyerResults();
         web.global.sliderNews();
     });
-    $(document).ready(function(){  
+    $(document).ready(function(){
          $(document).on('click', '.search_pagination .page-link', function(event){
             var page = $(this).data("page");
             var initial = "{{ app.request.get('initial') }}";
@@ -295,7 +297,7 @@
                         $(location).attr('href',URLactual+"&page="+page);
                     }
                 });
-         }); 
-    });  
+         });
+    });
 </script>
 {% endblock %}
