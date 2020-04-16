@@ -10,3 +10,4 @@ twig:
 
     globals:
         languages: '%app.languages%'
+        block_types: '%app.block_types%'
