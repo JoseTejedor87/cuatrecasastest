@@ -1,56 +1,47 @@
 {% extends 'web/base.html.twig' %}
 {% block main %}
 
-    <main role="main" class="sectors-home">
+    <main role="main">
+        <article class="container-fluid">
 
-        <article>
-
-            <header id="page-header-new">
-                <div class="container header-info-wrapper">
-                    <div class="row">
-                        <div class="col-md-8 header-info-new">
-                            <div class="d-flex flex-column">
-                                <h1 class="order-2">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Sectores
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
                                     Sectores
-                                </h1>
-                                <big class="hash-text-new order-3">SectoresCuatrecasas</big>
-                                <nav class="order-1" aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                        <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                        Sectores
-                                        </a></li>
-                                    </ol>
-                                </nav>
-                                <ul class="action-icons order-4">
-                                    <li><a href="#"><i class="material-icons">share</i></a></li>
-                                    <li><a href="#"><i class="material-icons">print</i></a></li>
-                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
-                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
                 </div>
             </header>
 
-            <section class="sector-links">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <ul class="list-button-link">
-                            {% for sector in sectors %}
-                                <li><a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a></li>
-                            {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+            <section class="row page__block--full">
+                <div class="col">
+                    <ul class="buttons__list">
+                    {% for sector in sectors %}
+                        <li class="buttons__list__item">
+                            <a class="buttons__list__link" href="{{ relative_path('/es/activity/sectorDetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
                 </div>
             </section>
 
         </article>
-
     </main>
 
     {% include 'web/shared/related-content.html.twig' %}

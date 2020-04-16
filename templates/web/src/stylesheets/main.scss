@@ -15,6 +15,7 @@
     '2-base/typography',
     '2-base/quotes',
     '2-base/lists',
+    '2-base/tabs',
     '2-base/accordion',
     '2-base/forms',
     '2-base/buttons';
@@ -28,11 +29,13 @@
 
 // 4. Components
 @import
-    '4-components/boxnews',
     '4-components/grid',
+    '4-components/boxnews',
     '4-components/insight',
+    '4-components/discover',
     '4-components/search',
     '4-components/call-to-action',
+    '4-components/related-services',
     '4-components/contact',
     '4-components/team',
     '4-components/awards',
@@ -54,27 +57,20 @@
   * https://github.com/HugoGiraudel/sass-boilerplate
  * https://itnext.io/structuring-your-sass-projects-c8d41fa55ed4
 
-sass/
+stylesheets/
 |
-|– abstracts/ (or utilities/)
+|– 1-utils/
 |   |– _variables.scss    # Sass Variables
 |   |– _functions.scss    # Sass Functions
 |   |– _mixins.scss       # Sass Mixins
 |   |– _placeholders.scss # Sass Placeholders
 |
-|– base/
+|– 2-base/
 |   |– _reset.scss        # Reset/normalize
 |   |– _typography.scss   # Typography rules
 |   …                     # Etc.
 |
-|– components/
-|   |– _buttons.scss      # Buttons
-|   |– _carousel.scss     # Carousel
-|   |– _cover.scss        # Cover
-|   |– _dropdown.scss     # Dropdown
-|   …                     # Etc.
-|
-|– layout/
+|– 3-layout/
 |   |– _navigation.scss   # Navigation
 |   |– _grid.scss         # Grid system
 |   |– _header.scss       # Header
@@ -83,20 +79,18 @@ sass/
 |   |– _forms.scss        # Forms
 |   …                     # Etc.
 |
-|– pages/
+|– 4-components/
+|   |– _buttons.scss      # Buttons
+|   |– _carousel.scss     # Carousel
+|   |– _cover.scss        # Cover
+|   |– _dropdown.scss     # Dropdown
+|   …                     # Etc.
+|
+|– 5-pages/
 |   |– _home.scss         # Home specific styles
 |   |– _contact.scss      # Contact specific styles
 |   …                     # Etc.
 |
-|– themes/
-|   |– _theme.scss        # Default theme
-|   |– _admin.scss        # Admin theme
-|   …                     # Etc.
-|
-|– vendors/
-|   |– _bootstrap.scss    # Bootstrap
-|   |– _jquery-ui.scss    # jQuery UI
-|   …                     # Etc.
 |
 `– main.scss              # Main Sass file
 */

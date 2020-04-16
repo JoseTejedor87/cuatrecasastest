@@ -24,22 +24,22 @@ class ActivityController extends WebController
 
         return $this->render('web/activity/sectorsHome.html.twig', [
             'controller_name' => 'ActivityController',
-            'sectors' => $sectors, 
+            'sectors' => $sectors,
         ]);
     }
 
     /**
-     * @Route("/consumptionRetail/{slug}", name="consumptionRetail")
+     * @Route("/sectorDetail/{slug}", name="sectorDetail")
      */
-    public function consumptionRetail(Request $request,SectorRepository $sectorRepository, ActivityTranslationRepository $ActivityTranslationRepository)
+    public function sectorDetail(Request $request,SectorRepository $sectorRepository, ActivityTranslationRepository $ActivityTranslationRepository)
     {
         $ActivityTranslation = $ActivityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $sector = $sectorRepository->findOneBy(['id' => $ActivityTranslation->getTranslatable()->getId()]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($sector->getEvents());
-        return $this->render('web/activity/consumptionRetail.html.twig', [
+        return $this->render('web/activity/sectorDetail.html.twig', [
             'controller_name' => 'ActivityController',
-            'sector' => $sector, 
+            'sector' => $sector,
         ]);
     }
 
