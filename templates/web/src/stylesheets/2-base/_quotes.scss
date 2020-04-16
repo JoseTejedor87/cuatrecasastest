@@ -16,34 +16,51 @@ q {
 
 @include new("cite__quote") {
     position: relative;
-    float: left;
-    width: calc(50% - 8em);
-    margin: 4em 4em;
-    padding: 0;
-    text-align: left;
+    display: block;
+    width: 100%;
+    margin: 0 0;
+    padding: 1rem 1.2rem 3.8rem 1.2rem;
+    text-align: center;
+    background-color: $complementary-color;
+
+    //
+    // quote sign
+    //
+    &:before {
+        @include fontSet(140px, 140px);
+        display: inline-block;
+        content: '\201C';
+        position: relative;
+        top: 8rem;
+        color: $white;
+        transform: scale(3);
+    }
 
     p {
-        margin-bottom: 0.5em;
-        @include fontSet(32px, 40px);
-        font-weight: bold;
+        position: relative;
+        @include fontSet(32px, 36px);
+        margin-bottom: 1rem;
+        padding-bottom: 2.6rem;
         color: $main-color;
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 8%);
+            display: block;
+            width: 16%;
+            height: 3px;
+            background-color: $main-color;
+        }
     }
 
     cite {
-        @include fontSet(24px, 32px);
-        font-weight: bold;
+        @include fontSet(32px, 32px);
+        display: block;
+        margin-top: 1rem;
         font-style: normal;
-        color: $complementary-color;
-    }
-
-    &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -20px;
-        width: 2px;
-        height: 30px;
-        background-color: $complementary-color;
+        color: $main-color;
     }
 }
 

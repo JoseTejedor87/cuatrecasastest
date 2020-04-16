@@ -191,7 +191,6 @@
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
                             <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="lawyer__link">
                                 <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
-                                <!-- <h4 class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</h4> -->
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
                                     <div class="lawyer__practice">Laboral</div>

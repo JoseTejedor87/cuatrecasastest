@@ -6,6 +6,7 @@
 
     .col {
         padding-right: 0;
+        padding-left: 0;
     }
 
     //
@@ -14,6 +15,7 @@
 
     @include has("highlight") {
         display: flex;
+        background-color: $event-box-color;
 
         > * {
             flex: 1;
@@ -131,7 +133,7 @@
 
             @include has("title") {
                 @include fontSet(44px, 44px);
-                color: $main-color;
+                color: $complementary-color;
 
                 @include when-inside(".insight--carousel") {
                     @include fontSet(40px, 44px);
@@ -141,7 +143,7 @@
 
             @include has("link") {
                 @include fontSet(44px, 46px);
-                @include box-link($complementary-color, $complementary-color, $white);
+                @include box-link($main-color, $main-color, $event-box-color);
 
                 @include when-inside(".insight--carousel") {
                     @include box-link($main-color, $main-color, $white);

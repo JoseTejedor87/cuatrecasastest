@@ -50,16 +50,18 @@ a:link {
 ::selection {
     // color: $white;
     // background: $complementary-color;
+    // background: #FFFF00;
     color: $black;
-    background: #FFFF00;
+    background: rgba($main-color, 0.2);
     text-shadow: 0 0 transparent;
 }
 
 ::-moz-selection {
     // color: $white;
     // background: $complementary-color;
+    // background: #FFFF00;
     color: $black;
-    background: #FFFF00;
+    background: rgba($main-color, 0.2);
     text-shadow: 0 0 transparent;
 }
 

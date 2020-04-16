@@ -68,7 +68,8 @@
             // GRID
             //
             @include when-inside(".lawyer__search__wrapper--grid") {
-                flex: 1 1 calc(33.3333% - 30px);
+                width: calc(33.3333% - 30px);
+                flex: 0 1 calc(33.3333% - 30px);
                 margin: 0 15px;
                 margin-bottom: 30px;
                 background-size: auto 180%;
@@ -103,7 +104,8 @@
             // LIST
             //
             @include when-inside(".lawyer__search__wrapper--list") {
-                flex: 1 1 calc(50% - 20px);
+                width: calc(50% - 20px);
+                flex: 0 1 calc(50% - 20px);
                 margin: 0 10px;
                 margin-bottom: 0;
                 background-image: none !important;
@@ -124,6 +126,33 @@
                 // &:first-child:nth-last-child(3) ~ div {
                 //     flex: 0 1 calc(33.3333% - 20px);
                 // }
+            }
+
+            //
+            // TEAM DETAILS
+            //
+            @include when-inside(".lawyer__search__wrapper--team") {
+                // width: calc(33.3333% - 30px);
+                flex: 1;
+                margin: 0 15px;
+                margin-bottom: 30px;
+                background-size: auto 180%;
+                background-position: 98% 62%;
+                background-repeat: no-repeat;
+                background-blend-mode: normal;
+                background-color: rgba($black, 0.5);
+                transition: background-blend-mode 0.2s ease-out,
+                            background-size 0.6s,
+                            background-position 0.6s;
+
+                @include on-event() {
+                    // background-size: auto 180%;
+                    // background-position: 98% 62%;
+                    background-size: auto 260%;
+                    background-position: 95% 46%;
+                    background-blend-mode: luminosity;
+                    background-color: rgba($complementary-color, 0.3);
+                }
             }
         }
 
