@@ -9,7 +9,7 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Articles;
-use App\Form\ArticlesType;
+use App\Form\ArticlesFormType;
 use App\Repository\ArticlesRepository;
 use App\Controller\CMS\CMSController;
 
@@ -39,12 +39,13 @@ class ArticlesController extends CMSController
     public function new(Request $request): Response
     {
         $article = new Articles();
-        $form = $this->createForm(ArticlesType::class, $article);
+        $form = $this->createForm(ArticlesFormType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
+            $article->mergeNewTranslations();
             $entityManager->flush();
 
             return $this->redirectToRoute('articles_index');
@@ -71,13 +72,13 @@ class ArticlesController extends CMSController
      */
     public function edit(Request $request, Articles $article): Response
     {
-        $form = $this->createForm(ArticlesType::class, $article);
+        $form = $this->createForm(ArticlesFormType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('articles_index');
+            return $this->redirectToRoute('articles_edit', ['id'=>$article->getId()]);
         }
 
         return $this->render('cms/articles/edit.html.twig', [
