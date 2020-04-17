@@ -24,7 +24,7 @@
     }
 
     @include when("products") {
-        background-color: rgba($black, 0.02);
+        background-color: $tabActive;
     }
 
     @include when("slider") {
@@ -66,6 +66,12 @@
         }
     }
 
+    @include when("career") {
+        .section__title {
+            background-color: $black;
+        }
+    }
+
     @include when("slider") {
         .section__title {
             background-color: $insight-color;
@@ -87,7 +93,7 @@
     }
 
     @include has("item") {
-        flex: 0 1 auto;
+        flex: 1;
         height: auto;
         margin: 0 0.8rem;
         padding: 0 0;
@@ -99,6 +105,10 @@
 
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: box-shadow 0.2s ease-out;
+
+        @include when("career") {
+            border-top: none;
+        }
 
         //
         // BOXES COLORS
@@ -127,7 +137,7 @@
 
         @include when-inside(".boxnews--products") {
             flex: 1 0 calc(50% - 1.6rem);
-            margin-bottom: 1.6rem;
+            margin-bottom: 3rem;
             color: $insight-color;
             border-top-color: transparent;
         }
@@ -291,8 +301,7 @@
         }
 
         @include when-inside(".boxnews--products") {
-            padding-top: 0.5rem;
-            padding-bottom: 0;
+            padding: 1rem 2rem 0 2rem;
             border-bottom: none;
         }
     }
@@ -382,7 +391,7 @@
 
         @include has("excerpt") {
             margin-bottom: auto;
-            padding: 0 1rem 2rem 1rem;
+            padding: 0 2rem 2rem 2rem;
             @include fontSet(40px, 44px);
             color: $main-color;
 

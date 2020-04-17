@@ -225,33 +225,48 @@
         color: $main-color;
 
         @include when-inside(".lawyer__search__wrapper--list") {
-            float: left;
-            margin-right: 0.2rem;
+            // float: left;
+            // margin-right: 0.2rem;
         }
     }
 
     @include has("practice") {
-        position: relative;
-        float: left;
-        margin-right: 1rem;
-        @include fontSet(16px, 16px);
-        font-weight: bold;
-        text-transform: uppercase;
-        color: $main-color;
+        @include reset-list;
+        padding: 2px 0;
+        margin: 4px 0 2px;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
 
-        &:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: -0.5rem;
-            width: 2px;
-            height: 80%;
-            background-color: $main-color;
+        @include has("item") {
+            position: relative;
+            margin: 0 16px 2px 0;
+            padding: 0 0;
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $main-color;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -8px;
+                width: 2px;
+                height: 82%;
+                background-color: $main-color;
+            }
+
+            &:first-child {
+                &:before {
+                    display: none;
+                }
+            }
         }
+
     }
 
     @include has("office") {
-        float: left;
         @include fontSet(16px, 16px);
         font-weight: bold;
         text-transform: uppercase;
