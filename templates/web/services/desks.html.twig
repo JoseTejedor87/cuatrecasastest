@@ -1,0 +1,126 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="services">
+        <article class="container-fluid">
+
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Áreas de práctica
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Áreas de práctica
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="tabs__component">
+                <!-- Tabs -->
+                <div class="row">
+                    <div class="col tabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ relative_path('/services/practiceAreas')}}" class="nav-link">Áreas de práctica</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ relative_path('/services/desks')}}" class="nav-link active">Desks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ relative_path('/services/products')}}" class="nav-link">Otros servicios</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="row page__section">
+                    <div class="col tabs__component__content">
+                        <ul class="buttons__list">
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/medio-ambiente">Medio Ambiente</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/urbanismo">Urbanismo</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/alimentacion">Alimentación</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/consumo-y-retail">Consumo y Retail</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/deporte">Deporte</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/empresa-familiar">Empresa Familiar</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/farmacia-y-sanitario">Farmacia y Sanitario</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/hoteles-turismo-y-ocio">Hoteles, Turismo y Ocio</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/private-equity-2">Private equity</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/logistica-y-transporte">Logística y Transporte</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/fundaciones-y-filantropia">Fundaciones y Filantropía</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/infraestructuras">Infraestructuras</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/inmobiliario">Inmobiliario</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/instituciones-financieras">Instituciones Financieras</a>
+                            </li>
+                            <li class="buttons__list__item">
+                                <a class="buttons__list__link" href="consumptionRetail/tecnologias-de-la-informacion">Tecnologías de la Información</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/discover.html.twig' %}
+    {% include 'web/shared/career.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        web.global.sliderNews();
+    });
+</script>
+{% endblock %}
