@@ -158,7 +158,7 @@
             </section>
 
             {% if countLawyers != ''  %}
-            <section class="row lawyer__search" id="lawyerResults">
+            <section class="row lawyer__search" id="lawyerAjaxResults">
 
                 <div class="col">
 
@@ -295,8 +295,8 @@
 
                     // Scroll to results
                     alert('hey');
-                    $("html, body").animate({ scrollTop: $('#lawyerResults').offset().top }, 1000);
-                    // $("html, body").delay(2000).animate({scrollTop: $('#lawyerResults').offset().top }, 2000);
+                    $("html, body").animate({ scrollTop: $('#lawyerAjaxResults').offset().top }, 1000);
+                    // $("html, body").delay(2000).animate({scrollTop: $('#lawyerAjaxResults').offset().top }, 2000);
                 })
                 .fail(function() {
                     var URLactual = window.location;
