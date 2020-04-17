@@ -167,10 +167,10 @@
                     <div class="lawyer__search__info">
                         <div class="lawyer__search__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
                         <div class="lawyer__search__chooser">
-                            <a href="#" class="icon__button list">
+                            <a  class="icon__button list">
                                 <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="List">
                             </a>
-                            <a href="#" class="icon__button grid active">
+                            <a  class="icon__button grid active">
                                 <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Grid">
                             </a>
                         </div>
@@ -211,20 +211,20 @@
                     <nav class="search_pagination" aria-label="Results pagination">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a href="#" class="page-link"  aria-label="Previous" href="filter?initial={{ app.request.get('initial') }}&page=1"  data-page="1">
+                                <a  class="page-link"  aria-label="Previous" href="filter?initial={{ app.request.get('initial') }}&page=1"  data-page="1">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
                             {% for i in 1..pagesTotal %}
                             <li class="page-item">
-                                <a href="#" class="page-link{{ i==page ? ' active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" >{{ i }}</a>
+                                <a  class="page-link{{ i==page ? ' active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" >{{ i }}</a>
                             </li>
                             {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" #}
                             {% endfor %}
 
                             <li class="page-item">
-                                <a href="#" class="page-link" href="filter?initial={{ app.request.get('initial') }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
+                                <a  class="page-link" href="filter?initial={{ app.request.get('initial') }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
@@ -294,7 +294,6 @@
                     window.history.replaceState(null, null, "filter?initial="+msg['initial']+"&page="+msg['page']);
 
                     // Scroll to results
-                    alert('hey');
                     $("html, body").animate({ scrollTop: $('#lawyerAjaxResults').offset().top }, 1000);
                     // $("html, body").delay(2000).animate({scrollTop: $('#lawyerAjaxResults').offset().top }, 2000);
                 })
