@@ -258,6 +258,7 @@
         web.global.sliderNews();
 
         $(document).on('click', '.search_pagination .page-link', function(event){
+            event.preventDefault();
             var page = $(this).data("page");
             var initial = "{{ app.request.get('initial') }}";
             $(".page-link").removeClass("active");
@@ -282,8 +283,8 @@
                                     <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                                     <div class="lawyer__details">
                                         <div class="lawyer__position">`+ lawyer['LawyerType']  + `</div>
-                                        <div class="lawyer__practice">Laboral</div>
-                                        <div class="lawyer__office">Bilbao</div>
+                                        <div class="lawyer__practice">`+ lawyer['activities'] + `</div>
+                                        <div class="lawyer__office">`+ lawyer['office'] + `</div>
                                     </div>
                                     <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName']  + `">
                                 </a>
