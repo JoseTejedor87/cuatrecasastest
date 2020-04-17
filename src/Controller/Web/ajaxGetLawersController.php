@@ -50,6 +50,13 @@ public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)
             $lawyerA = array ();
             foreach ($lawyers as $key => $lawyer) {
                 $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $lawyer->getSlug());
+                    $activities = "";
+                    foreach ($lawyer->getActivities() as $activity) {
+                        $activities = $activities. ' ' . $activity->translate('es')->getTitle();
+                    }
+                    $lawyerA[$key]['activities'] = $activities;
+                    $lawyerA[$key]['office'] = $lawyer->getOffice()->getCity();
+                
             }
         }
     if ($request->isXMLHttpRequest()) {         
