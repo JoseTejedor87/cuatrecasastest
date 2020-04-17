@@ -193,8 +193,12 @@
                                 <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
-                                    <div class="lawyer__practice">Laboral</div>
-                                    <div class="lawyer__office">Bilbao</div>
+                                    <div class="lawyer__practice">
+                                    {% for activity in lawyer.activities %}
+                                    {{ activity.translate(app.request.getLocale()).title}}
+                                    {% endfor %}
+                                    </div>
+                                    <div class="lawyer__office">{{ lawyer.office.city }}</div>
                                 </div>
                                 <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
                             </a>
