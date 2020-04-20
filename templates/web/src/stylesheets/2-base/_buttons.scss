@@ -191,13 +191,12 @@
 // --------------------------------------------------------------------------
 
 .icon__button {
+    @include reset-button-icon;
     display: block;
     width: 40px;
     height: 40px;
     margin: 0 6px;
     outline: 4px solid transparent;
-    transition: all 0.2s ease-out;
-    cursor: pointer;
 
     img {
         width: 100%;

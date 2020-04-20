@@ -135,21 +135,45 @@
             p ~ ul {
                 @include reset-list;
                 margin-top: -2rem;
-                display: block;
+                padding-bottom: 4rem;
                 list-style-type: none !important;
 
-                li {
+                > li {
                     position: relative;
-                    margin-bottom: 0.6rem;
-                    padding-left: 1rem;
+                    margin-bottom: 1rem;
+                    padding-left: 1.2rem;
                     @include fontSet(20px, 26px);
+                    color: $main-color;
 
                     &:before {
-                        @include icons-ionicons(7px,auto,auto,0);
-                        content: '\f10a';
-                        font-size: 12px;
+                        content: '';
+                        position: absolute;
+                        top: 8px;
+                        left: 0;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: $main-color;
                     }
                 }
+                // @include reset-list;
+                // margin-top: -2rem;
+                // display: block;
+                // list-style-type: none !important;
+
+                // li {
+                //     position: relative;
+                //     margin-bottom: 0.6rem;
+                //     padding-left: 1rem;
+                //     @include fontSet(20px, 26px);
+
+                //     &:before {
+                //         @include icons-ionicons(7px,auto,auto,0);
+                //         content: '\f10a';
+                //         font-size: 12px;
+                //     }
+                // }
             }
 
             .page__block__title {
