@@ -487,6 +487,7 @@ class ImportCommand extends Command
         $activityRepository = $this->em->getRepository(Activity::class);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: lawyer:" . $item['id_abogado'] . " activity:" . $item['id_area']);
