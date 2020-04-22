@@ -81,11 +81,6 @@ class LawyerController extends WebController
                     $pagesTotal = $pagesTotal + 1;
                 }
                }
-<<<<<<< HEAD
-=======
-
-            //dd($lawyers);
->>>>>>> 9c8af0269c7b35c85c6346c203223b5882610e4e
         }
 
 
