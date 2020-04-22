@@ -407,6 +407,19 @@ img {
     background: none;
     border: none;
     border-radius: 0;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+
+@mixin reset-button-icon {
+    margin: 0 0;
+    padding: 0 0;
+    line-height: 1;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
     transition: all 0.3s ease-in-out;
 }
 

@@ -19,7 +19,7 @@ class LawyerController extends WebController
      */
     public function detail(Request $request, LawyerRepository $lawyerRepository)
     {
-       
+
         $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($lawyer->translate('es'));
@@ -53,14 +53,14 @@ class LawyerController extends WebController
         $initial = $request->query->get('initial');
         $page = $request->query->get('page');
         if(!isset($page))
-        $page = 1;  
+        $page = 1;
         $limit = 18;
         if(!$initial ){
         $initial = $request->query->get('initial');
-        
+
         }
         if($initial ){
-            //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
+            //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']);
             // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
             $query = $lawyerRepository->createQueryBuilder('l')
                ->where('l.surname LIKE :surname')
@@ -81,9 +81,14 @@ class LawyerController extends WebController
                     $pagesTotal = $pagesTotal + 1;
                 }
                }
+<<<<<<< HEAD
+=======
+
+            //dd($lawyers);
+>>>>>>> 9c8af0269c7b35c85c6346c203223b5882610e4e
         }
 
-        
+
         // dd($_SERVER['REQUEST_URI']);
         return $this->render('web/lawyer/filter.html.twig', [
             'controller_name' => 'LawyerController',
