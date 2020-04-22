@@ -507,7 +507,12 @@ class ImportCommand extends Command
                 $this->logger->debug("- Mapped Lawyer " . $lawyer->getName());
                 $this->logger->debug("- Mapped Activity " . $activity->translate("es")->getTitle());
 
-                $lawyer->addActivity($activity);
+                $isSecondary = ($item['principal'] == '0');
+                if ($isSecondary) {
+                    $lawyer->addSecondaryActivity($activity);
+                } else {
+                    $lawyer->addActivity($activity);
+                }
                 $this->em->persist($lawyer);
                 $this->em->flush();
 

@@ -55,7 +55,16 @@ class Lawyer extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
     private $activities;
-    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers_secondary")
+     * @ORM\JoinTable(name="lawyer_secondary_activity",
+     *      joinColumns = {@ORM\JoinColumn(name="lawyer_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")}
+     * )
+     */
+    private $secondaryActivities;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="lawyers")
@@ -81,6 +90,7 @@ class Lawyer extends Publishable
     {
         $this->activities = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->secondaryActivities = new ArrayCollection();
     }
 
 
@@ -272,5 +282,29 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getSecondaryActivities(): Collection
+    {
+        return $this->secondaryActivities;
+    }
 
+    public function addSecondaryActivity(Activity $secondaryActivity): self
+    {
+        if (!$this->secondaryActivities->contains($secondaryActivity)) {
+            $this->secondaryActivities[] = $secondaryActivity;
+        }
+
+        return $this;
+    }
+
+    public function removeSecondaryActivity(Activity $secondaryActivity): self
+    {
+        if ($this->secondaryActivities->contains($secondaryActivity)) {
+            $this->secondaryActivities->removeElement($secondaryActivity);
+        }
+
+        return $this;
+    }
 }

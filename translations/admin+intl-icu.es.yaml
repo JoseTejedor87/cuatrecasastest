@@ -189,6 +189,7 @@ entities:
       curriculum: Curriculum Vitae
       training: Formación
       activities: Sectores / Servicios / Desks
+      secondaryActivities: Sectores / Servicios / Desks (secundarias)
       mentions: Menciones
       office: Oficina
   mention:
