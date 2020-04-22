@@ -54,7 +54,7 @@ class LawyerController extends WebController
         $page = $request->query->get('page');
         if(!isset($page))
         $page = 1;  
-        $limit = 6;
+        $limit = 18;
         if(!$initial ){
         $initial = $request->query->get('initial');
         
@@ -73,15 +73,14 @@ class LawyerController extends WebController
                ->where('l.surname LIKE :surname')
                ->setParameter('surname', $initial .'%')
                ->getQuery();
+               $querySql = $query->getSQL();
                if($lawyers){
                 $countLawyers = count($query->getResult());
-                $pagesTotal = $countLawyers/6;
+                $pagesTotal = $countLawyers/$limit;
                 if(is_float($pagesTotal) && $pagesTotal>=1){
                     $pagesTotal = $pagesTotal + 1;
                 }
                }
-            
-            //dd($lawyers);
         }
 
         
