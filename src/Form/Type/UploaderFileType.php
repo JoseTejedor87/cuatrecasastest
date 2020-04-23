@@ -15,6 +15,7 @@ class UploaderFileType extends VichFileType
         $object = $form->getParent()->getData();
         $view->vars['download_filename'] = $object ? $object->getFileName() : null;
         $view->vars['download_title'] = $object ? $object->getTitle() : null;
+        $view->vars['allow_extra_fields'] = $object ? $object->getType() : null;
     }
 
 }

@@ -185,11 +185,13 @@
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
                                     <ul class="lawyer__practice">
-                                    {% for activity in lawyer.activities %}
-                                        <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
-                                    {% endfor %}
+                                    {% if lawyer.activities %}
+                                        {% for activity in lawyer.activities %}
+                                            <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
+                                        {% endfor %}
+                                    {% endif %}
                                     </ul>
-                                    <div class="lawyer__office">{{ lawyer.office.city }}</div>
+                                    <div class="lawyer__office">{{ lawyer.office ? lawyer.office.city : '' }}</div>
                                 </div>
                                 <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
                             </a>
@@ -273,14 +275,12 @@
                 }
             })
             .done(function( msg ) {
-
                 $('#lawyerPagination .page-link').addClass('active');
 
                 $('.lawyer__search__wrapper__loader').fadeOut();
                 $('.lawyer__search__wrapper').empty();
 
                 $('html, body').animate({ scrollTop: $('#lawyerAjaxResults').offset().top }, 1000);
-
                 var html = '';
                 msg['lawyers'].forEach(function(lawyer){
                     html = html + `

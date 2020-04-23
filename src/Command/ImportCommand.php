@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Activity;
 use App\Entity\Awards;
@@ -23,6 +25,7 @@ use App\Entity\Sector;
 use App\Entity\Speaker;
 use App\Entity\Office;
 use App\Entity\Articles;
+use App\Entity\CategoryArticle;
 
 class ImportCommand extends Command
 {
@@ -126,8 +129,8 @@ class ImportCommand extends Command
                 case "articlesByActivities":
                     $this->ArticlesByActivities();
                     break;
-                case "ArticlesupdatePublicationDate":
-                    $this->ArticlesupdatePublicationDate();
+                case "ArticlesCategory":
+                    $this->ArticlesCategory();
                     break;
             }
         }
@@ -725,8 +728,6 @@ class ImportCommand extends Command
         $lawerRepository = $this->em->getRepository(Lawyer::class);
         $officeRepository = $this->em->getRepository(Office::class);
 
-        //$this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
-
         foreach ($items as $item) {
             // $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
@@ -867,7 +868,6 @@ class ImportCommand extends Command
         // Removing files from disk
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/article-*"));
-
         
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [ArticlesTranslation]");
@@ -1042,23 +1042,7 @@ class ImportCommand extends Command
         $this->em->persist($article);
         $this->em->flush();
     }
-    // public function ArticlesupdatePublicationDate()
-    // {
-    //     $data = file_get_contents("JsonExports/Publicaciones.json");
-    //     $items = json_decode($data, true);
-    //     $articleRepository = $this->em->getRepository(Articles::class);
-    //     foreach ($items as $item) {
-    //         $articleId = $this->getMappedArticleId($item['id']);
-    //         if ($articleId) {
-    //             $article = $articleRepository->find($articleId);
-    //             $article->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-    //             $this->em->persist($article);
-    //             $this->em->flush();
-    //         }else {
-    //             $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
-    //         }
-    //     }
-    // }
+
     public function ArticlesByLawyers()
     {
         $data = file_get_contents("JsonExports/PublicacionesAbogados.json");
@@ -1144,6 +1128,84 @@ class ImportCommand extends Command
         }
     }
 
+    public function ArticlesCategory()
+    {
+        $client = HttpClient::create();
+        $categorias = [
+            "propiedad-intelectual" => [
+                "es" => [2,234,3,4,172,38,6,7,5,291,19,8,9,10,11,12,564,1],
+                "en" => [633,634,635,636,637,639,641,643,640,644,646,647,648,649,650,651,-1,560]
+            ],
+            "competencia" => [
+                "es" => [256,200,48,201,715,202,199],
+                "en" => [-1,236,482,237,-1,238,240,233]
+            ],
+            "deporte-entretenimiento" =>[
+                "es" => [224,20,13,12,15,3,2,19,16,33,1,14],
+                "en" => [239,161,162,163,164,165,166,167,168,169,158]
+            ],
+            "mercado-de-valores" => [
+                "es" => [1045,1092,1081,1090,1044,1110,1107,1109,1111,1086,1108,1,1106],
+                "en" => [1123,1103,1097,1096,1076,1116,1113,1115,1117,1094,1114,560,1112]
+            ],
+            "laboral" => [
+                "es" => [120,142,285,133,334,341,2,419,599,3,103,122,633,613,144,155,190,349,833,601,10,64,108,206,131,219,611,609,211,847,212,625,143,615,191,4,161,603,226,239,101,132,5,121,492,130,637,605,621,342,631,6,188,118,7,213,8,65,269,627,189,361,220,286,275,497,9,1,123,251,607,495,169],
+                "en" => [548,549,550,551,552,-1,553,554,600,555,556,557,634,614,558,559,560,561,840,602,562,563,564,565,566,567,612,610,568,-1,569,626,570,616,571,572,573,604,574,575,576,577,578,579,-1,580,638,606,622,581,632,582,583,584,585,586,587,588,589,628,590,591,592,593,594,-1,595,545,596,597,608,-1,598]
+            ]
+        ];
+        foreach ($categorias as $key => $categoria) {
+            $categoriaKey = $key;
+            foreach ($categoria as $key1 => $value) {
+                $idiomaKey = $key1;
+                $response =  $client->request('GET','https://blog.cuatrecasas.com/'.$categoriaKey.'/wp-json/wp/v2/categories?per_page=80&lang='.$idiomaKey);
+                $content = $response->toArray();
+                foreach ($content as $key2 => $value2) {
+                    foreach ($value as $key3 => $value3) {
+                        if($value3 == $value2["id"] && $idiomaKey=='es'){
+                            $CategoryArticle = new CategoryArticle();
+                            $CategoryArticle->setOldId($value2["id"]);
+                            $CategoryArticle->translate('es')->setTitle($value2["name"]);
+                            $CategoryArticle->translate('es')->setOldlink($value2["link"]);
+                            $CategoryArticle->setLanguages(
+                                array_unique(
+                                    array_merge($CategoryArticle
+                                    ->getLanguages(), ['es'])
+                                )
+                            );
+                            if(isset($categoria['en'][$key3]) && $categoria['en'][$key3] != -1){
+                                $response1 =  $client->request('GET','https://blog.cuatrecasas.com/'.$categoriaKey.'/wp-json/wp/v2/categories/'.$categoria['en'][$key3].'?lang=en');
+                                $content1 = $response1->toArray();
+                                $CategoryArticle->translate('en')->setTitle($content1["name"]);
+                                $CategoryArticle->translate('en')->setOldlink($content1["link"]);
+                                $CategoryArticle->setLanguages(
+                                    array_unique(
+                                        array_merge($CategoryArticle
+                                        ->getLanguages(), ['en'])
+                                    )
+                                );
+                            }
+                        }
+                        if($value3 != $value2["id"] && $idiomaKey=='en'){
+                            $CategoryArticle = new CategoryArticle();
+                            $CategoryArticle->setOldId($value2["id"]);
+                            $CategoryArticle->translate('en')->setTitle($value2["name"]);
+                            $CategoryArticle->translate('en')->setOldlink($value2["link"]);
+                            $CategoryArticle->setLanguages(
+                                array_unique(
+                                    array_merge($CategoryArticle
+                                    ->getLanguages(), ['en'])
+                                )
+                            );
+                        break;
+                        }
+                        $CategoryArticle->mergeNewTranslations();
+                        $this->em->persist($CategoryArticle);
+                        $this->em->flush();
+                    }
+                }
+            }
+        }
+    }
 
     private function getMappedEventId(?string $id): ?string
     {
