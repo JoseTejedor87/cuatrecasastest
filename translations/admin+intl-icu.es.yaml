@@ -131,7 +131,7 @@ menu:
   metadata.title: Metadatos
   mentions.title: Menciones
   quotes.title: Citas
-  awards.title: Premios
+  award.title: Premios
   office.title: Oficinas
   page.title: Páginas
   articles.title: Artículos
@@ -219,12 +219,12 @@ entities:
       lawyer: Abogado
     help:
       lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
-  awards:
+  award:
     fields:
       title: Título
       granted: Concedido
       status: Estado
-      img_office: Imagen premio
+      image: Imagen premio
       desc_award: Descripción del premio
       desc_award_firma: Descripción de la firma del premio
       desc_award_indiv: Descripción del premio

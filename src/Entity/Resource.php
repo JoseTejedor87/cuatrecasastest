@@ -42,7 +42,7 @@ class Resource extends Publishable
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Awards", inversedBy="img_office")
+     * @ORM\OneToOne(targetEntity="App\Entity\Award", inversedBy="image")
      */
     private $award;
 
@@ -55,7 +55,7 @@ class Resource extends Publishable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -154,12 +154,12 @@ class Resource extends Publishable
 
         return $this;
     }
-    public function getAward(): ?Awards
+    public function getAward(): ?Award
     {
         return $this->award;
     }
 
-    public function setAward(?Awards $award): self
+    public function setAward(?Award $award): self
     {
         $this->award = $award;
 
@@ -178,6 +178,4 @@ class Resource extends Publishable
 
         return $this;
     }
-
-
 }

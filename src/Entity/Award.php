@@ -7,9 +7,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AwardsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AwardRepository")
  */
-class Awards extends Publishable
+class Award extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
 
@@ -22,7 +22,7 @@ class Awards extends Publishable
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="award", cascade={"persist"}, orphanRemoval=true)
      */
-    private $img_office;
+    private $image;
 
     /**
      * @ORM\Column(type="integer")
@@ -49,17 +49,17 @@ class Awards extends Publishable
     }
 
 
-    public function getImgOffice(): ?Resource
+    public function getImage(): ?Resource
     {
-        return $this->img_office;
+        return $this->image;
     }
 
 
-    public function setImgOffice(?Resource $img_office): self
+    public function setImage(?Resource $image): self
     {
-        $this->img_office = $img_office;
-        if ($img_office) {
-            $img_office->setAward($this);
+        $this->image = $image;
+        if ($image) {
+            $image->setAward($this);
         }
         return $this;
     }
@@ -75,6 +75,4 @@ class Awards extends Publishable
 
         return $this;
     }
-
-
 }

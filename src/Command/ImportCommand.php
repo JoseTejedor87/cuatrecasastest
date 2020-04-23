@@ -13,7 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Activity;
-use App\Entity\Awards;
+use App\Entity\Award;
 use App\Entity\Desk;
 use App\Entity\Event;
 use App\Entity\Lawyer;
@@ -754,8 +754,8 @@ class ImportCommand extends Command
         array_map('unlink', glob($resources_path."/award-*"));
 
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE award_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [AwardsTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Awards]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [AwardTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Award]");
 
         $processedAwardsMap = [];
         $processedAttachmentsMap = [];
@@ -774,7 +774,7 @@ class ImportCommand extends Command
                     $Award = $processedAwardsMap[$oldAwardId];
                 } else {
                     // in other case, create a new instance and fill it
-                    $Award = new Awards();
+                    $Award = new Award();
                     $Award->setOldId($oldAwardId);
                     $Date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
                     $Award->setDate(
@@ -814,7 +814,7 @@ class ImportCommand extends Command
                             $resource->setFile($attachment);
                             $resource->setFileName($attachment->getFileName());
                             $resource->setLanguages([$currentLang]);
-                            $Award->setImgOffice($resource);
+                            $Award->setImage($resource);
                             // Adding the current attachment to the attachments mapping
                             $processedAttachmentsMap[$oldAwardId][$item['url_image']] = $resource;
                         }
