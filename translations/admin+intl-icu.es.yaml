@@ -273,6 +273,10 @@ entities:
 # Custom Form Types
 
 forms:
+  fieldsets:
+    publication: Publicación
+    seo: SEO
+
   choices:
     blockTypes:
       quoteBlock: Bloque de cita
