@@ -26,7 +26,8 @@
             color: $white;
         }
 
-        &.selected {
+        &.selected,
+        &.started {
             opacity: 1;
             transform: scale(1);
         }

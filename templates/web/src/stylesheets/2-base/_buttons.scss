@@ -65,8 +65,9 @@
     letter-spacing: 0.05rem;
     color: $white;
     background-color: $complementary-color;
+    outline: 2px solid transparent;
 
-    transition: all 0.2s ease-out;
+    transition: all 0.3s ease-out;
 
     &:before,
     &:after {
@@ -100,12 +101,12 @@
         color: $white;
         background-color: $complementary-color;
 
-        // box-shadow: -6px 6px 0 $white, 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+        box-shadow: -4px 4px 0 $white, 0 10px 20px rgba(0, 0, 0, 0.30);
 
         &:focus {
-            color: $white;
-            outline: 1px solid $white;
-            outline-offset: 8px;
+            // color: $white;
+            // outline: 1px solid $white;
+            // outline-offset: 8px;
         }
 
         &:before {
