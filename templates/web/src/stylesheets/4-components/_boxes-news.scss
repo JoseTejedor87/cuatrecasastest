@@ -92,6 +92,9 @@
         flex-flow: row nowrap;
         margin: 0 -0.8rem;
 
+        //
+        // PRODUCTS GRID
+        //
         @include when-inside(".boxnews--products") {
             flex-flow: row wrap;
         }
@@ -111,9 +114,21 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: box-shadow 0.2s ease-out;
 
+
         @include when("career") {
             border-top: none;
         }
+
+        //
+        // PRODUCTS GRID
+        //
+        @include when-inside(".boxnews--products") {
+            flex: 1 0 calc(50% - 1.6rem);
+            margin-bottom: 3rem;
+            color: $insight-color;
+            border-top-color: transparent;
+        }
+
 
         //
         // BOXES COLORS (border & title)
@@ -167,15 +182,6 @@
 
         @include when("cases") {
             color: $cases-color;
-            border-top-color: transparent;
-        }
-
-
-
-        @include when(".boxnews--products") {
-            flex: 1 0 calc(50% - 1.6rem);
-            margin-bottom: 3rem;
-            color: $insight-color;
             border-top-color: transparent;
         }
 

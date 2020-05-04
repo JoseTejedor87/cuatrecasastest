@@ -1,10 +1,5 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
     <main role="main">
@@ -68,14 +63,4 @@
     {% include 'web/shared/insight-highlight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-{% endblock %}
-
-{% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        web.global.sliderNews();
-    });
-</script>
 {% endblock %}
