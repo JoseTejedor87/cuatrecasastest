@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Sector;
 use App\Repository\SectorRepository;
+use App\Repository\ActivityRepository;
 use App\Repository\ActivityTranslationRepository;
 use App\Controller\Web\WebController;
 /**
@@ -17,8 +18,19 @@ class ActivityController extends WebController
     /**
      * @Route("/sectorsHome", name="sectorsHome")
      */
-    public function sectorsHome(Request $request,SectorRepository $sectorRepository)
+    public function sectorsHome(Request $request,SectorRepository $sectorRepository,ActivityRepository $ActivityRepository)
     {
+        // $activity =  $ActivityRepository->find(1);
+        // echo(var_dump($activity));
+        // $activityhijo =  $ActivityRepository->find(8);
+        // $activity->addRelatedActivity($activityhijo);
+        // $ActivityRepository->persist($activity);
+        // $ActivityRepository->flush();
+        // echo(var_dump($activity));
+        // die();
+
+
+
         $sectors = $sectorRepository->findAll();
         $this->isThisLocale($request, $request->attributes->get('idioma'));
 
@@ -36,7 +48,6 @@ class ActivityController extends WebController
         $ActivityTranslation = $ActivityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $sector = $sectorRepository->findOneBy(['id' => $ActivityTranslation->getTranslatable()->getId()]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
-        //dd($sector->getEvents());
         return $this->render('web/activity/sectorDetail.html.twig', [
             'controller_name' => 'ActivityController',
             'sector' => $sector,

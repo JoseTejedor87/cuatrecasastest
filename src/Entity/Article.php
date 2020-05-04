@@ -9,9 +9,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ArticlesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
-class Articles extends Publishable
+class Article extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
 
@@ -22,7 +22,7 @@ class Articles extends Publishable
     private $status;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $featured;
 
@@ -31,18 +31,24 @@ class Articles extends Publishable
      */
     private $attachments;
 
+    
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="Articles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ArticleCategory", inversedBy="article")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="Article")
      */
     private $activities;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="Articles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="Article")
      */
     private $lawyers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Office", inversedBy="Articles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Office", inversedBy="Article")
      */
     private $offices;
 
@@ -57,6 +63,7 @@ class Articles extends Publishable
         $this->activities = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
         $this->offices = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,4 +216,31 @@ class Articles extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|ArticleCategory[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(ArticleCategory $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(ArticleCategory $category): self
+    {
+        if ($this->category->contains($category)) {
+            $this->category->removeElement($category);
+        }
+
+        return $this;
+    }
+
 }

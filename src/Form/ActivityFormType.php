@@ -28,15 +28,7 @@ abstract class ActivityFormType extends AbstractType
             ])
             ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
-            ->add('image', TextType::class, ['label'=>'entities.activity.fields.image'])
-            ->add('blocks', BlocksCollectionType::class, [
-                'label'=>'entities.activity.fields.blocks',
-                'entry_type' => BlockFormType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-            ])
-        ;
+            ->add('image', TextType::class, ['label'=>'entities.activity.fields.image']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -45,5 +37,4 @@ abstract class ActivityFormType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
-
 }

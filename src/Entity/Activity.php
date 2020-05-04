@@ -44,9 +44,9 @@ abstract class Activity extends Publishable
     private $lawyers_secondary;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="activities")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="activities")
      */
-    private $Articles;
+    private $Article;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Block", mappedBy="activity", cascade={"persist"}, orphanRemoval=true)
@@ -54,11 +54,29 @@ abstract class Activity extends Publishable
      */
     private $blocks;
 
+    /**
+     * Many activities have Many activities.
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="relatedActivities", cascade={"persist"})
+     */
+    private $relatedActivitiesWithMe;
+
+    /**
+     * Many activities have many activities.
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist"})
+     */
+    private $relatedActivities;
+
+
     public function __construct()
     {
+        $this->relatedActivitiesWithMe = new ArrayCollection();
+        $this->relatedActivities = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
         $this->blocks = new ArrayCollection();
+        $this->lawyers_secondary = new ArrayCollection();
+        $this->Article = new ArrayCollection();
+
     }
 
     public function getImage(): ?string
@@ -142,32 +160,33 @@ abstract class Activity extends Publishable
     }
 
     /**
-     * @return Collection|Articles[]
+     * @return Collection|Article[]
      */
-    public function getArticles(): Collection
+    public function getArticle(): Collection
     {
-        return $this->articles;
+        return $this->article;
     }
 
-    public function addArticle(Articles $article): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
+        if (!$this->article->contains($article)) {
+            $this->article[] = $article;
             $article->addActivity($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Articles $article): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
+        if ($this->article->contains($article)) {
+            $this->article->removeElement($article);
             $article->removeActivity($this);
         }
 
         return $this;
     }
+
 
     /**
      * @return Collection|Block[]
@@ -199,4 +218,88 @@ abstract class Activity extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Lawyer[]
+     */
+    public function getLawyersSecondary(): Collection
+    {
+        return $this->lawyers_secondary;
+    }
+
+    public function addLawyersSecondary(Lawyer $lawyersSecondary): self
+    {
+        if (!$this->lawyers_secondary->contains($lawyersSecondary)) {
+            $this->lawyers_secondary[] = $lawyersSecondary;
+            $lawyersSecondary->addSecondaryActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLawyersSecondary(Lawyer $lawyersSecondary): self
+    {
+        if ($this->lawyers_secondary->contains($lawyersSecondary)) {
+            $this->lawyers_secondary->removeElement($lawyersSecondary);
+            $lawyersSecondary->removeSecondaryActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getRelatedActivitiesWithMe(): Collection
+    {
+        return $this->relatedActivitiesWithMe;
+    }
+
+    public function addRelatedActivitiesWithMe(Activity $relatedActivitiesWithMe): self
+    {
+        if (!$this->relatedActivitiesWithMe->contains($relatedActivitiesWithMe)) {
+            $this->relatedActivitiesWithMe[] = $relatedActivitiesWithMe;
+            $relatedActivitiesWithMe->addRelatedActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelatedActivitiesWithMe(Activity $relatedActivitiesWithMe): self
+    {
+        if ($this->relatedActivitiesWithMe->contains($relatedActivitiesWithMe)) {
+            $this->relatedActivitiesWithMe->removeElement($relatedActivitiesWithMe);
+            $relatedActivitiesWithMe->removeRelatedActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getRelatedActivities(): Collection
+    {
+        return $this->relatedActivities;
+    }
+
+    public function addRelatedActivity(Activity $relatedActivity): self
+    {
+        if (!$this->relatedActivities->contains($relatedActivity)) {
+            $this->relatedActivities[] = $relatedActivity;
+        }
+
+        return $this;
+    }
+
+    public function removeRelatedActivity(Activity $relatedActivity): self
+    {
+        if ($this->relatedActivities->contains($relatedActivity)) {
+            $this->relatedActivities->removeElement($relatedActivity);
+        }
+
+        return $this;
+    }
+
+
 }

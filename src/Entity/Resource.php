@@ -47,7 +47,7 @@ class Resource extends Publishable
     private $award;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Articles", inversedBy="attachments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="attachments")
      */
     private $article;
 
@@ -167,12 +167,12 @@ class Resource extends Publishable
     }
 
 
-    public function getArticle(): ?Articles
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    public function setArticle(?Articles $article): self
+    public function setArticle(?Article $article): self
     {
         $this->article = $article;
 

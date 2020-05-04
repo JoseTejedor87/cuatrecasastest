@@ -15,14 +15,14 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
-use App\Entity\Articles;
+use App\Entity\Article;
 use App\Entity\Activity;
 use App\Entity\Lawyer;
 use App\Entity\Office;
 use App\Form\Type\LanguageType;
 use App\Form\ResourceFormType;
 
-class ArticlesFormType extends AbstractType
+class ArticleFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -104,7 +104,7 @@ class ArticlesFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Articles::class,
+            'data_class' => Article::class,
             'translation_domain' => 'admin'
         ]);
     }

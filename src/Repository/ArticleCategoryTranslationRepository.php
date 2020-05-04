@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CategoryArticleTranslation;
+use App\Entity\ArticleCategoryTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method CategoryArticleTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method CategoryArticleTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method CategoryArticleTranslation[]    findAll()
- * @method CategoryArticleTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ArticleCategoryTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ArticleCategoryTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ArticleCategoryTranslation[]    findAll()
+ * @method ArticleCategoryTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryArticleTranslationRepository extends ServiceEntityRepository
+class ArticleCategoryTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CategoryArticleTranslation::class);
+        parent::__construct($registry, ArticleCategoryTranslation::class);
     }
 
     // /**
-    //  * @return CategoryArticleTranslation[] Returns an array of CategoryArticleTranslation objects
+    //  * @return ArticleCategoryTranslation[] Returns an array of ArticleCategoryTranslation objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CategoryArticleTranslationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CategoryArticleTranslation
+    public function findOneBySomeField($value): ?ArticleCategoryTranslation
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

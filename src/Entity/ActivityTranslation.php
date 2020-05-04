@@ -22,6 +22,10 @@ class ActivityTranslation extends PublishableTranslation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $sumary;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $description;
 
     /**
@@ -38,6 +42,18 @@ class ActivityTranslation extends PublishableTranslation
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSumary(): ?string
+    {
+        return $this->sumary;
+    }
+
+    public function setSumary(string $sumary): self
+    {
+        $this->sumary = $sumary;
 
         return $this;
     }

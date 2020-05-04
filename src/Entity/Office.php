@@ -106,14 +106,14 @@ class Office extends Publishable
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="offices")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="offices")
      */
-    private $Articles;
+    private $Article;
 
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
-        $this->Articles = new ArrayCollection();
+        $this->Article = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -335,27 +335,27 @@ class Office extends Publishable
     }
 
     /**
-     * @return Collection|Articles[]
+     * @return Collection|Article[]
      */
-    public function getArticles(): Collection
+    public function getArticle(): Collection
     {
-        return $this->articles;
+        return $this->Article;
     }
 
-    public function addArticle(Articles $article): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
+        if (!$this->Article->contains($article)) {
+            $this->Article[] = $article;
             $article->addActivity($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Articles $article): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
+        if ($this->Article->contains($article)) {
+            $this->Article->removeElement($article);
             $article->removeActivity($this);
         }
 

@@ -61,6 +61,9 @@ class MigrationCommand extends Command
                 case "activity":
                     $this->Activity($conn);
                     break;
+                case "relatedActivities":
+                    $this->relatedActivities($conn);
+                    break;
                 case "event":
                     $this->Eventos($conn,$output);
                     break;
@@ -140,6 +143,22 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/areas_practicas.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla areas_practicas');
         $this->logger->info('Se ha guardado con el nombre areas_practicas.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+
+    // activity
+    // - sectorial
+    // - legal
+    }
+    public function relatedActivities($conn){
+        $query = "SELECT  [id_area_padre] ,[id_area_hija] FROM areas_relacionades  ORDER BY [id_area_padre] , [id_area_hija] desc";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/areas_relacionades.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla areas_relacionades');
+        $this->logger->info('Se ha guardado con el nombre areas_relacionades.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
 

@@ -182,8 +182,8 @@
                     </div>
                 </div>
             </section>
-            {% if lawyer.articles %}
-            {% if lawyer.articles|length > 1 %}
+            {% if lawyer.article %}
+            {% if lawyer.article|length > 1 %}
                 <section class="row page__block">
                     <div class="col">
                         <div class="page__block__title">
@@ -191,7 +191,7 @@
                         </div>
                         <div class="page__block__content">
                             <ul class="page__block__content__details">
-                            {% for article in lawyer.articles %}
+                            {% for article in lawyer.article %}
                             {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
                                 {% if (article.translate(app.request.getLocale()).title) %}
                                     <li>
