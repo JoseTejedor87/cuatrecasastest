@@ -58,6 +58,71 @@
 }
 
 
+.btn__solid__arrow {
+    @include reset-link-button;
+    padding: 1rem 6rem 1rem 1rem;
+    @include fontSet(24px, 24px);
+    letter-spacing: 0.05rem;
+    color: $white;
+    background-color: $complementary-color;
+
+    transition: all 0.2s ease-out;
+
+    &:before,
+    &:after {
+        @include icons-ionicons(12px, auto, auto, auto);
+        content: '\f3d1';
+        font-size: 32px;
+        width: 12px;
+        height: 32px;
+    }
+
+    &:before {
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: left 0.3s ease-out, opacity 0.2s ease-out;
+        // transition: opacity 0.2s ease-out, left 0.2s ease-out;
+    }
+
+    &:after {
+        right: 20px;
+        opacity: 1;
+        visibility: visible;
+        transition: right 0.3s ease-out, opacity 0.2s ease-out;
+        // transition: opacity 0.2s ease-out, right 0.2s ease-out;
+    }
+
+    @include on-event {
+        padding-right: 4rem;
+        padding-left: 3rem;
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+
+        // box-shadow: -6px 6px 0 $white, 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+
+        &:focus {
+            color: $white;
+            outline: 1px solid $white;
+            outline-offset: 8px;
+        }
+
+        &:before {
+            left: 20px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &:after {
+            right: -0;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
+
 //
 // VIEW MORE (ARROW SYMBOL) delete ¿?
 // --------------------------------------------------------------------------
