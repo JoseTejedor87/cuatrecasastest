@@ -4,20 +4,19 @@
 
 .form-control,
 .custom-select {
+    @include fontSet(22px, 22px);
     height: auto;
     padding: 0.8rem 1rem;
-    // @include fontSet(18px, 24px);
-    @include fontSet(20px, 20px);
     color: $black;
     border: 1px solid rgba($black, 0.2);
     border-radius: 0;
 
     &:focus {
-        color: #495057;
+        color: $main-color;
         background-color: #fff;
-        border-color: #80bdff;
+        border-color: $complementary-color;
         outline: 0;
-        box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+        box-shadow: 0 0 0 4px rgba($complementary-color, 0.2);
     }
 }
 
@@ -47,6 +46,12 @@
 
 @include new("search_selects") {
 
+    $select-height: 42px;
+
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -0.5rem;
+
     .select-hidden {
         // position: relative;
         // display: none;
@@ -55,37 +60,39 @@
     }
 
     .select {
-        display: inline-block;
+        flex: 1;
         position: relative;
-        height: 40px;
-        margin: 0 20px 0 10px;
+        height: $select-height;
+        margin: 0 0.5rem;
+        padding: 0 0;
         color: $black;
         cursor: pointer;
     }
 
     .select-styled {
         position: relative;
-        top: -40px;
+        top: -$select-height;
         right: 0;
         bottom: 0;
         left: 0;
-        height: 40px;
-        margin-right: -1rem;
+        height: $select-height;
+        margin: 0 0;
         padding: 1rem 4rem 0 0.5rem;
 
         white-space: nowrap;
         // overflow: hidden;
         // text-overflow: ellipsis;
 
-        @include fontSet(20px, 20px);
+        @include fontSet(22px, 22px);
         text-align: left;
 
+        color: $black;
         background-color: transparent;
-        box-shadow: 0 1px 0 rgba($black, 0.2);
+        box-shadow: 0 2px 0 $complementary-color;
         transition: all 0.2s ease-in;
 
         &:after {
-            @include icons-ionicons(8px,4px,auto,auto);
+            @include icons-ionicons(10px,6px,auto,auto);
             content: '\f3d1';
             font-size: 36px;
             transform: rotate(90deg);
@@ -95,11 +102,12 @@
 
         @include on-event {
             color: $complementary-color;
-            box-shadow: 0 1px 0 $complementary-color;
+            box-shadow: 0 2px 0 $complementary-color;
         }
 
         &:active, &.active {
             color: $complementary-color;
+            // box-shadow: 0 2px 0 rgba($black, 0.3);
             box-shadow: 0 2px 0 $complementary-color;
 
             &:after {
@@ -114,7 +122,7 @@
         top: 40px;
         right: 0;
         left: 0;
-        width: calc(100% + 1rem);
+        width: 100%;
         max-height: 252px;
         margin: 2px 0 0 0;
         padding: 0;
@@ -148,7 +156,6 @@
             }
         }
     }
-
 }
 
 

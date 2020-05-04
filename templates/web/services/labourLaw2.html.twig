@@ -8,7 +8,7 @@
 {% block main %}
 
     <main role="main">
-        <article class="container-fluid">
+        <article class="container">
 
             <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
@@ -50,14 +50,18 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Non consectetur a erat nam at lectus urna duis convallis. Bibendum enim facilisis gravida neque convallis a cras semper auctor. Porta non pulvinar neque laoreet suspendisse interdum. Urna nec tincidunt praesent semper feugiat nibh sed. Aliquam sem et tortor consequat id porta nibh. Scelerisque felis imperdiet proin fermentum leo vel orci. Integer eget aliquet nibh praesent tristique. Leo in vitae turpis massa. Nullam non nisi est sit amet facilisis magna etiam. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Egestas sed tempus urna et pharetra pharetra. Massa sed elementum tempus egestas sed sed risus pretium quam. Nunc sed augue lacus viverra vitae.</p>
                         <p>Morbi tincidunt augue interdum velit euismod in. Consequat semper viverra nam libero justo. Nec sagittis aliquam malesuada bibendum. Odio aenean sed adipiscing diam. In massa tempor nec feugiat nisl pretium fusce id. Et netus et malesuada fames ac. Fringilla ut morbi tincidunt augue. Est placerat in egestas erat imperdiet sed. Pellentesque diam volutpat commodo sed egestas egestas. Sodales neque sodales ut etiam. Fermentum et sollicitudin ac orci phasellus egestas tellus. Quam quisque id diam vel quam elementum pulvinar etiam non. Amet nulla facilisi morbi tempus iaculis urna id volutpat. Consectetur lorem donec massa sapien faucibus.</p>
 
-                        <h2>Expertos en el área</h2>
+                        <h5>Expertos en el área</h5>
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--team">
                             <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
                                 <a href="detail/victor-xercavins" class="lawyer__link">
                                     <h3 class="lawyer__name">Carlos Posadas</h3>
                                     <div class="lawyer__details">
                                         <div class="lawyer__position">Consejero</div>
-                                        <div class="lawyer__practice">Laboral</div>
+                                        <!-- <div class="lawyer__practice">Laboral</div> -->
+                                        <ul class="lawyer__practice">
+                                            <li class="lawyer__practice__item">Fiscal</li>
+                                            <li class="lawyer__practice__item">Empresa Familiar</li>
+                                        </ul>
                                         <div class="lawyer__office">Bilbao</div>
                                     </div>
                                     <img class="lawyer__photo" src="{{ asset('web/assets/img/foto-lawyer-full.jpg') }}" alt="Carlos Posadas">
@@ -68,7 +72,11 @@
                                     <h3 class="lawyer__name">Ricardo Mínguez</h3>
                                     <div class="lawyer__details">
                                         <div class="lawyer__position">Socio</div>
-                                        <div class="lawyer__practice">Laboral</div>
+                                        <!-- <div class="lawyer__practice">Laboral</div> -->
+                                        <ul class="lawyer__practice">
+                                            <li class="lawyer__practice__item">Fiscal</li>
+                                            <li class="lawyer__practice__item">Empresa Familiar</li>
+                                        </ul>
                                         <div class="lawyer__office">Bilbao</div>
                                     </div>
                                     <img class="lawyer__photo" src="{{ asset('web/assets/img/foto-lawyer-full.jpg') }}" alt="Xavier Xivillé">
@@ -86,13 +94,13 @@
                                 <li><a href="#">Fiscalidad contenciosa</a></li>
                             </ul>
                         </div>
-                        <div class="page__aside--nobg">
+                        <div class="page__aside page__aside--nobg">
                             <blockquote class="cite__quote">
                                 <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
                                 <cite>Chambers, 2019</cite>
                             </blockquote>
                         </div>
-                        <div class="page__aside--practices">
+                        <div class="page__aside page__aside--practices">
                             <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
                             <ul class="related__services">
                                 <li class="related__services__item">

@@ -17,33 +17,12 @@
 //
 
 @include new("team") {
+    background-color: rgba($black, 0.1);
 
-    .container-fluid {
-        padding-right: 0;
-        padding-left: 0;
+    .team__member {
+        height: 30rem;
     }
 
-    //
-    // MORE THAN ONE MEMBER
-   //
-    @include when("full") {
-        background-color: rgba($black, 0.1);
-
-        .team__member {
-            height: 30rem;
-        }
-    }
-
-    //
-    // JUST ONE MEMBER
-    //
-    @include when("contact") {
-        background-color: rgba($black, 0.1);
-
-        .team__member {
-            height: 30rem;
-        }
-    }
 
     //
     // GENERAL TYPO SETTINGS
@@ -86,15 +65,15 @@
         padding: 1rem;
         background-color: $complementary-color;
 
-        .viewmore__arrow__button {
-            @include arrow-link($main-color);
+        .double__arrow__link {
             @include fontSet(20px, 20px);
             position: absolute;
             bottom: 20px;
+            color: $main-color;
 
             &:before,
             &:after {
-                top: -3px;
+                top: -5px;
             }
         }
     }
@@ -132,50 +111,6 @@
             margin-right: 0;
         }
 
-
-        //
-        // Advanced Numeric Selection
-        //
-        // https://css-tricks.com/solved-with-css-logical-styling-based-on-the-number-of-given-elements/
-        // https://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
-        //
-        // https://codepen.io/mattlubner-the-decoder/pen/ExaQZQR
-        // --------------------------------------------------------------------------
-
-
-        // /* one item */
-        &:first-child:nth-last-child(1) {
-            // width: 100%;
-            // outline: 5px solid #4b6cb7;
-        }
-
-        // /* two items */
-        &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
-            // width: 50%;
-            // outline: 5px solid #00C9FF;
-        }
-
-        // /* three items */
-        &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
-            // width: 33.3333%;
-            // outline: 5px solid #FC466B;
-        }
-
-        // /* four items */
-        &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
-            // width: 25%;
-            // outline: 5px solid #3F2B96;
-        }
-
-        // /* five items */
-        &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
-            // width: 20%;
-            // outline: 5px solid #FDBB2D;
-        }
-
-
-
-
         @include has("link") {
             @include box-hidden-link;
             margin: -1rem 0 0 -1rem;
@@ -187,11 +122,10 @@
         @include has("resume") {
             position: absolute;
             bottom: 1rem;
-            width: 75%;
-            height: 76px;
+            width: 50%;
             overflow: hidden;
             opacity: 0;
-            transition: width 0.2s ease-out, opacity 0.8s ease-out;
+            transition: opacity 0.8s ease-out;
 
             p {
                 margin-bottom: 0;
@@ -206,36 +140,73 @@
             background-size: auto 130%;
 
             .team__member__resume {
-                width: 40%;
                 opacity: 1;
             }
         }
 
 
         @include on-event() {
-            // flex-grow: 3;
+            // flex-grow: 0;
             // background-position: 92% 0;
             // background-blend-mode: overlay;
 
-            flex-grow: 3;
+            // flex-grow: 3;
             // background-position: 94% 0;
             background-blend-mode: luminosity;
             background-color: rgba($complementary-color, 0.3);
+        }
 
-            .team__member__resume {
-                width: 50%;
-                opacity: 0;
-            }
 
-            &:only-child {
-                background-position: 100% 100%;
-                background-size: auto 130%;
+        //
+        // Advanced Numeric Selection
+        //
+        // https://css-tricks.com/solved-with-css-logical-styling-based-on-the-number-of-given-elements/
+        // https://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
+        //
+        // https://codepen.io/mattlubner-the-decoder/pen/ExaQZQR
+        // --------------------------------------------------------------------------
 
-                .team__member__resume {
-                    width: 40%;
-                }
+        // one item
+        &:first-child:nth-last-child(1) {
+            // outline: 5px solid #4b6cb7;
+        }
+
+        // two items
+        &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
+            // outline: 5px solid #00C9FF;
+
+            @include on-event() {
+                flex-grow: 3;
             }
         }
+
+        // three items
+        &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
+            // outline: 5px solid #FC466B;
+
+            @include on-event() {
+                flex-grow: 5;
+            }
+        }
+
+        // four items
+        &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
+            // outline: 5px solid #3F2B96;
+
+            @include on-event() {
+                flex-grow: 4;
+            }
+        }
+
+        // five items
+        &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
+            // outline: 5px solid #FDBB2D;
+
+            @include on-event() {
+                flex-grow: 5;
+            }
+        }
+
 
         //
         // maybe... ¿?

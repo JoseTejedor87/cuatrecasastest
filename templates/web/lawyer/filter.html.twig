@@ -8,7 +8,7 @@
 {% block main %}
 
     <main role="main" class="lawyer">
-        <article class="container-fluid">
+        <article class="container">
 
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
                 <div class="col">
@@ -232,7 +232,7 @@
     </main>
     {% if  countLawyers == '' %}
         {% include 'web/shared/related-content-slider.html.twig' %}
-        {% include 'web/shared/insightsHighlight.html.twig' %}
+        {% include 'web/shared/insight-highlight.html.twig' %}
     {% endif %}
     {% include 'web/shared/career.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}

@@ -1,8 +1,8 @@
 {% extends 'web/base.html.twig' %}
 {% block main %}
 
-    <main role="main">
-        <article class="container-fluid">
+    <main role="main" class="sectors">
+        <article class="container">
 
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
                 <div class="col">
@@ -29,15 +29,17 @@
                 </div>
             </header>
 
-            <section class="row page__block--full">
-                <div class="col">
-                    <ul class="buttons__list">
-                    {% for sector in sectors %}
-                        <li class="buttons__list__item">
-                            <a class="buttons__list__link" href="{{ relative_path('/es/activity/sectorDetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
-                        </li>
-                    {% endfor %}
-                    </ul>
+            <section class="tabs__component__content">
+                <div class="row page__section">
+                    <div class="col">
+                        <ul class="buttons__list">
+                        {% for sector in sectors %}
+                            <li class="buttons__list__item">
+                                <a class="btn__subcat" href="{{ relative_path('/es/activity/sectorDetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </section>
 
