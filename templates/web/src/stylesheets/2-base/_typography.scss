@@ -60,7 +60,7 @@ $rem-base-font: 16px !default;
 // --------------------------------------------------------------------------
 
 .section__title {
-    margin: 0 0 2rem 0;
+    margin: 0 0 1rem 0;
     padding: 0.7rem 0.8rem 0.5rem;
     @include cuatrecasas-font();
     @include fontSet(24px, 24px);
@@ -69,11 +69,19 @@ $rem-base-font: 16px !default;
     background-color: $black;
 
     //
-    // BG COLORS
+    // BG COLORS (horizontal modules)
     //
+
+    @include when("news") {
+        background-color: $news-color;
+    }
 
     @include when("article") {
         background-color: $article-color;
+    }
+
+    @include when("opinion") {
+        background-color: $opinion-color;
     }
 
     @include when("event") {
@@ -84,20 +92,32 @@ $rem-base-font: 16px !default;
         background-color: $insight-color;
     }
 
-    @include when("related") {
-        background-color: $related-color;
-    }
-
-    @include when("slider") {
-        background-color: $insight-color;
-    }
-
     @include when("cases") {
         background-color: $cases-color;
     }
 
+    @include when("recomended") {
+        background-color: $recomended-color;
+    }
+
     @include when("awards") {
-        background-color: $black;
+        background-color: $awards-color;
+    }
+
+    @include when("tools") {
+        background-color: $tools-color;
+    }
+
+    @include when("career") {
+        background-color: $career-color;
+    }
+
+    @include when("others1") {
+        background-color: $others1-color;
+    }
+
+    @include when("others2") {
+        background-color: $others2-color;
     }
 }
 
@@ -119,8 +139,8 @@ $rem-base-font: 16px !default;
 // --------------------------------------------------------------------------
 
 .emphasis {
-    @include copy-font(300, normal);
-    @include fontSet(48px, 56px);
+    @include cuatrecasas-font();
+    @include fontSet(42px, 46px);
     color: $white;
 }
 

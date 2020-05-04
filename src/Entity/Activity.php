@@ -66,6 +66,7 @@ abstract class Activity extends Publishable
      */
     private $relatedActivities;
 
+
     public function __construct()
     {
         $this->relatedActivitiesWithMe = new ArrayCollection();
@@ -75,6 +76,7 @@ abstract class Activity extends Publishable
         $this->blocks = new ArrayCollection();
         $this->lawyers_secondary = new ArrayCollection();
         $this->Article = new ArrayCollection();
+
     }
 
     public function getImage(): ?string
@@ -184,6 +186,7 @@ abstract class Activity extends Publishable
 
         return $this;
     }
+
 
     /**
      * @return Collection|Block[]
@@ -297,5 +300,6 @@ abstract class Activity extends Publishable
 
         return $this;
     }
+
 
 }

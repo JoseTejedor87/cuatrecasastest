@@ -1,11 +1,12 @@
-<section class="team team--full">
-    <div class="container-fluid">
+<section class="team">
+    <div class="container">
         <div class="row page__section">
             <div class="col">
                 <div class="team__wrapper">
                     <div class="team__info">
                         <h3>Equipo<br>Cuatrecasas</h3>
-                        <h4>Cuatrecasas cuenta con un equipo dedicado a {{ sector.translate(app.request.getLocale()).title|raw }}.</h4>
+                        <h4>Cuatrecasas cuenta con un equipo dedicado a  {{ sector.translate(app.request.getLocale()).title|raw }}.</h4>
+                        <a href="#" class="double__arrow__link">Conoce al equipo</a>
                     </div>
                     <div class="team__list">
                         {% for lawyer in sector.lawyers|slice(0, 5) %}

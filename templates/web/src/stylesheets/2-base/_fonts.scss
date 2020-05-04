@@ -45,86 +45,14 @@
 
 
 //
-// Open Sans
-// @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
-// --------------------------------------------------------------------------
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-light-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-light-webfont.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-regular-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-regular-webfont.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-italic-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-italic-webfont.woff') format('woff');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-semibold-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-semibold-webfont.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-semibolditalic-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-semibolditalic-webfont.woff') format('woff');
-    font-weight: 600;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans/opensans-bold-webfont.woff2') format('woff2'),
-         url('../fonts/opensans/opensans-bold-webfont.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-//
 // FONT SIZES & TYPES
 // --------------------------------------------------------------------------
 
 $corporative-font: ('Cuatrecasas',
                system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
-$copy-font: ('Open Sans',
-             system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
-
 
 @mixin cuatrecasas-font() {
     font-family: $corporative-font;
     font-weight: normal;
     font-style: normal;
 }
-
-@mixin copy-font($weight, $style) {
-    font-family: $copy-font;
-    // 300 - 400 - 600 - 700
-    font-weight: $weight;
-    // normal - italic
-    font-style: $style;
-}
-

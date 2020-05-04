@@ -6,17 +6,26 @@
 // MAIN BUTTON
 // --------------------------------------------------------------------------
 
-.btn__main {
-    @include reset-button;
+.btn__solid {
+    @include reset-link-button;
+    padding: 0.8rem 6.2rem 0.8rem 1rem;
+    @include fontSet(24px, 24px);
+    letter-spacing: 0.05rem;
     color: $white;
     background-color: $complementary-color;
-    border: 1px solid transparent;
-    border-color: $complementary-color;
+
+    &:after {
+        @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
+        font-size: 36px;
+        content: '\f3d1';
+        color: $white;
+        transform: scale(1);
+    }
 
     @include on-event() {
         color: $white;
         text-decoration: none;
-        box-shadow: -8px 8px 0 $main-color,
+        box-shadow: -6px 6px 0 $white,
                     0 19px 38px rgba(0, 0, 0, 0.30),
                     0 15px 12px rgba(0, 0, 0, 0.22);
     }
@@ -37,7 +46,7 @@
         }
     }
 
-    @include when("bgcolor"){
+    @include when("bgcolor") {
         @include on-event() {
             background-color: $complementary-color !important;
             border-color: $complementary-color !important;
@@ -50,70 +59,23 @@
 
 
 //
-// VIEW MORE (PLUS SYMBOL)
+// VIEW MORE (ARROW SYMBOL) delete ¿?
 // --------------------------------------------------------------------------
 
-.viewmore__button {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 2rem;
+.doble__arrow__button {
 
-    .btn__viewmore {
-        position: relative;
-        padding: 0.5rem 3rem 0.5rem 1rem;
-        @include fontSet(16px, 16px);
-        font-weight: bold;
-        text-align: right;
-        color: $black;
-        background: none;
-        border: none;
-        border-radius: 0;
-        transition: all 0.3s ease-out;
+    @include arrow-button($complementary-color);
+    @include fontSet(24px, 42px);
 
-        &:after {
-            display: inline-block;
-            position: absolute;
-            top: 6px;
-            right: 2px;
-            content: '\e148';
-            font-family: 'Material Icons';
-            font-size: 36px;
-            font-weight: normal;
-            line-height: 1;
-            color: $complementary-color;
-            transform: scale(1);
-            transition: all 0.3s ease-out;
-            will-change: transform;
-        }
-
-        @include when("oneline") {
-            padding: 1rem 3rem;
-        }
-
-        @include on-event() {
-            padding-right: 4rem;
-            // color: $complementary-color;
-
-            &:focus {
-                box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
-            }
-
-            &:after {
-                right: 6px;
-                transform: scale(1.5) rotate(180deg);
-            }
-        }
-    }
+    // @include when-inside("team") {
+    //     @include arrow-link($main-color);
+    // }
 }
 
+.double__arrow__link {
 
-//
-// VIEW MORE (ARROW SYMBOL)
-// --------------------------------------------------------------------------
-
-.viewmore__arrow__button {
-    @include arrow-link($complementary-color);
-    @include fontSet(24px, 24px);
+    @include arrow-button($complementary-color);
+    @include fontSet(24px, 42px);
 
     // @include when-inside("team") {
     //     @include arrow-link($main-color);
@@ -122,11 +84,242 @@
 
 
 //
-// BACK BUTTON
+// SUBCATEGORIES BUTTON (ARROW SYMBOL)
+// --------------------------------------------------------------------------
+
+.btn__subcat {
+    flex: 1 0 auto;
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.6rem .6rem 0;
+    @include fontSet(20px, 20px);
+    color: $black;
+    border-bottom: 1px solid rgba($black, 0.1);
+
+    &:after,
+    &:before {
+        @include icons-ionicons(12px, auto, auto, auto);
+        content: '\f3d3';
+        font-size: 32px;
+        font-weight: bold;
+        color: $complementary-color;
+    }
+
+    &:before {
+        left: -10px;
+        opacity: 0;
+        visibility: hidden;
+        transition: left 0.3s ease-in-out, opacity 0.2s ease-out;
+    }
+
+    &:after {
+        right: 0;
+        opacity: 1;
+        visibility: visible;
+        transition: right 0.3s ease-in-out, opacity 0.2s ease-out;
+    }
+
+    @include on-event() {
+        padding-right: 1rem;
+        padding-left: 2rem;
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+        border-bottom: 1px solid $main-color;
+
+        &:before,
+        &:after {
+            color: $white;
+        }
+
+        &:before {
+            left: 10px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &:after {
+            right: 10px;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
+
+//
+// VIEW MORE BUTTON (PLUS SYMBOL)
+// --------------------------------------------------------------------------
+
+.viewmore__button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn__viewmore {
+    @include reset-button;
+    position: relative;
+    height: 50px;
+    padding: 0 4.2rem 0 1rem;
+    @include fontSet(22px, 22px);
+    letter-spacing: 0.05rem;
+    color: $complementary-color;
+    background-color: transparent;
+    outline: 1px solid $complementary-color;
+
+    &:before,
+    &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline-block;
+    }
+
+    &:before {
+        width: 50px;
+        height: 50px;
+        content: '';
+        background-color: $complementary-color;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    &:after {
+        top: 8px;
+        right: 8px;
+        content: '\e145';
+        font-family: 'Material Icons';
+        font-size: 32px;
+        font-weight: normal;
+        line-height: 1;
+        color: $white;
+        transform: scale(1);
+        transition: all 0.2s ease-out;
+    }
+
+    @include on-event() {
+        color: $white;
+        background-color: $complementary-color;
+        outline: 1px solid $complementary-color;
+
+        &:before {
+            background-color: $main-color;
+        }
+
+        &:after {
+            color: $complementary-color;
+            transform: scale(1.2);
+        }
+    }
+}
+
+
+//
+// ARROW BUTTON (GENERAL & TOOLS)
+// --------------------------------------------------------------------------
+
+.btn__arrow {
+    @include reset-button;
+    flex: 1 0 auto;
+    position: relative;
+    min-height: 50px;
+    padding: 0.8rem 4.2rem 0.8rem 1rem;
+    @include fontSet(22px, 26px);
+    letter-spacing: 0.05rem;
+    color: $complementary-color;
+    outline: 1px solid $complementary-color;
+
+    @include when("solid") {
+        color: $white;
+        background-color: $complementary-color;
+    }
+
+    &:before,
+    &:after {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &:before {
+        width: 3rem;
+        height: 100%;
+        content: '';
+        background-color: $complementary-color;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    &:after {
+        @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
+        font-size: 36px;
+        content: '\f3d1';
+        color: $white;
+        transform: scale(1);
+        transition: color 0.2s ease-out, transform 0.2s ease-out;
+
+
+
+        //
+        // SVG
+        //
+        // https://css-tricks.com/using-svg/
+        // https://css-tricks.com/change-color-of-svg-on-hover/
+
+        // content: "";
+        // top: 0;
+        // right: 0;
+        // background-image: url(../icons/4casas-arrow_white.svg);
+        // background-repeat: no-repeat;
+        // background-size: auto 200%;
+        // background-position: 24px 20px;
+    }
+
+    @include on-event() {
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+        outline: 1px solid $complementary-color;
+
+        &:before {
+            background-color: $main-color;
+        }
+
+        &:after {
+            color: $complementary-color;
+            transform: scale(1.2);;
+        }
+    }
+
+    @include when-inside(".tools") {
+        padding: 1rem 6.2rem 1rem 1rem;
+        letter-spacing: 0;
+
+        &:before {
+            width: 5.2rem;
+        }
+
+        &:after {
+            @include icons-ionicons(calc(50% - 16px), auto, auto, calc(100% - 46px));
+            font-size: 34px;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-out;
+        }
+
+        @include on-event() {
+            &:after {
+                transform: scale(1.8);
+            }
+        }
+    }
+}
+
+
+//
+// BACK BUTTON (ARROW SYMBOL)
 // --------------------------------------------------------------------------
 
 .back__button {
-    @include arrow-link-reverse($complementary-color);
+    @include arrow-button-reverse($complementary-color);
     position: absolute;
     top: 2rem;
     @include fontSet(16px, 16px);
@@ -191,7 +384,7 @@
 // --------------------------------------------------------------------------
 
 .icon__button {
-    @include reset-button-icon;
+    @include reset-button;
     display: block;
     width: 40px;
     height: 40px;
@@ -211,4 +404,13 @@
     &.active {
         outline: 4px solid $complementary-color;
     }
+}
+
+
+//
+// BOX NEWS BUTTON
+// --------------------------------------------------------------------------
+
+.plain__button {
+    @include background-link($complementary-color, $white, $complementary-color);
 }

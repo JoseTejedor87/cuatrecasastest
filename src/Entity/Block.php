@@ -20,12 +20,6 @@ abstract class Block extends Item
     private $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="blocks")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $activity;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocks")
      * @ORM\JoinColumn(nullable=true)
      */

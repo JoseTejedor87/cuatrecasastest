@@ -1,9 +1,9 @@
 {% extends 'web/base.html.twig' %}
 {% block main %}
 
-    <main role="main" class="page services">
+    <main role="main" class="services">
 
-        <article class="container-fluid">
+        <article class="container">
 
             <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/who-s-denilo-ItuL0w2zvTo-unsplash.jpg') }}')">
                 <div class="col">
@@ -34,17 +34,23 @@
                 </div>
             </header>
 
-            <section class="row page__block">
+            <section class="row page__block noborder">
                 <div class="col">
                     <div class="page__block__title">
                         <p>Using a combination of legal technology and expertise, our boutique KIID production service enables clients to produce a large numbers of KIIDs in a comprehensive, automate and efficient manner.</p>
                     </div>
-                    <div class="page__block__content">
-                        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-                        <p><a href="#">Saber más</a></p>
+                    <div class="page__block__content read-more">
+                        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+                        <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
+                        <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id.</p>
+                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient. Proin fermentum leo vel orci. Velit aliquet sagittis id consectetur purus ut faucibus. Sed egestas egestas fringilla phasellus faucibus. Gravida quis blandit turpis cursus.</p>
+                        <p>Gravida dictum fusce ut placerat orci nulla. Massa ultricies mi quis hendrerit. Egestas purus viverra accumsan in nisl. Ac tincidunt vitae semper quis lectus nulla at. Nunc sed blandit libero volutpat sed cras ornare arcu. Pharetra massa massa ultricies mi. Interdum velit laoreet id donec ultrices tincidunt arcu non sodales.</p>
+                        <!-- <button type="button" class="doble__arrow__button">Ver más</button> -->
                     </div>
                 </div>
             </section>
+
             <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
@@ -74,33 +80,57 @@
                     </div>
                 </div>
             </section>
-            <section class="row page__block">
+
+            <section class="row page__block--aside">
                 <div class="col">
-                    <div class="page__block__title">
-                        <a href="#" class="btn btn__main">
-                        Descarga el dossier
-                        <i class="icon ion-ios-download-outline"></i>
-                    </a>
-                    </div>
                     <div class="page__block__content">
-                        <div class="h5">Servicios relacionados</div>
-                        <ul class="related__services">
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Civil
-                                </a>
-                            </li>
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Internacional
-                                </a>
-                            </li>
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Macroeconomía
-                                </a>
-                            </li>
-                        </ul>
+                        <p>
+                            Contacta con nuestros expertos en<br>
+                            <strong>Brexit</strong>
+                        </p>
+                        <form action="" method="" class="email-subscribe">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group flex-group">
+                                <div class="checkbox">
+                                    <input id="data-privacy" name="data-privacy" type="checkbox">
+                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                </div>
+                                <button type="submit" class="btn doble__arrow__button">Enviar</button>
+                                <!-- <button class="btn btn__solid" type="submit">Enviar</button> -->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="page__block__aside">
+                        <div class="page__aside page__aside--practices">
+                            <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
+                            <ul class="related__services">
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Fusiones y adquisiciones</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Cliente privado</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Delitos de guante blanco</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Empresa familiar</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Compensación de ejecutivos</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">Filantropía</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="#" class="btn btn__solid">
+                            Descarga el dossier
+                            <i class="icon ion-ios-download-outline"></i>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -109,10 +139,17 @@
 
     </main>
 
-    {% include 'web/shared/contact.html.twig' %}
     {% include 'web/shared/team.html.twig' %}
     {% include 'web/shared/related-content.html.twig' %}
-    {% include 'web/shared/insightsHighlight.html.twig' %}
+    {% include 'web/shared/insight-highlight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(function () {
+        web.global.showMoreLess();
+    });
+</script>
 {% endblock %}

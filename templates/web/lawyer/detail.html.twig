@@ -3,74 +3,108 @@
 {% block main %}
 
     <main role="main" class="lawyer__details">
-        <article class="container-fluid">
-            <header class="row lawyer__details__header">
-                <div class="col-md-7">
-                    <a href="#" class="back__button">volver</a>
-                    <h1 class="lawyer__details__name">
-                        {{ lawyer.name }} {{ lawyer.surname }}
-                    </h1>
-                    <h2 class="lawyer__details__position">
-                        {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
-                    </h2>
-                    <ul class="lawyer__details__scope related__services">
-                        {% for activity in lawyer.activities %}
-                        <li class="related__services__item">
-                            <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
-                                {{ activity.translate(app.request.getLocale()).title}}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <div class="lawyer__details__contact">
-                        <div data-address>
-                            CUATRECASAS {{ lawyer.office.city }}
-                        </div>
-                        <div data-telephone>
-                            {{ lawyer.phone }}
-                        </div>
-                        <div data-email>
-                            <a href="mailto:{{ lawyer.email }}">
-                                {{ lawyer.email }}
-                            </a>
+        <article>
+
+            <!-- trys -->
+            <!-- <header class="container-fluid">
+                <div class="row">
+                    <div class="col-7" style="background-color: violet; padding: 0 0; text-align: right">
+                        fluid col-7
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8 offset-4" style="background-color: yellow;">fixed inside col-8 offset-4</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="lawyer__details__langs">
-                        <div data-langs>
-                            Español | Inglés
-                        </div>
-                        <div data-vcard>
-                            <a href="#">vcard</a>
-                        </div>
-                        <div data-cv>
-                            <a href="#">CV Completo</a>
-                        </div>
+                    <div class="col-5" style="background-color: dodgerblue">
+                        fluid col-5
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
                 </div>
-                <div class="col-md-5">
-                    <figure class="lawyer__details__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
+                <div class="row">
+                    <div class="col-12" style="background-color: white">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-7" style="background-color: cyan; text-align: right">fixed col-7</div>
+                                <div class="col-5" style="background-color: lightblue">fixed col-5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header> -->
 
-                        <!-- server -->
-                        <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+            <header class="container-fluid">
+                <div class="row lawyer__details__header">
+                    <div class="col-md-7 lawyer__details__content">
+                        <a href="#" class="back__button">volver</a>
+                        <h1 class="lawyer__details__name">
+                            {{ lawyer.name }} {{ lawyer.surname }}
+                        </h1>
+                        <h2 class="lawyer__details__position">
+                            {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
+                        </h2>
+                        <ul class="lawyer__details__scope related__services">
+                            {% for activity in lawyer.activities %}
+                            <li class="related__services__item">
+                                <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
+                                    {{ activity.translate(app.request.getLocale()).title}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="lawyer__details__contact">
+                            <div data-address>
+                                CUATRECASAS {{ lawyer.office.city }}
+                            </div>
+                            <div data-telephone>
+                                {{ lawyer.phone }}
+                            </div>
+                            <div data-email>
+                                <a href="mailto:{{ lawyer.email }}">
+                                    {{ lawyer.email }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="lawyer__details__more">
+                            <div data-langs>
+                                Español | Inglés
+                            </div>
+                            <div data-vcard>
+                                <a href="#">vcard</a>
+                            </div>
+                            <div data-cv>
+                                <a href="#">CV Completo</a>
+                            </div>
+                        </div>
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <figure class="lawyer__details__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
 
-                        <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+                            <!-- server -->
+                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
 
-                        <!-- local -->
-                        <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__details__media__photo"> -->
-                        <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__details__media__photo">
+                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
 
-                    </figure>
+                            <!-- local -->
+                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__details__media__photo"> -->
+                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__details__media__photo">
+
+                        </figure>
+                    </div>
                 </div>
             </header>
 
+            <div class="container">
+
+
+
             <section class="row page__block--full">
                 <div class="col">
-                    <div class="page__block__content page__block__content--full">
+                    <div class="page__block__content--full">
                         {{ lawyer.translate(app.request.getLocale()).description|raw  }}
                     </div>
                 </div>
@@ -85,6 +119,15 @@
                         <div class="page__aside">
                             <h3 class="page__aside__title">Especialidades</h3>
                             <ul class="page__aside__list--specialties">
+
+                                {#% for activity in lawyer.secondaryActivities %}
+                                <li>
+                                    <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
+                                        {{ activity.translate(app.request.getLocale()).title}}
+                                    </a>
+                                </li>
+                                {% endfor %#}
+
                                 <li><a href="#">Fiscalidad corporativa</a></li>
                                 <li><a href="#">Private client &amp; wealth management</a></li>
                                 <li><a href="#">Fiscalidad contenciosa</a></li>
@@ -187,6 +230,9 @@
             </section>
             {% endif %}
             {% endif %}
+
+            </div>
+
         </article>
     </main>
 

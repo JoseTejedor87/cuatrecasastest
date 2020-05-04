@@ -290,11 +290,36 @@
         color: $white;
         background-color: $main-color;
 
+        // > [class*="col"] {
+        //     padding-right: 0;
+        //     padding-left: 0;
+        // }
+
+        // &:before,
+        // &:after {
+        //     @include reset-pseudo(transparent);
+        //     display: block;
+        //     height: 120%;
+        //     margin-top: -100px;
+        //     z-index: -1;
+        // }
+
+        // &:before {
+        //     left: -41.666667%;
+        //     background-color: cyan;
+        // }
+
+        // &:after {
+        //     left: auto;
+        //     right: -58.333333%;
+        //     background-color: magenta;
+        // }
+
         //
         // CONTENT BOX
         //
         > div:first-child {
-            padding: 7rem $screen-width 5rem;
+            // padding: 7rem 0 5rem;
         }
 
         //
@@ -303,6 +328,32 @@
         > div:last-child {
             padding: 0 0;
         }
+    }
+
+    @include has("content") {
+        // background-color: purple;
+        padding: 7rem 0 5rem;
+
+        @include mediaQuery($massive-width, $large-width) {
+            // border: 1px solid yellow;
+            padding-left: 20%;
+        }
+
+        @include mediaQuery($large-width, $desktop-width) {
+            // border: 1px solid cyan;
+            padding-left: 8%;
+        }
+
+        @include mediaQuery($desktop-width, $tablet-width) {
+            // border: 1px solid magenta;
+            padding-left: 14%;
+        }
+
+        @include mediaQuery($tablet-width, $mobile-width) {
+            // border: 1px solid blue;
+            padding-left: 12%;
+        }
+
     }
 
     @include has("name") {
@@ -354,7 +405,7 @@
         }
     }
 
-    @include has("langs") {
+    @include has("more") {
 
         > * {
             @include cuatrecasas-font();
@@ -362,7 +413,7 @@
         }
 
         [data-langs] {
-            opacity: 0.5;
+            color: rgba($white, 0.5);
         }
 
         [data-vcard] {

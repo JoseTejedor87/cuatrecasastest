@@ -1,54 +1,38 @@
 // ==========================================================================
-// CALL TO ACTION (Insights chooser pre-footer)
+// CALL TO ACTION
 // ==========================================================================
-
 
 @include new("call-to-action") {
     margin-top: 0;
-    padding: 4rem 0;
+    padding: 3.6rem 0;
     color: $white;
     background-color: $main-color;
 
     @include has("block") {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        padding: 1.2rem $screen-width;
-        align-items: center;
+        // justify-content: center;
+        // align-items: center;
+        align-content: flex-start;
+        // padding: 1.2rem 0;
     }
 
-    .emphasis {
-        margin-top: -0.5rem;
-        margin-bottom: 0;
+    .customize__interests {
+        padding-right: 12rem;
+
+        p {
+            @include fontSet(42px, 46px);
+            margin-bottom: 0;
+            color: $white;
+        }
     }
 
     .choose__interests {
-        @include copy-font(300, normal);
-        @include fontSet(22px, 30px);
-        margin-right: 8vw;
-        margin-bottom: 1.3rem;
-        color: $white;
+        padding-right: 2rem;
+
+        p {
+            @include fontSet(22px, 28px);
+            margin-bottom: 1.3rem;
+            color: $white;
+        }
     }
-
 }
-
-// .insights__block {
-//     margin-top: 0;
-//     padding: 4rem 0;
-//     color: $white;
-//     background-color: $main-color;
-
-//     .insights__wrapper {
-//         padding: 1.2rem $screen-width;
-//         align-items: center;
-//     }
-
-//     .choose__interests {
-//         margin-right: 8vw;
-//         margin-bottom: 1.3rem;
-//         @include copy-font(300, normal);
-//         @include fontSet(22px, 30px);
-//         color: $white;
-//     }
-// }

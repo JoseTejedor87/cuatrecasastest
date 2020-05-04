@@ -8,7 +8,7 @@
 {% block main %}
 
     <main role="main">
-        <article class="container-fluid">
+        <article class="container">
 
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
                 <div class="col">
@@ -62,13 +62,13 @@
                                 <li><a href="#">Fiscalidad contenciosa</a></li> #}
                             </ul>
                         </div>
-                        <div class="page__aside--nobg">
+                        <div class="page__aside page__aside--nobg">
                             <blockquote class="cite__quote">
                                 <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
                                 <cite>Chambers, 2019</cite>
                             </blockquote>
                         </div>
-                        <div class="page__aside--practices">
+                        <div class="page__aside page__aside--practices">
                             <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
                             <ul class="related__services">
                             {% for activity in sector.relatedActivities %}
@@ -92,7 +92,7 @@
     {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/awards.html.twig' %}
-    {% include 'web/shared/insightsHighlight.html.twig' %}
+    {% include 'web/shared/insight-highlight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}

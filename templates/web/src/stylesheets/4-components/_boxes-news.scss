@@ -5,7 +5,7 @@
 @include new("boxnews") {
 
     //
-    // SECTION BG COLORS
+    // SECTION BACKGROUND COLORS
     // --------------------------------------------------------------------------
     @include when("article") {
         background-color: rgba($black, 0.05);
@@ -27,15 +27,19 @@
         background-color: $tabActive;
     }
 
+    @include when("career") {
+        background-color: rgba($black, 0.1);
+    }
+
     @include when("slider") {
         background-color: rgba($black, 0.08);
     }
 
 
     //
-    // TITLES BG COLORS
+    // TITLES BG COLORS >>> delete ¿?
     // --------------------------------------------------------------------------
-
+    /*
     @include when("article") {
         .section__title {
             background-color: $article-color;
@@ -77,6 +81,7 @@
             background-color: $insight-color;
         }
     }
+    */
 
     //
     // BOXES
@@ -87,6 +92,9 @@
         flex-flow: row nowrap;
         margin: 0 -0.8rem;
 
+        //
+        // PRODUCTS GRID
+        //
         @include when-inside(".boxnews--products") {
             flex-flow: row wrap;
         }
@@ -106,35 +114,14 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: box-shadow 0.2s ease-out;
 
+
         @include when("career") {
             border-top: none;
         }
 
         //
-        // BOXES COLORS
-        // --------------------------------------------------------------------------
-
-        @include when-inside(".boxnews--article") {
-            color: $article-color;
-            border-top-color: $article-color;
-        }
-
-        @include when-inside(".boxnews--event") {
-            color: $event-color;
-            border-top-color: $event-color;
-            background-color: $event-box-color;
-        }
-
-        @include when-inside(".boxnews--related") {
-            color: $related-color;
-            border-top-color: $related-color;
-        }
-
-        @include when-inside(".boxnews--insight") {
-            color: $insight-color;
-            border-top-color: transparent;
-        }
-
+        // PRODUCTS GRID
+        //
         @include when-inside(".boxnews--products") {
             flex: 1 0 calc(50% - 1.6rem);
             margin-bottom: 3rem;
@@ -142,11 +129,67 @@
             border-top-color: transparent;
         }
 
-        @include when-inside(".boxnews--cases") {
+
+        //
+        // BOXES COLORS (border & title)
+        // --------------------------------------------------------------------------
+
+        @include when("news") {
+            color: $news-color;
+            border-top-color: $news-color;
+        }
+
+        @include when("article") {
+            color: $article-color;
+            border-top-color: $article-color;
+        }
+
+        @include when("opinion") {
+            color: $opinion-color;
+            border-top-color: $opinion-color;
+        }
+
+        @include when("event") {
+            color: $event-color;
+            border-top-color: $event-color;
+            background-color: $event-box-color;
+        }
+
+        @include when("recomended") {
+            color: $recomended-color;
+            border-top-color: $recomended-color;
+        }
+
+        @include when("others1") {
+            color: $others1-color;
+            border-top-color: $others1-color;
+        }
+
+        @include when("others2") {
+            color: $others2-color;
+            border-top-color: $others2-color;
+        }
+
+
+        //
+        // NO BORDER TOP BOX
+        //
+
+        @include when("insight") {
+            color: $insight-color;
+            border-top-color: transparent;
+        }
+
+        @include when("cases") {
             color: $cases-color;
             border-top-color: transparent;
         }
 
+
+
+        //
+        // CAROUSEL
+        // --------------------------------------------------------------------------
         @include when-inside(".swiper-slide") {
             width: 100%;
             margin: 0 0;
@@ -243,6 +286,8 @@
         }
     }
 
+    // not used anymore
+    /*
     .swiper__nav__wrapper {
         position: relative;
         top: -30px;
@@ -282,6 +327,30 @@
             }
         }
     }
+    */
+
+    .swiper-container-horizontal {
+        > .swiper-scrollbar {
+            position: absolute;
+            left: 1%;
+            bottom: 0;
+            width: 98%;
+            height: 1px;
+            border-radius: 0;
+            background: rgba(0,0,0,0.2);
+        }
+    }
+
+    .swiper-wrapper {
+        margin-bottom: 1rem;
+    }
+
+    .swiper-scrollbar-drag {
+        top: -3px;
+        height: 7px;
+        border-radius: 0;
+        background: $complementary-color;
+    }
 
 
     //
@@ -307,7 +376,6 @@
     }
 
         @include has("type") {
-            @include cuatrecasas-font();
             @include fontSet(18px, 18px);
             font-weight: bold;
             text-transform: uppercase;
@@ -349,8 +417,14 @@
 
         @include has("button") {
             position: absolute;
-            top: 3px;
-            right: 6px;
+            top: 10px;
+            right: 1rem;
+
+            .plain__button {
+                @include fontSet(18px, 18px);
+                text-transform: uppercase;
+                padding: 2px 4px 0;
+            }
         }
 
     //
@@ -403,20 +477,21 @@
             @include has("link") {
                 // padding-bottom: 0.1rem;
                 @include fontSet(28px, 32px);
-                @include box-link($main-color, $complementary-color, $white);
+                // @include box-link($black, $complementary-color, $white);
+                @include classic-link($black, $complementary-color, $border: false);
 
                 @include when-inside(".boxnews__item--event") {
-                    @include box-link($main-color, $complementary-color, $event-box-color);
+                    // @include box-link($black, $complementary-color, $event-box-color);
                 }
 
                 @include when-inside(".boxnews--event") {
-                    @include box-link($main-color, $complementary-color, $event-box-color);
+                    // @include box-link($black, $complementary-color, $event-box-color);
                 }
 
                 @include when-inside(".boxnews--products") {
                     font-size: inherit;
                     line-height: inherit;
-                    @include box-link($main-color, $main-color, $white);
+                    // @include box-link($black, $main-color, $white);
                 }
             }
 
