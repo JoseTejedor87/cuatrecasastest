@@ -419,7 +419,7 @@ class ImportCommand extends Command
             $activity->translate($currentLang)->setTitle($item['titulo']);
             // $description = $item['descripcion'] . "<br/><br/>" . $item['experiencia'];
             // $activity->translate($currentLang)->setDescription($description);
-            $activity->translate($currentLang)->setSumary($item['descripcion']);
+            $activity->translate($currentLang)->setSummary($item['descripcion']);
             $activity->translate($currentLang)->setDescription($item['experiencia']);
 
             // Adding the current instance to map
@@ -466,7 +466,7 @@ class ImportCommand extends Command
             $currentLang = self::getMappedLanguageCode($item['lang']);
             if ($activityId) {
                 $activity = $activityRepository->find($activityId);
-                $activity->translate($currentLang)->setSumary($item['descripcion']);
+                $activity->translate($currentLang)->setSummary($item['descripcion']);
                 $activity->translate($currentLang)->setDescription($item['experiencia']);
                 $this->em->persist($activity);
                 $this->em->flush();
