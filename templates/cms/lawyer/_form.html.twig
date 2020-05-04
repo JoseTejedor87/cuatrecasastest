@@ -9,6 +9,9 @@
         {{ form_row(form.phone) }}
         {{ form_row(form.fax) }}
         {{ form_row(form.office) }}
+        {{ form_row(form.activities) }}
+        {{ form_row(form.secondaryActivities) }}
+        {{ form_row(form.languages) }}
 
         {{ form_label(form.photo) }}
         <div class="vich-attachment-list">
@@ -19,8 +22,6 @@
         </div>
         {% do form.photo.setRendered %}
 
-        {{ form_row(form.activities) }}
-        {{ form_row(form.languages) }}
     </div>
     <div class="col-md-8">
         {{ form_row(form.translations) }}

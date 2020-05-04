@@ -9,9 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Activity;
-use App\Entity\Awards;
+use App\Entity\Award;
 use App\Entity\Desk;
 use App\Entity\Event;
 use App\Entity\Lawyer;
@@ -23,6 +25,7 @@ use App\Entity\Sector;
 use App\Entity\Speaker;
 use App\Entity\Office;
 use App\Entity\Articles;
+use App\Entity\CategoryArticle;
 
 class ImportCommand extends Command
 {
@@ -126,13 +129,9 @@ class ImportCommand extends Command
                 case "articlesByActivities":
                     $this->ArticlesByActivities();
                     break;
-                case "ArticlesupdatePublicationDate":
-                    $this->ArticlesupdatePublicationDate();
+                case "ArticlesCategory":
+                    $this->ArticlesCategory();
                     break;
-                   
-                    
-                    
-
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -302,8 +301,7 @@ class ImportCommand extends Command
                             array_merge($resource->getLanguages(), [$currentLang])
                         )
                     );
-                }
-                else {
+                } else {
                     // normalizing the attachment path
                     $path = $item['url_pdf'];
                     $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
@@ -394,15 +392,16 @@ class ImportCommand extends Command
                 $activity->setHighlighted(!(bool)$item['spractica']);
             }
 
-            // Updating the languages field using the correspondent visio_* field 
+            // Updating the languages field using the correspondent visio_* field
             // MIRAR LOS VISIO_GER
-            if($item['lang'] == 'esp' || $item['lang'] == 'eng' || $item['lang'] == 'por' || $item['lang'] == 'chi')
-            if ($item['visio_'.$item['lang']] == "1") {
-                $activity->setLanguages(
-                    array_unique(
-                        array_merge($activity->getLanguages(), [$currentLang])
-                    )
-                );
+            if ($item['lang'] == 'esp' || $item['lang'] == 'eng' || $item['lang'] == 'por' || $item['lang'] == 'chi') {
+                if ($item['visio_'.$item['lang']] == "1") {
+                    $activity->setLanguages(
+                        array_unique(
+                            array_merge($activity->getLanguages(), [$currentLang])
+                        )
+                    );
+                }
             }
             // Filling translatable fields
             $activity->translate($currentLang)->setTitle($item['titulo']);
@@ -444,8 +443,7 @@ class ImportCommand extends Command
             if ($currentLang != 'en' || in_array($item['quote_text'], $processedQuotesMap)) {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
                 continue;
-            }
-            else {
+            } else {
                 $body = $item['quote_text'];
                 $author = '';
                 $year = '';
@@ -455,7 +453,7 @@ class ImportCommand extends Command
                 preg_match('/^(.*)-(.*),(.*)/', $item['quote_text'], $matches);
                 if (count($matches) == 4) {
                     // Removing double quotes and white spaces
-                    $body = str_replace('"','',trim($matches[1]));
+                    $body = str_replace('"', '', trim($matches[1]));
                     $author = trim($matches[2]);
                     $year = trim($matches[3]);
                 }
@@ -492,6 +490,7 @@ class ImportCommand extends Command
         $activityRepository = $this->em->getRepository(Activity::class);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: lawyer:" . $item['id_abogado'] . " activity:" . $item['id_area']);
@@ -507,7 +506,12 @@ class ImportCommand extends Command
                 $this->logger->debug("- Mapped Lawyer " . $lawyer->getName());
                 $this->logger->debug("- Mapped Activity " . $activity->translate("es")->getTitle());
 
-                $lawyer->addActivity($activity);
+                $isSecondary = ($item['principal'] == '0');
+                if ($isSecondary) {
+                    $lawyer->addSecondaryActivity($activity);
+                } else {
+                    $lawyer->addActivity($activity);
+                }
                 $this->em->persist($lawyer);
                 $this->em->flush();
 
@@ -515,8 +519,7 @@ class ImportCommand extends Command
                 // in order to avoid ORM calls in each iteration
                 $lawyersMapping[$item['id_abogado']] = $lawyer;
                 $activitiesMapping[$item['id_area']] = $activity;
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
@@ -545,8 +548,7 @@ class ImportCommand extends Command
                 $event->addActivity($activity);
                 $this->em->persist($event);
                 $this->em->flush();
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
@@ -569,14 +571,12 @@ class ImportCommand extends Command
 
             // Skip speakers other than lawyers
             if ($item['id_abogado']) {
-
                 $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " lawyer:" . $item['id_abogado']);
 
                 $eventId = $this->getMappedEventId($item['id_evento']);
                 $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
 
                 if ($lawyerId && $eventId) {
-
                     $event = $eventRepository->find($eventId);
                     $lawyer = $lawyerRepository->find($lawyerId);
 
@@ -585,8 +585,7 @@ class ImportCommand extends Command
 
                     if (isset($processedSpeakers[$item['id_abogado']])) {
                         $speaker = $processedSpeakers[$item['id_abogado']];
-                    }
-                    else {
+                    } else {
                         $speaker = new Speaker();
                         $speaker->setOldId($item['id']);
                         $speaker->setLawyer($lawyer);
@@ -598,8 +597,7 @@ class ImportCommand extends Command
                     $this->em->flush();
 
                     $processedSpeakers[$item['id_abogado']] = $speaker;
-                }
-                else {
+                } else {
                     $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
                 }
             }
@@ -636,10 +634,10 @@ class ImportCommand extends Command
             // Was processed the current event instance in a previous iteration ?
             if (isset($processedOfficeMap[$oldOfficeId])) {
                 // in that case, restore it from $processedEventsMap
-                
+
                 $office = $processedOfficeMap[$oldOfficeId];
             } else {
-                
+
                 // in other case, create a new instance and fill it
                 $office = new Office();
                 $office->setOldId($oldOfficeId);
@@ -657,33 +655,31 @@ class ImportCommand extends Command
                 $office->setPlace($item['lugar']);
                 $office->setGeographicalArea($item['zonageografica'] ? $item['zonageografica'] : 0);
                 $office->setSap($item['sap'] ? $item['sap'] : '');
-                // Updating the languages field using the correspondent visio_* field
-                
             }
             foreach ($items1 as $item1) {
-                if($item1['id_oficina'] == $oldOfficeId){
+                if ($item1['id_oficina'] == $oldOfficeId) {
                     $currentLang = self::getMappedLanguageCode($item1['lang']);
-                    if($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi" ){
-                    if ($item['visio_'.$item1['lang']] == "1") {
-                        $office->setLanguages(
-                            array_unique(
-                                array_merge($office
+                    if ($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi") {
+                        if ($item['visio_'.$item1['lang']] == "1") {
+                            $office->setLanguages(
+                                array_unique(
+                                    array_merge($office
                                 ->getLanguages(), [$currentLang])
-                            )
-                        );
+                                )
+                            );
+                        }
                     }
-                    }
-                   
+
                     $office->translate($currentLang)->setDescriptions($item1['descripcion']);
                     $office->translate($currentLang)->setTags($item1['tags']);
                     $office->translate($currentLang)->setCity($item1['ciudad']);
                     $office->translate($currentLang)->setCountry($item1['pais'] ? $item1['pais'] : '');
                 }
             }
-            
+
             // Importing attachments from source
             if ($item['img_office']) {
-                
+
                 // Was processed the current attachment instance in a previous iteration ?
                 if (isset($processedAttachmentsMap[$oldOfficeId][$item['img_office']])) {
                     $resource = $processedAttachmentsMap[$oldOfficeId][$item['img_office']];
@@ -692,8 +688,7 @@ class ImportCommand extends Command
                             array_merge($resource->getLanguages(), [$currentLang])
                         )
                     );
-                }
-                else {
+                } else {
                     // normalizing the attachment path
                     $path = $item['img_office'];
                     $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
@@ -713,16 +708,16 @@ class ImportCommand extends Command
                 }
             }
             ///////////////////MIRARRRRRR/////////////////////////////
-        
+
             // Adding the current instance to the offices mapping
             $processedOfficeMap[$oldOfficeId] = $office;
         }
         foreach ($processedOfficeMap as $office) {
             // Persist only the registers with at least one active language
-                $office->mergeNewTranslations();
-                $this->em->persist($office);
-                $this->em->flush();
-                $this->logger->debug("Office ".$office->getId());
+            $office->mergeNewTranslations();
+            $this->em->persist($office);
+            $this->em->flush();
+            $this->logger->debug("Office ".$office->getId());
         }
     }
 
@@ -733,21 +728,17 @@ class ImportCommand extends Command
         $lawerRepository = $this->em->getRepository(Lawyer::class);
         $officeRepository = $this->em->getRepository(Office::class);
 
-        //$this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
-
         foreach ($items as $item) {
             // $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             $officeId = $this->getMappedOfficeId($item['id_oficina']);
             if ($lawyerId && $officeId) {
-            
                 $lawyer = $lawerRepository->find($lawyerId);
                 $office = $officeRepository->find($officeId);
                 $lawyer->setOffice($office);
                 $this->em->persist($lawyer);
                 $this->em->flush();
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
@@ -763,8 +754,8 @@ class ImportCommand extends Command
         array_map('unlink', glob($resources_path."/award-*"));
 
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE award_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [AwardsTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Awards]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [AwardTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Award]");
 
         $processedAwardsMap = [];
         $processedAttachmentsMap = [];
@@ -773,80 +764,77 @@ class ImportCommand extends Command
 
             // Has the current item the required conditions to be imported?
             // if not, Skip it !
-            if ( !empty($item['title'])) {
-    
+            if (!empty($item['title'])) {
+                $oldAwardId = $item['id'];
+                $currentLang = self::getMappedLanguageCode($item['lang']);
 
-            $oldAwardId = $item['id'];
-            $currentLang = self::getMappedLanguageCode($item['lang']);
-
-            // Was processed the current event instance in a previous iteration ?
-            if (isset($processedAwardsMap[$oldAwardId])) {
-                // in that case, restore it from $processedEventsMap
-                $Award = $processedAwardsMap[$oldAwardId];
-            } else {
-                // in other case, create a new instance and fill it
-                $Award = new Awards();
-                $Award->setOldId($oldAwardId);
-                $Date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
-                $Award->setDate(
-                    $Date ? $Date : date("Y-m-d H:i:s")
-                );
-                $Award->setStatus($item['status']);
-            }
-            // Updating the languages field using the correspondent visio_* field
-            if ($item['visio_'.$item['lang']] == "1") {
-                $Award->setLanguages(
-                    array_unique(
-                        array_merge($Award
-                        ->getLanguages(), [$currentLang])
-                    )
-                );
-            }
-            // Importing attachments from source
-            if ($item['url_image']) {
-                // Was processed the current attachment instance in a previous iteration ?
-                if (isset($processedAttachmentsMap[$oldAwardId][$item['url_image']])) {
-                    $resource = $processedAttachmentsMap[$oldAwardId][$item['url_image']];
-                    $resource->setLanguages(
+                // Was processed the current event instance in a previous iteration ?
+                if (isset($processedAwardsMap[$oldAwardId])) {
+                    // in that case, restore it from $processedEventsMap
+                    $Award = $processedAwardsMap[$oldAwardId];
+                } else {
+                    // in other case, create a new instance and fill it
+                    $Award = new Award();
+                    $Award->setOldId($oldAwardId);
+                    $Date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
+                    $Award->setDate(
+                        $Date ? $Date : date("Y-m-d H:i:s")
+                    );
+                    $Award->setStatus($item['status']);
+                }
+                // Updating the languages field using the correspondent visio_* field
+                if ($item['visio_'.$item['lang']] == "1") {
+                    $Award->setLanguages(
                         array_unique(
-                            array_merge($resource->getLanguages(), [$currentLang])
+                            array_merge($Award
+                        ->getLanguages(), [$currentLang])
                         )
                     );
                 }
-                else {
-                    // normalizing the attachment path
-                    $path = $item['url_image'];
-                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                    $path = self::SOURCE_DOMAIN.$path;
+                // Importing attachments from source
+                if ($item['url_image']) {
+                    // Was processed the current attachment instance in a previous iteration ?
+                    if (isset($processedAttachmentsMap[$oldAwardId][$item['url_image']])) {
+                        $resource = $processedAttachmentsMap[$oldAwardId][$item['url_image']];
+                        $resource->setLanguages(
+                            array_unique(
+                                array_merge($resource->getLanguages(), [$currentLang])
+                            )
+                        );
+                    } else {
+                        // normalizing the attachment path
+                        $path = $item['url_image'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.$path;
 
-                    $attachment = $this->importFile('award', $path);
-                    if ($attachment) {
-                        $resource = new Resource();
-                        $resource->setFile($attachment);
-                        $resource->setFileName($attachment->getFileName());
-                        $resource->setLanguages([$currentLang]);
-                        $Award->setImgOffice($resource);
-                        // Adding the current attachment to the attachments mapping
-                        $processedAttachmentsMap[$oldAwardId][$item['url_image']] = $resource;
+                        $attachment = $this->importFile('award', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages([$currentLang]);
+                            $Award->setImage($resource);
+                            // Adding the current attachment to the attachments mapping
+                            $processedAttachmentsMap[$oldAwardId][$item['url_image']] = $resource;
+                        }
                     }
                 }
+                // Filling translatable fields
+                $Award->translate($currentLang)->setTitle($item['title']);
+                $Award->translate($currentLang)->setGranted($item['otorgado']);
+                $Award->translate($currentLang)->setDescAward($item['desc_award']);
+                $Award->translate($currentLang)->setDescAwardFirma($item['desc_award_firma']);
+                $Award->translate($currentLang)->setDescAwardIndiv($item['desc_award_indiv']);
+                $Award->translate($currentLang)->setTags($item['tags']);
+                // Adding the current instance to the events mapping
+                $processedAwardsMap[$oldAwardId] = $Award;
             }
-            // Filling translatable fields
-            $Award->translate($currentLang)->setTitle($item['title']);
-            $Award->translate($currentLang)->setGranted($item['otorgado']);
-            $Award->translate($currentLang)->setDescAward($item['desc_award']);
-            $Award->translate($currentLang)->setDescAwardFirma($item['desc_award_firma']);
-            $Award->translate($currentLang)->setDescAwardIndiv($item['desc_award_indiv']);
-            $Award->translate($currentLang)->setTags($item['tags']);
-            // Adding the current instance to the events mapping
-            $processedAwardsMap[$oldAwardId] = $Award;
-        }
         }
 
         foreach ($processedAwardsMap as $Award) {
             // Persist only the registers with at least one active language
-             if (!empty($Award->getLanguages())) {
+            if (!empty($Award->getLanguages())) {
                 // Persist the instance
                 $Award->mergeNewTranslations();
                 $this->em->persist($Award);
@@ -858,16 +846,28 @@ class ImportCommand extends Command
 
     public function Articles()
     {
-        $data = file_get_contents("JsonExports/Publicaciones.json");
-        $items = json_decode($data, true);
+        $articles = json_decode(
+            file_get_contents("JsonExports/Publicaciones.json"),
+            true
+        );
 
-        $data1 = file_get_contents("JsonExports/PublicacionesIdiomas.json");
-        $items1 = json_decode($data1, true);
+        $article_translations = json_decode(
+            file_get_contents("JsonExports/PublicacionesIdiomas.json"),
+            true
+        );
+
+        // Ordering the items using the publicacion_id column
+        // in order to free memory while doing the loop
+        usort($article_translations, function ($a, $b) {
+            if ($a['publicacion_id'] == $b['publicacion_id']) {
+                return 0;
+            }
+            return ($a['publicacion_id'] < $b['publicacion_id']) ? -1 : 1;
+        });
 
         // Removing files from disk
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/article-*"));
-
         
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
         $this->em->getConnection()->executeQuery("DELETE FROM [ArticlesTranslation]");
@@ -876,85 +876,21 @@ class ImportCommand extends Command
 
         $processedArticleMap = [];
         $processedAttachmentsMap = [];
-        foreach ($items as $key => $item) {
-            // if($key<=10){
-            // $item = $items[0];
+
+        foreach ($articles as $key => $item) {
             $oldArticleId = $item['id'];
-            // Was processed the current event instance in a previous iteration ?
-            if (isset($processedArticleMap[$oldArticleId])) {
-                // in that case, restore it from $processedEventsMap
-                $article = $processedArticleMap[$oldArticleId];
-            } else {
-                
-                // in other case, create a new instance and fill it
-                $article = new Articles();
-                $article->setOldId($oldArticleId);
-                $article->setStatus($item['status']);
-                $article->setFeatured($item['destacada']);
-                $article->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-                
-            }
-            
-            foreach ($items1 as $item1) {
-                if($item1['publicacion_id'] == $oldArticleId){
-                    $currentLang = self::getMappedLanguageCode($item1['lang']);
-                    if(isset($item1['title']) && $item1['title'] != ''){
-                        $article->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
-                        $article->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
-                        $article->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
-                        $article->translate($currentLang)->setCaption($item1['pie_foto'] ? $item1['pie_foto'] : '');
-                        $article->translate($currentLang)->setUrlLink($item1['url_link'] ? $item1['url_link'] : '');
-                        $article->translate($currentLang)->setTags($item1['tags'] ? $item1['tags'] : '');
-                        $article->translate($currentLang)->setLawyerTags($item1['abogado_tags'] ? $item1['abogado_tags'] :'');
-                        $article->translate($currentLang)->setOfficeTags($item1['oficina_tags'] ? $item1['oficina_tags'] : '');
-                        $article->translate($currentLang)->setPracticeTags($item1['practica_tags'] ? $item1['practica_tags'] :'');
-                    
-                        if($item1['lang']=="esp" || $item1['lang']=="eng" || $item1['lang']=="por" || $item1['lang']=="chi" ){
-                            if ($item['visio_'.$item1['lang']] == "1") {
-                                $article->setLanguages(
-                                    array_unique(
-                                        array_merge($article
-                                        ->getLanguages(), [$currentLang])
-                                    )
-                                );
-                            }
-                        }
-                    }
-                    if ($item1['url_pdf'] ){
-                        if (isset($processedAttachmentsMap[$oldArticleId][$item1['url_pdf']])) {
-                            $resource = $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']];
-                            $resource->setLanguages(
-                                array_unique(
-                                    array_merge($resource->getLanguages(), [$currentLang])
-                                )
-                            );
-                        }else{
-                            $path = $item1['url_pdf'];
-                            $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                            $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                            $path = self::SOURCE_DOMAIN.$path;
-                            $attachment = $this->importFile('article', $path);
-                            if ($attachment) {
-                                $resource = new Resource();
-                                $resource->setFile($attachment);
-                                $resource->setFileName($attachment->getFileName());
-                                $resource->setLanguages([$currentLang]);
-                                $resource->setType('article_dossier');
-                                $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']] = $resource;
-                            }
-                        }
-                    }
-                }
-            }
-            if ($item['url_imagen'] ){
+            // create a new instance and fill it
+            $article = new Articles();
+            $article->setOldId($oldArticleId);
+            $article->setStatus($item['status']);
+            $article->setFeatured($item['destacada']);
+            $article->setPublicationDate(new \DateTime($item['fecha_publicacion']));
+            if ($item['url_imagen']) {
                 if (isset($processedAttachmentsMap[$oldArticleId][$item['url_imagen']])) {
                     $resource = $processedAttachmentsMap[$oldArticleId][$item['url_imagen']];
-                    $resource->setLanguages(
-                        array_unique(
-                            array_merge($resource->getLanguages(), [$currentLang])
-                        )
-                    );
-                }else{
+                    $resource->setLanguages(['es','en','pt','zh']);
+                    $processedAttachmentsMap[$oldArticleId][$item['url_imagen']] = $resource;
+                } else {
                     $path = $item['url_imagen'];
                     $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
                     $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
@@ -964,21 +900,18 @@ class ImportCommand extends Command
                         $resource = new Resource();
                         $resource->setFile($attachment);
                         $resource->setFileName($attachment->getFileName());
-                        $resource->setLanguages([$currentLang]);
+                        $resource->setLanguages(['es','en','pt','zh']);
                         $resource->setType('article_main_photo');
                         $processedAttachmentsMap[$oldArticleId][$item['url_imagen']] = $resource;
                     }
                 }
             }
-            if ($item['thumbnail']){
+            if ($item['thumbnail']) {
                 if (isset($processedAttachmentsMap[$oldArticleId][$item['thumbnail']])) {
                     $resource = $processedAttachmentsMap[$oldArticleId][$item['thumbnail']];
-                    $resource->setLanguages(
-                        array_unique(
-                            array_merge($resource->getLanguages(), [$currentLang])
-                        )
-                    );
-                }else{
+                    $resource->setLanguages(['es','en','pt','zh']);
+                    $processedAttachmentsMap[$oldArticleId][$item['thumbnail']] = $resource;
+                } else {
                     $path = $item['thumbnail'];
                     $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
                     $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
@@ -988,46 +921,128 @@ class ImportCommand extends Command
                         $resource = new Resource();
                         $resource->setFile($attachment);
                         $resource->setFileName($attachment->getFileName());
-                        $resource->setLanguages([$currentLang]);
+                        $resource->setLanguages(['es','en','pt','zh']);
                         $resource->setType('article_thumbnail');
                         $processedAttachmentsMap[$oldArticleId][$item['thumbnail']] = $resource;
                     }
                 }
             }
+
+            $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
+            $this->logger->debug("New Article : From $oldArticleId ~> To ".$article->getId());
+
             // Adding the current instance to the offices mapping
             $processedArticleMap[$oldArticleId] = $article;
-        // }
         }
-        foreach ($processedArticleMap as $article) {
-            // Persist only the registers with at least one active language
-                $article->mergeNewTranslations();
-                if (isset($processedAttachmentsMap[$article->getOldId()])) {
-                    foreach ($processedAttachmentsMap[$article->getOldId()] as $key => $resource) {
-                        $article->addAttachment($resource);
+
+        // Resetting the attachment's collection to improve the  process performance
+        unset($processedAttachmentsMap);
+        // To force garbage collector to do its job
+        gc_collect_cycles();
+
+        $this->logger->debug("Actualizando traducciones de artículos...");
+
+        // Just to control when the publicacion_id changes during the loop
+        $lastId = 0;
+
+        // Attaching translations
+        foreach ($article_translations as $index => $item1) {
+            $oldArticleId = $item1['publicacion_id'];
+
+            // The order of the items in the collection guarantees us that
+            // there is no more registers with id = lastId in the collection
+            // Then, we can persist the article with id = lastId
+            // and remove it to free memory
+            if ($lastId != 0 && $lastId != $oldArticleId) {
+                $article = $processedArticleMap[$lastId] ?? null;
+                if ($article) {
+                    if (!empty($article->getLanguages())) {
+                        $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
+                        $this->logger->debug("Updating Article ".$article->getId());
+                        unset($processedArticleMap[$lastId]);
+                        unset($processedAttachmentsMap[$lastId]);
+                        // To force garbage collector to do its job
+                        gc_collect_cycles();
                     }
                 }
-                $this->em->persist($article);
-                $this->em->flush();
-                $this->logger->debug("Article ".$article->getId());
+            }
+
+            $article = $processedArticleMap[$oldArticleId] ?? null;
+
+            if ($article) {
+                $currentLang = self::getMappedLanguageCode($item1['lang']);
+                if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
+                    $article->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
+                    $article->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
+                    $article->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
+                    $article->translate($currentLang)->setCaption($item1['pie_foto'] ? $item1['pie_foto'] : '');
+                    $article->translate($currentLang)->setUrlLink($item1['url_link'] ? $item1['url_link'] : '');
+                    $article->translate($currentLang)->setTags($item1['tags'] ? $item1['tags'] : '');
+                    $article->translate($currentLang)->setLawyerTags($item1['abogado_tags'] ? $item1['abogado_tags'] :'');
+                    $article->translate($currentLang)->setOfficeTags($item1['oficina_tags'] ? $item1['oficina_tags'] : '');
+                    $article->translate($currentLang)->setPracticeTags($item1['practica_tags'] ? $item1['practica_tags'] :'');
+
+                    $article->setLanguages(
+                        array_unique(
+                            array_merge(
+                                $article->getLanguages(),
+                                [$currentLang]
+                            )
+                        )
+                    );
+                }
+                if ($item1['url_pdf']) {
+                    if (isset($processedAttachmentsMap[$oldArticleId][$item1['url_pdf']])) {
+                        $resource = $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']];
+                        $resource->setLanguages(
+                            array_unique(
+                                array_merge($resource->getLanguages(), [$currentLang])
+                            )
+                        );
+                        $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']] = $resource;
+                    } else {
+                        $path = $item1['url_pdf'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.$path;
+                        $attachment = $this->importFile('article', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages([$currentLang]);
+                            $resource->setType('article_dossier');
+                            $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']] = $resource;
+                        }
+                    }
+                }
+                // Adding the current instance to the offices mapping
+                $processedArticleMap[$oldArticleId] = $article;
+
+                // Is the last item in the collection
+                if ($index+1 == count($article_translations)) {
+                    if (!empty($article->getLanguages())) {
+                        $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
+                        $this->logger->debug("Updating Article ".$article->getId());
+                    }
+                }
+            }
+
+            $lastId = $oldArticleId;
         }
     }
-    // public function ArticlesupdatePublicationDate()
-    // {
-    //     $data = file_get_contents("JsonExports/Publicaciones.json");
-    //     $items = json_decode($data, true);
-    //     $articleRepository = $this->em->getRepository(Articles::class);
-    //     foreach ($items as $item) {
-    //         $articleId = $this->getMappedArticleId($item['id']);
-    //         if ($articleId) {
-    //             $article = $articleRepository->find($articleId);
-    //             $article->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-    //             $this->em->persist($article);
-    //             $this->em->flush();
-    //         }else {
-    //             $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
-    //         }
-    //     }
-    // }
+
+    protected function persistArticle($article, $attachments=[])
+    {
+        $article->mergeNewTranslations();
+        // Persist only the registers with at least one active language
+        foreach ($attachments as $key => $resource) {
+            $article->addAttachment($resource);
+        }
+        $this->em->persist($article);
+        $this->em->flush();
+    }
+
     public function ArticlesByLawyers()
     {
         $data = file_get_contents("JsonExports/PublicacionesAbogados.json");
@@ -1051,8 +1066,7 @@ class ImportCommand extends Command
                 $article->addLawyer($lawyer);
                 $this->em->persist($article);
                 $this->em->flush();
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
@@ -1080,8 +1094,7 @@ class ImportCommand extends Command
                 $article->addOffice($office);
                 $this->em->persist($article);
                 $this->em->flush();
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
@@ -1109,13 +1122,90 @@ class ImportCommand extends Command
                 $article->addActivity($practica);
                 $this->em->persist($article);
                 $this->em->flush();
-            }
-            else {
+            } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
     }
-    
+
+    public function ArticlesCategory()
+    {
+        $client = HttpClient::create();
+        $categorias = [
+            "propiedad-intelectual" => [
+                "es" => [2,234,3,4,172,38,6,7,5,291,19,8,9,10,11,12,564,1],
+                "en" => [633,634,635,636,637,639,641,643,640,644,646,647,648,649,650,651,-1,560]
+            ],
+            "competencia" => [
+                "es" => [256,200,48,201,715,202,199],
+                "en" => [-1,236,482,237,-1,238,240,233]
+            ],
+            "deporte-entretenimiento" =>[
+                "es" => [224,20,13,12,15,3,2,19,16,33,1,14],
+                "en" => [239,161,162,163,164,165,166,167,168,169,158]
+            ],
+            "mercado-de-valores" => [
+                "es" => [1045,1092,1081,1090,1044,1110,1107,1109,1111,1086,1108,1,1106],
+                "en" => [1123,1103,1097,1096,1076,1116,1113,1115,1117,1094,1114,560,1112]
+            ],
+            "laboral" => [
+                "es" => [120,142,285,133,334,341,2,419,599,3,103,122,633,613,144,155,190,349,833,601,10,64,108,206,131,219,611,609,211,847,212,625,143,615,191,4,161,603,226,239,101,132,5,121,492,130,637,605,621,342,631,6,188,118,7,213,8,65,269,627,189,361,220,286,275,497,9,1,123,251,607,495,169],
+                "en" => [548,549,550,551,552,-1,553,554,600,555,556,557,634,614,558,559,560,561,840,602,562,563,564,565,566,567,612,610,568,-1,569,626,570,616,571,572,573,604,574,575,576,577,578,579,-1,580,638,606,622,581,632,582,583,584,585,586,587,588,589,628,590,591,592,593,594,-1,595,545,596,597,608,-1,598]
+            ]
+        ];
+        foreach ($categorias as $key => $categoria) {
+            $categoriaKey = $key;
+            foreach ($categoria as $key1 => $value) {
+                $idiomaKey = $key1;
+                $response =  $client->request('GET','https://blog.cuatrecasas.com/'.$categoriaKey.'/wp-json/wp/v2/categories?per_page=80&lang='.$idiomaKey);
+                $content = $response->toArray();
+                foreach ($content as $key2 => $value2) {
+                    foreach ($value as $key3 => $value3) {
+                        if($value3 == $value2["id"] && $idiomaKey=='es'){
+                            $CategoryArticle = new CategoryArticle();
+                            $CategoryArticle->setOldId($value2["id"]);
+                            $CategoryArticle->translate('es')->setTitle($value2["name"]);
+                            $CategoryArticle->translate('es')->setOldlink($value2["link"]);
+                            $CategoryArticle->setLanguages(
+                                array_unique(
+                                    array_merge($CategoryArticle
+                                    ->getLanguages(), ['es'])
+                                )
+                            );
+                            if(isset($categoria['en'][$key3]) && $categoria['en'][$key3] != -1){
+                                $response1 =  $client->request('GET','https://blog.cuatrecasas.com/'.$categoriaKey.'/wp-json/wp/v2/categories/'.$categoria['en'][$key3].'?lang=en');
+                                $content1 = $response1->toArray();
+                                $CategoryArticle->translate('en')->setTitle($content1["name"]);
+                                $CategoryArticle->translate('en')->setOldlink($content1["link"]);
+                                $CategoryArticle->setLanguages(
+                                    array_unique(
+                                        array_merge($CategoryArticle
+                                        ->getLanguages(), ['en'])
+                                    )
+                                );
+                            }
+                        }
+                        if($value3 != $value2["id"] && $idiomaKey=='en'){
+                            $CategoryArticle = new CategoryArticle();
+                            $CategoryArticle->setOldId($value2["id"]);
+                            $CategoryArticle->translate('en')->setTitle($value2["name"]);
+                            $CategoryArticle->translate('en')->setOldlink($value2["link"]);
+                            $CategoryArticle->setLanguages(
+                                array_unique(
+                                    array_merge($CategoryArticle
+                                    ->getLanguages(), ['en'])
+                                )
+                            );
+                        break;
+                        }
+                        $CategoryArticle->mergeNewTranslations();
+                        $this->em->persist($CategoryArticle);
+                        $this->em->flush();
+                    }
+                }
+            }
+        }
+    }
 
     private function getMappedEventId(?string $id): ?string
     {
@@ -1178,7 +1268,6 @@ class ImportCommand extends Command
 
     private function loadMappedOfficeIds()
     {
-        
         $repository = $this->em->getRepository(Office::class);
         $Offices = $repository->findAll();
         foreach ($Offices as $Office) {
@@ -1197,7 +1286,6 @@ class ImportCommand extends Command
 
     private function loadMappedArticleIds()
     {
-        
         $repository = $this->em->getRepository(Articles::class);
         $Articles = $repository->findAll();
         foreach ($Articles as $Article) {
@@ -1261,8 +1349,7 @@ class ImportCommand extends Command
         try {
             copy($source, $target);
             $file = new File($target);
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->warning(">>>>>>>>>>>>>>>> ERROR COPYING $source into $target");
             $file = null;
         }

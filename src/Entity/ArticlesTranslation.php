@@ -20,42 +20,38 @@ class ArticlesTranslation extends PublishableTranslation
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $caption;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url_link;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $tags;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $lawyer_tags;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $office_tags;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $practice_tags;
 
@@ -108,19 +104,6 @@ class ArticlesTranslation extends PublishableTranslation
     public function setCaption(string $caption): self
     {
         $this->caption = $caption;
-
-        return $this;
-    }
-
-
-    public function getUrlLink(): ?string
-    {
-        return $this->url_link;
-    }
-
-    public function setUrlLink(string $url_link): self
-    {
-        $this->url_link = $url_link;
 
         return $this;
     }

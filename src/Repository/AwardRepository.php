@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\AwardsTranslation;
+use App\Entity\Award;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method AwardsTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method AwardsTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method AwardsTranslation[]    findAll()
- * @method AwardsTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Award|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Award|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Award[]    findAll()
+ * @method Award[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AwardsTranslationRepository extends ServiceEntityRepository
+class AwardRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, AwardsTranslation::class);
+        parent::__construct($registry, Award::class);
     }
 
     // /**
-    //  * @return AwardsTranslation[] Returns an array of AwardsTranslation objects
+    //  * @return Award[] Returns an array of Award objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class AwardsTranslationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?AwardsTranslation
+    public function findOneBySomeField($value): ?Award
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

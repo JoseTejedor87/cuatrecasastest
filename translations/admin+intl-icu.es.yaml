@@ -189,6 +189,7 @@ entities:
       curriculum: Curriculum Vitae
       training: Formación
       activities: Sectores / Servicios / Desks
+      secondaryActivities: Sectores / Servicios / Desks (secundarias)
       mentions: Menciones
       office: Oficina
   mention:
@@ -218,12 +219,12 @@ entities:
       lawyer: Abogado
     help:
       lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
-  awards:
+  award:
     fields:
       title: Título
       granted: Concedido
       status: Estado
-      img_office: Imagen premio
+      image: Imagen premio
       desc_award: Descripción del premio
       desc_award_firma: Descripción de la firma del premio
       desc_award_indiv: Descripción del premio

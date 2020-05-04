@@ -47,7 +47,7 @@ class LawyerFormType extends AbstractType
                 'label'=>'entities.lawyer.fields.photo'
             ])
             ->add('lawyerType', LawyerCategoryType::class, ['label'=>'entities.lawyer.fields.lawyerType'])
-            
+
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.lawyer.fields.activities',
@@ -56,13 +56,26 @@ class LawyerFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
-                'required' => true,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
                 }
             ])
-            
+
+            ->add('secondaryActivities', EntityType::class, [
+                'class' => Activity::class,
+                'label' => 'entities.lawyer.fields.secondaryActivities',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($activity) {
+                    return $activity->translate('es')->getTitle();
+                }
+            ])
+
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [

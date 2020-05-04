@@ -39,6 +39,11 @@ abstract class Activity extends Publishable
     private $lawyers;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", mappedBy="secondaryActivities")
+     */
+    private $lawyers_secondary;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="activities")
      */
     private $Articles;

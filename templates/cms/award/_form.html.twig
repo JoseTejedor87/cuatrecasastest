@@ -1,0 +1,20 @@
+{% trans_default_domain "admin" %}
+
+<div class="row">
+    <div class="col-md-4">
+
+        {{ form_label(form.image) }}
+        <div class="vich-attachment-list">
+            <div class="vich-attachment-item col-md-12">
+                {{ form_errors(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+        </div>
+        {% do form.image.setRendered %}
+
+        {{ form_row(form.status) }}
+    </div>
+    <div class="col-md-8">
+        {{ form_row(form.translations) }}
+    </div>
+</div>
