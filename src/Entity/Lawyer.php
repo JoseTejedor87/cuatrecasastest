@@ -67,9 +67,9 @@ class Lawyer extends Publishable
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="lawyers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="lawyers")
      */
-    private $articles;
+    private $Article;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
@@ -89,7 +89,7 @@ class Lawyer extends Publishable
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->articles = new ArrayCollection();
+        $this->Article = new ArrayCollection();
         $this->secondaryActivities = new ArrayCollection();
     }
 
@@ -230,27 +230,27 @@ class Lawyer extends Publishable
     }
 
     /**
-     * @return Collection|Articles[]
+     * @return Collection|Article[]
      */
-    public function getArticles(): Collection
+    public function getArticle(): Collection
     {
-        return $this->articles;
+        return $this->Article;
     }
 
-    public function addArticle(Articles $article): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
+        if (!$this->Article->contains($article)) {
+            $this->Article[] = $article;
             $article->addActivity($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Articles $article): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
+        if ($this->Article->contains($article)) {
+            $this->Article->removeElement($article);
             $article->removeActivity($this);
         }
 

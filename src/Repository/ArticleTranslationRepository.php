@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\ArticlesTranslation;
+use App\Entity\ArticleTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method ArticlesTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method ArticlesTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method ArticlesTranslation[]    findAll()
- * @method ArticlesTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ArticleTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ArticleTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ArticleTranslation[]    findAll()
+ * @method ArticleTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ArticlesTranslationRepository extends ServiceEntityRepository
+class ArticleTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ArticlesTranslation::class);
+        parent::__construct($registry, ArticleTranslation::class);
     }
 
     // /**
-    //  * @return ArticlesTranslation[] Returns an array of ArticlesTranslation objects
+    //  * @return ArticleTranslation[] Returns an array of ArticleTranslation objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ArticlesTranslationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ArticlesTranslation
+    public function findOneBySomeField($value): ?ArticleTranslation
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

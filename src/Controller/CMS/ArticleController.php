@@ -8,38 +8,38 @@ use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
-use App\Entity\Articles;
-use App\Form\ArticlesFormType;
-use App\Repository\ArticlesRepository;
+use App\Entity\Article;
+use App\Form\ArticleFormType;
+use App\Repository\ArticleRepository;
 use App\Controller\CMS\CMSController;
 
 /**
- * @Route("cms/articles")
+ * @Route("cms/article")
  */
-class ArticlesController extends CMSController
+class ArticleController extends CMSController
 {
     /**
-     * @Route("/", name="articles_index", methods={"GET"})
+     * @Route("/", name="article_index", methods={"GET"})
      */
-    public function index(ArticlesRepository $articlesRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
-            $articlesRepository->findBy( array(), array('id' => 'DESC')),
+            $articleRepository->findBy( array(), array('id' => 'DESC')),
             $request->query->getInt('page', 1),
             25
         );
-        return $this->render('cms/articles/index.html.twig', [
+        return $this->render('cms/article/index.html.twig', [
             'pagination' => $pagination,
         ]);
     }
 
     /**
-     * @Route("/new", name="articles_new", methods={"GET","POST"})
+     * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
-        $article = new Articles();
-        $form = $this->createForm(ArticlesFormType::class, $article);
+        $article = new Article();
+        $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,49 +48,49 @@ class ArticlesController extends CMSController
             $article->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('articles_index');
+            return $this->redirectToRoute('article_index');
         }
 
-        return $this->render('cms/articles/new.html.twig', [
+        return $this->render('cms/article/new.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="articles_show", methods={"GET"})
+     * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Articles $article): Response
+    public function show(Article $article): Response
     {
-        return $this->render('articles/show.html.twig', [
+        return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="articles_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Articles $article): Response
+    public function edit(Request $request, Article $article): Response
     {
-        $form = $this->createForm(ArticlesFormType::class, $article);
+        $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('articles_edit', ['id'=>$article->getId()]);
+            return $this->redirectToRoute('article_edit', ['id'=>$article->getId()]);
         }
 
-        return $this->render('cms/articles/edit.html.twig', [
+        return $this->render('cms/article/edit.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="articles_delete", methods={"DELETE"})
+     * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Articles $article): Response
+    public function delete(Request $request, Article $article): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -98,6 +98,6 @@ class ArticlesController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('articles_index');
+        return $this->redirectToRoute('article_index');
     }
 }

@@ -8,9 +8,9 @@ use App\Entity\PublishableTranslation;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryArticleTranslationRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleCategoryTranslationRepository")
  */
-class CategoryArticleTranslation extends PublishableTranslation
+class ArticleCategoryTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
     /**
