@@ -168,75 +168,27 @@
     flex-flow: row wrap;
     margin-bottom: 1rem;
 
+    &.tools {
+        margin-top: 4rem;
+        padding: 0 4rem;
+    }
+
     @include has("item") {
         display: flex;
         flex-direction: column;
-        width: calc(33.3333% - 2em);
-        flex: 0 0 calc(33.3333% - 2em);
-        margin: 0 1em;
+        width: calc(33.3333% - 2rem);
+        flex: 0 0 calc(33.3333% - 2rem);
+        margin: 0 1rem;
 
         @include when-inside(".two-cols") {
-            width: calc(50% - 2em);
-            flex: 0 0 calc(50% - 2em);
-        }
-    }
-
-    @include has("link") {
-        flex: 1 0 auto;
-        position: relative;
-        display: block;
-        padding: 1.2rem 1.6rem .6rem 0;
-        @include fontSet(20px, 20px);
-        color: $black;
-        border-bottom: 1px solid rgba($black, 0.1);
-
-        &:after,
-        &:before {
-            @include icons-ionicons(12px, auto, auto, auto);
-            content: '\f3d3';
-            font-size: 32px;
-            font-weight: bold;
-            color: $complementary-color;
+            width: calc(50% - 2rem);
+            flex: 0 0 calc(50% - 2rem);
         }
 
-        &:before {
-            left: -10px;
-            opacity: 0;
-            visibility: hidden;
-            transition: left 0.3s ease-in-out, opacity 0.2s ease-out;
-        }
-
-        &:after {
-            right: 0;
-            opacity: 1;
-            visibility: visible;
-            transition: right 0.3s ease-in-out, opacity 0.2s ease-out;
-        }
-
-        @include on-event() {
-            padding-right: 1rem;
-            padding-left: 2rem;
-            text-decoration: none;
-            color: $white;
-            background-color: $complementary-color;
-            border-bottom: 1px solid $main-color;
-
-            &:before,
-            &:after {
-                color: $white;
-            }
-
-            &:before {
-                left: 10px;
-                opacity: 1;
-                visibility: visible;
-            }
-
-            &:after {
-                right: 10px;
-                opacity: 0;
-                visibility: hidden;
-            }
+        @include when-inside(".tools") {
+            width: calc(50% - 6rem);
+            flex: 0 0 calc(50% - 6rem);
+            margin: 0 3rem 2.5rem;
         }
     }
 }

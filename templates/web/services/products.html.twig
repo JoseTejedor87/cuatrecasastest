@@ -1,14 +1,9 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
-    <main role="main" class="services">
-        <article class="container-fluid">
+    <main role="main">
+        <article class="container">
 
             <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
@@ -54,26 +49,18 @@
                 </div>
 
                 <!-- Content -->
-                {% include 'web/shared/products-grid.html.twig' %}
-                {% include 'web/shared/products-tools.html.twig' %}
+                <div class="tabs__component__content">
+                    {% include 'web/services/shared/products-grid.html.twig' %}
+                </div>
+
+                {% include 'web/services/shared/products-tools.html.twig' %}
 
             </section>
 
         </article>
     </main>
 
-
-    {% include 'web/shared/insightsHighlight.html.twig' %}
+    {% include 'web/shared/insight-highlight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-{% endblock %}
-
-{% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        web.global.sliderNews();
-    });
-</script>
 {% endblock %}

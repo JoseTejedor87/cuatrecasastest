@@ -4,15 +4,16 @@
 
 @include new("home") {
 
-    $triangle-size: 280px;
-    $triangle-half: 100px;
+    $tiny-size:     0;
+    $small-size:    24vw;
+    $big-size:      40vw;
 
     //
     // HEADER
     // --------------------------------------------------------------------------
 
     @include has("header") {
-        height: calc(100vh - 122px);
+        min-height: calc(100vh - 122px);
         background-color: $main-color;
     }
 
@@ -30,40 +31,47 @@
         background-repeat: no-repeat;
         background-size: cover;
 
-        .home__item,
-        .home__preview:after,
-        .home__preview__content {
+        .home__article,
+        .home__preview__content,
+        .home__preview__button {
             opacity: 0;
-            transition: opacity 0.6s ease-out 0.4s;
         }
 
-        .home__preview:before {
-            top: $triangle-size;
-            transition: top 0.4s ease-out;
-        }
 
         // focus element opacity
         &-active {
-            .home__item,
-            .home__preview:after,
-            .home__preview__content {
+            .home__article,
+            .home__preview__content,
+            .home__preview__button {
                 opacity: 1;
             }
+
             .home__preview:before {
-                top: 0;
+                border-bottom-width: $small-size;
+                border-left-width: $small-size;
             }
         }
 
         &-prev,
         &-next {
-            .home__item,
-            .home__preview:after,
-            .home__preview__content {
+            .home__article,
+            .home__preview__content,
+            .home__preview__button {
                 opacity: 0;
             }
+        }
+
+        &-prev {
             .home__preview:before {
-                top: $triangle-size;
-                transform: positionY($triangle-size);
+                border-bottom-width: $big-size;
+                border-left-width: $big-size;
+            }
+        }
+
+        &-next {
+            .home__preview:before {
+                border-bottom-width: $tiny-size;
+                border-left-width: $tiny-size;
             }
         }
 
@@ -83,7 +91,31 @@
         }
     }
 
-    @include has("item") {
+    //
+    // CONTENT
+    // --------------------------------------------------------------------------
+
+    @include has("wrapper") {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 4rem 15px;
+
+        @media (min-width: $screen-sm-min) {
+            max-width: $max-width-sm;
+        }
+
+        @media (min-width: $screen-md-min) {
+            max-width: $max-width-md;
+        }
+
+        @media (min-width: $screen-lg-min) {
+            max-width: $max-width-lg;
+        }
+    }
+
+    @include has("article") {
         position: relative;
         width: 58%;
         height: 100%;
@@ -93,6 +125,7 @@
         justify-content: center;
         color: $white;
         z-index: 1;
+        transition: opacity 0.6s ease-out 0.4s;
 
         @include has("type") {
             margin-bottom: 1rem;
@@ -109,43 +142,61 @@
         }
     }
 
-
     @include has("preview") {
-
-        width: $triangle-size;
-        height: $triangle-size;
-
         position: absolute;
         bottom: 0;
         right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 40%;
+        height: 100%;
+        padding: 0 1rem 1rem 0;
         z-index: 1;
 
         &:before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-bottom: $triangle-size solid $complementary-color;
-            border-left: $triangle-size solid transparent;
-        }
-
-        &:after {
-            @include icons-ionicons($triangle-half, 1rem, auto, auto);
-            content: '\f3d1';
-            font-size: 60px;
-            color: $white;
+            bottom: 0;
+            right: 0;
+            border-bottom-width: $tiny-size;
+            border-bottom-style: solid;
+            border-bottom-color: $complementary-color;
+            border-left-width: $tiny-size;
+            border-left-style: solid;
+            border-left-color: transparent;
+            transition: border 0.4s ease-out;
         }
 
         @include has("content") {
-            position: absolute;
-            right: 1rem;
-            bottom: 1rem;
-            margin-left: $triangle-half;
-            @include fontSet(16px, 16px);
+            order: 2;
+            width: 32%;
+            @include fontSet(16px, 22px);
             color: $white;
+            z-index: 3;
+            transition: opacity 0.6s ease-out 0.4s;
+
+            span {
+                display: block;
+                text-transform: uppercase;
+            }
+        }
+
+        @include has("button") {
+            order: 1;
+            @include reset-button;
+            @include fontSet(60px, 60px);
+            padding: 0 0.5rem;
+            color: $white;
+            z-index: 3;
+            transform: scale(1);
+            transition: opacity 0.6s ease-out 0.4s, transform 0.2s ease-out;
+
+            @include on-event {
+                outline: none;
+                transform: scale(1.4);
+            }
         }
     }
-
 }

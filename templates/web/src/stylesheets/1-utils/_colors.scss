@@ -13,6 +13,8 @@ $text-color:            rgb(52, 52, 52) !default;           // #343434
 $main-color:            rgb(70, 0, 29) !default;            // #46001d
 $complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60
 
+$submenu-color:         rgb(249, 249, 249) !default;        // #F9F9F9
+
 $gray-dark:             rgb(72, 72, 72) !default;           // #484848
 $gray-medium:           rgb(128, 128, 128) !default;        // #808080
 $gray-light:            rgb(212, 212, 212) !default;        // #d4d4d4
@@ -23,11 +25,48 @@ $white-light:           rgb(253, 253, 253) !default;        // #fdfdfd
 
 
 //
+// BLOCK COLORS
+// https://www.rapidtables.com/convert/color/hex-to-rgb.html
+
+$news-color:          rgb(81, 163, 163) !default;      // #51A3A3
+$article-color:       rgb(158, 100, 93) !default;      // #9E645D
+$opinion-color:       rgb(206, 167, 121) !default;     // #CEA779
+$events-color:        rgb(70, 0, 29) !default;         // #46001D
+$insights-color:      rgb(255, 99, 105) !default;      // #FF6369
+$cases-color:         rgb(233, 155, 0) !default;       // #E99B00
+$recomended-color:    rgb(48, 64, 77) !default;        // #30404D
+$awards-color:        rgb(165, 165, 165) !default;     // #A5A5A5
+$tools-color:         rgb(113, 85, 103) !default;      // #715567
+$career-color:        rgb(0, 0, 0) !default;           // #000000
+$others1-color:       rgb(199, 201, 53) !default;      // #C7C935
+$others2-color:       rgb(85, 135, 82) !default;       // #558752
+
+
+//
+// Others
+//
+$others-01:       rgb(82, 65, 77) !default;         // #52414D
+$others-02:       rgb(57, 44, 0) !default;          // #392C00
+$others-03:       rgb(80, 37, 24) !default;         // #502518
+$others-04:       rgb(51, 152, 95) !default;        // #33985F
+$others-05:       rgb(38, 70, 83) !default;         // #264653
+$others-06:       rgb(235, 121, 39) !default;       // #EB7927
+$others-07:       rgb(78, 81, 102) !default;        // #4E5166
+$others-08:       rgb(120, 138, 116) !default;      // #788A74
+$others-09:       rgb(39, 7, 33) !default;          // #270721
+$others-10:       rgb(115, 104, 59) !default;       // #73683B
+$others-11:       rgb(202, 209, 120) !default;      // #CAD178
+
+
+
+
+
+//
 // BOX NEWS / EVENTS COLORS
 //
 $article-color:         rgb(0, 151, 143) !default;          // #00978f
 $event-color:           rgb(70, 0, 29) !default;            // #46001d
-$insight-color:         rgb(255, 90, 96) !default;          // #ff5a60
+$insight-color:         rgb(255, 99, 105) !default;         // #FF6369
 $cases-color:           rgb(233, 155, 0) !default;          // #e99b00
 $related-color:         rgb(51, 117, 181) !default;         // #3375b5
 

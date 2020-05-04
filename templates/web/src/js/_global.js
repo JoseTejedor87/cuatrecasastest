@@ -2,10 +2,118 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.loadMiscell();
+        // web.global.stickyMenu();
     },
 
+    stickyMenu: function(){
+
+        /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
+        /*
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("secondaryNav").style.top = "62px";
+            } else {
+                document.getElementById("secondaryNav").style.top = "0";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+        */
+
+
+        var prev    = 0;
+        var $window = $(window);
+        var nav     = $('#navDesktop #secondaryNav');
+        var logo    = $('#navDesktop #secondaryNav .navbar-brand');
+        var header  = $('#navDesktop header');
+
+        $window.on('scroll', function(){
+            var scrollTop = $window.scrollTop();
+            nav.toggleClass('stickyNav', scrollTop > prev);
+            logo.toggleClass('stickyNav', scrollTop > prev);
+            header.toggleClass('stickyNav', scrollTop > prev);
+            prev = scrollTop;
+        });
+    },
+
+    stickyMenuOld: function(){
+        // Hide Header on scroll down
+        var didScroll;
+        var lastScrollTop = 0;
+        var delta = 5;
+        var navbarHeight = $('header').outerHeight();
+
+        $(window).scroll(function(event){
+            didScroll = true;
+        });
+
+        setInterval(function() {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        }, 250);
+
+        function hasScrolled() {
+            var st = $(this).scrollTop();
+
+            // Make sure they scroll more than delta
+            if(Math.abs(lastScrollTop - st) <= delta)
+                return;
+
+            // If they scrolled down and are past the navbar, add class .nav-up.
+            // This is necessary so you never see what is "behind" the navbar.
+            if (st > lastScrollTop && st > navbarHeight){
+                // Scroll Down
+                $('header').removeClass('nav-down').addClass('nav-up');
+            } else {
+                // Scroll Up
+                if(st + $(window).height() < $(document).height()) {
+                    $('header').removeClass('nav-up').addClass('nav-down');
+                }
+            }
+
+            lastScrollTop = st;
+        }
+    },
+
+    /*
+    stickyMenu: function(){
+        const body = document.body;
+        const triggerMenu = document.querySelector(".page-header .trigger-menu");
+        const nav = document.querySelector(".page-header nav");
+        const menu = document.querySelector(".page-header .menu");
+        const scrollUp = "scroll-up";
+        const scrollDown = "scroll-down";
+        let lastScroll = 0;
+
+        triggerMenu.addEventListener("click", () => {
+          body.classList.toggle("menu-open");
+        });
+
+        window.addEventListener("scroll", () => {
+          const currentScroll = window.pageYOffset;
+          if (currentScroll == 0) {
+            body.classList.remove(scrollUp);
+            return;
+          }
+
+          if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
+            // down
+            body.classList.remove(scrollUp);
+            body.classList.add(scrollDown);
+          } else if (currentScroll < lastScroll && body.classList.contains(scrollDown)) {
+            // up
+            body.classList.remove(scrollDown);
+            body.classList.add(scrollUp);
+          }
+          lastScroll = currentScroll;
+        });
+    },
+    */
+
     loadMiscell: function(){
-        // Miscell Stuff
         $(function () {
             $('.button__bookmark').click(function(e){
                 e.preventDefault();
@@ -15,6 +123,88 @@ web.global = {
             $('.no-link').click(function(e){
                 e.preventDefault();
             });
+
+            // Sticky Menu
+            // $("#contact-nav").after('.main');
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 0 ) {
+                    $('#contactNav .navbar-brand').hide();
+
+                    if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
+                        $('.main__nav__wrapper .sub-nav').removeClass('show');
+                    }
+
+                } else {
+                    $('#contactNav .navbar-brand').fadeIn();
+                }
+
+                if ($(document).scrollTop() > 62 ) {
+                    $('#secondaryNav, header').addClass('stickyNav');
+
+                } else {
+                    $('#secondaryNav, header').removeClass('stickyNav');
+                }
+            });
+        });
+    },
+
+    showMoreLess: function(){
+        // https://stackoverflow.com/questions/58455602/debugging-show-more-show-less-button-missing-paragraphs-of-text
+
+        $('.read-more').each(function() {
+            if ($(this).children('p').length > 4) {
+                $(this).children('p:lt(3)').show();
+                $(this).append('<button type="button" class="doble__arrow__button loadMore">Ver más</button>');
+            }
+        });
+        $('.read-more').on("click", '.loadMore', function() {
+            $(this).parent('.read-more').children('p').slideDown();
+            $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
+            $('.doble__arrow__button').blur();
+        });
+        $('.read-more').on("click", '.loadLess', function() {
+            $(this).parent('.read-more').children('p:gt(2)').slideUp();
+            $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
+            $('.doble__arrow__button').blur();
+        });
+    },
+
+    toggleMoreInfo: function(){
+        // Show / hide filters
+
+        // <button data-id="add_group"> Add Group </button>
+
+        $('button').on('click', function() {
+            $('#' + $(this).data('id')).slideToggle();
+        });
+
+
+        // $('.toggle-filters').click(function(e){
+        //     e.preventDefault();
+        //     $('.event-filters').slideToggle();
+        // });
+
+        // $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
+        //     e.preventDefault();
+        //     $(this).toggleClass('on');
+
+        //     var el = $(this);
+        //     el.text() == el.data("text-original")
+        //         ? el.text(el.data("text-swap"))
+        //         : el.text(el.data("text-original"));
+        // });
+    },
+
+    toggleTextButton: function(){
+        // Change text literal buttons
+        $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('on');
+
+            var el = $(this);
+            el.text() == el.data("text-original")
+                ? el.text(el.data("text-swap"))
+                : el.text(el.data("text-original"));
         });
     },
 
@@ -117,34 +307,38 @@ web.global = {
     },
 
     sliderHome: function(){
-        // Slider Home
         var swiperCarousel = new Swiper ('#sliderHome', {
             slidesPerView: 1,
             spaceBetween: 0,
             loop: true,
-            grabCursor: true,
-            // navigation: {
-            //     nextEl: '.home__preview'
-            // }
+            // grabCursor: true,
+            speed: 800,
+            allowSlidePrev: false,
+            allowTouchMove: false,
+            // autoplay: {
+            //     delay: 5000,
+            // },
+            navigation: {
+                nextEl: '.home__preview__button'
+            }
         });
     },
 
     sliderNews: function(){
-        // Slider News
         var swiperCarousel = new Swiper ('#sliderNews', {
             slidesPerView: 3,
             spaceBetween: 25,
-            loop: true,
-            grabCursor: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+            // loop: true,
+            // allowTouchMove: false,
+            // grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
             }
         });
     },
 
     sliderCases: function(){
-        // Slider Cases
          var swiperSlider = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
@@ -154,7 +348,6 @@ web.global = {
     },
 
     sliderAwards: function(){
-        // Slider Awards
         var swiperCarousel = new Swiper ('#sliderAwards', {
             slidesPerView: 'auto',
             spaceBetween: 60,

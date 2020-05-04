@@ -5,55 +5,13 @@
 @include new("search__component") {
 
     @include when("home") {
-        padding-bottom: 2rem;
-        background: rgba($black, 0.03);
+        padding-top: 1rem;
+        padding-bottom: 3rem;
+        // border: 1px solid magenta;
 
-        .search_tab {
-            width: 100%;
-            margin-bottom: 3rem;
-            padding: 0 $screen-width;
-            background: rgba($black, 0.06);
-        }
-
-        .nav-tabs {
-            border-bottom: 0 solid transparent;
-
-            .nav-item {
-                margin-bottom: 0;
-            }
-
-            .nav-link {
-                @include fontSet(24px, 24px);
-                text-transform: uppercase;
-                color: $black;
-                padding: 1rem 10rem 1rem 4rem;
-
-                border: 0 solid transparent;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-                border-left: 10px solid transparent;
-
-                @include on-event {
-                    background-color: #f7f7f7;
-                    border-left: 10px solid rgba($complementary-color, 0.6);
-                }
-
-                &:active, &.active {
-                    background-color: #f7f7f7;
-                    border-left: 10px solid $complementary-color;
-                }
-            }
-        }
-
-        .search__tab-content {
-            margin-bottom: 2rem;
-            padding: 0 $screen-width;
-
-            .search_box__wrapper {
-                 margin-bottom: 2rem;
-            }
-
-            .search_selects {}
+        .search_box__wrapper {
+            margin: 2rem 0;
+            // border: 1px solid blue;
         }
     }
 }
@@ -61,7 +19,8 @@
 @include new("search_box") {
 
     > .col {
-        padding: 2rem $screen-width;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
     }
 
     @include has("wrapper") {
@@ -74,14 +33,17 @@
         @include when("full") {
             flex: 0 0 100%;
         }
+
+        .form-control {
+            border: 2px solid $complementary-color;
+        }
     }
 
         @include has("button") {
             @include reset-button;
             position: absolute;
-            top: -51px;
+            top: -55px;
             right: 0;
-            height: 51px;
             padding: 0.3em 0.6em;
             @include fontSet(32px, 32px);
             background: transparent;
@@ -117,7 +79,8 @@
 @include new("search_filters") {
 
     > .col {
-        padding: 2rem $screen-width;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
         text-align: center;
     }
 
@@ -127,31 +90,29 @@
 
     @include when("lawyers") {
         > .col {
-            padding: 0 $screen-width 2rem;
+            padding-top: 0;
+            padding-bottom: 2rem;
         }
     }
 }
 
 @include new("search_selects") {
-    display: flex;
-    justify-content: center;
-    margin: 0 -0.5rem 3rem;
+    // display: flex;
+    // justify-content: space-between;
 
-    > * {
-        flex: 0 1 auto;
-        margin: 0 0.5rem;
-    }
+    // > * {
+    //     flex: 1;
+    // }
 }
 
 @include new("search_tags") {
-
     @include has("wrapper") {
         border: 1px solid red;
     }
 }
 
 @include new("search_alphabet") {
-    margin-top: 1rem;
+    margin-top: 3rem;
 }
 
 @include new("search_pagination") {
