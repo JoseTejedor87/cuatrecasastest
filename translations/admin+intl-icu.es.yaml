@@ -146,9 +146,33 @@ entities:
       highlighted: Menú
       experience: Experiencia
       blocks: Bloques
-  quoteBlock:
+      relatedActivities: Actividades relacionadas
+  article:
     fields:
-      quote: Cita
+      title: Título
+      publication_date: Fecha de publicación
+      status: Estado
+      featured: Destacado
+      activities: Sectores / Servicios / Desks
+      offices: Oficinas
+      lawyers: Abogados
+      summary: Resumen
+      content: Contenido
+      caption: Subtitulo
+      tags: Tags
+      lawyer_tags: Tags de abogados
+      office_tags: Tags de oficinas
+      practice_tags: Tags de práctica
+  award:
+    fields:
+      title: Título
+      granted: Concedido
+      status: Estado
+      image: Imagen premio
+      desc_award: Descripción del premio
+      desc_award_firma: Descripción de la firma del premio
+      desc_award_indiv: Descripción del premio
+      tags: Tags
   event:
     fields:
       title: Título
@@ -196,39 +220,6 @@ entities:
     fields:
       body: Texto
       lawyers: Abogados
-  publishable:
-    fields:
-      languages: Idiomas de publicación
-      locations: Ubicación de publicación
-      metaTitle: Meta Título
-      metaDescription: Meta Descripción
-  quote:
-    fields:
-      author: Autor
-      year: Año
-      body: Contenido
-  resource:
-    fields:
-      title: Título
-      file: Fichero
-  speaker:
-    fields:
-      name: Nombre
-      surname: Apellidos
-      position: Posición / Cargo
-      lawyer: Abogado
-    help:
-      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
-  award:
-    fields:
-      title: Título
-      granted: Concedido
-      status: Estado
-      image: Imagen premio
-      desc_award: Descripción del premio
-      desc_award_firma: Descripción de la firma del premio
-      desc_award_indiv: Descripción del premio
-      tags: Tags
   office:
     fields:
       city: Ciudad
@@ -252,28 +243,44 @@ entities:
     fields:
       title: Título
       blocks: Bloques
-  article:
+  practice:
+    fields:
+      children: Subáreas
+  publishable:
+    fields:
+      languages: Idiomas de publicación
+      locations: Ubicación de publicación
+      metaTitle: Meta Título
+      metaDescription: Meta Descripción
+  quote:
+    fields:
+      author: Autor
+      year: Año
+      body: Contenido
+  quoteBlock:
+    fields:
+      quote: Cita
+  resource:
     fields:
       title: Título
-      publication_date: Fecha de publicación
-      status: Estado
-      featured: Destacado
-      activities: Sectores / Servicios / Desks
-      offices: Oficinas
-      lawyers: Abogados
-      summary: Resumen
-      content: Contenido
-      caption: Subtitulo
-      tags: Tags
-      lawyer_tags: Tags de abogados
-      office_tags: Tags de oficinas
-      practice_tags: Tags de práctica
-
+      file: Fichero
+  speaker:
+    fields:
+      name: Nombre
+      surname: Apellidos
+      position: Posición / Cargo
+      lawyer: Abogado
+    help:
+      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
+  sector:
+    fields:
+      children: Subsectores
 
 # Custom Form Types
 
 forms:
   fieldsets:
+    relations: Relaciones
     publication: Publicación
     seo: SEO
 

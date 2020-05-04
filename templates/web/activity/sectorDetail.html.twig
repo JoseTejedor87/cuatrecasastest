@@ -49,19 +49,16 @@
                         {{ sector.translate(app.request.getLocale()).description|raw }}
                     </div>
                     <div class="page__block__aside">
+                        {% if sector.children|length > 0 %}
                         <div class="page__aside">
                             <h3 class="page__aside__title">Especialidades</h3>
                             <ul class="page__aside__list--specialties">
-                                {% for activity in sector.relatedActivities %}
-                                    {% if activity.highlighted == 0  %}
-                                        <li><a href="#">{{ activity.translate(app.request.getLocale()).title }}</a></li>
-                                    {% endif %}
+                                {% for activity in sector.children %}
+                                    <li><a href="#">{{ activity.translate(app.request.getLocale()).title }}</a></li>
                                 {% endfor %}
-                                {# <li><a href="#">Fiscalidad corporativa</a></li>
-                                <li><a href="#">Private client &amp; wealth management</a></li>
-                                <li><a href="#">Fiscalidad contenciosa</a></li> #}
                             </ul>
                         </div>
+                        {% endif %}
                         <div class="page__aside page__aside--nobg">
                             <blockquote class="cite__quote">
                                 <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
@@ -76,7 +73,7 @@
                                     <li class="related__services__item">
                                         <a href="#" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
                                     </li>
-                                {% endif %}    
+                                {% endif %}
                             {% endfor %}
                             </ul>
                         </div>

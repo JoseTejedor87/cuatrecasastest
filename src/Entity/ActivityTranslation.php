@@ -22,7 +22,7 @@ class ActivityTranslation extends PublishableTranslation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $sumary;
+    private $summary;
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -46,14 +46,14 @@ class ActivityTranslation extends PublishableTranslation
         return $this;
     }
 
-    public function getSumary(): ?string
+    public function getSummary(): ?string
     {
-        return $this->sumary;
+        return $this->summary;
     }
 
-    public function setSumary(string $sumary): self
+    public function setSummary(string $summary): self
     {
-        $this->sumary = $sumary;
+        $this->summary = $summary;
 
         return $this;
     }
