@@ -62,9 +62,25 @@ abstract class Activity extends Publishable
 
     /**
      * Many activities have many activities.
-     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="activity_activity",
+     *     joinColumns={@ORM\JoinColumn(name="activity_source", referencedColumnName="id", onDelete="NO ACTION")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="activity_target", referencedColumnName="id", onDelete="NO ACTION")}
+     * )
      */
     private $relatedActivities;
+
+    /**
+     * One Activity has Many Sub-Activities.
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * Many Activities have One Activity as a Parent.
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="children")
+     */
+    private $parent;
 
 
     public function __construct()
@@ -76,7 +92,7 @@ abstract class Activity extends Publishable
         $this->blocks = new ArrayCollection();
         $this->lawyers_secondary = new ArrayCollection();
         $this->Article = new ArrayCollection();
-
+        $this->children = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -301,5 +317,46 @@ abstract class Activity extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
 
+    public function addChild(Activity $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Activity $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
 }
