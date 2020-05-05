@@ -201,7 +201,7 @@
             p {
                 @include fontSet(22px, 28px);
 
-                @include when-inside(".lawyer__details") {
+                @include when-inside(".lawyer__page") {
                     @include fontSet(32px, 38px);
                 }
 

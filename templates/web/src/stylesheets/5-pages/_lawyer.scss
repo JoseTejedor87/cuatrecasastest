@@ -256,7 +256,7 @@
             color: $main-color;
 
             @include when-inside(".lawyer__search__wrapper--list") {
-                flex: 0 0 auto;
+                // flex: 0 0 auto;
             }
 
             &:before {
@@ -290,7 +290,7 @@
 // HEADER INFO DETAILS
 // --------------------------------------------------------------------------
 
-@include new("lawyer__details") {
+@include new("lawyer__page") {
 
     @include has("header") {
         color: $white;

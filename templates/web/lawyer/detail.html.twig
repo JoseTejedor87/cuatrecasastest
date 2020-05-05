@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    <main role="main" class="lawyer__details">
+    <main role="main" class="lawyer__page">
         <article>
 
             <!-- trys -->
@@ -33,16 +33,16 @@
             </header> -->
 
             <header class="container-fluid">
-                <div class="row lawyer__details__header">
-                    <div class="col-md-7 lawyer__details__content">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
                         <a href="#" class="back__button">volver</a>
-                        <h1 class="lawyer__details__name">
+                        <h1 class="lawyer__page__name">
                             {{ lawyer.name }} {{ lawyer.surname }}
                         </h1>
-                        <h2 class="lawyer__details__position">
+                        <h2 class="lawyer__page__position">
                             {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
                         </h2>
-                        <ul class="lawyer__details__scope related__services">
+                        <ul class="lawyer__page__scope related__services">
                             {% for activity in lawyer.secondaryActivities %}
                             <li class="related__services__item">
                                 <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
@@ -51,7 +51,7 @@
                             </li>
                             {% endfor %}
                         </ul>
-                        <div class="lawyer__details__contact">
+                        <div class="lawyer__page__contact">
                             <div data-address>
                                 CUATRECASAS {{ lawyer.office ? lawyer.office.city : '' }}
                             </div>
@@ -64,7 +64,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="lawyer__details__more">
+                        <div class="lawyer__page__more">
                             <div data-langs>
                                 Español | Inglés
                             </div>
@@ -82,16 +82,16 @@
                         </ul>
                     </div>
                     <div class="col-md-5">
-                        <figure class="lawyer__details__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
+                        <figure class="lawyer__page__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
 
                             <!-- server -->
-                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
-                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
                             <!-- local -->
-                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__details__media__photo"> -->
-                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__details__media__photo">
+                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__page__media__photo"> -->
+                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__page__media__photo">
 
                         </figure>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="page__block__content">
                             {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
                         </div>
-                        
+
                         <div class="page__block__aside">
                         {% if lawyer.activities|length > 0 %}
                                 <div class="page__aside">
