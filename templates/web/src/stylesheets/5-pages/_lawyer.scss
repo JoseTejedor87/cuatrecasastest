@@ -337,7 +337,7 @@
 
     @include has("content") {
         // background-color: purple;
-        padding: 7rem 0 5rem;
+        padding: 7rem 6rem 5rem 0;
 
         @include mediaQuery($massive-width, $large-width) {
             // border: 1px solid yellow;
