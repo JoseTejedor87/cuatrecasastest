@@ -1293,8 +1293,10 @@ class ImportCommand extends Command
 
                             foreach ($post['categories'] as $keyCategory => $postCategory) {
                                 $articleCategoryId = $this->getMappedArticleCategoryId($postCategory);
-                                $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
-                                $article->addCategory($articleCategory);
+                                if($articleCategoryId){
+                                    $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
+                                    $article->addCategory($articleCategory);
+                                }
                             }
                             $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=en');
                             $contentEn = $responseEn->toArray();
@@ -1342,8 +1344,10 @@ class ImportCommand extends Command
                             );
                             foreach ($post['categories'] as $keyCategory => $postCategory) {
                                 $articleCategoryId = $this->getMappedArticleCategoryId($postCategory);
-                                $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
-                                $article->addCategory($articleCategory);
+                                if($articleCategoryId){
+                                    $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
+                                    $article->addCategory($articleCategory);
+                                }
                             }
                             $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=es');
                             $contentEn = $responseEn->toArray();
@@ -1376,26 +1380,28 @@ class ImportCommand extends Command
         $ArticleRepository = $this->em->getRepository(Article::class);
         $articulos = $ArticleRepository->findAll();
         foreach ($articulos as $keyArticulo => $articulo) {
-            $categoria = $articulo->getCategory();
-            $LanguagesCategoria = $categoria->getLanguages();
-            $Oldlink = $categoria->translate($LanguagesCategoria[0])->getOldlink();
-            $Oldlinka = explode('/', $Oldlink);
-            $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
-            $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/media?parent='.$articulo->getOldId());
-            $status = $response->getStatusCode();
-            if ($status!=400) {
-                $content = $response->toArray();
-                if (isset($content[0])) {
-                    $photo = $this->importFile('article', $content[0]['guid']['rendered']);
-                    if ($photo) {
-                        $resource = new Resource();
-                        $resource->setFile($photo);
-                        $resource->setFileName($photo->getFileName());
-                        $resource->setArticle($articulo);
-                        $resource->setType('article_main_photo');
-                        $articulo->addAttachment($resource);
-                        $this->em->persist($articulo);
-                        $this->em->flush();
+            $categorias = $articulo->getCategory();
+            foreach ($categorias as $keycategoria => $categoria) {
+                $LanguagesCategoria = $categoria->getLanguages();
+                $Oldlink = $categoria->translate($LanguagesCategoria[0])->getOldlink();
+                $Oldlinka = explode('/', $Oldlink);
+                $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
+                $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/media?parent='.$articulo->getOldId());
+                $status = $response->getStatusCode();
+                if ($status!=400) {
+                    $content = $response->toArray();
+                    if (isset($content[0])) {
+                        $photo = $this->importFile('article', $content[0]['guid']['rendered']);
+                        if ($photo) {
+                            $resource = new Resource();
+                            $resource->setFile($photo);
+                            $resource->setFileName($photo->getFileName());
+                            $resource->setArticle($articulo);
+                            $resource->setType('article_main_photo');
+                            $articulo->addAttachment($resource);
+                            $this->em->persist($articulo);
+                            $this->em->flush();
+                        }
                     }
                 }
             }
