@@ -71,17 +71,20 @@ abstract class Activity extends Publishable
     private $relatedActivities;
 
     /**
-     * One Activity has Many Sub-Activities.
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="parent")
+     * A parent has many children and a child has many parents
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="children", cascade={"persist"})
      */
-    private $children;
+    private $parents;
 
     /**
-     * Many Activities have One Activity as a Parent.
-     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="children")
+     * A parent has many children and a child has many parents
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="parents", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="activity_activity_parents",
+     *     joinColumns={@ORM\JoinColumn(name="activity_parent", referencedColumnName="id", onDelete="NO ACTION")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="activity_children", referencedColumnName="id", onDelete="NO ACTION")}
+     * )
      */
-    private $parent;
-
+    private $children;
 
     public function __construct()
     {
@@ -93,6 +96,7 @@ abstract class Activity extends Publishable
         $this->lawyers_secondary = new ArrayCollection();
         $this->Article = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->parents = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -329,7 +333,7 @@ abstract class Activity extends Publishable
     {
         if (!$this->children->contains($child)) {
             $this->children[] = $child;
-            $child->setParent($this);
+            $child->addParent($this);
         }
 
         return $this;
@@ -339,23 +343,34 @@ abstract class Activity extends Publishable
     {
         if ($this->children->contains($child)) {
             $this->children->removeElement($child);
-            // set the owning side to null (unless already changed)
-            if ($child->getParent() === $this) {
-                $child->setParent(null);
-            }
+            $child->removeParent($this);
         }
 
         return $this;
     }
 
-    public function getParent(): ?self
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getParents(): Collection
     {
-        return $this->parent;
+        return $this->parents;
     }
 
-    public function setParent(?self $parent): self
+    public function addParent(Activity $parent): self
     {
-        $this->parent = $parent;
+        if (!$this->parents->contains($parent)) {
+            $this->parents[] = $parent;
+        }
+
+        return $this;
+    }
+
+    public function removeParent(Activity $parent): self
+    {
+        if ($this->parents->contains($parent)) {
+            $this->parents->removeElement($parent);
+        }
 
         return $this;
     }

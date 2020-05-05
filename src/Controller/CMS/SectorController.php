@@ -79,7 +79,7 @@ class SectorController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sector_index');
+            return $this->redirectToRoute('sector_edit', ['id'=>$sector->getId()]);
         }
 
         return $this->render('cms/sector/edit.html.twig', [

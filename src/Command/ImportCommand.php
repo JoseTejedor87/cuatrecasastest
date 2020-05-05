@@ -440,6 +440,7 @@ class ImportCommand extends Command
         $items = json_decode($data, true);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
 
         $activityRepository = $this->em->getRepository(Activity::class);
         foreach ($items as $item) {
