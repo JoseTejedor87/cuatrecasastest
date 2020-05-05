@@ -53,7 +53,7 @@
                         </ul>
                         <div class="lawyer__details__contact">
                             <div data-address>
-                                CUATRECASAS {{ lawyer.office.city }}
+                                CUATRECASAS {{ lawyer.office ? lawyer.office.city : '' }}
                             </div>
                             <div data-telephone>
                                 {{ lawyer.phone }}
