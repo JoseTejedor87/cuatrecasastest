@@ -23,8 +23,10 @@ class LawyerController extends WebController
         $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($lawyer->translate('es'));
-        // $Speaker = $lawyer->getSpeaker();
-        // $Events = $Speaker->getEvents();
+        //  $Speaker = $lawyer->getSpeaker();
+        //  $Events = $Speaker->getEvents();
+        //  var_dump($Events);
+        //  die('');
         // $Office = $lawyer->getOffice();
         // var_dump($Speaker);
         // $descrip = $Office->translate('es')->getDescriptions();
@@ -36,6 +38,7 @@ class LawyerController extends WebController
         // foreach ($Events as $key => $value) {
         //     dd($value->translate('es')->getTitle());
         // }
+        // die();
         // var_dump($lawyer);
         // dd($lawyer);
         return $this->render('web/lawyer/detail.html.twig', [

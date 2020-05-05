@@ -43,7 +43,7 @@
                             {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
                         </h2>
                         <ul class="lawyer__details__scope related__services">
-                            {% for activity in lawyer.activities %}
+                            {% for activity in lawyer.secondaryActivities %}
                             <li class="related__services__item">
                                 <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
                                     {{ activity.translate(app.request.getLocale()).title}}
@@ -120,17 +120,17 @@
                             <h3 class="page__aside__title">Especialidades</h3>
                             <ul class="page__aside__list--specialties">
 
-                                {#% for activity in lawyer.secondaryActivities %}
+                                {% for activity in lawyer.activities %}
                                 <li>
                                     <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
                                         {{ activity.translate(app.request.getLocale()).title}}
                                     </a>
                                 </li>
-                                {% endfor %#}
+                                {% endfor %}
 
-                                <li><a href="#">Fiscalidad corporativa</a></li>
+                                {# <li><a href="#">Fiscalidad corporativa</a></li>
                                 <li><a href="#">Private client &amp; wealth management</a></li>
-                                <li><a href="#">Fiscalidad contenciosa</a></li>
+                                <li><a href="#">Fiscalidad contenciosa</a></li> #}
                             </ul>
                         </div>
                         <div class="page__aside">
@@ -206,8 +206,8 @@
                 </section>
             {% endif %}
             {% endif %}
-            {% if lawyer.speaker %}
-            {% if lawyer.speaker.events|length > 1 %}
+             {% if lawyer.speaker %}
+          
             <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
@@ -228,8 +228,8 @@
                     </div>
                 </div>
             </section>
-            {% endif %}
-            {% endif %}
+
+            {% endif %} 
 
             </div>
 
