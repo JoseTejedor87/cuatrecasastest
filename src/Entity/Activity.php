@@ -62,7 +62,11 @@ abstract class Activity extends Publishable
 
     /**
      * Many activities have many activities.
-     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="activity_activity",
+     *      joinColumns={@ORM\JoinColumn(name="activity_source", referencedColumnName="id", onDelete="NO ACTION")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="activity_target", referencedColumnName="id", onDelete="NO ACTION")}
+     *      )
      */
     private $relatedActivities;
 
