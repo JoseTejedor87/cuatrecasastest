@@ -13,7 +13,13 @@
                             <article class="team__member" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
                                 <a href="#" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</a>
                                 <div class="team__member__position">
-                                    <h3>{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}<br>Fiscal | {{ lawyer.office ? lawyer.office.city : '' }}</h3>
+                                    <h3>{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}<br>
+                                    {% if lawyer.activities %}
+                                        {% for activity in lawyer.activities %}
+                                            {{ activity.translate(app.request.getLocale()).title}}
+                                        {% endfor %}
+                                    {% endif %}
+                                     | {{ lawyer.office ? lawyer.office.city : '' }}</h3>
                                 </div>
                                 <div class="team__member__name">
                                     <h4>{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h4>

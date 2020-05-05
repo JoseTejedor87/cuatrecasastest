@@ -65,6 +65,7 @@
                                 <cite>Chambers, 2019</cite>
                             </blockquote>
                         </div>
+                        {% if sector.relatedActivities|length > 0 %}
                         <div class="page__aside page__aside--practices">
                             <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
                             <ul class="related__services">
@@ -77,15 +78,18 @@
                             {% endfor %}
                             </ul>
                         </div>
+                         {% endif %}
                     </div>
                 </div>
             </section>
 
         </article>
     </main>
+    {% if sector.lawyers|length > 0 %}
+        {% include 'web/shared/team.html.twig' with sector.lawyers %}
+    {% endif %}
 
-    {% include 'web/shared/team.html.twig' with sector.lawyers %}
-    {% include 'web/shared/related-services.html.twig' %}
+    {# {% include 'web/shared/related-services.html.twig' %} #}
     {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/awards.html.twig' %}
