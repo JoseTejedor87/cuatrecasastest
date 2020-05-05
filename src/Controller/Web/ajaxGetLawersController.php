@@ -21,7 +21,7 @@ public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)
     $page = $request->get('page');
     if(!isset($page))
         $page = 1;  
-        $limit = 6;
+        $limit = 18;
         if($initial ){
             //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
             // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
@@ -38,9 +38,9 @@ public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)
                ->getQuery();
                if($lawyers){
                 $countLawyers = count($query->getResult());
-                $pagesTotal = $countLawyers/6;
+                $pagesTotal = $countLawyers/$limit;
                 if(is_float($pagesTotal)){
-                    $pagesTotal = $pagesTotal + 1;
+                    $pagesTotal = intval($pagesTotal + 1);
                 }
                }
             

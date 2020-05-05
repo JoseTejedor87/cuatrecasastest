@@ -1032,7 +1032,6 @@ class ImportCommand extends Command
                     $article->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
                     $article->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
                     $article->translate($currentLang)->setCaption($item1['pie_foto'] ? $item1['pie_foto'] : '');
-                    $article->translate($currentLang)->setUrlLink($item1['url_link'] ? $item1['url_link'] : '');
                     $article->translate($currentLang)->setTags($item1['tags'] ? $item1['tags'] : '');
                     $article->translate($currentLang)->setLawyerTags($item1['abogado_tags'] ? $item1['abogado_tags'] :'');
                     $article->translate($currentLang)->setOfficeTags($item1['oficina_tags'] ? $item1['oficina_tags'] : '');

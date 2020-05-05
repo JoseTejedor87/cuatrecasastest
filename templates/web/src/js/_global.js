@@ -126,25 +126,25 @@ web.global = {
 
             // Sticky Menu
             // $("#contact-nav").after('.main');
-            $(window).scroll(function () {
-                if ($(document).scrollTop() > 0 ) {
-                    $('#contactNav .navbar-brand').hide();
+            // $(window).scroll(function () {
+            //     if ($(document).scrollTop() > 0 ) {
+            //         $('#contactNav .navbar-brand').hide();
 
-                    if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
-                        $('.main__nav__wrapper .sub-nav').removeClass('show');
-                    }
+            //         if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
+            //             $('.main__nav__wrapper .sub-nav').removeClass('show');
+            //         }
 
-                } else {
-                    $('#contactNav .navbar-brand').fadeIn();
-                }
+            //     } else {
+            //         $('#contactNav .navbar-brand').fadeIn();
+            //     }
 
-                if ($(document).scrollTop() > 62 ) {
-                    $('#secondaryNav, header').addClass('stickyNav');
+            //     if ($(document).scrollTop() > 62 ) {
+            //         $('#secondaryNav, header').addClass('stickyNav');
 
-                } else {
-                    $('#secondaryNav, header').removeClass('stickyNav');
-                }
-            });
+            //     } else {
+            //         $('#secondaryNav, header').removeClass('stickyNav');
+            //     }
+            // });
         });
     },
 
@@ -315,9 +315,9 @@ web.global = {
             speed: 800,
             allowSlidePrev: false,
             allowTouchMove: false,
-            // autoplay: {
-            //     delay: 5000,
-            // },
+            autoplay: {
+                delay: 5000,
+            },
             navigation: {
                 nextEl: '.home__preview__button'
             }
@@ -339,7 +339,7 @@ web.global = {
     },
 
     sliderCases: function(){
-         var swiperSlider = new Swiper ('#sliderCases', {
+        var swiperSlider = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             // loop: true,
@@ -354,6 +354,14 @@ web.global = {
             centeredSlides: true,
             loop: true,
             grabCursor: true
+        });
+    },
+
+    testimonials: function(){
+        $('.testimonials__item').hover(function(){
+            if ($(this).hasClass('selected')) return;
+            $('.selected').removeClass('selected');
+            $(this).addClass('selected');
         });
     },
 

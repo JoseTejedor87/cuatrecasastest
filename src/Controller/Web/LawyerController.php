@@ -78,7 +78,7 @@ class LawyerController extends WebController
                 $countLawyers = count($query->getResult());
                 $pagesTotal = $countLawyers/$limit;
                 if(is_float($pagesTotal) && $pagesTotal>=1){
-                    $pagesTotal = $pagesTotal + 1;
+                    $pagesTotal = intval($pagesTotal + 1);
                 }
                }
         }

@@ -115,7 +115,7 @@
         transition: box-shadow 0.2s ease-out;
 
 
-        @include when("career") {
+        @include when("blockquote") {
             border-top: none;
         }
 
@@ -220,34 +220,34 @@
         // A VER SI SE ACLARAN!!!
         // --------------------------------------------------------------------------
 
-        @include when("article") {
-            color: $article-color;
-            border-top-color: $article-color;
-        }
+        // @include when("article") {
+        //     color: $article-color;
+        //     border-top-color: $article-color;
+        // }
 
-        @include when("event") {
-            color: $event-color;
-            border-top-color: $event-color;
-            background-color: $event-box-color;
-        }
+        // @include when("event") {
+        //     color: $event-color;
+        //     border-top-color: $event-color;
+        //     background-color: $event-box-color;
+        // }
 
-        @include when("related") {
-            color: $related-color;
-            border-top-color: $related-color;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        }
+        // @include when("related") {
+        //     color: $related-color;
+        //     border-top-color: $related-color;
+        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        // }
 
-        @include when("insight") {
-            color: $insight-color;
-            border-top-color: transparent;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        }
+        // @include when("insight") {
+        //     color: $insight-color;
+        //     border-top-color: transparent;
+        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        // }
 
-        @include when("cases") {
-            color: $cases-color;
-            border-top-color: transparent;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        }
+        // @include when("cases") {
+        //     color: $cases-color;
+        //     border-top-color: transparent;
+        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        // }
     }
 
 

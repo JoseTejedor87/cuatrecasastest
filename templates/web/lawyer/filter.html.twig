@@ -211,9 +211,9 @@
                             </li>
                             {% for i in 1..pagesTotal %}
                             <li class="page-item">
-                                <a class="page-link{{ i==page ? ' active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" >{{ i }}</a>
+                                <a class="page-link {{ i==page ? ' active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
                             </li>
-                            {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" #}
+                            {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" #}
                             {% endfor %}
 
                             <li class="page-item">
@@ -254,7 +254,7 @@
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
-    $(function () {
+    $( document ).ready(function() {
         web.global.customSelects();
         web.global.lawyerResults();
         web.global.sliderNews();
@@ -263,11 +263,15 @@
             event.preventDefault();
 
             var page = $(this).data("page");
+            if(!page){
+                page=1;
+            }
             var initial = "{{ app.request.get('initial') }}";
-
+            $('#lawyerPagination .page-link').removeClass('active');
+            $(this).addClass('active');
             $.ajax({
                 method: "POST",
-                url: "/ajax",
+                url: "{{ path('recherche_ajax') }}",
                 data: { page: page, initial: initial },
                 beforeSend: function( xhr ) {
                     $('.lawyer__search__wrapper__loader').fadeIn('fast');
@@ -275,7 +279,7 @@
                 }
             })
             .done(function( msg ) {
-                $('#lawyerPagination .page-link').addClass('active');
+                
 
                 $('.lawyer__search__wrapper__loader').fadeOut();
                 $('.lawyer__search__wrapper').empty();
@@ -289,7 +293,7 @@
                                 <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">`+ lawyer['LawyerType']  + `</div>
-                                    <div class="lawyer__practice">`+ lawyer['activities'] + `</div>
+                                    <ul class="lawyer__practice"><li class="lawyer__practice__item">`+ lawyer['activities'] + `</li></ul>
                                     <div class="lawyer__office">`+ lawyer['office'] + `</div>
                                 </div>
                                 <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName']  + `">
@@ -298,7 +302,7 @@
                     `;
                 });
 
-                $('.lawyer__search__wrapper').append( html );
+                $('.lawyer__search__wrapper').append( html  );
                 window.history.replaceState(null, null, "filter?initial="+msg['initial']+"&page="+msg['page']);
             })
             .fail(function() {
