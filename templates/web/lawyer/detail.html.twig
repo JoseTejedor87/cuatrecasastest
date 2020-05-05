@@ -100,39 +100,40 @@
 
             <div class="container">
 
-
-
-            <section class="row page__block--full">
-                <div class="col">
-                    <div class="page__block__content--full">
-                        {{ lawyer.translate(app.request.getLocale()).description|raw  }}
-                    </div>
-                </div>
-            </section>
-
-            <section class="row page__block--aside">
-                <div class="col">
-                    <div class="page__block__content">
-                        {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
-                    </div>
-                    <div class="page__block__aside">
-                        <div class="page__aside">
-                            <h3 class="page__aside__title">Especialidades</h3>
-                            <ul class="page__aside__list--specialties">
-
-                                {% for activity in lawyer.activities %}
-                                <li>
-                                    <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
-                                        {{ activity.translate(app.request.getLocale()).title}}
-                                    </a>
-                                </li>
-                                {% endfor %}
-
-                                {# <li><a href="#">Fiscalidad corporativa</a></li>
-                                <li><a href="#">Private client &amp; wealth management</a></li>
-                                <li><a href="#">Fiscalidad contenciosa</a></li> #}
-                            </ul>
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            {{ lawyer.translate(app.request.getLocale()).description|raw  }}
                         </div>
+                    </div>
+                </section>
+
+                <section class="row page__block--aside">
+                    <div class="col">
+                        <div class="page__block__content">
+                            {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                        </div>
+                        
+                        <div class="page__block__aside">
+                        {% if lawyer.activities|length > 0 %}
+                                <div class="page__aside">
+                                    <h3 class="page__aside__title">Especialidades</h3>
+                                    <ul class="page__aside__list--specialties">
+
+                                    {% for activity in lawyer.activities %}
+                                    <li>
+                                        <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
+                                            {{ activity.translate(app.request.getLocale()).title}}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                    {# <li><a href="#">Fiscalidad corporativa</a></li>
+                                    <li><a href="#">Private client &amp; wealth management</a></li>
+                                    <li><a href="#">Fiscalidad contenciosa</a></li> #}
+                                </ul>
+                            </div>
+                        {% endif %}
                         <div class="page__aside">
                             <h3 class="page__aside__title">Formación</h3>
                             <ul class="page__aside__list--career">
@@ -164,72 +165,73 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h3 class="subsection__title">Casos</h3>
-                    </div>
-                    <div class="page__block__content">
-                        <ul class="page__block__content__details">
-                            <li>
-                                <div>20 de febrero de 2020</div>
-                                <a href="#">Women in business. El futuro de la mujer en la empresa. Perspectivas para la mujer emprendedora y para el acceso a puestos de liderazgo.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            {% if lawyer.article %}
-            {% if lawyer.article|length > 1 %}
                 <section class="row page__block">
                     <div class="col">
                         <div class="page__block__title">
-                            <h3 class="subsection__title">Publicaciones</h3>
+                            <h3 class="subsection__title">Casos</h3>
                         </div>
                         <div class="page__block__content">
                             <ul class="page__block__content__details">
-                            {% for article in lawyer.article %}
-                            {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                {% if (article.translate(app.request.getLocale()).title) %}
-                                    <li>
-                                        <div>{{ PublicationDate[1] }}</div>
-                                        <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
+                                <li>
+                                    <div>20 de febrero de 2020</div>
+                                    <a href="#">Women in business. El futuro de la mujer en la empresa. Perspectivas para la mujer emprendedora y para el acceso a puestos de liderazgo.</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </section>
-            {% endif %}
-            {% endif %}
-             {% if lawyer.speaker %}
-          
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h3 class="subsection__title">Eventos</h3>
-                    </div>
-                    <div class="page__block__content">
-                        <ul class="page__block__content__details">
-                            {% for event in lawyer.speaker.events %}
-                            {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                {% if (event.translate(app.request.getLocale()).title) %}
-                                    <li>
-                                        <div>{{ StartDate[1] }}</div>
-                                        <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </section>
 
-            {% endif %} 
+                {% if lawyer.article %}
+                {% if lawyer.article|length > 1 %}
+                    <section class="row page__block">
+                        <div class="col">
+                            <div class="page__block__title">
+                                <h3 class="subsection__title">Publicaciones</h3>
+                            </div>
+                            <div class="page__block__content">
+                                <ul class="page__block__content__details">
+                                {% for article in lawyer.article %}
+                                {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                    {% if (article.translate(app.request.getLocale()).title) %}
+                                        <li>
+                                            <div>{{ PublicationDate[1] }}</div>
+                                            <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                {% endif %}
+
+                {% if lawyer.speaker %}
+                {% if lawyer.speaker.events|length > 1 %}
+                    <section class="row page__block">
+                        <div class="col">
+                            <div class="page__block__title">
+                                <h3 class="subsection__title">Eventos</h3>
+                            </div>
+                            <div class="page__block__content">
+                                <ul class="page__block__content__details">
+                                    {% for event in lawyer.speaker.events %}
+                                    {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                        {% if (event.translate(app.request.getLocale()).title) %}
+                                            <li>
+                                                <div>{{ StartDate[1] }}</div>
+                                                <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                {% endif %}
 
             </div>
 

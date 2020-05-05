@@ -1,29 +1,153 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-    <!-- Responsive Table CSS -->
-    <link href="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- Responsive Table CSS -->
+<link href="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set customAddress =event.translate(app.request.getLocale()).customAddress|split('<BR>') %}
+{% set customAddress = event.translate(app.request.getLocale()).customAddress|split('<BR>') %}
 
-    <main role="main" class="event-detail">
+    <main role="main">
 
-        <article>
+        <article class="container">
             {# <header id="page-header-new" style="background-image: url('{{ asset('web/assets/vector/47010585-seamless-geometric-pattern.jpg') }}');"> #}
-            <header id="page-header-new">
+
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ event.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Eventos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="row page__event">
+                <div class="col">
+                    <div class="page__event__content">
+                        {{ event.translate(app.request.getLocale()).description|raw }}
+
+                        <a href="#" class="btn btn__solid">
+                            Descarga el dossier
+                            <i class="icon ion-ios-download-outline"></i>
+                        </a>
+
+                        <div class="page__event__content__info">
+                            <div data-author>Laura Vivas</div>
+                            <div data-reading>8' lectura</div>
+                        </div>
+
+                        <ul class="related__services">
+                            <li class="related__services__item">
+                                <a href="#" class="related__services__link">
+                                    Civil
+                                </a>
+                            </li>
+                            <li class="related__services__item">
+                                <a href="#" class="related__services__link">
+                                    Internacional
+                                </a>
+                            </li>
+                            <li class="related__services__item">
+                                <a href="#" class="related__services__link">
+                                    Macroeconomía
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="page__event__aside">
+                        <article class="boxnews__item boxnews__item--event sticky-top">
+                            <div class="boxnews__header">
+                                <div class="boxnews__type">Evento</div>
+                            </div>
+                            <div class="boxnews__content">
+                                <div class="place">
+                                    <a href="#">Barcelona</a>
+                                    {#{ customAddress|last }#}
+                                    <br>
+                                    Av. Diagonal, 141
+                                    {#{ customAddress[:-1]|join(' ') }#}
+
+                                </div>
+                                <div class="date">
+                                    <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
+                                    {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
+                                    <br>
+                                    10.30 — 14.30
+                                </div>
+                                <div class="author">
+                                    <!-- 10.30 — 14.30 <br> -->
+                                    <a href="#">{{ event.contact ? event.contact : 'Marta Zaragoza' }}</a>
+                                    <br>
+                                    {{ (event.phone) ? event.phone : '684 25 83 57' }}
+                                </div>
+                                <a href="#" class="btn btn__arrow">Inscribirme</a>
+                            </div>
+                            <!-- <div class="boxnews__footer">
+                                <ul class="related__services">
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">
+                                            Fiscal
+                                        </a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">
+                                            Dac 6
+                                        </a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">
+                                            Nacional
+                                        </a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">
+                                            Comercio
+                                        </a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">
+                                            Infraestructuras
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="page-header-new">
                 <div class="container header-info-wrapper">
                     <div class="row">
                         <div class="col-md-8 header-info-new">
                             <div class="d-flex flex-column">
-                                <h1 class="order-2">
-                                    {{ event.translate(app.request.getLocale()).title|raw  }}
-                                </h1>
                                 <div class="order-3">
                                     <div class="date-time">
-                                        {{ event.translate(app.request.getLocale()).schedule|raw  }}
+                                        {{ event.translate(app.request.getLocale()).schedule|raw }}
                                     </div>
                                     <address class="address">
                                         <span class="city">
@@ -34,29 +158,13 @@
                                         </span>
                                     </address>
                                 </div>
-                                <nav class="order-1" aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                        <li class="breadcrumb-item"><a href="#">Conocimiento</a></a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Evento
-                                        </a></li>
-                                    </ol>
-                                </nav>
-                                <ul class="action-icons order-4">
-                                    <li><a href="#"><i class="material-icons">share</i></a></li>
-                                    <li><a href="#"><i class="material-icons">print</i></a></li>
-                                    <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
-                                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                                </ul>
-                                {# <a href="#" class="back-button">volver</a> #}
                             </div>
                         </div>
                     </div>
                 </div>
-            </header>
+            </section>
 
-            <section class="container">
+            <!-- <section class="container">
                 <div class="row">
                     <div class="col-md-8 article-section detail">
                         {{ event.translate(app.request.getLocale()).description|raw  }}
@@ -68,7 +176,6 @@
                         <p>Commodo elit at imperdiet dui. Est ultricies integer quis auctor elit sed vulputate. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Purus in mollis nunc sed. Tristique senectus et netus et malesuada fames ac turpis. Cras ornare arcu dui vivamus arcu. Leo vel fringilla est ullamcorper eget nulla facilisi etiam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Id cursus metus aliquam eleifend mi. Purus non enim praesent elementum. Ornare quam viverra orci sagittis eu volutpat odio facilisis mauris.</p>
                         <p>Sodales neque sodales ut etiam sit amet. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Nam at lectus urna duis. Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor. Varius morbi enim nunc faucibus a pellentesque sit. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Duis tristique sollicitudin nibh sit amet.</p> #}
                     </div>
-
                     <aside class="col-md-4 article-aside">
                         <section class="practical-information sticky-top">
                             <h3>Información práctica</h3>
@@ -111,31 +218,27 @@
                             {% for activity in event.activities %}
                                 <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
                             {% endfor %}
-                                {# <li><a href="#">Corporate Governance y Compliance</a></li>
-                                <li><a href="#">Fiscal</a></li>
-                                <li><a href="#">Alimentación</a></li>
-                                <li><a href="#">Energía y Recursos Naturales</a></li>
-                                <li><a href="#">Retail</a></li>
-                                <li><a href="#">Infraestructuras</a></li> #}
                             </ul>
                         </section>
                     </aside>
                 </div>
-            </section>
-        </article>
+            </section> -->
 
-        {% include 'web/knowledge/shared/eventProgramme.html.twig' %}
-        {% include 'web/knowledge/shared/eventSpeakers.html.twig' %}
+        </article>
 
     </main>
 
-    {% include 'web/shared/related-content.html.twig' %}
-    {% include 'web/shared/insights.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
-    <!-- Responsive Table JavaScript -->
-    <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        web.global.sliderNews();
+    });
+</script>
 {% endblock %}

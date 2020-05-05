@@ -25,6 +25,11 @@
         left: -4px;
     }
 
+    @include when-inside(".page__event") {
+        position: relative;
+        left: -4px;
+    }
+
     //
     // Lawyer detail
     //
@@ -42,6 +47,10 @@
         }
 
         @include when-inside(".page__aside--practices") {
+            margin: 0 10px 2px 0;
+        }
+
+        @include when-inside(".page__event") {
             margin: 0 8px 2px 0;
         }
 
@@ -64,6 +73,10 @@
             }
 
             @include when-inside(".page__aside--practices") {
+                left: -6px;
+            }
+
+            @include when-inside(".page__event") {
                 left: -4px;
             }
         }
@@ -76,9 +89,10 @@
     }
 
     @include has("link") {
+        display: inline-block;
         margin: 0 0;
         padding: 2px 0 0;
-        @include fontSet(16px, 16px);
+        @include fontSet(16px, 18px);
         @include classic-link($complementary-color, $white, $border: false);
         text-transform: uppercase;
 
@@ -93,6 +107,11 @@
         }
 
         @include when-inside(".page__aside--practices") {
+            @include background-link($complementary-color, $white, $complementary-color);
+            padding: 2px 4px 0;
+        }
+
+        @include when-inside(".page__event") {
             @include background-link($complementary-color, $white, $complementary-color);
             padding: 2px 4px 0;
         }

@@ -60,7 +60,8 @@
     }
 
     .select {
-        flex: 1;
+        // flex: 1;
+        flex: 1 1 auto;
         position: relative;
         height: $select-height;
         margin: 0 0.5rem;
@@ -139,7 +140,7 @@
             padding: 0.5rem 1rem 0.5rem 0.5rem;
             @include fontSet(20px, 20px);
             text-align: left;
-            white-space: nowrap;
+            // white-space: nowrap;
             // box-shadow: 0 1px 0 rgba($black, 0.1);
             transition: all 0.15s ease-in;
 
