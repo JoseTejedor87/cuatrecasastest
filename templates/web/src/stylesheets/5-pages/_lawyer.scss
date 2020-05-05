@@ -249,6 +249,7 @@
         }
 
         @include has("item") {
+            flex: 0 0 auto;
             position: relative;
             margin: 4px 16px 0 0;
             padding: 0 0;
