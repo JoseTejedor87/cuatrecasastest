@@ -132,7 +132,6 @@
             width: 100%;
             padding: 0 0;
             margin: 0 0;
-            display: flex;
             flex-wrap: wrap;
             overflow: hidden;
 
@@ -202,12 +201,6 @@
             // background-position: 94% 0;
             background-blend-mode: luminosity;
             background-color: rgba($complementary-color, 0.3);
-
-            .team__member__name,
-            .team__member__position,
-            .team__member__practice__item {
-                white-space: nowrap;
-            }
         }
 
 
@@ -222,6 +215,10 @@
 
         // one item
         &:first-child:nth-last-child(1) {
+            .team__member__practice {
+                display: flex;
+            }
+
             .team__member__details {
                 width: 75%;
             }
@@ -231,13 +228,22 @@
         &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
             @include on-event() {
                 flex-grow: 3;
+
+                .team__member__practice {
+                    display: flex;
+                }
             }
+
         }
 
         // three items
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
             @include on-event() {
                 flex-grow: 4;
+
+                .team__member__practice {
+                    display: flex;
+                }
             }
         }
 
@@ -245,6 +251,10 @@
         &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
             @include on-event() {
                 flex-grow: 5;
+
+                .team__member__practice {
+                    display: flex;
+                }
             }
         }
 
@@ -252,6 +262,10 @@
         &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
             @include on-event() {
                 flex-grow: 6;
+
+                .team__member__practice {
+                    display: flex;
+                }
             }
         }
 
