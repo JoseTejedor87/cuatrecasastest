@@ -4,22 +4,27 @@
             <div class="col">
                 <div class="team__wrapper">
                     <div class="team__info">
-                        <h3>Equipo<br>Cuatrecasas</h3>
-                        <h4>Cuatrecasas cuenta con un equipo {{ sector.translate(app.request.getLocale()).title|raw }}</h4>
-                        <a href="#" class="double__arrow__link">Conoce al equipo</a>
+                        <div class="team__info__title">Equipo<br>Cuatrecasas</div>
+                        <div class="team__info__intro">Cuatrecasas cuenta con un equipo {{ sector.translate(app.request.getLocale()).title|raw }}</div>
+                        {% if sector.lawyers|length > 1 %}
+                            <a href="#" class="double__arrow__link">Conoce al equipo</a>
+                        {% endif %}
                     </div>
                     <div class="team__list">
                         {% for lawyer in sector.lawyers|slice(0, 5) %}
                             <article class="team__member" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                                <a href="#" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</a>
-                                <div class="team__member__position">
-                                    <h3>{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}<br>Fiscal | {{ lawyer.office ? lawyer.office.city : '' }}</h3>
-                                </div>
-                                <div class="team__member__name">
-                                    <h4>{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h4>
-                                </div>
-                                <div class="team__member__resume">
-                                    <p>Irene Moreno es experta en lorem ipsum sit amet cursus, consectetur adipiscing.</p>
+                                <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</a>
+                                <h3 class="team__member__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</h3>
+                                <div class="team__member__details">
+                                    <div class="team__member__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
+                                    <ul class="team__member__practice">
+                                    {% if lawyer.activities %}
+                                        {% for activity in lawyer.activities %}
+                                            <li class="team__member__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
+                                        {% endfor %}
+                                            <li class="team__member__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
+                                    {% endif %}
+                                    </ul>
                                 </div>
                             </article>
                         {% endfor %}

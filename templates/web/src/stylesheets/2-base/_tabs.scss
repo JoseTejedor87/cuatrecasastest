@@ -13,12 +13,14 @@
         width: 100%;
         padding-top: 0;
         padding-bottom: 0;
+        transition: all 0.3s ease-in-out;
 
         &:before,
         &:after {
             @include reset-pseudo(transparent);
             display: inline-block;
             z-index: -1;
+            transition: all 0.3s ease-in-out;
         }
 
         &:before {
@@ -64,6 +66,8 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             border-left: 10px solid transparent;
+
+            transition: all 0.3s ease-in-out;
 
             @include on-event {
                 color: $complementary-color;

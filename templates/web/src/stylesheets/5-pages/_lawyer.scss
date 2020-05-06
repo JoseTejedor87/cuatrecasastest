@@ -198,7 +198,7 @@
 
     @include has("name") {
         order: 2;
-        width: 40%;
+        width: 52%;
         margin-top: 1rem;
         @include fontSet(24px, 26px);
         font-weight: normal;
@@ -216,10 +216,12 @@
 
     @include has("details") {
         order: 1;
+        width: 75%;
         margin-top: 0.2rem;
 
         @include when-inside(".lawyer__search__wrapper--list") {
             order: 2;
+            width: 100%;
         }
     }
 
@@ -237,28 +239,33 @@
 
     @include has("practice") {
         @include reset-list;
-        padding: 2px 0;
-        margin: 4px 0 2px;
+        padding: 0 0;
+        margin: 0 0;
         display: flex;
         flex-wrap: wrap;
         overflow: hidden;
 
         @include has("item") {
+            flex: 0 1 auto;
             position: relative;
-            margin: 0 16px 2px 0;
+            margin: 4px 16px 0 0;
             padding: 0 0;
             @include fontSet(16px, 16px);
             font-weight: bold;
             text-transform: uppercase;
             color: $main-color;
 
+            @include when-inside(".lawyer__search__wrapper--list") {
+                // flex: 0 0 auto;
+            }
+
             &:before {
                 content: "";
                 position: absolute;
-                top: 0;
+                top: -1px;
                 left: -8px;
                 width: 2px;
-                height: 82%;
+                height: 100%;
                 background-color: $main-color;
             }
 
@@ -268,15 +275,14 @@
                 }
             }
         }
-
     }
 
-    @include has("office") {
-        @include fontSet(16px, 16px);
-        font-weight: bold;
-        text-transform: uppercase;
-        color: $main-color;
-    }
+    // @include has("office") {
+    //     @include fontSet(16px, 16px);
+    //     font-weight: bold;
+    //     text-transform: uppercase;
+    //     color: $main-color;
+    // }
 }
 
 
@@ -284,7 +290,7 @@
 // HEADER INFO DETAILS
 // --------------------------------------------------------------------------
 
-@include new("lawyer__details") {
+@include new("lawyer__page") {
 
     @include has("header") {
         color: $white;
@@ -332,7 +338,7 @@
 
     @include has("content") {
         // background-color: purple;
-        padding: 7rem 0 5rem;
+        padding: 7rem 6rem 5rem 0;
 
         @include mediaQuery($massive-width, $large-width) {
             // border: 1px solid yellow;

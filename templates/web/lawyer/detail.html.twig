@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    <main role="main" class="lawyer__details">
+    <main role="main" class="lawyer__page">
         <article>
 
             <!-- trys -->
@@ -33,16 +33,16 @@
             </header> -->
 
             <header class="container-fluid">
-                <div class="row lawyer__details__header">
-                    <div class="col-md-7 lawyer__details__content">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
                         <a href="#" class="back__button">volver</a>
-                        <h1 class="lawyer__details__name">
+                        <h1 class="lawyer__page__name">
                             {{ lawyer.name }} {{ lawyer.surname }}
                         </h1>
-                        <h2 class="lawyer__details__position">
+                        <h2 class="lawyer__page__position">
                             {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}
                         </h2>
-                        <ul class="lawyer__details__scope related__services">
+                        <ul class="lawyer__page__scope related__services">
                             {% for activity in lawyer.activities %}
                             <li class="related__services__item">
                                 <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
@@ -51,9 +51,9 @@
                             </li>
                             {% endfor %}
                         </ul>
-                        <div class="lawyer__details__contact">
+                        <div class="lawyer__page__contact">
                             <div data-address>
-                                CUATRECASAS {{ lawyer.office.city }}
+                                CUATRECASAS {{ lawyer.office ? lawyer.office.city : '' }}
                             </div>
                             <div data-telephone>
                                 {{ lawyer.phone }}
@@ -64,7 +64,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="lawyer__details__more">
+                        <div class="lawyer__page__more">
                             <div data-langs>
                                 Español | Inglés
                             </div>
@@ -82,16 +82,16 @@
                         </ul>
                     </div>
                     <div class="col-md-5">
-                        <figure class="lawyer__details__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
+                        <figure class="lawyer__page__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
 
                             <!-- server -->
-                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
-                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__details__media__photo"> -->
+                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
                             <!-- local -->
-                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__details__media__photo"> -->
-                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__details__media__photo">
+                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__page__media__photo"> -->
+                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__page__media__photo">
 
                         </figure>
                     </div>
@@ -100,46 +100,47 @@
 
             <div class="container">
 
-
-
-            <section class="row page__block--full">
-                <div class="col">
-                    <div class="page__block__content--full">
-                        {{ lawyer.translate(app.request.getLocale()).description|raw  }}
-                    </div>
-                </div>
-            </section>
-
-            <section class="row page__block--aside">
-                <div class="col">
-                    <div class="page__block__content">
-                        {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
-                    </div>
-                    <div class="page__block__aside">
-                        <div class="page__aside">
-                            <h3 class="page__aside__title">Especialidades</h3>
-                            <ul class="page__aside__list--specialties">
-
-                                {#% for activity in lawyer.secondaryActivities %}
-                                <li>
-                                    <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
-                                        {{ activity.translate(app.request.getLocale()).title}}
-                                    </a>
-                                </li>
-                                {% endfor %#}
-
-                                <li><a href="#">Fiscalidad corporativa</a></li>
-                                <li><a href="#">Private client &amp; wealth management</a></li>
-                                <li><a href="#">Fiscalidad contenciosa</a></li>
-                            </ul>
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            {{ lawyer.translate(app.request.getLocale()).description|raw  }}
                         </div>
+                    </div>
+                </section>
+
+                <section class="row page__block--aside">
+                    <div class="col">
+                        <div class="page__block__content">
+                            {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                        </div>
+
+                        <div class="page__block__aside">
+                        {% if lawyer.activities|length > 0 %}
+                                <div class="page__aside">
+                                    <h3 class="page__aside__title">Especialidades</h3>
+                                    <ul class="page__aside__list--specialties">
+
+                                    {% for activity in lawyer.secondaryActivities %}
+                                    <li>
+                                        <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
+                                            {{ activity.translate(app.request.getLocale()).title}}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                    {# <li><a href="#">Fiscalidad corporativa</a></li>
+                                    <li><a href="#">Private client &amp; wealth management</a></li>
+                                    <li><a href="#">Fiscalidad contenciosa</a></li> #}
+                                </ul>
+                            </div>
+                        {% endif %}
                         <div class="page__aside">
                             <h3 class="page__aside__title">Formación</h3>
                             <ul class="page__aside__list--career">
-                                <li>
+                                {# <li>
                                     <div>Licenciado en Derecho</div>
                                     <div>Universidad Palmas de Gran Canaria, 1996</div>
-                                </li>
+                                </li> #}
                                 {# <li>
                                     <div>Master en Derecho Comunitario</div>
                                     <div>Especialización en derecho de empresa Université Libre de Bruxelles, 1996/97</div>
@@ -150,10 +151,10 @@
                             </ul>
                             <h3 class="page__aside__title">Menciones</h3>
                             <ul class="page__aside__list--career">
-                                <li>
+                                {# <li>
                                     <div>Abogado recomendado</div>
                                     <div>Chambers Global, Chambers Europe y Best Lawyers para la práctica de Tax</div>
-                                </li>
+                                </li> #}
                                 {# <li>
                                     <div>Antitrust Law. Lawyer of the Year</div>
                                     <div>Best Lawyers en 2012</div>
@@ -164,72 +165,73 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h3 class="subsection__title">Casos</h3>
-                    </div>
-                    <div class="page__block__content">
-                        <ul class="page__block__content__details">
-                            <li>
-                                <div>20 de febrero de 2020</div>
-                                <a href="#">Women in business. El futuro de la mujer en la empresa. Perspectivas para la mujer emprendedora y para el acceso a puestos de liderazgo.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            {% if lawyer.article %}
-            {% if lawyer.article|length > 1 %}
                 <section class="row page__block">
                     <div class="col">
                         <div class="page__block__title">
-                            <h3 class="subsection__title">Publicaciones</h3>
+                            <h3 class="subsection__title">Casos</h3>
                         </div>
                         <div class="page__block__content">
                             <ul class="page__block__content__details">
-                            {% for article in lawyer.article %}
-                            {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                {% if (article.translate(app.request.getLocale()).title) %}
-                                    <li>
-                                        <div>{{ PublicationDate[1] }}</div>
-                                        <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
+                                <li>
+                                    <div>20 de febrero de 2020</div>
+                                    <a href="#">Women in business. El futuro de la mujer en la empresa. Perspectivas para la mujer emprendedora y para el acceso a puestos de liderazgo.</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </section>
-            {% endif %}
-            {% endif %}
-            {% if lawyer.speaker %}
-            {% if lawyer.speaker.events|length > 1 %}
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h3 class="subsection__title">Eventos</h3>
-                    </div>
-                    <div class="page__block__content">
-                        <ul class="page__block__content__details">
-                            {% for event in lawyer.speaker.events %}
-                            {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                {% if (event.translate(app.request.getLocale()).title) %}
-                                    <li>
-                                        <div>{{ StartDate[1] }}</div>
-                                        <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-            {% endif %}
+
+                {% if lawyer.article %}
+                {% if lawyer.article|length > 1 %}
+                    <section class="row page__block">
+                        <div class="col">
+                            <div class="page__block__title">
+                                <h3 class="subsection__title">Publicaciones</h3>
+                            </div>
+                            <div class="page__block__content">
+                                <ul class="page__block__content__details">
+                                {% for article in lawyer.article %}
+                                {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                    {% if (article.translate(app.request.getLocale()).title) %}
+                                        <li>
+                                            <div>{{ PublicationDate[1] }}</div>
+                                            <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                {% endif %}
+
+                {% if lawyer.speaker %}
+                {% if lawyer.speaker.events|length > 1 %}
+                    <section class="row page__block">
+                        <div class="col">
+                            <div class="page__block__title">
+                                <h3 class="subsection__title">Eventos</h3>
+                            </div>
+                            <div class="page__block__content">
+                                <ul class="page__block__content__details">
+                                    {% for event in lawyer.speaker.events %}
+                                    {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
+                                        {% if (event.translate(app.request.getLocale()).title) %}
+                                            <li>
+                                                <div>{{ StartDate[1] }}</div>
+                                                <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                {% endif %}
 
             </div>
 

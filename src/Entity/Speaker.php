@@ -28,6 +28,7 @@ class Speaker extends Publishable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="speakers")
+     * @ORM\OrderBy({"startDate" = "DESC"})
      */
     private $events;
 

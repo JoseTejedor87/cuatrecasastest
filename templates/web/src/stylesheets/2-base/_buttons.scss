@@ -8,26 +8,28 @@
 
 .btn__solid {
     @include reset-link-button;
-    padding: 0.8rem 6.2rem 0.8rem 1rem;
+    // padding: 0.8rem 6.2rem 0.8rem 1rem;
+    padding: 0.8rem 1rem;
     @include fontSet(24px, 24px);
     letter-spacing: 0.05rem;
     color: $white;
     background-color: $complementary-color;
 
-    &:after {
-        @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
-        font-size: 36px;
-        content: '\f3d1';
-        color: $white;
-        transform: scale(1);
-    }
+    // &:after {
+    //     @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
+    //     font-size: 36px;
+    //     content: '\f3d1';
+    //     color: $white;
+    //     transform: scale(1);
+    // }
 
     @include on-event() {
         color: $white;
         text-decoration: none;
-        box-shadow: -6px 6px 0 $white,
-                    0 19px 38px rgba(0, 0, 0, 0.30),
-                    0 15px 12px rgba(0, 0, 0, 0.22);
+        // box-shadow: -6px 6px 0 $white,
+        //             0 19px 38px rgba(0, 0, 0, 0.30),
+        //             0 15px 12px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 3px 18px rgba(0,0,0, 0.3);
     }
 
     @include when("transparent") {
@@ -346,6 +348,10 @@
         color: $white;
         background-color: $complementary-color;
         outline: 1px solid $complementary-color;
+
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25)
+        }
 
         &:before {
             background-color: $main-color;

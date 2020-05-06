@@ -73,7 +73,7 @@
 .event-chooser,
 .event-view {
     @include reset-list;
-    @include reset-flex-horizontal;
+    // @include reset-flex-horizontal;
     justify-content: flex-start;
     align-items: center;
     align-content: flex-start;
@@ -85,10 +85,10 @@
         position: relative;
         margin-right: 1.4rem;
         padding-right: 2.4rem;
-        color: $gray-600;
+        // color: $gray-600;
 
         a {
-            @include link;
+            // @include link;
             font-weight: 600;
         }
 
@@ -100,7 +100,7 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: $gray-600;
+            // background: $gray-600;
         }
 
         &:last-child {
@@ -140,7 +140,7 @@
     align-items: flex-start;
     align-content: flex-start;
     padding: 3rem 0 4rem;
-    border-bottom: 1px solid $gray-light;
+    // border-bottom: 1px solid $gray-light;
 
     > * {
         position: relative;
@@ -197,7 +197,7 @@
             margin-top: 0.5rem;
             font-size: 2rem;
             line-height: 1;
-            color: $gray-medium;
+            // color: $gray-medium;
         }
     }
 
@@ -218,12 +218,12 @@
     [data-when] {
         font-size: 2rem;
         font-weight: 600;
-        color: $gray-medium;
+        // color: $gray-medium;
     }
 
     [data-duration] {
         font-weight: 400;
-        color: $gray-medium;
+        // color: $gray-medium;
     }
 
     [data-where] {
@@ -239,7 +239,7 @@
             top: -2px;
             left: -5px;
             font-size: 3rem;
-            color: $gray-light;
+            // color: $gray-light;
         }
     }
 
@@ -249,7 +249,7 @@
 
     .speakers-wrapper {
         @include reset-list;
-        @include reset-flex-horizontal;
+        // @include reset-flex-horizontal;
         flex-flow: row wrap;
         justify-content: space-between;
         margin-top: 2rem;
@@ -289,12 +289,12 @@
         [data-speaker-name] {
             font-weight: 600;
             text-transform: uppercase;
-            color: $gray-medium;
+            // color: $gray-medium;
         }
 
         [data-speaker-position] {
             margin-top: auto;
-            color: $gray-medium;
+            // color: $gray-medium;
         }
     }
 }

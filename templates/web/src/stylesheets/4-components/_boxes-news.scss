@@ -441,6 +441,42 @@
         padding: 1rem;
         transition: all 0.2s ease-out;
 
+
+        //
+        // EVENT DETAIL BOX
+        // --------------------------------------------------------------------------
+        .place {
+            margin-top: 1rem;
+            @include fontSet(22px, 26px);
+
+            a {
+                @include fancy-link($complementary-color, $complementary-color);
+                text-transform: uppercase;
+            }
+        }
+
+        .date {
+            margin: 1.6rem 0;
+            @include fontSet(22px, 26px);
+            text-transform: uppercase;
+        }
+
+        .author {
+            @include fontSet(22px, 26px);
+
+            a {
+                @include fancy-link($complementary-color, $complementary-color);
+            }
+        }
+
+        .btn {
+            margin-top: 3rem;
+        }
+
+
+        //
+        // SPECIFIC
+        // --------------------------------------------------------------------------
         @include when-inside(".boxnews--insight") {
             min-height: auto;
             height: calc(100% - 3rem);

@@ -68,6 +68,7 @@ class Lawyer extends Publishable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="lawyers")
+     * @ORM\OrderBy({"publication_date" = "DESC"})
      */
     private $Article;
     /**
