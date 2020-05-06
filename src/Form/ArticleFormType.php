@@ -46,7 +46,7 @@ class ArticleFormType extends AbstractType
             ])
             ->add('offices', EntityType::class, [
                 'class' => Office::class,
-                'label' => 'entities.article.fields.office',
+                'label' => 'entities.article.fields.offices',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
