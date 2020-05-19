@@ -504,6 +504,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // console.log('allDay true');
             }
 
+            /*
+            https://stackoverflow.com/questions/26681896/fullcalendar-event-cell-background-color
+            https://stackoverflow.com/questions/43583993/fullcalendar-is-there-a-way-to-call-dayrender-only-after-i-load-my-events-via-e
+            */
+
 
             var fc_bg = calendarEl.getElementsByClassName('.fc-bg');
             console.log('fc_bg: '+fc_bg);
@@ -519,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(allDay === true) {
                     // console.log('allDay true');
                     // ele.classList.add('probando-day');
-                    ele.closest(".fc-bg").classList.add('probando-table');
+                    // ele.closest(".fc-bg").classList.add('probando-table');
                     ele.classList.add('probando-day');
                 }
 
