@@ -51,6 +51,7 @@ class Lawyer extends Publishable
      */
     private $slug;
 
+    
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
@@ -77,9 +78,9 @@ class Lawyer extends Publishable
     private $photo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Speaker", mappedBy="lawyer", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="lawyer", orphanRemoval=true)
      */
-    private $speaker;
+    private $person;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="lawyer")
@@ -265,24 +266,6 @@ class Lawyer extends Publishable
         return $this;
     }
 
-    public function getSpeaker(): ?Speaker
-    {
-        return $this->speaker;
-    }
-
-    public function setSpeaker(?Speaker $speaker): self
-    {
-        $this->speaker = $speaker;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newLawyer = null === $speaker ? null : $this;
-        if ($speaker->getLawyer() !== $newLawyer) {
-            $speaker->setLawyer($newLawyer);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Activity[]
      */
@@ -308,4 +291,24 @@ class Lawyer extends Publishable
 
         return $this;
     }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newLawyer = null === $person ? null : $this;
+        if ($person->getLawyer() !== $newLawyer) {
+            $person->setLawyer($newLawyer);
+        }
+
+        return $this;
+    }
+
+
 }

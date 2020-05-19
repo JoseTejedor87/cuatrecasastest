@@ -58,51 +58,17 @@
                     <div class="row page__section">
                         <div class="col">
                             <ul class="buttons__list">
-                                <li class="buttons__list__item">
+                                {% for desk in desks %}
+                                    {% if desk.translate(app.request.getLocale()).title and desk.highlighted == 1 %}
+                                    <li class="buttons__list__item">
+                                        <a class="btn__subcat" href="{{ relative_path('/'~app.request.getLocale()~'/services/serviceDetail/')}}{{ (desk.translate(app.request.getLocale()).slug ? desk.translate(app.request.getLocale()).slug : '' ) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {# <li class="buttons__list__item">
                                     <a class="btn__subcat" href="consumptionRetail/medio-ambiente">Medio Ambiente</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/urbanismo">Urbanismo</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/alimentacion">Alimentación</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/consumo-y-retail">Consumo y Retail</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/deporte">Deporte</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/empresa-familiar">Empresa Familiar</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/farmacia-y-sanitario">Farmacia y Sanitario</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/hoteles-turismo-y-ocio">Hoteles, Turismo y Ocio</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/private-equity-2">Private equity</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/logistica-y-transporte">Logística y Transporte</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/fundaciones-y-filantropia">Fundaciones y Filantropía</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/infraestructuras">Infraestructuras</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/inmobiliario">Inmobiliario</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/instituciones-financieras">Instituciones Financieras</a>
-                                </li>
-                                <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/tecnologias-de-la-informacion">Tecnologías de la Información</a>
-                                </li>
+                                </li> #}
+                             
                             </ul>
                         </div>
                     </div>

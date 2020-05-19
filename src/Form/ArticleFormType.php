@@ -61,7 +61,7 @@ class ArticleFormType extends AbstractType
             // ->add('lawyers', EntityType::class, [
             //     'class' => Lawyer::class,
             //     'label' => 'entities.article.fields.lawyers',
-            //     'help' => 'entities.speaker.help.lawyer',
+            //     'help' => 'entities.person.help.lawyer',
             //     'placeholder' => '',
             //     'attr' => [
             //         'class' => 'm-select2'

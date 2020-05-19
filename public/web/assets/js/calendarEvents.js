@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         https://codepen.io/pen/?&editable=true&editors=001
         */
 
-        plugins: [ 'dayGrid', 'list' ],
+        plugins: [ 'momentPlugin','dayGrid', 'list' ],
         defaultView: 'dayGridMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
@@ -428,13 +428,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
         },
-
-
         // RENDER VIEWS
         eventRender: function (info) {
 
             if(info.view.type === "dayGridMonth") {
                 info.el.firstChild.innerHTML = '<div class="fc-event-place">'+ info.event.extendedProps.place +'</div><div class="fc-event-sector">'+ info.event.extendedProps.sector +'</div>';
+                info.el.classList.add('probando-day');
             }
 
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
@@ -465,82 +464,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
 
-
-            /*
-            console.log('info.event.start: '+info.event.start);
-            if (info.date === '2020-05-22') {
-                // info.el.css("background-color", "red");
-
-                alert('yes');
-
-                info.el.classList.add("fc-event-day");
-                console.log('today.getDate');
-            }
-            */
-
-            // var dayCell = calendarEl.querySelectorAll('.fc-day')[1].getAttribute("data-date");
-            // // var dayCell = calendarEl.querySelectorAll('.fc-day');
-            // console.log('dayCell: '+dayCell);
-
-            // var dayEvent = calendarEl.querySelectorAll('.fc-event-container');
-            // // console.log('dayEvent: '+dayEvent);
-
-
-            // var dayDate = info.event.extendedProps.probando;
-            // console.log('dayDate: '+dayDate);
-
-            // console.log('+++');
-
-
-            // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
+            //Pintar dia con evento
             var dayNumber = calendarEl.querySelectorAll('.fc-day');
-
-            var allDay = info.event.allDay;
-            // console.log('allDay: '+allDay);
-
-            if(allDay === true) {
-                // console.log('allDay true');
+            let date = new Date(info.event.start);
+            let day = date.getDate();
+            if(day < 10){
+                day = `0${day}`;
             }
-
-
-            var fc_bg = calendarEl.getElementsByClassName('.fc-bg');
-            console.log('fc_bg: '+fc_bg);
-
+            let month = date.getMonth() + 1;
+            if(month < 10){
+                month = `0${month}`;
+            }
+            let year = date.getFullYear();
             dayNumber.forEach( function(ele, indice, array) {
-                // console.log("En el índice " + indice + " hay este valor: " + ele.getAttribute("data-date"));
-
-
-                // .fc-bg > .fc-day.fc-widget-content
-
-                // calendarEl.getElementsByClassName('.fc-bg').classList.add('probando-day');
-
-                if(allDay === true) {
-                    // console.log('allDay true');
-                    // ele.classList.add('probando-day');
-                    ele.closest(".fc-bg").classList.add('probando-table');
+                if(`${year}-${month}-${day}` == ele.getAttribute("data-date")){
                     ele.classList.add('probando-day');
                 }
-
-
-
-
-                // ele.closest('table').classList.add('probando-table');
-
-
-
-                console.log('ele.closest: '+ele.closest(".fc-bg"));
-                console.log('ele.nodeName: '+ele.nodeName);
-
-                // console.log('ele: '+ele.closest('table'));
-                // calendarEl.querySelectorAll('.fc-event-container')[indice].classList.add('probando3');
-            });
-
-            // var dayCell = calendarEl.querySelectorAll('.fc-day');
-
-            console.log('+++');
-
+             });
         },
 
         // EVENT CLICK

@@ -86,7 +86,8 @@
         </article>
     </main>
     {% if sector.lawyers|length > 0 %}
-        {% include 'web/shared/team.html.twig' with sector.lawyers %}
+        {% set activityTeam = sector %}
+        {% include 'web/shared/team.html.twig'  %}
     {% endif %}
 
     {# {% include 'web/shared/related-services.html.twig' %} #}

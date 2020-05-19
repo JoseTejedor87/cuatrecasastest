@@ -1,7 +1,7 @@
 {% extends 'cms/base.html.twig' %}
 {% trans_default_domain "admin" %}
 
-{% block title %}{{ 'sections.speakers.index.title'|trans }}{% endblock %}
+{% block title %}{{ 'sections.people.index.title'|trans }}{% endblock %}
 
 {% block body %}
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -11,11 +11,11 @@
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
                     <i class="m-menu__link-icon flaticon-avatar"></i>
-                    {{ 'sections.speakers.index.title'|trans }}
+                    {{ 'sections.people.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('speaker_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('person_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -32,18 +32,18 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th>{{ 'entities.speaker.fields.name'|trans }}</th>
-                            <th>{{ 'entities.speaker.fields.position'|trans }}</th>
+                            <th>{{ 'entities.person.fields.name'|trans }}</th>
+                            <th>{{ 'entities.person.fields.position'|trans }}</th>
                             <th colspan="2" style="width:10%;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for speaker in pagination %}
+                        {% for person in pagination %}
                         <tr>
-                            <td>{{ speaker.getFullName() }}</td>
-                            <td>{{ speaker.position }}</td>
+                            <td>{{ person.getFullName() }}</td>
+                            <td>{{ person.position }}</td>
                             <td>
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('speaker_edit', {'id': speaker.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('person_edit', {'id': person.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>

@@ -55,9 +55,9 @@ class Event extends Publishable
     private $customSignup;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Speaker", cascade="persist", inversedBy="events")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", cascade="persist", inversedBy="events")
      */
-    private $speakers;
+    private $people;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
@@ -71,7 +71,7 @@ class Event extends Publishable
 
     public function __construct()
     {
-        $this->speakers = new ArrayCollection();
+        $this->people = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
     }
@@ -172,31 +172,7 @@ class Event extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Speaker[]
-     */
-    public function getSpeakers(): Collection
-    {
-        return $this->speakers;
-    }
-
-    public function addSpeaker(Speaker $speaker): self
-    {
-        if (!$this->speakers->contains($speaker)) {
-            $this->speakers[] = $speaker;
-        }
-
-        return $this;
-    }
-
-    public function removeSpeaker(Speaker $speaker): self
-    {
-        if ($this->speakers->contains($speaker)) {
-            $this->speakers->removeElement($speaker);
-        }
-
-        return $this;
-    }
+ 
 
     /**
      * @return Collection|Activity[]
@@ -254,4 +230,31 @@ class Event extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
 }

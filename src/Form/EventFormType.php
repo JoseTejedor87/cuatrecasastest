@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Event;
-use App\Entity\Speaker;
+use App\Entity\Person;
 use App\Entity\Activity;
 use App\Entity\Resource;
 use App\Form\Type\EventCategoryType;
@@ -55,17 +55,17 @@ class EventFormType extends AbstractType
                     return $activity->translate('es')->getTitle();
                 }
             ])
-            ->add('speakers', EntityType::class, [
-                'class' => Speaker::class,
-                'label' => 'entities.event.fields.speakers',
+            ->add('people', EntityType::class, [
+                'class' => Person::class,
+                'label' => 'entities.event.fields.people',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
                 'expanded' => false,
-                'choice_label' => function ($speaker) {
-                    return $speaker->getFullName();
+                'choice_label' => function ($person) {
+                    return $person->getFullName();
                 }
             ])
             ->add('translations', TranslationsType::class, [
