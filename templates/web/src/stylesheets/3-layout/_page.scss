@@ -109,7 +109,8 @@
                 content: '';
                 position: absolute;
                 top: 0;
-                width: 100%;
+                left: 15px;
+                width: calc(100% - 30px);
                 height: 1px;
                 background-color: rgba($black, 0.3);
             }
@@ -213,51 +214,6 @@
                 }
             }
 
-            // p ~ ul {
-            //     @include reset-list;
-            //     margin-top: -2rem;
-            //     padding-bottom: 2rem;
-            //     list-style-type: none !important;
-
-            //     > li {
-            //         position: relative;
-            //         margin-bottom: 1rem;
-            //         padding-left: 1.2rem;
-            //         @include fontSet(20px, 26px);
-            //         color: $main-color;
-
-            //         &:before {
-            //             content: '';
-            //             position: absolute;
-            //             top: 8px;
-            //             left: 0;
-            //             display: inline-block;
-            //             width: 8px;
-            //             height: 8px;
-            //             border-radius: 50%;
-            //             background-color: $main-color;
-            //         }
-            //     }
-
-            //     // @include reset-list;
-            //     // margin-top: -2rem;
-            //     // display: block;
-            //     // list-style-type: none !important;
-
-            //     // li {
-            //     //     position: relative;
-            //     //     margin-bottom: 0.6rem;
-            //     //     padding-left: 1rem;
-            //     //     @include fontSet(20px, 26px);
-
-            //     //     &:before {
-            //     //         @include icons-ionicons(7px,auto,auto,0);
-            //     //         content: '\f10a';
-            //     //         font-size: 12px;
-            //     //     }
-            //     // }
-            // }
-
             .page__block__title {
                 margin-bottom: 1rem;
             }
@@ -292,10 +248,16 @@
             }
         }
 
+        // @include when("contact") {
+        //     padding-top: 3rem;
+        //     padding-bottom: 4rem;
+        //     border-top: 2px solid $complementary-color;
+        // }
+
 
         //
-        // Stuff
-        //
+        // MAIN CONTENT BLOCK
+        // --------------------------------------------------------------------------
         @include has("content") {
             flex: 0 0 60%;
             order: 2;
@@ -323,6 +285,7 @@
             }
 
             p {
+                color: $main-color;
                 @include fontSet(22px, 30px);
 
                 a {
@@ -479,7 +442,7 @@
 
 
     //
-    // DOBLE BLOCK ASIDE INVERTED (Events)
+    // DOBLE BLOCK ASIDE INVERTED >>> EVENTS PAGE
     // --------------------------------------------------------------------------
 
     @include has("event") {
@@ -500,30 +463,9 @@
         }
 
         //
-        // Modifiers
+        // EVENT FULL WIDTH CONTENT
         //
-        @include when("aside") {
-            > .col {
-                display: flex;
-                padding-bottom: 2rem;
-
-                .page__block__content {
-                    position: relative;
-                    padding-top: 1rem;
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        top: 0;
-                        width: calc(100%);
-                        height: 1px;
-                        background-color: rgba($black, 0.3);
-                    }
-                }
-            }
-        }
-
-        @include when("full") {
+        @include has("full") {
             > .col {
                 display: block;
                 padding-top: 3rem;
@@ -539,56 +481,16 @@
             p {
                 @include fontSet(22px, 28px);
 
+                @include when-inside(".lawyer__page") {
+                    @include fontSet(32px, 38px);
+                }
+
                 a {
-                    // @include fancy-link($complementary-color, $complementary-color);
+                    @include fancy-link($complementary-color, $complementary-color);
                     // @include classic-link($complementary-color, $complementary-color);
                     // @include border-link($complementary-color, $complementary-color);
-                    @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+                    // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
                 }
-            }
-
-            p ~ ul {
-                @include reset-list;
-                margin-top: -2rem;
-                padding-bottom: 2rem;
-                list-style-type: none !important;
-
-                > li {
-                    position: relative;
-                    margin-bottom: 1rem;
-                    padding-left: 1.2rem;
-                    @include fontSet(20px, 26px);
-                    color: $main-color;
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        top: 8px;
-                        left: 0;
-                        display: inline-block;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background-color: $main-color;
-                    }
-                }
-                // @include reset-list;
-                // margin-top: -2rem;
-                // display: block;
-                // list-style-type: none !important;
-
-                // li {
-                //     position: relative;
-                //     margin-bottom: 0.6rem;
-                //     padding-left: 1rem;
-                //     @include fontSet(20px, 26px);
-
-                //     &:before {
-                //         @include icons-ionicons(7px,auto,auto,0);
-                //         content: '\f10a';
-                //         font-size: 12px;
-                //     }
-                // }
             }
 
             .page__block__title {
@@ -596,38 +498,8 @@
             }
         }
 
-        @include when("full-line") {
-            > .col {
-                position: relative;
-                display: block;
-                padding-top: 2rem;
-                padding-bottom: 6rem;
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    width: 100%;
-                    height: 1px;
-                    background-color: rgba($black, 0.3);
-                }
-            }
-        }
-
-        @include when("flex") {
-            > .col {
-                padding-top: 4rem;
-                padding-bottom: 4rem;
-
-                &:before {
-                    display: none;
-                }
-            }
-        }
-
-
         //
-        // Stuff
+        // EVENT MAIN CONTENT
         //
         @include has("content") {
             flex: 0 0 60%;
@@ -642,28 +514,35 @@
                 }
             }
 
-            .btn {
-                margin: 1rem 0 3rem;
+            .page__event__details {
+                margin-top: 3rem;
+
+                .btn {
+                    margin-bottom: 3rem;
+                }
             }
 
-            @include has("info") {
+            .page__event__info {
                 display: flex;
                 margin-bottom: 0.3rem;
                 @include fontSet(16px, 16px);
                 font-weight: bold;
                 text-transform: uppercase;
-            }
 
-            [data-author] {
-                color: rgba($black, 0.8);
-            }
+                [data-author] {
+                    color: rgba($black, 0.8);
+                }
 
-            [data-reading] {
-                padding-left: 1rem;
-                color: rgba($black, 0.4);
+                [data-reading] {
+                    padding-left: 1rem;
+                    color: rgba($black, 0.4);
+                }
             }
         }
 
+        //
+        // EVENT DETAIL BOX
+        //
         @include has("aside") {
             flex: 0 0 calc(40% - 6rem);
             margin-left: 6rem;
@@ -680,6 +559,10 @@
 
                 .boxnews__content {
                     min-height: auto;
+
+                    .btn {
+                        margin-bottom: 1rem;
+                    }
                 }
             }
         }

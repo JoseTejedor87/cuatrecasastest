@@ -169,6 +169,9 @@ web.global = {
         });
     },
 
+    /* Stand by */
+    /*
+
     toggleMoreInfo: function(){
         // Show / hide filters
 
@@ -207,6 +210,8 @@ web.global = {
                 : el.text(el.data("text-original"));
         });
     },
+
+    */
 
     lawyerResults: function(){
         // Add display: flex instead of display: block to loader
@@ -324,6 +329,20 @@ web.global = {
         });
     },
 
+    sliderGeneral: function(){
+        var swiperCarousel = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            // loop: true,
+            // allowTouchMove: false,
+            // grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    },
+
     sliderNews: function(){
         var swiperCarousel = new Swiper ('#sliderNews', {
             slidesPerView: 3,
@@ -368,143 +387,875 @@ web.global = {
     loadCalendar: function(){
         document.addEventListener('DOMContentLoaded', function() {
 
-          var calendarEl = document.getElementById('eventCalendar');
-          var calendar = new FullCalendar.Calendar(calendarEl, {
+            var calendarEl = document.getElementById('eventCalendar');
 
-           /*
-           https://fullcalendar.io/docs/locale
-           https://fullcalendar.io/docs/locale-demo
-           https://codepen.io/pen/?&editable=true&editors=001
-           */
+            var calendar = new FullCalendar.Calendar(calendarEl, {
 
-            plugins: [ 'dayGrid' ],
-            defaultView: 'dayGridMonth',
+                /*
+                https://fullcalendar.io/docs/locale
+                https://fullcalendar.io/docs/locale-demo
+                https://codepen.io/pen/?&editable=true&editors=001
+                */
 
-            locale: 'es',
-            weekNumberCalculation: 'ISO',
-            // firstDay: 1,
-            // timeZone: 'UTC',
+                plugins: [ 'dayGrid', 'list' ],
+                defaultView: 'dayGridMonth',
+                themeSystem: 'standard',
+                // weekNumberCalculation: 'ISO',
+                timeZone: 'UTC',
+                locale: 'es',
+                firstDay: 1,
+                columnHeaderFormat: { weekday: 'long' },
+                height: 'auto',
 
-            columnHeaderFormat: { weekday: 'long' },
+                views: {
+                    dayGridMonth: {
+                        type: 'dayGrid',
+                        // buttonText: 'month grid',
+                        eventLimit: 4,
+                        eventLimitText: ""
+                    },
+                    listMonth: {
+                        type: 'listGrid',
+                        // buttonText: 'list month',
+                        listDayAltFormat: false,
+                        eventLimit: false
+                    },
+                    listDay: {
+                        type: 'listGrid',
+                        // buttonText: 'list day',
+                        listDayAltFormat: false,
+                        eventLimit: false
+                    },
+                },
 
-            header: {
-              left: 'prev',
-              center: 'title',
-              right: 'next'
-            },
+                // CUSTOM BUTTONS
+                // https://fullcalendar.io/docs/customButtons
+                customButtons: {
+                    icon__button__prev: {
+                        // text: 'Prev',
+                        icon: 'chevron-left',
+                        click: function() {
+                            calendar.prev();
+                        }
+                    },
+                    icon__button__next: {
+                        // text: 'Next',
+                        icon: 'chevron-right',
+                        click: function() {
+                            calendar.next();
+                        }
+                    },
+                    icon__button__list: {
+                        text: 'List',
+                        click: function() {
+                            calendar.changeView('listMonth');
 
+                            var listButton = document.getElementById("listBot");
+                            var gridButton = document.getElementById("gridBot");
+
+                            listButton.classList.add("active");
+                            gridButton.classList.remove("active");
+
+                        }
+                    },
+                    icon__button__grid: {
+                        text: 'Grid',
+                        click: function() {
+                            calendar.changeView('dayGridMonth');
+
+                            var listButton = document.getElementById("listBot");
+                            var gridButton = document.getElementById("gridBot");
+
+                            gridButton.classList.add("active");
+                            listButton.classList.remove("active");
+                        }
+                    }
+                },
+
+
+                /*
+                ADD ACTIVE STATE TO HEADER BUTTONS
+                https://github.com/fullcalendar/fullcalendar/issues/5117
+                https://codepen.io/acerix/pen/jOOYypP?editors=0110
+                https://stackoverflow.com/questions/41588745/how-add-id-element-to-the-specific-class-line
+                */
+
+
+                // https://github.com/fullcalendar/fullcalendar/issues/5117
+                // https://codepen.io/acerix/pen/jOOYypP?editors=0110
+
+
+                header: {
+                    // left: 'prev,next',
+                    left: 'icon__button__prev,icon__button__next',
+                    center: 'title',
+                    // right: 'dayGridMonth,listDay,listMonth'
+                    right: 'icon__button__list,icon__button__grid'
+                },
+
+                events: [
+                    {
+                        title: 'La CNMC archiva de nuevo un expediente sobre el sistema de doble precio de los laboratorios farmacéuticos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T10:00:00+00:00',
+                        end: '2020-05-05T14:00:00+00:00',
+                        allDay: true,
+                        sector: 'Fusiones y adquisiciones',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '4 mayo',
+                        fullTime: '10.00 — 14.00',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-04',
+                        allDay: true,
+                        sector: 'Fiscal',
+                        place: 'Madrid',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '04 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T10:30:00+00:00',
+                        end: '2020-05-05T14:30:00+00:00',
+                        allDay: true,
+                        sector: 'Laboral',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
+                        fullDate: '4 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'Mesa redonda: información privilegiada y otra información relevante.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T11:00:00+00:00',
+                        end: '2020-05-05T13:00:00+00:00',
+                        allDay: true,
+                        sector: 'Fiscal',
+                        place: 'Madrid',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
+                        fullDate: '4 mayo',
+                        fullTime: '11.00 — 13.00',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola"},
+                            {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T10:30:00+00:00',
+                        end: '2020-05-05T14:30:00+00:00',
+                        allDay: true,
+                        sector: 'Logística y Transporte',
+                        place: 'Valencia',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '4 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
+                        ]
+                    },
+                    {
+                        title: 'Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T10:30:00+00:00',
+                        end: '2020-05-05T14:30:00+00:00',
+                        allDay: true,
+                        sector: 'Consumo y Retail',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
+                        fullDate: '4 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'Mesa redonda: información privilegiada y otra información relevante.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-05T10:30:00+00:00',
+                        end: '2020-05-05T14:30:00+00:00',
+                        allDay: true,
+                        sector: 'Laboral',
+                        place: 'Madrid',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
+                        fullDate: '4 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola"},
+                            {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
+                        ]
+                    },
+
+                    {
+                        title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-06',
+                        allDay: true,
+                        sector: 'Fiscal',
+                        place: 'Bilbao',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
+                        fullDate: '6 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-06',
+                        allDay: true,
+                        sector: 'Consumo y Retail',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '6 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-07',
+                        allDay: true,
+                        sector: 'Mercantil y Societario',
+                        place: 'Valencia',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '07 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-08',
+                        allDay: true,
+                        sector: 'Consumo y Retail',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
+                        fullDate: '8 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-08',
+                        allDay: true,
+                        sector: 'Logística y Transporte',
+                        place: 'Bilbao',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '8 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'Mesa redonda: información privilegiada y otra información relevante.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-08',
+                        allDay: true,
+                        sector: 'Fiscal',
+                        place: 'Madrid',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
+                        fullDate: '8 mayo',
+                        fullTime: '11.00 — 13.00',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola"},
+                            {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-08',
+                        allDay: true,
+                        sector: 'Logística y Transporte',
+                        place: 'Valencia',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '8 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
+                        ]
+                    },
+                    {
+                        title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-08',
+                        allDay: true,
+                        sector: 'Mercantil y Societario',
+                        place: 'Bilbao',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
+                        fullDate: '8 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-11',
+                        allDay: true,
+                        sector: 'Fusiones y Adquisiciones',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '9 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-13',
+                        allDay: true,
+                        sector: 'Fiscal',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '13 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                    {
+                        title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-22',
+                        allDay: true,
+                        sector: 'Mercantil y Societario',
+                        place: 'Bilbao',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
+                        fullDate: '22 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                        speakersTitle: 'Ponentes',
+                        speakers: [
+                            {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
+                            {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
+                            {"speaker_name": "Ignacio Javier Irigoyen"}
+                        ]
+                    },
+                    {
+                        title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
+                        titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
+                        start: '2020-05-27',
+                        allDay: true,
+                        sector: 'Consumo y retail',
+                        place: 'Barcelona',
+                        placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
+                        fullDate: '27 mayo',
+                        fullTime: '10.30 — 14.30',
+                        button: 'Inscribirme',
+                    },
+                ],
+
+                /*
+                DAY BACKGROUND COLOR
+                https://stackoverrun.com/es/q/2008610
+                https://stackoverflow.com/questions/16089123/can-i-style-the-events-container-cell-instead-of-the-event-with-the-fullcalenda
+
+                >>>
+                https://www.google.com/search?q=fullcalendar+dayrender+background+with+events&rlz=1C1CHBD_esES892ES892&oq=fullcalendar+dayrender+background+with+events&aqs=chrome..69i57.23519j0j4&sourceid=chrome&ie=UTF-8
+
+                http://jsfiddle.net/kvakulo/CYnJY/4/
+
+                https://stackoverflow.com/questions/17920017/change-the-day-background-color-in-fullcalendar
+                https://stackoverflow.com/questions/26784901/fullcalendar-dayrender
+                https://stackoverflow.com/questions/55030405/fullcalendar-dayrender-for-specific-events
+
+
+                >>>
+                https://stackoverflow.com/questions/49929524/how-to-change-cell-background-color-in-fullcalendar
+                https://github.com/fullcalendar/fullcalendar/issues/4145
+
+                */
+
+
+                // viewSkeletonRender: function(info) {
+                //     var headerButtons = calendarEl.querySelectorAll('.fc-button');
+                //     // console.log('headerButtons: '+headerButtons);
+
+                //     headerButtons.forEach(function(button) {
+                //         if (button.innerText === 'Grid') {
+                //             button.classList.add('active');
+                //             button.id = 'gridBot';
+                //         }
+                //         if (button.innerText === 'List') {
+                //             button.id = 'listBot';
+                //         }
+                //     });
+
+
+
+                //     // var today = new Date();
+                //     // if (date.getDate() === today.getDate()) {
+                //     //     cell.css("background-color", "red");
+                //     // }
+
+
+                //     success: function (data) {
+                //         $.each(data, function(i) {
+                //             $('.fc-day[data-date="'+data[i]["date"]+'"]').css('background', Your Color Code);
+                //         });
+                //     }
+
+
+                //     // $("[data-date="+$.fullCalendar.formatDate(new Date(), "yyyy-MM-dd")+"]").css("background-color", "red");
+
+
+                //     // http://jsfiddle.net/marcrazyness/C8jpm/
+
+                //     /*
+                //     var dayCell = calendarEl.querySelectorAll('.fc-day');
+                //     console.log('dayCell: '+dayCell);
+
+                //     // each(data, function(i) {
+                //     //         $('.fc-day[data-date="'+data[i]["date"]+'"]').css('background', Your Color Code);
+                //     //     });
+
+                //     dayCell.forEach(function(cell) {
+                //         console.log('cell: '+cell);
+                //         cell.classList.add('probando');
+
+                //         if(cell === "2020-05-10") {
+                //             cell.classList.add('probando');
+                //         }
+                //     });
+                //     */
+
+                // },
+
+
+                // https://fullcalendar.io/docs/datesRender
+
+                // datesRender: function(info) {
+
+                //     var listButton = document.getElementById("listBot");
+                //     var gridButton = document.getElementById("gridBot");
+
+                //     if(info.view.type === "dayGridMonth") {
+                //         console.log('dayGridMonth');
+                //     }
+
+                //     if(info.view.type === "listMonth" || info.view.type === "listDay") {
+                //         console.log('listMonth');
+                //     }
+
+
+
+                // },
+
+
+                // RENDER VIEWS
+                eventRender: function (info) {
+
+                    if(info.view.type === "dayGridMonth") {
+                        info.el.firstChild.innerHTML = '<div class="fc-event-place">'+ info.event.extendedProps.place +'</div><div class="fc-event-sector">'+ info.event.extendedProps.sector +'</div>';
+                    }
+
+                    if(info.view.type === "listMonth" || info.view.type === "listDay") {
+                        // DETAILS
+                        info.el.firstChild.innerHTML = '<div>123</div><div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
+
+                        // TITLE
+                        info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
+
+                        // SPEAKERS
+                        // console.log(info.event.extendedProps);
+                        var speakersInfo = info.event.extendedProps.speakers;
+
+                        if(speakersInfo) {
+                            var htmlStr = '<div class="event-speakers"><div class="title">'+ info.event.extendedProps.speakersTitle +'</div><ul class="related__content">';
+
+                            speakersInfo.forEach(function(value, index, array) {
+                                if(value['speaker_url']) {
+                                    htmlStr += '<li><a href="'+ value['speaker_url'] +'">'+ value['speaker_name'] +'</a></li>';
+                                } else {
+                                    htmlStr += '<li><span>'+ value['speaker_name'] +'</span></li>';
+                                }
+                            });
+
+                            htmlStr += '</div></ul>';
+                            info.el.lastChild.innerHTML += htmlStr;
+                        }
+                    }
+
+
+
+                    /*
+                    console.log('info.event.start: '+info.event.start);
+                    if (info.date === '2020-05-22') {
+                        // info.el.css("background-color", "red");
+
+                        alert('yes');
+
+                        info.el.classList.add("fc-event-day");
+                        console.log('today.getDate');
+                    }
+                    */
+
+                    // var dayCell = calendarEl.querySelectorAll('.fc-day')[1].getAttribute("data-date");
+                    // // var dayCell = calendarEl.querySelectorAll('.fc-day');
+                    // console.log('dayCell: '+dayCell);
+
+                    // var dayEvent = calendarEl.querySelectorAll('.fc-event-container');
+                    // // console.log('dayEvent: '+dayEvent);
+
+
+                    // var dayDate = info.event.extendedProps.probando;
+                    // console.log('dayDate: '+dayDate);
+
+                    // console.log('+++');
+
+
+                    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                    /*
+                    var dayNumber = calendarEl.querySelectorAll('.fc-day');
+
+                    var allDay = info.event.allDay;
+                    console.log('allDay: '+allDay);
+
+                    dayNumber.forEach( function(ele, indice, array) {
+                        console.log("En el índice " + indice + " hay este valor: " + ele.getAttribute("data-date"));
+                        // ele.classList.add('probando-day');
+
+
+                        // ele.closest('table').classList.add('probando-table');
+
+                        // console.log('dayRender: '+info.el);
+                        // console.log('ele: '+ele.closest('table'));
+                        // calendarEl.querySelectorAll('.fc-event-container')[indice].classList.add('probando3');
+                    });
+
+                    // var dayCell = calendarEl.querySelectorAll('.fc-day');
+
+                    var dayDate = info.event.extendedProps.probando;
+                    console.log('dayDate: '+dayDate);
+
+                    console.log('+++');
+                    */
+
+
+
+                },
+
+
+                /*
+                DAY RENDER
+                // https://fullcalendar.io/docs/upgrading-from-v3#view-api
+
+                // BACKGROUND COLOR
+                // https://stackoverflow.com/questions/55323256/how-to-change-background-color-of-selected-date-in-fullcalendar
+
+                https://stackoverflow.com/questions/17613582/fullcalendar-change-the-color-for-specific-days/36927481
+                http://jsfiddle.net/kvakulo/CYnJY/4/
+
+                https://stackoverflow.com/questions/55030405/fullcalendar-dayrender-for-specific-events
+                */
+                // dayRender: function(info) {
+                //     console.log(info.date.toUTCString());
+                //     console.log(info.el);
+                //     console.log(info.view.type);
+                // },
+
+
+                // https://stackoverflow.com/questions/17920017/change-the-day-background-color-in-fullcalendar
+
+
+                // outerHTML: "<td class="fc-day fc-widget-content fc-sun fc-future" data-date="2020-05-17"></td>"
+
+
+                // dayRender: function (info) {
+                //     // https://github.com/fullcalendar/fullcalendar/issues/4145
+
+                //     var today = new Date();
+                //     var end = new Date();
+                //     end.setDate(today.getDate()+7);
+
+                //     // console.log(today);
+                //     // console.log(end);
+
+                //     console.log(info.date);
+                //     console.log(info.el);
+
+                //     if (info.date === '2020-05-08') {
+                //         // info.el.css("background-color", "red");
+
+                //         alert('yes');
+
+                //         info.el.classList.add("fc-event-day");
+                //         console.log('today.getDate');
+                //     }
+
+
+                //     if (info.date.getDate() === today.getDate()) {
+                //         // info.el.css("background-color", "red");
+
+                //         info.el.classList.add("fc-event-day");
+                //         console.log('today.getDate');
+                //     }
+
+                //     if(info.date > today && info.date <= end) {
+                //         // cell.css("background-color", "yellow");
+                //         console.log('today.getDate 2');
+                //     }
+
+
+                // },
+
+
+                dayRender: function (info) {
+
+                    // var dayNumber = calendarEl.querySelectorAll('.fc-bg');
+
+                    // dayNumber.forEach( function(ele, indice, array) {
+                    //     console.log("En el índice " + indice + " hay este valor: " + ele.getAttribute("data-date"));
+                    //     console.log('ele: '+ele);
+                    //     ele.classList.add('probando-day');
+                    //     // ele.closest('table').classList.add('probando-table');
+
+                    //     // console.log('dayRender: '+info.el);
+                    //     console.log('ele: '+ele.closest('table'));
+                    //     // calendarEl.querySelectorAll('.fc-event-container')[indice].classList.add('probando3');
+                    // });
+
+                    // // var dayCell = calendarEl.querySelectorAll('.fc-day');
+                    // // var dayDate = info.event.extendedProps.probando;
+                    // // console.log('dayDate: '+dayDate);
+
+                    // console.log('+++');
+
+                    // console.log('dayRender: '+info.date.toUTCString());
+                    // console.log('dayRender: '+info.el);
+                    // console.log('dayRender: '+info.view.type);
+
+                    // var allDay = info.event.allDay;
+                    // console.log('allDay: '+allDay);
+
+
+                    // var today = new Date();
+                    // if (date.getDate() === today.getDate()) {
+                    //     cell.css("background-color", "red");
+                    // }
+
+                    /*
+                    success: function (data) {
+                        $.each(data, function(i) {
+                            $('.fc-day[data-date="'+data[i]["date"]+'"]').css('background', Your Color Code);
+                        });
+                    }
+                    */
+
+
+                    // success: function (data) {
+                    //     $.each(data, function(i) {
+                    //         $('.fc-day[data-date="'+data[i]["date"]+'"]').css('background', Your Color Code);
+                    //     });
+                    // }
+
+                },
+
+
+                // DAY CLICK
+                /*
+                dateClick: function(info) {
+                    // alert('clicked day: ' + info.dateStr);
+
+                    // var clickedDate = date;
+                    // if(clickedDate >= event.start && clickedDate <= event.end) {}
+
+                    var eventDay = info.dateStr;
+                    console.log('eventDay');
+                    console.log(eventDay);
+
+                    // https://stackoverflow.com/questions/20523905/get-events-clicking-a-day-in-fullcalendar
+
+
+                    // var eventStart = info.start;
+                    // console.log('eventStart');
+                    // console.log(eventStart);
+
+                    // var eventEnd = info.end;
+                    // console.log('eventEnd');
+                    // console.log(eventEnd);
+
+                    // var dayEvent = $calendar.fullCalendar('clientEvents', function(event) { return +event.start.startOf('day') == +date.startOf('day'); });
+
+
+                    // events: dayEvents,
+                    // getEvents(date);
+
+
+                    // function getEvents(date){
+                    //     all_events.forEach(function(entry) {
+                    //         if (entry['start'] == date.format()){
+                    //         alert(entry['title']);}
+                    //         else if (entry['start'] <= date.format() && entry['end'] >= date.format()){
+                    //         alert(entry['title']);}
+                    //     });
+                    // }
+
+                },
+                */
+
+
+                /*
+                GET DAY
+                https://fullcalendar.io/docs/Calendar-getDate
+                https://fullcalendar.io/docs/date-object
+                https://fullcalendar.io/docs/visibleRange
+                */
+
+                // EVENT CLICK
+                eventClick: function(info) {
+                    // info.jsEvent.preventDefault();
+
+                    // https://stackoverflow.com/questions/41479497/fullcalendar-unable-to-get-date-of-the-clicked-event
+
+                    var eventDate = info.event.start;
+                    // var eventDate = moment(info.event.start).format("YYYY-MM-DD")
+                    console.log('eventDate');
+                    console.log(eventDate);
+                    //example output: "Wed Oct 02 2019 00:00:00 GMT-0600 (Central Standard Time)"
+
+                    // EVENT DATE
+                    // https://stackoverflow.com/questions/26151121/fullcalendar-js-get-events-of-the-day-on-click/26161449
+                    // http://jsfiddle.net/syf9ycbc/7/
+                    // http://jsfiddle.net/syf9ycbc/8/
+
+                    // var eventDay = info.dateStr;
+                    // console.log('eventDay');
+                    // console.log(eventDay);
+
+                    // info.dateStr
+
+
+                    /*
+                    CHANGE VIEW
+                    https://fullcalendar.io/docs/view-api
+                    https://fullcalendar.io/docs/Calendar-changeView
+                    */
+
+                    calendar.changeView('listDay', eventDate);
+
+                    var gridFocus = document.getElementById('gridFocus');
+                    // gridFocus.scrollIntoView();
+
+                    // handleDayView();
+
+                    // TRY
+                    // https://stackoverflow.com/questions/45354280/in-jquery-fullcalendar-how-to-display-a-list-of-events-for-the-current-month-vi
+
+                    /*
+                    function handleDayView() {
+
+                        var calendarDayEl = document.getElementById('eventCalendarDay');
+
+                        var dayHtml = '<h4 class="section__title section__title--events">Listado eventos</h4><article class="event__list__item"><div class="event__list__details"><div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div></div>';
+
+                        dayHtml += '<div class="event__list__info"><div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
+
+                        var speakersDay = info.event.extendedProps.speakers;
+                        if(speakersDay) {
+                            dayHtml += '<div class="event-speakers"><div class="title">'+ info.event.extendedProps.speakersTitle +'</div><ul class="related__content">';
+                            speakersDay.forEach(function(value, index, array) {
+                                if(value['speaker_url']) {
+                                    dayHtml += '<li><a href="'+ value['speaker_url'] +'">'+ value['speaker_name'] +'</a></li>';
+                                } else {
+                                    dayHtml += '<li><span>'+ value['speaker_name'] +'</span></li>';
+                                }
+                            });
+                            dayHtml += '</ul></div>';
+                        }
+
+                        dayHtml += '</div></article>';
+
+                        // RENDER VIEW
+                        calendarDayEl.innerHTML = dayHtml;
+
+                        // calendarDayEl.scrollIntoView();
+
+                    }
+                    */
+                }
+
+            });
+
+
+            // https://fullcalendar.io/docs/date-formatting
             /*
-            https://fullcalendar.io/docs/height
-            https://fullcalendar.io/docs/full-height-demo
-            */
-            height: 'auto',
+            var str = calendar.formatDate('2018-09-01', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
 
-
-            /*
-            eventLimit: true, // for all non-TimeGrid views
-            views: {
-              timeGrid: {
-                eventLimit: 2 // adjust to 6 only for timeGridWeek/timeGridDay
-              }
-            },
+            console.log('formatDate: '+str); // "1 de septiembre de 2018 0:00 UTC"
             */
 
-            // events: 'https://fullcalendar.io/demo-events.json',
-            /*
-            https://fullcalendar.io/docs/event-object
-            */
-            events: [
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-01",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                "start":"2020-02-04",
-                "end":"2020-02-06",
-                place: 'Lisboa'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-07"
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Conference lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-12",
-                "end":"2020-02-14",
-                place: 'Madrid'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-13T10:30:00+00:00",
-                "end":"2020-02-13T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting",
-                "start":"2020-02-17T10:00:00+00:00",
-                "end":"2020-02-18T10:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lunch",
-                "start":"2020-02-17T12:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Vestibulum lorem sed risus ultricies tristique nulla aliquet enim pulvinar sapien condimentum lacinia quis",
-                "start":"2020-02-26",
-                "end":"2020-02-29",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-03-10T10:30:00+00:00",
-                "end":"2020-03-12T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-            ],
+            calendar.render();
 
-            eventRender: function (info) {
-              /*
-              https://stackoverflow.com/questions/56280133/how-to-add-an-image-to-an-event-on-vue-fullcalendar-imageurl-returns-undefined
-              https://github.com/fullcalendar/fullcalendar/issues/2919
-              */
-              if (info.event.extendedProps.place) {
-                  info.el.firstChild.innerHTML = "<div class=\"fc-title\">"+ info.event.title +"</div><div class=\"fc-place\">"+ info.event.extendedProps.place +"</div>";
-              }
-            }
-
-            // eventRender: function(info) {
-            //   if (info.event.extendedProps.status === 'done') {
-
-            //     // Change background color of row
-            //     info.el.style.backgroundColor = 'red';
-
-            //     // Change color of dot marker
-            //     var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
-            //     if (dotEl) {
-            //       dotEl.style.backgroundColor = 'white';
-            //     }
-            //   }
-            // }
-          });
-
-          calendar.render();
         });
-    }
+
+    },
+
+
 }
 
 // Run the global stuff

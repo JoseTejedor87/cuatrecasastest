@@ -21,18 +21,6 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    @include cuatrecasas-font();
-    margin: 0 0;
-}
-
-p {
-    margin: 0 0 1.4rem;
-    color: $main-color;
-}
-
-
 //
 // FONT SIZES MIXING
 // --------------------------------------------------------------------------
@@ -53,6 +41,29 @@ $rem-base-font: 16px !default;
 // ^sample
 // @include fontSet(30px, 26px);
 //
+
+
+
+//
+// BASIC SETTINGS
+// --------------------------------------------------------------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    @include cuatrecasas-font();
+    margin: 0 0;
+}
+
+p {
+    margin: 0 0 1.4rem;
+    color: $main-color;
+
+    &.emphasis {
+        @include fontSet(32px, 36px);
+        color: $black;
+    }
+}
+
 
 
 //
@@ -110,6 +121,14 @@ $rem-base-font: 16px !default;
 
     @include when("career") {
         background-color: $career-color;
+    }
+
+    @include when("programme") {
+        background-color: $programme-color;
+    }
+
+    @include when("events") {
+        background-color: $programme-color;
     }
 
     @include when("others1") {

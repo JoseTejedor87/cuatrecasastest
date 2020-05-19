@@ -118,6 +118,55 @@
     }
 }
 
+@include new("related__content") {
+    @include reset-list;
+    position: relative;
+    left: -4px;
+    padding: 2px 0;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    li {
+        position: relative;
+        margin: 0 8px 2px 0;
+        padding: 0 0;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -4px;
+            width: 1px;
+            height: 90%;
+            background-color: $complementary-color;
+            opacity: 0.8;
+        }
+
+        &:first-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    a {
+        display: inline-block;
+        margin: 0 0;
+        padding: 2px 4px 0;
+        @include fontSet(16px, 18px);
+        @include background-link($complementary-color, $white, $complementary-color);
+        text-transform: uppercase;
+    }
+
+    span {
+        padding: 2px 4px 0;
+        @include fontSet(16px, 18px);
+        text-transform: uppercase;
+        color: $main-color;
+    }
+}
+
 @include new("bullet__list") {
     @include reset-list;
     padding-bottom: 4rem;

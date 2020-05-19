@@ -5,7 +5,7 @@
 @include new("boxnews") {
 
     //
-    // SECTION BACKGROUND COLORS
+    // SECTION BACKGROUND COLORS (maybe delete ¿?)
     // --------------------------------------------------------------------------
     @include when("article") {
         background-color: rgba($black, 0.05);
@@ -37,51 +37,70 @@
 
 
     //
-    // TITLES BG COLORS >>> delete ¿?
+    // SECTION BACKGROUND COLORS GLOBAL (from dark to light)
     // --------------------------------------------------------------------------
     /*
-    @include when("article") {
-        .section__title {
-            background-color: $article-color;
+    &.bg__grey__01 {
+        // background-color: rgba($black, 0.1);
+        position: relative;
+        @include reset-full-scren;
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.1));
         }
     }
 
-    @include when("event") {
-        .section__title {
-            background-color: $event-color;
+    &.bg__grey__02 {
+        // background-color: rgba($black, 0.2);
+        position: relative;
+        @include reset-full-scren;
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.2));
         }
     }
 
-    @include when("related") {
-        .section__title {
-            background-color: $related-color;
+    &.bg__grey__03 {
+        // background-color: rgba($black, 0.08);
+        position: relative;
+        @include reset-full-scren;
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.08));
         }
     }
 
-    @include when("insight") {
-        .section__title {
-            background-color: $insight-color;
+    &.bg__grey__04 {
+        // background-color: rgba($black, 0.05);
+        position: relative;
+        @include reset-full-scren;
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.05));
         }
     }
 
-    @include when("cases") {
-        .section__title {
-            background-color: $cases-color;
+    &.bg__grey__05 {
+        // background-color: rgba($black, 0.02);
+        position: relative;
+        @include reset-full-scren;
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.02));
         }
     }
 
-    @include when("career") {
-        .section__title {
-            background-color: $black;
-        }
-    }
+    &.bg__grey__06 {
+        // background-color: rgba($black, 0.01);
+        position: relative;
+        @include reset-full-scren;
 
-    @include when("slider") {
-        .section__title {
-            background-color: $insight-color;
+        &:before {
+            @include reset-pseudo(rgba($black, 0.01));
         }
     }
     */
+
 
     //
     // BOXES
@@ -543,6 +562,10 @@
 
             @include has("place") {
                 color: $complementary-color;
+
+                a {
+                    @include classic-link($complementary-color, $black, $border: false);
+                }
             }
             @include has("date") {}
             @include has("time") {}

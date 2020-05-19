@@ -73,8 +73,8 @@
             // GRID
             //
             @include when-inside(".lawyer__search__wrapper--grid") {
-                width: calc(33.3333% - 30px);
                 flex: 0 1 calc(33.3333% - 30px);
+                width: calc(33.3333% - 30px);
                 margin: 0 15px;
                 margin-bottom: 30px;
                 background-size: auto 180%;
@@ -109,8 +109,8 @@
             // LIST
             //
             @include when-inside(".lawyer__search__wrapper--list") {
-                width: calc(50% - 20px);
                 flex: 0 1 calc(50% - 20px);
+                width: calc(50% - 20px);
                 margin: 0 10px;
                 margin-bottom: 0;
                 background-image: none !important;
@@ -122,15 +122,25 @@
                     background: rgba($black, 0.03) !important;
                     border-bottom: 2px solid rgba($complementary-color, 0.8);
                 }
+            }
 
-                // &:first-child:nth-last-child(1) {
-                //     flex: 0 1 100%;
-                // }
+            //
+            // SPEAKERS
+            //
+            @include when-inside(".lawyer__search__wrapper--speakers") {
+                flex: 0 1 auto;
+                width: 100%;
+                margin: 0 10px;
+                margin-bottom: 0;
+                background-image: none !important;
+                background-color: $white !important;
+                border-bottom: 2px solid rgba($black, 0.1);
+                transition: all 0.2s ease-out;
 
-                // &:first-child:nth-last-child(3),
-                // &:first-child:nth-last-child(3) ~ div {
-                //     flex: 0 1 calc(33.3333% - 20px);
-                // }
+                @include on-event() {
+                    background: rgba($black, 0.03) !important;
+                    border-bottom: 2px solid rgba($complementary-color, 0.8);
+                }
             }
 
             //
@@ -138,7 +148,11 @@
             //
             @include when-inside(".lawyer__search__wrapper--team") {
                 // width: calc(33.3333% - 30px);
-                flex: 1;
+                // flex: 0 1 auto;
+
+                flex: 0 1 calc(50% - 30px);
+                width: calc(50% - 30px);
+
                 margin: 0 15px;
                 margin-bottom: 30px;
                 background-size: auto 180%;
@@ -187,6 +201,10 @@
             min-height: auto;
         }
 
+        @include when-inside(".lawyer__search__wrapper--speakers") {
+            min-height: auto;
+        }
+
         @include on-event() {
             text-decoration: none;
         }
@@ -205,6 +223,15 @@
         color: $white;
 
         @include when-inside(".lawyer__search__wrapper--list") {
+            order: 1;
+            width: 100%;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            @include fontSet(34px, 34px);
+            color: $complementary-color;
+        }
+
+        @include when-inside(".lawyer__search__wrapper--speakers") {
             order: 1;
             width: 100%;
             margin-top: 0.5rem;
@@ -235,6 +262,15 @@
             // float: left;
             // margin-right: 0.2rem;
         }
+    }
+
+    //
+    // PONENENTES
+    //
+    @include has("company") {
+        @include fontSet(16px, 16px);
+        text-transform: uppercase;
+        color: $main-color;
     }
 
     @include has("practice") {

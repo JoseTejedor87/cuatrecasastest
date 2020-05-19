@@ -1,43 +1,26 @@
-<section class="event-speakers">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="section-header">Ponentes</h2>
-                <div class="speakers-wrapper">
-                    {% for speaker in event.speakers %}
-                         <article class="speakers-item">
-                            <div class="name">{{ speaker.lawyer.name }} {{ speaker.lawyer.name }}</div>
-                            <div class="company">Telefónica Empresas</div>
-                            <div class="position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</div>
-                            <a href="#" class="linked-in"><i class="fab fa-linkedin-in"></i></a>
-                            <figure class="photo">
-                                <img src="{{ relative_path('/resources/')}}{{ (speaker.lawyer.photo ? speaker.lawyer.photo.fileName : '' ) }}" alt="">
-                            </figure>
-                        </article> 
-                    {% endfor %}
-                    {#<article class="speakers-item">
-                        <div class="name">Ainhoa Urrutikoetxea Olaizola</div>
-                        <div class="company">Rocasalvatella</div>
-                        <div class="position">Asociado Senior</div>
-                        <a href="#" class="cv-link">Consultar el CV</a>
-                    </article>
-
-                    <article class="speakers-item">
-                        <div class="name">Francisco Javier Gonzalez del Olmo</div>
-                        <div class="company">Telefónica Empresas</div>
-                        <div class="position">Jefe de Proyecto</div>
-                        <a href="#" class="linked-in"><i class="fab fa-linkedin-in"></i></a>
-                        <figure class="photo">
-                            <img src="{{ asset('web/assets/img/metin-ozer-iSmTwuKTNDo-unsplash.jpg') }}" alt="">
-                        </figure>
-                    </article>
-                    <article class="speakers-item">
-                        <div class="name">Juan García Hernández</div>
-                        <div class="company">Rocasalvatella</div>
-                        <div class="position">Marketing</div>
-                        <a href="#" class="cv-link">Consultar el CV</a>
-                    </article> #}
+<section class="row page__block">
+    <div class="col">
+        <div class="page__block__title">
+            <h2 class="subsection__title">Ponentes</h2>
+        </div>
+        <div class="page__block__content">
+            <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
+                {% for speaker in event.speakers %}
+                <div class="lawyer__search__item">
+                    <a href="#" class="lawyer__link">
+                        <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                        <div class="lawyer__details">
+                            <div class="lawyer__company">
+                                Cuatrecasas
+                            </div>
+                            <ul class="lawyer__practice">
+                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
+                                <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.city : '' }}</li>
+                            </ul>
+                        </div>
+                    </a>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>

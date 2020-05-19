@@ -41,6 +41,107 @@ a:link {
 }
 
 
+
+//
+// SECTION BACKGROUND COLORS GLOBAL (from dark to light)
+// --------------------------------------------------------------------------
+
+.bg__grey__01 {
+    // background-color: rgba($black, 0.2);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.2));
+    }
+}
+
+.bg__grey__02 {
+    // background-color: rgba($black, 0.1);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+    }
+}
+
+.bg__grey__03 {
+    // background-color: rgba($black, 0.08);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.08));
+    }
+}
+
+.bg__grey__04 {
+    // background-color: rgba($black, 0.05);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.05));
+    }
+}
+
+.bg__grey__05 {
+    // background-color: rgba($black, 0.02);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.02));
+    }
+}
+
+.bg__grey__06 {
+    // background-color: rgba($black, 0.01);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.01));
+    }
+}
+
+
+
+//
+// BG COVER IMGS
+// --------------------------------------------------------------------------
+
+.cover-photo {
+    position: relative;
+    background-color: $white;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cover-photo-full-height {
+    position: relative;
+    background-color: $white;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.cover-photo-contain {
+    position: relative;
+    background-color: $white;
+    // background-attachment: fixed;
+    // background-position: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 //
 // OVERRIDING DEFAULT TEXT SELECTION
 // Blue: #3390FF
@@ -133,38 +234,3 @@ main {
     }
 }
 */
-
-
-
-//
-// BG COVER IMGS
-// --------------------------------------------------------------------------
-
-.cover-photo {
-    position: relative;
-    background-color: $white;
-    background-attachment: fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.cover-photo-full-height {
-    position: relative;
-    background-color: $white;
-    background-attachment: fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-
-.cover-photo-contain {
-    position: relative;
-    background-color: $white;
-    // background-attachment: fixed;
-    // background-position: 100% 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}

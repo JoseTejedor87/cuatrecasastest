@@ -3,19 +3,22 @@
 {% block stylesheets %}
 <!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- FullCalendar CSS -->
+<link href="{{ asset('web/vendor/fullcalendar/core/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/list/main.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 
-    <main role="main" class="">
+    <main role="main">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/who-s-denilo-ItuL0w2zvTo-unsplash.jpg') }}')">
-                <!-- robert-v-ruggiero-uaAC3hvgQx0-unsplash -->
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Próximos Eventos
+                            Próximos eventos
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -126,152 +129,184 @@
                 </div>
             </section>
 
-            {% include 'web/shared/related-content-slider.html.twig' %}
+            {% include 'web/shared/related-events-slider.html.twig' %}
 
-            <section class="event-results-wrapper">
-                <div class="container">
-                    <div class="row event-toolbar d-flex justify-content-between">
-                        <ul class="event-chooser">
-                            <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/calendar-small.png') }}" alt=""> Ver todos los eventos</a></li>
-                            <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/favorite.png') }}" alt=""> Ver eventos favoritos</a></li>
-                        </ul>
-                        <ul class="event-view">
-                            <li><a href="#" id="viewEventList"><img src="{{ asset('web/assets/icons/list.png') }}" alt="list view"></a></li>
-                            <li><a href="#" id="viewEventCalendar"><img src="{{ asset('web/assets/icons/calendar.png') }}" alt="calendar view"></a></li>
-                        </ul>
+            <section class="event__wrapper">
+                <div class="row" id="gridFocus">
+                    <div class="col">
+                        <h4 class="section__title section__title--events">Listado eventos</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div id="eventCalendar" style="display:none"></div>
-                            <div id="eventList">
-                                <article class="event-box">
-                                    <div class="event-info">
-                                        <div class="event-dates">
-                                            <div data-day>24 Feb</div>
-                                            <div data-year>2019</div>
-                                        </div>
-                                        <ul class="event-actions">
-                                            <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Añadir favorito</a></li>
-                                            <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Añadir calendario</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="event-details">
-                                        <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
-                                        <div data-where><i class="material-icons">place</i> Barcelona</div>
-                                        <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
-                                    </div>
-                                    <div class="event-button">
-                                        <a href="#" class="btn-arrow-new">inscribirme</a>
-                                    </div>
-                                </article>
-                                <article class="event-box">
-                                    <div class="event-info">
-                                        <div class="event-dates">
-                                            <div data-day>24 Feb</div>
-                                            <div data-day>02 Mar</div>
-                                            <div data-year>2019</div>
-                                        </div>
-                                        <ul class="event-actions">
-                                            <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Quitar favorito</a></li>
-                                            <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Quitar calendario</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="event-details">
-                                        <div data-when>De 10 a 12 h <span data-duration>(2 horas)</span></div>
-                                        <div data-where><i class="material-icons">place</i> Lisboa</div>
-                                        <h2 data-info>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt tincidunt tortor aliquam nulla. Purus in mollis nunc sed id semper risus libero volutpat sed.</h2>
-                                    </div>
-                                    <div class="event-button">
-                                        <a href="#" class="btn-arrow-new">inscribirme</a>
-                                        {# <a href="#" class="btn-arrow-new"><span>inscribirme</span></a> #}
-                                        {# <a href="#" class="mainBttn">
-                                            <div class="mainBttn__text">inscribirme</div>
-                                            <div class="mainBttn__border"></div>
-                                            <div class="mainBttn__bg"></div>
-                                        </a> #}
-                                    </div>
-                                </article>
-                                <article class="event-box">
-                                    <div class="event-info">
-                                        <div class="event-dates">
-                                            <div data-day>24 Feb</div>
-                                            <div data-year>2019</div>
-                                        </div>
-                                        <ul class="event-actions">
-                                            <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Añadir favorito</a></li>
-                                            <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Añadir calendario</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="event-details">
-                                        <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
-                                        <div data-where><i class="material-icons">place</i> Barcelona</div>
-                                        <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
-                                        <ul class="speakers-wrapper">
-                                            <li data-speakers>
-                                                <figure data-speaker-photo>
-                                                    <img src="{{ asset('web/assets/img/peter-van-eijk-eiDw0oX8YQQ-unsplash.jpg') }}" alt="Nombre Apellido">
-                                                </figure>
-                                                <div data-speaker-details>
-                                                    <div data-speaker-name>José Luis Gutierrez García</div>
-                                                    <div data-speaker-position>Asociado senior</div>
-                                                </div>
-                                            </li>
-                                            <li data-speakers>
-                                                <figure data-speaker-photo>
-                                                    <img src="{{ asset('web/assets/img/yuliya-kosolapova-6agC_7WU5_0-unsplash.jpg') }}" alt="Nombre Apellido">
-                                                </figure>
-                                                <div data-speaker-details>
-                                                    <div data-speaker-name>Paloma Gómez Pascual</div>
-                                                    <div data-speaker-position>Asociada senior</div>
-                                                </div>
-                                            </li>
-                                            <li data-speakers>
-                                                <figure data-speaker-photo>
-                                                    <img src="{{ asset('web/assets/img/anastasia-vityukova-S9gIUu5riYs-unsplash.jpg') }}" alt="Nombre Apellido">
-                                                </figure>
-                                                <div data-speaker-details>
-                                                    <div data-speaker-name>María Gomez Urrutia</div>
-                                                    <div data-speaker-position>Asociada senior</div>
-                                                </div>
-                                            </li>
-                                            <li data-speakers>
-                                                <figure data-speaker-photo>
-                                                    <img src="{{ asset('web/assets/img/reza-biazar-eSjmZW97cH8-unsplash.jpg') }}" alt="Nombre Apellido">
-                                                </figure>
-                                                <div data-speaker-details>
-                                                    <div data-speaker-name>Juan José Lopez Fernández</div>
-                                                    <div data-speaker-position>Asociado senior</div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="event-button">
-                                        <a href="#" class="btn-arrow-new">inscribirme</a>
-                                    </div>
-                                </article>
-                                <div class="button-wrapper">
-                                    <button class="btn btn-color ">Cargar más</button>
-                                </div>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="eventCalendar">
                         </div>
+                        <div id="eventCalendarList">
+                        </div>
+                        <!-- <div id="eventCalendarDay">
+                        </div> -->
                     </div>
                 </div>
             </section>
 
+
+            <!-- Events List -->
+            <section class="event__wrapper" style="padding-top: 0" id="newCalendar">
+                <!-- <div class="row">
+                    <div class="col">
+                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="event__wrapper__chooser">
+                            <button type="button" id="viewEventList" class="icon__button list active">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Calendar List">
+                            </button>
+                            <button type="button" id="viewEventCalendar" class="icon__button grid">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Office/Calender_03.png') }}" alt="Calendar Grid">
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col">
+                        <div id="eventCalendar" style="display:none"></div>
+                        <div id="eventList">
+                            <h2 class="fc-list-heading-main">4 de mayo de 2020</h2>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Barcelona</a></div>
+                                    <div class="event-date">16 febrero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__button">Inscribirme</button>
+                                    </div>
+                                </div>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Bilbao</a></div>
+                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__button">Inscribirme</button>
+                                    </div>
+                                </div>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
+                                    </div>
+                                    <div class="event-speakers">
+                                        <div class="title">ponentes</div>
+                                        <ul class="related__content">
+                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
+                                            <li><a href="#">Elvira Azaola</a></li>
+                                            <li><span>Ignacio Javier Irigoyen</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Madrid</a></div>
+                                    <div class="event-date">17 a 19 enero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__button">Inscribirme</button>
+                                    </div>
+                                </div>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
+                                    </div>
+                                    <div class="event-speakers">
+                                        <div class="title">ponentes</div>
+                                        <ul class="related__content">
+                                            <li><a href="#">Albert Garrofé</a></li>
+                                            <li><a href="#">Sonia Velasco</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Lisboa</a></div>
+                                    <div class="event-date">10 enero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__button">Inscribirme</button>
+                                    </div>
+                                </div>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <div class="viewmore__button">
+                                <button type="button" class="btn btn__viewmore">Cargar más</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row contact">
+                    <div class="col-4">
+                        <p class="emphasis">
+                            Recibe en tu correo el calendario de <strong>Eventos</strong>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <form action="" method="" class="email-subscribe">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group flex-group">
+                                <div class="checkbox">
+                                    <input id="data-privacy" name="data-privacy" type="checkbox">
+                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                </div>
+                                <button type="submit" class="btn doble__arrow__button">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+
+            {% include 'web/shared/related-content-slider.html.twig' %}
+
         </article>
     </main>
+
+    {% include 'web/shared/call-to-action.html.twig' %}
+
 
 {% endblock %}
 
 {% block javascripts %}
 <!-- Slider JavaScript-->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- FullCalendar JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
+
+<!-- Events Calendar -->
+<script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
+
 
 <script>
+    // web.global.loadCalendar();
+
     $(function () {
         web.global.customSelects();
-        web.global.sliderNews();
+        web.global.sliderGeneral();
     });
 </script>
 {% endblock %}
-
