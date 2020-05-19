@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         https://codepen.io/pen/?&editable=true&editors=001
         */
 
-        plugins: [ 'momentPlugin','dayGrid', 'list' ],
+        plugins: [ 'dayGrid', 'list' ],
         defaultView: 'dayGridMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T10:00:00+00:00',
                 end: '2020-05-05T14:00:00+00:00',
-                allDay: true,
                 sector: 'Fusiones y adquisiciones',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -115,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-04',
-                allDay: true,
                 sector: 'Fiscal',
                 place: 'Madrid',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -128,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T10:30:00+00:00',
                 end: '2020-05-05T14:30:00+00:00',
-                allDay: true,
                 sector: 'Laboral',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
@@ -147,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T11:00:00+00:00',
                 end: '2020-05-05T13:00:00+00:00',
-                allDay: true,
                 sector: 'Fiscal',
                 place: 'Madrid',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
@@ -166,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T10:30:00+00:00',
                 end: '2020-05-05T14:30:00+00:00',
-                allDay: true,
                 sector: 'Logística y Transporte',
                 place: 'Valencia',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -185,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T10:30:00+00:00',
                 end: '2020-05-05T14:30:00+00:00',
-                allDay: true,
                 sector: 'Consumo y Retail',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
@@ -204,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-05T10:30:00+00:00',
                 end: '2020-05-05T14:30:00+00:00',
-                allDay: true,
                 sector: 'Laboral',
                 place: 'Madrid',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
@@ -222,7 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-06',
-                allDay: true,
                 sector: 'Fiscal',
                 place: 'Bilbao',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
@@ -240,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-06',
-                allDay: true,
                 sector: 'Consumo y Retail',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -252,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-07',
-                allDay: true,
                 sector: 'Mercantil y Societario',
                 place: 'Valencia',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -264,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-08',
-                allDay: true,
                 sector: 'Consumo y Retail',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
@@ -282,7 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-08',
-                allDay: true,
                 sector: 'Logística y Transporte',
                 place: 'Bilbao',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -294,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Mesa redonda: información privilegiada y otra información relevante.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-08',
-                allDay: true,
                 sector: 'Fiscal',
                 place: 'Madrid',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
@@ -312,7 +299,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-08',
-                allDay: true,
                 sector: 'Logística y Transporte',
                 place: 'Valencia',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -330,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-08',
-                allDay: true,
                 sector: 'Mercantil y Societario',
                 place: 'Bilbao',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
@@ -348,7 +333,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-11',
-                allDay: true,
                 sector: 'Fusiones y Adquisiciones',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -360,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-13',
-                allDay: true,
                 sector: 'Fiscal',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -372,7 +355,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-22',
-                allDay: true,
                 sector: 'Mercantil y Societario',
                 place: 'Bilbao',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
@@ -390,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
                 titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
                 start: '2020-05-27',
-                allDay: false,
                 sector: 'Consumo y retail',
                 place: 'Barcelona',
                 placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
@@ -415,7 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         datesRender: function(info) {
-
             var listButton = document.getElementById("listBot");
             var gridButton = document.getElementById("gridBot");
 
@@ -431,20 +411,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // RENDER VIEWS
         eventRender: function (info) {
 
+            // GRID VIEW (MONTH)
             if(info.view.type === "dayGridMonth") {
                 info.el.firstChild.innerHTML = '<div class="fc-event-place">'+ info.event.extendedProps.place +'</div><div class="fc-event-sector">'+ info.event.extendedProps.sector +'</div>';
-                info.el.classList.add('probando-day');
             }
 
+            // LIST VIEW (MONTH & DAY)
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
                 // DETAILS
-                info.el.firstChild.innerHTML = '<div>123</div><div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
+                info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
 
                 // TITLE
                 info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
 
                 // SPEAKERS
-                // console.log(info.event.extendedProps);
                 var speakersInfo = info.event.extendedProps.speakers;
 
                 if(speakersInfo) {
@@ -463,9 +443,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
+            // DAY BACKGROUND COLOR (WITH EVENT)
+            var dayCell = calendarEl.querySelectorAll('.fc-day');
 
-            //Pintar dia con evento
-            var dayNumber = calendarEl.querySelectorAll('.fc-day');
             let date = new Date(info.event.start);
             let day = date.getDate();
             if(day < 10){
@@ -476,16 +456,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 month = `0${month}`;
             }
             let year = date.getFullYear();
-            dayNumber.forEach( function(ele, indice, array) {
-                if(`${year}-${month}-${day}` == ele.getAttribute("data-date")){
-                    ele.classList.add('probando-day');
+
+            var fullDate = `${year}-${month}-${day}`;
+
+            dayCell.forEach( function(ele, indice, array) {
+                if(fullDate == ele.getAttribute("data-date")){
+                    ele.classList.add('day-bg');
                 }
              });
         },
 
         // EVENT CLICK
         eventClick: function(info) {
-            // info.jsEvent.preventDefault();
+            info.jsEvent.preventDefault();
+
+            var eventDate = info.event.start;
             calendar.changeView('listDay', eventDate);
 
             // var gridFocus = document.getElementById('gridFocus');

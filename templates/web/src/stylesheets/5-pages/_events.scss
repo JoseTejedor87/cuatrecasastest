@@ -195,35 +195,6 @@
 // HEADER BUTTONS
 // --------------------------------------------------------------------------
 
-
-.probando  {
-    background-color: lavender;
-}
-.probando-day {
-    background-color: cyan;
-}
-
-// fc-limited
-
-.probando-table {
-    background-color: magenta;
-}
-
-.probando-table .fc-event-container {
-    background-color: magenta;
-}
-
-.probando-table .probando-day {
-    background-color: yellow;
-}
-
-
-
-#newCalendar {
-    display: none;
-    // display: block;
-}
-
 .fc-list-empty-wrap2 {
     position: relative !important;
 }
@@ -436,6 +407,10 @@
 
 .fc-view {
 
+    .day-bg {
+        background-color: $event-box-color;
+    }
+
     &.fc-dayGridMonth-view {
 
         .fc-event-container {
@@ -543,7 +518,7 @@
         }
 
         .fc-today {
-            // background-color: inherit;
+            background-color: inherit;
         }
 
         .fc-event-place,
