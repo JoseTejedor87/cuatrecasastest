@@ -71,13 +71,13 @@ sections:
       title: Nueva Mención
     edit:
       title: Editar Mención
-  speakers:
+  people:
     index:
-      title: Ponentes
+      title: Personas
     new:
-      title: Nuevo Ponente
+      title: Nuevo Persona
     edit:
-      title: Editar Ponente
+      title: Editar Persona
   events:
     index:
       title: Eventos
@@ -86,7 +86,7 @@ sections:
     edit:
       title: Editar Evento
     actions:
-      addSpeaker: Crear Ponente
+      addPerson: Crear Persona
   awards:
     index:
       title: Premios
@@ -122,7 +122,7 @@ menu:
   lawyers.title: Abogados
   events.title: Eventos
   events.searcher.title: Buscador
-  speakers.title: Ponentes
+  people.title: Personas
   services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
@@ -189,7 +189,7 @@ entities:
       contact: Nombre de contacto
       phone: Teléfono de contacto
       capacity: Aforo
-      speakers: Ponentes
+      People: Personas
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
   eventsBlock:
@@ -264,7 +264,7 @@ entities:
     fields:
       title: Título
       file: Fichero
-  speaker:
+  person:
     fields:
       name: Nombre
       surname: Apellidos

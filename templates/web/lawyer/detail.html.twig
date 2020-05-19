@@ -65,9 +65,18 @@
                             </div>
                         </div>
                         <div class="lawyer__page__more">
+                        {% if lawyer.translate(app.request.getLocale()).languagesLawyer|length > 0 %}
                             <div data-langs>
-                                Español | Inglés
+                            {% for language in lawyer.translate(app.request.getLocale()).languagesLawyer %}
+                                {{ language|capitalize|raw }}
+                                {% if lawyer.translate(app.request.getLocale()).languagesLawyer|length > 1 and language != lawyer.translate(app.request.getLocale()).languagesLawyer|last %}
+                                    |
+                                {% endif %}
+
+                            {% endfor %}
+                                {# Español | Inglés #}
                             </div>
+                        {% endif %}
                             <div data-vcard>
                                 <a href="#">vcard</a>
                             </div>
@@ -208,8 +217,8 @@
                 {% endif %}
                 {% endif %}
 
-                {% if lawyer.speaker %}
-                {% if lawyer.speaker.events|length > 1 %}
+                {% if lawyer.person %}
+                {% if lawyer.person.events|length > 1 %}
                     <section class="row page__block">
                         <div class="col">
                             <div class="page__block__title">
@@ -217,7 +226,7 @@
                             </div>
                             <div class="page__block__content">
                                 <ul class="page__block__content__details">
-                                    {% for event in lawyer.speaker.events %}
+                                    {% for event in lawyer.person.events %}
                                     {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
                                         {% if (event.translate(app.request.getLocale()).title) %}
                                             <li>

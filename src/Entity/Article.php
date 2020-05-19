@@ -46,6 +46,11 @@ class Article extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="Article")
      */
     private $lawyers;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", cascade="persist", inversedBy="articles")
+     */
+    private $people;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Office", inversedBy="Article")
@@ -64,6 +69,7 @@ class Article extends Publishable
         $this->lawyers = new ArrayCollection();
         $this->offices = new ArrayCollection();
         $this->category = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -238,6 +244,32 @@ class Article extends Publishable
     {
         if ($this->category->contains($category)) {
             $this->category->removeElement($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
         }
 
         return $this;

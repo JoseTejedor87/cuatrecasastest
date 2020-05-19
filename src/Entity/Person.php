@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SpeakerRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
-class Speaker extends Publishable
+class Person extends Publishable
 {
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -27,19 +27,25 @@ class Speaker extends Publishable
     private $position;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="speakers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="people")
      * @ORM\OrderBy({"startDate" = "DESC"})
      */
     private $events;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Lawyer", inversedBy="speaker" , cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="people")
+     */
+    private $articles;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Lawyer", inversedBy="person" , cascade={"persist"})
      */
     private $lawyer;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -101,7 +107,7 @@ class Speaker extends Publishable
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->addSpeaker($this);
+            $event->addPeople($this);
         }
 
         return $this;
@@ -111,7 +117,7 @@ class Speaker extends Publishable
     {
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
-            $event->removeSpeaker($this);
+            $event->removePeople($this);
         }
 
         return $this;
@@ -125,6 +131,34 @@ class Speaker extends Publishable
     public function setLawyer(?Lawyer $lawyer): self
     {
         $this->lawyer = $lawyer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removePerson($this);
+        }
 
         return $this;
     }

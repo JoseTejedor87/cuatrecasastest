@@ -23,12 +23,12 @@ class LawyerController extends WebController
         $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $this->isThisLocale($request, $request->attributes->get('idioma'));
         //dd($lawyer->translate('es'));
-        //  $Speaker = $lawyer->getSpeaker();
-        //  $Events = $Speaker->getEvents();
+        //  $Person = $lawyer->getPerson();
+        //  $Events = $Person->getEvents();
         //  var_dump($Events);
         //  die('');
         // $Office = $lawyer->getOffice();
-        // var_dump($Speaker);
+        // var_dump($Person);
         // $descrip = $Office->translate('es')->getDescriptions();
         // var_dump($Office);
         // $Officeid = $Office->getId();

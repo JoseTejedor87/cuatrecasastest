@@ -9,21 +9,21 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Entity\Lawyer;
-use App\Entity\Speaker;
+use App\Entity\Person;
 
 
-class SpeakerFormType extends AbstractType
+class PersonFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label'=>'entities.speaker.fields.name'])
-            ->add('surname', TextType::class, ['label'=>'entities.speaker.fields.surname'])
-            ->add('position', TextType::class, ['label'=>'entities.speaker.fields.position'])
+            ->add('name', TextType::class, ['label'=>'entities.person.fields.name'])
+            ->add('surname', TextType::class, ['label'=>'entities.person.fields.surname'])
+            ->add('position', TextType::class, ['label'=>'entities.person.fields.position'])
             ->add('lawyer', EntityType::class, [
                 'class' => Lawyer::class,
-                'label' => 'entities.speaker.fields.lawyer',
-                'help' => 'entities.speaker.help.lawyer',
+                'label' => 'entities.person.fields.lawyer',
+                'help' => 'entities.person.help.lawyer',
                 'placeholder' => '',
                 'attr' => [
                     'class' => 'm-select2'
@@ -38,7 +38,7 @@ class SpeakerFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Speaker::class,
+            'data_class' => Person::class,
             'translation_domain' => 'admin',
             'required' => false
         ]);

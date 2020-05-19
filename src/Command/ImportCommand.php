@@ -22,7 +22,7 @@ use App\Entity\Practice;
 use App\Entity\Quote;
 use App\Entity\Resource;
 use App\Entity\Sector;
-use App\Entity\Speaker;
+use App\Entity\Person;
 use App\Entity\Office;
 use App\Entity\Article;
 use App\Entity\ArticleCategory;
@@ -36,6 +36,7 @@ class ImportCommand extends Command
     private $mappedEventIds;
     private $mappedActivityIds;
     private $mappedOfficeIds;
+    private $mappedPersonIds;
 
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
 
@@ -74,7 +75,7 @@ class ImportCommand extends Command
             $this->Lawyers();
             $this->Events();
             $this->Activities();
-            $this->SpeakersByEvent();
+            $this->PeopleByEvent();
             $this->ActivitiesByEvent();
             $this->ActivitiesByLawyer();
             $this->Quote();
@@ -96,8 +97,8 @@ class ImportCommand extends Command
                 case "activity":
                     $this->Activities();
                     break;
-                case "speaker":
-                    $this->SpeakersByEvent();
+                case "PeopleByEvent":
+                    $this->PeopleByEvent();
                     break;
                 case "event_activity":
                     $this->ActivitiesByEvent();
@@ -132,6 +133,9 @@ class ImportCommand extends Command
                 case "ArticlesCategory":
                     $this->ArticlesCategory();
                     break;
+                case "ArticlesAuthors":
+                    $this->ArticlesAuthors();
+                    break;
                 case "ArticlesPost":
                     $this->ArticlesPost();
                     break;
@@ -160,8 +164,8 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
         $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Speaker], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
         $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
@@ -225,7 +229,38 @@ class ImportCommand extends Command
             // Filling translatable fields
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
-            $lawyer->translate($currentLang)->setTraining($item['formacion']);
+            $Training = $item['formacion'];
+            if($Training){
+                if(preg_match('/Languages/',$Training)){
+                    $matches = explode("Languages", $Training);
+                }else{
+                    if(preg_match('/Language/',$Training)){
+                        $matches = explode("Language", $Training);
+                    }
+                }
+                if(preg_match('/Idiomas/',$Training)){
+                    $matches = explode("Idiomas", $Training);
+                }else{
+                    if(preg_match('/Idioma/',$Training)){
+                        $matches = explode("Idioma", $Training);
+                    }
+                }
+                if(isset($matches)){
+                    $delimiter = array(" y ", " e ", " and ");
+                    $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
+                    $lawyer->translate($currentLang)->setTraining($matches[0]);
+                    $languages = str_replace(": ", "", $languages);
+                    $languageA = explode(",", $languages);
+                    foreach ($languageA as $languagekey => $language) {
+                        $lawyer->translate($currentLang)->setLanguagesLawyer(
+                            array_unique(
+                                array_merge($lawyer->translate($currentLang)->getLanguagesLawyer() ? $lawyer->translate($currentLang)->getLanguagesLawyer() : [], [$language])
+                            )
+                        );
+                    }
+                }
+            }
+            // $lawyer->translate($currentLang)->setTraining($item['formacion']);
             $lawyer->translate($currentLang)->setMentions($item['menciones']);
             // Adding the current instance to map
             $processedLawyersMap[$oldLawyerId] = $lawyer;
@@ -238,6 +273,7 @@ class ImportCommand extends Command
             $this->logger->debug("Lawyer ".$lawyer->getOldId()." - ".$lawyer->getId()." ".$lawyer->getFullName());
         }
     }
+
 
     public function Events()
     {
@@ -441,7 +477,7 @@ class ImportCommand extends Command
 
         $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
         $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
-
+        
         $activityRepository = $this->em->getRepository(Activity::class);
         foreach ($items as $item) {
             $activityId = $this->getMappedActivityId($item['id_area_padre']);
@@ -611,22 +647,23 @@ class ImportCommand extends Command
         }
     }
 
-    public function SpeakersByEvent()
+    public function PeopleByEvent()
     {
         $data = file_get_contents("JsonExports/eventosPonente.json");
         $items = json_decode($data, true);
-        $processedSpeakers = [];
+        $processedPeople = [];
 
         $eventRepository = $this->em->getRepository(Event::class);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_speaker]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Speaker]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Speaker], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [person]");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 
         foreach ($items as $item) {
 
-            // Skip speakers other than lawyers
+            // Skip Person other than lawyers
             if ($item['id_abogado']) {
                 $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " lawyer:" . $item['id_abogado']);
 
@@ -640,20 +677,23 @@ class ImportCommand extends Command
                     $this->logger->debug("- Mapped Event " . $eventId . " · " . $event->translate("es")->getTitle());
                     $this->logger->debug("- Mapped Lawyer " . $lawyerId . " · " . $lawyer->getFullName());
 
-                    if (isset($processedSpeakers[$item['id_abogado']])) {
-                        $speaker = $processedSpeakers[$item['id_abogado']];
+                    if (isset($processedPeople[$item['id_abogado']])) {
+                        $person = $processedPeople[$item['id_abogado']];
                     } else {
-                        $speaker = new Speaker();
-                        $speaker->setOldId($item['id']);
-                        $speaker->setLawyer($lawyer);
+                        $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                        if(!$person){
+                            $person = new Person();
+                            $person->setOldId($item['id']);
+                            $person->setLawyer($lawyer);
+                        }
                     }
 
-                    $event->addSpeaker($speaker);
+                    $event->addPerson($person);
 
                     $this->em->persist($event);
                     $this->em->flush();
 
-                    $processedSpeakers[$item['id_abogado']] = $speaker;
+                    $processedPeople[$item['id_abogado']] = $person;
                 } else {
                     $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
                 }
@@ -1016,7 +1056,9 @@ class ImportCommand extends Command
                     if (!empty($article->getLanguages())) {
                         $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
                         $this->logger->debug("Updating Article ".$article->getId());
+                        if($processedArticleMap[$lastId])
                         unset($processedArticleMap[$lastId]);
+                        if($processedAttachmentsMap[$lastId])
                         unset($processedAttachmentsMap[$lastId]);
                         // To force garbage collector to do its job
                         gc_collect_cycles();
@@ -1105,8 +1147,9 @@ class ImportCommand extends Command
         $items = json_decode($data, true);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $articleRepository = $this->em->getRepository(Article::class);
+        $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [article_lawyer]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
@@ -1115,13 +1158,17 @@ class ImportCommand extends Command
             if ($articleId && $lawyerId) {
                 $article = $articleRepository->find($articleId);
                 $lawyer = $lawyerRepository->find($lawyerId);
-
-                // $this->logger->debug("- Mapped article " . $article->translate("es")->getTitle());
-                // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
-
-                $article->addLawyer($lawyer);
+                $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                if(!$person){
+                    $person = new Person();
+                    $person->setOldId($lawyerId);
+                    $person->setLawyer($lawyer);
+                }
+                $article->addPerson($person);
                 $this->em->persist($article);
                 $this->em->flush();
+                // $this->logger->debug("- Mapped article " . $article->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
@@ -1261,6 +1308,30 @@ class ImportCommand extends Command
             }
         }
     }
+    public function ArticlesAuthors()
+    {
+        $client = HttpClient::create();
+        $categorias = ["propiedad-intelectual","competencia","deporte-entretenimiento","mercado-de-valores","laboral",""];
+        //Categorias en español
+        foreach ($categorias as $key => $categoria) {
+                $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/users?per_page=80');
+                $status = $response->getStatusCode();
+                if ($status!=400) {
+                    $content = $response->toArray();
+                    foreach ($content as $key2 => $value2) {
+                        $person = new Person();
+                        $person->setOldId($value2["id"]);
+                        $fullName = explode(" ", $value2["name"],2);
+                        $person->setName($fullName[0]);
+                        if(count($fullName)>1){
+                            $person->setSurname($fullName[1]);
+                        }
+                        $this->em->persist($person);
+                        $this->em->flush();
+                    }
+                }
+        }
+    }
     public function ArticlesPost()
     {
         $ArticleCategoryRepository = $this->em->getRepository(ArticleCategory::class);
@@ -1291,7 +1362,15 @@ class ImportCommand extends Command
                                     ->getLanguages(), ['es'])
                                 )
                             );
-
+                            if($post['author']){
+                                $personRepository = $this->em->getRepository(Person::class);
+                                $personId = $this->getMappedPersonId($post['author']);
+                                if($personId){
+                                    $person = $personRepository->find($personId);
+                                    $article->addPerson($person);
+                                }
+                                
+                            }
                             foreach ($post['categories'] as $keyCategory => $postCategory) {
                                 $articleCategoryId = $this->getMappedArticleCategoryId($postCategory);
                                 if($articleCategoryId){
@@ -1334,6 +1413,15 @@ class ImportCommand extends Command
                             $article = new Article();
                             $article->setOldId($post['id']);
                             $article->setStatus($post['status']=='publish' ? 1 : 0);
+                            if($post['author']){
+                                $personRepository = $this->em->getRepository(Person::class);
+                                $personId = $this->getMappedPersonId($post['author']);
+                                if($personId){
+                                    $person = $personRepository->find($personId);
+                                    $article->addPerson($person);
+                                }
+                            }
+                            
                             $article->translate('en')->setTitle($post['title']['rendered']);
                             $article->translate('en')->setSummary($post['content']['rendered']);
                             $article->translate('en')->setContent($post['excerpt']['rendered']);
@@ -1512,7 +1600,23 @@ class ImportCommand extends Command
             ->getOldId()] = $Category->getId();
         }
     }
+    private function getMappedPersonId(?string $id): ?string
+    {
+        if (empty($this->mappedPersonIds)) {
+            $this->loadMappedPersonIds();
+        }
+        return isset($this->mappedPersonIds[$id]) ? $this->mappedPersonIds[$id] : null;
+    }
 
+    private function loadMappedPersonIds()
+    {
+        $repository = $this->em->getRepository(Person::class);
+        $People = $repository->findAll();
+        foreach ($People as $person) {
+            $this->mappedPersonIds[$person
+            ->getOldId()] = $person->getId();
+        }
+    }
     private static function getMappedLawyerType(?string $code): ?string
     {
         $map = [

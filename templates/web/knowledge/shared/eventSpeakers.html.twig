@@ -5,17 +5,17 @@
         </div>
         <div class="page__block__content">
             <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
-                {% for speaker in event.speakers %}
+                {% for person in event.people %}
                 <div class="lawyer__search__item">
                     <a href="#" class="lawyer__link">
-                        <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                        <h3 class="lawyer__name">{{ person.lawyer.name }} {{ person.lawyer.surname }}</h3>
                         <div class="lawyer__details">
                             <div class="lawyer__company">
                                 Cuatrecasas
                             </div>
                             <ul class="lawyer__practice">
-                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.city : '' }}</li>
+                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ person.lawyer.lawyerType) | trans }}</li>
+                                <li class="lawyer__practice__item">{{ person.lawyer.office ? person.lawyer.office.city : '' }}</li>
                             </ul>
                         </div>
                     </a>
