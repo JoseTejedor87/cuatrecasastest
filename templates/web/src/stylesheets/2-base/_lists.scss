@@ -30,6 +30,12 @@
         left: -4px;
     }
 
+    @include has(".page__event") {
+        position: relative;
+        left: -4px;
+    }
+
+
     //
     // Lawyer detail
     //
@@ -164,6 +170,31 @@
         @include fontSet(16px, 18px);
         text-transform: uppercase;
         color: $main-color;
+    }
+
+    //
+    // ARTICLE PAGE
+    // --------------------------------------------------------------------------
+
+    // Lawyer list
+    @include when("lawyers") {
+        li {
+            &:before {
+                background-color: $black;
+            }
+        }
+
+        a {
+            @include background-link($black, $white, $complementary-color);
+            font-weight: bold;
+        }
+    }
+
+    // Services list
+    @include when("services") {
+        a {
+            @include background-link($complementary-color, $white, $complementary-color);
+        }
     }
 }
 

@@ -361,7 +361,7 @@ web.global = {
         var swiperSlider = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
-            // loop: true,
+            loop: true,
             grabCursor: true
         });
     },

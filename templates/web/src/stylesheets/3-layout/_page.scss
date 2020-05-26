@@ -6,6 +6,7 @@
 
     //
     // HEADER
+    // [page__header]
     // --------------------------------------------------------------------------
 
     @include has("header") {
@@ -77,6 +78,7 @@
 
     //
     // FULL WIDTH SECTION (main highlighted content)
+    // [page__section]
     // --------------------------------------------------------------------------
 
     @include has("section") {
@@ -91,11 +93,15 @@
                 padding-bottom: 2rem;
             }
         }
+
+        @include when("fullbg") {
+        }
     }
 
 
     //
     // DOBLE BLOCK SECTION (content page section)
+    // [page__block]
     // --------------------------------------------------------------------------
 
     @include has("block") {
@@ -133,7 +139,12 @@
 
         //
         // Modifiers
+        // [page__block--aside]
+        // [page__block--full]
+        // [page__block--full-line]
+        // [page__block--flex]
         //
+
         @include when("aside") {
             > .col {
                 display: flex;
@@ -256,8 +267,10 @@
 
 
         //
-        // MAIN CONTENT BLOCK
+        // MAIN CONTENT BLOCKS
         // --------------------------------------------------------------------------
+
+        // [page__block__content]
         @include has("content") {
             flex: 0 0 60%;
             order: 2;
@@ -289,13 +302,31 @@
                 @include fontSet(22px, 30px);
 
                 a {
-                    @include classic-link($complementary-color, $complementary-color, $border: true);
+                    // @include classic-link($complementary-color, $complementary-color, $border: true);
+                    @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
                 }
+            }
+
+            //
+            // Modifiers
+            // [page__block__content--article]
+            //
+            @include when("article") {
+
+                p {
+                    @include fontSet(33px, 39px);
+
+                    a {
+                        // @include background-link($complementary-color, $white, $complementary-color);
+                    }
+                }
+
             }
 
 
             //
-            // CONTENT LIST DETAILS
+            // CONTENT LIST DETAILS (lawyers)
+            // [page__block__content__details]
             // --------------------------------------------------------------------------
             @include has("details") {
                 @include reset-list;
@@ -312,6 +343,10 @@
                 }
             }
 
+            //
+            // Modifiers
+            // [page__block__content__details--full]
+            //
             @include when("full") {
                 // p:first-child {
                 //     margin-bottom: 2.4rem;
@@ -335,12 +370,14 @@
             }
         }
 
+        // [page__block__aside]
         @include has("aside") {
             flex: 0 0 calc(40% - 3rem);
             order: 1;
             margin-right: 3rem;
         }
 
+        // [page__block__title]
         @include has("title") {
             flex: 0 0 calc(40% - 3rem);
             margin-right: 3rem;
@@ -348,12 +385,41 @@
             p {
                 @include fontSet(38px, 46px);
             }
+
+            //
+            // Modifiers
+            // [page__block__title--article]
+            //
+            @include when("article") {
+
+                p {
+                    @include fontSet(43px, 45px);
+                }
+
+                figure {
+                    @include reset-figure;
+                    margin: 1.5rem 0 2.5rem;
+
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                    }
+                }
+
+                .article__details {
+                    .btn {
+                        margin-bottom: 1rem;
+                    }
+                }
+
+            }
         }
     }
 
 
     //
     // DOBLE BLOCK ASIDE (list, blockquotes, etc...)
+    // [page__aside]
     // --------------------------------------------------------------------------
 
     @include has("aside") {
@@ -442,7 +508,8 @@
 
 
     //
-    // DOBLE BLOCK ASIDE INVERTED >>> EVENTS PAGE
+    // DOBLE BLOCK - ASIDE INVERTED >>> EVENTS PAGE
+    // [page__event]
     // --------------------------------------------------------------------------
 
     @include has("event") {

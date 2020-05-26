@@ -2,6 +2,10 @@
 // INSIGHTS COMPONENT
 // ==========================================================================
 
+
+@include new("insights__grid") {
+}
+
 @include new("insight") {
     background-color: $event-box-color;
 
@@ -43,7 +47,7 @@
 
         .swiper-slide {
             // reset width
-            width: 67%;
+            width: 66%;
             // forze same height items
             height: auto;
             // outside elements opacity
