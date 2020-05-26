@@ -10,7 +10,7 @@ function newCalendar(eventosjson) {
         https://codepen.io/pen/?&editable=true&editors=001
         */
 
-        plugins: [ 'dayGrid', 'list' ],
+        plugins: [ 'interaction', 'dayGrid', 'list' ],
         defaultView: 'dayGridMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
@@ -95,31 +95,53 @@ function newCalendar(eventosjson) {
         // console.log()
         viewSkeletonRender: function(info) {
             var headerButtons = calendarEl.querySelectorAll('.fc-button');
+
             headerButtons.forEach(function(button) {
                 if (button.innerText === 'Grid') {
                     button.classList.add('active');
                     button.id = 'gridBot';
                 }
                 if (button.innerText === 'List') {
+                    // button.classList.add('active');
                     button.id = 'listBot';
                 }
             });
+
+            var listButton = document.getElementById("listBot");
+            var gridButton = document.getElementById("gridBot");
+
+            if(info.view.type === "dayGridMonth") {
+                // console.log('dayGridMonth');
+                gridButton.classList.add("active");
+                listButton.classList.remove("active");
+            }
+
+            if(info.view.type === "listMonth" || info.view.type === "listDay") {
+                // console.log('listMonth / listDay');
+                gridButton.classList.remove("active");
+                listButton.classList.add("active");
+            }
         },
 
-
+        /*
         datesRender: function(info) {
             var listButton = document.getElementById("listBot");
             var gridButton = document.getElementById("gridBot");
 
             if(info.view.type === "dayGridMonth") {
-                console.log('dayGridMonth');
+                // console.log('dayGridMonth');
+                gridButton.classList.add("active");
+                listButton.classList.remove("active");
             }
 
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
-                console.log('listMonth');
+                // console.log('listMonth / listDay');
+                gridButton.classList.remove("active");
+                listButton.classList.add("active");
             }
-
         },
+        */
+
         // RENDER VIEWS
         eventRender: function (info) {
 
@@ -178,14 +200,37 @@ function newCalendar(eventosjson) {
              });
         },
 
+        // DATE CLICK
+        /*
+        dateClick: function(info) {
+
+            // var eventDate = info.dateStr;
+            // calendar.changeView('listDay', eventDate);
+
+            // console.log('Clicked on: ' + info.dateStr);
+            // console.log('Allday: ' + info.allDay);
+
+            console.log('dateStr: ' + info.dateStr);
+            console.log('allDay: ' + info.allDay);
+            console.log('dayEl: ' + info.dayEl);
+            console.log('jsEvent: ' + info.jsEvent);
+            console.log('---');
+
+            // alert('Clicked on: ' + info.dateStr);
+            // alert('Current view: ' + info.view.type);
+            // // change the day's background color just for fun
+            // info.dayEl.style.backgroundColor = 'red';
+        },
+        */
+
         // EVENT CLICK
         eventClick: function(info) {
             info.jsEvent.preventDefault();
             var eventDate = info.event.start;
             calendar.changeView('listDay', eventDate);
 
-            // var gridFocus = document.getElementById('gridFocus');
-            // gridFocus.scrollIntoView();
+            var gridFocus = document.getElementById('gridFocus');
+            gridFocus.scrollIntoView();
 
         }
 

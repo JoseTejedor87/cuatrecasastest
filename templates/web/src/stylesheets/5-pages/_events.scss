@@ -492,6 +492,7 @@
                 display: block;
                 width: 18px;
                 height: 18px;
+                text-indent: -99999px;
                 color: transparent;
                 // background-color: $event-box-color;
                 border: 2px solid $complementary-color;
@@ -502,6 +503,7 @@
                     @include icons-ionicons(2px,3px,auto,auto);
                     content: '\f218';
                     font-size: 14px;
+                    text-indent: 0;
                     color: $complementary-color;
                     transition: all 0.2s;
                 }

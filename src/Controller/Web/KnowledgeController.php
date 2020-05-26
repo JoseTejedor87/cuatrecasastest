@@ -28,6 +28,25 @@ class KnowledgeController extends WebController
         ]);
     }
 
+    /**
+     * @Route("/filter", name="filter")
+     */
+    public function filter()
+    {
+        return $this->render('web/knowledge/filter.html.twig', [
+            'controller_name' => 'KnowledgeController',
+        ]);
+    }
+
+    /**
+     * @Route("/articleDetail", name="articleDetail")
+     */
+    public function articleDetail()
+    {
+        return $this->render('web/knowledge/articleDetail.html.twig', [
+            'controller_name' => 'KnowledgeController',
+        ]);
+    }
 
     /**
      * @Route("/events", name="events", methods={"GET"})

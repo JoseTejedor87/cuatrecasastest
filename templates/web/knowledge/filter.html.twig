@@ -2,15 +2,13 @@
 
 {% block stylesheets %}
 <!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet"> -->
 {% endblock %}
-
 
 {% block main %}
 
-    <main role="main" class="insights">
+    <main role="main" class="lawyer">
         <article class="container">
-            {# <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/joshua-coleman-iNrBHgUBDSg-unsplash.jpg') }}');"> #}
 
             <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
                 <div class="col">
@@ -23,16 +21,12 @@
                                 <li class="breadcrumb-item">
                                     <a href="#">Inicio</a>
                                 </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Conocimiento</a>
-                                </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Tema destacado
+                                    Conocimiento
                                 </li>
                             </ol>
                         </nav>
                     </div>
-
                     <ul class="action__links">
                         <li><a href="#"><i class="material-icons">share</i></a></li>
                         <li><a href="#"><i class="material-icons">print</i></a></li>
@@ -55,6 +49,30 @@
                     </div>
                 </div>
             </section>
+
+            <!-- //
+            ISOTOPE
+            https://isotope.metafizzy.co/layout-modes/masonry.html
+
+            https://isotope.metafizzy.co/v1/demos/layout-modes.html
+            https://isotope.metafizzy.co/v1/demos/fluid-responsive.html
+
+
+            FILTERING
+            https://isotope.metafizzy.co/extras.html
+
+            * Combination inclusive filters with checkboxes
+            https://codepen.io/desandro/pen/JGKyrY
+
+            * Combination inclusive and exclusive filters with selects
+            https://codepen.io/desandro/pen/GFbAs
+
+            * Combination filters, inclusive within a group, exclusive outside groups
+            https://codepen.io/desandro/pen/MebyMR
+
+            * Combination filters with checkboxes and URL hash,
+            https://codepen.io/desandro/pen/NgqxjW
+            // -->
 
             <!-- ISOTOPE / MASONRY FILTERS -->
             <section id="filterWrapper" class="row">
@@ -381,144 +399,48 @@
                 </div>
             </section>
 
-            <!-- INSIGHTS GRID -->
-            <section class="row page__section page__section--fullbg">
+            <!-- MASONRY GRID -->
+            <section section class="row page__section">
                 <div class="col-12">
-                    <h4 class="section__title section__title section__title--recomended">Artículos recomendados</h4>
-                    <div class="grid__wrapper">
-                        <div class="grid__box grid__box--dobleXY">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Articulo</div>
-                                    <div class="boxnews__info">19 Febrero 2020</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciatarios
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
-                                </div>
-                            </article>
+                    <h4 class="section__title section__title--recomended">Te recomendamos</h4>
+                </div>
+                <div class="col-12">
+                    <div class="grid-masonry">
+                        <div class="grid-sizer"></div>
+
+                        <div class="grid-item region-01 type-01 type-02">
+                            Barcelona (region-01)<br>
+                            Noticias (type-01)<br>
+                            Eventos (type-02)
                         </div>
-                        <div class="grid__box grid__box--dobleY">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Artículo</div>
-                                    <div class="boxnews__info">3 Marzo 2020</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
-                                </div>
-                            </article>
+                        <div class="grid-item grid-item--height2 region-01 type-02">
+                            Barcelona (region-01)<br>
+                            Eventos (type-02)
                         </div>
-                        <div class="grid__box grid__box--dobleY">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">Innovación</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
-                                </div>
-                            </article>
+                        <div class="grid-item region-02 region-02 type-01">
+                            Madrid (region-02)<br>
+                            Noticias (type-01)
                         </div>
-                        <div class="grid__box grid__box--normal">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">Becas y ayudas</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La Fundación Cuatrecasas convoca la II edición de la Beca Manuel Olivencia para estudiantes de Derecho
-                                        </a>
-                                    </h5>
-                                </div>
-                            </article>
+                        <div class="grid-item region-02 type-03">
+                            Madrid (region-02)<br>
+                            Opinion (type-03)
                         </div>
-                        <div class="grid__box grid__box--normal">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">New business</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            El outlet de lujo McArthurGlen Designer abre sus puertas en Málaga con el asesoramiento de Cuatrecasas
-                                        </a>
-                                    </h5>
-                                </div>
-                            </article>
+                        <div class="grid-item grid-item--height2 region-03 type-03">
+                            Lisboa (region-03)<br>
+                            Opinion (type-03)
                         </div>
-                        <div class="grid__box grid__box--normal">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">Educación</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La Universidad Carlos III de Madrid gana la edición nacional del torneo de Derecho Jessup Moot Competition
-                                        </a>
-                                    </h5>
-                                </div>
-                            </article>
+                        <div class="grid-item grid-item--width2 grid-item--height2 region-01 type-01 type-02 type-03">
+                            Barcelona (region-01)<br>
+                            Noticias (type-01)<br>
+                            Eventos (type-02)<br>
+                            Opinion (type-03)
                         </div>
-                        <div class="grid__box grid__box--normal">
-                            <article class="boxnews__item">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Artículo</div>
-                                    <div class="boxnews__info">19 enero 2020</div>
-                                    <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
-                                    </div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Publicado el Proyecto de Real Decreto de Comunicaciones Comerciales de las Actividades de Juego
-                                        </a>
-                                    </h5>
-                                </div>
-                            </article>
+                        <div class="grid-item region-03 type-01 type-03">
+                            Lisboa (region-03)<br>
+                            Noticias (type-01)<br>
+                            Opinion (type-03)
                         </div>
-                    </div>
-                    <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore">Ver más recomendaciones</button>
-                        <!-- <a href="#" class="btn btn__viewmore">Ver más<br>recomendaciones</a> -->
+
                     </div>
                 </div>
             </section>
@@ -526,25 +448,13 @@
         </article>
     </main>
 
-    {% include 'web/shared/related-events-slider.html.twig' %}
-    {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
-
 
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- Isotope JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script>
 <!-- Checkbox Filters -->
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
-
-<script>
-    $(function () {
-        web.global.sliderGeneral();
-        web.global.sliderNews();
-    });
-</script>
 {% endblock %}

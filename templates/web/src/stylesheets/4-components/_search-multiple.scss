@@ -1,0 +1,297 @@
+// ==========================================================================
+// MULTIPLE SEARCH
+// ==========================================================================
+
+
+
+// ISOTOPE
+
+#advancedFilters {
+    border: 1px solid red;
+
+    .item {
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin: 5px;
+        padding: 5px;
+    }
+
+
+    .item p {
+        margin: 0;
+    }
+
+    .red {
+        background: #F33;
+    }
+
+    .blue {
+        background: #88F;
+    }
+
+    .green {
+        background: #3A3;
+    }
+
+    .orange {
+        background: orange;
+    }
+
+    select, label, input {
+        font-size: 20px;
+    }
+
+    label {
+        margin-right: 10px;
+    }
+}
+
+
+
+// FILTERS
+
+#filterOrderby {
+    display: none;
+    display: flex;
+    padding: 2rem 0 1rem;
+    border-bottom: 2px solid rgba($black, 0.5);
+
+    span {
+        @include fontSet(16px, 18px);
+        padding: 2px 16px 0 0;
+        color: $black;
+    }
+
+    ul {
+        @include reset-list;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+
+    li {
+        position: relative;
+        margin: 0 8px 0 0;
+        padding: 0 0;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -4px;
+            width: 1px;
+            height: 90%;
+            background-color: $complementary-color;
+            opacity: 0.8;
+        }
+
+        &:first-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    a {
+        display: inline-block;
+        margin: 0 0;
+        padding: 2px 4px 0;
+        @include fontSet(16px, 18px);
+        @include background-link($complementary-color, $white, $complementary-color);
+        text-transform: uppercase;
+
+        &.active {
+            font-weight: bold;
+        }
+    }
+}
+
+#checksOutput {
+    display: none;
+    display: inline-block;
+
+    .checkbox-tag {
+        display: flex;
+        float: left;
+        // height: 29px;
+        margin: 0 1rem 1rem 0;
+        padding: 0 0 0 1rem;
+        @include fontSet(16px, 28px);
+        color: rgba($black, 0.6);
+        background-color: $white;
+        border: 1px solid $complementary-color;
+        cursor: default;
+    }
+
+    .close-tag {
+        @include reset-button;
+        display: flex;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        margin-left: 1rem;
+        background-color: $complementary-color;
+
+        .icon {
+            @include fontSet(20px, 20px);
+            color: $white;
+        }
+
+        @include on-event {
+            background-color: $main-color;
+        }
+    }
+}
+
+#applyFilters {
+    display: none;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 4rem 0;
+}
+
+#deleteFilters {
+    display: none;
+    display: block;
+    float: left;
+    margin: 8px 0 0 8px;
+    @include classic-link($complementary-color, $complementary-color);
+    @include fontSet(16px, 16px);
+    white-space: nowrap;
+}
+
+
+#filterWrapper {
+    margin-bottom: 4rem;
+}
+
+#filterTabs {
+
+    .nav-item {
+        margin-right: 4rem;
+        text-align: left;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .nav-link {
+        position: relative;
+        margin: 0 0;
+        padding: 0.5rem 0;
+        @include fontSet(22px, 22px);
+        text-align: left;
+        border-radius: 0;
+        color: $black;
+        background-color: transparent;
+        transition: all 0.2s ease-in;
+
+        &:after {
+            @include icons-ionicons(1px,6px,auto,auto);
+            content: '\f3d1';
+            font-size: 36px;
+            transform: rotate(90deg);
+            color: $complementary-color;
+            transition: all 0.2s;
+        }
+
+        @include on-event {
+            color: $complementary-color;
+        }
+
+        &.active {
+            color: $complementary-color;
+            background-color: transparent;
+
+            &:after {
+                transform: rotate(-90deg);
+            }
+        }
+    }
+}
+
+#filterTabsContent {
+
+    .tab-pane {
+        padding: 2rem 0 2rem 4rem;
+
+        .chechbox-wrapper {
+            // display: flex;
+            // flex-direction: column;
+            // flex-wrap: wrap;
+
+            column-count: 3;
+            // column-gap: 40px;
+            column-fill: auto;
+            // column-fill: balance;
+        }
+
+        .checkbox {
+            // display: flex;
+            // flex: 0 0 33.3333%;
+        }
+
+        // label {
+        //     display: flex;
+        //     flex: 0 0 33.3333%;
+        //     border: 1px solid yellow;
+        // }
+    }
+}
+
+
+//
+// Isotope Grid
+// --------------------------------------------------------------------------
+
+.grid-masonry {
+    width: 100%;
+    margin-bottom: 6rem;
+    // background: yellow;
+}
+
+/* clear fix */
+.grid-masonry:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-item,
+.grid-sizer {
+    width: 33.3333%;
+}
+
+.grid-item {
+    float: left;
+    height: 260px;
+    background: #fcf;
+    // border: 2px solid black;
+    border: 10px solid white;
+    // border-color: hsla(0, 0%, 0%, 0.7);
+
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+
+    padding: 2rem;
+}
+
+.grid-item--width2 { width: 66.6666%; }
+.grid-item--height2 { height: 520px; }
+
+// .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
+// .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }
+// .grid-item:nth-child(10n+2) { background: hsl(  72, 100%, 50%); }
+// .grid-item:nth-child(10n+3) { background: hsl( 108, 100%, 50%); }
+// .grid-item:nth-child(10n+4) { background: hsl( 144, 100%, 50%); }
+// .grid-item:nth-child(10n+5) { background: hsl( 180, 100%, 50%); }
+// .grid-item:nth-child(10n+6) { background: hsl( 216, 100%, 50%); }
+// .grid-item:nth-child(10n+7) { background: hsl( 252, 100%, 50%); }
+// .grid-item:nth-child(10n+8) { background: hsl( 288, 100%, 50%); }
+// .grid-item:nth-child(10n+9) { background: hsl( 324, 100%, 50%); }
+
+
