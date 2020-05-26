@@ -15,12 +15,12 @@ class Event extends Publishable
     use ORMBehaviors\Translatable\Translatable;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $endDate;
 
@@ -35,7 +35,7 @@ class Event extends Publishable
     private $contact;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phone;
 
@@ -68,6 +68,12 @@ class Event extends Publishable
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="event", cascade={"persist"}, orphanRemoval=true)
      */
     private $attachments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="event")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $office;
 
     public function __construct()
     {
@@ -253,6 +259,18 @@ class Event extends Publishable
         if ($this->people->contains($person)) {
             $this->people->removeElement($person);
         }
+
+        return $this;
+    }
+
+    public function getOffice(): ?Office
+    {
+        return $this->office;
+    }
+
+    public function setOffice(?Office $office): self
+    {
+        $this->office = $office;
 
         return $this;
     }

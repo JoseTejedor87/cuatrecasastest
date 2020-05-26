@@ -115,6 +115,9 @@ class ImportCommand extends Command
                 case "OfficeByLawyer":
                     $this->OfficeByLawyer();
                     break;
+                case "OfficeByEvents":
+                    $this->OfficeByEvents();
+                    break;
                 case "awards":
                     $this->awards();
                     break;
@@ -284,9 +287,9 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/event-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
 
         $processedEventsMap = [];
         $processedAttachmentsMap = [];
@@ -321,7 +324,7 @@ class ImportCommand extends Command
 
                 $event->setCustomMap($item['mapa']);
                 $event->setCustomSignup($item['url_inscripcion']);
-                //$event->setPhone($item['telefono']);
+                $event->setPhone($item['telefono']);
                 $event->setContact($item['contacto']);
                 $event->setEventType(
                     self::getMappedEventTypeCode($item['tipo'])
@@ -399,6 +402,11 @@ class ImportCommand extends Command
         $data = file_get_contents("JsonExports/areas_practicas.json");
         $items = json_decode($data, true);
 
+        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
         $this->em->getConnection()->executeQuery("DELETE FROM [ActivityTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Activity]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Activity], RESEED, 1)");
@@ -657,9 +665,9 @@ class ImportCommand extends Command
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [person]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 
         foreach ($items as $item) {
 
@@ -834,6 +842,29 @@ class ImportCommand extends Command
                 $office = $officeRepository->find($officeId);
                 $lawyer->setOffice($office);
                 $this->em->persist($lawyer);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function OfficeByEvents()
+    {
+        $data = file_get_contents("JsonExports/OficinaEventos.json");
+        $items = json_decode($data, true);
+        $eventRepository = $this->em->getRepository(Event::class);
+        $officeRepository = $this->em->getRepository(Office::class);
+
+        foreach ($items as $item) {
+            // $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
+            $eventId = $this->getMappedEventId($item['id_evento']);
+            $officeId = $this->getMappedOfficeId($item['id_oficina']);
+            if ($eventId && $officeId) {
+                $event = $eventRepository->find($eventId);
+                $office = $officeRepository->find($officeId);
+                $event->setOffice($office);
+                $this->em->persist($event);
                 $this->em->flush();
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");

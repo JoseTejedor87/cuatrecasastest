@@ -15,7 +15,7 @@ class LawyerTranslation extends PublishableTranslation
 
     
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      */
     private $languagesLawyer = [];
     

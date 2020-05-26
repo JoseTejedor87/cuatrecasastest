@@ -73,6 +73,12 @@ class MigrationCommand extends Command
                 case "eventosPonente":
                     $this->EventosPonente($conn,$output);
                     break;
+                case "oficinaEventos":
+                    $this->OficinaEventos($conn,$output);
+                    break;
+                case "EventosPrograma":
+                    $this->EventosPrograma($conn,$output);
+                    break;
                 case "abogadoArea":
                     $this->AbogadoArea($conn,$output);
                     break;
@@ -188,6 +194,18 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     } 
+    public function EventosPrograma($conn,$output){
+        $query = "SELECT [id_programa] ,[id_evento] ,[lang] ,[hash] ,[fecha] ,[titulo] ,[descripcion] FROM eventos_programa";        
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/eventosPrograma.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_programa');
+        $this->logger->info('Se ha guardado con el nombre eventosPrograma.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    } 
     public function AbogadoArea($conn,$output){
         $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM abogado_area";       
         $stmt = $conn->prepare($query);
@@ -257,6 +275,18 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/OficinaAbogado.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla OficinaAbogado');
         $this->logger->info('Se ha guardado con el nombre OficinaAbogado.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function OficinaEventos($conn,$output){
+        $query = "SELECT [id_evento], [id_oficina] FROM eventos_oficina";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/OficinaEventos.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla OficinaEventos');
+        $this->logger->info('Se ha guardado con el nombre OficinaEventos.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
