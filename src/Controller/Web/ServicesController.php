@@ -47,8 +47,8 @@ class ServicesController extends WebController
      */
     public function products()
     {
-        $sectors = $sectorRepository->findAll();
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $sectors = $sectorRepository->findAll();
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/services/products.html.twig', [
             'controller_name' => 'ServicesController',
         ]);
