@@ -165,10 +165,14 @@ class ImportCommand extends Command
 
         // Removing registers from database
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
         $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
@@ -287,9 +291,11 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/event-*"));
 
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
-        // $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
 
         $processedEventsMap = [];
         $processedAttachmentsMap = [];
@@ -665,7 +671,7 @@ class ImportCommand extends Command
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 
