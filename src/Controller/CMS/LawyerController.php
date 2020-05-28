@@ -19,9 +19,6 @@ use App\Controller\CMS\CMSController;
 class LawyerController extends CMSController
 {
 
-    /**
-     * @Route("/", name="lawyer_index", methods={"GET"})
-     */
     public function index(LawyerRepository $lawyerRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -35,9 +32,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="lawyer_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $lawyer = new Lawyer();
@@ -59,9 +53,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="lawyer_show", methods={"GET"})
-     */
     public function show(Lawyer $lawyer): Response
     {
         return $this->render('cms/lawyer/show.html.twig', [
@@ -69,9 +60,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="lawyer_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Lawyer $lawyer): Response
     {
         $form = $this->createForm(LawyerFormType::class, $lawyer);
@@ -97,9 +85,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="lawyer_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Lawyer $lawyer): Response
     {
         if ($this->isCsrfTokenValid('delete'.$lawyer->getId(), $request->request->get('_token'))) {

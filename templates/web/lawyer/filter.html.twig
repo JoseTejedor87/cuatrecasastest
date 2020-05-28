@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Abogados
+                            {{ 'sections.lawyers.title' | trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -118,32 +118,9 @@
                     </div>
                     <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=a')}}">a</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=b')}}">b</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=c')}}">c</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=d')}}">d</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=e')}}">e</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=f')}}">f</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=g')}}">g</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=h')}}">h</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=i')}}">i</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=j')}}">j</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=k')}}">k</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=l')}}">l</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=m')}}">m</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=n')}}">n</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=o')}}">o</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=p')}}">p</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=q')}}">q</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=r')}}">r</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=s')}}">s</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=t')}}">t</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=u')}}">u</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=v')}}">v</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=w')}}">w</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=x')}}">x</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=y')}}">y</a></li>
-                            <li class="page-item"><a class="page-link" href="{{ relative_path('/es/lawyer/filter?initial=z')}}">z</a></li>
+                        {% for letter in range('a','z') %}
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_directory') }}?initial={{ letter }}">{{ letter }}</a></li>
+                        {% endfor %}
                         </ul>
                     </nav>
                     <!-- <div class="search_tags__wrapper">
@@ -168,7 +145,7 @@
                         <div class="lawyer__search__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
                         <div class="lawyer__search__chooser">
                             <button type="button" class="icon__button list">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results list">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
                             </button>
                             <button type="button" class="icon__button grid active">
                                 <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
@@ -180,7 +157,7 @@
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
                         {% for lawyer in lawyers %}
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug }}" class="lawyer__link">
+                            <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
                                 <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>

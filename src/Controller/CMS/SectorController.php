@@ -13,14 +13,9 @@ use App\Form\SectorFormType;
 use App\Repository\SectorRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/sectors")
- */
+
 class SectorController extends CMSController
 {
-    /**
-     * @Route("/", name="sector_index", methods={"GET"})
-     */
     public function index(SectorRepository $sectorRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,9 +29,6 @@ class SectorController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="sector_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $sector = new Sector();

@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Controller\CMS;
+
 use App\Entity\Lawyer;
 use App\Controller\CMS\CMSController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
-
-class dashboardController extends CMSController
+class DashboardController extends CMSController
 {
 
     /**

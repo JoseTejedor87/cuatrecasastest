@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Lawyer;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,13 @@ class LawyerRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Lawyer::class);
+    }
+
+    public function getInstanceByRequest(Request $request) {
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->findOneBy(['slug' => $slug]);
+        }
+        return null;
     }
 
     // /**
