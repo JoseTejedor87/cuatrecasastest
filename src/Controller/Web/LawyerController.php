@@ -26,33 +26,23 @@ class LawyerController extends WebController
     public function filter(Request $request, LawyerRepository $lawyerRepository)
     {
         $initial = $request->query->get('initial');
-        $page = $request->query->get('page');
-        if (!isset($page)) {
-            $page = 1;
-        }
+        $page = $request->query->get('page') ?: 1;
         $limit = 18;
-        if (!$initial) {
-            $initial = $request->query->get('initial');
-        }
+
         if ($initial) {
-            //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']);
-            // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
-            $query = $lawyerRepository->createQueryBuilder('l')
-               ->where('l.surname LIKE :surname')
-               ->setParameter('surname', $initial .'%')
-               ->setFirstResult($limit * ($page - 1))
-               ->setMaxResults($limit)
-               ->getQuery();
-            $lawyers = $query->getResult();
-            $query = $lawyerRepository->createQueryBuilder('l')
-               ->where('l.surname LIKE :surname')
-               ->setParameter('surname', $initial .'%')
-               ->getQuery();
-            $querySql = $query->getSQL();
+            $query = $lawyerRepository->createPublishedQueryBuilder('l')
+               ->andwhere('l.surname LIKE :surname')
+               ->setParameter('surname', $initial .'%');
+
+            $lawyers = $query->getQuery()->getResult();
+
             if ($lawyers) {
-                $countLawyers = count($query->getResult());
+                $query
+                    ->setFirstResult($limit * ($page - 1))
+                    ->setMaxResults($limit);
+                $countLawyers = count($query->getQuery()->getResult());
                 $pagesTotal = $countLawyers/$limit;
-                if (is_float($pagesTotal) && $pagesTotal>=1) {
+                if (is_float($pagesTotal) && $pagesTotal >= 1) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }
             }
