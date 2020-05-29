@@ -248,7 +248,7 @@
             $(this).addClass('active');
             $.ajax({
                 method: "POST",
-                url: "{{ path('recherche_ajax') }}",
+                url: "{{ path('lawyers_directory') }}",
                 data: { page: page, initial: initial },
                 beforeSend: function( xhr ) {
                     $('.lawyer__search__wrapper__loader').fadeIn('fast');

@@ -58,14 +58,28 @@ class LawyerController extends WebController
             }
         }
 
-
-        // dd($_SERVER['REQUEST_URI']);
-        return $this->render('web/lawyer/filter.html.twig', [
-            'controller_name' => 'LawyerController',
-            'lawyers' => isset($lawyers) ? $lawyers : '',
-            'countLawyers' => isset($countLawyers) ? $countLawyers : '',
-            'page' => isset($page) ? $page : '',
-            'pagesTotal' => isset($pagesTotal) ? $pagesTotal : '',
-        ]);
+        if ($request->isXMLHttpRequest()) {
+            $lawyerA = array();
+            if ($lawyers) {
+                foreach ($lawyers as $key => $lawyer) {
+                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $lawyer->getSlug());
+                    $activities = "";
+                    foreach ($lawyer->getActivities() as $activity) {
+                        $activities = $activities. ' ' . $activity->translate('es')->getTitle();
+                    }
+                    $lawyerA[$key]['activities'] = $activities;
+                    $lawyerA[$key]['office'] = $lawyer->getOffice()->getCity();
+                }
+            }
+            return new JsonResponse(array('lawyers' => $lawyerA,'countLawyers' => $countLawyers,'pagesTotal' => $pagesTotal ,'page' => $page,'initial' => $initial));
+        } else {
+            return $this->render('web/lawyer/filter.html.twig', [
+                'controller_name' => 'LawyerController',
+                'lawyers' => isset($lawyers) ? $lawyers : '',
+                'countLawyers' => isset($countLawyers) ? $countLawyers : '',
+                'page' => isset($page) ? $page : '',
+                'pagesTotal' => isset($pagesTotal) ? $pagesTotal : '',
+            ]);
+        }
     }
 }
