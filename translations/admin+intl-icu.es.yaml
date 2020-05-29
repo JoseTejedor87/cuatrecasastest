@@ -249,7 +249,7 @@ entities:
   publishable:
     fields:
       languages: Idiomas de publicación
-      locations: Ubicación de publicación
+      regions: Regiones de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
   quote:
