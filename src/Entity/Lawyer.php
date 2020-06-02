@@ -51,7 +51,7 @@ class Lawyer extends Publishable
      */
     private $slug;
 
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
@@ -66,6 +66,10 @@ class Lawyer extends Publishable
      */
     private $secondaryActivities;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $knownLanguages = [];
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="lawyers")
@@ -231,6 +235,17 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    public function getKnownLanguages(): ?array
+    {
+        return $this->knownLanguages;
+    }
+
+    public function setKnownLanguages(array $languages): self
+    {
+        $this->knownLanguages = $languages;
+        return $this;
+    }
+
     /**
      * @return Collection|Article[]
      */
@@ -309,6 +324,4 @@ class Lawyer extends Publishable
 
         return $this;
     }
-
-
 }

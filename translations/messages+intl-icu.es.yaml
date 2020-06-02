@@ -1,6 +1,13 @@
 # Global
 # ###########################################
-
+global:
+  languages:
+    es: Español
+    en: Inglés
+    pt: Portugués
+    zh: Chino
+    it: Italiano
+    fr: Francés
 
 # Sections
 # ###########################################

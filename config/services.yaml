@@ -6,10 +6,12 @@
 parameters:
 
     # Languages & Translations
-    app.languages: [es, en, pt, cn] # The list of available languages
+    app.languages: [es, en, pt, zh] # The list of available languages
     app.default_language: es        # The default language
 
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
+
+    app.regions: [sp, lt, pt, uk, de]
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -27,6 +29,9 @@ parameters:
         - partner
         - senior_associate
         - senior_partner
+
+    app.known_languages_by_lawyers: [es, en, it, pt, fr]
+
     app.event_types:
         - standard
         - webinar

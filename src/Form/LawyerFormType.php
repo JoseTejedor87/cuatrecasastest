@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -16,7 +17,9 @@ use App\Entity\Lawyer;
 use App\Entity\Office;
 use App\Entity\Mention;
 use App\Form\Type\LawyerCategoryType;
+use App\Form\Type\KnownLanguageType;
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
 use App\Form\ResourceFormType;
 
 class LawyerFormType extends AbstractType
@@ -28,7 +31,8 @@ class LawyerFormType extends AbstractType
             ->add('surname', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.surname'])
             ->add('email', EmailType::class, ['required' => true,'label'=>'entities.lawyer.fields.email'])
             ->add('phone', TextType::class, ['required' => true,'help' => 'El telefono es texto','label'=>'entities.lawyer.fields.phone'])
-            ->add('fax', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.fax'])
+            ->add('fax', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.fax'])
+            ->add('slug', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.slug'])
             ->add('office', EntityType::class, [
                 'class' => Office::class,
                 'label' => 'entities.lawyer.fields.office',
@@ -57,6 +61,7 @@ class LawyerFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => false,
+                'required' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
                 }
@@ -71,12 +76,18 @@ class LawyerFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => false,
+                'required' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
                 }
             ])
-
+            ->add('knownLanguages', KnownLanguageType::class, [
+                'label'=>'entities.lawyer.fields.knownLanguages',
+                'multiple' => true,
+                'expanded' => true
+            ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],

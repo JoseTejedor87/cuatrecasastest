@@ -13,12 +13,7 @@ class LawyerTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
 
-    
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $languagesLawyer = [];
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -86,16 +81,4 @@ class LawyerTranslation extends PublishableTranslation
 
         return $this;
     }
-    public function getLanguagesLawyer(): ?array
-    {
-        return $this->languagesLawyer;
-    }
-
-    public function setLanguagesLawyer(array $languagesLawyer): self
-    {
-        $this->languagesLawyer = $languagesLawyer;
-
-        return $this;
-    }
-
 }
