@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use App\Entity\PublishableTranslation;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventTranslationRepository")
  */
@@ -45,7 +46,7 @@ class EventTranslation extends PublishableTranslation
 
 
     /**
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -126,6 +127,4 @@ class EventTranslation extends PublishableTranslation
     {
         return $this->slug;
     }
-
-
 }

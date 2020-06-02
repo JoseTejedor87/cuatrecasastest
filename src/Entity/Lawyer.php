@@ -46,7 +46,7 @@ class Lawyer extends Publishable
     private $lawyerType;
 
     /**
-     * @Gedmo\Slug(fields={"name", "surname"})
+     * @Gedmo\Slug(fields={"name", "surname"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;

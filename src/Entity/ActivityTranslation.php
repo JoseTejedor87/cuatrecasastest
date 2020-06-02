@@ -29,7 +29,7 @@ class ActivityTranslation extends PublishableTranslation
     private $description;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
