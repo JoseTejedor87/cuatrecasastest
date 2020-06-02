@@ -46,13 +46,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form action="" method="get">
+                            <form >
                                 <div class="search_box__wrapper">
                                     <div class="search_box__name search_box__name--full">
-                                        <form action="" method="get">
-                                            <input type="text" class="form-control" placeholder="Buscar" name="search">
+                                        <form >
+                                            <input type="text" class="form-control" placeholder="Buscar" >
                                             <div class="input-group">
-                                                <button class="search_box__button" type="submit">
+                                                <button class="search_box__button" type="button">
                                                     <i class="icon ion-ios-search-strong"></i>
                                                 </button>
                                             </div>
@@ -146,8 +146,8 @@
                         <!-- <div id="eventCalendarDay">
                         </div> -->
                     </div>
-                </div>
-            </section>
+                </div>            
+           </section>
 
 
             <!-- Events List / Stand by -->
@@ -283,7 +283,6 @@
 
         </article>
     </main>
-
     {% include 'web/shared/call-to-action.html.twig' %}
 
 
@@ -294,17 +293,17 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- FullCalendar JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
 <!-- Events Calendar -->
 <script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
 
-
 <script>
-    $(function () {
+    $( document ).ready(function() {
         web.global.customSelects();
         web.global.sliderGeneral();
+        newCalendar( {{ eventsCalendar |raw }});
     });
 </script>
 {% endblock %}

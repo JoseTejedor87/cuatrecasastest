@@ -9,8 +9,8 @@
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set customAddress = event.translate(app.request.getLocale()).customAddress|split('<BR>') %}
-
+{% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+{% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
     <main role="main">
         <article class="container">
 
@@ -49,41 +49,24 @@
                         {{ event.translate(app.request.getLocale()).description|raw }}
                         <button type="button" class="doble__arrow__button">Ver más</button>
                         <div class="page__event__details">
-                            <!-- <h3>Documentacion</h3>
-                            <ul>
-                                {% for attachment in event.attachments %}
-                                    <li><a href="#">{{ attachment.fileName|raw}}</a></li>
-                                {% endfor %}
-                            </ul> -->
-                            <a href="#" class="btn btn__solid btn__solid--icon">
-                                Descarga el dossier
-                                <i class="icon ion-ios-download-outline"></i>
-                            </a>
+                            {% for attachment in event.attachments %}
+                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    Descarga el dossier 
+                                    <i class="icon ion-ios-download-outline"></i>
+                                </a>
+                            {% endfor %}
                             <div class="page__event__info">
-                                <div data-author>26 febrero 2020</div>
+                                <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
                                 <div data-reading>8' lectura</div>
                             </div>
                             <ul class="related__services">
-                                <!-- {% for activity in event.activities %}
-                                <li>
-                                    <a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a>
-                                </li>
-                                {% endfor %} -->
+                                {% for activity in event.activities %}
                                 <li class="related__services__item">
                                     <a href="#" class="related__services__link">
-                                        Civil
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
                                     </a>
                                 </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        Internacional
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        Macroeconomía
-                                    </a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -94,24 +77,23 @@
                             </div>
                             <div class="boxnews__content">
                                 <div class="place">
-                                    <a href="#">Barcelona</a>
-                                    {#{ customAddress|last }#}
+                                    <a href="#">{{ customAddress|last }}</a>
+                                    
                                     <br>
-                                    Av. Diagonal, 141
-                                    {#{ customAddress[:-1]|join(' ') }#}
+                                    {{ customAddress[:-1]|join(' ') }}
                                 </div>
                                 <div class="date">
                                     <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
                                     {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
                                     <br>
-                                    10.30 — 14.30
+                                    {{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }} 
                                     {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                                 </div>
                                 <div class="author">
                                     <!-- 10.30 — 14.30 <br> -->
-                                    <a href="#">{{ event.contact ? event.contact : 'Marta Zaragoza' }}</a>
+                                    <a href="#">{{ event.contact ? event.contact : '' }}</a>
                                     <br>
-                                    {{ (event.phone) ? event.phone : '684 25 83 57' }}
+                                    {{ (event.phone) ? event.phone : '' }}
                                 </div>
                                 <a href="#" class="btn btn__arrow">Inscribirme</a>
                             </div>
@@ -128,7 +110,7 @@
                     </div>
                     <div class="page__block__content">
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
-                            {% for speaker in event.speakers %}
+                            {% for speaker in event.people %}
                             <div class="lawyer__search__item">
                                 <a href="#" class="lawyer__link">
                                     <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>

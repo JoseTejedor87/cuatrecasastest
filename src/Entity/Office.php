@@ -104,6 +104,12 @@ class Office extends Publishable
      */
     private $lawyer;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="office", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $event;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="offices")
@@ -114,6 +120,7 @@ class Office extends Publishable
     {
         $this->lawyer = new ArrayCollection();
         $this->Article = new ArrayCollection();
+        $this->event = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -373,4 +380,37 @@ class Office extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+            $event->setOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->event->contains($event)) {
+            $this->event->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getOffice() === $this) {
+                $event->setOffice(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

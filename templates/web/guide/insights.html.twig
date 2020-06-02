@@ -1,4 +1,4 @@
-{% extends 'web/baseNew.html.twig' %}
+{% extends 'web/base.html.twig' %}
 
 {% block main %}
 
@@ -158,20 +158,20 @@
 
     </main>
 
-    {% include 'web/shared/insights.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
 <!-- Isotope JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script> -->
 <script>
-    $('.grid-masonry').isotope({
-        itemSelector: '.grid-item',
-        // percentPosition: true,
-        masonry: {
-            columnWidth: '.grid-sizer'
-        }
-    });
+    // $('.grid-masonry').isotope({
+    //     itemSelector: '.grid-item',
+    //     // percentPosition: true,
+    //     masonry: {
+    //         columnWidth: '.grid-sizer'
+    //     }
+    // });
 </script>
 {% endblock %}

@@ -1,12 +1,18 @@
 {% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+
 {% block main %}
 
-    <main role="main" class="page insights">
-
-        <article class="container-fluid">
+    <main role="main" class="insights">
+        <article class="container">
             {# <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/joshua-coleman-iNrBHgUBDSg-unsplash.jpg') }}');"> #}
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrew-buchanan-7IcnYYVgdn8-unsplash.jpg') }}')">
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -37,29 +43,348 @@
 
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
-                    <div class="search_box__name">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                        <div class="input-group">
-                            <button class="search_box__button" type="button">
-                                <i class="icon ion-ios-search-strong"></i>
-                            </button>
+                    <div class="search_box__name search_box__name--full">
+                        <form action="" method="get">
+                            <input type="text" class="form-control" placeholder="Buscar" name="initial">
+                            <div class="input-group">
+                                <button class="search_box__button" type="submit">
+                                    <i class="icon ion-ios-search-strong"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ISOTOPE / MASONRY FILTERS -->
+            <section id="filterWrapper" class="row">
+                <div class="col-12">
+                    <!-- TABS SELECTOR -->
+                    <ul class="nav nav-pills nav-fill" id="filterTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-sector-tab" href="#pills-sector" data-toggle="tab" role="tab" aria-controls="pills-sector" aria-selected="false">Sector</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-services-tab" href="#pills-services" data-toggle="tab" role="tab" aria-controls="pills-services" aria-selected="false">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-type-tab" href="#pills-type" data-toggle="tab" role="tab" aria-controls="pills-type" aria-selected="false">Tipo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-region-tab" href="#pills-region" data-toggle="tab" role="tab" aria-controls="pills-region" aria-selected="false">Región</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-date-tab" href="#pills-date" data-toggle="tab" role="tab" aria-controls="pills-date" aria-selected="false">Fecha</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-collection-tab" href="#pills-collection" data-toggle="tab" role="tab" aria-controls="pills-collection" aria-selected="false">Colección</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-format-tab" href="#pills-format" data-toggle="tab" role="tab" aria-controls="pills-format" aria-selected="false">Formato</a>
+                        </li>
+                    </ul>
+                    <!-- ORDER BY -->
+                    <div id="filterOrderby" style="display:none">
+                        <span>Ordenar por: </span>
+                        <ul>
+                            <li><a id="abcOder" href="#" class="active">orden alfabético</a></li>
+                            <li><a id="popOder" href="#">popular</a></li>
+                        </ul>
+                    </div>
+                    <!-- CHECKBOXES -->
+                    <div class="tab-content" id="filterTabsContent">
+                        <div class="tab-pane fade" id="pills-sector" role="tabpanel" aria-labelledby="pills-sector-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-01" value=".sector-01">
+                                    <label class="checkbox-label" for="sector-01"><span>Alimentación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-02" value=".sector-02">
+                                    <label class="checkbox-label" for="sector-02"><span>Brexit</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-03" value=".sector-03">
+                                    <label class="checkbox-label" for="sector-03"><span>Canadian Desk</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-04" value=".sector-04">
+                                    <label class="checkbox-label" for="sector-04"><span>Ciberseguridad</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-05" value=".sector-05">
+                                    <label class="checkbox-label" for="sector-05"><span>Consumo y Retail</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-06" value=".sector-06">
+                                    <label class="checkbox-label" for="sector-06"><span>Deporte</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-07" value=".sector-07">
+                                    <label class="checkbox-label" for="sector-07"><span>Empresa Familiar</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-08" value=".sector-08">
+                                    <label class="checkbox-label" for="sector-08"><span>Energía y Recursos Naturales</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sector-09" value=".sector-09">
+                                    <label class="checkbox-label" for="sector-09"><span>Farmacia y Sanitario</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-01" value=".services-01">
+                                    <label class="checkbox-label" for="services-01"><span>Corporate Governance y Compliance</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-02" value=".services-02">
+                                    <label class="checkbox-label" for="services-02"><span>Derecho contable</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-03" value=".services-03">
+                                    <label class="checkbox-label" for="services-03"><span>Derecho Laboral</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-04" value=".services-04">
+                                    <label class="checkbox-label" for="services-04"><span>Financiero</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-05" value=".services-05">
+                                    <label class="checkbox-label" for="services-05"><span>Fiscal</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-06" value=".services-06">
+                                    <label class="checkbox-label" for="services-06"><span>Fiscalidad Contenciosa</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-07" value=".services-07">
+                                    <label class="checkbox-label" for="services-07"><span>Fiscalidad Financiera</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-08" value=".services-08">
+                                    <label class="checkbox-label" for="services-08"><span>Fusiones y Adquisiciones</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-09" value=".services-09">
+                                    <label class="checkbox-label" for="services-09"><span>Litigación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-10" value=".services-10">
+                                    <label class="checkbox-label" for="services-10"><span>Mediación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="services-11" value=".services-11">
+                                    <label class="checkbox-label" for="services-11"><span>Mercado de valores</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-type" role="tabpanel" aria-labelledby="pills-type-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="type-01" value=".type-01">
+                                    <label class="checkbox-label" for="type-01"><span>Noticias</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="type-02" value=".type-02">
+                                    <label class="checkbox-label" for="type-02"><span>Eventos</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="type-03" value=".type-03">
+                                    <label class="checkbox-label" for="type-03"><span>Opinión</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="type-04" value=".type-04">
+                                    <label class="checkbox-label" for="type-04"><span>Estudios Jurídicos</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="type-05" value=".type-05">
+                                    <label class="checkbox-label" for="type-05"><span>Novedades Jurídicas</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-region" role="tabpanel" aria-labelledby="pills-region-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-01" value=".region-01">
+                                    <label class="checkbox-label" for="region-01"><span>Barcelona</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-02" value=".region-02">
+                                    <label class="checkbox-label" for="region-02"><span>Madrid</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-03" value=".region-03">
+                                    <label class="checkbox-label" for="region-03"><span>Lisboa</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-04" value=".region-04">
+                                    <label class="checkbox-label" for="region-04"><span>Beijing</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-05" value=".region-05">
+                                    <label class="checkbox-label" for="region-05"><span>Bogotá</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-06" value=".region-06">
+                                    <label class="checkbox-label" for="region-06"><span>Brussels</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-07" value=".region-07">
+                                    <label class="checkbox-label" for="region-07"><span>Casablanca</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-08" value=".region-08">
+                                    <label class="checkbox-label" for="region-08"><span>London</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-09" value=".region-09">
+                                    <label class="checkbox-label" for="region-09"><span>Luanda</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-10" value=".region-10">
+                                    <label class="checkbox-label" for="region-10"><span>Maputo</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-11" value=".region-11">
+                                    <label class="checkbox-label" for="region-011"><span>Mexico City</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-12" value=".region-12">
+                                    <label class="checkbox-label" for="region-12"><span>New York</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-13" value=".region-13">
+                                    <label class="checkbox-label" for="region-13"><span>Sao Paulo</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="region-14" value=".region-14">
+                                    <label class="checkbox-label" for="region-14"><span>Shanghai</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-date" role="tabpanel" aria-labelledby="pills-date-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-01" value=".date-01">
+                                    <label class="checkbox-label" for="date-01"><span>2020</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-02" value=".date-02">
+                                    <label class="checkbox-label" for="date-02"><span>2019</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-03" value=".date-03">
+                                    <label class="checkbox-label" for="date-03"><span>2018</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-04" value=".date-04">
+                                    <label class="checkbox-label" for="date-04"><span>2017</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-05" value=".date-05">
+                                    <label class="checkbox-label" for="date-05"><span>2016</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-06" value=".date-06">
+                                    <label class="checkbox-label" for="date-06"><span>2015</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-07" value=".date-07">
+                                    <label class="checkbox-label" for="date-07"><span>2014</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-08" value=".date-08">
+                                    <label class="checkbox-label" for="date-08"><span>2013</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-09" value=".date-09">
+                                    <label class="checkbox-label" for="date-09"><span>2012</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-10" value=".date-10">
+                                    <label class="checkbox-label" for="date-10"><span>2011</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="date-11" value=".date-11">
+                                    <label class="checkbox-label" for="date-011"><span>2010</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-collection" role="tabpanel" aria-labelledby="pills-collection-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-01" value=".collection-01">
+                                    <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-02" value=".collection-02">
+                                    <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-03" value=".collection-03">
+                                    <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-04" value=".collection-04">
+                                    <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-05" value=".collection-05">
+                                    <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="collection-06" value=".collection-06">
+                                    <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-format" role="tabpanel" aria-labelledby="pills-format-tab">
+                            <div class="chechbox-wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-01" value=".format-01">
+                                    <label class="checkbox-label" for="format-01"><span>Format 01</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-02" value=".format-02">
+                                    <label class="checkbox-label" for="format-02"><span>Format 02</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-03" value=".format-03">
+                                    <label class="checkbox-label" for="format-03"><span>Format 03</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-04" value=".format-04">
+                                    <label class="checkbox-label" for="format-04"><span>Format 04</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-05" value=".format-05">
+                                    <label class="checkbox-label" for="format-05"><span>Format 05</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="format-06" value=".format-06">
+                                    <label class="checkbox-label" for="format-06"><span>Format 06</span></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="search_box__link">
-                        <a href="#" class="toggle__filters" data-text-original="Ver filtros" data-text-swap="Ocultar filtros">Ver filtros</a>
+                    <!-- APPLY BUTTON -->
+                    <div id="applyFilters" style="display:none">
+                        <button type="button" class="btn btn__naked">Aplicar</button>
                     </div>
                 </div>
-            </section>
-
-            <section class="row page__section search_filters search_filters--hidden">
-                <div class="col search_filters__wrapper">
-                    Filters > to do...
+                <!-- SELECTED TAGS -->
+                <div class="col-12">
+                    <div id="checksOutput" style="display:none"></div>
                 </div>
             </section>
 
-            <section class="row page__section boxnews--article">
-                <div class="col">
-                    <h4 class="section__title section__title--article">Artículos recomendados</h4>
+            <!-- INSIGHTS GRID -->
+            <section class="row page__section page__section--fullbg">
+                <div class="col-12">
+                    <h4 class="section__title section__title section__title--recomended">Artículos recomendados</h4>
                     <div class="grid__wrapper">
                         <div class="grid__box grid__box--dobleXY">
                             <article class="boxnews__item">
@@ -199,33 +524,27 @@
             </section>
 
         </article>
-
     </main>
 
-    {% include 'web/shared/insight-boxes.html.twig' %}
-    {% include 'web/shared/events.html.twig' %}
+    {% include 'web/shared/related-events-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
+
 
 {% endblock %}
 
 {% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Isotope JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script>
+<!-- Checkbox Filters -->
+<script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
+
 <script>
-    $(document).ready(function () {
-        $('.toggle__filters').click(function(e){
-            e.preventDefault();
-            $('.search_filters').slideToggle();
-        });
-
-        // Toggle text literal buttons
-        $('.toggle__filters').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('on');
-
-            var el = $(this);
-            el.text() == el.data("text-original")
-                ? el.text(el.data("text-swap"))
-                : el.text(el.data("text-original"));
-        });
+    $(function () {
+        web.global.sliderGeneral();
+        web.global.sliderNews();
     });
 </script>
 {% endblock %}

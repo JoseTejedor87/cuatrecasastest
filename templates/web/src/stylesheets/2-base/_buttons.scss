@@ -83,7 +83,6 @@
     }
 }
 
-
 .btn__solid__arrow {
     @include reset-link-button;
     padding: 1rem 6rem 1rem 1rem;
@@ -146,6 +145,27 @@
             opacity: 0;
             visibility: hidden;
         }
+    }
+}
+
+
+.btn__naked {
+    @include reset-link-button;
+    padding: 0.8rem 4rem;
+    @include fontSet(24px, 24px);
+    letter-spacing: 0.05rem;
+    color: $complementary-color;
+    background-color: transparent;
+    border: 1px solid $complementary-color;
+
+    @include on-event() {
+        color: $white;
+        background-color: $complementary-color;
+        text-decoration: none;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
     }
 }
 

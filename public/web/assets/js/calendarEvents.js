@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-
+function newCalendar(eventosjson) {
+    var events = eventosjson;
     var calendarEl = document.getElementById('eventCalendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         https://codepen.io/pen/?&editable=true&editors=001
         */
 
-        plugins: [ 'dayGrid', 'list' ],
+        plugins: [ 'interaction', 'dayGrid', 'list' ],
         defaultView: 'dayGridMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
@@ -91,323 +91,57 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'icon__button__list,icon__button__grid'
         },
 
-        events: [
-            {
-                title: 'La CNMC archiva de nuevo un expediente sobre el sistema de doble precio de los laboratorios farmacéuticos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T10:00:00+00:00',
-                end: '2020-05-05T14:00:00+00:00',
-                sector: 'Fusiones y adquisiciones',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '4 mayo',
-                fullTime: '10.00 — 14.00',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-04',
-                sector: 'Fiscal',
-                place: 'Madrid',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '04 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T10:30:00+00:00',
-                end: '2020-05-05T14:30:00+00:00',
-                sector: 'Laboral',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
-                fullDate: '4 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'Mesa redonda: información privilegiada y otra información relevante.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T11:00:00+00:00',
-                end: '2020-05-05T13:00:00+00:00',
-                sector: 'Fiscal',
-                place: 'Madrid',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
-                fullDate: '4 mayo',
-                fullTime: '11.00 — 13.00',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola"},
-                    {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T10:30:00+00:00',
-                end: '2020-05-05T14:30:00+00:00',
-                sector: 'Logística y Transporte',
-                place: 'Valencia',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '4 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
-                ]
-            },
-            {
-                title: 'Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T10:30:00+00:00',
-                end: '2020-05-05T14:30:00+00:00',
-                sector: 'Consumo y Retail',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/madrid.html',
-                fullDate: '4 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'Mesa redonda: información privilegiada y otra información relevante.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-05T10:30:00+00:00',
-                end: '2020-05-05T14:30:00+00:00',
-                sector: 'Laboral',
-                place: 'Madrid',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
-                fullDate: '4 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola"},
-                    {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
-                ]
-            },
-            {
-                title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-06',
-                sector: 'Fiscal',
-                place: 'Bilbao',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
-                fullDate: '6 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-06',
-                sector: 'Consumo y Retail',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '6 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-07',
-                sector: 'Mercantil y Societario',
-                place: 'Valencia',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '07 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-08',
-                sector: 'Consumo y Retail',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
-                fullDate: '8 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-08',
-                sector: 'Logística y Transporte',
-                place: 'Bilbao',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '8 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'Mesa redonda: información privilegiada y otra información relevante.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-08',
-                sector: 'Fiscal',
-                place: 'Madrid',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/valencia.html',
-                fullDate: '8 mayo',
-                fullTime: '11.00 — 13.00',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola"},
-                    {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-08',
-                sector: 'Logística y Transporte',
-                place: 'Valencia',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '8 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen", "speaker_url" : "#"}
-                ]
-            },
-            {
-                title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-08',
-                sector: 'Mercantil y Societario',
-                place: 'Bilbao',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
-                fullDate: '8 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-11',
-                sector: 'Fusiones y Adquisiciones',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '9 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-13',
-                sector: 'Fiscal',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '13 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-            {
-                title: 'Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-22',
-                sector: 'Mercantil y Societario',
-                place: 'Bilbao',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/bilbao.html',
-                fullDate: '22 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-                speakersTitle: 'Ponentes',
-                speakers: [
-                    {"speaker_name": "Antón Pérez-Iriondo", "speaker_url" : "#"},
-                    {"speaker_name": "Elvira Azaola", "speaker_url" : "#"},
-                    {"speaker_name": "Ignacio Javier Irigoyen"}
-                ]
-            },
-            {
-                title: 'La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.',
-                titleURL: 'http://localhost/cuatrecasas/es/knowledge/eventDetail/efectos-fiscales-de-la-reforma-contable-y-otras-novedades-fiscales-2008',
-                start: '2020-05-27',
-                sector: 'Consumo y retail',
-                place: 'Barcelona',
-                placeLink: 'https://www.cuatrecasas.com/es/oficina/barcelona.html',
-                fullDate: '27 mayo',
-                fullTime: '10.30 — 14.30',
-                button: 'Inscribirme',
-            },
-        ],
-
+        events: events,
+        // console.log()
         viewSkeletonRender: function(info) {
             var headerButtons = calendarEl.querySelectorAll('.fc-button');
+
             headerButtons.forEach(function(button) {
                 if (button.innerText === 'Grid') {
                     button.classList.add('active');
                     button.id = 'gridBot';
                 }
                 if (button.innerText === 'List') {
+                    // button.classList.add('active');
                     button.id = 'listBot';
                 }
             });
+
+            var listButton = document.getElementById("listBot");
+            var gridButton = document.getElementById("gridBot");
+
+            if(info.view.type === "dayGridMonth") {
+                // console.log('dayGridMonth');
+                gridButton.classList.add("active");
+                listButton.classList.remove("active");
+            }
+
+            if(info.view.type === "listMonth" || info.view.type === "listDay") {
+                // console.log('listMonth / listDay');
+                gridButton.classList.remove("active");
+                listButton.classList.add("active");
+            }
         },
 
-
+        /*
         datesRender: function(info) {
             var listButton = document.getElementById("listBot");
             var gridButton = document.getElementById("gridBot");
 
             if(info.view.type === "dayGridMonth") {
-                console.log('dayGridMonth');
+                // console.log('dayGridMonth');
+                gridButton.classList.add("active");
+                listButton.classList.remove("active");
             }
 
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
-                console.log('listMonth');
+                // console.log('listMonth / listDay');
+                gridButton.classList.remove("active");
+                listButton.classList.add("active");
             }
-
         },
+        */
+
         // RENDER VIEWS
         eventRender: function (info) {
 
@@ -422,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
 
                 // TITLE
-                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
+                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="eventDetail/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
 
                 // SPEAKERS
                 var speakersInfo = info.event.extendedProps.speakers;
@@ -466,15 +200,37 @@ document.addEventListener('DOMContentLoaded', function() {
              });
         },
 
+        // DATE CLICK
+        /*
+        dateClick: function(info) {
+
+            // var eventDate = info.dateStr;
+            // calendar.changeView('listDay', eventDate);
+
+            // console.log('Clicked on: ' + info.dateStr);
+            // console.log('Allday: ' + info.allDay);
+
+            console.log('dateStr: ' + info.dateStr);
+            console.log('allDay: ' + info.allDay);
+            console.log('dayEl: ' + info.dayEl);
+            console.log('jsEvent: ' + info.jsEvent);
+            console.log('---');
+
+            // alert('Clicked on: ' + info.dateStr);
+            // alert('Current view: ' + info.view.type);
+            // // change the day's background color just for fun
+            // info.dayEl.style.backgroundColor = 'red';
+        },
+        */
+
         // EVENT CLICK
         eventClick: function(info) {
             info.jsEvent.preventDefault();
-
             var eventDate = info.event.start;
             calendar.changeView('listDay', eventDate);
 
-            // var gridFocus = document.getElementById('gridFocus');
-            // gridFocus.scrollIntoView();
+            var gridFocus = document.getElementById('gridFocus');
+            gridFocus.scrollIntoView();
 
         }
 
@@ -482,4 +238,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
-});
+};
