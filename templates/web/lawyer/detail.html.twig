@@ -65,16 +65,11 @@
                             </div>
                         </div>
                         <div class="lawyer__page__more">
-                        {% if lawyer.translate(app.request.getLocale()).languagesLawyer|length > 0 %}
+                        {% if lawyer.knownLanguages|length > 0 %}
                             <div data-langs>
-                            {% for language in lawyer.translate(app.request.getLocale()).languagesLawyer %}
-                                {{ language|capitalize|raw }}
-                                {% if lawyer.translate(app.request.getLocale()).languagesLawyer|length > 1 and language != lawyer.translate(app.request.getLocale()).languagesLawyer|last %}
-                                    |
-                                {% endif %}
-
+                            {% for language in lawyer.knownLanguages %}
+                                <span>{{ ('global.languages.'~language)|trans }}</span>
                             {% endfor %}
-                                {# Español | Inglés #}
                             </div>
                         {% endif %}
                             <div data-vcard>

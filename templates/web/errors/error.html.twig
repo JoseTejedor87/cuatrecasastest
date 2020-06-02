@@ -1,0 +1,34 @@
+{% extends 'web/base.html.twig' %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            GENERIC ERROR
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    XXX
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/insight-highlight.html.twig' %}
+    {% include 'web/shared/call-to-action.html.twig' %}
+
+{% endblock %}

@@ -6,20 +6,14 @@ global:
     en: Inglés
     pt: Portugués
     zh: Chino
-
-  general:
-    hashtag: AbogadosCuatrecasas
+    it: Italiano
+    fr: Francés
 
 # Sections
 # ###########################################
 sections:
   lawyers:
-    index:
-      title: Abogados
-    new:
-      title: Nuevo Abogado
-    edit:
-      title: Editar Abogado
+    title: Abogados
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero
@@ -34,9 +28,11 @@ sections:
 # Menu
 # ###########################################
 menu:
-  lawyers.title: Abogados
-  events.title: Eventos
-  desks.title: Desks
-  sectors.title: Sectores
-  practices.title: Áreas de Práctica
-  products.title: Productos
+  desks: Desks
+  events: Eventos
+  knowledge: Conocimiento
+  lawyers: Abogados
+  practices: Áreas de Práctica
+  products: Productos
+  services: Servicios
+  sectors: Sectores

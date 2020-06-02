@@ -1,0 +1,31 @@
+# Events
+# ###########################################
+#events_directory:
+#    path:
+#        en:   /events
+#        es:   /eventos
+#    methods:      GET
+#    controller:   App\Controller\Web\EventsController::filter
+#
+#events_detail:
+#    path:
+#        en:   /events/{slug}
+#        es:   /eventos/{slug}
+#    methods:    GET
+#    controller: App\Controller\Web\EventsController::detail
+
+# Lawyers
+# ###########################################
+lawyers_directory:
+    path:
+        en:   /lawyers
+        es:   /abogados
+    methods:      GET
+    controller:   App\Controller\Web\LawyerController::filter
+
+lawyers_detail:
+    path:
+        en:   /lawyers/{slug}
+        es:   /abogados/{slug}
+    methods:    GET
+    controller: App\Controller\Web\LawyerController::detail

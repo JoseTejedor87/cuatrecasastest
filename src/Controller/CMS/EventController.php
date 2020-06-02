@@ -12,15 +12,9 @@ use App\Form\EventFormType;
 use App\Repository\EventRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/events")
- */
 class EventController extends CMSController
 {
 
-    /**
-     * @Route("/", name="event_index", methods={"GET"})
-     */
     public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,9 +28,6 @@ class EventController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="event_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $event = new Event();
@@ -58,9 +49,6 @@ class EventController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="event_show", methods={"GET"})
-     */
     public function show(Event $event): Response
     {
         return $this->render('cms/event/show.html.twig', [
@@ -68,9 +56,6 @@ class EventController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Event $event): Response
     {
         $form = $this->createForm(EventFormType::class, $event);
@@ -102,9 +87,6 @@ class EventController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="event_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Event $event): Response
     {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {

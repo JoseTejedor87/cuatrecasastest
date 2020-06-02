@@ -1,30 +1,74 @@
 {% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
 
 <div class="row">
+
     <div class="col-md-4">
-        {{ form_row(form.lawyerType) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.surname) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.phone) }}
-        {{ form_row(form.fax) }}
-        {{ form_row(form.office) }}
-        {{ form_row(form.activities) }}
-        {{ form_row(form.secondaryActivities) }}
-        {{ form_row(form.languages) }}
 
-        {{ form_label(form.photo) }}
-        <div class="vich-attachment-list">
-            <div class="vich-attachment-item col-md-12">
-                {{ form_errors(form.photo) }}
-                {{ form_widget(form.photo) }}
-            </div>
+        <div class="m-form__section m-form__section--first">
+            {{ form_row(form.name) }}
+            {{ form_row(form.surname) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            {{ form_row(form.fax) }}
         </div>
-        {% do form.photo.setRendered %}
 
     </div>
-    <div class="col-md-8">
-        {{ form_row(form.translations) }}
+
+    <div class="col-md-4">
+
+        <div class="m-form__section m-form__section">
+        {{ form_row(form.lawyerType) }}
+            {{ form_row(form.office) }}
+            {{ form_row(form.activities) }}
+            {{ form_row(form.secondaryActivities) }}
+            {{ form_row(form.knownLanguages) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section">
+            {{ form_label(form.photo) }}
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.photo) }}
+                    {{ form_row(form.photo.file) }}
+                </div>
+            </div>
+            {% do form.photo.setRendered %}
+        </div>
+
     </div>
+
+    <div class="col-md-4">
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.publication'|trans }}
+                </h3>
+            </div>
+            {{ form_row(form.slug) }}
+            {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+        </div>
+
+    </div>
+
+    {% do form.translations.setRendered %}
+
     {{ form_rest(form) }}
+
 </div>

@@ -5,11 +5,13 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
-    locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
-
     # Languages & Translations
     app.languages: [es, en, pt, zh] # The list of available languages
     app.default_language: es        # The default language
+
+    locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
+
+    app.regions: [sp, lt, pt, uk, de]
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -27,6 +29,9 @@ parameters:
         - partner
         - senior_associate
         - senior_partner
+
+    app.known_languages_by_lawyers: [es, en, it, pt, fr]
+
     app.event_types:
         - standard
         - webinar
@@ -47,7 +52,9 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude:
+            - '../src/Repository/PublishableEntityRepository.php'
+            - '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

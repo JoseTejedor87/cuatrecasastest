@@ -12,14 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/office")
- */
 class OfficeController extends CMSController
 {
-    /**
-     * @Route("/", name="office_index", methods={"GET"})
-     */
     public function index(OfficeRepository $officeRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -33,9 +27,6 @@ class OfficeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="office_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $office = new Office();
@@ -57,9 +48,6 @@ class OfficeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="office_show", methods={"GET"})
-     */
     public function show(Office $office): Response
     {
         return $this->render('cms/office/show.html.twig', [
@@ -67,9 +55,6 @@ class OfficeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="office_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Office $office): Response
     {
         $form = $this->createForm(OfficeFormType::class, $office);
@@ -93,9 +78,6 @@ class OfficeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="office_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Office $office): Response
     {
         if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->get('_token'))) {

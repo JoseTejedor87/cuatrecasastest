@@ -93,7 +93,7 @@ class Office extends Publishable
     private $sap;
 
     /**
-     * @Gedmo\Slug(fields={"city", "address"})
+     * @Gedmo\Slug(fields={"city", "address"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -309,10 +309,10 @@ class Office extends Publishable
 
         return $this;
     }
-    
-     /**
-     * @return Collection|Lawyer[]
-     */
+
+    /**
+    * @return Collection|Lawyer[]
+    */
     public function getLawyer(): Collection
     {
         return $this->lawyer;

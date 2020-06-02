@@ -12,14 +12,9 @@ use App\Form\PracticeFormType;
 use App\Repository\PracticeRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/practices")
- */
 class PracticeController extends CMSController
 {
-    /**
-     * @Route("/", name="practice_index", methods={"GET"})
-     */
+
     public function index(PracticeRepository $practiceRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -33,9 +28,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="practice_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $practice = new Practice();
@@ -57,9 +49,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="practice_show", methods={"GET"})
-     */
     public function show(Practice $practice): Response
     {
         return $this->render('practice/show.html.twig', [
@@ -67,9 +56,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="practice_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Practice $practice): Response
     {
         $form = $this->createForm(PracticeFormType::class, $practice);
@@ -87,9 +73,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="practice_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Practice $practice): Response
     {
         if ($this->isCsrfTokenValid('delete'.$practice->getId(), $request->request->get('_token'))) {

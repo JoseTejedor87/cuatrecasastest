@@ -6,6 +6,15 @@ global:
     en: Inglés
     pt: Portugués
     zh: Chino
+    it: Italiano
+    fr: Francés
+
+  regions:
+    sp: España
+    lt: Latinoamérica
+    pt: Portugal
+    uk: Reino Unido
+    de: Alemania
 
   messages:
     noRecordsFound: No se han encontrado registros
@@ -135,6 +144,7 @@ menu:
   office.title: Oficinas
   page.title: Páginas
   article.title: Artículos
+
 # Entities
 # ###########################################
 entities:
@@ -208,6 +218,7 @@ entities:
       phone: Teléfono
       fax: Fax
       photo: Fotografía
+      knownLanguages: Idiomas conocidos
       lawyerType: Tipo de abogado
       description: Descripción
       curriculum: Curriculum Vitae
@@ -216,6 +227,7 @@ entities:
       secondaryActivities: Sectores / Servicios / Desks (secundarias)
       mentions: Menciones
       office: Oficina
+      slug: Slug
   mention:
     fields:
       body: Texto
@@ -249,7 +261,7 @@ entities:
   publishable:
     fields:
       languages: Idiomas de publicación
-      locations: Ubicación de publicación
+      regions: Regiones de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
   quote:

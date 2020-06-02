@@ -1,33 +1,30 @@
-admin:
+# Global
+# ###########################################
 
-  publishable:
 
-    fields:
-      metaTitle: Meta Title
-      metaDescription: Meta Description
-
+# Sections
+# ###########################################
+sections:
   lawyers:
-
-    index.title: Lawyers
-    index.create_link: Create new
-
-    new.title: Create Lawyer
-    new.button: Save
-
-    edit.title: Edit Lawyer
-    edit.button: Update
-
-    fields:
-      name: Name
-      surname: Surname
-      email: Email
-      phone: Phone
-      fax: Fax
-      photo: Photo
-      lawyer_type: Lawyer type
-      languages: Publication languages
-      description: Description
-      curriculum: Curriculum Vitae
-      training: Training
-
-  back_to_list: Back to list
+    title: Lawyers
+    lawyerCategoryTypes:
+      associate:
+      counsel:
+      honorary_partner:
+      honorary_president:
+      managing_partner:
+      no_position:
+      partner:
+      senior_associate:
+      senior_partner:
+# Menu
+# ###########################################
+menu:
+  desks: Desks
+  events: Events
+  knowledge: Knowledge
+  lawyers: Lawyers
+  practices: Practice areas
+  products: Products
+  services: Services
+  sectors: Sectors
