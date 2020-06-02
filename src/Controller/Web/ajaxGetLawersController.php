@@ -70,8 +70,9 @@ class ajaxGetLawersController extends WebController
      */
     public function ajaxActionEvent(Request $request, LawyerRepository $lawyerRepository)    
     {
-        $month = $request->attributes->get('month');
-        $year = $request->attributes->get('year');
+        $month = $request->query->get('month');
+        $year = $request->query->get('year');
+
         if( !$month ||  !$year){
             $fechaHoy = new \DateTime();
             if(!$month){
@@ -92,38 +93,40 @@ class ajaxGetLawersController extends WebController
         
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
-            $activities = "";
-            foreach ($event->getActivities() as $keyActivity => $activity) {
-                $activities = $activities . $activity->translate('es')->getTitle();
-            }
-           
-            $array = array(
-                "title" => $event->translate('es')->getTitle(),
-                "titleURL" => $event->translate('es')->getSlug(),
-                "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
-                "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
-                "sector" => $activities,
-                "place" => $event->translate('es')->getCustomAddress(),
-                "placeLink" => "",
-                "fullDate" => "",
-                "fullTime" => "",
-                "button" => "Inscribirme",
-                "speakersTitle" => "Ponentes",
-                "speakers" =>  array( )
-            );
-            foreach ($event->getPeople() as $keySpeaker => $speaker) {
-                if($speaker->getLawyer()){
-                    $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
-                }else{
-                    $speakerName =$speaker->getName() .' '. $speaker->getSurname();
+            if($event->translate('es')->getSlug()){
+                $activities = "";
+                foreach ($event->getActivities() as $keyActivity => $activity) {
+                    $activities = $activities . $activity->translate('es')->getTitle();
                 }
-                $speaker = array(
-                    "speaker_name" => $speakerName,
-                    "speaker_url" => "",
+               
+                $array = array(
+                    "title" => $event->translate('es')->getTitle(),
+                    "titleURL" => $event->translate('es')->getSlug(),
+                    "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
+                    "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
+                    "sector" => $activities,
+                    "place" => $event->translate('es')->getCustomAddress(),
+                    "placeLink" => "",
+                    "fullDate" => "",
+                    "fullTime" => "",
+                    "button" => "Inscribirme",
+                    "speakersTitle" => "Ponentes",
+                    "speakers" =>  array( )
                 );
-                array_push($array['speakers'],$speaker);
-            }
-            array_push($eventsCalendar,$array);
+                foreach ($event->getPeople() as $keySpeaker => $speaker) {
+                    if($speaker->getLawyer()){
+                        $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
+                    }else{
+                        $speakerName =$speaker->getName() .' '. $speaker->getSurname();
+                    }
+                    $speaker = array(
+                        "speaker_name" => $speakerName,
+                        "speaker_url" => "",
+                    );
+                    array_push($array['speakers'],$speaker);
+                }
+                array_push($eventsCalendar,$array);
+            }   
         }
         if ($request->isXMLHttpRequest()) {         
             return new JsonResponse($eventsCalendar);

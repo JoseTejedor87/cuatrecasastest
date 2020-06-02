@@ -109,15 +109,14 @@ class KnowledgeController extends WebController
                     array_push($array['speakers'],$speaker);
                 }
                 array_push($eventsCalendar,$array);
-            }
-            
+            }   
         }
-        //dd(json_encode($eventsCalendar));
         return $this->render('web/knowledge/events.html.twig', [
             'controller_name' => 'KnowledgeController',
             'eventsCalendar' => json_encode($eventsCalendar),
-            'events' => $events
-
+            'events' => $events,
+            'month' => $month ? $month : "",
+            'year' => $year ? $year : "",
         ]);
     }
 
