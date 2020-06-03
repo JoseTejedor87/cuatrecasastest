@@ -7,9 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Form\Type\LanguageType;
-use App\Form\Type\BlocksCollectionType;
 
 class PageFormType extends AbstractType
 {
@@ -24,7 +24,7 @@ class PageFormType extends AbstractType
                 ],
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
-            ->add('blocks', BlocksCollectionType::class, [
+            ->add('blocks', CollectionType::class, [
                 'label'=>'entities.page.fields.blocks',
                 'entry_type' => BlockFormType::class,
                 'allow_add' => true,
@@ -42,5 +42,4 @@ class PageFormType extends AbstractType
             'required' => false
         ]);
     }
-
 }
