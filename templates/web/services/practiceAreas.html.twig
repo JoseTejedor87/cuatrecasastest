@@ -41,13 +41,13 @@
                     <div class="col tabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/practiceAreas')}}" class="nav-link active">Áreas de práctica</a>
+                                <a href="{{ path('practiceAreas') }}" class="nav-link active">Áreas de práctica</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/desks')}}" class="nav-link">Desks</a>
+                                <a href="{{ path('desks') }}" class="nav-link">Desks</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/products')}}" class="nav-link">Otros servicios</a>
+                                <a href="{{ path('products') }}" class="nav-link">Otros servicios</a>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +60,7 @@
                                 {% for practice in practices %}
                                     {% if practice.translate(app.request.getLocale()).title and practice.highlighted == 1 %}
                                     <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ relative_path('/'~app.request.getLocale()~'/services/serviceDetail/')}}{{ (practice.translate(app.request.getLocale()).slug ? practice.translate(app.request.getLocale()).slug : '' ) }}">{{ practice.translate(app.request.getLocale()).title|raw  }}</a>
+                                        <a class="btn__subcat" href="{{ path('practiceAreasDetail') }}{{ (practice.translate(app.request.getLocale()).slug ? practice.translate(app.request.getLocale()).slug : '' ) }}">{{ practice.translate(app.request.getLocale()).title|raw  }}</a>
                                     </li>
                                     {% endif %}
                                 {% endfor %}

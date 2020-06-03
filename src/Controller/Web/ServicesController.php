@@ -17,7 +17,7 @@ class ServicesController extends WebController
     public function practiceAreas(Request $request,PracticeRepository $PracticeRepository)
     {
         $practices = $PracticeRepository->findAll();
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
 
         return $this->render('web/services/practiceAreas.html.twig', [
             'controller_name' => 'ServicesController',
@@ -29,7 +29,7 @@ class ServicesController extends WebController
     public function desks(Request $request,DeskRepository $DeskRepository)
     {
         $desks = $DeskRepository->findAll();
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/services/desks.html.twig', [
             'controller_name' => 'ServicesController',
             'desks' => $desks,
@@ -53,7 +53,7 @@ class ServicesController extends WebController
         if(!$service){
             $service = $deskRepository->findOneBy(['id' => $activityTranslation->getTranslatable()->getId()]);
         }
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/services/labourLaw.html.twig', [
             'controller_name' => 'ServicesController',
             'service' => $service,
@@ -64,7 +64,7 @@ class ServicesController extends WebController
     {
         $activityTranslation = $activityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $practice = $practiceRepository->findOneBy(['id' => $activityTranslation->getTranslatable()->getId()]);
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
 
         return $this->render('web/services/labourLaw2.html.twig', [
             'controller_name' => 'ServicesController',
