@@ -11,22 +11,22 @@ home:
 # ###########################################
 knowledge:
     path:
-        en:   /conocimiento
-        es:   /knowledge
+        en:   /knowledge
+        es:   /conocimiento
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::insights
 
 knowledgefilter:
     path:
-        en:   /conocimientofiltro
-        es:   /knowledgefilter
+        en:   /knowledgefilter
+        es:   /conocimientofiltro
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::filter
 
 article:
     path:
-        en:   /articulo
-        es:   /article
+        en:   /knowledge/{slug}
+        es:   /conocimiento/{slug}
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::articleDetail
 
@@ -71,7 +71,7 @@ desks:
 products:
     path:
         en:   /products
-        es:   /products
+        es:   /productos
     methods:    GET
     controller: App\Controller\Web\ServicesController::products
 
