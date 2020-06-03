@@ -83,8 +83,12 @@ class LawyerFormType extends AbstractType
             ])
             ->add('knownLanguages', KnownLanguageType::class, [
                 'label'=>'entities.lawyer.fields.knownLanguages',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => false
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])

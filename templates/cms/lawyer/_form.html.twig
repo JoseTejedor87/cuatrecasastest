@@ -3,14 +3,40 @@
 
 <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-8">
 
-        <div class="m-form__section m-form__section--first">
-            {{ form_row(form.name) }}
-            {{ form_row(form.surname) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.phone) }}
-            {{ form_row(form.fax) }}
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="m-form__section m-form__section--first">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.surname) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.phone) }}
+                    {{ form_row(form.fax) }}
+                </div>
+            </div>
+            <div class="col-md-7 offset-md-1">
+                <div class="m-form__section m-form__section">
+                    {{ form_row(form.lawyerType) }}
+                    {{ form_row(form.office) }}
+                    {{ form_row(form.activities) }}
+                    {{ form_row(form.secondaryActivities) }}
+                    {{ form_row(form.knownLanguages) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-form__section m-form__section">
+                    {{ translatableField.partialTranslations(form.translations, ['description']) }}
+                    {{ translatableField.partialTranslations(form.translations, ['curriculum']) }}
+                    {{ translatableField.partialTranslations(form.translations, ['training']) }}
+                    {{ translatableField.partialTranslations(form.translations, ['mentions']) }}
+                </div>
+            </div>
         </div>
 
     </div>
@@ -18,17 +44,11 @@
     <div class="col-md-4">
 
         <div class="m-form__section m-form__section">
-        {{ form_row(form.lawyerType) }}
-            {{ form_row(form.office) }}
-            {{ form_row(form.activities) }}
-            {{ form_row(form.secondaryActivities) }}
-            {{ form_row(form.knownLanguages) }}
-        </div>
-
-        <div class="m-form__seperator m-form__seperator--dashed"></div>
-
-        <div class="m-form__section m-form__section">
-            {{ form_label(form.photo) }}
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'entities.lawyer.fields.photo'|trans }}
+                </h3>
+            </div>
             <div class="vich-attachment-list">
                 <div class="vich-attachment-item col-md-12">
                     {{ form_errors(form.photo) }}
@@ -37,10 +57,6 @@
             </div>
             {% do form.photo.setRendered %}
         </div>
-
-    </div>
-
-    <div class="col-md-4">
 
         <div class="m-form__section m-form__section">
             <div class="m-form__heading">
