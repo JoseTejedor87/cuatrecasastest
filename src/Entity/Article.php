@@ -31,7 +31,7 @@ class Article extends Publishable
      */
     private $attachments;
 
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ArticleCategory", inversedBy="article")
      */
@@ -42,11 +42,6 @@ class Article extends Publishable
      */
     private $activities;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="Article")
-     */
-    private $lawyers;
-    
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Person", cascade="persist", inversedBy="articles")
      */
@@ -66,7 +61,6 @@ class Article extends Publishable
     {
         $this->attachments = new ArrayCollection();
         $this->activities = new ArrayCollection();
-        $this->lawyers = new ArrayCollection();
         $this->offices = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->people = new ArrayCollection();
@@ -102,9 +96,9 @@ class Article extends Publishable
         return $this;
     }
 
- /**
-     * @return Collection|Resource[]
-     */
+    /**
+        * @return Collection|Resource[]
+        */
     public function getAttachments(): Collection
     {
         return $this->attachments;
@@ -159,32 +153,6 @@ class Article extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Lawyer[]
-     */
-    public function getLawyers(): Collection
-    {
-        return $this->lawyers;
-    }
-
-    public function addLawyer(Lawyer $lawyer): self
-    {
-        if (!$this->lawyers->contains($lawyer)) {
-            $this->lawyers[] = $lawyer;
-        }
-
-        return $this;
-    }
-
-    public function removeLawyer(Lawyer $lawyer): self
-    {
-        if ($this->lawyers->contains($lawyer)) {
-            $this->lawyers->removeElement($lawyer);
-        }
-
-        return $this;
-    }
-    
     /**
      * @return Collection|Office[]
      */
@@ -274,5 +242,4 @@ class Article extends Publishable
 
         return $this;
     }
-
 }

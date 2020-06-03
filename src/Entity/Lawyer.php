@@ -72,11 +72,6 @@ class Lawyer extends Publishable
     private $knownLanguages = [];
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="lawyers")
-     * @ORM\OrderBy({"publication_date" = "DESC"})
-     */
-    private $Article;
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
     private $photo;
@@ -95,7 +90,6 @@ class Lawyer extends Publishable
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->Article = new ArrayCollection();
         $this->secondaryActivities = new ArrayCollection();
     }
 
@@ -243,34 +237,6 @@ class Lawyer extends Publishable
     public function setKnownLanguages(array $languages): self
     {
         $this->knownLanguages = $languages;
-        return $this;
-    }
-
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticle(): Collection
-    {
-        return $this->Article;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
-            $article->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->Article->contains($article)) {
-            $this->Article->removeElement($article);
-            $article->removeActivity($this);
-        }
-
         return $this;
     }
 
