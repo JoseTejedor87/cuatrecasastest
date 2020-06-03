@@ -187,54 +187,52 @@
                     </div>
                 </section>
 
-                {% if lawyer.article %}
-                {% if lawyer.article|length > 1 %}
-                    <section class="row page__block">
-                        <div class="col">
-                            <div class="page__block__title">
-                                <h3 class="subsection__title">Publicaciones</h3>
-                            </div>
-                            <div class="page__block__content">
-                                <ul class="page__block__content__details">
-                                {% for article in lawyer.article %}
-                                {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                    {% if (article.translate(app.request.getLocale()).title) %}
+                {% if lawyer.person %}
+
+                    {% if lawyer.person.articles|length > 1 %}
+                        <section class="row page__block">
+                            <div class="col">
+                                <div class="page__block__title">
+                                    <h3 class="subsection__title">Publicaciones</h3>
+                                </div>
+                                <div class="page__block__content">
+                                    <ul class="page__block__content__details">
+                                    {% for article in lawyer.person.articles %}
+                                        {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                         <li>
                                             <div>{{ PublicationDate[1] }}</div>
                                             <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
                                         </li>
-                                    {% endif %}
-                                {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                {% endif %}
-                {% endif %}
-
-                {% if lawyer.person %}
-                {% if lawyer.person.events|length > 1 %}
-                    <section class="row page__block">
-                        <div class="col">
-                            <div class="page__block__title">
-                                <h3 class="subsection__title">Eventos</h3>
-                            </div>
-                            <div class="page__block__content">
-                                <ul class="page__block__content__details">
-                                    {% for event in lawyer.person.events %}
-                                    {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale='es')|split(',') %}
-                                        {% if (event.translate(app.request.getLocale()).title) %}
-                                            <li>
-                                                <div>{{ StartDate[1] }}</div>
-                                                <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
-                                            </li>
-                                        {% endif %}
                                     {% endfor %}
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </section>
-                {% endif %}
+                        </section>
+                    {% endif %}
+
+                    {% if lawyer.person.events|length > 1 %}
+                        <section class="row page__block">
+                            <div class="col">
+                                <div class="page__block__title">
+                                    <h3 class="subsection__title">Eventos</h3>
+                                </div>
+                                <div class="page__block__content">
+                                    <ul class="page__block__content__details">
+                                        {% for event in lawyer.person.events %}
+                                        {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
+                                            {% if (event.translate(app.request.getLocale()).title) %}
+                                                <li>
+                                                    <div>{{ StartDate[1] }}</div>
+                                                    <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+
                 {% endif %}
 
             </div>
