@@ -1,19 +1,122 @@
+# HOME
+# ###########################################
+home:
+    path:
+        en:   /
+        es:   /
+    methods:    GET
+    controller: App\Controller\Web\HomeController::index
+
+# Conocimiento
+# ###########################################
+knowledge:
+    path:
+        en:   /conocimiento
+        es:   /knowledge
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::insights
+
+knowledgefilter:
+    path:
+        en:   /conocimientofiltro
+        es:   /knowledgefilter
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::filter
+
+article:
+    path:
+        en:   /articulo
+        es:   /article
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::articleDetail
+
+# Activity
+# ###########################################
+sectors:
+    path:
+        en:   /sectors
+        es:   /sectores
+    methods:    GET
+    controller: App\Controller\Web\ActivityController::sectorsHome
+
+sector_detail:
+   path:
+       en:   /sector/{slug}
+       es:   /sector/{slug}
+   methods:    GET
+   controller: App\Controller\Web\ActivityController::sectorDetail
+
+success_stories:
+    path:
+        en:   /successStories
+        es:   /successStories
+    methods:    GET
+    controller: App\Controller\Web\ActivityController::successStories
+# Services
+# ###########################################
+practiceAreas:
+    path:
+        en:   /practice_areas
+        es:   /areas_de_practica
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::practiceAreas
+
+desks:
+   path:
+       en:   /desks
+       es:   /desks
+   methods:    GET
+   controller: App\Controller\Web\ServicesController::desks
+
+products:
+    path:
+        en:   /products
+        es:   /products
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::products
+
+practiceAreasDetail:
+   path:
+       en:   /practice_areas/{slug}
+       es:   /areas_de_practica/{slug}
+   methods:    GET
+   controller: App\Controller\Web\ServicesController::labourLaw2
+
+productDetail:
+    path:
+        en:   /productDetail
+        es:   /productDetail
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::productDetail
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::fiscal
 # Events
 # ###########################################
-#events_directory:
-#    path:
-#        en:   /events
-#        es:   /eventos
-#    methods:      GET
-#    controller:   App\Controller\Web\EventsController::filter
-#
-#events_detail:
-#    path:
-#        en:   /events/{slug}
-#        es:   /eventos/{slug}
-#    methods:    GET
-#    controller: App\Controller\Web\EventsController::detail
+events_directory:
+   path:
+       en:   /events
+       es:   /eventos
+   methods:      GET
+   controller:   App\Controller\Web\KnowledgeController::events
 
+events_detail:
+   path:
+       en:   /events/{slug}
+       es:   /eventos/{slug}
+   methods:    GET
+   controller: App\Controller\Web\KnowledgeController::eventDetail
+
+get_events:
+   path:
+       en:   /get_events_ajax
+       es:   /get_events_ajax
+   methods:    GET
+   controller: App\Controller\Web\ajaxGetLawersController::ajaxActionEvent
 # Lawyers
 # ###########################################
 lawyers_directory:

@@ -10,14 +10,10 @@ use App\Repository\DeskRepository;
 use App\Repository\ActivityTranslationRepository;
 use App\Controller\Web\WebController;
 
-/**
-* @Route("/{idioma}/services", name="services")
-*/
+
 class ServicesController extends WebController
 {
-    /**
-     * @Route("/practiceAreas", name="practiceAreas")
-     */
+
     public function practiceAreas(Request $request,PracticeRepository $PracticeRepository)
     {
         $practices = $PracticeRepository->findAll();
@@ -29,9 +25,7 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/desks", name="desks")
-     */
+  
     public function desks(Request $request,DeskRepository $DeskRepository)
     {
         $desks = $DeskRepository->findAll();
@@ -42,9 +36,7 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/products", name="products")
-     */
+
     public function products()
     {
         // $sectors = $sectorRepository->findAll();
@@ -54,9 +46,6 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/serviceDetail/{slug}", name="serviceDetail")
-     */
     public function labourLaw(Request $request,PracticeRepository $practiceRepository, DeskRepository $deskRepository, ActivityTranslationRepository $activityTranslationRepository)
     {
         $activityTranslation = $activityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
@@ -71,9 +60,6 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/practiceAreasDetail/{slug}", name="practiceAreasDetail")
-     */
     public function labourLaw2(Request $request,PracticeRepository $practiceRepository, ActivityTranslationRepository $activityTranslationRepository)
     {
         $activityTranslation = $activityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
@@ -86,9 +72,6 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/productDetail", name="productDetail")
-     */
     public function productDetail()
     {
         return $this->render('web/services/productDetail.html.twig', [
@@ -96,9 +79,7 @@ class ServicesController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/fiscal", name="fiscal")
-     */
+
     public function fiscal()
     {
         return $this->render('web/services/fiscal.html.twig', [

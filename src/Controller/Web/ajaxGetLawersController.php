@@ -65,9 +65,7 @@ class ajaxGetLawersController extends WebController
 
         return new Response('This is not ajax!', 400);
     }  
-        /**                                                                                   
-     * @Route("/get_events_ajax", name="get_events")
-     */
+
     public function ajaxActionEvent(Request $request, LawyerRepository $lawyerRepository)    
     {
         $month = $request->query->get('month');

@@ -10,14 +10,10 @@ use App\Repository\SectorRepository;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityTranslationRepository;
 use App\Controller\Web\WebController;
-/**
-* @Route("/{idioma}/activity", name="activity", methods={"GET"})
-*/
+
 class ActivityController extends WebController
 {
-    /**
-     * @Route("/sectorsHome", name="sectorsHome")
-     */
+
     public function sectorsHome(Request $request,SectorRepository $sectorRepository,ActivityRepository $ActivityRepository)
     {
         // $activity =  $ActivityRepository->find(1);
@@ -29,10 +25,8 @@ class ActivityController extends WebController
         // echo(var_dump($activity));
         // die();
 
-
-
         $sectors = $sectorRepository->findAll();
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
 
         return $this->render('web/activity/sectorsHome.html.twig', [
             'controller_name' => 'ActivityController',
@@ -40,9 +34,7 @@ class ActivityController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/sectorDetail/{slug}", name="sectorDetail")
-     */
+
     public function sectorDetail(Request $request,SectorRepository $sectorRepository, ActivityTranslationRepository $ActivityTranslationRepository)
     {
         $ActivityTranslation = $ActivityTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
@@ -54,9 +46,6 @@ class ActivityController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/successStories", name="successStories")
-     */
     public function successStories()
     {
         return $this->render('web/activity/successStories.html.twig', [
