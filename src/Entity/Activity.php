@@ -86,6 +86,11 @@ abstract class Activity extends Publishable
      */
     private $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="activities")
+     */
+    private $insights;
+
     public function __construct()
     {
         $this->relatedActivitiesWithMe = new ArrayCollection();
@@ -97,6 +102,7 @@ abstract class Activity extends Publishable
         $this->Article = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->parents = new ArrayCollection();
+        $this->insights = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -370,6 +376,34 @@ abstract class Activity extends Publishable
     {
         if ($this->parents->contains($parent)) {
             $this->parents->removeElement($parent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removeActivity($this);
         }
 
         return $this;

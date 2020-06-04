@@ -38,6 +38,13 @@ sections:
       title: Nuevo Desk
     edit:
       title: Editar Desk
+  insights:
+    index:
+      title: Colecciones
+    new:
+      title: Nueva Colección
+    edit:
+      title: Editar Colección
   practices:
     index:
       title: Áreas de Práctica
@@ -144,6 +151,7 @@ menu:
   office.title: Oficinas
   page.title: Páginas
   article.title: Artículos
+  insight.title: Colecciones
 
 # Entities
 # ###########################################
@@ -207,6 +215,15 @@ entities:
       activities: Filtrar eventos etiquetados con
       eventType: Tipo de Evento
       numberOfEvents: Cantidad de eventos a mostrar
+  insight:
+    fields:
+      title: Título
+      abstract: Resumen
+      description: Descripción
+      activities: Sectores / Servicios / Desks
+      lawyers: Abogados
+      relatedInsights: Colecciones relacionadas
+      slug: Slug
   item:
     fields:
       updatedAt: Última modificación
