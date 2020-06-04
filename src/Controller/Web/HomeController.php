@@ -9,14 +9,10 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\EventTranslationRepository;
 use App\Controller\Web\WebController;
-/**
-* @Route("/home", name="home")
-*/
+
 class HomeController extends WebController
 {
-    /**
-     * @Route("/index", name="index")
-     */
+
     public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
     {
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);

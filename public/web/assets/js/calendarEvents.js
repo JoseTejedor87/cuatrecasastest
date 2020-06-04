@@ -1,7 +1,34 @@
-function newCalendar(eventosjson) {
+function newCalendar(eventosjson, month , year) {
     var events = eventosjson;
     var calendarEl = document.getElementById('eventCalendar');
-
+    var date = new Date();
+    var day = date.getDate();
+    
+    if(month && month < 10){
+        month = `0${month}`;
+    }
+    if(month && year){
+        var dayCalendar = year + '-' +  month + '-01'; 
+    }else{
+        if(month || year){
+            if(year){
+                var dayCalendar = year + '-' +  date.getMonth() + 1 + '-01'; 
+            }
+            if(month){
+                var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+                console.log("entro month");
+            }
+            
+        }else{
+            var month = date.getMonth() + 1;
+            if(month < 10){
+                month = `0${month}`;
+            }
+            var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+        }
+        
+        console.log(month);
+    }
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
         /*
@@ -14,6 +41,7 @@ function newCalendar(eventosjson) {
         defaultView: 'dayGridMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
+        defaultDate: dayCalendar,
         timeZone: 'UTC',
         locale: 'es',
         firstDay: 1,
@@ -192,7 +220,8 @@ function newCalendar(eventosjson) {
             let year = date.getFullYear();
 
             var fullDate = `${year}-${month}-${day}`;
-
+            console.log(info.event.start);
+            console.log("hola");
             dayCell.forEach( function(ele, indice, array) {
                 if(fullDate == ele.getAttribute("data-date")){
                     ele.classList.add('day-bg');

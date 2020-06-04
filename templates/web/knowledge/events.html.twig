@@ -94,33 +94,33 @@
                                         <option value="">Mercado de valores</option>
                                     </select>
                                     <select id="month" class="custom__select">
-                                        <option value="hide">Mes</option>
-                                        <option value="">Enero</option>
-                                        <option value="">Febrero</option>
-                                        <option value="">Marzo</option>
-                                        <option value="">Abril</option>
-                                        <option value="">Mayo</option>
-                                        <option value="">Junio</option>
-                                        <option value="">Julio</option>
-                                        <option value="">Agosto</option>
-                                        <option value="">Septiembre</option>
-                                        <option value="">Octubre</option>
-                                        <option value="">Noviembre</option>
-                                        <option value="">Diciembre</option>
+                                        <option value="">Mes</option>
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
                                     </select>
                                     <select id="year" class="custom__select">
-                                        <option value="hide">Año</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
-                                        <option value="">2016</option>
-                                        <option value="">2015</option>
-                                        <option value="">2014</option>
-                                        <option value="">2013</option>
-                                        <option value="">2012</option>
-                                        <option value="">2011</option>
-                                        <option value="">2010</option>
+                                        <option value="">Año</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
                                     </select>
                                 </div>
                             </form>
@@ -293,17 +293,81 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- FullCalendar JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
 <!-- Events Calendar -->
 <script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
+
 
 <script>
     $( document ).ready(function() {
         web.global.customSelects();
         web.global.sliderGeneral();
-        newCalendar( {{ eventsCalendar |raw }});
+        var year = {{ (year) ? year : "" }};
+        var month = {{ (month) ? month : "" }};
+        newCalendar( {{ eventsCalendar |raw }},month,year);
+        $(document).on("click", ".fc-icon__button__prev-button .fc-icon-chevron-left", function(){
+            month = parseInt(month)-1;
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month },
+                beforeSend: function( xhr ) {
+                }
+            })
+            .done(function( msg ) {
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
+
+            })
+            .fail(function() {
+
+            });
+         
+        });
+        $(document).on("click", ".fc-icon__button__next-button .fc-icon-chevron-right", function(){
+            month = parseInt(month)+1;
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month },
+                beforeSend: function( xhr ) {
+
+                }
+            })
+            .done(function( msg ) {
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
+
+            })
+            .fail(function() {
+
+            });
+         
+        });
+        $(document).on("click", ".search_box__button", function(){
+            month = $("#month").val();
+            year = $("#year").val();
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month, year: year },
+                beforeSend: function( xhr ) {
+
+                }
+            })
+            .done(function( msg ) {
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
+
+            })
+            .fail(function() {
+
+            });
+         
+        });
     });
+
 </script>
 {% endblock %}

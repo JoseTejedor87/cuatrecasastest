@@ -13,14 +13,10 @@ use App\Repository\EventTranslationRepository;
 use App\Controller\Web\WebController;
 
 
-/**
-* @Route("/{idioma}/knowledge", name="knowledge")
-*/
+
 class KnowledgeController extends WebController
 {
-    /**
-     * @Route("/insights", name="insights")
-     */
+
     public function insights()
     {
         return $this->render('web/knowledge/insights.html.twig', [
@@ -28,9 +24,7 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/filter", name="filter")
-     */
+ 
     public function filter()
     {
         return $this->render('web/knowledge/filter.html.twig', [
@@ -38,9 +32,7 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/articleDetail", name="articleDetail")
-     */
+
     public function articleDetail()
     {
         return $this->render('web/knowledge/articleDetail.html.twig', [
@@ -48,9 +40,6 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    /**
-     * @Route("/events", name="events", methods={"GET"})
-     */
     public function events(Request $request, EventRepository $eventRepository)
     {
         $month = $request->query->get('month');
@@ -109,26 +98,22 @@ class KnowledgeController extends WebController
                     array_push($array['speakers'],$speaker);
                 }
                 array_push($eventsCalendar,$array);
-            }
-            
+            }   
         }
-        //dd(json_encode($eventsCalendar));
         return $this->render('web/knowledge/events.html.twig', [
             'controller_name' => 'KnowledgeController',
             'eventsCalendar' => json_encode($eventsCalendar),
-            'events' => $events
-
+            'events' => $events,
+            'month' => $month ? $month : "",
+            'year' => $year ? $year : "",
         ]);
     }
 
-    /**
-     * @Route("/eventDetail/{slug}", name="eventDetail")
-     */
     public function eventDetail(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
     {
         $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'controller_name' => 'KnowledgeController',
             'event' => $event,
