@@ -79,6 +79,25 @@ event_delete:
     methods:    DELETE
     controller: App\Controller\CMS\EventController::delete
 
+# INSIGHTS
+# ####################################
+insight_index:
+    path:       /insights
+    methods:    GET
+    controller: App\Controller\CMS\InsightController::index
+insight_new:
+    path:       /insights/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\InsightController::new
+insight_edit:
+    path:       /insights/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\InsightController::edit
+insight_delete:
+    path:       /insights/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\InsightController::delete
+
 # LAWYERS
 # ####################################
 lawyer_index:

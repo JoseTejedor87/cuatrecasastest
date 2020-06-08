@@ -121,14 +121,16 @@ get_events:
 # ###########################################
 lawyers_directory:
     path:
-        en:   /lawyers
-        es:   /abogados
+        en:     /lawyers
+        es:     /abogados
+        zh:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::filter
 
 lawyers_detail:
     path:
-        en:   /lawyers/{slug}
-        es:   /abogados/{slug}
+        en:     /lawyers/{slug}
+        es:     /abogados/{slug}
+        zh:     /lawyers/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail

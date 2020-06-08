@@ -72,11 +72,6 @@ class Lawyer extends Publishable
     private $knownLanguages = [];
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="lawyers")
-     * @ORM\OrderBy({"publication_date" = "DESC"})
-     */
-    private $Article;
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
     private $photo;
@@ -92,11 +87,16 @@ class Lawyer extends Publishable
      */
     private $office;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="lawyers")
+     */
+    private $insights;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->Article = new ArrayCollection();
         $this->secondaryActivities = new ArrayCollection();
+        $this->insights = new ArrayCollection();
     }
 
 
@@ -246,34 +246,6 @@ class Lawyer extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticle(): Collection
-    {
-        return $this->Article;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
-            $article->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->Article->contains($article)) {
-            $this->Article->removeElement($article);
-            $article->removeActivity($this);
-        }
-
-        return $this;
-    }
-
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
@@ -320,6 +292,34 @@ class Lawyer extends Publishable
         $newLawyer = null === $person ? null : $this;
         if ($person->getLawyer() !== $newLawyer) {
             $person->setLawyer($newLawyer);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removeLawyer($this);
         }
 
         return $this;
