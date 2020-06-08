@@ -184,7 +184,7 @@ function newCalendar(eventosjson, month , year) {
                 info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
 
                 // TITLE
-                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="eventDetail/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
+                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="events/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
 
                 // SPEAKERS
                 var speakersInfo = info.event.extendedProps.speakers;

@@ -116,7 +116,7 @@ get_events:
        en:   /get_events_ajax
        es:   /get_events_ajax
    methods:    GET
-   controller: App\Controller\Web\ajaxGetLawersController::ajaxActionEvent
+   controller: App\Controller\Web\KnowledgeController::ajaxActionEvent
 # Lawyers
 # ###########################################
 lawyers_directory:
