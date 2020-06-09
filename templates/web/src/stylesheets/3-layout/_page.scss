@@ -648,7 +648,14 @@
                 .boxnews__content {
                     min-height: auto;
 
-                    .btn {
+                    .btn__arrow {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                    }
+
+                    .btn__solid__arrow {
+                        width: 100%;
+                        margin-top: 1rem;
                         margin-bottom: 1rem;
                     }
                 }
