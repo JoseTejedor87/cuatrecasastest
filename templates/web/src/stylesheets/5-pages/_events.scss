@@ -8,7 +8,6 @@
 // --------------------------------------------------------------------------
 
 @include new("event") {
-
     @include has("programme") {
         @include reset-full-scren;
         position: relative;
@@ -185,6 +184,12 @@
     }
 }
 
+
+#eventCalendar {
+    .related__content li:before {
+        background-color: $main-color;
+    }
+}
 
 //
 // FULLCALENDAR
@@ -397,7 +402,7 @@
 }
 
 .fc-event-day {
-    background-color: cyan !important;
+
 }
 
 
@@ -468,12 +473,12 @@
                 transition: all 0.3s ease-out;
 
                 @include on-event() {
-                    background-color: rgba($complementary-color, 1);
-                    cursor: pointer !important;
+                    // background-color: rgba($complementary-color, 1);
+                    // cursor: pointer !important;
 
                     .fc-event-place,
                     .fc-event-sector {
-                        color: $white;
+                        // color: $white;
                     }
                 }
             }

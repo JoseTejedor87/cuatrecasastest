@@ -5,6 +5,7 @@
 @include new("search__component") {
 
     @include has("loader") {
+        display: flex;
         display: none;
         width: 100%;
         height: 100%;

@@ -3,30 +3,30 @@ function newCalendar(eventosjson, month , year) {
     var calendarEl = document.getElementById('eventCalendar');
     var date = new Date();
     var day = date.getDate();
-    
+
     if(month && month < 10){
         month = `0${month}`;
     }
     if(month && year){
-        var dayCalendar = year + '-' +  month + '-01'; 
+        var dayCalendar = year + '-' +  month + '-01';
     }else{
         if(month || year){
             if(year){
-                var dayCalendar = year + '-' +  date.getMonth() + 1 + '-01'; 
+                var dayCalendar = year + '-' +  date.getMonth() + 1 + '-01';
             }
             if(month){
-                var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+                var dayCalendar = date.getFullYear() + '-' +  month + '-01';
                 console.log("entro month");
             }
-            
+
         }else{
             var month = date.getMonth() + 1;
             if(month < 10){
                 month = `0${month}`;
             }
-            var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+            var dayCalendar = date.getFullYear() + '-' +  month + '-01';
         }
-        
+
         console.log(month);
     }
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -260,7 +260,6 @@ function newCalendar(eventosjson, month , year) {
 
             var gridFocus = document.getElementById('gridFocus');
             gridFocus.scrollIntoView();
-
         }
 
     });
