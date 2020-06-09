@@ -7,6 +7,13 @@ home:
     methods:    GET
     controller: App\Controller\Web\HomeController::index
 
+components:
+    path:
+        en:   /components
+        es:   /componentes
+    methods:    GET
+    controller: App\Controller\Web\HomeController::components
+
 # Conocimiento
 # ###########################################
 knowledge:
@@ -16,19 +23,34 @@ knowledge:
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::insights
 
+featured:
+    path:
+        en:   /featured-topics
+        es:   /temas-destacados
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::featured
+
+article:
+    path:
+        en:   /knowledge/articles/{slug}
+        es:   /conocimiento/articulos/{slug}
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::articleDetail
+
+product:
+    path:
+        en:   /knowledge/insights/{slug}
+        es:   /conocimiento/insights/{slug}
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::productDetail
+
+# >>>>>>>>>>>>>> temporal >>> borrar
 knowledgefilter:
     path:
         en:   /knowledgefilter
         es:   /conocimientofiltro
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::filter
-
-article:
-    path:
-        en:   /knowledge/{slug}
-        es:   /conocimiento/{slug}
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::articleDetail
 
 # Activity
 # ###########################################
@@ -52,12 +74,13 @@ success_stories:
         es:   /successStories
     methods:    GET
     controller: App\Controller\Web\ActivityController::successStories
+
 # Services
 # ###########################################
 practiceAreas:
     path:
         en:   /practice_areas
-        es:   /areas_de_practica
+        es:   /areas-de-practica
     methods:    GET
     controller: App\Controller\Web\ServicesController::practiceAreas
 
@@ -78,7 +101,7 @@ products:
 practiceAreasDetail:
    path:
        en:   /practice_areas/{slug}
-       es:   /areas_de_practica/{slug}
+       es:   /areas-de-practica/{slug}
    methods:    GET
    controller: App\Controller\Web\ServicesController::labourLaw2
 
@@ -95,6 +118,7 @@ fiscal:
         es:   /fiscal
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
+
 # Events
 # ###########################################
 events_directory:
@@ -117,6 +141,7 @@ get_events:
        es:   /get_events_ajax
    methods:    GET
    controller: App\Controller\Web\KnowledgeController::ajaxActionEvent
+
 # Lawyers
 # ###########################################
 lawyers_directory:
