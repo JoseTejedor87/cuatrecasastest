@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
-class Person extends Publishable
+class Person extends Item
 {
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -65,8 +65,7 @@ class Person extends Publishable
         $lawyer = $this->getLawyer();
         if ($lawyer) {
             return $lawyer->getFullName();
-        }
-        else {
+        } else {
             return $this->surname . ", " . $this->name;
         }
     }
@@ -162,5 +161,4 @@ class Person extends Publishable
 
         return $this;
     }
-
 }
