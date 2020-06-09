@@ -252,7 +252,7 @@ function newCalendar(eventosjson, month , year) {
 
         // EVENT CLICK
         eventClick: function(info) {
-            info.jsEvent.preventDefault();
+            // info.jsEvent.preventDefault();
             var eventDate = info.event.start;
             calendar.changeView('listDay', eventDate);
 

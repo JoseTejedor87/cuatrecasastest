@@ -185,12 +185,13 @@ class KnowledgeController extends WebController
                 foreach ($event->getPeople() as $keySpeaker => $speaker) {
                     if($speaker->getLawyer()){
                         $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
+                        $speakerURL = 'abogados/'.$speaker->getLawyer()->getSlug();
                     }else{
                         $speakerName =$speaker->getName() .' '. $speaker->getSurname();
                     }
                     $speaker = array(
                         "speaker_name" => $speakerName,
-                        "speaker_url" => "",
+                        "speaker_url" => $speakerURL,
                     );
                     array_push($array['speakers'],$speaker);
                 }
