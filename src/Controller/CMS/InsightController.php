@@ -38,7 +38,7 @@ class InsightController extends CMSController
             $insight->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('insight_index');
+            return $this->redirectToRoute('cms_insights_index');
         }
 
         return $this->render('cms/insight/new.html.twig', [
@@ -55,7 +55,7 @@ class InsightController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('insight_index');
+            return $this->redirectToRoute('cms_insights_index');
         }
 
         return $this->render('cms/insight/edit.html.twig', [
@@ -72,6 +72,6 @@ class InsightController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('insight_index');
+        return $this->redirectToRoute('cms_insight_index');
     }
 }

@@ -15,7 +15,7 @@
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('quote_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_quotes_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -45,7 +45,7 @@
                             <td>{{ quote.author() }}</td>
                             <td>{{ quote.year }}</td>
                             <td>
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('quote_edit', {'id': quote.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_quotes_edit', {'id': quote.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>

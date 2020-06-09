@@ -15,7 +15,7 @@
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('insight_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_insights_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -44,7 +44,7 @@
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':insight.languages} %}
                             </td>
                             <td>
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('insight_edit', {'id': insight.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_insights_edit', {'id': insight.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>

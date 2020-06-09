@@ -39,7 +39,7 @@ class OfficeController extends CMSController
             $award->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('office_index');
+            return $this->redirectToRoute('cms_offices_index');
         }
 
         return $this->render('cms/office/new.html.twig', [
@@ -69,7 +69,7 @@ class OfficeController extends CMSController
             }
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('office_index');
+            return $this->redirectToRoute('cms_offices_index');
         }
 
         return $this->render('cms/office/edit.html.twig', [
@@ -86,6 +86,6 @@ class OfficeController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('office_index');
+        return $this->redirectToRoute('cms_offices_index');
     }
 }

@@ -14,7 +14,6 @@ use App\Controller\CMS\CMSController;
 
 class PracticeController extends CMSController
 {
-
     public function index(PracticeRepository $practiceRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -40,7 +39,7 @@ class PracticeController extends CMSController
             $practice->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('practice_index');
+            return $this->redirectToRoute('cms_practices_index');
         }
 
         return $this->render('cms/practice/new.html.twig', [
@@ -64,7 +63,7 @@ class PracticeController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('practice_edit', ['id'=>$practice->getId()]);
+            return $this->redirectToRoute('cms_practices_edit', ['id'=>$practice->getId()]);
         }
 
         return $this->render('cms/practice/edit.html.twig', [
@@ -81,6 +80,6 @@ class PracticeController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('practice_index');
+        return $this->redirectToRoute('cms_practices_index');
     }
 }

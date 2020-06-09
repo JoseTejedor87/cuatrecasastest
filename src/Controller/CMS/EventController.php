@@ -14,7 +14,6 @@ use App\Controller\CMS\CMSController;
 
 class EventController extends CMSController
 {
-
     public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,14 +33,14 @@ class EventController extends CMSController
         $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $event->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('event_index');
-         }
+            return $this->redirectToRoute('cms_events_index');
+        }
 
         return $this->render('cms/event/new.html.twig', [
             'event' => $event,
@@ -62,7 +61,6 @@ class EventController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (isset($request->request->get('event_form')['attachments'])) {
                 $attachments = $request->request->get('event_form')['attachments'];
                 foreach ($attachments as $key => $attachment) {
@@ -76,7 +74,7 @@ class EventController extends CMSController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('event_edit', ['id'=>$event->getId()]);
+            return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId()]);
         }
 
         $a = $form->createView();
@@ -95,6 +93,6 @@ class EventController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('event_index');
+        return $this->redirectToRoute('cms_events_index');
     }
 }

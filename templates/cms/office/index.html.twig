@@ -15,7 +15,7 @@
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('office_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_offices_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-        
+
         {% for office in offices %}
             <tr>
                 <td>{{ office.city }}</td>
@@ -49,7 +49,7 @@
                     {% include 'cms/tools/languageStatus.html.twig' with {'values':office.languages} %}
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('office_edit', {'id': office.id}) }}">
+                    <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_offices_edit', {'id': office.id}) }}">
                         <i class="fa fa-edit"></i>
                     </a>
                 </td>

@@ -1,251 +1,251 @@
-dashboard:
+cms_dashboard:
     path:       /
     methods:    GET
     controller: App\Controller\CMS\DashboardController::index
 
 # ARTICLES
 # ####################################
-articles_index:
+cms_articles_index:
     path:       /articles
     methods:    GET
     controller: App\Controller\CMS\ArticleController::index
-articles_new:
+cms_articles_new:
     path:       /articles/new
     methods:    GET|POST
     controller: App\Controller\CMS\ArticleController::new
-articles_edit:
+cms_articles_edit:
     path:       /articles/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\ArticleController::edit
-articles_delete:
+cms_articles_delete:
     path:       /articles/{id}
     methods:    DELETE
     controller: App\Controller\CMS\ArticleController::delete
 
 # AWARDS
 # ####################################
-awards_index:
+cms_awards_index:
     path:       /awards
     methods:    GET
     controller: App\Controller\CMS\AwardController::index
-awards_new:
+cms_awards_new:
     path:       /awards/new
     methods:    GET|POST
     controller: App\Controller\CMS\AwardController::new
-awards_edit:
+cms_awards_edit:
     path:       /awards/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\AwardController::edit
-awards_delete:
+cms_awards_delete:
     path:       /awards/{id}
     methods:    DELETE
     controller: App\Controller\CMS\AwardController::delete
 
 # DESKS
 # ####################################
-desk_index:
+cms_desks_index:
     path:       /desks
     methods:    GET
     controller: App\Controller\CMS\DeskController::index
-desk_new:
+cms_desks_new:
     path:       /desks/new
     methods:    GET|POST
     controller: App\Controller\CMS\DeskController::new
-desk_edit:
+cms_desks_edit:
     path:       /desks/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\DeskController::edit
-desk_delete:
+cms_desks_delete:
     path:       /desks/{id}
     methods:    DELETE
     controller: App\Controller\CMS\DeskController::delete
 
 # EVENTS
 # ####################################
-event_index:
+cms_events_index:
     path:       /events
     methods:    GET
     controller: App\Controller\CMS\EventController::index
-event_new:
+cms_events_new:
     path:       /events/new
     methods:    GET|POST
     controller: App\Controller\CMS\EventController::new
-event_edit:
+cms_events_edit:
     path:       /events/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\EventController::edit
-event_delete:
+cms_events_delete:
     path:       /events/{id}
     methods:    DELETE
     controller: App\Controller\CMS\EventController::delete
 
 # INSIGHTS
 # ####################################
-insight_index:
+cms_insights_index:
     path:       /insights
     methods:    GET
     controller: App\Controller\CMS\InsightController::index
-insight_new:
+cms_insights_new:
     path:       /insights/new
     methods:    GET|POST
     controller: App\Controller\CMS\InsightController::new
-insight_edit:
+cms_insights_edit:
     path:       /insights/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\InsightController::edit
-insight_delete:
+cms_insights_delete:
     path:       /insights/{id}
     methods:    DELETE
     controller: App\Controller\CMS\InsightController::delete
 
 # LAWYERS
 # ####################################
-lawyer_index:
+cms_lawyers_index:
     path:       /lawyers
     methods:    GET
     controller: App\Controller\CMS\LawyerController::index
-lawyer_new:
+cms_lawyers_new:
     path:       /lawyers/new
     methods:    GET|POST
     controller: App\Controller\CMS\LawyerController::new
-lawyer_edit:
+cms_lawyers_edit:
     path:       /lawyers/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\LawyerController::edit
-lawyer_delete:
+cms_lawyers_delete:
     path:       /lawyers/{id}
     methods:    DELETE
     controller: App\Controller\CMS\LawyerController::delete
 
 # OFFICES
 # ####################################
-office_index:
+cms_offices_index:
     path:       /offices
     methods:    GET
     controller: App\Controller\CMS\OfficeController::index
-office_new:
+cms_offices_new:
     path:       /offices/new
     methods:    GET|POST
     controller: App\Controller\CMS\OfficeController::new
-office_edit:
+cms_offices_edit:
     path:       /offices/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\OfficeController::edit
-office_delete:
+cms_offices_delete:
     path:       /offices/{id}
     methods:    DELETE
     controller: App\Controller\CMS\OfficeController::delete
 
 # PAGES
 # ####################################
-page_index:
+cms_pages_index:
     path:       /pages
     methods:    GET
     controller: App\Controller\CMS\PageController::index
-page_new:
+cms_pages_new:
     path:       /pages/new
     methods:    GET|POST
     controller: App\Controller\CMS\PageController::new
-page_edit:
+cms_pages_edit:
     path:       /pages/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\PageController::edit
-page_delete:
+cms_pages_delete:
     path:       /pages/{id}
     methods:    DELETE
     controller: App\Controller\CMS\PageController::delete
 
 # PERSON
 # ####################################
-person_index:
+cms_people_index:
     path:       /people
     methods:    GET
     controller: App\Controller\CMS\PersonController::index
-person_new:
+cms_people_new:
     path:       /people/new
     methods:    GET|POST
     controller: App\Controller\CMS\PersonController::new
-person_edit:
+cms_people_edit:
     path:       /people/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\PersonController::edit
-person_delete:
+cms_people_delete:
     path:       /people/{id}
     methods:    DELETE
     controller: App\Controller\CMS\PersonController::delete
 
 # PRACTICES
 # ####################################
-practice_index:
+cms_practices_index:
     path:       /practices
     methods:    GET
     controller: App\Controller\CMS\PracticeController::index
-practice_new:
+cms_practices_new:
     path:       /practices/new
     methods:    GET|POST
     controller: App\Controller\CMS\PracticeController::new
-practice_edit:
+cms_practices_edit:
     path:       /practices/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\PracticeController::edit
-practice_delete:
+cms_practices_delete:
     path:       /practices/{id}
     methods:    DELETE
     controller: App\Controller\CMS\PracticeController::delete
 
 # PRODUCTS
 # ####################################
-product_index:
+cms_products_index:
     path:       /products
     methods:    GET
     controller: App\Controller\CMS\ProductController::index
-product_new:
+cms_products_new:
     path:       /products/new
     methods:    GET|POST
     controller: App\Controller\CMS\ProductController::new
-product_edit:
+cms_products_edit:
     path:       /products/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\ProductController::edit
-product_delete:
+cms_products_delete:
     path:       /products/{id}
     methods:    DELETE
     controller: App\Controller\CMS\ProductController::delete
 
 # QUOTES
 # ####################################
-quote_index:
+cms_quotes_index:
     path:       /quotes
     methods:    GET
     controller: App\Controller\CMS\QuoteController::index
-quote_new:
+cms_quotes_new:
     path:       /quotes/new
     methods:    GET|POST
     controller: App\Controller\CMS\QuoteController::new
-quote_edit:
+cms_quotes_edit:
     path:       /quotes/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\QuoteController::edit
-quote_delete:
+cms_quotes_delete:
     path:       /quotes/{id}
     methods:    DELETE
     controller: App\Controller\CMS\QuoteController::delete
 
 # SECTORS
 # ####################################
-sectors_index:
+cms_sectors_index:
     path:       /sectors
     methods:    GET
     controller: App\Controller\CMS\SectorController::index
-sectors_new:
+cms_sectors_new:
     path:       /sectors/new
     methods:    GET|POST
     controller: App\Controller\CMS\SectorController::new
-sectors_edit:
+cms_sectors_edit:
     path:       /sectors/{id}/edit
     methods:    GET|POST
     controller: App\Controller\CMS\SectorController::edit
-sectors_delete:
+cms_sectors_delete:
     path:       /sectors/{id}
     methods:    DELETE
     controller: App\Controller\CMS\SectorController::delete

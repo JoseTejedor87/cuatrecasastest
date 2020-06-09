@@ -4,7 +4,6 @@ namespace App\Controller\CMS;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -13,12 +12,8 @@ use App\Form\LawyerFormType;
 use App\Repository\LawyerRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/lawyers")
- */
 class LawyerController extends CMSController
 {
-
     public function index(LawyerRepository $lawyerRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -38,14 +33,14 @@ class LawyerController extends CMSController
         $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lawyer);
             $lawyer->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('lawyer_index');
-         }
+            return $this->redirectToRoute('cms_lawyers_index');
+        }
 
         return $this->render('cms/lawyer/new.html.twig', [
             'lawyer' => $lawyer,
@@ -66,7 +61,6 @@ class LawyerController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (isset($request->request->get('lawyer_form')['photo'])) {
                 $photo = $request->request->get('lawyer_form')['photo'];
                 if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
@@ -76,7 +70,7 @@ class LawyerController extends CMSController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('lawyer_edit', ['id'=>$lawyer->getId()]);
+            return $this->redirectToRoute('cms_lawyers_edit', ['id'=>$lawyer->getId()]);
         }
 
         return $this->render('cms/lawyer/edit.html.twig', [
@@ -93,6 +87,6 @@ class LawyerController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('lawyer_index');
+        return $this->redirectToRoute('cms_lawyers_index');
     }
 }
