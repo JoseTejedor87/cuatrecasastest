@@ -217,7 +217,7 @@
     // HEADER
     h2 {
         padding-top: 10px;
-        font-size: 34px !important;
+        font-size: 26px !important;
         line-height: 1;
         color: rgba($black, 0.5);
     }
@@ -379,6 +379,16 @@
     border-color: transparent !important;
 }
 
+// .fc-unthemed thead {
+//     border-bottom: 1px solid red !important;
+// }
+
+.fc-unthemed th {
+    @include fontSet(16px, 36px);
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
 .fc-unthemed td {
     border-color: #B7B7B7 !important;
 }
@@ -401,8 +411,23 @@
     background-color: #EFEFEF;
 }
 
-.fc-event-day {
+.fc-event-day {}
 
+.fc-dayGrid-view .fc-day-number {
+    @include fontSet(14px, 14px);
+    letter-spacing: 0.7px;
+    padding: 10px !important;
+    color: rgba($black, 0.5);
+}
+
+
+
+.fc-content-skeleton .fc-event-container {
+    border: 1px solid red !important;
+
+    &:last-child {
+        border: 1px solid blue !important;
+    }
 }
 
 
@@ -423,19 +448,24 @@
             padding: 0 0;
             // transition: all 0.3s ease-out;
 
-            // @include on-event() {
-            //     background-color: rgba($complementary-color, 1) !important;
-            //     cursor: pointer !important;
-
-            //     .fc-day-grid-event.fc-content {
-            //         background-color: rgba($complementary-color, 1) !important;
-            //     }
-
-            //     .fc-event-place,
-            //     .fc-event-sector {
-            //         color: $white;
-            //     }
+            // &:last-child {
+            //     margin-bottom: 1rem;
+            //     background-color: cyan;
             // }
+
+            @include on-event() {
+                // background-color: rgba($complementary-color, 1) !important;
+                cursor: pointer !important;
+
+                .fc-day-grid-event.fc-content {
+                    // background-color: rgba($complementary-color, 1) !important;
+                }
+
+                .fc-event-place,
+                .fc-event-sector {
+                    // color: $white;
+                }
+            }
         }
 
 
@@ -457,7 +487,7 @@
             .fc-content {
                 // display: block;
                 margin: 0 0;
-                padding: 8px;
+                padding: 6px 8px;
                 @include fontSet(12px, 12px);
                 letter-spacing: 0.52px;
                 border: none;
@@ -526,6 +556,10 @@
 
         .fc-today {
             background-color: inherit;
+
+            .fc-day-number {
+                color: rgba($black, 1);
+            }
         }
 
         .fc-event-place,

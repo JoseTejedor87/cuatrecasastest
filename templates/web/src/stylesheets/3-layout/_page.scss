@@ -621,6 +621,10 @@
                     color: rgba($black, 0.4);
                 }
             }
+
+            .boxnews__content {
+                padding: 0 0 4rem 0;
+            }
         }
 
         //
@@ -634,6 +638,7 @@
             // EVENT BOX
             //
             .boxnews__item {
+                min-height: auto;
                 margin: 0;
 
                 .boxnews__type {
