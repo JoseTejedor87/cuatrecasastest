@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Sector;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Sector|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +16,24 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Sector[]    findAll()
  * @method Sector[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SectorRepository extends ServiceEntityRepository
+class SectorRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Sector::class);
+        parent::__construct($registry, $navigation, Sector::class);
+    }
+
+    public function getInstanceByRequest(Request $request)
+    {
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->createQueryBuilder('s')
+                ->join('s.translations', 't')
+                ->where('t.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+        return null;
     }
 
     // /**
