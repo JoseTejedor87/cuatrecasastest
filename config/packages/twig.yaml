@@ -11,4 +11,4 @@ twig:
     globals:
         languages: '%app.languages%'
         block_types: '%app.block_types%'
-        publishable_service: '@App\Controller\PublishableService'
+        navigation_service: '@App\Controller\Web\NavigationService'

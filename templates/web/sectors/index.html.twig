@@ -35,7 +35,7 @@
                         <ul class="buttons__list">
                         {% for sector in sectors %}
                             <li class="buttons__list__item">
-                                <a class="btn__subcat" href="{{ publishable_service.path(sector) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
+                                <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
                             </li>
                         {% endfor %}
                         </ul>

@@ -73,7 +73,7 @@
                                 <ul class="related__services">
                                     {% for activity in practice.relatedActivities %}
                                         <li class="related__services__item">
-                                            <a href="{{ publishable_service.path(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                            <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
