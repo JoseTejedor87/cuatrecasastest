@@ -23,7 +23,7 @@ knowledgefilter:
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::filter
 
-article:
+articles_detail:
     path:
         en:   /knowledge/{slug}
         es:   /conocimiento/{slug}
@@ -32,19 +32,19 @@ article:
 
 # Activity
 # ###########################################
-sectors:
+sectors_index:
     path:
         en:   /sectors
         es:   /sectores
     methods:    GET
-    controller: App\Controller\Web\ActivityController::sectorsHome
+    controller: App\Controller\Web\SectorController::index
 
-sector_detail:
+sectors_detail:
    path:
-       en:   /sector/{slug}
-       es:   /sector/{slug}
+       en:   /sectors/{slug}
+       es:   /sectores/{slug}
    methods:    GET
-   controller: App\Controller\Web\ActivityController::sectorDetail
+   controller: App\Controller\Web\SectorController::detail
 
 success_stories:
     path:
@@ -52,35 +52,59 @@ success_stories:
         es:   /successStories
     methods:    GET
     controller: App\Controller\Web\ActivityController::successStories
+
 # Services
 # ###########################################
-practiceAreas:
+services_index:
     path:
-        en:   /practice_areas
-        es:   /areas_de_practica
+        en:   /services
+        es:   /servicios
     methods:    GET
-    controller: App\Controller\Web\ServicesController::practiceAreas
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        route: practices_index
+        keepQueryParams: true
 
-desks:
+# Practices
+# ###########################################
+practices_index:
+    path:
+        en:   /practice-areas
+        es:   /areas-de-practica
+    methods:    GET
+    controller: App\Controller\Web\PracticeController::index
+
+practices_detail:
+   path:
+       en:   /practice-areas/{slug}
+       es:   /areas-de-practica/{slug}
+   methods:    GET
+   controller: App\Controller\Web\PracticeController::detail
+
+# Desks
+# ###########################################
+desks_index:
    path:
        en:   /desks
        es:   /desks
    methods:    GET
-   controller: App\Controller\Web\ServicesController::desks
+   controller: App\Controller\Web\DesksController::index
 
-products:
-    path:
-        en:   /products
-        es:   /productos
-    methods:    GET
-    controller: App\Controller\Web\ServicesController::products
-
-practiceAreasDetail:
+desks_detail:
    path:
-       en:   /practice_areas/{slug}
-       es:   /areas_de_practica/{slug}
+       en:   /desks/{slug}
+       es:   /desks/{slug}
    methods:    GET
-   controller: App\Controller\Web\ServicesController::labourLaw2
+   controller: App\Controller\Web\DesksController::detail
+
+# Products
+# ###########################################
+products_index:
+    path:
+        en:   /other-services
+        es:   /otros-servicios
+    methods:    GET
+    controller: App\Controller\Web\ProductsController::index
 
 productDetail:
     path:
@@ -95,6 +119,7 @@ fiscal:
         es:   /fiscal
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
+
 # Events
 # ###########################################
 events_directory:
@@ -117,15 +142,16 @@ get_events:
        es:   /get_events_ajax
    methods:    GET
    controller: App\Controller\Web\ajaxGetLawersController::ajaxActionEvent
+
 # Lawyers
 # ###########################################
-lawyers_directory:
+lawyers_index:
     path:
         en:     /lawyers
         es:     /abogados
         zh:     /lawyers
     methods:      GET
-    controller:   App\Controller\Web\LawyerController::filter
+    controller:   App\Controller\Web\LawyerController::index
 
 lawyers_detail:
     path:
@@ -134,3 +160,51 @@ lawyers_detail:
         zh:     /lawyers/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail
+
+# Insights
+# ###########################################
+insights_detail:
+    path:
+        en:     /insights/{slug}
+        es:     /insights/{slug}
+        zh:     /insights/{slug}
+    methods:    GET
+    controller: App\Controller\Web\InsightController::detail
+
+# Offices
+# ###########################################
+offices_index:
+    path:
+        en:     /offices/{slug}
+        es:     /oficinas/{slug}
+        zh:     /offices/{slug}
+    methods:    GET
+    controller: App\Controller\Web\OfficeController::detail
+
+offices_detail:
+    path:
+        en:     /offices/{slug}
+        es:     /oficinas/{slug}
+        zh:     /offices/{slug}
+    methods:    GET
+    controller: App\Controller\Web\OfficeController::detail
+
+# Pages
+# ###########################################
+pages_detail:
+    path:
+        en:     /p/{slug}
+        es:     /p/{slug}
+        zh:     /p/{slug}
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+# Resources
+# ###########################################
+resources_detail:
+    path:
+        en:     /files/{slug}
+        es:     /ficheros/{slug}
+        zh:     /files/{slug}
+    methods:    GET
+    controller: App\Controller\Web\ResourcesController::detail

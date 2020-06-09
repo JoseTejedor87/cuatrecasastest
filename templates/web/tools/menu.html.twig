@@ -12,13 +12,13 @@
                                 <a class="nav-link" href="{{ path('knowledge') }}">{{ 'menu.knowledge' | trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('lawyers_directory') }}">{{ 'menu.lawyers' | trans }}</a>
+                                <a class="nav-link" href="{{ path('lawyers_index') }}">{{ 'menu.lawyers' | trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('practiceAreas') }}">{{ 'menu.services' | trans }}</a>
+                                <a class="nav-link" href="{{ path('services_index') }}">{{ 'menu.services' | trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('sectors') }}">Sectores</a>
+                                <a class="nav-link" href="{{ path('sectors_index') }}">{{ 'menu.sectors' | trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <nav id="contact-nav" class="col-md-12 navbar navbar-expand-md" aria-label="contact-nav">
-                    <a href="{{ relative_path('/home/index')}}" class="navbar-brand">
+                    <a href="{{ path('home') }}" class="navbar-brand">
                         <img src="{{ asset('web/assets/logos/cuatrecasas.png') }}" alt="Cuatrecasas">
                     </a>
                     <div class="navbar-collapse justify-content-end">

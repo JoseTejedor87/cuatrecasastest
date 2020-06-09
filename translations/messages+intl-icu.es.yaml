@@ -1,12 +1,13 @@
 # Global
 # ###########################################
 global:
+  home: Inicio
+  goBack: Volver
   languages:
     es: Español
     en: Inglés
     pt: Portugués
     zh: Chino
-    it: Italiano
     fr: Francés
 
 # Sections
@@ -24,6 +25,15 @@ sections:
       partner: Socio
       senior_associate: Asociado sénior
       senior_partner: Presidente
+  practices:
+    title: Áreas de Práctica
+    lawyersTitle: Expertos en el área
+  desks:
+    title: Desks
+  products:
+    title: Otros servicios
+  sectors:
+    title: Sectores
 
 # Menu
 # ###########################################
@@ -36,3 +46,11 @@ menu:
   products: Productos
   services: Servicios
   sectors: Sectores
+
+# Reusable Blocks
+# ###########################################
+reusable_blocks:
+    team:
+      title: Equipo <br/> Cuatrecasas
+      link: Conoce al equipo
+      intro: Cuatrecasas cuenta con un equipo {team}

@@ -35,7 +35,7 @@
             <header class="container-fluid">
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
-                        <a href="#" class="back__button">volver</a>
+                        <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
                         <h1 class="lawyer__page__name">
                             {{ lawyer.name }} {{ lawyer.surname }}
                         </h1>

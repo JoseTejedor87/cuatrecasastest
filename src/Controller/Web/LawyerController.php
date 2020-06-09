@@ -23,7 +23,7 @@ class LawyerController extends WebController
         }
     }
 
-    public function filter(Request $request, LawyerRepository $lawyerRepository)
+    public function index(Request $request, LawyerRepository $lawyerRepository)
     {
         $initial = $request->query->get('initial');
         $page = $request->query->get('page') ?: 1;
@@ -63,7 +63,7 @@ class LawyerController extends WebController
             }
             return new JsonResponse(array('lawyers' => $lawyerA,'countLawyers' => $countLawyers,'pagesTotal' => $pagesTotal ,'page' => $page,'initial' => $initial));
         } else {
-            return $this->render('web/lawyer/filter.html.twig', [
+            return $this->render('web/lawyer/index.html.twig', [
                 'controller_name' => 'LawyerController',
                 'lawyers' => isset($lawyers) ? $lawyers : '',
                 'countLawyers' => isset($countLawyers) ? $countLawyers : '',

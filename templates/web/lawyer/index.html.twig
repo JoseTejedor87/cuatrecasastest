@@ -119,7 +119,7 @@
                     <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
                         {% for letter in range('a','z') %}
-                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_directory') }}?initial={{ letter }}">{{ letter }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}">{{ letter }}</a></li>
                         {% endfor %}
                         </ul>
                     </nav>
@@ -249,7 +249,7 @@
             $(this).addClass('active');
             $.ajax({
                 method: "POST",
-                url: "{{ path('lawyers_directory') }}",
+                url: "{{ path('lawyers_index') }}",
                 data: { page: page, initial: initial },
                 beforeSend: function( xhr ) {
                     $('.lawyer__search__wrapper__loader').fadeIn('fast');

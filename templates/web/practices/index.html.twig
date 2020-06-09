@@ -14,15 +14,15 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Áreas de práctica
+                            {{ 'sections.practices.title'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Áreas de práctica
+                                    {{ 'sections.practices.title'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -41,13 +41,13 @@
                     <div class="col tabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('practiceAreas') }}" class="nav-link active">Áreas de práctica</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link active">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('desks') }}" class="nav-link">Desks</a>
+                                <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('products') }}" class="nav-link">Otros servicios</a>
+                                <a href="{{ path('products_index') }}" class="nav-link">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -58,16 +58,16 @@
                         <div class="col">
                             <ul class="buttons__list two-cols">
                                 {% for practice in practices %}
-                                    {% if practice.translate(app.request.getLocale()).title and practice.highlighted == 1 %}
                                     <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ path('practiceAreasDetail') }}{{ (practice.translate(app.request.getLocale()).slug ? practice.translate(app.request.getLocale()).slug : '' ) }}">{{ practice.translate(app.request.getLocale()).title|raw  }}</a>
+                                        <a class="btn__subcat" href="{{ path('practices_detail', {slug: practice.translate.slug}) }}">
+                                            {{ practice.translate(app.request.getLocale()).title }}
+                                        </a>
                                     </li>
-                                    {% endif %}
                                 {% endfor %}
                                 {# <li class="buttons__list__item">
                                     <a class="btn__subcat" href="consumptionRetail/medio-ambiente">Medio Ambiente</a>
                                 </li> #}
-                                
+
                             </ul>
                         </div>
                     </div>
