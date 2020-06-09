@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
@@ -67,9 +68,14 @@ class WebMiddleware implements EventSubscriberInterface
             // managed by the controller
             $instance = $repository ? $repository->getInstanceByRequest($request) : null;
 
-            // STEP 2: the current instance is published?
-            if ($instance && !$instance->isPublished($language, $region)) {
-                throw new NotPublishedException();
+            if ($instance) {
+                // STEP 2: the current instance is published?
+                if (!$instance->isPublished($language, $region)) {
+                    throw new NotPublishedException();
+                }
+            } else {
+                // Publishable not found
+                throw new NotFoundHttpException();
             }
         }
     }
