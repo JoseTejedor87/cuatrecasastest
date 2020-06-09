@@ -14,7 +14,8 @@ components:
     methods:    GET
     controller: App\Controller\Web\HomeController::components
 
-# Conocimiento
+
+# KNOWLEDGE
 # ###########################################
 knowledge:
     path:
@@ -22,13 +23,6 @@ knowledge:
         es:   /conocimiento
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::insights
-
-featured:
-    path:
-        en:   /featured-topics
-        es:   /temas-destacados
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::featured
 
 article:
     path:
@@ -44,6 +38,13 @@ product:
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::productDetail
 
+featured:
+    path:
+        en:   /featured-topics
+        es:   /temas-destacados
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::featured
+
 # >>>>>>>>>>>>>> temporal >>> borrar
 knowledgefilter:
     path:
@@ -52,7 +53,8 @@ knowledgefilter:
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::filter
 
-# Activity
+
+# ACTIVITY
 # ###########################################
 sectors:
     path:
@@ -70,12 +72,13 @@ sector_detail:
 
 success_stories:
     path:
-        en:   /successStories
-        es:   /successStories
+        en:   /success-stories
+        es:   /casos-de-exito
     methods:    GET
     controller: App\Controller\Web\ActivityController::successStories
 
-# Services
+
+# SERVICES
 # ###########################################
 practiceAreas:
     path:
@@ -83,6 +86,13 @@ practiceAreas:
         es:   /areas-de-practica
     methods:    GET
     controller: App\Controller\Web\ServicesController::practiceAreas
+
+practiceAreasDetail:
+   path:
+       en:   /practice_areas/{slug}
+       es:   /areas-de-practica/{slug}
+   methods:    GET
+   controller: App\Controller\Web\ServicesController::labourLaw2
 
 desks:
    path:
@@ -98,17 +108,10 @@ products:
     methods:    GET
     controller: App\Controller\Web\ServicesController::products
 
-practiceAreasDetail:
-   path:
-       en:   /practice_areas/{slug}
-       es:   /areas-de-practica/{slug}
-   methods:    GET
-   controller: App\Controller\Web\ServicesController::labourLaw2
-
 productDetail:
     path:
-        en:   /productDetail
-        es:   /productDetail
+        en:   /products/{slug}
+        es:   /productos/{slug}
     methods:    GET
     controller: App\Controller\Web\ServicesController::productDetail
 
@@ -119,7 +122,8 @@ fiscal:
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
 
-# Events
+
+# EVENTS
 # ###########################################
 events_directory:
    path:
@@ -142,7 +146,8 @@ get_events:
    methods:    GET
    controller: App\Controller\Web\KnowledgeController::ajaxActionEvent
 
-# Lawyers
+
+# LAWYERS
 # ###########################################
 lawyers_directory:
     path:
