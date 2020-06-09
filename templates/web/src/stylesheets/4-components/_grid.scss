@@ -2,9 +2,8 @@
 // GRID INSIGHTS
 // ==========================================================================
 
-
+/*
 @include new("grid") {
-
     @include has("wrapper") {
         display: -ms-grid;
         display: grid;
@@ -147,7 +146,7 @@
         }
     }
 }
-
+*/
 
 
 
@@ -341,6 +340,22 @@ https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
         padding-bottom: 0;
     }
 }
+
+/*
+IE GRID
+
+https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
+
+https://stackoverflow.com/questions/46049653/postcss-autoprefixer-ignoring-grid-properties-with-gulp
+
+https://stackoverflow.com/questions/45786788/css-grid-layout-not-working-in-ie11-even-with-prefixes
+
+https://medium.com/@zaid.aldabbagh/configure-autoprefixer-correctly-to-output-ms-grid-prefixes-97743d0a8eb8
+
+https://www.smashingmagazine.com/2017/06/building-production-ready-css-grid-layout/#side-note-a-word-on-browser-support
+
+https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
+*/
 
 .ms__grid__layout {
     display: grid;

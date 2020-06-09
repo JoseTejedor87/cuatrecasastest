@@ -220,8 +220,7 @@ function newCalendar(eventosjson, month , year) {
             let year = date.getFullYear();
 
             var fullDate = `${year}-${month}-${day}`;
-            console.log(info.event.start);
-            console.log("hola");
+            // console.log(info.event.start);
             dayCell.forEach( function(ele, indice, array) {
                 if(fullDate == ele.getAttribute("data-date")){
                     ele.classList.add('day-bg');
@@ -232,13 +231,6 @@ function newCalendar(eventosjson, month , year) {
         // DATE CLICK
         /*
         dateClick: function(info) {
-
-            // var eventDate = info.dateStr;
-            // calendar.changeView('listDay', eventDate);
-
-            // console.log('Clicked on: ' + info.dateStr);
-            // console.log('Allday: ' + info.allDay);
-
             console.log('dateStr: ' + info.dateStr);
             console.log('allDay: ' + info.allDay);
             console.log('dayEl: ' + info.dayEl);
@@ -246,11 +238,17 @@ function newCalendar(eventosjson, month , year) {
             console.log('---');
 
             // alert('Clicked on: ' + info.dateStr);
-            // alert('Current view: ' + info.view.type);
-            // // change the day's background color just for fun
-            // info.dayEl.style.backgroundColor = 'red';
+            console.log('Clicked on: ' + info.dateStr);
+
+            // info.jsEvent.preventDefault();
+            var eventDate = info.event.start;
+            calendar.changeView('listDay', eventDate);
+
+            var gridFocus = document.getElementById('gridFocus');
+            gridFocus.scrollIntoView();
         },
         */
+
 
         // EVENT CLICK
         eventClick: function(info) {
