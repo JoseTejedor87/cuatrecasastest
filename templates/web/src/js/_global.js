@@ -312,7 +312,7 @@ web.global = {
     },
 
     sliderHome: function(){
-        var swiperCarousel = new Swiper ('#sliderHome', {
+        var swiperHome = new Swiper ('#sliderHome', {
             slidesPerView: 1,
             spaceBetween: 0,
             loop: true,
@@ -330,21 +330,7 @@ web.global = {
     },
 
     sliderGeneral: function(){
-        var swiperCarousel = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            // loop: true,
-            // allowTouchMove: false,
-            // grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
-    },
-
-    sliderNews: function(){
-        var swiperCarousel = new Swiper ('#sliderNews', {
+        var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
             spaceBetween: 25,
             // loop: true,
@@ -358,16 +344,21 @@ web.global = {
     },
 
     sliderCases: function(){
-        var swiperSlider = new Swiper ('#sliderCases', {
+        var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,
-            grabCursor: true
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
         });
     },
 
     sliderAwards: function(){
-        var swiperCarousel = new Swiper ('#sliderAwards', {
+        var swiperAwards = new Swiper ('#sliderAwards', {
             slidesPerView: 'auto',
             spaceBetween: 60,
             centeredSlides: true,

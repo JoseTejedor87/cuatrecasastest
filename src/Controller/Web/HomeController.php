@@ -22,4 +22,11 @@ class HomeController extends WebController
             'events' => $events,
         ]);
     }
+
+    public function components()
+    {
+        return $this->render('web/home/components.html.twig', [
+            'controller_name' => 'HomeController'
+        ]);
+    }
 }

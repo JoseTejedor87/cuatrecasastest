@@ -111,6 +111,10 @@ p {
         background-color: $recomended-color;
     }
 
+    @include when("related") {
+        background-color: $related-color;
+    }
+
     @include when("awards") {
         background-color: $awards-color;
     }

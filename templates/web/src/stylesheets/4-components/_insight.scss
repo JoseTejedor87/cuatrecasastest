@@ -48,24 +48,51 @@
         .swiper-slide {
             // reset width
             width: 66%;
+            // width: 50%;
             // forze same height items
             height: auto;
             // outside elements opacity
             opacity: 0.3;
+            pointer-events: none;
             transition: opacity 0.2s ease-in-out;
 
             // focus element opacity
-            &-active,
-            &-next {
+            &-active {
                 opacity: 1;
+                pointer-events: auto;
             }
 
+            // &-active,
+            // &-next {
+            //     opacity: 1;
+            //     pointer-events: auto;
+            // }
+
             // doesn't make sense!
-            &-next {
-                .insight__img {
-                    opacity: 0.3;
-                }
-            }
+            // &-next {
+            //     .insight__img {
+            //         opacity: 0.3;
+            //     }
+            // }
+
+
+            // focus element opacity
+            // &-active {
+            //     opacity: 1;
+            //     pointer-events: auto;
+            //     cursor: default !important;
+            // }
+
+            // &:last-child {
+            //     opacity: 1;
+            //     pointer-events: auto;
+            //     cursor: default !important;
+            // }
+
+            // &-prev,
+            // &-next {
+            //     pointer-events: none;
+            // }
         }
 
         // last child reset
@@ -77,6 +104,30 @@
         //         opacity: 1;
         //     }
         // }
+
+        .swiper-wrapper {
+            margin-bottom: 1rem;
+        }
+
+        .swiper-container-horizontal {
+            > .swiper-scrollbar {
+                position: absolute;
+                left: 1.5%;
+                bottom: 0;
+                width: 97%;
+                height: 1px;
+                border-radius: 0;
+                background: rgba(0,0,0,0.2);
+            }
+        }
+
+        .swiper-scrollbar-drag {
+            top: -3px;
+            height: 7px;
+            border-radius: 0;
+            background: $complementary-color;
+        }
+
     }
 
     //

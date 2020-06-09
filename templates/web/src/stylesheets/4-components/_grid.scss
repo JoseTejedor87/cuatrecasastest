@@ -2,6 +2,7 @@
 // GRID INSIGHTS
 // ==========================================================================
 
+
 @include new("grid") {
 
     @include has("wrapper") {
@@ -146,3 +147,298 @@
         }
     }
 }
+
+
+
+
+//
+// MASNORY GRID
+// --------------------------------------------------------------------------
+
+/*
+https://w3bits.com/css-masonry/
+
+https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
+https://css-tricks.com/things-ive-learned-css-grid-layout/
+
+True Masonry with Grid Layout
+https://codepen.io/balazs_sziklai/pen/mOwoLg
+
+https://codeburst.io/how-to-pure-css-masonry-layouts-a8ede07ba31a
+
+Pure CSS masonry layout w/ Flexbox
+https://codepen.io/jh3y/pen/mPgyqw
+
+*/
+
+
+@include new("grid") {
+
+
+    // https://github.com/desandro/masonry/issues/393
+
+    // $gutter_size: 10px;
+    // $number_of_columns: 3;
+    // $total_gutter_space: ( $number_of_columns - 1 ) * $gutter_size;
+
+    // width: calc( ( 100% - #{$total_gutter_space} ) /  #{$number_of_columns} );
+
+
+    $gutter-size:   2%;
+    $item-width:    32%;
+    $item-height:   260px;
+
+
+    // https://github.com/desandro/masonry/issues/986
+    // https://codepen.io/desandro/pen/3d1fac81ee3f6c4315f6b177c20b04c6/
+
+
+
+    // https://github.com/desandro/masonry/issues/1006
+
+    // Masonry & Isotope horizontalOrder
+    // https://codepen.io/desandro/pen/dWVqmx
+
+    @include has("masonry") {
+        width: 100%;
+        margin-bottom: 6rem;
+
+        // margin: -20px;
+
+        background-color: cyan;
+
+
+
+        // margin-right: -10px;
+        // margin-left: -10px;
+
+
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+    }
+
+
+    @include has("gutter") {
+        // width: 20px;
+        width: $gutter-size;
+        // width: calc(33.3333% - 10px);
+        // width: calc(33.3333% - #{$gutter});
+    }
+
+    @include has("sizer") {
+        // width: 33.3333%;
+        // width: calc(33.3333% - 20px);
+        // width: calc(33.3333% - #{$gutter});
+
+        // width: calc((100% - #{$gutter}) / 3);
+
+
+        // width: 33%;
+        width: $item-width;
+    }
+
+    @include has("item") {
+        // width: 33.3333%;
+        // width: calc(33.3333% - 20px);
+        // width: calc(33.3333% - #{$gutter});
+        // width: calc((100% - #{$gutter}) / 3);
+        // padding: 10px;
+
+        // width: 33%;
+        float: left;
+
+        width: $item-width;
+        height: $item-height;
+        // margin-bottom: $gutter-size;
+        margin-bottom: 30px;
+
+
+        background: #fcf;
+
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+
+        // padding: 2rem;
+
+        // border: 10px solid yellow;
+
+
+        @include when("dobleW") {
+            // width: 60%;
+            width: calc((#{$item-width} * 2) + #{$gutter-size});
+            // width: calc(66.6666% - 10px);
+        }
+
+        @include when("dobleH") {
+            // height: 520px;
+
+            height: calc((#{$item-height} * 2) + (#{$gutter-size});
+            // height: calc(#{$item-height} * 2);
+            // height: 520px;
+        }
+
+        @include when("dobleWH") {
+            // height: 520px;
+
+            // height: calc((#{$item-height} * 2) + #{$gutter-width});
+
+            // height: calc(#{$item-height} * 2);
+            width: calc((#{$item-width} * 2) + #{$gutter-size});
+            height: calc((#{$item-height} * 2) + #{$gutter-size});
+        }
+    }
+}
+
+
+// .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
+// .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }
+// .grid-item:nth-child(10n+2) { background: hsl(  72, 100%, 50%); }
+// .grid-item:nth-child(10n+3) { background: hsl( 108, 100%, 50%); }
+// .grid-item:nth-child(10n+4) { background: hsl( 144, 100%, 50%); }
+// .grid-item:nth-child(10n+5) { background: hsl( 180, 100%, 50%); }
+// .grid-item:nth-child(10n+6) { background: hsl( 216, 100%, 50%); }
+// .grid-item:nth-child(10n+7) { background: hsl( 252, 100%, 50%); }
+// .grid-item:nth-child(10n+8) { background: hsl( 288, 100%, 50%); }
+// .grid-item:nth-child(10n+9) { background: hsl( 324, 100%, 50%); }
+
+
+
+/*
+* True Masonry with Grid Layout
+https://codepen.io/balazs_sziklai/pen/mOwoLg
+
+https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
+
+* Should I try to use the IE implementation of CSS Grid Layout?
+https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
+
+* Configure Autoprefixer correctly to output -ms-grid prefixes
+https://medium.com/@zaid.aldabbagh/configure-autoprefixer-correctly-to-output-ms-grid-prefixes-97743d0a8eb8
+
+* Building Production-Ready CSS Grid Layouts Today
+https://www.smashingmagazine.com/2017/06/building-production-ready-css-grid-layout/#side-note-a-word-on-browser-support
+
+* Should I try to use the IE implementation of CSS Grid Layout?
+https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
+
+* Grid “fallbacks” and overrides
+https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
+*/
+
+.masonry__grid {
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+
+    .viewmore__button {
+        margin-bottom: 4rem;
+    }
+
+    &.no--padding {
+        padding-bottom: 0;
+    }
+}
+
+.ms__grid__layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(33.3333% - 20px), 1fr));
+    grid-gap: 20px;
+    grid-auto-rows: minmax(230px, auto);
+    grid-auto-flow: dense;
+
+    margin: 2rem 0 0;
+
+    // background-color: #fcf;
+}
+
+.ms__grid__item {
+    // padding: 1rem;
+    // text-transform: uppercase;
+    background-color: magenta;
+
+
+    .boxnews__item {
+        flex: 0 0 100%;
+        height: 100%;
+        margin: 0 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+         @include on-event() {
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
+                        0 15px 12px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .boxnews__content {
+        min-height: calc(100% - 4rem);
+    }
+
+    .boxnews__copy {
+        margin-bottom: auto;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+
+    .boxnews__link {
+        @include fontSet(23px, 27px);
+    }
+}
+
+.span--dobleW {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+
+    background-color: yellow;
+
+    .boxnews__content {
+        min-height: calc(100% - 3rem);
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    .boxnews__copy {
+        flex: 0 0 50%;
+        padding-right: 2rem;
+    }
+
+    .boxnews__media {
+        flex: 0 0 50%;
+    }
+
+    .boxnews__link {
+        @include fontSet(43px, 45px);
+    }
+}
+
+.span--dobleH {
+    grid-column-end: span 1;
+    grid-row-end: span 2;
+
+    background-color: cyan;
+
+    .boxnews__content {
+        min-height: calc(100% - 3rem);
+        display: flex;
+        flex-flow: column nowrap;
+        flex: 1 1 auto;
+    }
+
+    .boxnews__copy {
+        flex: 0 0 50%;
+        padding-bottom: 1rem;
+    }
+
+    .boxnews__link {
+        @include fontSet(33px, 37px);
+    }
+}
+
+
+
+/*
+Pure CSS masonry layout w/ Flexbox
+https://codepen.io/jh3y/pen/mPgyqw
+*/

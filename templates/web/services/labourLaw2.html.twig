@@ -48,7 +48,7 @@
                 <div class="col">
                     <div class="page__block__content">
                         <p>{{ practice.translate(app.request.getLocale()).description|raw }}</p>
-                        
+
                         {% if sector.lawyers|length > 0 %}
                         <h5>Expertos en el área</h5>
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--team">
@@ -85,7 +85,7 @@
                                     <li><a href="#">Fiscalidad contenciosa</a></li> #}
                                 </ul>
                             </div>
-                        {% endif %}    
+                        {% endif %}
                         <div class="page__aside page__aside--nobg">
                             <blockquote class="cite__quote">
                                 <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
@@ -102,18 +102,16 @@
                                                 <a href="#" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
                                             </li>
                                         {% endif %}
-                                    {% endfor %}                                                            
+                                    {% endfor %}
                                     {# <li class="related__services__item">
                                         <a href="#" class="related__services__link">Fusiones y adquisiciones</a>
                                     </li> #}
-                                   
                                 </ul>
-                            </div>       
-                        {% endif %}                           
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>
-
 
         </article>
     </main>

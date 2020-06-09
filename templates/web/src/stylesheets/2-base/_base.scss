@@ -42,6 +42,26 @@ a:link {
 
 
 
+
+//
+// BORRAR
+//
+
+.cmp-wrapper {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+.cmp {
+    position: absolute;
+    padding: 0.2rem 0.6rem;
+    color: black;
+    background-color: yellow;
+    z-index: 3;
+}
+
+
+
 //
 // SECTION BACKGROUND COLORS GLOBAL (from dark to light)
 // --------------------------------------------------------------------------
@@ -103,6 +123,26 @@ a:link {
 
     &:before {
         @include reset-pseudo(rgba($black, 0.01));
+    }
+}
+
+
+
+.bgfull__grey__light {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.08));
+        @include reset-full-scren;
+    }
+}
+
+.bgfull__grey__lighter {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo($tabActive);
+        @include reset-full-scren;
     }
 }
 

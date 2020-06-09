@@ -26,18 +26,31 @@ class KnowledgeController extends WebController
         ]);
     }
 
- 
-    public function filter()
+    public function featured()
     {
-        return $this->render('web/knowledge/filter.html.twig', [
+        return $this->render('web/knowledge/featured.html.twig', [
             'controller_name' => 'KnowledgeController',
         ]);
     }
 
-
     public function articleDetail()
     {
         return $this->render('web/knowledge/articleDetail.html.twig', [
+            'controller_name' => 'KnowledgeController',
+        ]);
+    }
+
+    public function productDetail()
+    {
+        return $this->render('web/knowledge/productDetail.html.twig', [
+            'controller_name' => 'KnowledgeController',
+        ]);
+    }
+
+    // TEMPORAL >>> BORRAR
+    public function filter()
+    {
+        return $this->render('web/knowledge/filter.html.twig', [
             'controller_name' => 'KnowledgeController',
         ]);
     }
@@ -56,7 +69,7 @@ class KnowledgeController extends WebController
                 $year = $fechaHoy->format('Y');
             }
         }
-  
+
         $fecha = new \DateTime($year.'-'.$month.'-01');
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
@@ -64,7 +77,7 @@ class KnowledgeController extends WebController
                         ->getManager()
                         ->createQuery("SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'")
                         ->getResult();
-        
+
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
             if($event->translate('es')->getSlug()){
@@ -72,7 +85,7 @@ class KnowledgeController extends WebController
                 foreach ($event->getActivities() as $keyActivity => $activity) {
                     $activities = $activities . $activity->translate('es')->getTitle();
                 }
-               
+
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
                     "titleURL" => $event->translate('es')->getSlug(),
@@ -100,7 +113,7 @@ class KnowledgeController extends WebController
                     array_push($array['speakers'],$speaker);
                 }
                 array_push($eventsCalendar,$array);
-            }   
+            }
         }
         return $this->render('web/knowledge/events.html.twig', [
             'controller_name' => 'KnowledgeController',

@@ -186,7 +186,7 @@
 
         a {
             @include background-link($black, $white, $complementary-color);
-            font-weight: bold;
+            // font-weight: bold;
         }
     }
 

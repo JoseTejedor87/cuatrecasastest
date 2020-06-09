@@ -23,11 +23,19 @@
         background-color: rgba($black, 0.02);
     }
 
+    @include when("collections") {
+        background-color: rgba($black, 0.05);
+    }
+
     @include when("products") {
-        background-color: $tabActive;
+        // background-color: $tabActive;
     }
 
     @include when("career") {
+        background-color: rgba($black, 0.1);
+    }
+
+    @include when("publications") {
         background-color: rgba($black, 0.1);
     }
 
@@ -108,7 +116,8 @@
 
     @include has("list") {
         display: flex;
-        flex-flow: row nowrap;
+        // flex-flow: row nowrap;
+        flex-flow: row wrap;
         margin: 0 -0.8rem;
 
         //
@@ -120,8 +129,12 @@
     }
 
     @include has("item") {
-        flex: 1;
-        height: auto;
+        // flex: 1;
+        display: flex;
+        flex: 1 0 0%;
+        flex-direction: column;
+        // min-width: 0;
+        min-height: 30rem;
         margin: 0 0.8rem;
         padding: 0 0;
         background-color: $white;
@@ -136,6 +149,10 @@
 
         @include when("blockquote") {
             border-top: none;
+
+            .cite__quote {
+                padding: 1rem;
+            }
         }
 
         //
@@ -146,6 +163,25 @@
             margin-bottom: 3rem;
             color: $insight-color;
             border-top-color: transparent;
+        }
+
+        @include when-inside(".boxnews--products--three") {
+            flex: 1 0 calc(33.3333% - 1.6rem);
+        }
+
+        //
+        // INSIGHTS GRID
+        //
+        @include when-inside(".grid__box") {
+            min-height: auto;
+        }
+
+        //
+        // INSIGHTS MASONRY GRID
+        //
+        @include when-inside(".ms__grid__layout") {
+            min-height: auto;
+            margin: 0 0;
         }
 
 
@@ -177,6 +213,11 @@
         @include when("recomended") {
             color: $recomended-color;
             border-top-color: $recomended-color;
+        }
+
+        @include when("career") {
+            color: $career-color;
+            border-top-color: $career-color;
         }
 
         @include when("others1") {
@@ -233,40 +274,6 @@
                 }
             }
         }
-
-
-        //
-        // A VER SI SE ACLARAN!!!
-        // --------------------------------------------------------------------------
-
-        // @include when("article") {
-        //     color: $article-color;
-        //     border-top-color: $article-color;
-        // }
-
-        // @include when("event") {
-        //     color: $event-color;
-        //     border-top-color: $event-color;
-        //     background-color: $event-box-color;
-        // }
-
-        // @include when("related") {
-        //     color: $related-color;
-        //     border-top-color: $related-color;
-        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        // }
-
-        // @include when("insight") {
-        //     color: $insight-color;
-        //     border-top-color: transparent;
-        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        // }
-
-        // @include when("cases") {
-        //     color: $cases-color;
-        //     border-top-color: transparent;
-        //     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        // }
     }
 
 
@@ -291,6 +298,7 @@
         height: auto;
         // outside elements opacity
         opacity: 0.3;
+        pointer-events: none;
         transition: opacity 0.2s ease-in-out;
 
         // focus element opacity
@@ -298,6 +306,7 @@
         &-next,
         &-next + .swiper-slide {
             opacity: 1;
+            pointer-events: auto;
         }
 
         .boxnews__item {
@@ -348,20 +357,20 @@
     }
     */
 
+    .swiper-wrapper {
+        margin-bottom: 1rem;
+    }
+
     .swiper-container-horizontal {
         > .swiper-scrollbar {
             position: absolute;
-            left: 1%;
+            left: 1.5%;
             bottom: 0;
-            width: 98%;
+            width: 97%;
             height: 1px;
             border-radius: 0;
             background: rgba(0,0,0,0.2);
         }
-    }
-
-    .swiper-wrapper {
-        margin-bottom: 1rem;
     }
 
     .swiper-scrollbar-drag {
@@ -382,9 +391,9 @@
         padding: 1rem;
         border-bottom: 1px solid $black;
 
-        @include when-inside(".boxnews--insight") {
-            padding-top: 0.5rem;
-            padding-bottom: 0;
+        @include when-inside(".boxnews--collections") {
+            padding: 1rem 2rem 0.2rem;
+            color: $complementary-color;
             border-bottom: none;
         }
 
@@ -399,7 +408,7 @@
             font-weight: bold;
             text-transform: uppercase;
 
-            @include when-inside(".boxnews--insight") {
+            @include when-inside(".boxnews--collections") {
                 @include fontSet(40px, 40px);
                 font-weight: normal;
                 text-transform: none;
@@ -451,12 +460,15 @@
     // --------------------------------------------------------------------------
 
     @include has("content") {
+        // display: flex;
+        // flex-flow: column nowrap;
+        // justify-content: flex-start;
+        // align-content: stretch;
+        // align-items: stretch;
         display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-content: stretch;
-        align-items: stretch;
-        min-height: 20rem;
+        flex-direction: column;
+        flex: 1 1 auto;
+        // min-height: 20rem;
         padding: 1rem;
         transition: all 0.2s ease-out;
 
@@ -496,18 +508,20 @@
         //
         // SPECIFIC
         // --------------------------------------------------------------------------
-        @include when-inside(".boxnews--insight") {
+        @include when-inside(".boxnews--collections") {
             min-height: auto;
             height: calc(100% - 3rem);
-            // padding-top: 0.5rem;
             padding: 0;
         }
 
         @include when-inside(".boxnews--products") {
             min-height: auto;
             height: calc(100% - 3rem);
-            // padding-top: 0.5rem;
             padding: 0;
+        }
+
+        @include when-inside(".boxnews--career") {
+            // min-height: auto;
         }
     }
 
@@ -520,7 +534,7 @@
 
         @include has("excerpt") {
             margin-bottom: auto;
-            padding: 0 2rem 2rem 2rem;
+            padding: 0 2rem 1rem 2rem;
             @include fontSet(40px, 44px);
             color: $main-color;
 
@@ -552,7 +566,7 @@
 
         @include has("meta") {
             // align-self: flex-start;
-            margin-top: auto;
+            // margin-top: auto;
             color: $black;
 
             > * {
@@ -576,8 +590,9 @@
             margin-top: 1rem;
             margin-bottom: 2.5rem;
 
-            @include when-inside(".boxnews--insight") {
-                padding: 0 1rem;
+            @include when-inside(".boxnews--collections") {
+                margin: 0 0 3rem;
+                padding: 0 2rem;
             }
         }
 
@@ -591,7 +606,7 @@
             @include has("img") {
                 @include cover-img();
 
-                @include when-inside(".boxnews--insight") {
+                @include when-inside(".boxnews--collections") {
                     align-self: flex-start;
                     // margin-top: auto;
                 }
@@ -608,6 +623,16 @@
     @include has("footer") {
         padding: 0.5rem 1rem;
         border-top: 1px solid $black;
+    }
+
+    //
+    // BOX IMG
+    // --------------------------------------------------------------------------
+
+    @include has("photo") {
+        img {
+            padding: 1rem 1rem;
+        }
     }
 }
 
