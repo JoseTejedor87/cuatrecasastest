@@ -12,13 +12,10 @@ use App\Controller\Web\WebController;
 
 class HomeController extends WebController
 {
-
     public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
     {
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
-        // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'events' => $events,
         ]);
     }
