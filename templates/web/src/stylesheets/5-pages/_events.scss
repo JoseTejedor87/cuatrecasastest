@@ -423,10 +423,10 @@
 
 
 .fc-content-skeleton .fc-event-container {
-    border: 1px solid red !important;
+    // border: 1px solid red !important;
 
     &:last-child {
-        border: 1px solid blue !important;
+        // border: 1px solid blue !important;
     }
 }
 
@@ -439,6 +439,8 @@
 
     .day-bg {
         background-color: $event-box-color;
+        // box-shadow: inset 0px 1px 0px 0px rgba($main-color, 0.5),
+        //             inset 1px 0px 0px 0px rgba($main-color, 0.5);
     }
 
     &.fc-dayGridMonth-view {

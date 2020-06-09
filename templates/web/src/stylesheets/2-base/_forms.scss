@@ -18,12 +18,15 @@
         outline: 0;
         box-shadow: 0 0 0 4px rgba($complementary-color, 0.2);
     }
-}
 
-.flex-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    &.is-valid,
+    &.is-invalid {
+        // background-image: none;
+    }
+
+    &.is-valid {
+        background-image: none;
+    }
 }
 
 .form-group {
@@ -34,7 +37,17 @@
     }
 }
 
-.event__form {
+.flex-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+//
+// EVENT FORM
+// --------------------------------------------------------------------------
+#eventBoxForm {
     .form-control,
     .custom-select {
         background-color: transparent;
@@ -42,8 +55,19 @@
 
         &:focus {
             background-color: $white;
-            box-shadow: 0 0 0 4px rgba($complementary-color, 0.2);
         }
+    }
+
+    .txt__fill__form {
+        @include fontSet(23px, 27px);
+        margin-bottom: 0.8rem;
+        color: $main-color;
+    }
+
+    .txt__required__fields {
+        @include fontSet(16px, 18px);
+        margin-bottom: 1em;
+        color: $main-color;
     }
 
     //

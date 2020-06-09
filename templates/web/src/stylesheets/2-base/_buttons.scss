@@ -146,6 +146,15 @@
             visibility: hidden;
         }
     }
+
+    @include when("nohover") {
+        text-align: left;
+
+        @include on-event() {
+            background-color: $main-color;
+            box-shadow: -6px 6px 0 transparent, 0 10px 20px transparent;
+        }
+    }
 }
 
 .btn__naked {
@@ -371,7 +380,7 @@
         font-size: 36px;
         content: '\f3d1';
         color: $white;
-        transform: scale(1);
+        // transform: scale(1);
         transition: color 0.2s ease-out, transform 0.2s ease-out;
 
 
@@ -407,7 +416,7 @@
 
         &:after {
             color: $complementary-color;
-            transform: scale(1.2);
+            // transform: scale(1.2);
         }
     }
 
