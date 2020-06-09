@@ -2,11 +2,11 @@ web:
     resource:       routes/web_routes.yaml
     prefix:         /{_locale}/{_region}
     requirements:
-        _locale:   es|en|pt|zh
-        _region:   sp|lt|pt|uk|de
+        _locale:   es|en|pt
+        _region:   spain|latam|portugal|global
     defaults:
         _locale:    '%app.default_language%'
-        _region:    sp
+        _region:    spain
 
 cms:
     resource:       routes/cms_routes.yaml
