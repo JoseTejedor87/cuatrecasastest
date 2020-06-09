@@ -382,6 +382,14 @@
                 $("#initial").val(initial);
             })
             .fail(function() {
+                var URLactual = window.location;
+                var n = String(URLactual).search('page');
+                if(n > -1){
+                    URLactual = String(URLactual).slice(0, -1);
+                    $(location).attr('href',URLactual+page);
+                }else{
+                    $(location).attr('href',URLactual+"&page="+page);
+                }
             });
     }
 </script>

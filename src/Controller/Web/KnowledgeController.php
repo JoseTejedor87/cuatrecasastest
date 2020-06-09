@@ -126,6 +126,7 @@ class KnowledgeController extends WebController
 
     public function eventDetail(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
     {
+        setlocale(LC_ALL,"es_ES");
         $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
         // $this->isThisLocale($request, $request->attributes->get('idioma'));
@@ -166,7 +167,7 @@ class KnowledgeController extends WebController
                 foreach ($event->getActivities() as $keyActivity => $activity) {
                     $activities = $activities . $activity->translate('es')->getTitle();
                 }
-               
+
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
                     "titleURL" => $event->translate('es')->getSlug(),
@@ -175,8 +176,8 @@ class KnowledgeController extends WebController
                     "sector" => $activities,
                     "place" => $event->translate('es')->getCustomAddress(),
                     "placeLink" => "",
-                    "fullDate" => "",
-                    "fullTime" => "",
+                    "fullDate" => $event->getStartDate()->format('j-F'),
+                    "fullTime" => $event->getStartDate()->format('H:i') ."-".$event->getEndDate()->format('H:i'),
                     "button" => "Inscribirme",
                     "speakersTitle" => "Ponentes",
                     "speakers" =>  array( )

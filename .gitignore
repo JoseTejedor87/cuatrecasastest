@@ -23,3 +23,5 @@ _web-cuatrecasas.sublime-workspace
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+
+/config/packages/doctrine.yaml

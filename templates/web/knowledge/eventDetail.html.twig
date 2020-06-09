@@ -9,7 +9,6 @@
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
 {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
     <main role="main">
         <article class="container">

@@ -104,9 +104,9 @@ class ajaxGetLawersController extends WebController
                     "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
                     "sector" => $activities,
                     "place" => $event->translate('es')->getCustomAddress(),
-                    "placeLink" => "",
-                    "fullDate" => "",
-                    "fullTime" => "",
+                    "placeLink" => "test place",
+                    "fullDate" => "test full date",
+                    "fullTime" => "test time",
                     "button" => "Inscribirme",
                     "speakersTitle" => "Ponentes",
                     "speakers" =>  array( )

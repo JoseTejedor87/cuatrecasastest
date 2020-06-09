@@ -11,9 +11,6 @@ use Symfony\Component\HttpClient\HttpClient;
 use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
 
-/**
- * @Route("gestorcontactos")
-*/
 class TestController extends AbstractController
 {
     private $soap;
@@ -21,76 +18,57 @@ class TestController extends AbstractController
     {
         $this->soap  = new SOAPContactsClientController;
     }
-     /**
-     * @Route("/getPaises", name="getPaises", methods={"GET"})
-     */
+
     public function getPaises(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getPaises?LanguageId=es
         dd($this->soap->getPaises($request));
     }
 
-    /**
-     * @Route("/getProvincias", name="getProvincias", methods={"GET"})
-     */
     public function getProvincias(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getProvincias?PaisId=es
         dd($this->soap->getProvincias($request));
 
     }
-    /**
-     * @Route("/getIdiomas", name="getIdiomas", methods={"GET"})
-     */
+
     public function getIdiomas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getIdiomas?IdiomaId=es
         dd($this->soap->getIdiomas($request));
 
     }
-    /**
-     * @Route("/getAreasInteres", name="getAreasInteres", methods={"GET"})
-     */
+
     public function getAreasInteres(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getAreasInteres?IdiomaId=es
         dd($this->soap->getAreasInteres($request));
     }
-    /**
-     * @Route("/getOficinas", name="getOficinas", methods={"GET"})
-     */
+
     public function getOficinas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getOficinas?OficinaId=WALC
         dd($this->soap->getOficinas($request));
     }
-    /**
-     * @Route("/getSecretarias", name="getSecretarias", methods={"GET"})
-     */
+
     public function getSecretarias(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSecretarias?Iniciales=JH
         dd($this->soap->getSecretarias($request));
     }
-    /**
-     * @Route("/getResponsablesMarketing", name="getResponsablesMarketing", methods={"GET"})
-     */
+
     public function getResponsablesMarketing(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getResponsablesMarketing?Iniciales=LCM
         dd($this->soap->getResponsablesMarketing($request));
     }
-    /**
-     * @Route("/getSociosResponsables", name="getSociosResponsables", methods={"GET"})
-     */
+
     public function getSociosResponsables(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSociosResponsables?Iniciales=JCV
         dd($this->soap->getSociosResponsables($request));
     }
-    /**
-     * @Route("/getContactoWebtForm", name="getContactoWebtForm", methods={"GET"})
-     */
+
     public function getContactoWebtForm(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getContactoWebtForm?Guid=00505693770F1EDA8B93326D22524160
@@ -175,29 +153,4 @@ class TestController extends AbstractController
         dd($this->soap->addContactoWebForm($request));
     }
 
-    /**
-     * @Route("/getCategoriasPost", name="getCategoriasPost", methods={"GET"})
-     */
-    public function getCategoriasPost(ArticleRepository $ArticleRepository)
-    {
-        $client = HttpClient::create();
-        $articulos = $ArticleRepository->findAll();
-        foreach ($articulos as $keyArticulo => $articulo) {
-            $categoria = $articulo->getCategory();
-            $LanguagesCategoria = $categoria->getLanguages();
-            $Oldlink = $categoria->translate($LanguagesCategoria[0])->getOldlink();
-            $Oldlinka = explode('/',$Oldlink);
-            $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
-            $response =  $client->request('GET','https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/media?parent='.$articulo->getOldId());
-            $status = $response->getStatusCode();
-            if($status!=400){
-            $content = $response->toArray();
-                if(isset($content[0])){
-                    
-                }
-            }
-            
-        }
-        
-    }
 }

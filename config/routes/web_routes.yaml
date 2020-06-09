@@ -1,3 +1,60 @@
+# Test BORRARRRR
+# ###########################################
+gestorgetpaises:
+    path:
+        en:   /gestor/getpaises
+        es:   /gestor/getpaises
+    methods:    GET
+    controller: App\Controller\TestController::getPaises
+gestorgetProvincias:
+    path:
+        en:   /gestor/getProvincias
+        es:   /gestor/getProvincias
+    methods:    GET
+    controller: App\Controller\TestController::getProvincias
+gestorgetIdiomas:
+    path:
+        en:   /gestor/getIdiomas
+        es:   /gestor/getIdiomas
+    methods:    GET
+    controller: App\Controller\TestController::getIdiomas
+gestorgetAreasInteres:
+    path:
+        en:   /gestor/getAreasInteres
+        es:   /gestor/getAreasInteres
+    methods:    GET
+    controller: App\Controller\TestController::getAreasInteres
+gestorgetOficinas:
+    path:
+        en:   /gestor/getOficinas
+        es:   /gestor/getOficinas
+    methods:    GET
+    controller: App\Controller\TestController::getOficinas
+gestorgetSecretarias:
+    path:
+        en:   /gestor/getSecretarias
+        es:   /gestor/getSecretarias
+    methods:    GET
+    controller: App\Controller\TestController::getSecretarias
+gestorgetResponsablesMarketing:
+    path:
+        en:   /gestor/getResponsablesMarketing
+        es:   /gestor/getResponsablesMarketing
+    methods:    GET
+    controller: App\Controller\TestController::getResponsablesMarketing
+gestorgetSociosResponsables:
+    path:
+        en:   /gestor/getSociosResponsables
+        es:   /gestor/getSociosResponsables
+    methods:    GET
+    controller: App\Controller\TestController::getSociosResponsables
+gestorgetContactoWebtForm:
+    path:
+        en:   /gestor/getContactoWebtForm
+        es:   /gestor/getContactoWebtForm
+    methods:    GET
+    controller: App\Controller\TestController::getContactoWebtForm
+
 # HOME
 # ###########################################
 home:
