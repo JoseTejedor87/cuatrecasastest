@@ -21,7 +21,7 @@
     background-color: rgba($black, 0.1);
 
     .team__member {
-        height: 30rem;
+        height: 22rem;
     }
 
 
@@ -129,9 +129,7 @@
 
         @include has("practice") {
             @include reset-list;
-            width: 100%;
-            padding: 0 0;
-            margin: 0 0;
+            display: flex;
             flex-wrap: wrap;
             overflow: hidden;
 
@@ -215,10 +213,6 @@
 
         // one item
         &:first-child:nth-last-child(1) {
-            .team__member__practice {
-                display: flex;
-            }
-
             .team__member__details {
                 width: 75%;
             }
@@ -228,10 +222,6 @@
         &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
             @include on-event() {
                 flex-grow: 3;
-
-                .team__member__practice {
-                    display: flex;
-                }
             }
 
         }
@@ -240,10 +230,6 @@
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
             @include on-event() {
                 flex-grow: 4;
-
-                .team__member__practice {
-                    display: flex;
-                }
             }
         }
 
@@ -251,10 +237,6 @@
         &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
             @include on-event() {
                 flex-grow: 5;
-
-                .team__member__practice {
-                    display: flex;
-                }
             }
         }
 
@@ -262,10 +244,6 @@
         &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
             @include on-event() {
                 flex-grow: 6;
-
-                .team__member__practice {
-                    display: flex;
-                }
             }
         }
 

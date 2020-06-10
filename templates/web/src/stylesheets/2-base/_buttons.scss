@@ -146,8 +146,16 @@
             visibility: hidden;
         }
     }
-}
 
+    @include when("nohover") {
+        text-align: left;
+
+        @include on-event() {
+            background-color: $main-color;
+            box-shadow: -6px 6px 0 transparent, 0 10px 20px transparent;
+        }
+    }
+}
 
 .btn__naked {
     @include reset-link-button;
@@ -166,6 +174,11 @@
 
     &:focus {
         box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
 }
 
@@ -305,7 +318,7 @@
         font-weight: normal;
         line-height: 1;
         color: $white;
-        transform: scale(1);
+        // transform: scale(1);
         transition: all 0.2s ease-out;
     }
 
@@ -320,7 +333,7 @@
 
         &:after {
             color: $complementary-color;
-            transform: scale(1.2);
+            // transform: scale(1.2);
         }
     }
 }
@@ -367,7 +380,7 @@
         font-size: 36px;
         content: '\f3d1';
         color: $white;
-        transform: scale(1);
+        // transform: scale(1);
         transition: color 0.2s ease-out, transform 0.2s ease-out;
 
 
@@ -403,7 +416,7 @@
 
         &:after {
             color: $complementary-color;
-            transform: scale(1.2);;
+            // transform: scale(1.2);
         }
     }
 
@@ -450,8 +463,10 @@
 
 .button__bookmark {
     position: relative;
-    width: 44px;
-    height: 44px;
+    top: -6px;
+    right: -6px;
+    width: 40px;
+    height: 40px;
     margin: 0 0;
     padding: 0.2em;
     color: red;
@@ -463,11 +478,8 @@
 
     &:after {
         position: absolute;
-        top: 2px;
-        left: 2px;
-        // display: inline-block;
-        // width: 1px;
-        // height: 1px;
+        top: 0;
+        left: 0;
         content: '\e867';
         font-family: 'Material Icons';
         @include fontSet(40px, 40px);
@@ -481,8 +493,8 @@
         outline: none;
 
         &:after {
-            top: 6px;
-            left: 6px;
+            top: 4px;
+            left: 4px;
             @include fontSet(32px, 32px);
         }
     }
@@ -528,5 +540,14 @@
 // --------------------------------------------------------------------------
 
 .plain__button {
+    @include background-link($complementary-color, $white, $complementary-color);
+}
+
+
+//
+// FULL BOX INVISIBLE LINK
+// --------------------------------------------------------------------------
+
+.box__link {
     @include background-link($complementary-color, $white, $complementary-color);
 }

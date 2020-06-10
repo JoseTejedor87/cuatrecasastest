@@ -35,6 +35,7 @@ $events-color:        rgb(70, 0, 29) !default;         // #46001D
 $insights-color:      rgb(255, 99, 105) !default;      // #FF6369
 $cases-color:         rgb(233, 155, 0) !default;       // #E99B00
 $recomended-color:    rgb(48, 64, 77) !default;        // #30404D
+$related-color:       rgb(255, 99, 105) !default;      // #FF6369
 $awards-color:        rgb(165, 165, 165) !default;     // #A5A5A5
 $tools-color:         rgb(113, 85, 103) !default;      // #715567
 $career-color:        rgb(0, 0, 0) !default;           // #000000
@@ -44,7 +45,17 @@ $others2-color:       rgb(85, 135, 82) !default;       // #558752
 
 
 //
-// Others
+// BOX NEWS / EVENTS COLORS
+//
+$article-color:         rgb(0, 151, 143) !default;          // #00978f
+$event-color:           rgb(70, 0, 29) !default;            // #46001d
+$insight-color:         rgb(255, 99, 105) !default;         // #FF6369
+$cases-color:           rgb(233, 155, 0) !default;          // #e99b00
+$related-color:         rgb(51, 117, 181) !default;         // #3375b5
+
+
+//
+// OTHERS
 //
 $others-01:       rgb(82, 65, 77) !default;         // #52414D
 $others-02:       rgb(57, 44, 0) !default;          // #392C00
@@ -59,23 +70,10 @@ $others-10:       rgb(115, 104, 59) !default;       // #73683B
 $others-11:       rgb(202, 209, 120) !default;      // #CAD178
 
 
-
-
-
-//
-// BOX NEWS / EVENTS COLORS
-//
-$article-color:         rgb(0, 151, 143) !default;          // #00978f
-$event-color:           rgb(70, 0, 29) !default;            // #46001d
-$insight-color:         rgb(255, 99, 105) !default;         // #FF6369
-$cases-color:           rgb(233, 155, 0) !default;          // #e99b00
-$related-color:         rgb(51, 117, 181) !default;         // #3375b5
-
-
 //
 // BG BOX COLORS
 //
-$event-box-color:        rgb(246, 237, 241) !default;        // #f6edf1
+$event-box-color:        rgb(246, 237, 241) !default;        // #F6EDF1
 
 
 //

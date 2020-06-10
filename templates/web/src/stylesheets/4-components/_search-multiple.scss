@@ -2,56 +2,10 @@
 // MULTIPLE SEARCH
 // ==========================================================================
 
+// FILTERS (accordion & checkboxes)
 
-
-// ISOTOPE
-
-#advancedFilters {
-    border: 1px solid red;
-
-    .item {
-        width: 100px;
-        height: 100px;
-        float: left;
-        margin: 5px;
-        padding: 5px;
-    }
-
-
-    .item p {
-        margin: 0;
-    }
-
-    .red {
-        background: #F33;
-    }
-
-    .blue {
-        background: #88F;
-    }
-
-    .green {
-        background: #3A3;
-    }
-
-    .orange {
-        background: orange;
-    }
-
-    select, label, input {
-        font-size: 20px;
-    }
-
-    label {
-        margin-right: 10px;
-    }
-}
-
-
-
-// FILTERS
-
-#filterOrderby {
+#filterOrderby,
+.filters__order {
     display: none;
     display: flex;
     padding: 2rem 0 1rem;
@@ -108,14 +62,22 @@
     }
 }
 
+#applyFilters,
+.filters__apply {
+    display: none;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
 #checksOutput {
     display: none;
-    display: inline-block;
+    display: block;
+    margin-top: 3rem;
 
     .checkbox-tag {
         display: flex;
         float: left;
-        // height: 29px;
         margin: 0 1rem 1rem 0;
         padding: 0 0 0 1rem;
         @include fontSet(16px, 28px);
@@ -135,7 +97,7 @@
         background-color: $complementary-color;
 
         .icon {
-            @include fontSet(20px, 20px);
+            @include fontSet(20px, 30px);
             color: $white;
         }
 
@@ -143,13 +105,6 @@
             background-color: $main-color;
         }
     }
-}
-
-#applyFilters {
-    display: none;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0 4rem 0;
 }
 
 #deleteFilters {
@@ -164,7 +119,7 @@
 
 
 #filterWrapper {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 #filterTabs {
@@ -199,10 +154,11 @@
         }
 
         @include on-event {
+            cursor: pointer;
             color: $complementary-color;
         }
 
-        &.active {
+        &:not(.collapsed) {
             color: $complementary-color;
             background-color: transparent;
 
@@ -215,30 +171,22 @@
 
 #filterTabsContent {
 
-    .tab-pane {
-        padding: 2rem 0 2rem 4rem;
+    .collapse,
+    .collapsing {
 
-        .chechbox-wrapper {
-            // display: flex;
-            // flex-direction: column;
-            // flex-wrap: wrap;
-
+        .chechbox__wrapper {
+            padding: 2rem 0 1rem 4rem;
             column-count: 3;
-            // column-gap: 40px;
+            column-gap: 2rem;
             column-fill: auto;
-            // column-fill: balance;
-        }
 
-        .checkbox {
-            // display: flex;
-            // flex: 0 0 33.3333%;
+            .checkbox {
+                input[type="checkbox"] + .checkbox-label {
+                    display: inline-flex;
+                    margin-bottom: 1.2rem;
+                }
+            }
         }
-
-        // label {
-        //     display: flex;
-        //     flex: 0 0 33.3333%;
-        //     border: 1px solid yellow;
-        // }
     }
 }
 

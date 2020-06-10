@@ -1,178 +1,126 @@
-$(function () {
-
-    // hide search elements
-    $('#filterOrderby').hide();
-    $('#applyFilters').hide();
-
-    // ordery by buttons
-    $('#abcOder').click(function (e) {
-        e.preventDefault();
-
-        $(this).addClass('active');
-        if($(this).hasClass('active')){
-            $('#popOder').removeClass('active');
-        }
-    });
-
-    $('#popOder').click(function (e) {
-        e.preventDefault();
-
-        $(this).addClass('active');
-        if($(this).hasClass('active')){
-            $('#abcOder').removeClass('active');
-        }
-    });
-
-    // AUTO CLOSE ACTIVE TAB CONTENT
-    // $('#filter-pills-tab a').click(function (e) {
-    $('a[data-toggle="tab"]').click(function (e) {
-        e.preventDefault();
-
-        // to do...
-
-        // console.log($(this).hasClass('active'));
-
-        $('#filterOrderby').show();
-
-        if($(this).hasClass('active')){
-
-            console.log('YES active');
-
-            $(this).removeClass('active');
-            $(this).addClass('probando123');
-
-            $($(this).attr('aria-selected', 'false'));
-
-            // $($(this).attr('href')).removeClass('active');
-
-        } else {
-
-            // console.log('NO active');
-            e.preventDefault();
-
-            // $($(this).attr('aria-selected', 'true'));
-            $(this).removeClass('probando123');
-
-            // e.preventDefault();
-            // $(this).tab('show');
-        }
-    });
-
-});
-
-
 /*
-// ISOTOPE INCLUSIVE FILTERS
+// INCLUSIVE FILTERS
 */
 
-// init Isotope
-var $container = $('.grid-masonry').isotope({
-    itemSelector: '.grid-item',
-    percentPosition: true,
-    masonry: {
-        columnWidth: '.grid-sizer'
-    }
-});
-
 // checkboxes selected tags
-var $checksOutputTags = $('#checksOutput');
+var $checksOutput = $('#checksOutput');
+$checksOutput.hide();
 
 // filter with selects and checkboxes
 var $checkBoxes = $('#filterTabsContent input');
 
 // map input values to an array
 var inclusivesFilters = [];
+var inclusivesText = [];
 
 // checkboxes action
 $checkBoxes.change( function() {
     checkboxReset();
 });
 
-$($checksOutputTags).on('click', '.checkbox-tag .close-tag', function(element){
+$($checksOutput).on('click', '.checkbox-tag .close-tag', function(element){
     var value = $(this).data( "value" ).replace('.', '');
     $('#'+value).prop( "checked", false );
-
-    // var txt = $(this).next('label').text();
-    // console.log(txt);
 
     checkboxReset();
 });
 
-/*
-* Getting multiple checked checkbox labels into an array
-https://stackoverflow.com/questions/22907422/jquery-checked-checkboxes-sibling-text
-https://stackoverflow.com/questions/30182001/getting-multiple-checked-checkbox-labels-into-an-array
-
-$('.submit').on("click", function (e) {
-    //got all checked checkboxes into 'children'.
-    var array = $("div.category-panel input:checked").next('label').map(function(){
-        return $(this).text();
-    }).get();
-
-    //Show the array.
-    for (var i = 0; i < array.length; i++) {
-        console.log(array[i]);
-    }
-});
- */
 
 function checkboxReset() {
     // empty checkboxes array
     inclusivesFilters = [];
+    inclusivesText = [];
 
     // inclusive filters from checkboxes
-    $checkBoxes.each( function( i, elem ) {
+    $checkBoxes.each(function(i, elem) {
         // if checkbox, use value if checked
         if ( elem.checked ) {
+
+            // checkbox value
             inclusivesFilters.push( elem.value );
             // console.log('checkbox value: '+elem.value);
 
+            // checkbox text
             var labelTxt = $(this).next('label').text();
-            // console.log('label txt: '+labelTxt);
+            inclusivesText.push(labelTxt);
+
+            // var
+            // console.log('label txt: '+inclusivesText);
         }
     });
 
     // chekbox tags array
     var filterTags = '';
+    var filterText = '';
 
     // checkboxex autoclose tags
-    inclusivesFilters.forEach(function(tag, index) {
-        filterTags = filterTags + '<span class="checkbox-tag">'+tag.replace('.', '')+'<button type="button" class="close-tag" data-value="'+tag+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
+
+    inclusivesFilters.forEach(function(value) {
+        filterTags = filterTags + '<span class="checkbox-tag">'+value.replace('.', '')+'<button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
     });
+
+    /*
+    inclusivesText.forEach(function(text) {
+        filterText = filterText + '<span class="checkbox-tag">'+text+'';
+    });
+
+    inclusivesFilters.forEach(function(value) {
+        filterTags = filterText + '<button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
+    });
+    */
+
+
 
     // tag cloud elements
+    var showText    = filterText;
     var showTags    = filterTags;
+    var showFull    = filterText + filterTags;
+
+
+    var valueTags    = filterTags;
     var cleanTags   = '<a href="#" id="deleteFilters">Limpiar filtros</a>';
-    var tagCloud    = showTags.concat(cleanTags);
+    var fullTags    = showTags.concat(cleanTags);
 
+    console.log('showTags: '+showTags);
+    console.log('showText: '+showText);
+    console.log('showFull: '+showFull);
 
-    // print all tags & buttons
+    var $accordionFilters = $('#filterTabsContent .collapse');
+
+    // checkboxes & tags & buttons functionality
     if (inclusivesFilters.length == 0) {
-        $checksOutputTags.hide();
-        $('#applyFilters').hide();
+        $checksOutput.fadeOut(200);
+        $('.apply_button').prop('disabled', true);
+
+        $('.order_abc').removeClass('active');
+        $('.order_pop').removeClass('active');
+
+        // close accordion? not sure...
+        // if($accordionFilters.hasClass('show')) {
+        //     $accordionFilters.collapse('hide');
+        // }
 
     } else if (inclusivesFilters.length == 1) {
-        $checksOutputTags.show();
-        $('#applyFilters').show();
-        $checksOutputTags.html(showTags);
+        $checksOutput.fadeIn();
+        $('.apply_button').prop('disabled', false);
+        $checksOutput.html(valueTags);
 
     } else if (inclusivesFilters.length > 1) {
-        $checksOutputTags.show();
-        $('#applyFilters').show();
-        $checksOutputTags.html(tagCloud);
-
-    } else {
-        $checksOutputTags.hide();
-        $('#applyFilters').show();
-        $checksOutputTags.html(tagCloud);
+        $checksOutput.fadeIn();
+        $checksOutput.html(fullTags);
     }
 
-    // action buttons
-    $('#applyFilters').on('click', function(e){
-        e.preventDefault();
+    // apply button functionality
+    $('.apply_button').on('click', function() {
+        if($accordionFilters.hasClass('show')) {
+            $accordionFilters.collapse('hide');
+        }
+
+        // to do...
     });
 
-    $('#deleteFilters').on('click', function(e){
+    // clear all tags & checkboxes
+    $('#deleteFilters').on('click', function(e) {
         e.preventDefault();
         inclusivesFilters.forEach(function(tag, index) {
             var value = tag.replace('.', '');
@@ -181,9 +129,23 @@ function checkboxReset() {
         });
     });
 
+    // Order by buttons
+    $('.order_abc').click(function (e) {
+        e.preventDefault();
+        $(this).addClass('active');
+        if($(this).hasClass('active')) {
+            $('.order_pop').removeClass('active');
+        }
+    });
+
+    $('.order_pop').click(function (e) {
+        e.preventDefault();
+        $(this).addClass('active');
+        if($(this).hasClass('active')) {
+            $('.order_abc').removeClass('active');
+        }
+    });
+
     // combine inclusive filters
     var filterValue = inclusivesFilters.length ? inclusivesFilters.join(', ') : '*';
-
-    // main isotope funcionallity
-    $container.isotope({ filter: filterValue })
 }

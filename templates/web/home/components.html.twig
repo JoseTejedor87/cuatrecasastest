@@ -1,0 +1,242 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<style>
+    .team {
+        padding: 4rem 0 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="sectors">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Componentes
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Componentes compartidos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+        </article>
+    </main>
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp21] Módulo Career</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/career.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp02] Contenido destacado</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/related-content.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp02] Contenido destacado - Slider</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/related-content-slider.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp26] Próximos Eventos</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/events.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp26] Próximos Eventos - Slider</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/related-events-slider.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp08b] Destacado Burdeos / Foto</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/discover.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp12] Premios</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/awards.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp11] Casos (elementos activos? barra slider? botón ver más?)</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/cases.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp25] Insights destacados</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/collections.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp08] Destacado Picto (fondo gris o rosa? picto fondo transparent o blanco?)</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/insight.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp07] Equipo 1</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/team-one.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp07] Equipo 2</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/team-two.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp07] Equipo 3</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/team-three.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp07] Equipo 4</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/team-four.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp07] Equipo 5</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/team-five.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[...] Testimonios</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/testimonials.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp50] Módulo Burdeos Servicios</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/related-services.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp22] Webs corporativas</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/brands.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp27] CTA formulario</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/call-to-action.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        web.global.sliderGeneral();
+        // web.global.sliderCases();
+        web.global.sliderAwards();
+        web.global.testimonials();
+
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    });
+</script>
+{% endblock %}

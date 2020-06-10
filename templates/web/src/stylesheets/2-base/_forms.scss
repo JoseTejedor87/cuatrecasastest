@@ -7,16 +7,33 @@
     @include fontSet(22px, 22px);
     height: auto;
     padding: 0.8rem 1rem;
-    color: $black;
+    color: $main-color;
     border: 1px solid rgba($black, 0.2);
     border-radius: 0;
 
     &:focus {
         color: $main-color;
-        background-color: #fff;
+        background-color: $white;
         border-color: $complementary-color;
         outline: 0;
         box-shadow: 0 0 0 4px rgba($complementary-color, 0.2);
+    }
+
+    &.is-valid,
+    &.is-invalid {
+        // background-image: none;
+    }
+
+    &.is-valid {
+        background-image: none;
+    }
+}
+
+.form-group {
+    .valid-feedback,
+    .invalid-feedback {
+        padding: 0 1rem;
+        color: $main-color;
     }
 }
 
@@ -26,6 +43,72 @@
     align-items: center;
 }
 
+
+//
+// EVENT FORM
+// --------------------------------------------------------------------------
+#eventBoxForm {
+    .form-control,
+    .custom-select {
+        background-color: transparent;
+        border: 1px solid rgba($complementary-color, 1);
+
+        &:focus {
+            background-color: $white;
+        }
+    }
+
+    .txt__fill__form {
+        @include fontSet(23px, 27px);
+        margin-bottom: 0.8rem;
+        color: $main-color;
+    }
+
+    .txt__required__fields {
+        @include fontSet(16px, 18px);
+        margin-bottom: 1em;
+        color: $main-color;
+    }
+
+    //
+    // PLACEHOLDERS TUNNING
+    //
+
+    select:required:invalid {
+        color: $complementary-color;
+    }
+
+    option[value=""][disabled] {
+        display: none;
+    }
+
+    ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: $complementary-color;
+        opacity: 1;
+    }
+    ::placeholder {
+        /* Firefox */
+        color: $complementary-color;
+        opacity: 1;
+    }
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $complementary-color;
+        opacity: 1;
+    }
+    :-ms-input-placeholder {
+        /* $complementary-color Explorer 10-11 */
+        color: $complementary-color;
+        opacity: 1;
+    }
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: $complementary-color;
+        opacity: 1;
+    }
+
+}
 
 
 //
@@ -251,7 +334,7 @@ $color-off: $white;
 
             span {
                 display: inline-block;
-                padding: 0.2rem 1rem 0 0;
+                padding: 0.2rem 0 0 0;
                 @include fontSet(18px, 22px);
                 text-align: left;
                 white-space: nowrap;

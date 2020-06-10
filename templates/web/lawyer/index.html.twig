@@ -38,14 +38,13 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                        <form action="{{ relative_path('/es/lawyer/filter')}}" method="get">
-                            <input type="text" class="form-control" placeholder="Buscar abogado" name="initial">
+                            <input type="text" id="textSearch" class="form-control" placeholder="Buscar abogado" name="initial">
+                            <input type="hidden" id="initial">
                             <div class="input-group">
-                                <button class="search_box__button" type="submit">
+                                <button id="searchButton" class="search_box__button" type="submit">
                                     <i class="icon ion-ios-search-strong"></i>
                                 </button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </section>
@@ -53,53 +52,31 @@
             <section class="row search_filters search_filters--lawyers">
                 <div class="col">
                     <div class="search_selects">
-                        <select id="services" class="custom__select">
-                            <option value="hide">Por servicios</option>
-                            <option value="">Competencia y Derecho de la UE</option>
-                            <option value="">Corporate Governance y Compliance</option>
-                            <option value="">Derecho contable</option>
-                            <option value="">Derecho Laboral</option>
-                            <option value="">Financiero</option>
-                            <option value="">Fiscal</option>
-                            <option value="">Fiscalidad Contenciosa</option>
-                            <option value="">Fiscalidad Financiera</option>
-                            <option value="">Fusiones y Adquisiciones</option>
-                            <option value="">Litigación</option>
-                            <option value="">Mediación</option>
-                            <option value="">Mercado de valores</option>
+                        <select id="services" class="custom__select" style="width:25%;">
+                            <option value="">Por servicios</option>
+                            {% for practice in practices %}
+                                {% if practice.translate(app.request.getLocale()).title  %}
+                                    <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
-                        <select id="sector" class="custom__select">
-                            <option value="hide">Por sector</option>
-                            <option value="">Alimentación</option>
-                            <option value="">Arte</option>
-                            <option value="">Brexit</option>
-                            <option value="">Canadian Desk</option>
-                            <option value="">Ciberseguridad</option>
-                            <option value="">Consumo y Retail</option>
-                            <option value="">Deporte</option>
-                            <option value="">Empresa Familiar</option>
-                            <option value="">Energía y Recursos Naturales</option>
-                            <option value="">Farmacia y Sanitario</option>
+                        <select id="sector" class="custom__select" style="width:25%;">
+                            <option value="">Por sector</option>
+                            {% for sector in sectors %}
+                                {% if sector.translate(app.request.getLocale()).title  %}
+                                    <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
-                        <select id="office" class="custom__select">
-                            <option value="hide">Por oficina</option>
-                            <option value="">Barcelona</option>
-                            <option value="">Madrid</option>
-                            <option value="">Lisboa</option>
-                            <option value="">Beijing</option>
-                            <option value="">Bogotá</option>
-                            <option value="">Brussels</option>
-                            <option value="">Casablanca</option>
-                            <option value="">Lima</option>
-                            <option value="">London</option>
-                            <option value="">Luanda</option>
-                            <option value="">Maputo</option>
-                            <option value="">Mexico City</option>
-                            <option value="">New York</option>
-                            <option value="">Sao Paulo</option>
-                            <option value="">Shanghai</option>
+                        <select id="office" class="custom__select" style="width:25%;">
+                            <option value="">Por oficina</option>
+                            {% for office in offices %}
+                                {% if office.city  %}
+                                    <option value="{{office.id}}">{{ office.city  }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
-                        <select id="category" class="custom__select">
+                        <select id="category" class="custom__select" style="width:25%;">
                             <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
@@ -116,7 +93,7 @@
                     <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
                         {% for letter in range('a','z') %}
-                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}">{{ letter }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_directory') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
                         {% endfor %}
                         </ul>
                     </nav>
@@ -131,9 +108,9 @@
                 </div>
             </section>
 
-            {% if countLawyers != ''  %}
-            <section id="lawyerAjaxResults" class="row lawyer__search">
 
+            <section id="lawyerAjaxResults" class="row lawyer__search">
+                {% if countLawyers != ''  %}
                 <div class="col">
 
                     <!-- Info Results -->
@@ -178,20 +155,20 @@
                     <nav class="search_pagination" aria-label="Results pagination">
                         <ul class="pagination" id="lawyerPagination">
                             <li class="page-item">
-                                <a class="page-link"  aria-label="Previous" href="filter?initial={{ app.request.get('initial') }}&page=1"  data-page="1">
+                                <a class="page-link"  aria-label="Previous" href="abogados{{ url }}&page=1"  data-page="1">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
                             {% for i in 1..pagesTotal %}
                             <li class="page-item">
-                                <a class="page-link {{ i==page ? ' active' : '' }}" href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
+                                <a class="page-link {{ i==page ? ' active' : '' }}" href="abogados{{ url }}&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
                             </li>
                             {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" #}
                             {% endfor %}
 
                             <li class="page-item">
-                                <a class="page-link" href="filter?initial={{ app.request.get('initial') }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
+                                <a class="page-link" href="abogados{{ url }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
@@ -201,15 +178,15 @@
                     {% endif %}
 
                 </div>
-
-            </section>
             {% endif %}
+            </section>
+
         </article>
     </main>
 
     {% if  countLawyers == '' %}
         {% include 'web/shared/related-content-slider.html.twig' %}
-        {% include 'web/shared/insight-highlight.html.twig' %}
+        {% include 'web/shared/insight.html.twig' %}
     {% endif %}
     {% include 'web/shared/career.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
@@ -232,35 +209,114 @@
     $( document ).ready(function() {
         web.global.customSelects();
         web.global.lawyerResults();
-        web.global.sliderNews();
+        web.global.sliderGeneral();
 
-        $('#lawyerPagination').on('click', '.page-link', function(event){
-            event.preventDefault();
-
+        $(document).on("click", "#searchButton", function(){
+            ajax();
+        });
+        $(".select-options li").on("click", function(){
+            ajax();
+        });
+        $(".search_alphabet .page-link").on("click", function(){
+            var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
+            ajax(1,initial);
+        });
+        $(document).on('click', '.page-link', function(event){
+            $('#lawyerPagination .page-link').removeClass('active');
+            $(this).addClass('active');
             var page = $(this).data("page");
             if(!page){
                 page=1;
             }
-            var initial = "{{ app.request.get('initial') }}";
-            $('#lawyerPagination .page-link').removeClass('active');
-            $(this).addClass('active');
+           ajax(page);
+
+        });
+
+    });
+
+    function ajax(page,initial) {
+            event.preventDefault();
+            textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
+            services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
+            sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
+            office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
+            initial = initial ? initial : $("#initial").val();
+            var page = page ? page : $(this).data("page");
+            if(!page){
+                page=1;
+            }
             $.ajax({
-                method: "POST",
+                method: "GET",
+                data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
                 url: "{{ path('lawyers_index') }}",
-                data: { page: page, initial: initial },
                 beforeSend: function( xhr ) {
                     $('.lawyer__search__wrapper__loader').fadeIn('fast');
-                    $('html, body').animate({ scrollTop: $('#lawyerAjaxResults').offset().top }, 1000);
                 }
             })
             .done(function( msg ) {
-
-
                 $('.lawyer__search__wrapper__loader').fadeOut();
-                $('.lawyer__search__wrapper').empty();
-
-                $('html, body').animate({ scrollTop: $('#lawyerAjaxResults').offset().top }, 1000);
+                $('#lawyerAjaxResults').empty();
+                var url= "";
+                if(msg['initial']){
+                    if(url == ""){
+                        url= "?initial="+msg['initial'];
+                    }else{
+                        url= url + "&initial="+msg['initial'];
+                    }
+                }
+                if(msg['office']){
+                    if(url == ""){
+                        url= "?office="+msg['office'];
+                    }else{
+                        url= url + "&office="+msg['office'];
+                    }
+                }
+                if(msg['textSearch']){
+                    if(url == ""){
+                        url= "?textSearch="+msg['textSearch'];
+                    }else{
+                        url= url + "&textSearch="+msg['textSearch'];
+                    }
+                }
+                if(msg['services']){
+                    if(url == ""){
+                        url= "?services="+msg['services'];
+                    }else{
+                        url= url + "&services="+msg['services'];
+                    }
+                }
+                if(msg['sector']){
+                    if(url == ""){
+                        url= "?sector="+msg['sector'];
+                    }else{
+                        url= url + "&sector="+msg['sector'];
+                    }
+                }
+                if(msg['page']>1){
+                    if(url == ""){
+                        url= "?page="+msg['page'];
+                    }else{
+                        url= url + "&page="+msg['page'];
+                    }
+                }
                 var html = '';
+                html = `<div class="col">
+                                <!-- Info Results -->
+                                <h2 class="section__title">Resultados de búsqueda</h2>
+                                <div class="lawyer__search__info">
+                                    <div class="lawyer__search__text">Mostramos `+msg['countLawyers']+` perfiles que encajan con la búsqueda</div>
+                                    <div class="lawyer__search__chooser">
+                                        <button type="button" class="icon__button list">
+                                            <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
+                                        </button>
+                                        <button type="button" class="icon__button grid active">
+                                            <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- List Results -->
+                                <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">`;
                 msg['lawyers'].forEach(function(lawyer){
                     html = html + `
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
@@ -278,9 +334,49 @@
                         </div>
                     `;
                 });
+                html = html + `</div>`;
 
-                $('.lawyer__search__wrapper').append( html  );
-                window.history.replaceState(null, null, "filter?initial="+msg['initial']+"&page="+msg['page']);
+                    if(msg['pagesTotal']>1){
+                        html = html + `<nav class="search_pagination" aria-label="Results pagination">
+                                                <ul class="pagination" id="lawyerPagination">
+                                                    <li class="page-item">
+                                                        <a class="page-link"  aria-label="Previous" href="abogados`+url+`&page=1"  data-page="1">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                    </li>`;
+                                                    for (var i = 1; i <= msg['pagesTotal']; i++) {
+                                                    html = html + `<li class="page-item">
+                                                        <a class="page-link`;
+                                                    if(i==1 && !msg['page']){
+                                                        html = html + ` active`;
+                                                    }else{
+                                                        if(i==msg['page']){
+                                                            html = html + ` active`;
+                                                        }
+                                                    }
+                                                    html = html + `" href="abogados`+url+`&page=`+i+`" data-page="`+i+`">`+i+`</a>
+                                                    </li>`;
+                                                    }
+
+                                                     html = html + `<li class="page-item">
+                                                        <a class="page-link" href="abogados`+url+`&page=`+ msg['pagesTotal'] + `" data-page="`+ msg['pagesTotal'] + `" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>`;
+                    }
+                html = html + `</div>`;
+                $('#lawyerAjaxResults').append( html  );
+
+                window.history.replaceState(null, null, "abogados"+url);
+                $("#textSearch").val(textSearch);
+                $("#services").val(services);
+                $("#sector").val(sector);
+                $("#office").val(office);
+                $("#initial").val(initial);
             })
             .fail(function() {
                 var URLactual = window.location;
@@ -292,7 +388,6 @@
                     $(location).attr('href',URLactual+"&page="+page);
                 }
             });
-        });
-    });
+    }
 </script>
 {% endblock %}

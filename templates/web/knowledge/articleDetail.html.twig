@@ -93,7 +93,7 @@
     </main>
 
     {% include 'web/shared/related-content-slider.html.twig' %}
-    {% include 'web/shared/insight-highlight.html.twig' %}
+    {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
@@ -106,7 +106,17 @@
 <script>
     $(function () {
         web.global.sliderGeneral();
-        web.global.sliderCases();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
     });
 </script>
 {% endblock %}

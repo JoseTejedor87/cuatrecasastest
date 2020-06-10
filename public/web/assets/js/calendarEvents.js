@@ -3,30 +3,30 @@ function newCalendar(eventosjson, month , year) {
     var calendarEl = document.getElementById('eventCalendar');
     var date = new Date();
     var day = date.getDate();
-    
+
     if(month && month < 10){
         month = `0${month}`;
     }
     if(month && year){
-        var dayCalendar = year + '-' +  month + '-01'; 
+        var dayCalendar = year + '-' +  month + '-01';
     }else{
         if(month || year){
             if(year){
-                var dayCalendar = year + '-' +  date.getMonth() + 1 + '-01'; 
+                var dayCalendar = year + '-' +  date.getMonth() + 1 + '-01';
             }
             if(month){
-                var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+                var dayCalendar = date.getFullYear() + '-' +  month + '-01';
                 console.log("entro month");
             }
-            
+
         }else{
             var month = date.getMonth() + 1;
             if(month < 10){
                 month = `0${month}`;
             }
-            var dayCalendar = date.getFullYear() + '-' +  month + '-01'; 
+            var dayCalendar = date.getFullYear() + '-' +  month + '-01';
         }
-        
+
         console.log(month);
     }
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -184,7 +184,7 @@ function newCalendar(eventosjson, month , year) {
                 info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
 
                 // TITLE
-                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="eventDetail/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
+                info.el.lastChild.innerHTML = '<div class="event-intro"><a href="events/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
 
                 // SPEAKERS
                 var speakersInfo = info.event.extendedProps.speakers;
@@ -220,8 +220,7 @@ function newCalendar(eventosjson, month , year) {
             let year = date.getFullYear();
 
             var fullDate = `${year}-${month}-${day}`;
-            console.log(info.event.start);
-            console.log("hola");
+            // console.log(info.event.start);
             dayCell.forEach( function(ele, indice, array) {
                 if(fullDate == ele.getAttribute("data-date")){
                     ele.classList.add('day-bg');
@@ -232,13 +231,6 @@ function newCalendar(eventosjson, month , year) {
         // DATE CLICK
         /*
         dateClick: function(info) {
-
-            // var eventDate = info.dateStr;
-            // calendar.changeView('listDay', eventDate);
-
-            // console.log('Clicked on: ' + info.dateStr);
-            // console.log('Allday: ' + info.allDay);
-
             console.log('dateStr: ' + info.dateStr);
             console.log('allDay: ' + info.allDay);
             console.log('dayEl: ' + info.dayEl);
@@ -246,21 +238,26 @@ function newCalendar(eventosjson, month , year) {
             console.log('---');
 
             // alert('Clicked on: ' + info.dateStr);
-            // alert('Current view: ' + info.view.type);
-            // // change the day's background color just for fun
-            // info.dayEl.style.backgroundColor = 'red';
-        },
-        */
+            console.log('Clicked on: ' + info.dateStr);
 
-        // EVENT CLICK
-        eventClick: function(info) {
-            info.jsEvent.preventDefault();
+            // info.jsEvent.preventDefault();
             var eventDate = info.event.start;
             calendar.changeView('listDay', eventDate);
 
             var gridFocus = document.getElementById('gridFocus');
             gridFocus.scrollIntoView();
+        },
+        */
 
+
+        // EVENT CLICK
+        eventClick: function(info) {
+            // info.jsEvent.preventDefault();
+            var eventDate = info.event.start;
+            calendar.changeView('listDay', eventDate);
+
+            var gridFocus = document.getElementById('gridFocus');
+            gridFocus.scrollIntoView();
         }
 
     });
