@@ -17,7 +17,7 @@
                     <div class="team__list">
                         {% for lawyer in lawyers|slice(0, 5) %}
                             <article class="team__member" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                                <a href="{{ relative_path('/es/lawyer/detail/')}}{{ lawyer.slug  }}" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</a>
+                                <a href="{{ path('lawyers_detail'. {slug: lawyer.slug}) }}" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</a>
                                 <div class="team__member__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</div>
                                 <div class="team__member__details">
                                     <div class="team__member__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
