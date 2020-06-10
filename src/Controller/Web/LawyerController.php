@@ -27,7 +27,7 @@ class LawyerController extends WebController
         }
     }
 
-    public function filter(Request $request, LawyerRepository $lawyerRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository)
+    public function index(Request $request, LawyerRepository $lawyerRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
