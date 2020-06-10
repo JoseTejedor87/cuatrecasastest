@@ -182,6 +182,13 @@ class Lawyer extends Publishable
         return $this->slug;
     }
 
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 
     /**
      * @return Collection|Activity[]
@@ -243,13 +250,6 @@ class Lawyer extends Publishable
     public function setKnownLanguages(array $languages): self
     {
         $this->knownLanguages = $languages;
-        return $this;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
         return $this;
     }
 
