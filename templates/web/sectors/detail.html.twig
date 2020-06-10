@@ -22,9 +22,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('sectors_index') }}">
-                                        {{ 'sections.sectors.title'|trans }}
-                                    </a>
+                                    <a href="{{ path('sectors_index') }}">{{ 'sections.sectors.title'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ sector.translate(app.request.getLocale()).title|raw }}
@@ -53,10 +51,10 @@
                     <div class="page__block__aside">
                         {% if sector.children|length > 0 %}
                         <div class="page__aside">
-                            <h3 class="page__aside__title">Especialidades</h3>
+                            <h3 class="page__aside__title">{{ 'sections.sectors.specialities'|trans }}</h3>
                             <ul class="page__aside__list--specialties">
-                                {% for activity in sector.children %}
-                                    <li><a href="#">{{ activity.translate(app.request.getLocale()).title }}</a></li>
+                                {% for sector in sector.children %}
+                                    <li><a href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -69,14 +67,12 @@
                         </div>
                         {% if sector.relatedActivities|length > 0 %}
                         <div class="page__aside page__aside--practices">
-                            <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
+                            <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedPractices'|trans }}</h3>
                             <ul class="related__services">
                             {% for activity in sector.relatedActivities %}
-                                {% if activity.highlighted == 1  %}
-                                    <li class="related__services__item">
-                                        <a href="#" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
-                                    </li>
-                                {% endif %}
+                                <li class="related__services__item">
+                                    <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                </li>
                             {% endfor %}
                             </ul>
                         </div>

@@ -1,27 +1,18 @@
 # HOME
 # ###########################################
 home:
-    path:
-        en:   /
-        es:   /
+    path: /
     methods:    GET
     controller: App\Controller\Web\HomeController::index
 
 # Conocimiento
 # ###########################################
-knowledge:
+knowledge_index:
     path:
         en:   /knowledge
         es:   /conocimiento
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::insights
-
-knowledgefilter:
-    path:
-        en:   /knowledgefilter
-        es:   /conocimientofiltro
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::filter
 
 articles_detail:
     path:
@@ -149,7 +140,6 @@ lawyers_index:
     path:
         en:     /lawyers
         es:     /abogados
-        pt:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::index
 
@@ -157,7 +147,6 @@ lawyers_detail:
     path:
         en:     /lawyers/{slug}
         es:     /abogados/{slug}
-        pt:     /lawyers/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail
 
@@ -167,7 +156,6 @@ insights_detail:
     path:
         en:     /insights/{slug}
         es:     /insights/{slug}
-        zh:     /insights/{slug}
     methods:    GET
     controller: App\Controller\Web\InsightController::detail
 
@@ -177,7 +165,6 @@ offices_index:
     path:
         en:     /offices/{slug}
         es:     /oficinas/{slug}
-        zh:     /offices/{slug}
     methods:    GET
     controller: App\Controller\Web\OfficeController::detail
 
@@ -185,7 +172,6 @@ offices_detail:
     path:
         en:     /offices/{slug}
         es:     /oficinas/{slug}
-        zh:     /offices/{slug}
     methods:    GET
     controller: App\Controller\Web\OfficeController::detail
 
@@ -195,7 +181,6 @@ pages_detail:
     path:
         en:     /p/{slug}
         es:     /p/{slug}
-        zh:     /p/{slug}
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -205,6 +190,5 @@ resources_detail:
     path:
         en:     /files/{slug}
         es:     /ficheros/{slug}
-        zh:     /files/{slug}
     methods:    GET
     controller: App\Controller\Web\ResourcesController::detail

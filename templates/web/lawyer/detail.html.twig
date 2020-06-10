@@ -5,33 +5,6 @@
     <main role="main" class="lawyer__page">
         <article>
 
-            <!-- trys -->
-            <!-- <header class="container-fluid">
-                <div class="row">
-                    <div class="col-7" style="background-color: violet; padding: 0 0; text-align: right">
-                        fluid col-7
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-8 offset-4" style="background-color: yellow;">fixed inside col-8 offset-4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5" style="background-color: dodgerblue">
-                        fluid col-5
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="background-color: white">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-7" style="background-color: cyan; text-align: right">fixed col-7</div>
-                                <div class="col-5" style="background-color: lightblue">fixed col-5</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header> -->
-
             <header class="container-fluid">
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
@@ -45,7 +18,7 @@
                         <ul class="lawyer__page__scope related__services">
                             {% for activity in lawyer.activities %}
                             <li class="related__services__item">
-                                <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}" class="related__services__link">
+                                <a href="{{ navigation_service.getPathByPublishable(activity)}}" class="related__services__link">
                                     {{ activity.translate(app.request.getLocale()).title}}
                                 </a>
                             </li>
@@ -119,25 +92,22 @@
                         </div>
 
                         <div class="page__block__aside">
-                        {% if lawyer.activities|length > 0 %}
+                            {% if lawyer.secondaryActivities|length > 0 %}
                                 <div class="page__aside">
                                     <h3 class="page__aside__title">Especialidades</h3>
                                     <ul class="page__aside__list--specialties">
 
                                     {% for activity in lawyer.secondaryActivities %}
-                                    <li>
-                                        <a href="{{ relative_path('/es/activity/consumptionRetail/')}}{{ (activity.translate(app.request.getLocale()).slug ? activity.translate(app.request.getLocale()).slug : '' ) }}">
-                                            {{ activity.translate(app.request.getLocale()).title}}
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ navigation_service.getPathByPublishable(activity)}}">
+                                                {{ activity.translate(app.request.getLocale()).title}}
+                                            </a>
+                                        </li>
                                     {% endfor %}
 
-                                    {# <li><a href="#">Fiscalidad corporativa</a></li>
-                                    <li><a href="#">Private client &amp; wealth management</a></li>
-                                    <li><a href="#">Fiscalidad contenciosa</a></li> #}
-                                </ul>
-                            </div>
-                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
                         <div class="page__aside">
                             <h3 class="page__aside__title">Formación</h3>
                             <ul class="page__aside__list--career">

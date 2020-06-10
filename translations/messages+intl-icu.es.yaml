@@ -8,6 +8,7 @@ global:
     en: Inglés
     pt: Portugués
     zh: Chino
+    it: Italiano
     fr: Francés
 
 # Sections
@@ -27,13 +28,16 @@ sections:
       senior_partner: Presidente
   practices:
     title: Áreas de Práctica
-    lawyersTitle: Expertos en el área
+    specialities: Especialidades
+    relatedPractices: Prácticas relacionadas
   desks:
     title: Desks
   products:
     title: Otros servicios
   sectors:
     title: Sectores
+    specialities: Especialidades
+    relatedPractices: Prácticas relacionadas
 
 # Menu
 # ###########################################

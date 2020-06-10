@@ -53,10 +53,10 @@
                     <div class="page__block__aside">
                         {% if practice.children|length > 0 %}
                             <div class="page__aside">
-                                <h3 class="page__aside__title">Especialidades</h3>
+                                <h3 class="page__aside__title">{{ 'sections.practices.specialities'|trans }}</h3>
                                 <ul class="page__aside__list--specialties">
                                     {% for practice in practice.children %}
-                                        <li><a href="{{ path('practices_detail', {slug: practice.translate(app.request.getLocale()).slug}) }}">{{ practice.translate(app.request.getLocale()).title }}</a></li>
+                                        <li><a href="{{ navigation_service.getPathByPublishable(practice) }}">{{ practice.translate(app.request.getLocale()).title }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -69,7 +69,7 @@
                         </div>
                         {% if practice.relatedActivities|length > 0 %}
                             <div class="page__aside page__aside--practices">
-                                <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
+                                <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedPractices'|trans }}</h3>
                                 <ul class="related__services">
                                     {% for activity in practice.relatedActivities %}
                                         <li class="related__services__item">

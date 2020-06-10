@@ -10,11 +10,10 @@ global:
     fr: Francés
 
   regions:
-    sp: España
-    lt: Latinoamérica
-    pt: Portugal
-    uk: Reino Unido
-    de: Alemania
+    spain: España
+    latam: Latinoamérica
+    portugal: Portugal
+    global: Global
 
   messages:
     noRecordsFound: No se han encontrado registros
@@ -159,6 +158,7 @@ entities:
   activity:
     fields:
       title: Título
+      summary: Resumen
       description: Descripción
       image: Imagen
       highlighted: Menú
