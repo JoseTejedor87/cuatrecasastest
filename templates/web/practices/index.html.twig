@@ -59,15 +59,11 @@
                             <ul class="buttons__list two-cols">
                                 {% for practice in practices %}
                                     <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ path('practices_detail', {slug: practice.translate.slug}) }}">
+                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(practice) }}">
                                             {{ practice.translate(app.request.getLocale()).title }}
                                         </a>
                                     </li>
                                 {% endfor %}
-                                {# <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/medio-ambiente">Medio Ambiente</a>
-                                </li> #}
-
                             </ul>
                         </div>
                     </div>
