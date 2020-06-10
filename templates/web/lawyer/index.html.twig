@@ -320,7 +320,7 @@
                 msg['lawyers'].forEach(function(lawyer){
                     html = html + `
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="{{ relative_path('/es/lawyer/detail/')}}`+ lawyer['Slug']  + `" class="lawyer__link">
+                            <a href="{{ relative_path('/es/spain/abogados/')}}`+ lawyer['Slug']  + `" class="lawyer__link">
                                 <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
