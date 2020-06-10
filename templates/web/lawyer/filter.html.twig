@@ -111,7 +111,7 @@
                 </div>
             </section>
 
-            
+
             <section id="lawyerAjaxResults" class="row lawyer__search">
                 {% if countLawyers != ''  %}
                 <div class="col">
@@ -183,7 +183,7 @@
                 </div>
             {% endif %}
             </section>
-            
+
         </article>
     </main>
 
@@ -212,8 +212,8 @@
     $( document ).ready(function() {
         web.global.customSelects();
         web.global.lawyerResults();
-        web.global.sliderNews();
-        
+        web.global.sliderGeneral();
+
         $(document).on("click", "#searchButton", function(){
             ajax();
         });
@@ -231,12 +231,12 @@
             if(!page){
                 page=1;
             }
-           ajax(page); 
-            
+           ajax(page);
+
         });
-        
+
     });
-   
+
     function ajax(page,initial) {
             event.preventDefault();
             textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
@@ -246,8 +246,8 @@
             initial = initial ? initial : $("#initial").val();
             var page = page ? page : $(this).data("page");
             if(!page){
-                page=1; 
-            }       
+                page=1;
+            }
             $.ajax({
                 method: "GET",
                 url: "{{ path('lawyers_directory') }}",
@@ -373,7 +373,7 @@
                     }
                 html = html + `</div>`;
                 $('#lawyerAjaxResults').append( html  );
-                
+
                 window.history.replaceState(null, null, "abogados"+url);
                 $("#textSearch").val(textSearch);
                 $("#services").val(services);

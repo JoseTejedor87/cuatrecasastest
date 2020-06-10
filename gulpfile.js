@@ -35,7 +35,7 @@ function scssTask() {
         .pipe(concat('styles.css'))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(postcss([autoprefixer({ grid: true }), cssnano()]))
+        .pipe(postcss([autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write(''))
         .pipe(dest('public/web/assets/css'));
 }
