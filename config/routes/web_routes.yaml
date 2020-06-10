@@ -149,7 +149,7 @@ lawyers_index:
     path:
         en:     /lawyers
         es:     /abogados
-        zh:     /lawyers
+        pt:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::index
 
@@ -157,7 +157,7 @@ lawyers_detail:
     path:
         en:     /lawyers/{slug}
         es:     /abogados/{slug}
-        zh:     /lawyers/{slug}
+        pt:     /lawyers/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail
 
