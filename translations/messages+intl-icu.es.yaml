@@ -10,6 +10,11 @@ global:
     zh: Chino
     it: Italiano
     fr: Francés
+  regions:
+    spain: España
+    latam: Latinoamerica
+    portugal: Portugal
+    global: Global
 
 # Sections
 # ###########################################

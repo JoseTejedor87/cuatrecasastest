@@ -1,6 +1,20 @@
 # Global
 # ###########################################
-
+global:
+  home: Home
+  goBack: Back
+  languages:
+    es: Spanish
+    en: English
+    pt: Portuguese
+    zh: Chinese
+    it: Italian
+    fr: French
+  regions:
+    spain: Spain
+    latam: Latam
+    portugal: Portugal
+    global: Global
 
 # Sections
 # ###########################################
