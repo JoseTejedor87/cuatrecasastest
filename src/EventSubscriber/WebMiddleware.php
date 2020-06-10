@@ -73,6 +73,9 @@ class WebMiddleware implements EventSubscriberInterface
                 if (!$instance->isPublished($language, $region)) {
                     throw new NotPublishedException();
                 }
+                // Adding the identified instance to the router context
+                // to simplify the task of the NavigationService
+                $this->router->getContext()->setParameter('_publishable', $instance);
             } else {
                 // Publishable not found
                 throw new NotFoundHttpException();
