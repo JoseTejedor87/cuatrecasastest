@@ -93,7 +93,7 @@
                     <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
                         {% for letter in range('a','z') %}
-                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_directory') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
                         {% endfor %}
                         </ul>
                     </nav>
