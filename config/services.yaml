@@ -6,12 +6,16 @@
 parameters:
 
     # Languages & Translations
-    app.languages: [es, en, pt]     # The list of available languages
+    # app.languages: [es, en, pt, zh, de]     # The list of available languages
+    app.languages: [es, en]
+
     app.default_language: es        # The default language
 
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
     app.regions: [spain, latam, portugal, global]
+
+    app.language_switcher: {es: Castellano, en: English}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:

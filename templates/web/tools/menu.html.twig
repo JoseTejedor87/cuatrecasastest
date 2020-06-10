@@ -52,17 +52,43 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Webs</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Portugal</a>
+                            <li class="nav-item region-switcher">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ ('global.regions.' ~ navigation_service.getRegion())|trans }}
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        {% for region in regions %}
+                                            {% if region != navigation_service.getRegion() %}
+                                                {% set href = navigation_service.getAlternativePath(null, region) %}
+                                                {% if href %}
+                                                    <a class="dropdown-item" href="{{ href }}">
+                                                        {{ ('global.regions.' ~ region)|trans }}
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">ES <i class="icon ion-ios-arrow-down"></i></a>
-                                <!--
-                                    Español
-                                    English
-                                    Português
-                                    中文
-                                -->
+                            <li class="nav-item language-switcher">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ language_switcher[navigation_service.getLanguage()] }}
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        {% for language in languages %}
+                                            {% if language != navigation_service.getLanguage() %}
+                                                {% set href = navigation_service.getAlternativePath(language) %}
+                                                {% if href %}
+                                                    <a class="dropdown-item" href="{{ href }}">
+                                                        {{ language_switcher[language] }}
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
