@@ -79,12 +79,7 @@ knowledge_index:
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::insights
 
-articles_detail:
-    path:
-        en:   /knowledge/{slug}
-        es:   /conocimiento/{slug}
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::articleDetail
+
 
 # ACTIVITY
 # ###########################################
@@ -162,19 +157,7 @@ products_index:
     methods:    GET
     controller: App\Controller\Web\ProductsController::index
 
-productDetail:
-    path:
-        en:   /products/{slug}
-        es:   /productos/{slug}
-    methods:    GET
-    controller: App\Controller\Web\ServicesController::productDetail
 
-fiscal:
-    path:
-        en:   /fiscal
-        es:   /fiscal
-    methods:    GET
-    controller: App\Controller\Web\ServicesController::fiscal
 
 # Events
 # ###########################################
@@ -190,7 +173,7 @@ events_detail:
        en:   /events/{slug}
        es:   /eventos/{slug}
    methods:    GET
-   controller: App\Controller\Web\KnowledgeController::eventDetail
+   controller: App\Controller\Web\KnowledgeController::detail
 
 get_events:
    path:
@@ -257,3 +240,34 @@ resources_detail:
         es:     /ficheros/{slug}
     methods:    GET
     controller: App\Controller\Web\ResourcesController::detail
+
+
+# TEMPORAL (BORRAR)
+##############################################
+productDetail:
+    path:
+        en:   /product
+        es:   /producto
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::productDetail
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::fiscal
+
+articles_detail:
+    path:
+        en:   /article
+        es:   /articulo
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::articleDetail
+
+events_detail2:
+   path:
+       en:   /event
+       es:   /evento
+   methods:    GET
+   controller: App\Controller\Web\KnowledgeController::detail2

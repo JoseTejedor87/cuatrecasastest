@@ -52,7 +52,7 @@
             <section class="row search_filters search_filters--lawyers">
                 <div class="col">
                     <div class="search_selects">
-                        <select id="services" class="custom__select" style="width:25%;">
+                        <select id="services" class="custom__select">
                             <option value="">Por servicios</option>
                             {% for practice in practices %}
                                 {% if practice.translate(app.request.getLocale()).title  %}
@@ -60,7 +60,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="sector" class="custom__select" style="width:25%;">
+                        <select id="sector" class="custom__select">
                             <option value="">Por sector</option>
                             {% for sector in sectors %}
                                 {% if sector.translate(app.request.getLocale()).title  %}
@@ -68,7 +68,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="office" class="custom__select" style="width:25%;">
+                        <select id="office" class="custom__select">
                             <option value="">Por oficina</option>
                             {% for office in offices %}
                                 {% if office.city  %}
@@ -76,7 +76,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="category" class="custom__select" style="width:25%;">
+                        <select id="category" class="custom__select">
                             <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
@@ -208,8 +208,40 @@
 <script>
     $( document ).ready(function() {
         web.global.customSelects();
-        web.global.lawyerResults();
-        web.global.sliderGeneral();
+        //web.global.lawyerResults();
+        web.global.sliderNews();
+        // Toogle Results View
+        $(document).on('click', '.list', function(e){
+            e.preventDefault();
+            $('.icon__button.grid').removeClass('active');
+            $(this).addClass('active');
+            $('.lawyer__search__wrapper__loader').fadeIn('fast');
+            $('.lawyer__search__wrapper').addClass('loading');
+            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
+            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
+            setTimeout(
+                function(){
+                    $('.lawyer__search__wrapper__loader').fadeOut();
+                    $('.lawyer__search__wrapper').removeClass('loading');
+                }
+            , 600);
+        });
+        $(document).on('click', '.grid', function(e){
+            e.preventDefault();
+            $('.icon__button.list').removeClass('active');
+            $(this).addClass('active');
+            $('.lawyer__search__wrapper__loader').fadeIn('fast');
+            $('.lawyer__search__wrapper').addClass('loading');
+            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
+            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
+            setTimeout(
+                function(){
+                    $('.lawyer__search__wrapper__loader').fadeOut();
+                    $('.lawyer__search__wrapper').removeClass('loading');
+                }
+            , 600);
+        });
+        $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
 
         $(document).on("click", "#searchButton", function(){
             ajax();
@@ -217,19 +249,22 @@
         $(".select-options li").on("click", function(){
             ajax();
         });
-        $(".search_alphabet .page-link").on("click", function(){
-            var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
-            ajax(1,initial);
-        });
         $(document).on('click', '.page-link', function(event){
-            $('#lawyerPagination .page-link').removeClass('active');
-            $(this).addClass('active');
-            var page = $(this).data("page");
+            var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
+            if(!initial){
+                $('#lawyerPagination .page-link').removeClass('active');
+                $(this).addClass('active');
+                var page = $(this).data("page");
+            }else{
+                $('.search_alphabet .page-link').removeClass('active');
+                $(this).addClass('active');
+
+            }
             if(!page){
                 page=1;
             }
-           ajax(page);
-
+           ajax(page,initial); 
+            
         });
 
     });
@@ -320,7 +355,7 @@
                 msg['lawyers'].forEach(function(lawyer){
                     html = html + `
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="{{ relative_path('/es/spain/abogados/')}}`+ lawyer['Slug']  + `" class="lawyer__link">
+                            <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
                                 <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
@@ -379,14 +414,7 @@
                 $("#initial").val(initial);
             })
             .fail(function() {
-                var URLactual = window.location;
-                var n = String(URLactual).search('page');
-                if(n > -1){
-                    URLactual = String(URLactual).slice(0, -1);
-                    $(location).attr('href',URLactual+page);
-                }else{
-                    $(location).attr('href',URLactual+"&page="+page);
-                }
+            
             });
     }
 </script>

@@ -109,8 +109,11 @@ class LawyerController extends WebController
             
             $lawyerA = array();
             if (isset($lawyers)) {
+
+                
                 foreach ($lawyers as $key => $lawyer) {
-                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $lawyer->getSlug());
+                    $url =  $this->container->get('router')->generate('lawyers_detail', array('slug' => $lawyer->getSlug()));
+                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $url);
                     $activities = "";
                     foreach ($lawyer->getActivities() as $activity) {
                         $activities = $activities. ' ' . $activity->translate('es')->getTitle();

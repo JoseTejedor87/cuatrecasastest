@@ -151,11 +151,12 @@ function newCalendar(eventosjson, month , year) {
             }
         },
 
-        /*
+        
         datesRender: function(info) {
             var listButton = document.getElementById("listBot");
             var gridButton = document.getElementById("gridBot");
-
+            console.log(info['view']);
+            /*
             if(info.view.type === "dayGridMonth") {
                 // console.log('dayGridMonth');
                 gridButton.classList.add("active");
@@ -167,8 +168,9 @@ function newCalendar(eventosjson, month , year) {
                 gridButton.classList.remove("active");
                 listButton.classList.add("active");
             }
+            */
         },
-        */
+        
 
         // RENDER VIEWS
         eventRender: function (info) {

@@ -84,8 +84,7 @@
         </article>
     </main>
     {% if sector.lawyers|length > 0 %}
-        {% set activityTeam = sector %}
-        {% include 'web/shared/team.html.twig'  %}
+        {% include 'web/shared/team.html.twig' with {team:sector.translate(app.request.getLocale()).title, lawyers:sector.lawyers|slice(0, 5) } %}
     {% endif %}
 
     {# {% include 'web/shared/related-services.html.twig' %} #}

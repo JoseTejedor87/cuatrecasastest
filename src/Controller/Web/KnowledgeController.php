@@ -124,15 +124,27 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    public function eventDetail(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
+    public function detail(Request $request, EventRepository $EventRepository)
     {
-        setlocale(LC_ALL,"es_ES");
-        $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
-        $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
+        // setlocale(LC_ALL,"es_ES");
+        // $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
+        // $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
+        $event = $EventRepository->getInstanceByRequest($request);
         // $this->isThisLocale($request, $request->attributes->get('idioma'));
         return $this->render('web/knowledge/eventDetail.html.twig', [
-            'controller_name' => 'KnowledgeController',
             'event' => $event,
+        ]);
+    }
+
+    public function detail2(Request $request, EventRepository $EventRepository)
+    {
+        // setlocale(LC_ALL,"es_ES");
+        // $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
+        // $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
+        //$event = $EventRepository->getInstanceByRequest($request);
+        // $this->isThisLocale($request, $request->attributes->get('idioma'));
+        return $this->render('web/knowledge/eventDetail2.html.twig', [
+
         ]);
     }
 
