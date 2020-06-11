@@ -44,7 +44,7 @@
                     <a href="{{ path('home') }}" class="navbar-brand">
                         <img src="{{ asset('web/assets/logos/cuatrecasas.png') }}" alt="Cuatrecasas">
                     </a>
-                    <div class="navbar-collapse justify-content-end">
+                    <div class="navbar-collapse justify-content-end" id="RegionLang">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Contacto</a>
@@ -52,45 +52,92 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Webs</a>
                             </li>
-                            <li class="nav-item region-switcher">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ ('global.regions.' ~ navigation_service.getRegion())|trans }}
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                        </ul>
+
+                        <div class="region-switcher">
+                            <!-- <div class="btn-group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ ('global.regions.' ~ navigation_service.getRegion())|trans }}
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    {% for region in regions %}
+                                        {% if region != navigation_service.getRegion() %}
+                                            {% set href = navigation_service.getAlternativePath(null, region) %}
+                                            {% if href %}
+                                                <a class="dropdown-item" href="{{ href }}">
+                                                    {{ ('global.regions.' ~ region)|trans }}
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div> -->
+                            <a class="module__trigger" role="button" data-toggle="collapse" data-target="#menuRegion" aria-controls="menuRegion" aria-expanded="false">
+                                <span class="module__trigger__txt">
+                                    {{ ('global.regions.' ~ navigation_service.getRegion())|trans }} <i class="fa fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="module__dropdown collapse" id="menuRegion" aria-labelledby="heading01" data-parent="#RegionLang">
+                                <div class="dropdown__menu__content">
+                                    <ul>
                                         {% for region in regions %}
                                             {% if region != navigation_service.getRegion() %}
                                                 {% set href = navigation_service.getAlternativePath(null, region) %}
                                                 {% if href %}
-                                                    <a class="dropdown-item" href="{{ href }}">
-                                                        {{ ('global.regions.' ~ region)|trans }}
-                                                    </a>
+                                                    <li>
+                                                        <a href="{{ href }}" class="dropdown__item">
+                                                            {{ ('global.regions.' ~ region)|trans }}
+                                                        </a>
+                                                    </li>
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                    </div>
+                                    </ul>
                                 </div>
-                            </li>
-                            <li class="nav-item language-switcher">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ language_switcher[navigation_service.getLanguage()] }}
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                            </div>
+                        </div>
+                        <div class="language-switcher">
+                            <!-- <div class="btn-group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ language_switcher[navigation_service.getLanguage()] }}
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    {% for language in languages %}
+                                        {% if language != navigation_service.getLanguage() %}
+                                            {% set href = navigation_service.getAlternativePath(language) %}
+                                            {% if href %}
+                                                <a class="dropdown-item" href="{{ href }}">
+                                                    {{ language_switcher[language] }}
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div> -->
+                            <a class="module__trigger" role="button" data-toggle="collapse" data-target="#menuLang" aria-controls="menuLang" aria-expanded="true">
+                                <span class="module__trigger__txt">
+                                    {{ language_switcher[navigation_service.getLanguage()] }} <i class="fa fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="module__dropdown collapse" id="menuLang" aria-labelledby="heading02" data-parent="#RegionLang">
+                                <div class="dropdown__menu__content">
+                                    <ul>
                                         {% for language in languages %}
                                             {% if language != navigation_service.getLanguage() %}
                                                 {% set href = navigation_service.getAlternativePath(language) %}
                                                 {% if href %}
-                                                    <a class="dropdown-item" href="{{ href }}">
-                                                        {{ language_switcher[language] }}
-                                                    </a>
+                                                    <li>
+                                                        <a href="{{ href }}" class="dropdown__item">
+                                                            {{ language_switcher[language] }}
+                                                        </a>
+                                                    </li>
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                    </div>
+                                    </ul>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>

@@ -52,7 +52,7 @@
             <section class="row search_filters search_filters--lawyers">
                 <div class="col">
                     <div class="search_selects">
-                        <select id="services" class="custom__select">
+                        <select id="services" class="custom__select" style="width:25%">
                             <option value="">Por servicios</option>
                             {% for practice in practices %}
                                 {% if practice.translate(app.request.getLocale()).title  %}
@@ -60,7 +60,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="sector" class="custom__select">
+                        <select id="sector" class="custom__select" style="width:25%">
                             <option value="">Por sector</option>
                             {% for sector in sectors %}
                                 {% if sector.translate(app.request.getLocale()).title  %}
@@ -68,7 +68,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="office" class="custom__select">
+                        <select id="office" class="custom__select" style="width:25%">
                             <option value="">Por oficina</option>
                             {% for office in offices %}
                                 {% if office.city  %}
@@ -76,7 +76,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="category" class="custom__select">
+                        <select id="category" class="custom__select" style="width:25%">
                             <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>

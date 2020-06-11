@@ -25,7 +25,7 @@
     }
 
     &.is-valid {
-        background-image: none;
+        // background-image: none;
     }
 }
 
@@ -33,7 +33,7 @@
     .valid-feedback,
     .invalid-feedback {
         padding: 0 1rem;
-        color: $main-color;
+        // color: $main-color;
     }
 }
 
@@ -55,6 +55,9 @@
 
         &:focus {
             background-color: $white;
+            // box-shadow: 0 0 0 0 transparent;
+            // box-shadow: 0 0 0 1px $complementary-color,
+            //             0 0 0 4px rgba($complementary-color, 0.2);
         }
     }
 
@@ -67,7 +70,7 @@
     .txt__required__fields {
         @include fontSet(16px, 18px);
         margin-bottom: 1em;
-        color: $main-color;
+        // color: $main-color;
     }
 
     //
@@ -80,6 +83,10 @@
 
     option[value=""][disabled] {
         display: none;
+    }
+
+    option {
+        color: $main-color;
     }
 
     ::-webkit-input-placeholder {
