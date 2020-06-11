@@ -83,7 +83,18 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
     $(function () {
-        web.global.sliderNews();
+        web.global.sliderGeneral();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
     });
 </script>
 {% endblock %}
