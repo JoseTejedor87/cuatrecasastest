@@ -67,6 +67,7 @@ a:link {
 
 #RegionLang {
     position: relative;
+    z-index: 3;
 }
 
 .region-switcher,
@@ -122,6 +123,7 @@ a:link {
 
 #menuLang.module__dropdown {
     // right: 25px;
+    min-width: 110px;
 }
 
 
