@@ -597,6 +597,15 @@
                 }
             }
 
+            ul {
+                margin-bottom: 3rem;
+            }
+
+            li {
+                @include fontSet(24px, 30px);
+                margin-bottom: 1.2rem;
+            }
+
             .page__event__details {
                 margin-top: 3rem;
 
