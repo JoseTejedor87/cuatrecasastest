@@ -1,10 +1,5 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
     <main role="main">
@@ -44,10 +39,10 @@
                                 <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('desks_index') }}" class="nav-link active">{{ 'sections.desks.title'|trans }}</a>
+                                <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('products_index') }}" class="nav-link">{{ 'sections.products.title'|trans }}</a>
+                                <a href="{{ path('products_index') }}" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -55,41 +50,17 @@
 
                 <!-- Content -->
                 <div class="tabs__component__content">
-                    <div class="row page__section">
-                        <div class="col">
-                            <ul class="buttons__list">
-                                {% for desk in desks %}
-                                    {% if desk.translate(app.request.getLocale()).title and desk.highlighted == 1 %}
-                                    <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
-                                {# <li class="buttons__list__item">
-                                    <a class="btn__subcat" href="consumptionRetail/medio-ambiente">Medio Ambiente</a>
-                                </li> #}
-
-                            </ul>
-                        </div>
-                    </div>
+                    {% include 'web/services/shared/products-grid.html.twig' %}
                 </div>
+
+                {% include 'web/services/shared/products-tools.html.twig' %}
+
             </section>
 
         </article>
     </main>
 
-    {% include 'web/shared/discover.html.twig' %}
-    {% include 'web/shared/career.html.twig' %}
+    {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-{% endblock %}
-
-{% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        web.global.sliderNews();
-    });
-</script>
 {% endblock %}
