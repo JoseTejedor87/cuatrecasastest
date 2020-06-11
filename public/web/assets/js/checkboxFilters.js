@@ -9,7 +9,7 @@ $checksOutput.hide();
 // filter with selects and checkboxes
 var $checkBoxes = $('#filterTabsContent input');
 
-// map input values to an array
+// map input values & text to an array
 var inclusivesFilters = [];
 var inclusivesText = [];
 
@@ -70,7 +70,6 @@ function checkboxReset() {
     */
 
 
-
     // tag cloud elements
     var showText    = filterText;
     var showTags    = filterTags;
@@ -127,6 +126,11 @@ function checkboxReset() {
             $('#'+value).prop( "checked", false );
             checkboxReset();
         });
+
+        // close accordion? not sure...
+        if($accordionFilters.hasClass('show')) {
+            $accordionFilters.collapse('hide');
+        }
     });
 
     // Order by buttons

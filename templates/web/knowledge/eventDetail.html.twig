@@ -60,7 +60,9 @@
                                 {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                             </div>
                             <div class="author">
-                                <a href="#">Mostrar en mi zona horaria</a>
+                                <a href="#">{{ event.contact ? event.contact : '' }}</a>
+                                <br>
+                                {{ (event.phone) ? event.phone : '' }}
                             </div>
                         </div>
 

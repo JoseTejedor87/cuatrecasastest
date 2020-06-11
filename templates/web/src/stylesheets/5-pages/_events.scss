@@ -367,7 +367,7 @@
 }
 
 .fc-unthemed .fc-list-view {
-    border-color: transparent !important;
+    border-color: transparent;
 }
 
 
@@ -376,7 +376,7 @@
 .fc-unthemed .fc-row,
 .fc-unthemed thead,
 .fc-unthemed th {
-    border-color: transparent !important;
+    border-color: transparent;
 }
 
 // .fc-unthemed thead {
@@ -390,7 +390,7 @@
 }
 
 .fc-unthemed td {
-    border-color: #B7B7B7 !important;
+    border-color: #ADADAD;
 }
 
 .fc-unthemed .fc-list-item:hover td {
@@ -421,7 +421,6 @@
 }
 
 
-
 .fc-content-skeleton .fc-event-container {
     // border: 1px solid red !important;
 
@@ -432,15 +431,25 @@
 
 
 //
-// GRID VIEW (month)
+// CALENDAR VIEW (grid & list)
 // --------------------------------------------------------------------------
 
 .fc-view {
 
+    //
+    // GRID VIEW (month)
+    // --------------------------------------------------------------------------
+
+    .fc td,
+    .fc-unthemed td,
+    .fc td .day-bg,
+    .fc-unthemed td .day-bg,
     .day-bg {
         background-color: $event-box-color;
-        // box-shadow: inset 0px 1px 0px 0px rgba($main-color, 0.5),
-        //             inset 1px 0px 0px 0px rgba($main-color, 0.5);
+        // border-top-color: blue !important;
+        // border-left-color: blue !important;
+        box-shadow: inset 1px 0 0 0 $main-color,
+                    inset 0 1px 0 0 $main-color;
     }
 
     &.fc-dayGridMonth-view {
@@ -448,6 +457,7 @@
         .fc-event-container {
             margin: 0 0;
             padding: 0 0;
+            // cursor: default;
             // transition: all 0.3s ease-out;
 
             // &:last-child {
@@ -455,32 +465,31 @@
             //     background-color: cyan;
             // }
 
-            @include on-event() {
-                // background-color: rgba($complementary-color, 1) !important;
-                cursor: pointer !important;
+            // @include on-event() {
+            //     background-color: rgba($complementary-color, 1) !important;
+            //     cursor: pointer !important;
 
-                .fc-day-grid-event.fc-content {
-                    // background-color: rgba($complementary-color, 1) !important;
-                }
+            //     .fc-day-grid-event.fc-content {
+            //         background-color: rgba($complementary-color, 1) !important;
+            //     }
 
-                .fc-event-place,
-                .fc-event-sector {
-                    // color: $white;
-                }
-            }
+            //     .fc-event-place,
+            //     .fc-event-sector {
+            //         color: $white;
+            //     }
+            // }
         }
 
 
         .fc-event {
             position: relative;
             display: block;
-            margin: 0 0;
+            margin: 0 1px;
             padding: 0 0;
             @include fontSet(12px, 12px);
             letter-spacing: 0.52px;
             background-color: transparent;
             border-radius: 0;
-            border: 0 solid transparent;
             border: none;
         }
 
@@ -505,12 +514,12 @@
                 transition: all 0.3s ease-out;
 
                 @include on-event() {
-                    // background-color: rgba($complementary-color, 1);
-                    // cursor: pointer !important;
+                    background-color: rgba($complementary-color, 1);
+                    cursor: pointer !important;
 
                     .fc-event-place,
                     .fc-event-sector {
-                        // color: $white;
+                        color: $white;
                     }
                 }
             }
@@ -582,7 +591,9 @@
         }
     }
 
+    //
     // LIST VIEW (month & day)
+    // --------------------------------------------------------------------------
     &.fc-listMonth-view,
     &.fc-listDay-view {
         border-radius: 0;
@@ -630,7 +641,7 @@
             transition: box-shadow 0.2s ease-out;
 
             @include on-event() {
-                // box-shadow: 0 -2px 0 #5A5A5A;
+                box-shadow: 0 -2px 0 #333;
             }
         }
 

@@ -8,8 +8,6 @@
 {% endblock %}
 
 {% block main %}
-{% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
     <main role="main">
         <article class="container">
 
@@ -17,7 +15,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ event.translate(app.request.getLocale()).title|raw }}
+                            Medidas de conservación de las empresas: cuestiones clave y recomendaciones para el Consejo
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -45,49 +43,51 @@
             <section class="row page__event">
                 <div class="col">
                     <div class="page__event__content">
-                        <!-- duplicate event info -->
                         <div class="boxnews__content" id="eventMainInfo" style="display:none">
                             <div class="place">
-                                <a href="#">{{ customAddress|last }}</a>
-                                <br>
-                                {{ customAddress[:-1]|join(' ') }}
+                                <a href="#">Online</a>
                             </div>
                             <div class="date">
-                                <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
-                                {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
+                                14 de mayo de 2020
                                 <br>
-                                {{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}
-                                {#{ event.translate(app.request.getLocale()).schedule|raw }#}
+                                10:00 — 10:45
                             </div>
                             <div class="author">
-                                <a href="#">Mostrar en mi zona horaria</a>
+                                <a href="#">Raquel Martín Arroyo</a>
+                                <br>
+                                915247146
                             </div>
                         </div>
 
-                        {{ event.translate(app.request.getLocale()).description|raw }}
-                        <button type="button" class="doble__arrow__button">Ver más</button>
+                        <p>Les invitamos a una nueva sesión de nuestro “<strong>Programa de Actualización Jurídica Cuatrecasas</strong>” dirigido a abogados de asesorías jurídicas internas. En esta sesión expondremos las cuestiones clave derivadas de las medidas extraordinarias aprobadas por el Gobierno para la conservación y continuidad de las empresas en materia concursal y societaria.</p>
+
+                        <p>Responderemos, desde un punto de vista práctico, a las siguientes preguntas:</p>
+
+                        <ul>
+                            <li>¿Cuál es el alcance de las medidas adoptadas para proteger la responsabilidad de los administradores en caso de causa de disolución por pérdidas graves?</li>
+                            <li>¿Cuáles son las recomendaciones de actuación en caso de falta de liquidez que pueda devenir en insolvencia?</li>
+                            <li>¿Está suficientemente protegido con las nuevas medidas el “dinero nuevo” que aporten los socios?</li>
+                            <li>¿Cómo se ha facilitado la refinanciación de las empresas?</li>
+                            <li>¿Pueden los socios ejercitar el derecho de separación por no reparto de dividendos?</li>
+                        </ul>
+
+                        <button type="button" class="doble__arrow__button" style="margin-top:1rem">Ver más</button>
+
                         <div class="page__event__details">
-                            {% for attachment in event.attachments %}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    Descarga el dossier
-                                    <i class="icon ion-ios-download-outline"></i>
-                                </a>
-                            {% endfor %}
                             <div class="page__event__info">
-                                <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
-                                <div data-reading>8' lectura</div>
+                                <div data-author="">14 de mayo de 2020</div>
+                                <div data-reading="">8' lectura</div>
                             </div>
                             <ul class="related__services">
-                                {% for activity in event.activities %}
                                 <li class="related__services__item">
                                     <a href="#" class="related__services__link">
-                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                        Mercantil y Societario
                                     </a>
                                 </li>
-                                {% endfor %}
                             </ul>
                         </div>
                     </div>
+
                     <div class="page__event__aside">
                         <article class="boxnews__item boxnews__item--event sticky-top">
 
@@ -97,22 +97,19 @@
 
                             <div class="boxnews__content" id="eventBoxInfo">
                                 <div class="place">
-                                    <a href="#">{{ customAddress|last }}</a>
-                                    <br>
-                                    {{ customAddress[:-1]|join(' ') }}
+                                    <a href="#">Online</a>
                                 </div>
                                 <div class="date">
                                     <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
-                                    {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
+                                    14 de mayo de 2020
                                     <br>
-                                    {{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}
-                                    {#{ event.translate(app.request.getLocale()).schedule|raw }#}
+                                    10:00 — 10:45
                                 </div>
                                 <div class="author">
                                     <!-- 10.30 — 14.30 <br> -->
-                                    <a href="#">{{ event.contact ? event.contact : '' }}</a>
+                                    <a href="#">Raquel Martín Arroyo</a>
                                     <br>
-                                    {{ (event.phone) ? event.phone : '' }}
+                                    915247146
                                 </div>
                                 <button type="button" class="btn btn__arrow" id="botPreReg">Inscribirme</button>
                             </div>
@@ -123,31 +120,31 @@
 
                                 <form>
                                     <div class="form-group">
-                                        <input type="text" class="form-control is-valid" id="eFirstName" placeholder="Nombre *" required>
+                                        <input type="text" class="form-control is-valid" id="eFirstName" placeholder="Nombre *" required="">
                                         <div class="valid-feedback">It's ok</div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control is-invalid" id="eLastName" placeholder="Apellidos *" required>
+                                        <input type="text" class="form-control is-invalid" id="eLastName" placeholder="Apellidos *" required="">
                                         <div class="invalid-feedback">It's not ok</div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                        <input type="text" class="form-control" id="eEmail" placeholder="Email *" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                        <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                        <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eAddress" placeholder="Dirección *" required>
+                                        <input type="text" class="form-control" id="eAddress" placeholder="Dirección *" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="ePostalCode" placeholder="CP *" required>
+                                        <input type="text" class="form-control" id="ePostalCode" placeholder="CP *" required="">
                                     </div>
                                     <div class="form-group">
-                                        <select id="eCountry" class="form-control custom-select" required>
-                                            <option value="" selected disabled>País *</option>
+                                        <select id="eCountry" class="form-control custom-select" required="">
+                                            <option value="" selected="" disabled="">País *</option>
                                             <option value="Afganistán" id="AF">Afganistán</option>
                                             <option value="Albania" id="AL">Albania</option>
                                             <option value="Alemania" id="DE">Alemania</option>
@@ -388,42 +385,42 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="eRegion" class="form-control custom-select" required>
-                                            <option value="" selected disabled>Provincia *</option>
-                                            <option value="15">A coru&#241;a</option>
-                                            <option value="1">&#193;lava</option>
+                                        <select id="eRegion" class="form-control custom-select" required="">
+                                            <option value="" selected="" disabled="">Provincia *</option>
+                                            <option value="15">A coruña</option>
+                                            <option value="1">Álava</option>
                                             <option value="2">Albacete</option>
                                             <option value="3">Alicante</option>
-                                            <option value="4">Almer&#237;a</option>
+                                            <option value="4">Almería</option>
                                             <option value="33">Asturias</option>
-                                            <option value="5">&#193;vila</option>
+                                            <option value="5">Ávila</option>
                                             <option value="6">Badajoz</option>
                                             <option value="7">Baleares</option>
                                             <option value="8">Barcelona</option>
                                             <option value="9">Burgos</option>
-                                            <option value="10">C&#225;ceres</option>
-                                            <option value="11">C&#225;diz</option>
+                                            <option value="10">Cáceres</option>
+                                            <option value="11">Cádiz</option>
                                             <option value="39">Cantabria</option>
-                                            <option value="12">Castell&#243;n</option>
+                                            <option value="12">Castellón</option>
                                             <option value="51">Ceuta</option>
                                             <option value="13">Ciudad Real</option>
-                                            <option value="14">C&#243;rdoba</option>
+                                            <option value="14">Córdoba</option>
                                             <option value="16">Cuenca</option>
                                             <option value="99">Extranjero</option>
                                             <option value="17">Girona</option>
                                             <option value="18">Granada</option>
                                             <option value="19">Guadalajara</option>
-                                            <option value="20">Guip&#250;zcoa</option>
+                                            <option value="20">Guipúzcoa</option>
                                             <option value="21">Huelva</option>
                                             <option value="22">Huesca</option>
-                                            <option value="23">Ja&#233;n</option>
+                                            <option value="23">Jaén</option>
                                             <option value="26">La rioja</option>
                                             <option value="35">Las palmas</option>
-                                            <option value="24">Le&#243;n</option>
+                                            <option value="24">León</option>
                                             <option value="25">Lleida</option>
                                             <option value="27">Lugo</option>
                                             <option value="28">Madrid</option>
-                                            <option value="29">M&#225;laga</option>
+                                            <option value="29">Málaga</option>
                                             <option value="52">Melilla</option>
                                             <option value="30">Murcia</option>
                                             <option value="31">Navarra</option>
@@ -446,9 +443,9 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required>
+                                        <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required="">
                                     </div>
-                                    <button type="submit" class="btn btn__solid__arrow btn__solid__arrow--nohover" >Inscribirme</button>
+                                    <button type="submit" class="btn btn__solid__arrow btn__solid__arrow--nohover">Inscribirme</button>
                                 </form>
                             </div>
 
@@ -465,22 +462,34 @@
                     </div>
                     <div class="page__block__content">
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
-                            {% for speaker in event.people %}
                             <div class="lawyer__search__item">
                                 <a href="#" class="lawyer__link">
-                                    <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                                    <h3 class="lawyer__name">Francisco Pérez-Crespo Payá</h3>
                                     <div class="lawyer__details">
                                         <div class="lawyer__company">
                                             Cuatrecasas
                                         </div>
                                         <ul class="lawyer__practice">
-                                            <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                            <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.city : '' }}</li>
+                                            <li class="lawyer__practice__item">Socio</li>
+                                            <li class="lawyer__practice__item">Madrid</li>
                                         </ul>
                                     </div>
                                 </a>
                             </div>
-                            {% endfor %}
+                            <div class="lawyer__search__item">
+                                <a href="#" class="lawyer__link">
+                                    <h3 class="lawyer__name">Idoya Fernández</h3>
+                                    <div class="lawyer__details">
+                                        <div class="lawyer__company">
+                                            Cuatrecasas
+                                        </div>
+                                        <ul class="lawyer__practice">
+                                            <li class="lawyer__practice__item">Consejero</li>
+                                            <li class="lawyer__practice__item">Madrid</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -538,64 +547,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- <section class="row page__event__full">
-                <div class="col">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis asperiores eos totam enim molestias. Magnam minima placeat neque, quaerat esse itaque facilis labore quia, dignissimos debitis, quidem, tempora obcaecati ipsa.</p>
-                </div>
-            </section> -->
-
-            <!-- <section class="container">
-                <div class="row">
-                    <div class="col-md-8 article-section detail">
-                        {{ event.translate(app.request.getLocale()).description|raw  }}
-                    </div>
-                    <aside class="col-md-4 article-aside">
-                        <section class="practical-information sticky-top">
-                            <h3>Información práctica</h3>
-                            <div class="information-wrapper">
-                                <div class="date">
-                                    <strong>{{ fecha[0]  }}</strong>
-                                    {{  fecha[1:]|join(' ') }}
-                                </div>
-                                <time class="time">
-                                    {{ event.translate(app.request.getLocale()).schedule|raw  }}
-                                </time>
-                                <address class="address">
-                                    <span class="city">{{  customAddress|last }}</span>
-                                    <span class="location"> {{ customAddress[:-1]|join(' ') }}
-                                    </span>
-                                </address>
-                                <div class="contact">
-                                    <span class="name">
-                                        {{ event.contact ? event.contact : 'Marga Zaragoza' }}
-                                    </span>
-                                    <span class="tel">
-                                        {{ (event.phone) ? event.phone : '684 25 83 57' }}
-                                    </span>
-                                </div>
-                                <button class="btn btn-main hover-white btn-arrow">Inscribirme</button>
-                            </div>
-                        </section>
-                        <section class="documentation">
-                            <h3>Documentacion</h3>
-                            <ul>
-                                {% for attachment in event.attachments %}
-                                    <li><a href="#">{{ attachment.fileName|raw}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </section>
-                        <section class="related-services-detail">
-                            <h3>Servicios relacionados</h3>
-                            <ul class="d-flex flex-wrap">
-                            {% for activity in event.activities %}
-                                <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
-                            {% endfor %}
-                            </ul>
-                        </section>
-                    </aside>
-                </div>
-            </section> -->
 
         </article>
     </main>
