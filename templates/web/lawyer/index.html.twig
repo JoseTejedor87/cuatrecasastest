@@ -209,7 +209,7 @@
     $( document ).ready(function() {
         web.global.customSelects();
         //web.global.lawyerResults();
-        web.global.sliderNews();
+        web.global.sliderGeneral();
         // Toogle Results View
         $(document).on('click', '.list', function(e){
             e.preventDefault();
@@ -263,8 +263,8 @@
             if(!page){
                 page=1;
             }
-           ajax(page,initial); 
-            
+           ajax(page,initial);
+
         });
 
     });
@@ -414,7 +414,7 @@
                 $("#initial").val(initial);
             })
             .fail(function() {
-            
+
             });
     }
 </script>

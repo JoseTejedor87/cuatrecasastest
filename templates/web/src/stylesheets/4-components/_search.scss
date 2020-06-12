@@ -125,13 +125,22 @@
     }
 }
 
-@include new("search_selects") {
+@include new("search_selects_custom") {
     // display: flex;
     // justify-content: space-between;
+    margin-top: 2rem;
 
-    // > * {
-    //     flex: 1;
-    // }
+    .custom-select {
+        width: auto;
+        padding: .375rem 1.75rem .375rem .75rem;
+
+        // flex: 0 1 auto;
+        margin-right: 1rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 @include new("search_tags") {

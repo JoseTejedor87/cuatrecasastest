@@ -7,7 +7,7 @@
 }
 
 @include new("insight") {
-    background-color: $event-box-color;
+    background-color: rgba($black, 0.03);
 
     .col {
         padding-right: 0;
@@ -28,7 +28,7 @@
     }
 
     //
-    // CAROUSEL ADJUSTMENTS
+    // CAROUSEL ADJUSTMENTS [cmp11] CASOS
     //
 
     @include when("carousel") {
@@ -62,18 +62,24 @@
                 pointer-events: auto;
             }
 
-            // &-active,
-            // &-next {
-            //     opacity: 1;
-            //     pointer-events: auto;
-            // }
+            &-active,
+            &-next {
+                opacity: 1;
+                pointer-events: auto;
+            }
 
             // doesn't make sense!
-            // &-next {
-            //     .insight__img {
-            //         opacity: 0.3;
-            //     }
-            // }
+            &-next {
+                .insight__img {
+                    opacity: 0.3;
+                }
+            }
+
+            &-next:last-child {
+                .insight__img {
+                    opacity: 1;
+                }
+            }
 
 
             // focus element opacity
@@ -186,7 +192,7 @@
         }
 
             @include has("title") {
-                @include fontSet(44px, 44px);
+                @include fontSet(58px, 58px);
                 color: $complementary-color;
 
                 @include when-inside(".insight--carousel") {
@@ -196,8 +202,9 @@
             }
 
             @include has("link") {
-                @include fontSet(44px, 46px);
-                @include box-link($main-color, $main-color, $event-box-color);
+                @include fontSet(58px, 58px);
+                @include box-link($main-color, $main-color, #F7F7F7);
+                // @include classic-link($main-color, $complementary-color, $border: false);
 
                 @include when-inside(".insight--carousel") {
                     @include box-link($main-color, $main-color, $white);

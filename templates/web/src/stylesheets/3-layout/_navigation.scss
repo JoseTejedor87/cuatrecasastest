@@ -13,7 +13,8 @@
 .main-nav-wrapper {
 
     .navbar {
-        padding: 0.2rem 0.8rem;
+        // padding: 0 0.8rem;
+        padding: 0 0;
     }
 
     .navbar-expand-md .navbar-nav .nav-link {
@@ -26,8 +27,8 @@
         margin-right: 0.3rem;
         margin-left: 0.3rem;
         @include cuatrecasas-font();
-        @include fontSet(18px, 18px);
-        @include fancy-link($white, $white);
+        @include fontSet(23px, 23px);
+        letter-spacing: 0.89px;
         text-transform: uppercase;
         transition: all 0.3s ease-out;
     }
@@ -37,6 +38,10 @@
     //
     #main-nav {
         background-color: $main-color;
+
+        .nav-link {
+            @include classic-link($white, $complementary-color, $border: false);
+        }
 
         .navbar-collapse {
             justify-content: flex-end;
@@ -49,6 +54,10 @@
     //
     #about-nav {
         background-color: $complementary-color;
+
+        .nav-link {
+            @include classic-link($white, $main-color, $border: false);
+        }
 
         .navbar-collapse {
             justify-content: flex-start;
@@ -66,16 +75,153 @@
             padding: 0 0.2rem;
         }
 
+        .navbar-brand {
+            padding-top: .3125rem;
+            padding-bottom: .375rem;
+        }
+
         .nav-link {
-            color: $black;
-            @include fontSet(14px, 10px);
-            @include fancy-link($black, $complementary-color);
-            font-weight: bold;
+            @include fontSet(16px, 16px);
+            @include classic-link($main-color, $complementary-color, $border: false);
+            letter-spacing: 0.93px;
             padding-right: .3rem;
             padding-left: .3rem;
         }
     }
 }
+
+
+
+//
+// Langs Navigation >>> borrar >>> temporal
+// --------------------------------------------------------------------------
+
+#RegionLang {
+    position: relative;
+    top: 3px;
+    z-index: 3;
+
+    .navbar-nav {
+
+         .nav-item {
+            position: relative;
+            margin: 0 8px 2px 0;
+            padding: 0 0;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 8px;
+                right: -4px;
+                width: 1px;
+                height: 13px;
+                background-color: $main-color;
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+.region-switcher,
+.language-switcher {
+    position: relative;
+}
+
+.region-switcher {
+    margin: -7px 1rem 0 1rem;
+}
+
+.language-switcher {
+    margin: -7px 2rem 0 0;
+}
+
+.module__trigger {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.module__trigger__txt {
+    position: relative;
+    margin-right: 12px;
+    @include fontSet(16px, 16px);
+    @include classic-link($black, $complementary-color, $border: false);
+    letter-spacing: 0.93px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+
+
+    &:after {
+        @include icons-ionicons(2px,auto,auto,6px);
+        position: relative;
+        content: '\f3d1';
+        font-size: 20px;
+        transform: rotate(90deg);
+        color: $main-color;
+        transition: all 0.2s;
+    }
+}
+
+.module__trigger__txt:hover,
+.module__trigger[aria-expanded="true"] .module__trigger__txt {
+    color: $black;
+}
+
+.module__dropdown {
+    position: absolute;
+    top: 33px;
+    right: 0;
+    // min-width: 120px;
+    background-color: $white;
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24),
+                0 19px 38px rgba(0,0,0,.2), 0 15px 12px rgba(0,0,0,.1);
+    z-index: 1;
+}
+
+#menuRegion.module__dropdown {
+    // right: 73px;
+}
+
+#menuLang.module__dropdown {
+    // right: 25px;
+    // min-width: 120px;
+}
+
+
+.dropdown__menu__content {
+    padding: 10px 20px;
+    // border: 1px solid rgba(0,0,0,0.2);
+    // box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+    // box-shadow: 0 19px 38px rgba(0,0,0,.2), 0 15px 12px rgba(0,0,0,.1);
+}
+
+.dropdown__menu__content ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown__menu__content li {
+    text-align: right;
+}
+
+.dropdown__menu__content a {
+    // font-size: 14px;
+    // line-height: 1;
+    // font-weight: bold;
+    // text-transform: uppercase;
+
+    @include fontSet(16px, 16px);
+    @include classic-link($complementary-color, $main-color, $border: false);
+    font-weight: bold;
+    text-transform: uppercase;
+
+    @include on-event() {
+        text-decoration: none;
+    }
+}
+
 
 
 //
