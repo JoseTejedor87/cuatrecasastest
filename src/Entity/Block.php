@@ -39,18 +39,6 @@ abstract class Block extends Item
         return $this;
     }
 
-    public function getActivity(): ?Activity
-    {
-        return $this->activity;
-    }
-
-    public function setActivity(?Activity $activity): self
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
     public function getPage(): ?Page
     {
         return $this->page;
