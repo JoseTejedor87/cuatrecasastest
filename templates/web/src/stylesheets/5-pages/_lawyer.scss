@@ -10,7 +10,8 @@
     @include has("search") {
 
         > .col {
-            padding: 2rem $screen-width;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
 
         .section__title {
