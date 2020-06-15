@@ -283,14 +283,18 @@ https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
 
 .masonry__grid {
     padding-top: 3rem;
-    padding-bottom: 6rem;
+    padding-bottom: 3rem;
 
     .viewmore__button {
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
     }
 
     &.no--padding {
         padding-bottom: 0;
+    }
+
+    .section__title {
+        margin-bottom: 3rem;
     }
 }
 
@@ -333,7 +337,8 @@ https://gridbyexample.com/patterns/header-asmany-span-footer/
     grid-auto-rows: minmax(230px, auto);
     grid-auto-flow: dense;
 
-    margin: 2rem 0 0;
+    margin: 0 0;
+    margin-bottom: 20px;
 
     // background-color: #fcf;
 }
