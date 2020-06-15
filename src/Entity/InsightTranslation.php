@@ -22,7 +22,7 @@ class InsightTranslation extends PublishableTranslation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $abstract;
+    private $summary;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -47,14 +47,14 @@ class InsightTranslation extends PublishableTranslation
         return $this;
     }
 
-    public function getAbstract(): ?string
+    public function getSummary(): ?string
     {
-        return $this->abstract;
+        return $this->summary;
     }
 
-    public function setAbstract(?string $abstract): self
+    public function setSummary(?string $summary): self
     {
-        $this->abstract = $abstract;
+        $this->summary = $summary;
 
         return $this;
     }

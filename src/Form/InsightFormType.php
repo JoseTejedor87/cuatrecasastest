@@ -72,7 +72,7 @@ class InsightFormType extends AbstractType
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.insight.fields.title'],
-                    'abstract' => ['label'=>'entities.insight.fields.abstract', 'attr'=>['class'=>'summernote']],
+                    'summary' => ['label'=>'entities.insight.fields.summary', 'attr'=>['class'=>'summernote']],
                     'description' => ['label'=>'entities.insight.fields.description', 'attr'=>['class'=>'summernote']],
                     'slug' => ['label'=>'entities.insight.fields.slug', 'required' => false],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
