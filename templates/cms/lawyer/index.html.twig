@@ -28,28 +28,31 @@
 
         {% if pagination %}
         <div class="m-section">
-            <div class="m-portlet">
+            <div class="m-portlet container-fluid">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.name'|trans, 'name') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.surname'|trans, 'surname') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.email'|trans, 'email') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.lawyerType'|trans, 'lawyerType') }}</th>
-                            <th colspan="2" style="width:10%;"></th>
+                        <tr class="row">
+                            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.name'|trans, 'name') }}</th>
+                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.surname'|trans, 'surname') }}</th>
+                            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.email'|trans, 'email') }}</th>
+                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.lawyerType'|trans, 'lawyerType') }}</th>
+                            <th class="col-sm-1">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-1">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for lawyer in pagination %}
-                        <tr>
-                            <td>{{ lawyer.name }}</td>
-                            <td>{{ lawyer.surname }}</td>
-                            <td>{{ lawyer.email }}</td>
-                            <td>{{ ('forms.choices.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</td>
-                            <td class="text-nowrap">
+                        <tr class="row">
+                            <td class="col-sm-3">{{ lawyer.name }}</td>
+                            <td class="col-sm-2">{{ lawyer.surname }}</td>
+                            <td class="col-sm-3">{{ lawyer.email }}</td>
+                            <td class="col-sm-2">{{ ('forms.choices.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</td>
+                            <td class="col-sm-1 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':lawyer.languages} %}
+                                /
+                                {% include 'cms/tools/regionStatus.html.twig' with {'values':lawyer.regions} %}
                             </td>
-                            <td>
+                            <td class="col-sm-1 text-nowrap text-right">
                                 <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_lawyers_edit', {'id': lawyer.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>

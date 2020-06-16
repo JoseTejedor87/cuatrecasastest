@@ -18,6 +18,9 @@ global:
   messages:
     noRecordsFound: No se han encontrado registros
 
+  labels:
+    publication: Publicación
+
   actions:
     create: Crear nuevo
     save: Guardar
