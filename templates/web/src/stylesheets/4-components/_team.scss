@@ -21,7 +21,8 @@
     background-color: rgba($black, 0.1);
 
     .team__member {
-        height: 22rem;
+        // height: 22rem;
+        min-height: 330px;
     }
 
 
@@ -46,11 +47,12 @@
             @include fontSet(20px, 20px);
             position: absolute;
             bottom: 20px;
-            color: $main-color;
+            color: $white;
 
             &:before,
             &:after {
                 top: -5px;
+                color: $white;
             }
         }
 
@@ -96,7 +98,7 @@
         background-color: rgba($black, 0.5);
 
         // background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
-        transition: all 0.4s ease-in-out;
+        transition: all 0.3s ease-in-out;
 
         &:last-child {
             margin-right: 0;
@@ -109,7 +111,7 @@
 
         @include has("name") {
             order: 2;
-            width: 100%;
+            // width: 40%;
             margin-top: 1rem;
             @include fontSet(28px, 30px);
             font-weight: normal;
@@ -134,7 +136,7 @@
             overflow: hidden;
 
             @include has("item") {
-                flex: 0 0 auto;
+                flex: 0 1 auto;
                 position: relative;
                 margin: 4px 16px 0 0;
                 padding: 0 0;
@@ -160,7 +162,6 @@
                 }
             }
         }
-
 
         @include has("resume") {
             position: absolute;
@@ -195,6 +196,10 @@
             // background-position: 92% 0;
             // background-blend-mode: overlay;
 
+            .team__member__name {
+                width: 100% !important;
+            }
+
             // flex-grow: 3;
             // background-position: 94% 0;
             background-blend-mode: luminosity;
@@ -213,6 +218,10 @@
 
         // one item
         &:first-child:nth-last-child(1) {
+            .team__member__name {
+                width: 100%;
+            }
+
             .team__member__details {
                 width: 75%;
             }
@@ -220,6 +229,10 @@
 
         // two items
         &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
+            .team__member__name {
+                width: 40%;
+            }
+
             @include on-event() {
                 flex-grow: 3;
             }
@@ -228,6 +241,10 @@
 
         // three items
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
+            .team__member__name {
+                width: 50%;
+            }
+
             @include on-event() {
                 flex-grow: 4;
             }
@@ -235,6 +252,10 @@
 
         // four items
         &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
+            .team__member__name {
+                width: 70%;
+            }
+
             @include on-event() {
                 flex-grow: 5;
             }
@@ -242,6 +263,10 @@
 
         // five items
         &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
+            .team__member__name {
+                width: 80%;
+            }
+
             @include on-event() {
                 flex-grow: 6;
             }

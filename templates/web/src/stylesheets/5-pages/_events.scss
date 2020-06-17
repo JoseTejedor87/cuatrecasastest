@@ -376,12 +376,8 @@
 .fc-unthemed .fc-row,
 .fc-unthemed thead,
 .fc-unthemed th {
-    border-color: transparent;
+    border-color: transparent !important;
 }
-
-// .fc-unthemed thead {
-//     border-bottom: 1px solid red !important;
-// }
 
 .fc-unthemed th {
     @include fontSet(16px, 36px);
@@ -390,7 +386,7 @@
 }
 
 .fc-unthemed td {
-    border-color: #ADADAD;
+    border-color: #ADADAD !important;
 }
 
 .fc-unthemed .fc-list-item:hover td {
@@ -445,6 +441,13 @@
     .fc td .day-bg,
     .fc-unthemed td .day-bg,
     .day-bg {
+        // border-top-color: transparent !important;
+        // border-top: 1px solid transparent !important;
+        // border-top: none !important;
+        border-left-color: transparent !important;
+        border-left: 1px solid transparent !important;
+        border-left: none !important;
+
         background-color: $event-box-color;
         // border-top-color: blue !important;
         // border-left-color: blue !important;
@@ -597,6 +600,8 @@
     &.fc-listMonth-view,
     &.fc-listDay-view {
         border-radius: 0;
+        border-color: transparent !important;
+        border: none !important;
         // margin-top: 4rem;
 
         // RESETS

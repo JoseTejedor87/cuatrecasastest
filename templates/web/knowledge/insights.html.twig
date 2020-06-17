@@ -591,16 +591,7 @@
                             </article>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore">Cargar más</button>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="ms__grid__layout">
+                    <div class="ms__grid__layout" id="loadMoreGrid" style="display:none">
                         <div class="ms__grid__item">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
@@ -732,6 +723,12 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12">
+                    <div class="viewmore__button">
+                        <button type="button" class="btn btn__viewmore">Cargar más</button>
+                    </div>
+                </div>
             </section>
 
         </article>
@@ -755,6 +752,13 @@
         web.global.sliderGeneral();
         // web.global.sliderEvents();
         web.global.sliderNews();
+
+        // GRID STUFF
+        $('#loadMoreGrid').hide();
+
+        $('.btn__viewmore').click(function(){
+            $('#loadMoreGrid').show();
+        });
     });
 </script>
 {% endblock %}

@@ -10,7 +10,8 @@
     @include has("search") {
 
         > .col {
-            padding: 2rem $screen-width;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
 
         .section__title {
@@ -46,7 +47,7 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                z-index: 1;
+                z-index: 999;
 
                 &:before {
                     @include reset-pseudo($white);

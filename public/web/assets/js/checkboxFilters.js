@@ -133,6 +133,11 @@ function checkboxReset() {
         }
     });
 
+    // combine inclusive filters
+    var filterValue = inclusivesFilters.length ? inclusivesFilters.join(', ') : '*';
+}
+
+$(function () {
     // Order by buttons
     $('.order_abc').click(function (e) {
         e.preventDefault();
@@ -149,7 +154,4 @@ function checkboxReset() {
             $('.order_abc').removeClass('active');
         }
     });
-
-    // combine inclusive filters
-    var filterValue = inclusivesFilters.length ? inclusivesFilters.join(', ') : '*';
-}
+});

@@ -1,10 +1,5 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
     <main role="main">
@@ -14,15 +9,15 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'sections.practices.title'|trans }}
+                            Áreas de práctica
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                    <a href="#">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'sections.practices.title'|trans }}
+                                    Áreas de práctica
                                 </li>
                             </ol>
                         </nav>
@@ -41,60 +36,31 @@
                     <div class="col tabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('practices_index') }}" class="nav-link active">{{ 'sections.practices.title'|trans }}</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('products_index') }}" class="nav-link">{{ 'sections.products.title'|trans }}</a>
+                                <a href="{{ path('products_index') }}" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+
                 <!-- Content -->
                 <div class="tabs__component__content">
-                    <div class="row page__section">
-                        <div class="col">
-                            <ul class="buttons__list two-cols">
-                                {% for practice in practices %}
-                                    <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(practice) }}">
-                                            {{ practice.translate(app.request.getLocale()).title }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+                    {% include 'web/services/shared/products-grid.html.twig' %}
                 </div>
+
+                {% include 'web/services/shared/products-tools.html.twig' %}
+
             </section>
 
         </article>
     </main>
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-{% endblock %}
-
-{% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        web.global.sliderGeneral();
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: false,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
-    });
-</script>
 {% endblock %}

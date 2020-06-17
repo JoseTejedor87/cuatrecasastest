@@ -41,13 +41,13 @@
                     <div class="col tabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/practiceAreas')}}" class="nav-link">Áreas de práctica</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/desks')}}" class="nav-link active">Desks</a>
+                                <a href="{{ path('desks_index') }}" class="nav-link active">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/products')}}" class="nav-link">Otros servicios</a>
+                                <a href="{{ path('products_index') }}" class="nav-link">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -61,7 +61,7 @@
                                 {% for desk in desks %}
                                     {% if desk.translate(app.request.getLocale()).title and desk.highlighted == 1 %}
                                     <li class="buttons__list__item">
-                                        <a class="btn__subcat" href="{{ relative_path('/'~app.request.getLocale()~'/services/serviceDetail/')}}{{ (desk.translate(app.request.getLocale()).slug ? desk.translate(app.request.getLocale()).slug : '' ) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
+                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
                                     </li>
                                     {% endif %}
                                 {% endfor %}
