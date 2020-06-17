@@ -10,7 +10,7 @@
                     <div class="col-md-7 lawyer__page__content">
                         <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
                         <h1 class="lawyer__page__name">
-                            {{ lawyer.name }} {{ lawyer.surname }}
+                            {{ lawyer.fullName }}
                         </h1>
                         <h2 class="lawyer__page__position">
                             {{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}

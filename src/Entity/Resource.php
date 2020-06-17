@@ -66,6 +66,11 @@ class Resource extends Publishable
      */
     private $title;
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
