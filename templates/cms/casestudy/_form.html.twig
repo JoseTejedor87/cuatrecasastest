@@ -1,0 +1,58 @@
+{% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+<div class="row">
+
+    <div class="col-md-7">
+
+        <div class="m-form__section m-form__section--first">
+            {{ translatableField.partialTranslations(form.translations, ['title']) }}
+            {{ translatableField.partialTranslations(form.translations, ['summary']) }}
+            {{ translatableField.partialTranslations(form.translations, ['description']) }}
+            {{ form_row(form.image) }}
+        </div>
+
+    </div>
+
+    <div class="col-md-4 offset-md-1">
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.relations'|trans }}
+                </h3>
+            </div>
+            {{ form_row(form.events) }}
+            {{ form_row(form.lawyers) }}
+            {{ form_row(form.relatedCaseStudies) }}
+        </div>
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.publication'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['slug']) }}
+            {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+        </div>
+
+    </div>
+
+    {% do form.translations.setRendered %}
+
+    {{ form_rest(form) }}
+</div>

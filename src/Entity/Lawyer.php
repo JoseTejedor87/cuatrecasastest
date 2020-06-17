@@ -92,6 +92,11 @@ class Lawyer extends Publishable
      */
     private $insights;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", inversedBy="events")
+     */
+    private $caseStudies;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();

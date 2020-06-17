@@ -33,6 +33,13 @@ global:
 sections:
   dashboard:
     title: Escritorio
+  case_studies:
+    index:
+      title: Casos
+    new:
+      title: Nuevo Caso
+    edit:
+      title: Editar Caso
   desks:
     index:
       title: Desks
@@ -155,6 +162,7 @@ menu:
   article.title: Artículos
   insight.title: Colecciones
   knowledge.title: Conocimiento
+  case_studies.title: Casos
 
 # Entities
 # ###########################################
@@ -195,6 +203,17 @@ entities:
       desc_award_firma: Descripción de la firma del premio
       desc_award_indiv: Descripción del premio
       tags: Tags
+  case_study:
+    fields:
+      title: Título
+      summary: Resumen
+      description: Descripción
+      image: Imagen
+      events: Eventos
+      lawyers: Abogados
+      articles: Artículos
+      relatedCaseStudies: Casos relacionados
+      slug: Slug
   event:
     fields:
       title: Título
