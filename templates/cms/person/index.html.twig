@@ -32,24 +32,18 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr class="row">
-                            <th class="col-sm-5">{{ 'entities.person.fields.name'|trans }}</th>
-                            <th class="col-sm-4">{{ 'entities.person.fields.position'|trans }}</th>
-                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-6">{{ 'entities.person.fields.name'|trans }}</th>
+                            <th class="col-sm-5">{{ 'entities.person.fields.position'|trans }}</th>
                             <th class="col-sm-1"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for person in pagination %}
                         <tr class="row">
-                            <td class="col-sm-5">{{ person.getFullName() }}</td>
-                            <td class="col-sm-4">{{ person.position }}</td>
-                            <td class="col-sm-2 text-nowrap">
-                                {% include 'cms/tools/languageStatus.html.twig' with {'values':page.languages} %}
-                                /
-                                {% include 'cms/tools/regionStatus.html.twig' with {'values':page.regions} %}
-                            </td>
+                            <td class="col-sm-6">{{ person.getFullName() }}</td>
+                            <td class="col-sm-5">{{ person.position }}</td>
                             <td class="col-sm-1 text-right">
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('person_edit', {'id': person.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_people_edit', {'id': person.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
