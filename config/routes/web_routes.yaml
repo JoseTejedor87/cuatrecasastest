@@ -166,21 +166,35 @@ events_directory:
        en:   /events
        es:   /eventos
    methods:      GET
-   controller:   App\Controller\Web\KnowledgeController::events
+   controller:   App\Controller\Web\EventController::index
 
 events_detail:
    path:
        en:   /events/{slug}
        es:   /eventos/{slug}
    methods:    GET
-   controller: App\Controller\Web\KnowledgeController::detail
+   controller: App\Controller\Web\EventController::detail
 
 get_events:
    path:
        en:   /get_events_ajax
        es:   /get_events_ajax
    methods:    GET
-   controller: App\Controller\Web\KnowledgeController::ajaxActionEvent
+   controller: App\Controller\Web\EventController::ajaxActionEvent
+
+set_event_contact:
+   path:
+       en:   /set_contact_ajax
+       es:   /set_contact_ajax
+   methods:    GET
+   controller: App\Controller\Web\EventController::ajaxActionContact
+
+get_regions:
+   path:
+       en:   /get_regions
+       es:   /get_regions
+   methods:    GET
+   controller: App\Controller\Web\EventController::ajaxActionRegions
 
 # Lawyers
 # ###########################################

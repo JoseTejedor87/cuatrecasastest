@@ -28,23 +28,23 @@
 
         {% if pagination %}
         <div class="m-section">
-            <div class="m-portlet">
+            <div class="m-portlet container-fluid">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th>{{ 'entities.quote.fields.body'|trans }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.quote.fields.author'|trans, 'author') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.quote.fields.year'|trans, 'year') }}</th>
-                            <th colspan="2" style="width:10%;"></th>
+                        <tr class="row">
+                            <th class="col-sm-7">{{ 'entities.quote.fields.body'|trans }}</th>
+                            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'entities.quote.fields.year'|trans, 'year') }}</th>
+                            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.quote.fields.author'|trans, 'author') }}</th>
+                            <th class="col-sm-1"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for quote in pagination %}
-                        <tr>
-                            <td>{{ quote.translate('es').body|striptags|length > 100 ? quote.translate('es').body|striptags|slice(0, 100) ~ '...' : quote.translate('es').body|striptags }}</td>
-                            <td>{{ quote.author() }}</td>
-                            <td>{{ quote.year }}</td>
-                            <td>
+                        <tr class="row">
+                            <td class="col-sm-7">{{ quote.translate('es').body|striptags|length > 100 ? quote.translate('es').body|striptags|slice(0, 100) ~ '...' : quote.translate('es').body|striptags }}</td>
+                            <td class="col-sm-1 text-nowrap">{{ quote.year }}</td>
+                            <td class="col-sm-3">{{ quote.author() }}</td>
+                            <td class="col-sm-1 text-right">
                                 <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_quotes_edit', {'id': quote.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>

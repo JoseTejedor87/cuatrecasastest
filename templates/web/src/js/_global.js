@@ -2,7 +2,29 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.loadMiscell();
+        web.global.mainMenu();
         // web.global.stickyMenu();
+    },
+
+    mainMenu: function(){
+        // hover state
+        $('#about-nav .dropdown-menu')
+            .bind('mouseover', function(event) {
+                $(this).prev('.nav-link').addClass('active')
+            })
+            .bind('mouseleave', function(event) {
+                $(this).prev('.nav-link').removeClass('active');
+        });
+
+        // region / lang switch
+        $('.lang-region-toggle').click(function(e){
+            e.preventDefault();
+            $(this).next('.lang-region-menu').show();
+        });
+
+        $('.lang-region-close').click(function(){
+            $(this).parent('.lang-region-menu').hide();
+        });
     },
 
     stickyMenu: function(){

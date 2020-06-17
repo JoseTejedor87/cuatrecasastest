@@ -8,14 +8,14 @@ use App\Entity\PublishableTranslation;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\InsightTranslationRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CaseStudyTranslationRepository")
  */
-class InsightTranslation extends PublishableTranslation
+class CaseStudyTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $title;
 
@@ -23,22 +23,21 @@ class InsightTranslation extends PublishableTranslation
      * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
-
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
     public function setTitle(string $title): self
     {
@@ -52,7 +51,7 @@ class InsightTranslation extends PublishableTranslation
         return $this->summary;
     }
 
-    public function setSummary(?string $summary): self
+    public function setSummary(string $summary): self
     {
         $this->summary = $summary;
 
@@ -64,13 +63,12 @@ class InsightTranslation extends PublishableTranslation
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
-
     public function getSlug(): ?string
     {
         return $this->slug;
