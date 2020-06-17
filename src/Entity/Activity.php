@@ -49,12 +49,6 @@ abstract class Activity extends Publishable
     private $Article;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Block", mappedBy="activity", cascade={"persist"}, orphanRemoval=true)
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    private $blocks;
-
-    /**
      * Many activities have Many activities.
      * @ORM\ManyToMany(targetEntity="Activity", mappedBy="relatedActivities", cascade={"persist"})
      */
@@ -97,7 +91,6 @@ abstract class Activity extends Publishable
         $this->relatedActivities = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
-        $this->blocks = new ArrayCollection();
         $this->lawyers_secondary = new ArrayCollection();
         $this->Article = new ArrayCollection();
         $this->children = new ArrayCollection();
@@ -208,38 +201,6 @@ abstract class Activity extends Publishable
         if ($this->article->contains($article)) {
             $this->article->removeElement($article);
             $article->removeActivity($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * @return Collection|Block[]
-     */
-    public function getBlocks(): Collection
-    {
-        return $this->blocks;
-    }
-
-    public function addBlock(Block $block): self
-    {
-        if (!$this->blocks->contains($block)) {
-            $this->blocks[] = $block;
-            $block->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBlock(Block $block): self
-    {
-        if ($this->blocks->contains($block)) {
-            $this->blocks->removeElement($block);
-            // set the owning side to null (unless already changed)
-            if ($block->getActivity() === $this) {
-                $block->setActivity(null);
-            }
         }
 
         return $this;

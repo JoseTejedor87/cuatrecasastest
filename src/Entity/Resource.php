@@ -52,6 +52,11 @@ class Resource extends Publishable
     private $article;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CaseStudy", inversedBy="image")
+     */
+    private $caseStudy;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;

@@ -55,7 +55,7 @@ class InsightController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('cms_insights_index');
+            return $this->redirectToRoute('cms_insights_edit', ['id'=>$insight->getId()]);
         }
 
         return $this->render('cms/insight/edit.html.twig', [

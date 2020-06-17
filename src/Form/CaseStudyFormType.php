@@ -5,25 +5,35 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use App\Entity\Activity;
-use App\Entity\Lawyer;
-use App\Entity\Insight;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
+use App\Form\ResourceFormType;
+use App\Entity\Event;
+use App\Entity\Lawyer;
+use App\Entity\CaseStudy;
 
-class InsightFormType extends AbstractType
+class CaseStudyFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('activities', EntityType::class, [
-                'class' => Activity::class,
-                'label' => 'entities.insight.fields.activities',
+            ->add('translations', TranslationsType::class, [
+                'fields' => [
+                    'title' => ['label'=>'entities.case_study.fields.title', 'required'=>true],
+                    'slug' => ['label'=>'entities.case_study.fields.slug', 'required'=>false],
+                    'summary' => ['label'=>'entities.case_study.fields.summary', 'attr'=>['class'=>'summernote']],
+                    'description' => ['label'=>'entities.case_study.fields.description', 'attr'=>['class'=>'summernote']],
+                    'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
+                    'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
+                ],
+            ])
+            ->add('events', EntityType::class, [
+                'class' => Event::class,
+                'label' => 'entities.case_study.fields.events',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -31,14 +41,13 @@ class InsightFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'required' => false,
-                'choice_label' => function ($activity) {
-                    return $activity->translate('es')->getTitle();
+                'choice_label' => function ($event) {
+                    return $event->translate('es')->getTitle();
                 }
             ])
-
             ->add('lawyers', EntityType::class, [
                 'class' => Lawyer::class,
-                'label' => 'entities.insight.fields.lawyers',
+                'label' => 'entities.case_study.fields.lawyers',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -50,10 +59,9 @@ class InsightFormType extends AbstractType
                     return $lawyer->getFullName();
                 }
             ])
-
-            ->add('relatedInsights', EntityType::class, [
-                'class' => Insight::class,
-                'label' => 'entities.insight.fields.relatedInsights',
+            ->add('relatedCaseStudies', EntityType::class, [
+                'class' => CaseStudy::class,
+                'label' => 'entities.case_study.fields.relatedCaseStudies',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -61,35 +69,18 @@ class InsightFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'required' => false,
-                'choice_label' => function ($insight) {
-                    return $insight->translate('es')->getTitle();
+                'choice_label' => function ($caseStudy) {
+                    return $caseStudy->translate('es')->getTitle();
                 }
             ])
-
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
-
-            ->add('translations', TranslationsType::class, [
-                'fields' => [
-                    'title' => ['label'=>'entities.insight.fields.title'],
-                    'summary' => ['label'=>'entities.insight.fields.summary', 'attr'=>['class'=>'summernote']],
-                    'description' => ['label'=>'entities.insight.fields.description', 'attr'=>['class'=>'summernote']],
-                    'slug' => ['label'=>'entities.insight.fields.slug', 'required' => false],
-                    'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
-                    'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                ],
-            ]);
+            ->add('image', ResourceFormType::class, ['label'=>'entities.case_study.fields.image']);
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param OptionsResolver $resolver The resolver for the options.
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Insight::class,
             'translation_domain' => 'admin'
         ]);
     }

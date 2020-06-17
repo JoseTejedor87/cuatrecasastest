@@ -41,6 +41,25 @@ cms_awards_delete:
     methods:    DELETE
     controller: App\Controller\CMS\AwardController::delete
 
+# CASE STUDIES
+# ####################################
+cms_case_studies_index:
+    path:       /case-studies
+    methods:    GET
+    controller: App\Controller\CMS\CaseStudyController::index
+cms_case_studies_new:
+    path:       /case-studies/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\CaseStudyController::new
+cms_case_studies_edit:
+    path:       /case-studies/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\CaseStudyController::edit
+cms_case_studies_delete:
+    path:       /case-studies/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\CaseStudyController::delete
+
 # DESKS
 # ####################################
 cms_desks_index:
