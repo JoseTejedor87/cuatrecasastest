@@ -15,7 +15,7 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
-    app.language_switcher: {es: Castellano, en: English}
+    app.language_switcher: {es: es, en: en}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:

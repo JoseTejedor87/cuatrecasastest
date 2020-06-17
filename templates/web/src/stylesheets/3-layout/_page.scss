@@ -230,10 +230,10 @@
                 }
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color);
+                    // @include fancy-link($complementary-color, $complementary-color);
                     // @include classic-link($complementary-color, $complementary-color);
                     // @include border-link($complementary-color, $complementary-color);
-                    // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+                    @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
                 }
             }
 
