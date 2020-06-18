@@ -72,13 +72,46 @@ class NavigationService
         return $this->router->getContext()->getParameter('_publishable');
     }
 
-    public function getPageTitle()
+    public function getMetaRobotsByPublishable($publishable = null)
     {
+        $publishable = $publishable ?? $this->getPublishable();
+        // Default robots
+        $robots = "all";
+        if ($publishable && $publishable->getMetaRobots() != '') {
+            $robots = $publishable->getMetaRobots();
+        }
+        return $robots;
+    }
+
+    public function getMetaDescriptionByPublishable($publishable = null)
+    {
+        $publishable = $publishable ?? $this->getPublishable();
+        $language = $this->getLanguage();
+        $metaDescription = "";
+        if ($publishable) {
+            $metaDescription = $publishable->translate($language)->getMetaDescription();
+        }
+        return $metaDescription;
+    }
+
+    public function getPageTitleByPublishable($publishable = null)
+    {
+        $publishable = $publishable ?? $this->getPublishable();
+
         // Default title
         $title = "Cuatrecasas";
 
-        if ($publishable = $this->getPublishable()) {
+        if ($publishable) {
             $language = $this->getLanguage();
+            $metaTitle = $publishable->translate($language)->getMetaTitle();
+
+            // Use the metaTitle field as a custom title,
+            // When the standard title field of a Publishable instance
+            // is not suitable for SEO purposes, the user could set the metaTitle
+            // and this will be used instead of the title
+            if ($metaTitle != '') {
+                return $metaTitle;
+            }
 
             if ($publishable instanceof \App\Entity\Article
                 || $publishable instanceof \App\Entity\CaseStudy

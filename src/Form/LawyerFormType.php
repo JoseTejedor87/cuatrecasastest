@@ -20,6 +20,7 @@ use App\Form\Type\LawyerCategoryType;
 use App\Form\Type\KnownLanguageType;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 
 class LawyerFormType extends AbstractType
@@ -92,6 +93,7 @@ class LawyerFormType extends AbstractType
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
