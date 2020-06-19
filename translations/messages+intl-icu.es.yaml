@@ -34,15 +34,17 @@ sections:
   practices:
     title: Áreas de Práctica
     specialities: Especialidades
-    relatedPractices: Prácticas relacionadas
+    relatedActivities: Prácticas relacionadas
   desks:
     title: Desks
+    specialities: Especialidades
+    relatedActivities: Prácticas relacionadas
   products:
     title: Otros servicios
   sectors:
     title: Sectores
     specialities: Especialidades
-    relatedPractices: Prácticas relacionadas
+    relatedActivities: Prácticas relacionadas
 
 # Menu
 # ###########################################
