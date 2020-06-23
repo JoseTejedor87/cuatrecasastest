@@ -139,14 +139,14 @@ desks_index:
        en:   /desks
        es:   /desks
    methods:    GET
-   controller: App\Controller\Web\DesksController::index
+   controller: App\Controller\Web\DeskController::index
 
 desks_detail:
    path:
        en:   /desks/{slug}
        es:   /desks/{slug}
    methods:    GET
-   controller: App\Controller\Web\DesksController::detail
+   controller: App\Controller\Web\DeskController::detail
 
 # Products
 # ###########################################
