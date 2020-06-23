@@ -2,7 +2,29 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.loadMiscell();
-        // web.global.stickyMenu();
+        web.global.mainMenu();
+        // web.global.stickyMenu3();
+    },
+
+    mainMenu: function(){
+        // hover state
+        $('#about-nav .dropdown-menu')
+            .bind('mouseover', function(event) {
+                $(this).prev('.nav-link').addClass('active')
+            })
+            .bind('mouseleave', function(event) {
+                $(this).prev('.nav-link').removeClass('active');
+        });
+
+        // region / lang switch
+        $('.lang-region-toggle').click(function(e){
+            e.preventDefault();
+            $(this).next('.lang-region-menu').show();
+        });
+
+        $('.lang-region-close').click(function(){
+            $(this).parent('.lang-region-menu').hide();
+        });
     },
 
     stickyMenu: function(){
@@ -79,7 +101,7 @@ web.global = {
     },
 
     /*
-    stickyMenu: function(){
+    stickyMenu3: function(){
         const body = document.body;
         const triggerMenu = document.querySelector(".page-header .trigger-menu");
         const nav = document.querySelector(".page-header nav");
@@ -114,38 +136,36 @@ web.global = {
     */
 
     loadMiscell: function(){
-        $(function () {
-            $('.button__bookmark').click(function(e){
-                e.preventDefault();
-                $(this).toggleClass('on');
-            });
-
-            $('.no-link').click(function(e){
-                e.preventDefault();
-            });
-
-            // Sticky Menu
-            // $("#contact-nav").after('.main');
-            // $(window).scroll(function () {
-            //     if ($(document).scrollTop() > 0 ) {
-            //         $('#contactNav .navbar-brand').hide();
-
-            //         if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
-            //             $('.main__nav__wrapper .sub-nav').removeClass('show');
-            //         }
-
-            //     } else {
-            //         $('#contactNav .navbar-brand').fadeIn();
-            //     }
-
-            //     if ($(document).scrollTop() > 62 ) {
-            //         $('#secondaryNav, header').addClass('stickyNav');
-
-            //     } else {
-            //         $('#secondaryNav, header').removeClass('stickyNav');
-            //     }
-            // });
+        $('.button__bookmark').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('on');
         });
+
+        $('.no-link').click(function(e){
+            e.preventDefault();
+        });
+
+        // Sticky Menu
+        // $("#contact-nav").after('.main');
+        // $(window).scroll(function () {
+        //     if ($(document).scrollTop() > 0 ) {
+        //         $('#contactNav .navbar-brand').hide();
+
+        //         if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
+        //             $('.main__nav__wrapper .sub-nav').removeClass('show');
+        //         }
+
+        //     } else {
+        //         $('#contactNav .navbar-brand').fadeIn();
+        //     }
+
+        //     if ($(document).scrollTop() > 62 ) {
+        //         $('#secondaryNav, header').addClass('stickyNav');
+
+        //     } else {
+        //         $('#secondaryNav, header').removeClass('stickyNav');
+        //     }
+        // });
     },
 
     showMoreLess: function(){
