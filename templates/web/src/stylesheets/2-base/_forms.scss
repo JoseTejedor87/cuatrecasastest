@@ -139,6 +139,8 @@
     $select-height: 42px;
 
     display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 -0.5rem;
 
@@ -150,8 +152,10 @@
     }
 
     .select {
-        // flex: 1;
-        flex: 1 1 auto;
+        flex: 1;
+        width: 25%;
+        // flex: 1 1 auto;
+        // flex: 1 0 auto;
         position: relative;
         height: $select-height;
         margin: 0 0.5rem;
@@ -171,8 +175,8 @@
         padding: 1rem 4rem 0 0.5rem;
 
         white-space: nowrap;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         @include fontSet(22px, 22px);
         text-align: left;
@@ -234,6 +238,10 @@
             // box-shadow: 0 1px 0 rgba($black, 0.1);
             transition: all 0.15s ease-in;
 
+            &:first-child {
+                opacity: 0.5;
+            }
+
             &:last-child {
                 // box-shadow: 0 0 0 rgba($black, 0);
             }
@@ -243,7 +251,7 @@
             }
 
             &[rel="hide"] {
-                display: none;
+                // display: none;
             }
         }
     }
@@ -413,5 +421,22 @@ $color-off: $white;
                 }
             }
         }
+    }
+}
+
+
+
+//
+// SPECIFIC STUFF
+// --------------------------------------------------------------------------
+
+.email-subscribe {
+    .form-control {
+        background-color: rgba($black, 0.04);
+    }
+
+    .checkbox {
+        position: relative;
+        top: 8px;
     }
 }

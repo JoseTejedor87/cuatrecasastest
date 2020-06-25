@@ -2,19 +2,22 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.loadMiscell();
-        web.global.mainMenu();
-        // web.global.stickyMenu3();
+        // web.global.mainMenu();
+        web.global.stickyMenu();
     },
 
-    mainMenu: function(){
-        // hover state
+    stickyMenu: function(){
+
+         // menu interactios (hover versus click)
         $('#about-nav .dropdown-menu')
             .bind('mouseover', function(event) {
-                $(this).prev('.nav-link').addClass('active')
+                $(this).prev('.nav-link').addClass('active');
             })
             .bind('mouseleave', function(event) {
                 $(this).prev('.nav-link').removeClass('active');
         });
+
+        $('.lang-region-menu').hide();
 
         // region / lang switch
         $('.lang-region-toggle').click(function(e){
@@ -22,118 +25,38 @@ web.global = {
             $(this).next('.lang-region-menu').show();
         });
 
-        $('.lang-region-close').click(function(){
-            $(this).parent('.lang-region-menu').hide();
+        $('.menu-close.langs').click(function(e){
+            e.preventDefault();
+            $(this).parent().parent('.lang-region-menu').hide();
         });
-    },
 
-    stickyMenu: function(){
+        // sticky menu
+        var prev            = 0;
+        var $window         = $(window);
 
-        /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
-        /*
-        var prevScrollpos = window.pageYOffset;
-        window.onscroll = function() {
-            var currentScrollPos = window.pageYOffset;
-            if (prevScrollpos > currentScrollPos) {
-                document.getElementById("secondaryNav").style.top = "62px";
-            } else {
-                document.getElementById("secondaryNav").style.top = "0";
-            }
-            prevScrollpos = currentScrollPos;
-        }
-        */
-
-
-        var prev    = 0;
-        var $window = $(window);
-        var nav     = $('#navDesktop #secondaryNav');
-        var logo    = $('#navDesktop #secondaryNav .navbar-brand');
-        var header  = $('#navDesktop header');
+        var secondaryNav    = $('#navDesktop #secondaryNav');
+        var logoNav         = $('#navDesktop #secondaryNav .navbar-brand');
+        var subMenuNav      = $('#navDesktop #secondaryNav .dropdown-menu');
+        var userNav         = $('#navDesktop #userNav');
+        var mainHeader      = $('header');
+        var langsNav        = $('#navDesktop .lang-region-menu');
 
         $window.on('scroll', function(){
             var scrollTop = $window.scrollTop();
-            nav.toggleClass('stickyNav', scrollTop > prev);
-            logo.toggleClass('stickyNav', scrollTop > prev);
-            header.toggleClass('stickyNav', scrollTop > prev);
+            secondaryNav.toggleClass('stickyNav', scrollTop > prev);
+            logoNav.toggleClass('stickyNav', scrollTop > prev);
+            subMenuNav.removeClass('show', scrollTop > prev);
+            userNav.toggleClass('stickyNav', scrollTop > prev);
+            mainHeader.toggleClass('stickyNav', scrollTop > prev);
+            langsNav.hide();
             prev = scrollTop;
         });
-    },
 
-    stickyMenuOld: function(){
-        // Hide Header on scroll down
-        var didScroll;
-        var lastScrollTop = 0;
-        var delta = 5;
-        var navbarHeight = $('header').outerHeight();
-
-        $(window).scroll(function(event){
-            didScroll = true;
-        });
-
-        setInterval(function() {
-            if (didScroll) {
-                hasScrolled();
-                didScroll = false;
-            }
-        }, 250);
-
-        function hasScrolled() {
-            var st = $(this).scrollTop();
-
-            // Make sure they scroll more than delta
-            if(Math.abs(lastScrollTop - st) <= delta)
-                return;
-
-            // If they scrolled down and are past the navbar, add class .nav-up.
-            // This is necessary so you never see what is "behind" the navbar.
-            if (st > lastScrollTop && st > navbarHeight){
-                // Scroll Down
-                $('header').removeClass('nav-down').addClass('nav-up');
-            } else {
-                // Scroll Up
-                if(st + $(window).height() < $(document).height()) {
-                    $('header').removeClass('nav-up').addClass('nav-down');
-                }
-            }
-
-            lastScrollTop = st;
-        }
-    },
-
-    /*
-    stickyMenu3: function(){
-        const body = document.body;
-        const triggerMenu = document.querySelector(".page-header .trigger-menu");
-        const nav = document.querySelector(".page-header nav");
-        const menu = document.querySelector(".page-header .menu");
-        const scrollUp = "scroll-up";
-        const scrollDown = "scroll-down";
-        let lastScroll = 0;
-
-        triggerMenu.addEventListener("click", () => {
-          body.classList.toggle("menu-open");
-        });
-
-        window.addEventListener("scroll", () => {
-          const currentScroll = window.pageYOffset;
-          if (currentScroll == 0) {
-            body.classList.remove(scrollUp);
-            return;
-          }
-
-          if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
-            // down
-            body.classList.remove(scrollUp);
-            body.classList.add(scrollDown);
-          } else if (currentScroll < lastScroll && body.classList.contains(scrollDown)) {
-            // up
-            body.classList.remove(scrollDown);
-            body.classList.add(scrollUp);
-          }
-          lastScroll = currentScroll;
+        $('#hamburgerButton').click(function(e){
+            e.preventDefault();
+            secondaryNav.toggleClass('stickyNav');
         });
     },
-    */
 
     loadMiscell: function(){
         $('.button__bookmark').click(function(e){
@@ -144,28 +67,6 @@ web.global = {
         $('.no-link').click(function(e){
             e.preventDefault();
         });
-
-        // Sticky Menu
-        // $("#contact-nav").after('.main');
-        // $(window).scroll(function () {
-        //     if ($(document).scrollTop() > 0 ) {
-        //         $('#contactNav .navbar-brand').hide();
-
-        //         if ($('.main__nav__wrapper .sub-nav').hasClass('show')) {
-        //             $('.main__nav__wrapper .sub-nav').removeClass('show');
-        //         }
-
-        //     } else {
-        //         $('#contactNav .navbar-brand').fadeIn();
-        //     }
-
-        //     if ($(document).scrollTop() > 62 ) {
-        //         $('#secondaryNav, header').addClass('stickyNav');
-
-        //     } else {
-        //         $('#secondaryNav, header').removeClass('stickyNav');
-        //     }
-        // });
     },
 
     showMoreLess: function(){
@@ -233,6 +134,8 @@ web.global = {
 
     */
 
+
+    // BORRAR
     lawyerResults: function(){
         // Add display: flex instead of display: block to loader
         $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
@@ -354,8 +257,8 @@ web.global = {
             slidesPerView: 3,
             spaceBetween: 25,
             // loop: true,
-            // allowTouchMove: false,
-            // grabCursor: true,
+            allowTouchMove: true,
+            grabCursor: true,
             scrollbar: {
                 el: '.swiper-scrollbar',
                 draggable: true
@@ -369,11 +272,7 @@ web.global = {
             spaceBetween: 20,
             loop: true,
             allowTouchMove: true,
-            grabCursor: false,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
+            grabCursor: true
         });
     },
 

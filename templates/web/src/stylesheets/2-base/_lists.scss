@@ -200,7 +200,7 @@
 
 @include new("bullet__list") {
     @include reset-list;
-    padding-bottom: 4rem;
+    // padding-bottom: 4rem;
 
     > li {
         position: relative;

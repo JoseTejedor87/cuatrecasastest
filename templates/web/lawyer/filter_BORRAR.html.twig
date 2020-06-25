@@ -19,10 +19,13 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                    <a href="#">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('lawyers_index') }}">{{ 'sections.lawyers.title'|trans }}</a>
+                                    <a href="#">Abogados</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Búsqueda Abogados
                                 </li>
                             </ol>
                         </nav>
@@ -76,7 +79,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="category" class="custom__select">
+                        <select id="category" class="custom__select" style="width:25%;">
                             <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
@@ -93,7 +96,7 @@
                     <nav class="search_alphabet" aria-label="Search by letter">
                         <ul class="pagination">
                         {% for letter in range('a','z') %}
-                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_directory') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
                         {% endfor %}
                         </ul>
                     </nav>
@@ -107,6 +110,7 @@
                     </div> -->
                 </div>
             </section>
+
 
             <section id="lawyerAjaxResults" class="row lawyer__search">
                 {% if countLawyers != ''  %}
@@ -190,8 +194,8 @@
     {% include 'web/shared/career.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-    <!-- Loader -->
-    <div class="search__component__loader" style="display:none">
+    <!-- Fake Loader -->
+    <div class="lawyer__search__wrapper__loader">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -207,63 +211,27 @@
 <script>
     $( document ).ready(function() {
         web.global.customSelects();
+        web.global.lawyerResults();
         web.global.sliderGeneral();
 
-        // RESULTS VIEWS
-        $(document).on('click', '.list', function(e){
-            e.preventDefault();
-            $('.icon__button.grid').removeClass('active');
-            $(this).addClass('active');
-            $('.search__component__loader').fadeIn('fast');
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
-            setTimeout(
-                function(){
-                    $('.search__component__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-        $(document).on('click', '.grid', function(e){
-            e.preventDefault();
-            $('.icon__button.list').removeClass('active');
-            $(this).addClass('active');
-            $('.search__component__loader').fadeIn('fast');
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
-            setTimeout(
-                function(){
-                    $('.search__component__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-        $('.search__component__loader').css("display", "flex").hide();
-
-        // SEARCH FUNCTIONS
         $(document).on("click", "#searchButton", function(){
             ajax();
         });
         $(".select-options li").on("click", function(){
             ajax();
         });
-        $(document).on('click', '.page-link', function(event){
+        $(".search_alphabet .page-link").on("click", function(){
             var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
-            if(!initial){
-                $('#lawyerPagination .page-link').removeClass('active');
-                $(this).addClass('active');
-                var page = $(this).data("page");
-            }else{
-                $('.search_alphabet .page-link').removeClass('active');
-                $(this).addClass('active');
-
-            }
+            ajax(1,initial);
+        });
+        $(document).on('click', '.page-link', function(event){
+            $('#lawyerPagination .page-link').removeClass('active');
+            $(this).addClass('active');
+            var page = $(this).data("page");
             if(!page){
                 page=1;
             }
-           ajax(page,initial);
+           ajax(page);
 
         });
 
@@ -282,14 +250,14 @@
             }
             $.ajax({
                 method: "GET",
+                url: "{{ path('lawyers_directory') }}",
                 data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
-                url: "{{ path('lawyers_index') }}",
                 beforeSend: function( xhr ) {
-                    $('.search__component__loader').fadeIn('fast');
+                    $('.lawyer__search__wrapper__loader').fadeIn('fast');
                 }
             })
             .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
+                $('.lawyer__search__wrapper__loader').fadeOut();
                 $('#lawyerAjaxResults').empty();
                 var url= "";
                 if(msg['initial']){
@@ -355,7 +323,7 @@
                 msg['lawyers'].forEach(function(lawyer){
                     html = html + `
                         <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
+                            <a href="{{ relative_path('/es/lawyer/detail/')}}`+ lawyer['Slug']  + `" class="lawyer__link">
                                 <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                                 <div class="lawyer__details">
                                     <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
@@ -414,7 +382,14 @@
                 $("#initial").val(initial);
             })
             .fail(function() {
-
+                var URLactual = window.location;
+                var n = String(URLactual).search('page');
+                if(n > -1){
+                    URLactual = String(URLactual).slice(0, -1);
+                    $(location).attr('href',URLactual+page);
+                }else{
+                    $(location).attr('href',URLactual+"&page="+page);
+                }
             });
     }
 </script>

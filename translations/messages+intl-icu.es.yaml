@@ -19,6 +19,8 @@ global:
 # Sections
 # ###########################################
 sections:
+  knowledge:
+    title: Conocimiento
   lawyers:
     title: Abogados
     lawyerCategoryTypes:
@@ -37,6 +39,9 @@ sections:
     relatedPractices: Prácticas relacionadas
   desks:
     title: Desks
+    discover_title: Presencia Europea
+    discover_text: Cuatrecasas cuenta con oficinas en las principales ciudades europeas
+    discover_button: Descubre
   products:
     title: Otros servicios
   sectors:
@@ -60,6 +65,6 @@ menu:
 # ###########################################
 reusable_blocks:
     team:
-      title: Equipo <br/> Cuatrecasas
+      title: Equipo Cuatrecasas
       link: Conoce al equipo
-      intro: Cuatrecasas cuenta con un equipo {team}
+      intro: Cuatrecasas cuenta con un equipo de {team}
