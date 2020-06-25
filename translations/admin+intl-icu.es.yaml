@@ -300,6 +300,9 @@ entities:
   practice:
     fields:
       children: Subáreas
+  product:
+    fields:
+      children: Subproductos
   publishable:
     fields:
       languages: Idiomas de publicación

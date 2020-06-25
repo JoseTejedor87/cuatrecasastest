@@ -63,7 +63,7 @@ class ProductController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('cms_products_index');
+            return $this->redirectToRoute('cms_products_edit', ['id'=>$product->getId()]);
         }
 
         return $this->render('cms/product/edit.html.twig', [
