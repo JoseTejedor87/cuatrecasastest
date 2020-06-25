@@ -35,18 +35,20 @@ sections:
       senior_partner: Senior Partner
   practices:
     title: Practice
-    specialities: Specialties
+    specialities: Specialities
     relatedPractices: Related Practices
   desks:
     title: Desks
     discover_title: European Presence
     discover_text: Cuatrecasas has offices in the main European cities
     discover_button: Discover
+    specialities: Especialidades
+    relatedActivities: Related Practices
   products:
     title: Other services
   sectors:
     title: Sectors
-    specialities: Specialties
+    specialities: Specialities
     relatedPractices: Related Practices
 
 # Menu

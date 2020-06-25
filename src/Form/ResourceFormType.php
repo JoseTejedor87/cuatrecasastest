@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 
 class ResourceFormType extends AbstractType
 {
@@ -27,7 +29,7 @@ class ResourceFormType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
                 'allow_extra_fields' => true
-            ])            
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'article_thumbnail' => 'article_thumbnail',
@@ -37,6 +39,8 @@ class ResourceFormType extends AbstractType
                 'required' => false,
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
         ;
     }
 

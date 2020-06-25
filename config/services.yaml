@@ -36,14 +36,18 @@ parameters:
 
     app.known_languages_by_lawyers: [es, en, it, pt, fr]
 
+    app.meta_robots: {"noindex": "noindex", "nofollow": "nofollow", "noindex, nofollow": "noindex, nofollow"}
+
     app.event_types:
         - standard
         - webinar
         - breakfast
         - institutional
+
     app.block_types:
         - quoteBlock
         - eventsBlock
+
     app.path.uploads.resources: '/resources'
 
 services:

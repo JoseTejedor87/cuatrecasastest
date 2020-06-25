@@ -123,6 +123,11 @@ class Office extends Publishable
         $this->event = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getCity();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -411,6 +416,4 @@ class Office extends Publishable
 
         return $this;
     }
-
-
 }

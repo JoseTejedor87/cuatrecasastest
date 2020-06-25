@@ -35,6 +35,7 @@
             </div>
             {{ translatableField.partialTranslations(form.translations, ['slug']) }}
             {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
         </div>
 
         <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -47,6 +48,7 @@
             </div>
             {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
             {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+            {{ form_row(form.metaRobots) }}
         </div>
 
     </div>

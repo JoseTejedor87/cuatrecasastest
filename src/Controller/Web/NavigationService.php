@@ -17,14 +17,12 @@ class NavigationService
 
     public function getLanguage()
     {
-        $params = $this->request->attributes->get('_route_params');
-        return $params['_locale'];
+        return $this->router->getContext()->getParameter('_locale');
     }
 
     public function getRegion()
     {
-        $params = $this->request->attributes->get('_route_params');
-        return $params['_region'];
+        return $this->router->getContext()->getParameter('_region');
     }
 
     public function getHrefLang($language, $region)
@@ -49,7 +47,7 @@ class NavigationService
         // just rewrite the current request using the $language and
         // $region parameters
 
-        if ($publishable = $this->router->getContext()->getParameter('_publishable')) {
+        if ($publishable = $this->getPublishable()) {
             // Calling getPathByPublishable to retrieve the custom path
             // for the current $publishable instance
             $path = $this->getPathByPublishable($publishable, $language, $region);
@@ -69,6 +67,71 @@ class NavigationService
         return $path;
     }
 
+    public function getPublishable()
+    {
+        return $this->router->getContext()->getParameter('_publishable');
+    }
+
+    public function getMetaRobotsByPublishable($publishable = null)
+    {
+        $publishable = $publishable ?? $this->getPublishable();
+        // Default robots
+        $robots = "all";
+        if ($publishable && $publishable->getMetaRobots() != '') {
+            $robots = $publishable->getMetaRobots();
+        }
+        return $robots;
+    }
+
+    public function getMetaDescriptionByPublishable($publishable = null)
+    {
+        $publishable = $publishable ?? $this->getPublishable();
+        $language = $this->getLanguage();
+        $metaDescription = "";
+        if ($publishable) {
+            $metaDescription = $publishable->translate($language)->getMetaDescription();
+        }
+        return $metaDescription;
+    }
+
+    public function getPageTitleByPublishable($publishable = null)
+    {
+        $publishable = $publishable ?? $this->getPublishable();
+
+        // Default title
+        $title = "Cuatrecasas";
+
+        if ($publishable) {
+            $language = $this->getLanguage();
+            $metaTitle = $publishable->translate($language)->getMetaTitle();
+
+            // Use the metaTitle field as a custom title,
+            // When the standard title field of a Publishable instance
+            // is not suitable for SEO purposes, the user could set the metaTitle
+            // and this will be used instead of the title
+            if ($metaTitle != '') {
+                return $metaTitle;
+            }
+
+            if ($publishable instanceof \App\Entity\Article
+                || $publishable instanceof \App\Entity\CaseStudy
+                || $publishable instanceof \App\Entity\Desk
+                || $publishable instanceof \App\Entity\Event
+                || $publishable instanceof \App\Entity\Insight
+                || $publishable instanceof \App\Entity\Page
+                || $publishable instanceof \App\Entity\Practice
+                || $publishable instanceof \App\Entity\Product
+                || $publishable instanceof \App\Entity\Sector) {
+                $title = $publishable->translate($language)->getTitle();
+            } elseif ($publishable instanceof \App\Entity\Lawyer
+                    || $publishable instanceof \App\Entity\Office
+                    || $publishable instanceof \App\Entity\Resource) {
+                $title = $publishable->__toString();
+            }
+        }
+        return $title;
+    }
+
     // Obtain the custom path for an specific publishable instance.
     // The optional parameters $language and $region could be used to force some values.
     // If no optional parameter received, the method use the values from the current request.
@@ -77,8 +140,8 @@ class NavigationService
         $path = null;
         $params = [];
 
-        $language = $language ?? $this->router->getContext()->getParameter('_locale');
-        $region = $region ?? $this->router->getContext()->getParameter('_region');
+        $language = $language ?? $this->getLanguage();
+        $region = $region ?? $this->getRegion();
 
         $params['_locale'] = $language;
         $params['_region'] = $region;
@@ -87,6 +150,9 @@ class NavigationService
         if (($publishable instanceof \App\Entity\Publishable) && $publishable->isPublished($language, $region)) {
             if ($publishable instanceof \App\Entity\Article) {
                 $pathName = 'articles_detail';
+                $params['slug'] = $publishable->translate($language)->getSlug();
+            } elseif ($publishable instanceof \App\Entity\CaseStudy) {
+                $pathName = 'case_studies_detail';
                 $params['slug'] = $publishable->translate($language)->getSlug();
             } elseif ($publishable instanceof \App\Entity\Desk) {
                 $pathName = 'desks_detail';
