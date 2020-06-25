@@ -1,0 +1,164 @@
+// ==========================================================================
+// GRID INSIGHTS
+// ==========================================================================
+
+@include new("grid") {
+
+    @include has("wrapper") {
+        display: -ms-grid;
+        display: grid;
+        grid-gap: 10px;
+        // grid-gap IE11
+        padding: 10px 0 0 10px;
+
+        $col-width: (100% / 3);
+        $row-height: 140px;
+        -ms-grid-columns: $col-width $col-width $col-width;
+        -ms-grid-rows: $row-height $row-height $row-height $row-height;
+        grid-template-columns: $col-width $col-width $col-width;
+        grid-template-rows: $row-height $row-height $row-height $row-height;
+
+        justify-content: center;
+        align-content: center;
+        color: #444;
+        background-color: #fff;
+    }
+
+    @include has("box") {
+        font-size: 150%;
+        padding: 20px;
+        color: #333;
+        background-color: #fcf;
+        // grid-gap IE11
+        border: 0 solid $white;
+        border-width: 0 10px 10px 0;
+
+        &.a {
+            -ms-grid-column: 1;
+            -ms-grid-column-span: 2;
+            -ms-grid-row: 1;
+            -ms-grid-row-span: 2;
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+        }
+
+        &.b {
+            -ms-grid-column: 3;
+            -ms-grid-row: 1;
+            -ms-grid-row-span: 2;
+            grid-column: 3;
+            grid-row: 1 / span 2;
+        }
+
+        &.c {
+            -ms-grid-column: 1;
+            -ms-grid-row: 3;
+            -ms-grid-row-span: 2;
+            grid-column: 1;
+            grid-row: 3 / span 2;
+        }
+
+        &.d {
+            -ms-grid-column: 2;
+            -ms-grid-row: 3;
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        &.e {
+            -ms-grid-column: 3;
+            -ms-grid-row: 3;
+            grid-column: 3;
+            grid-row: 3;
+        }
+
+        &.f {
+            -ms-grid-column: 2;
+            -ms-grid-row: 4;
+            grid-column: 2;
+            grid-row: 4;
+        }
+
+        &.g {
+            -ms-grid-column: 3;
+            -ms-grid-row: 4;
+            grid-column: 3;
+            grid-row: 4;
+        }
+    }
+}
+
+
+
+//
+// MASNORY GRID
+// --------------------------------------------------------------------------
+
+/*
+https://w3bits.com/css-masonry/
+
+https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
+https://css-tricks.com/things-ive-learned-css-grid-layout/
+
+https://codepen.io/balazs_sziklai/pen/mOwoLg
+https://codepen.io/balazs_sziklai/pen/mOwoLg
+
+https://codeburst.io/how-to-pure-css-masonry-layouts-a8ede07ba31a
+https://codepen.io/jh3y/pen/mPgyqw
+
+*/
+
+
+@include new("grid__masonry") {
+
+    width: 100%;
+    border: 1px solid red;
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    @include has("sizer") {
+        width: 33.3333%;
+    }
+
+    @include has("item") {
+        width: 33.3333%;
+        float: left;
+        height: 260px;
+        background: #fcf;
+        // border: 2px solid black;
+        border: 10px solid white;
+        // border-color: hsla(0, 0%, 0%, 0.7);
+
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+
+        padding: 2rem;
+
+        @include when("doble__width") {
+            width: 66.6666%
+        }
+
+        @include when("doble__height") {
+            height: 520px;
+        }
+    }
+}
+
+
+// .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
+// .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }
+// .grid-item:nth-child(10n+2) { background: hsl(  72, 100%, 50%); }
+// .grid-item:nth-child(10n+3) { background: hsl( 108, 100%, 50%); }
+// .grid-item:nth-child(10n+4) { background: hsl( 144, 100%, 50%); }
+// .grid-item:nth-child(10n+5) { background: hsl( 180, 100%, 50%); }
+// .grid-item:nth-child(10n+6) { background: hsl( 216, 100%, 50%); }
+// .grid-item:nth-child(10n+7) { background: hsl( 252, 100%, 50%); }
+// .grid-item:nth-child(10n+8) { background: hsl( 288, 100%, 50%); }
+// .grid-item:nth-child(10n+9) { background: hsl( 324, 100%, 50%); }
+
+

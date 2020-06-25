@@ -2,10 +2,9 @@
 {% block main %}
 
     <main role="main" class="services">
-
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <!-- <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -31,6 +30,44 @@
                         <li><a href="#"><i class="material-icons">print</i></a></li>
                         <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                     </ul>
+                </div>
+            </header> -->
+
+            <header class="container insights__page">
+                <div class="row insights__page__header">
+                    <div class="col-md-7 insights__page__content">
+                        <a href="#" class="back__button">volver</a>
+
+                        <div class="insights__page__info">
+                            <h1 class="page__title">KIID production service</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Inicio</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Servicios</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Tema destacado
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__media">
+                            <figure style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}');">
+                                <img src="{{ asset('web/assets/vector/insight-bg-1.png') }}">
+                            </figure>
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -136,7 +173,6 @@
             </section>
 
         </article>
-
     </main>
 
     {#% include 'web/shared/team.html.twig' %#}

@@ -38,7 +38,7 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    public function productDetail()
+    public function productDetailKnowledge()
     {
         return $this->render('web/knowledge/productDetail.html.twig', [
             'controller_name' => 'KnowledgeController',

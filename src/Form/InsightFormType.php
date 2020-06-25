@@ -14,6 +14,7 @@ use App\Entity\Lawyer;
 use App\Entity\Insight;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 
 class InsightFormType extends AbstractType
 {
@@ -68,6 +69,7 @@ class InsightFormType extends AbstractType
 
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
 
             ->add('translations', TranslationsType::class, [
                 'fields' => [

@@ -19,6 +19,8 @@ use App\Entity\Activity;
 use App\Entity\Resource;
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 
 class EventFormType extends AbstractType
@@ -35,6 +37,8 @@ class EventFormType extends AbstractType
             ->add('customMap', TextType::class, ['label'=>'entities.event.fields.customMap'])
             ->add('customSignup', TextType::class, ['label'=>'entities.event.fields.customSignup'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('attachments', CollectionType::class, [
                 'label' => 'entities.event.fields.attachments',
                 'entry_type' => ResourceFormType::class,

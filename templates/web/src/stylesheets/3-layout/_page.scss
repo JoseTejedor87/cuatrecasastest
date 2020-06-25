@@ -16,11 +16,12 @@
         // Full width hack
         @include reset-full-scren;
 
-        // height: 650px;
-        height: 60vh;
+        height: 480px;
+        // height: 60vh;
 
         background-color: $main-color;
-        background-attachment: fixed;
+        // background-attachment: fixed;
+        background-attachment: scroll;
         background-position: 50% 0;
         background-repeat: no-repeat;
         background-size: cover;
@@ -179,33 +180,36 @@
 
             .page__block__content {
 
-                &.sectors {
-                    ul {
-                        @include reset-list;
-                        padding-bottom: 2rem;
-                        list-style-type: none !important;
+                ul {
+                    @include reset-list;
+                    padding-bottom: 2rem;
+                    list-style-type: none !important;
 
-                        > li {
-                            position: relative;
-                            margin-bottom: 1rem;
-                            padding-left: 1.2rem;
-                            @include fontSet(20px, 26px);
-                            color: $main-color;
+                    > li {
+                        position: relative;
+                        margin-bottom: 1rem;
+                        padding-left: 1.2rem;
+                        @include fontSet(20px, 26px);
+                        color: $main-color;
 
-                            &:before {
-                                content: '';
-                                position: absolute;
-                                top: 8px;
-                                left: 0;
-                                display: inline-block;
-                                width: 8px;
-                                height: 8px;
-                                border-radius: 50%;
-                                background-color: $main-color;
-                            }
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 8px;
+                            left: 0;
+                            display: inline-block;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background-color: $main-color;
                         }
                     }
                 }
+
+                a {
+                    @include fancy-link($complementary-color, $complementary-color, $white);
+                }
+
             }
         }
 
@@ -230,10 +234,12 @@
                 }
 
                 a {
-                    // @include fancy-link($complementary-color, $complementary-color);
+                    // @include left-to-right-link($complementary-color, $complementary-color);
                     // @include classic-link($complementary-color, $complementary-color);
                     // @include border-link($complementary-color, $complementary-color);
-                    @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+                    // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+
+                    @include fancy-link($complementary-color, $complementary-color, $white);
                 }
             }
 
@@ -315,7 +321,8 @@
 
                 a {
                     // @include classic-link($complementary-color, $complementary-color, $border: true);
-                    @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
+                    // @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
+                    @include fancy-link($complementary-color, $complementary-color, $white);
                 }
             }
 
@@ -329,6 +336,7 @@
                     @include fontSet(33px, 37px);
 
                     a {
+                        @include fancy-link($complementary-color, $complementary-color, $white);
                         // @include background-link($complementary-color, $white, $complementary-color);
                     }
                 }
@@ -351,7 +359,8 @@
 
                 a {
                     // @include classic-link($complementary-color, $complementary-color, $border: true);
-                    @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
+                    // @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
+                    @include fancy-link($complementary-color, $complementary-color, $white);
                 }
             }
 
@@ -370,7 +379,7 @@
                 //     margin-bottom: 0;
 
                 //     a {
-                //         @include fancy-link($complementary-color, $complementary-color);
+                //         @include left-to-right-link($complementary-color, $complementary-color);
                 //     }
                 // }
 
@@ -569,7 +578,7 @@
                 }
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color);
+                    @include left-to-right-link($complementary-color, $complementary-color);
                     // @include classic-link($complementary-color, $complementary-color);
                     // @include border-link($complementary-color, $complementary-color);
                     // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
@@ -598,12 +607,29 @@
             }
 
             ul {
-                margin-bottom: 3rem;
-            }
+                @include reset-list;
+                padding-bottom: 2rem;
+                list-style-type: none !important;
 
-            li {
-                @include fontSet(24px, 30px);
-                margin-bottom: 1.2rem;
+                > li {
+                    position: relative;
+                    margin-bottom: 1rem;
+                    padding-left: 1.2rem;
+                    @include fontSet(20px, 26px);
+                    color: $main-color;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 8px;
+                        left: 0;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: $main-color;
+                    }
+                }
             }
 
             .page__event__details {

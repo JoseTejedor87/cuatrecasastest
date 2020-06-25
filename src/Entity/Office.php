@@ -124,6 +124,11 @@ class Office extends Publishable
         $this->publication = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getCity();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -385,6 +390,7 @@ class Office extends Publishable
 
         return $this;
     }
+<<<<<<< HEAD
 
     /**
      * @return Collection|Publication[]
@@ -415,4 +421,6 @@ class Office extends Publishable
     }
 
 
+=======
+>>>>>>> 3569a3a95c4936015bbec183f2eb291f6b278327
 }

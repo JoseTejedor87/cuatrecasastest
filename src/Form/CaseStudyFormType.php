@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 use App\Entity\Event;
 use App\Entity\Lawyer;
@@ -75,6 +76,7 @@ class CaseStudyFormType extends AbstractType
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('image', ResourceFormType::class, ['label'=>'entities.case_study.fields.image']);
     }
 

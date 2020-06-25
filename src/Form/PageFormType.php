@@ -10,6 +10,8 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 
 class PageFormType extends AbstractType
 {
@@ -24,6 +26,8 @@ class PageFormType extends AbstractType
                 ],
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('blocks', CollectionType::class, [
                 'label'=>'entities.page.fields.blocks',
                 'entry_type' => BlockFormType::class,

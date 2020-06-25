@@ -19,18 +19,38 @@ global:
 # Sections
 # ###########################################
 sections:
+  knowledge:
+    title: Knowledge
   lawyers:
     title: Lawyers
     lawyerCategoryTypes:
-      associate:
-      counsel:
-      honorary_partner:
-      honorary_president:
-      managing_partner:
-      no_position:
-      partner:
-      senior_associate:
-      senior_partner:
+      associate: Associate
+      counsel: Counsel
+      honorary_partner: Honorary Partner
+      honorary_president: Honorary President
+      managing_partner: Managing Partner
+      no_position: No position
+      partner: Partner
+      senior_associate: Senior Associate
+      senior_partner: Senior Partner
+  practices:
+    title: Practice
+    specialities: Specialities
+    relatedPractices: Related Practices
+  desks:
+    title: Desks
+    discover_title: European Presence
+    discover_text: Cuatrecasas has offices in the main European cities
+    discover_button: Discover
+    specialities: Especialidades
+    relatedActivities: Related Practices
+  products:
+    title: Other services
+  sectors:
+    title: Sectors
+    specialities: Specialities
+    relatedPractices: Related Practices
+
 # Menu
 # ###########################################
 menu:
@@ -42,3 +62,11 @@ menu:
   products: Products
   services: Services
   sectors: Sectors
+
+# Reusable Blocks
+# ###########################################
+reusable_blocks:
+    team:
+      title: Team Cuatrecasas
+      link: Meet the team
+      intro: Cuatrecasas has a team of {team}

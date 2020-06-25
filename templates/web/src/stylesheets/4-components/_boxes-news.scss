@@ -481,7 +481,7 @@
             @include fontSet(22px, 26px);
 
             a {
-                @include fancy-link($complementary-color, $complementary-color);
+                @include left-to-right-link($complementary-color, $complementary-color);
                 text-transform: uppercase;
             }
         }
@@ -496,7 +496,7 @@
             @include fontSet(22px, 26px);
 
             a {
-                @include fancy-link($complementary-color, $complementary-color);
+                @include left-to-right-link($complementary-color, $complementary-color);
             }
         }
 
@@ -546,21 +546,21 @@
             @include has("link") {
                 // padding-bottom: 0.1rem;
                 @include fontSet(28px, 32px);
-                // @include box-link($black, $complementary-color, $white);
+                // @include fancy-underline-link($black, $complementary-color, $white);
                 @include classic-link($black, $complementary-color, $border: false);
 
                 @include when-inside(".boxnews__item--event") {
-                    // @include box-link($black, $complementary-color, $event-box-color);
+                    // @include fancy-underline-link($black, $complementary-color, $event-box-color);
                 }
 
                 @include when-inside(".boxnews--event") {
-                    // @include box-link($black, $complementary-color, $event-box-color);
+                    // @include fancy-underline-link($black, $complementary-color, $event-box-color);
                 }
 
                 @include when-inside(".boxnews--products") {
                     font-size: inherit;
                     line-height: inherit;
-                    // @include box-link($black, $main-color, $white);
+                    // @include fancy-underline-link($black, $main-color, $white);
                 }
             }
 
@@ -597,7 +597,7 @@
         }
 
             @include has("more") {
-                @include fancy-link($complementary-color, $complementary-color);
+                @include left-to-right-link($complementary-color, $complementary-color);
                 @include fontSet(24px, 24px);
                 padding-bottom: 4px;
                 transition: all 0.2s ease-in-out;

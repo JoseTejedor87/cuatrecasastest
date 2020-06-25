@@ -174,15 +174,15 @@
             @include has("link") {
                 // padding-bottom: 0.1rem;
                 @include fontSet(28px, 32px);
-                // @include fancy-underline-link($black, $complementary-color, $white);
+                @include fancy-underline-link($black, $complementary-color, $white);
 
                 @include when-inside(".boxnews--event") {
-                    // @include fancy-underline-link($black, $complementary-color, $event-bg-color);
+                    @include fancy-underline-link($black, $complementary-color, $event-bg-color);
                 }
 
                 @include when-inside(".boxnews--insight") {
                     @include fontSet(40px, 44px);
-                    // @include fancy-underline-link($black, $black, $white);
+                    @include fancy-underline-link($black, $black, $white);
                     letter-spacing: -1px;
                     text-transform: none;
                 }
