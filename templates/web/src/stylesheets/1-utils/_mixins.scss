@@ -502,7 +502,7 @@ img {
 
 @mixin stretch-to-right {
     @include reset-figure;
-    width: 100vw;
+    width: auto;
     height: 100%;
     margin-right: -22vw;
 
