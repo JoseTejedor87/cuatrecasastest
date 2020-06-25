@@ -177,6 +177,7 @@ entities:
       experience: Experiencia
       blocks: Bloques
       relatedActivities: Actividades relacionadas
+      slug: Slug
   article:
     fields:
       title: Título
@@ -304,6 +305,7 @@ entities:
       regions: Regiones de publicación
       metaTitle: Meta Título
       metaDescription: Meta Descripción
+      metaRobots: Meta Robots
   quote:
     fields:
       author: Autor

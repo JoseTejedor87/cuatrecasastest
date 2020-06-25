@@ -112,15 +112,21 @@ class Office extends Publishable
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="offices")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="offices")
      */
-    private $Article;
+    private $publication;
 
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
         $this->Article = new ArrayCollection();
         $this->event = new ArrayCollection();
+        $this->publication = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getCity();
     }
 
     public function getId(): ?int
@@ -341,33 +347,6 @@ class Office extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticle(): Collection
-    {
-        return $this->Article;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
-            $article->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->Article->contains($article)) {
-            $this->Article->removeElement($article);
-            $article->removeActivity($this);
-        }
-
-        return $this;
-    }
 
     public function getSlug(): ?string
     {
@@ -411,6 +390,37 @@ class Office extends Publishable
 
         return $this;
     }
+<<<<<<< HEAD
+
+    /**
+     * @return Collection|Publication[]
+     */
+    public function getPublication(): Collection
+    {
+        return $this->publication;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publication->contains($publication)) {
+            $this->publication[] = $publication;
+            $publication->addOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publication->contains($publication)) {
+            $this->publication->removeElement($publication);
+            $publication->removeOffice($this);
+        }
+
+        return $this;
+    }
 
 
+=======
+>>>>>>> 3569a3a95c4936015bbec183f2eb291f6b278327
 }

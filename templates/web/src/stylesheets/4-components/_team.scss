@@ -57,14 +57,16 @@
         }
 
         @include has("title") {
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             @include fontSet(16px, 19px);
             font-weight: bold;
             text-transform: uppercase;
             color: $main-color;
+            word-spacing: 100vw;
         }
 
         @include has("intro") {
+            margin-bottom: 4rem;
             @include fontSet(28px, 30px);
             font-weight: normal;
             color: $white;
@@ -89,16 +91,14 @@
         display: flex;
         flex-flow: column nowrap;
 
-        // background-size: cover;
-        // background-position: 0 30%;
-        background-size: auto 100%;
-        background-position: 94% 0;
+        // background-size: auto 100%;
+        // background-position: 94% 0;
         background-repeat: no-repeat;
-        // background-blend-mode: normal;
+        background-blend-mode: normal;
         background-color: rgba($black, 0.5);
 
         // background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
-        transition: all 0.3s ease-in-out;
+        transition: all 0.4s ease-in-out;
 
         &:last-child {
             margin-right: 0;
@@ -111,11 +111,12 @@
 
         @include has("name") {
             order: 2;
-            // width: 40%;
             margin-top: 1rem;
+            width: 140px;
             @include fontSet(28px, 30px);
             font-weight: normal;
             color: $white;
+            overflow: hidden;
         }
 
         @include has("details") {
@@ -127,18 +128,22 @@
             font-weight: bold;
             text-transform: uppercase;
             color: $main-color;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         @include has("practice") {
             @include reset-list;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            margin: 0.2rem 0;
             overflow: hidden;
 
             @include has("item") {
-                flex: 0 1 auto;
+                flex: 0 0 auto;
                 position: relative;
-                margin: 4px 16px 0 0;
+                margin: 0 16px 0 0;
                 padding: 0 0;
                 @include fontSet(16px, 16px);
                 font-weight: bold;
@@ -148,7 +153,7 @@
                 &:before {
                     content: "";
                     position: absolute;
-                    top: -1px;
+                    top: -3px;
                     left: -8px;
                     width: 2px;
                     height: 100%;
@@ -156,11 +161,35 @@
                 }
 
                 &:first-child {
+                    display: block;
                     &:before {
                         display: none;
                     }
                 }
             }
+        }
+
+        @include has("sector") {
+            margin: 0.2rem 0;
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            color: $main-color;
+        }
+
+        @include has("place") {
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $main-color;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         @include has("resume") {
@@ -178,30 +207,7 @@
             }
         }
 
-        //
-        // JUST ONE MEMBER
-        //
-        &:only-child {
-            background-position: 100% 100%;
-            background-size: auto 130%;
-
-            .team__member__resume {
-                // opacity: 1;
-            }
-        }
-
-
         @include on-event() {
-            // flex-grow: 0;
-            // background-position: 92% 0;
-            // background-blend-mode: overlay;
-
-            .team__member__name {
-                width: 100% !important;
-            }
-
-            // flex-grow: 3;
-            // background-position: 94% 0;
             background-blend-mode: luminosity;
             background-color: rgba($complementary-color, 0.3);
         }
@@ -218,58 +224,80 @@
 
         // one item
         &:first-child:nth-last-child(1) {
+            background-size: auto 130%;
+            background-position: 100% 100%;
+
             .team__member__name {
-                width: 100%;
+                width: 180px;
             }
 
             .team__member__details {
                 width: 75%;
             }
+
+            // @include on-event() {
+            //     background-position: 100% 100%;
+            // }
         }
 
         // two items
         &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
+            background-size: auto 130%;
+            background-position: 96% 70%;
+
             .team__member__name {
-                width: 40%;
+                width: 160px;
             }
 
-            @include on-event() {
-                flex-grow: 3;
-            }
-
+            // @include on-event() {
+            //     flex-grow: 3;
+            //     background-position: 100% 70%;
+            // }
         }
 
         // three items
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
+            background-size: auto 130%;
+            background-position: 96% 70%;
+
             .team__member__name {
-                width: 50%;
+                width: 140px;
             }
 
-            @include on-event() {
-                flex-grow: 4;
-            }
+            // @include on-event() {
+            //     flex-grow: 4;
+            //     background-position: 100% 70%;
+            // }
         }
 
         // four items
         &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
+            background-size: auto 120%;
+            background-position: 94% 80%;
+
             .team__member__name {
-                width: 70%;
+                width: 140px;
             }
 
-            @include on-event() {
-                flex-grow: 5;
-            }
+            // @include on-event() {
+            //     flex-grow: 5;
+            //     background-position: 100% 80%;
+            // }
         }
 
         // five items
         &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
+            background-size: auto 110%;
+            background-position: 94% 100%;
+
             .team__member__name {
-                width: 80%;
+                width: 120px;
             }
 
-            @include on-event() {
-                flex-grow: 6;
-            }
+            // @include on-event() {
+            //     flex-grow: 6;
+            //     background-position: 100% 100%;
+            // }
         }
 
 
@@ -283,7 +311,6 @@
         //     filter: grayscale(100%);
         //     transition: all 1s ease-in-out;
         // }
-
 
     }
 

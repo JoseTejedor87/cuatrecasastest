@@ -89,7 +89,7 @@ function checkboxReset() {
     // checkboxes & tags & buttons functionality
     if (inclusivesFilters.length == 0) {
         $checksOutput.fadeOut(200);
-        $('.apply_button').prop('disabled', true);
+        // $('.apply_button').prop('disabled', true);
 
         $('.order_abc').removeClass('active');
         $('.order_pop').removeClass('active');
@@ -101,7 +101,7 @@ function checkboxReset() {
 
     } else if (inclusivesFilters.length == 1) {
         $checksOutput.fadeIn();
-        $('.apply_button').prop('disabled', false);
+        // $('.apply_button').prop('disabled', false);
         $checksOutput.html(valueTags);
 
     } else if (inclusivesFilters.length > 1) {

@@ -19,6 +19,11 @@ abstract class Publishable extends Item
      */
     private $regions = [];
 
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $metaRobots;
+
     public function getLanguages(): ?array
     {
         return $this->languages;
@@ -39,6 +44,18 @@ abstract class Publishable extends Item
     public function setRegions(array $regions): self
     {
         $this->regions = $regions;
+
+        return $this;
+    }
+
+    public function getMetaRobots(): ?string
+    {
+        return $this->metaRobots;
+    }
+
+    public function setMetaRobots(?string $metaRobots): self
+    {
+        $this->metaRobots = $metaRobots;
 
         return $this;
     }

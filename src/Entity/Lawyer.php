@@ -67,7 +67,7 @@ class Lawyer extends Publishable
     private $secondaryActivities;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      */
     private $knownLanguages = [];
 
@@ -104,6 +104,10 @@ class Lawyer extends Publishable
         $this->insights = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
 
     public function getName(): ?string
     {
@@ -131,7 +135,7 @@ class Lawyer extends Publishable
 
     public function getFullName(): ?string
     {
-        return $this->surname . ", " . $this->name;
+        return $this->name . " " . $this->surname;
     }
 
     public function getEmail(): ?string

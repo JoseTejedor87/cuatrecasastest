@@ -12,7 +12,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1;
+        z-index: 99999;
 
         &:before {
             @include reset-pseudo($white);
@@ -97,7 +97,7 @@
     }
 
         .toggle__filters {
-            @include fancy-link($complementary-color, $complementary-color);
+            @include left-to-right-link($complementary-color, $complementary-color);
             @include fontSet(18px, 24px);
             top: 12px;
             left: 22px;

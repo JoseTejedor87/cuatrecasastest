@@ -5,7 +5,7 @@
                 <div class="team__wrapper">
                     <div class="team__info">
                         <div class="team__info__title">
-                        Equipo<br>Cuatrecasas
+                            {{ 'reusable_blocks.team.title'|trans({'team': team}) }}
                         </div>
                         <div class="team__info__intro">
                             {{ 'reusable_blocks.team.intro'|trans({'team': team}) }}
@@ -19,15 +19,27 @@
                             <article class="team__member" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
                                 <a href="{{ path('lawyers_detail', {slug: lawyer.slug}) }}" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</a>
                                 <div class="team__member__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</div>
+
                                 <div class="team__member__details">
                                     <div class="team__member__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
                                     <ul class="team__member__practice">
-                                    {% for activity in lawyer.activities %}
+                                        {% for activity in lawyer.activities %}
                                         <li class="team__member__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
-                                    {% endfor %}
-                                    <li class="team__member__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
+                                        {% endfor %}
                                     </ul>
+                                    <div class="team__member__place">{{ lawyer.office ? lawyer.office.city : '' }}</div>
                                 </div>
+
+
+
+                                <!-- *** more than one item = NO VALE
+                                    *** cambiar por esto:
+
+                                    <div class="team__member__position">{#{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }#}</div>
+                                    <div class="team__member__sector">{#{ activity.translate(app.request.getLocale()).title}#}</div>
+                                    <div class="team__member__place">{#{ lawyer.office ? lawyer.office.city : '' }#}</div>
+                                -->
+
                             </article>
                         {% endfor %}
                     </div>

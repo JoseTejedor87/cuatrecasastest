@@ -20,6 +20,8 @@ use App\Entity\Activity;
 use App\Entity\Lawyer;
 use App\Entity\Office;
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 
 class ArticleFormType extends AbstractType
@@ -81,6 +83,8 @@ class ArticleFormType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],

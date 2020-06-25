@@ -5,16 +5,30 @@
 @include new("insights__page") {
 
     @include has("header") {
-        min-height: 380px;
+
+        position: relative;
+        min-height: 430px;
         color: $white;
         background-color: $main-color;
+
+        &:before {
+            @include reset-pseudo($main-color);
+            width: 100vw;
+            margin-left: -50vw;
+            z-index: -1;
+        }
+
+        &:after {
+            @include reset-pseudo($main-color);
+            width: 100vw;
+            margin-right: -50vw;
+            z-index: -1;
+        }
 
         //
         // CONTENT BOX
         //
-        > div:first-child {
-            // padding: 7rem 0 5rem;
-        }
+        > div:first-child {}
 
         //
         // PHOTO BOX
@@ -34,27 +48,6 @@
 
         padding-top: 6rem;
         padding-bottom: 2rem;
-
-        @include mediaQuery($massive-width, $large-width) {
-            // border: 1px solid yellow;
-            padding-left: 20%;
-        }
-
-        @include mediaQuery($large-width, $desktop-width) {
-            // border: 1px solid cyan;
-            padding-left: 8%;
-        }
-
-        @include mediaQuery($desktop-width, $tablet-width) {
-            // border: 1px solid magenta;
-            padding-left: 14%;
-        }
-
-        @include mediaQuery($tablet-width, $mobile-width) {
-            // border: 1px solid blue;
-            padding-left: 12%;
-        }
-
     }
 
     @include has("info") {
@@ -72,24 +65,55 @@
     }
 
     @include has("media") {
-        @include reset-figure;
-        width: 100%;
+        position: relative;
+        width: auto;
         height: 100%;
-        // background-size: 160% auto;
-        // background-position: 90% 70%;
-        // background-repeat: no-repeat;
 
-        background-position: 100% 0;
-        background-repeat: no-repeat;
-        background-size: cover;
-
-        // border: 1px solid blue;
-
-        @include has("vector") {
-            display: none;
-            // width: 100%;
-            // height: 100%;
-            // object-fit: cover;
+        figure {
+            @include reset-figure;
+            width: 45vw;
+            height: 100%;
+            background-position: 100% 0;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
+
+        img {
+            display: none;
+        }
+
+        /*
+        @include mediaQuery($massive-width, $large-width) {
+            // border: 1px solid yellow;
+            // background-size: 110% auto;
+            // background-position: 100% 60%;
+
+            background-size: 120% auto;
+            background-position: 100% 66%;
+        }
+
+        @include mediaQuery($large-width, $desktop-width) {
+            // border: 1px solid cyan;
+            // background-size: 140% auto;
+            // background-position: 100% 70%;
+
+            background-size: 160% auto;
+            background-position: 84% 72%;
+        }
+
+        @include mediaQuery($desktop-width, $tablet-width) {
+            // border: 1px solid magenta;
+            // background-size: 170% auto;
+            // background-position: 90% 80%;
+
+            background-size: 130% auto;
+            background-position: 100% 62%;
+        }
+
+        @include mediaQuery($tablet-width, $mobile-width) {
+            // border: 1px solid blue;
+            display: none;
+        }
+        */
     }
 }

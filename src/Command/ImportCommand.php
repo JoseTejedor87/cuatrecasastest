@@ -26,6 +26,11 @@ use App\Entity\Person;
 use App\Entity\Office;
 use App\Entity\Article;
 use App\Entity\ArticleCategory;
+use App\Entity\LegalNovelty;
+use App\Entity\Research;
+use App\Entity\Opinion;
+use App\Entity\News;
+use App\Entity\Publication;
 
 class ImportCommand extends Command
 {
@@ -121,17 +126,17 @@ class ImportCommand extends Command
                 case "awards":
                     $this->awards();
                     break;
-                case "article":
-                    $this->Article();
+                case "publication":
+                    $this->Publications();
                     break;
-                case "articlesByLawyers":
-                    $this->ArticlesByLawyers();
+                case "publicationsByLawyers":
+                    $this->PublicationsByLawyers();
                     break;
-                case "articlesByOffices":
-                    $this->ArticlesByOffices();
+                case "publicationsByOffices":
+                    $this->PublicationsByOffices();
                     break;
-                case "articlesByActivities":
-                    $this->ArticlesByActivities();
+                case "publicationsByActivities":
+                    $this->PublicationsByActivities();
                     break;
                 case "ArticlesCategory":
                     $this->ArticlesCategory();
@@ -147,6 +152,18 @@ class ImportCommand extends Command
                     break;
                 case "ActivityActivities":
                     $this->ActivityActivities();
+                    break;
+                case "news":
+                    $this->News();
+                    break;
+                case "newsByLawyers":
+                    $this->NewsByLawyers();
+                    break;
+                case "newsByOffices":
+                    $this->NewsByOffices();
+                    break;
+                case "newsByActivities":
+                    $this->NewsByActivities();
                     break;
             }
         }
@@ -978,21 +995,21 @@ class ImportCommand extends Command
         }
     }
 
-    public function Article()
+    public function Publications()
     {
-        $articles = json_decode(
+        $publications = json_decode(
             file_get_contents("JsonExports/Publicaciones.json"),
             true
         );
 
-        $article_translations = json_decode(
+        $publication_translations = json_decode(
             file_get_contents("JsonExports/PublicacionesIdiomas.json"),
             true
         );
 
         // Ordering the items using the publicacion_id column
         // in order to free memory while doing the loop
-        usort($article_translations, function ($a, $b) {
+        usort($publication_translations, function ($a, $b) {
             if ($a['publicacion_id'] == $b['publicacion_id']) {
                 return 0;
             }
@@ -1001,72 +1018,81 @@ class ImportCommand extends Command
 
         // Removing files from disk
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
-        array_map('unlink', glob($resources_path."/article-*"));
+        array_map('unlink', glob($resources_path."/publication-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [ArticleTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Article]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [ArticleTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Article]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
 
-        $processedArticleMap = [];
+        $processedPublicationMap = [];
         $processedAttachmentsMap = [];
 
-        foreach ($articles as $key => $item) {
-            $oldArticleId = $item['id'];
+        foreach ($publications as $key => $item) {
+            $oldPublicationId = $item['id'];
             // create a new instance and fill it
-            $article = new Article();
-            $article->setOldId($oldArticleId);
-            $article->setStatus($item['status']);
-            $article->setFeatured($item['destacada']);
-            $article->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-            if ($item['url_imagen']) {
-                if (isset($processedAttachmentsMap[$oldArticleId][$item['url_imagen']])) {
-                    $resource = $processedAttachmentsMap[$oldArticleId][$item['url_imagen']];
-                    $resource->setLanguages(['es','en','pt','zh']);
-                    $processedAttachmentsMap[$oldArticleId][$item['url_imagen']] = $resource;
-                } else {
-                    $path = $item['url_imagen'];
-                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                    $path = self::SOURCE_DOMAIN.'/media_repository/gabinete/'.$path;
-                    $attachment = $this->importFile('article', $path);
-                    if ($attachment) {
-                        $resource = new Resource();
-                        $resource->setFile($attachment);
-                        $resource->setFileName($attachment->getFileName());
+            if($item['tipo_publicacion']==2){
+                $publication = new Article();
+            }
+            if($item['tipo_publicacion']==3){
+                $publication = new Research();
+            }
+            if($item['tipo_publicacion']==1 || $item['tipo_publicacion']==4 || $item['tipo_publicacion']==5 || $item['tipo_publicacion']==6 || $item['tipo_publicacion']==7){
+                $publication = new LegalNovelty();
+            }
+            if($publication){
+                $publication->setOldId($oldPublicationId);
+                $publication->setFeatured($item['destacada']);
+                $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
+                if ($item['url_imagen']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']];
                         $resource->setLanguages(['es','en','pt','zh']);
-                        $resource->setType('article_main_photo');
-                        $processedAttachmentsMap[$oldArticleId][$item['url_imagen']] = $resource;
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
+                    } else {
+                        $path = $item['url_imagen'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/gabinete/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_main_photo');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
+                        }
                     }
                 }
-            }
-            if ($item['thumbnail']) {
-                if (isset($processedAttachmentsMap[$oldArticleId][$item['thumbnail']])) {
-                    $resource = $processedAttachmentsMap[$oldArticleId][$item['thumbnail']];
-                    $resource->setLanguages(['es','en','pt','zh']);
-                    $processedAttachmentsMap[$oldArticleId][$item['thumbnail']] = $resource;
-                } else {
-                    $path = $item['thumbnail'];
-                    $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                    $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                    $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
-                    $attachment = $this->importFile('article', $path);
-                    if ($attachment) {
-                        $resource = new Resource();
-                        $resource->setFile($attachment);
-                        $resource->setFileName($attachment->getFileName());
+                if ($item['thumbnail']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['thumbnail']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']];
                         $resource->setLanguages(['es','en','pt','zh']);
-                        $resource->setType('article_thumbnail');
-                        $processedAttachmentsMap[$oldArticleId][$item['thumbnail']] = $resource;
+                        $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
+                    } else {
+                        $path = $item['thumbnail'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_thumbnail');
+                            $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
+                        }
                     }
                 }
+
+                $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
+
+                // Adding the current instance to the offices mapping
+                $processedPublicationMap[$oldPublicationId] = $publication;
             }
-
-            $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
-            $this->logger->debug("New Article : From $oldArticleId ~> To ".$article->getId());
-
-            // Adding the current instance to the offices mapping
-            $processedArticleMap[$oldArticleId] = $article;
         }
 
         // Resetting the attachment's collection to improve the  process performance
@@ -1080,22 +1106,22 @@ class ImportCommand extends Command
         $lastId = 0;
 
         // Attaching translations
-        foreach ($article_translations as $index => $item1) {
-            $oldArticleId = $item1['publicacion_id'];
+        foreach ($publication_translations as $index => $item1) {
+            $oldPublicationId = $item1['publicacion_id'];
 
             // The order of the items in the collection guarantees us that
             // there is no more registers with id = lastId in the collection
             // Then, we can persist the article with id = lastId
             // and remove it to free memory
-            if ($lastId != 0 && $lastId != $oldArticleId) {
-                $article = $processedArticleMap[$lastId] ?? null;
-                if ($article) {
-                    if (!empty($article->getLanguages())) {
-                        $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
-                        $this->logger->debug("Updating Article ".$article->getId());
-                        if($processedArticleMap[$lastId])
-                        unset($processedArticleMap[$lastId]);
-                        if($processedAttachmentsMap[$lastId])
+            if ($lastId != 0 && $lastId != $oldPublicationId) {
+                $publication = $processedPublicationMap[$lastId] ?? null;
+                if ($publication) {
+                    if (!empty($publication->getLanguages())) {
+                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                        $this->logger->debug("Updating Publication ".$publication->getId());
+                        if(isset($processedPublicationMap[$lastId]))
+                        unset($processedPublicationMap[$lastId]);
+                        if(isset($processedAttachmentsMap[$lastId]))
                         unset($processedAttachmentsMap[$lastId]);
                         // To force garbage collector to do its job
                         gc_collect_cycles();
@@ -1103,97 +1129,92 @@ class ImportCommand extends Command
                 }
             }
 
-            $article = $processedArticleMap[$oldArticleId] ?? null;
+            $publication = $processedPublicationMap[$oldPublicationId] ?? null;
 
-            if ($article) {
+            if ($publication) {
                 $currentLang = self::getMappedLanguageCode($item1['lang']);
                 if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
-                    $article->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
-                    $article->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
-                    $article->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
-                    $article->translate($currentLang)->setCaption($item1['pie_foto'] ? $item1['pie_foto'] : '');
-                    $article->translate($currentLang)->setTags($item1['tags'] ? $item1['tags'] : '');
-                    $article->translate($currentLang)->setLawyerTags($item1['abogado_tags'] ? $item1['abogado_tags'] :'');
-                    $article->translate($currentLang)->setOfficeTags($item1['oficina_tags'] ? $item1['oficina_tags'] : '');
-                    $article->translate($currentLang)->setPracticeTags($item1['practica_tags'] ? $item1['practica_tags'] :'');
-
-                    $article->setLanguages(
+                    $publication->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
+                    $publication->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
+                    $publication->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
+                    $publication->setLanguages(
                         array_unique(
                             array_merge(
-                                $article->getLanguages(),
+                                $publication->getLanguages(),
                                 [$currentLang]
                             )
                         )
                     );
                 }
                 if ($item1['url_pdf']) {
-                    if (isset($processedAttachmentsMap[$oldArticleId][$item1['url_pdf']])) {
-                        $resource = $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']];
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']];
                         $resource->setLanguages(
                             array_unique(
                                 array_merge($resource->getLanguages(), [$currentLang])
                             )
                         );
-                        $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']] = $resource;
+                        $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
                     } else {
                         $path = $item1['url_pdf'];
                         $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
                         $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
                         $path = self::SOURCE_DOMAIN.$path;
-                        $attachment = $this->importFile('article', $path);
+                        $attachment = $this->importFile('publication', $path);
                         if ($attachment) {
                             $resource = new Resource();
                             $resource->setFile($attachment);
                             $resource->setFileName($attachment->getFileName());
                             $resource->setLanguages([$currentLang]);
-                            $resource->setType('article_dossier');
-                            $processedAttachmentsMap[$oldArticleId][$item1['url_pdf']] = $resource;
+                            $resource->setType('publication_dossier');
+                            $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
                         }
                     }
                 }
                 // Adding the current instance to the offices mapping
-                $processedArticleMap[$oldArticleId] = $article;
+                $processedPublicationMap[$oldPublicationId] = $publication;
 
                 // Is the last item in the collection
-                if ($index+1 == count($article_translations)) {
-                    if (!empty($article->getLanguages())) {
-                        $this->persistArticle($article, $processedAttachmentsMap[$article->getOldId()] ?? []);
-                        $this->logger->debug("Updating Article ".$article->getId());
+                if ($index+1 == count($publication_translations)) {
+                    if (!empty($publication->getLanguages())) {
+                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                        $this->logger->debug("Updating Publication ".$publication->getId());
                     }
                 }
             }
 
-            $lastId = $oldArticleId;
+            $lastId = $oldPublicationId;
         }
     }
+    
 
-    protected function persistArticle($article, $attachments=[])
+    protected function persistPublication($publication, $attachments=[])
     {
-        $article->mergeNewTranslations();
+        $publication->mergeNewTranslations();
         // Persist only the registers with at least one active language
         foreach ($attachments as $key => $resource) {
-            $article->addAttachment($resource);
+            $publication->addAttachment($resource);
         }
-        $this->em->persist($article);
+        $this->em->persist($publication);
         $this->em->flush();
     }
 
-    public function ArticlesByLawyers()
+    public function PublicationsByLawyers()
     {
         $data = file_get_contents("JsonExports/PublicacionesAbogados.json");
         $items = json_decode($data, true);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
-        $articleRepository = $this->em->getRepository(Article::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
         $personRepository = $this->em->getRepository(Person::class);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
-            $articleId = $this->getMappedArticleId($item['publicacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id']);
             $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
-            if ($articleId && $lawyerId) {
-                $article = $articleRepository->find($articleId);
+            if ($publicationId && $lawyerId) {
+                $publication = $publicationRepository->find($publicationId);
                 $lawyer = $lawyerRepository->find($lawyerId);
                 $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
                 if(!$person){
@@ -1201,66 +1222,66 @@ class ImportCommand extends Command
                     $person->setOldId($lawyerId);
                     $person->setLawyer($lawyer);
                 }
-                $article->addPerson($person);
-                $this->em->persist($article);
+                $publication->addPerson($person);
+                $this->em->persist($publication);
                 $this->em->flush();
-                // $this->logger->debug("- Mapped article " . $article->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
                 // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
     }
-    public function ArticlesByOffices()
+    public function PublicationsByOffices()
     {
         $data = file_get_contents("JsonExports/PublicacionesOficina.json");
         $items = json_decode($data, true);
         $officeRepository = $this->em->getRepository(Office::class);
-        $articleRepository = $this->em->getRepository(Article::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [article_office]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " office:" . $item['oficina_id']);
-            $articleId = $this->getMappedArticleId($item['publicacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id']);
             $oficceId = $this->getMappedOfficeId($item['oficina_id']);
-            if ($articleId && $oficceId) {
-                $article = $articleRepository->find($articleId);
+            if ($publicationId && $oficceId) {
+                $publication = $publicationRepository->find($publicationId);
                 $office = $officeRepository->find($oficceId);
 
-                // $this->logger->debug("- Mapped article " . $article->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
-                $article->addOffice($office);
-                $this->em->persist($article);
+                $publication->addOffice($office);
+                $this->em->persist($publication);
                 $this->em->flush();
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
     }
-    public function ArticlesByActivities()
+    public function PublicationsByActivities()
     {
         $data = file_get_contents("JsonExports/PublicacionesPractica.json");
         $items = json_decode($data, true);
         $activityRepository = $this->em->getRepository(Activity::class);
-        $articleRepository = $this->em->getRepository(Article::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
 
         $this->em->getConnection()->executeQuery("DELETE FROM [article_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " practica:" . $item['practica_id']);
-            $articleId = $this->getMappedArticleId($item['publicacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id']);
             $practicaId = $this->getMappedActivityId($item['practica_id']);
-            if ($articleId && $practicaId) {
-                $article = $articleRepository->find($articleId);
+            if ($publicationId && $practicaId) {
+                $publication = $publicationRepository->find($publicationId);
                 $practica = $activityRepository->find($practicaId);
 
-                // $this->logger->debug("- Mapped article " . $article->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
-                $article->addActivity($practica);
-                $this->em->persist($article);
+                $publication->addActivity($practica);
+                $this->em->persist($publication);
                 $this->em->flush();
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
@@ -1533,6 +1554,325 @@ class ImportCommand extends Command
             }
         }
     }
+
+    public function News()
+    {
+        $publications = json_decode(
+            file_get_contents("JsonExports/noticias.json"),
+            true
+        );
+
+        $publication_translations = json_decode(
+            file_get_contents("JsonExports/noticiasIdioma.json"),
+            true
+        );
+
+        // Ordering the items using the publicacion_id column
+        // in order to free memory while doing the loop
+        usort($publication_translations, function ($a, $b) {
+            if ($a['noticias_id'] == $b['noticias_id']) {
+                return 0;
+            }
+            return ($a['noticias_id'] < $b['noticias_id']) ? -1 : 1;
+        });
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/news-*"));
+
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [ArticleTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Article]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
+
+        $processedPublicationMap = [];
+        $processedAttachmentsMap = [];
+
+        foreach ($publications as $key => $item) {
+            $oldPublicationId = $item['id'];
+            // create a new instance and fill it
+            if($item['tipo_noticia']==3){
+                $publication = new News();
+            }
+            if($item['tipo_noticia']==4){
+                $publication = new News();
+            }
+            if($item['tipo_noticia']==5){
+                $publication = new Opinion();
+            }
+            if(isset($publication)){
+                $publication->setOldId($oldPublicationId);
+                $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
+                $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
+				$currentLang = self::getMappedLanguageCode($item['lang']);
+                if ($currentLang && isset($item['title']) && $item['title'] != '') {
+					$publication->translate($currentLang)->setTitle(isset($item['title']) ? $item['title'] : 'Notitle');
+                    $publication->translate($currentLang)->setSummary($item['summary']  ? $item['summary'] : '');
+                    $publication->translate($currentLang)->setContent($item['contenido']  ? $item['contenido'] : '');
+                    $publication->setLanguages(
+                        array_unique(
+                            array_merge(
+                                $publication->getLanguages(),
+                                [$currentLang]
+                            )
+                        )
+                    );
+				}
+				
+                if ($item['url_imagen']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
+                    } else {
+                        $path = $item['url_imagen'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/gabinete/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_main_photo');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
+                        }
+                    }
+                }
+                if ($item['thumbnail']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['thumbnail']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
+                    } else {
+                        $path = $item['thumbnail'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_thumbnail');
+                            $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
+                        }
+                    }
+                }
+				if ($item['url_pdf']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_pdf']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']];
+                        $resource->setLanguages(
+                            array_unique(
+                                array_merge($resource->getLanguages(), [$currentLang])
+                            )
+                        );
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']] = $resource;
+                    } else {
+                        $path = $item['url_pdf'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages([$currentLang]);
+                            $resource->setType('publication_dossier');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']] = $resource;
+                        }
+                    }
+                }
+
+                $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
+
+                // Adding the current instance to the offices mapping
+                $processedPublicationMap[$oldPublicationId] = $publication;
+            }
+        }
+
+        // Resetting the attachment's collection to improve the  process performance
+        unset($processedAttachmentsMap);
+        // To force garbage collector to do its job
+        gc_collect_cycles();
+
+        $this->logger->debug("Actualizando traducciones de artículos...");
+
+        // Just to control when the noticias_id changes during the loop
+        $lastId = 0;
+
+        // Attaching translations
+        foreach ($publication_translations as $index => $item1) {
+            $oldPublicationId = $item1['noticias_id'];
+
+            // The order of the items in the collection guarantees us that
+            // there is no more registers with id = lastId in the collection
+            // Then, we can persist the article with id = lastId
+            // and remove it to free memory
+            if ($lastId != 0 && $lastId != $oldPublicationId) {
+                $publication = $processedPublicationMap[$lastId] ?? null;
+                if ($publication) {
+                    if (!empty($publication->getLanguages())) {
+                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                        $this->logger->debug("Updating Publication ".$publication->getId());
+                        if($processedPublicationMap[$lastId])
+                        unset($processedPublicationMap[$lastId]);
+                        if($processedAttachmentsMap[$lastId])
+                        unset($processedAttachmentsMap[$lastId]);
+                        // To force garbage collector to do its job
+                        gc_collect_cycles();
+                    }
+                }
+            }
+
+            $publication = $processedPublicationMap[$oldPublicationId] ?? null;
+
+            if ($publication) {
+                $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
+                if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
+                    $publication->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
+                    $publication->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
+                    $publication->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
+                    $publication->setLanguages(
+                        array_unique(
+                            array_merge(
+                                $publication->getLanguages(),
+                                [$currentLang]
+                            )
+                        )
+                    );
+                }
+                if ($item1['url_pdf']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']];
+                        $resource->setLanguages(
+                            array_unique(
+                                array_merge($resource->getLanguages(), [$currentLang])
+                            )
+                        );
+                        $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
+                    } else {
+                        $path = $item1['url_pdf'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages([$currentLang]);
+                            $resource->setType('publication_dossier');
+                            $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
+                        }
+                    }
+                }
+                // Adding the current instance to the offices mapping
+                $processedPublicationMap[$oldPublicationId] = $publication;
+
+                // Is the last item in the collection
+                if ($index+1 == count($publication_translations)) {
+                    if (!empty($publication->getLanguages())) {
+                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                        $this->logger->debug("Updating Publication ".$publication->getId());
+                    }
+                }
+            }
+
+            $lastId = $oldPublicationId;
+        }
+    }
+    public function NewsByLawyers()
+    {
+        $data = file_get_contents("JsonExports/NoticiasAbogados.json");
+        $items = json_decode($data, true);
+        $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+        $personRepository = $this->em->getRepository(Person::class);
+
+
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['noticia_id'] . " Lawyer:" . $item['abogado_id']);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id']);
+            $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
+            if ($publicationId && $lawyerId) {
+                $publication = $publicationRepository->find($publicationId);
+                $lawyer = $lawyerRepository->find($lawyerId);
+                $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                if(!$person){
+                    $person = new Person();
+                    $person->setOldId($lawyerId);
+                    $person->setLawyer($lawyer);
+                }
+                $publication->addPerson($person);
+                $this->em->persist($publication);
+                $this->em->flush();
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+    public function NewsByOffices()
+    {
+        $data = file_get_contents("JsonExports/NoticiaOficina.json");
+        $items = json_decode($data, true);
+        $officeRepository = $this->em->getRepository(Office::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['noticia_id'] . " office:" . $item['oficina_id']);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id']);
+            $oficceId = $this->getMappedOfficeId($item['oficina_id']);
+            if ($publicationId && $oficceId) {
+                $publication = $publicationRepository->find($publicationId);
+                $office = $officeRepository->find($oficceId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addOffice($office);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+    public function NewsByActivities()
+    {
+        $data = file_get_contents("JsonExports/NoticiaPractica.json");
+        $items = json_decode($data, true);
+        $activityRepository = $this->em->getRepository(Activity::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Noticia:" . $item['noticia_id'] . " practica:" . $item['practica_id']);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id']);
+            $practicaId = $this->getMappedActivityId($item['practica_id']);
+            if ($publicationId && $practicaId) {
+                $publication = $publicationRepository->find($publicationId);
+                $practica = $activityRepository->find($practicaId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addActivity($practica);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
     private function getMappedEventId(?string $id): ?string
     {
         if (empty($this->mappedEventIds)) {
@@ -1602,21 +1942,21 @@ class ImportCommand extends Command
         }
     }
 
-    private function getMappedArticleId(?string $id): ?string
+    private function getMappedPublicationId(?string $id): ?string
     {
-        if (empty($this->mappedArticleIds)) {
-            $this->loadMappedArticleIds();
+        if (empty($this->mappedPublicationIds)) {
+            $this->loadMappedPublicationIds();
         }
-        return isset($this->mappedArticleIds[$id]) ? $this->mappedArticleIds[$id] : null;
+        return isset($this->mappedPublicationIds[$id]) ? $this->mappedPublicationIds[$id] : null;
     }
 
-    private function loadMappedArticleIds()
+    private function loadMappedPublicationIds()
     {
-        $repository = $this->em->getRepository(Article::class);
-        $Articles = $repository->findAll();
-        foreach ($Articles as $Article) {
-            $this->mappedArticleIds[$Article
-            ->getOldId()] = $Article->getId();
+        $repository = $this->em->getRepository(Publication::class);
+        $publications = $repository->findAll();
+        foreach ($publications as $publication) {
+            $this->mappedPublicationIds[$publication
+            ->getOldId()] = $publication->getId();
         }
     }
 
@@ -1684,6 +2024,16 @@ class ImportCommand extends Command
             'eng' => 'en',
             'por' => 'pt',
             'chi' => 'zh'
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
+    private static function getMappedLanguageCodeById(?string $code): ?string
+    {
+        $map = [
+            '1' => 'es',
+            '2' => 'en',
+            '3' => 'pt',
+            '4' => 'zh'
         ];
         return isset($map[$code]) ? $map[$code] : null;
     }

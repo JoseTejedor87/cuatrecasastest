@@ -1,5 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
+{% block metaRobots %}noindex{% endblock %}
+
 {% block stylesheets %}
 <!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
@@ -52,31 +54,31 @@
             <section class="row search_filters search_filters--lawyers">
                 <div class="col">
                     <div class="search_selects">
-                        <select id="services" class="custom__select" style="width:25%">
-                            <option value="">Por servicios</option>
+                        <select id="services" class="custom__select">
+                            <option value="hide">Por servicios</option>
                             {% for practice in practices %}
                                 {% if practice.translate(app.request.getLocale()).title  %}
                                     <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="sector" class="custom__select" style="width:25%">
-                            <option value="">Por sector</option>
+                        <select id="sector" class="custom__select">
+                            <option value="hide">Por sector</option>
                             {% for sector in sectors %}
                                 {% if sector.translate(app.request.getLocale()).title  %}
                                     <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="office" class="custom__select" style="width:25%">
-                            <option value="">Por oficina</option>
+                        <select id="office" class="custom__select">
+                            <option value="hide">Por oficina</option>
                             {% for office in offices %}
                                 {% if office.city  %}
                                     <option value="{{office.id}}">{{ office.city  }}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <select id="category" class="custom__select" style="width:25%">
+                        <select id="category" class="custom__select">
                             <option value="hide">Por categoria</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
@@ -107,7 +109,6 @@
                     </div> -->
                 </div>
             </section>
-
 
             <section id="lawyerAjaxResults" class="row lawyer__search">
                 {% if countLawyers != ''  %}
@@ -191,8 +192,8 @@
     {% include 'web/shared/career.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
-    <!-- Fake Loader -->
-    <div class="lawyer__search__wrapper__loader">
+    <!-- Loader -->
+    <div class="search__component__loader" style="display:none">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -208,20 +209,20 @@
 <script>
     $( document ).ready(function() {
         web.global.customSelects();
-        //web.global.lawyerResults();
         web.global.sliderGeneral();
-        // Toogle Results View
+
+        // RESULTS VIEWS
         $(document).on('click', '.list', function(e){
             e.preventDefault();
             $('.icon__button.grid').removeClass('active');
             $(this).addClass('active');
-            $('.lawyer__search__wrapper__loader').fadeIn('fast');
+            $('.search__component__loader').fadeIn('fast');
             $('.lawyer__search__wrapper').addClass('loading');
             $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
             $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
             setTimeout(
                 function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
+                    $('.search__component__loader').fadeOut();
                     $('.lawyer__search__wrapper').removeClass('loading');
                 }
             , 600);
@@ -230,19 +231,20 @@
             e.preventDefault();
             $('.icon__button.list').removeClass('active');
             $(this).addClass('active');
-            $('.lawyer__search__wrapper__loader').fadeIn('fast');
+            $('.search__component__loader').fadeIn('fast');
             $('.lawyer__search__wrapper').addClass('loading');
             $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
             $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
             setTimeout(
                 function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
+                    $('.search__component__loader').fadeOut();
                     $('.lawyer__search__wrapper').removeClass('loading');
                 }
             , 600);
         });
-        $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
+        $('.search__component__loader').css("display", "flex").hide();
 
+        // SEARCH FUNCTIONS
         $(document).on("click", "#searchButton", function(){
             ajax();
         });
@@ -285,11 +287,11 @@
                 data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
                 url: "{{ path('lawyers_index') }}",
                 beforeSend: function( xhr ) {
-                    $('.lawyer__search__wrapper__loader').fadeIn('fast');
+                    $('.search__component__loader').fadeIn('fast');
                 }
             })
             .done(function( msg ) {
-                $('.lawyer__search__wrapper__loader').fadeOut();
+                $('.search__component__loader').fadeOut();
                 $('#lawyerAjaxResults').empty();
                 var url= "";
                 if(msg['initial']){

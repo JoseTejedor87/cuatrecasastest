@@ -47,9 +47,9 @@ class Resource extends Publishable
     private $award;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="attachments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Publication", inversedBy="attachments")
      */
-    private $article;
+    private $publication;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\CaseStudy", inversedBy="image")
@@ -65,6 +65,11 @@ class Resource extends Publishable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -172,14 +177,14 @@ class Resource extends Publishable
     }
 
 
-    public function getArticle(): ?Article
+    public function getPublication(): ?Publication
     {
-        return $this->article;
+        return $this->publication;
     }
 
-    public function setArticle(?Article $article): self
+    public function setPublication(?Publication $publication): self
     {
-        $this->article = $article;
+        $this->publication = $publication;
 
         return $this;
     }

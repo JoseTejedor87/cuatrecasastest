@@ -12,27 +12,24 @@ use App\Controller\Web\WebController;
 
 class DesksController extends WebController
 {
-    public function index(Request $request, DeskRepository $DeskRepository)
+    public function index(Request $request, DeskRepository $deskRepository)
     {
-        $desks = $DeskRepository->findAll();
-        return $this->render('web/services/desks.html.twig', [
-            'controller_name' => 'ServicesController',
+        $desks = $deskRepository->createPublishedQueryBuilder('d')
+            ->andwhere('d.highlighted = true')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('web/desks/index.html.twig', [
             'desks' => $desks,
         ]);
     }
 
-    public function detail(Request $request, DeskRepository $DeskRepository, ActivityTranslationRepository $activityTranslationRepository)
+    public function detail(Request $request, DeskRepository $deskRepository)
     {
-        $practice = $DeskRepository->getInstanceByRequest($request);
+        $desk = $deskRepository->getInstanceByRequest($request);
 
-        return $this->render('web/practices/detail.html.twig', [
-            'practice' => $practice,
-        ]);
-    }
-    public function productDetail()
-    {
-        return $this->render('web/services/productDetail.html.twig', [
-            'controller_name' => 'ServicesController',
+        return $this->render('web/desks/detail.html.twig', [
+            'desk' => $desk,
         ]);
     }
 }
