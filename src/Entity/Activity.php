@@ -48,6 +48,7 @@ abstract class Activity extends Publishable
      */
     private $caseStudies;
 
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="activities")
      */
     private $publication;
