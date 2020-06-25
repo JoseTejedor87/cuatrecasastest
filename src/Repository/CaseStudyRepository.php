@@ -36,6 +36,18 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
         return null;
     }
 
+    public function findByActivity($activity)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.translations', 't')
+            ->join('c.activities', 'a')
+            ->where('a.id IN (:ids)')
+            ->setParameter('ids', [$activity->getId()])
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return CaseStudy[] Returns an array of CaseStudy objects
     //  */

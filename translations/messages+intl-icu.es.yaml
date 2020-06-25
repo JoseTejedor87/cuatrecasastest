@@ -101,3 +101,6 @@ reusable_blocks:
       title: Equipo Cuatrecasas
       link: Conoce al equipo
       intro: Cuatrecasas cuenta con un equipo de {team}
+    cases:
+      title: Casos
+      link: Ver más

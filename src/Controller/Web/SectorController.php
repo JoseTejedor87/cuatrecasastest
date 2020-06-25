@@ -4,6 +4,7 @@ namespace App\Controller\Web;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\SectorRepository;
+use App\Repository\CaseStudyRepository;
 use App\Controller\Web\WebController;
 
 class SectorController extends WebController
@@ -20,12 +21,15 @@ class SectorController extends WebController
         ]);
     }
 
-    public function detail(Request $request, SectorRepository $sectorRepository)
+    public function detail(Request $request, SectorRepository $sectorRepository, CaseStudyRepository $caseStudyRepository)
     {
         $sector = $sectorRepository->getInstanceByRequest($request);
 
+        $relatedCaseStudies = $caseStudyRepository->findByActivity($sector);
+
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,
+            'relatedCaseStudies' => $relatedCaseStudies
         ]);
     }
 }

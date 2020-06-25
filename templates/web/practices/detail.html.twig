@@ -95,7 +95,11 @@
     {% endif %}
 
     {% include 'web/shared/related-content-slider.html.twig' %}
-    {% include 'web/shared/cases.html.twig' %}
+
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+    {% endif %}
+
     {% include 'web/shared/awards.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
