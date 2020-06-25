@@ -390,7 +390,6 @@ class Office extends Publishable
 
         return $this;
     }
-<<<<<<< HEAD
 
     /**
      * @return Collection|Publication[]
@@ -421,6 +420,4 @@ class Office extends Publishable
     }
 
 
-=======
->>>>>>> 3569a3a95c4936015bbec183f2eb291f6b278327
 }
