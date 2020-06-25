@@ -1,86 +1,40 @@
-<section class="insight--carousel">
-    <div class="container">
-        <div class="row page__section">
-            <div class="col">
-                <h4 class="section__title section__title section__title--cases">Casos</h4>
-                <div id="sliderCases" class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <article class="insight__item">
-                                <div class="insight__article">
-                                    <div class="insight__content">
-                                        <h3 class="insight__title">
-                                            Cuatrecasas lorem ipsum
-                                        </h3>
-                                        <div class="insight__excerpt">
-                                            Approaches to corporate strategy foster collaborative thinking
+{% if caseStudies is defined %}
+    <section class="insight--carousel">
+        <div class="container">
+            <div class="row page__section">
+                <div class="col">
+                    <h4 class="section__title section__title section__title--cases">Casos</h4>
+                    <div id="sliderCases" class="swiper-container">
+                        <div class="swiper-wrapper">
+
+                            {% for caseStudy in caseStudies %}
+
+                            <div class="swiper-slide">
+                                <article class="insight__item">
+                                    <div class="insight__article">
+                                        <div class="insight__content">
+                                            <h3 class="insight__title">
+                                                {{ caseStudy.translate(app.request.getLocale()).title }}
+                                            </h3>
+                                            <div class="insight__excerpt">
+                                                {{ caseStudy.translate(app.request.getLocale()).summary|raw }}
+                                            </div>
+                                        </div>
+                                        <div class="insight__viewmore">
+                                            <a href="{{ path('case_studies_detail', {slug: caseStudy.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__button">Ver más</a>
                                         </div>
                                     </div>
-                                    <div class="insight__viewmore">
-                                        <button type="button" class="doble__arrow__button">Ver más</button>
-                                    </div>
-                                </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-detail.png') }}')"></div>
-                            </article>
+                                    <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-detail.png') }}')"></div>
+                                </article>
+                            </div>
+
+                            {% endfor %}
+
                         </div>
-                        <div class="swiper-slide">
-                            <article class="insight__item">
-                                <div class="insight__article">
-                                    <div class="insight__content">
-                                        <h3 class="insight__title">
-                                            Vitae semper lectus nulla
-                                        </h3>
-                                        <div class="insight__excerpt">
-                                            Organically grow the holistic world view of innovation
-                                        </div>
-                                    </div>
-                                    <div class="insight__viewmore">
-                                        <button type="button" class="doble__arrow__button">Ver más</button>
-                                    </div>
-                                </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-yellow.jpg') }}')"></div>
-                            </article>
-                        </div>
-                        <div class="swiper-slide">
-                            <article class="insight__item">
-                                <div class="insight__article">
-                                    <div class="insight__content">
-                                        <h3 class="insight__title">
-                                            Cuatrecasas lorem ipsum
-                                        </h3>
-                                        <div class="insight__excerpt">
-                                            Approaches to corporate strategy foster collaborative thinking
-                                        </div>
-                                    </div>
-                                    <div class="insight__viewmore">
-                                        <button type="button" class="doble__arrow__button">Ver más</button>
-                                    </div>
-                                </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-detail.png') }}')"></div>
-                            </article>
-                        </div>
-                        <div class="swiper-slide">
-                            <article class="insight__item">
-                                <div class="insight__article">
-                                    <div class="insight__content">
-                                        <h3 class="insight__title">
-                                            Vitae semper lectus nulla
-                                        </h3>
-                                        <div class="insight__excerpt">
-                                            Organically grow the holistic world view of innovation
-                                        </div>
-                                    </div>
-                                    <div class="insight__viewmore">
-                                        <button type="button" class="doble__arrow__button">Ver más</button>
-                                    </div>
-                                </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-yellow.jpg') }}')"></div>
-                            </article>
-                        </div>
+                        <div class="swiper-scrollbar"></div>
                     </div>
-                    <div class="swiper-scrollbar"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+{% endif %}

@@ -45,6 +45,8 @@ sections:
     title: Sectores
     specialities: Especialidades
     relatedActivities: Prácticas relacionadas
+  case_studies:
+    specialities: Especialidades
 
 # Menu
 # ###########################################

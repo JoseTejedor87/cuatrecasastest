@@ -93,7 +93,7 @@ class Lawyer extends Publishable
     private $insights;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", inversedBy="events")
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="lawyers")
      */
     private $caseStudies;
 
@@ -102,6 +102,7 @@ class Lawyer extends Publishable
         $this->activities = new ArrayCollection();
         $this->secondaryActivities = new ArrayCollection();
         $this->insights = new ArrayCollection();
+        $this->caseStudies = new ArrayCollection();
     }
 
     public function __toString()
@@ -329,6 +330,34 @@ class Lawyer extends Publishable
         if ($this->insights->contains($insight)) {
             $this->insights->removeElement($insight);
             $insight->removeLawyer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseStudy[]
+     */
+    public function getCaseStudies(): Collection
+    {
+        return $this->caseStudies;
+    }
+
+    public function addCaseStudy(CaseStudy $caseStudy): self
+    {
+        if (!$this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies[] = $caseStudy;
+            $caseStudy->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseStudy(CaseStudy $caseStudy): self
+    {
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+            $caseStudy->removeLawyer($this);
         }
 
         return $this;

@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\CaseStudy;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ManagerRegistry;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method CaseStudy|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +16,24 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CaseStudy[]    findAll()
  * @method CaseStudy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CaseStudyRepository extends ServiceEntityRepository
+class CaseStudyRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, CaseStudy::class);
+        parent::__construct($registry, $navigation, CaseStudy::class);
+    }
+
+    public function getInstanceByRequest(Request $request)
+    {
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->createQueryBuilder('c')
+                ->join('c.translations', 't')
+                ->where('t.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+        return null;
     }
 
     // /**

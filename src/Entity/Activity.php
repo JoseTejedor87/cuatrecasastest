@@ -44,6 +44,11 @@ abstract class Activity extends Publishable
     private $lawyers_secondary;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="activities")
+     */
+    private $caseStudies;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="activities")
      */
     private $Article;
@@ -96,6 +101,7 @@ abstract class Activity extends Publishable
         $this->children = new ArrayCollection();
         $this->parents = new ArrayCollection();
         $this->insights = new ArrayCollection();
+        $this->caseStudies = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -365,6 +371,34 @@ abstract class Activity extends Publishable
         if ($this->insights->contains($insight)) {
             $this->insights->removeElement($insight);
             $insight->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseStudy[]
+     */
+    public function getCaseStudies(): Collection
+    {
+        return $this->caseStudies;
+    }
+
+    public function addCaseStudy(CaseStudy $caseStudy): self
+    {
+        if (!$this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies[] = $caseStudy;
+            $caseStudy->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseStudy(CaseStudy $caseStudy): self
+    {
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+            $caseStudy->removeActivity($this);
         }
 
         return $this;

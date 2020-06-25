@@ -87,7 +87,10 @@
     </main>
 
     {% if desk.lawyers|length > 0 %}
-        {% include 'web/shared/team.html.twig' with {team:desk.translate(app.request.getLocale()).title, lawyers:desk.lawyers|slice(0, 5) } %}
+        {% include 'web/shared/team.html.twig' with {
+            lawyers:desk.lawyers|slice(0, 5),
+            fixed_activity: desk.translate(app.request.getLocale()).title
+        } %}
     {% endif %}
 
     {% include 'web/shared/related-content-slider.html.twig' %}

@@ -75,10 +75,6 @@ class Event extends Publishable
      */
     private $office;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", inversedBy="events")
-     */
-    private $caseStudies;
 
     public function __construct()
     {
@@ -279,5 +275,4 @@ class Event extends Publishable
 
         return $this;
     }
-
 }

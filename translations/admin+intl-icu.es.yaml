@@ -213,6 +213,7 @@ entities:
       events: Eventos
       lawyers: Abogados
       articles: Artículos
+      activities: Sectores / Servicios / Desks
       relatedCaseStudies: Casos relacionados
       slug: Slug
   event:
