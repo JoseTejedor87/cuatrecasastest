@@ -33,9 +33,9 @@ class Person extends Item
     private $events;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="people")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="people")
      */
-    private $articles;
+    private $publications;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Lawyer", inversedBy="person" , cascade={"persist"})
@@ -46,6 +46,7 @@ class Person extends Item
     {
         $this->events = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->publications = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -135,30 +136,32 @@ class Person extends Item
     }
 
     /**
-     * @return Collection|Article[]
+     * @return Collection|Publication[]
      */
-    public function getArticles(): Collection
+    public function getPublications(): Collection
     {
-        return $this->articles;
+        return $this->publications;
     }
 
-    public function addArticle(Article $article): self
+    public function addPublication(Publication $publication): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->addPerson($this);
+        if (!$this->publications->contains($publication)) {
+            $this->publications[] = $publication;
+            $publication->addPerson($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Article $article): self
+    public function removePublication(Publication $publication): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            $article->removePerson($this);
+        if ($this->publications->contains($publication)) {
+            $this->publications->removeElement($publication);
+            $publication->removePerson($this);
         }
 
         return $this;
     }
+
+    
 }

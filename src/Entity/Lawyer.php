@@ -67,7 +67,7 @@ class Lawyer extends Publishable
     private $secondaryActivities;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      */
     private $knownLanguages = [];
 

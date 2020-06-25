@@ -48,10 +48,9 @@ abstract class Activity extends Publishable
      */
     private $caseStudies;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="activities")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="activities")
      */
-    private $Article;
+    private $publication;
 
     /**
      * Many activities have Many activities.
@@ -102,6 +101,7 @@ abstract class Activity extends Publishable
         $this->parents = new ArrayCollection();
         $this->insights = new ArrayCollection();
         $this->caseStudies = new ArrayCollection();
+        $this->publication = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -184,33 +184,7 @@ abstract class Activity extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticle(): Collection
-    {
-        return $this->article;
-    }
 
-    public function addArticle(Article $article): self
-    {
-        if (!$this->article->contains($article)) {
-            $this->article[] = $article;
-            $article->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->article->contains($article)) {
-            $this->article->removeElement($article);
-            $article->removeActivity($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Lawyer[]
@@ -399,6 +373,34 @@ abstract class Activity extends Publishable
         if ($this->caseStudies->contains($caseStudy)) {
             $this->caseStudies->removeElement($caseStudy);
             $caseStudy->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Publication[]
+     */
+    public function getPublication(): Collection
+    {
+        return $this->publication;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publication->contains($publication)) {
+            $this->publication[] = $publication;
+            $publication->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publication->contains($publication)) {
+            $this->publication->removeElement($publication);
+            $publication->removeActivity($this);
         }
 
         return $this;

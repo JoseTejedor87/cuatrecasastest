@@ -19,26 +19,83 @@ global:
 # Sections
 # ###########################################
 sections:
+  knowledge:
+    title: Knowledge
   lawyers:
     title: Lawyers
     lawyerCategoryTypes:
-      associate:
-      counsel:
-      honorary_partner:
-      honorary_president:
-      managing_partner:
-      no_position:
-      partner:
-      senior_associate:
-      senior_partner:
+      associate: Associate
+      counsel: Counsel
+      honorary_partner: Honorary Partner
+      honorary_president: Honorary President
+      managing_partner: Managing Partner
+      no_position: No position
+      partner: Partner
+      senior_associate: Senior Associate
+      senior_partner: Senior Partner
+  practices:
+    title: Practice
+    specialities: Specialities
+    relatedPractices: Related Practices
+  desks:
+    title: Desks
+    discover_title: European Presence
+    discover_text: Cuatrecasas has offices in the main European cities
+    discover_button: Discover
+    specialities: Specialities
+    relatedActivities: Related Practices
+  products:
+    title: Other services
+  sectors:
+    title: Sectors
+    specialities: Specialities
+    relatedPractices: Related Practices
+
 # Menu
 # ###########################################
 menu:
-  desks: Desks
-  events: Events
   knowledge: Knowledge
   lawyers: Lawyers
-  practices: Practice areas
-  products: Products
   services: Services
   sectors: Sectors
+  career:
+    career: Career
+    live: Live Cuatrecasas
+    revolution: Revolution
+    learn: Learn with the best
+    international: International Career
+    join: Join Us
+  offices:
+    offices: Find us
+    vision: Overview
+    spain: Spain
+    portugal: Portugal
+    latam: Latin America
+    other: Other regions
+  firm:
+    firm: The Company
+    contribution: Contribution to Society
+    diversity: Diversity
+    responsability: Responsability and Compliance
+    innovation: Innovation
+  contact: Contact
+  webs:
+    webs: Webs
+    acelera: Cuatrecasas Acelera
+    rrhh: Instituto RRHH
+    fundacion: La Fundación
+    app: App Corporativa
+  reg_lang: Adapt the site to have a personalized experience
+
+  desks: Desks
+  events: Events
+  practices: Practice areas
+  products: Products
+
+# Reusable Blocks
+# ###########################################
+reusable_blocks:
+    team:
+      title: Team Cuatrecasas
+      link: Meet the team
+      intro: Cuatrecasas has a team of {team}

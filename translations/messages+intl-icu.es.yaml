@@ -19,6 +19,8 @@ global:
 # Sections
 # ###########################################
 sections:
+  knowledge:
+    title: Conocimiento
   lawyers:
     title: Abogados
     lawyerCategoryTypes:
@@ -37,6 +39,9 @@ sections:
     relatedActivities: Prácticas relacionadas
   desks:
     title: Desks
+    discover_title: Presencia Europea
+    discover_text: Cuatrecasas cuenta con oficinas en las principales ciudades europeas
+    discover_button: Descubre
     specialities: Especialidades
     relatedActivities: Prácticas relacionadas
   products:
@@ -51,19 +56,48 @@ sections:
 # Menu
 # ###########################################
 menu:
-  desks: Desks
-  events: Eventos
   knowledge: Conocimiento
   lawyers: Abogados
-  practices: Áreas de Práctica
-  products: Productos
   services: Servicios
   sectors: Sectores
+  career:
+    career: Career
+    live: Vive Cuatrecasas
+    revolution: Revolución
+    learn: Aprende con los mejores
+    international: Career internacional
+    join: Únete a nosotros
+  offices:
+    offices: Estamos en
+    vision: Visión general
+    spain: España
+    portugal: Portugal
+    latam: Latinoamérica
+    other: Otras regiones
+  firm:
+    firm: La Firma
+    contribution: Contribución a la sociedad
+    diversity: Diversidad
+    responsability: Responsabilidad y cumplimiento
+    innovation: Innovación
+  contact: Contacto
+  webs:
+    webs: Webs
+    acelera: Cuatrecasas Acelera
+    rrhh: Instituto RRHH
+    fundacion: La Fundación
+    app: App Corporativa
+  reg_lang: Adapta el site para tener una experiencia personalizada
+
+  desks: Desks
+  events: Eventos
+  practices: Áreas de práctica
+  products: Productos
 
 # Reusable Blocks
 # ###########################################
 reusable_blocks:
     team:
-      title: Equipo <br/> Cuatrecasas
+      title: Equipo Cuatrecasas
       link: Conoce al equipo
-      intro: Cuatrecasas cuenta con un equipo {team}
+      intro: Cuatrecasas cuenta con un equipo de {team}

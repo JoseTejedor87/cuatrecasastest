@@ -19,7 +19,15 @@
 html {
     // Force no horizontal scrollbar (for full screen CAROUSEL)
     overflow-x: hidden;
+    // scroll-behavior: smooth;
 }
+
+// * Disable smooth scrolling when users have prefers-reduced-motion enabled
+// @media screen and (prefers-reduced-motion: reduce) {
+//     html {
+//         scroll-behavior: auto;
+//     }
+// }
 
 body {
     // Custom Scrollbars

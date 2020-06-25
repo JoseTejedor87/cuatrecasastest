@@ -257,12 +257,19 @@ resources_detail:
 
 # TEMPORAL (BORRAR)
 ##############################################
-productDetail:
+productDetailKnowledge:
     path:
-        en:   /product
-        es:   /producto
+        en:   /product-knowledge
+        es:   /producto-conocimiento
     methods:    GET
-    controller: App\Controller\Web\KnowledgeController::productDetail
+    controller: App\Controller\Web\KnowledgeController::productDetailKnowledge
+
+productDetailServices:
+    path:
+        en:   /product-service
+        es:   /producto-servicio
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::productDetailServices
 
 fiscal:
     path:

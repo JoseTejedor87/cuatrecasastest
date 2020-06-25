@@ -5,7 +5,7 @@
     <main role="main" class="lawyer__page">
         <article>
 
-            <header class="container-fluid">
+            <header class="container">
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
                         <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
@@ -59,18 +59,21 @@
                         </ul>
                     </div>
                     <div class="col-md-5">
-                        <figure class="lawyer__page__media" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
+                        <div class="lawyer__page__media">
+                            <figure style="background-image: url('{{ asset('web/assets/img/foto-lawyer-3.jpg') }}');">
+                            <!-- <figure class="lawyer__page__media"> -->
 
-                            <!-- server -->
-                            <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
+                                <!-- server -->
+                                <!-- <img src="{{ asset('/resources/' ~ (lawyer.photo ? lawyer.photo.fileName : 'test.jpg' ))  | imagine_filter('square1')  }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
-                            <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
+                                <!-- <img src="{{ relative_path('/resources/')}}{{ (lawyer.photo ? lawyer.photo.fileName : '' ) }}" alt="{{ lawyer.name }} {{ lawyer.surname }}" class="lawyer__page__media__photo"> -->
 
-                            <!-- local -->
-                            <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__page__media__photo"> -->
-                            <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}" class="lawyer__page__media__photo">
+                                <!-- local -->
+                                <!-- <img src="{{ asset('web/assets/img/luis-villasmil-WW1PtrGseBc-unsplash.jpg') }}" class="lawyer__page__media__photo"> -->
+                                <img src="{{ asset('web/assets/img/foto-lawyer-3.jpg') }}">
 
-                        </figure>
+                            </figure>
+                        </div>
                     </div>
                 </div>
             </header>

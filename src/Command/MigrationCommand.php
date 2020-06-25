@@ -99,10 +99,11 @@ class MigrationCommand extends Command
                     break;
                 case "noticias":
                     $this->Noticias($conn,$output);
-                    break;     
-                case "noticiasIdioma":
                     $this->NoticiasIdioma($conn,$output);
-                    break;  
+                    $this->NoticiasAbogados($conn,$output);
+                    $this->NoticiasPractica($conn,$output);
+                    $this->NoticiasOficina($conn,$output);
+                    break;      
                 case "publicaciones":
                     $this->Publicaciones($conn,$output);
                     $this->PublicacionesIdiomas($conn,$output);
@@ -383,6 +384,43 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/PublicacionesOficina.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesOficina');
         $this->logger->info('Se ha guardado con el nombre PublicacionesOficina.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+
+    public function NoticiasAbogados($conn,$output){
+        $query = "SELECT [noticia_id] ,[abogado_id] FROM NoticiaAbogado";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiasAbogados.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiasAbogados');
+        $this->logger->info('Se ha guardado con el nombre NoticiasAbogados.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function NoticiasPractica($conn,$output){
+        $query = "SELECT [noticia_id] ,[practica_id] FROM NoticiaPractica";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiaPractica.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiaPractica');
+        $this->logger->info('Se ha guardado con el nombre NoticiaPractica.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function NoticiasOficina($conn,$output){
+        $query = "SELECT [noticia_id] ,[oficina_id]  FROM NoticiaOficina";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiaOficina.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiaOficina');
+        $this->logger->info('Se ha guardado con el nombre NoticiaOficina.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
