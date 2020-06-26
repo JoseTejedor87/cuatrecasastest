@@ -23,6 +23,15 @@ sections:
     title: Knowledge
   lawyers:
     title: Lawyers
+    office: CUATRECASAS
+    vcard: vcard
+    full_cv: Full CV
+    specialties: Specialties
+    training: Training
+    mentions: Mentions
+    cases: Cases
+    publications: Publications
+    events: Events
     lawyerCategoryTypes:
       associate: Associate
       counsel: Counsel
@@ -92,9 +101,23 @@ menu:
   practices: Practice areas
   products: Products
 
+# Footer
+# ###########################################
+footer:
+  intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+  copyright: © 2020 Cuatrecasas. All right reserved.
+  privacy:
+    cookies: Privacy & Cookies
+    terms: Terms of Use
+    contact: Contac Us
+
 # Reusable Blocks
 # ###########################################
 reusable_blocks:
+    cta_footer:
+      title: Personalize your insights, read only what <strong>interests you</strong>
+      intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+      button: Choose your interests
     team:
       title: Team Cuatrecasas
       link: Meet the team

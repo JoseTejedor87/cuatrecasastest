@@ -26,7 +26,7 @@
                         </ul>
                         <div class="lawyer__page__contact">
                             <div data-address>
-                                CUATRECASAS {{ lawyer.office ? lawyer.office.city : '' }}
+                                {{ 'sections.lawyers.office'|trans }} {{ lawyer.office ? lawyer.office.city : '' }}
                             </div>
                             <div data-telephone>
                                 {{ lawyer.phone }}
@@ -46,10 +46,10 @@
                             </div>
                         {% endif %}
                             <div data-vcard>
-                                <a href="#">vcard</a>
+                                <a href="#">{{ 'sections.lawyers.vcard'|trans }}</a>
                             </div>
                             <div data-cv>
-                                <a href="#">CV Completo</a>
+                                <a href="#">{{ 'sections.lawyers.full_cv'|trans }}</a>
                             </div>
                         </div>
                         <ul class="action__links">
@@ -97,7 +97,7 @@
                         <div class="page__block__aside">
                             {% if lawyer.secondaryActivities|length > 0 %}
                                 <div class="page__aside">
-                                    <h3 class="page__aside__title">Especialidades</h3>
+                                    <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
                                     <ul class="page__aside__list--specialties">
 
                                     {% for activity in lawyer.secondaryActivities %}
@@ -112,7 +112,7 @@
                                 </div>
                             {% endif %}
                         <div class="page__aside">
-                            <h3 class="page__aside__title">Formación</h3>
+                            <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
                             <ul class="page__aside__list--career">
                                 {# <li>
                                     <div>Licenciado en Derecho</div>
@@ -126,7 +126,7 @@
                                     {{ lawyer.translate(app.request.getLocale()).training|raw  }}
                                 </li>
                             </ul>
-                            <h3 class="page__aside__title">Menciones</h3>
+                            <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
                             <ul class="page__aside__list--career">
                                 {# <li>
                                     <div>Abogado recomendado</div>
@@ -147,7 +147,7 @@
                 <section class="row page__block">
                     <div class="col">
                         <div class="page__block__title">
-                            <h3 class="subsection__title">Casos</h3>
+                            <h3 class="subsection__title">{{ 'sections.lawyers.cases'|trans }}</h3>
                         </div>
                         <div class="page__block__content">
                             <ul class="page__block__content__details">
@@ -166,7 +166,7 @@
                         <section class="row page__block">
                             <div class="col">
                                 <div class="page__block__title">
-                                    <h3 class="subsection__title">Publicaciones</h3>
+                                    <h3 class="subsection__title">{{ 'sections.lawyers.publications'|trans }}</h3>
                                 </div>
                                 <div class="page__block__content">
                                     <ul class="page__block__content__details">
@@ -187,7 +187,7 @@
                         <section class="row page__block">
                             <div class="col">
                                 <div class="page__block__title">
-                                    <h3 class="subsection__title">Eventos</h3>
+                                    <h3 class="subsection__title">{{ 'sections.lawyers.events'|trans }}</h3>
                                 </div>
                                 <div class="page__block__content">
                                     <ul class="page__block__content__details">
