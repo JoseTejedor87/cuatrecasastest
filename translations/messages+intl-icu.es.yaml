@@ -39,11 +39,9 @@ sections:
       by_office: Por oficina
       by_category: Por categoria
       by_initial: Buscar por inicial
-      search_results: Resultados de búsqueda
+      search_results: Resultados de la búsqueda
       search_results_txt1: Mostramos
       search_results_txt2: perfiles que encajan con la búsqueda
-
-
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero

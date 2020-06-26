@@ -32,6 +32,16 @@ sections:
     cases: Cases
     publications: Publications
     events: Events
+    lawyerFilters:
+      placeholder: Search lawyer
+      by_services: By services
+      by_sector: By sector
+      by_office: By office
+      by_category: By category
+      by_initial: Search by initial
+      search_results: Search results
+      search_results_txt1: Showing
+      search_results_txt2: profiles that match the search
     lawyerCategoryTypes:
       associate: Associate
       counsel: Counsel
