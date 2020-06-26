@@ -16,7 +16,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'sections.lawyers.title' | trans }}
+                            {{ 'sections.lawyers.title'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -40,7 +40,7 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                            <input type="text" id="textSearch" class="form-control" placeholder="Buscar abogado" name="initial">
+                            <input type="text" id="textSearch" class="form-control" placeholder="{{ 'sections.lawyers.lawyerFilters.placeholder'|trans }}" name="initial">
                             <input type="hidden" id="initial">
                             <div class="input-group">
                                 <button id="searchButton" class="search_box__button" type="submit">
@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="search_selects">
                         <select id="services" class="custom__select">
-                            <option value="hide">Por servicios</option>
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_services'|trans }}</option>
                             {% for practice in practices %}
                                 {% if practice.translate(app.request.getLocale()).title  %}
                                     <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
@@ -63,7 +63,7 @@
                             {% endfor %}
                         </select>
                         <select id="sector" class="custom__select">
-                            <option value="hide">Por sector</option>
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_sector'|trans }}</option>
                             {% for sector in sectors %}
                                 {% if sector.translate(app.request.getLocale()).title  %}
                                     <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
@@ -71,7 +71,7 @@
                             {% endfor %}
                         </select>
                         <select id="office" class="custom__select">
-                            <option value="hide">Por oficina</option>
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
                             {% for office in offices %}
                                 {% if office.city  %}
                                     <option value="{{office.id}}">{{ office.city  }}</option>
@@ -79,7 +79,7 @@
                             {% endfor %}
                         </select>
                         <select id="category" class="custom__select">
-                            <option value="hide">Por categoria</option>
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_category'|trans }}</option>
                             <option value="">Alimentación</option>
                             <option value="">Arte</option>
                             <option value="">Brexit</option>
@@ -92,7 +92,7 @@
                             <option value="">Farmacia y Sanitario</option>
                         </select>
                     </div>
-                    <nav class="search_alphabet" aria-label="Search by letter">
+                    <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
                         <ul class="pagination">
                         {% for letter in range('a','z') %}
                             <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
@@ -115,15 +115,15 @@
                 <div class="col">
 
                     <!-- Info Results -->
-                    <h2 class="section__title">Resultados de búsqueda</h2>
+                    <h2 class="section__title">{{ 'sections.lawyers.lawyerFilters.search_results'|trans }}</h2>
                     <div class="lawyer__search__info">
-                        <div class="lawyer__search__text">Mostramos {{ countLawyers }} perfiles que encajan con la búsqueda</div>
+                        <div class="lawyer__search__text">{{ 'sections.lawyers.lawyerFilters.search_results_txt1'|trans }} {{ countLawyers }} {{ 'sections.lawyers.lawyerFilters.search_results_txt2'|trans }}</div>
                         <div class="lawyer__search__chooser">
                             <button type="button" class="icon__button list">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="">
                             </button>
                             <button type="button" class="icon__button grid active">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="">
                             </button>
                         </div>
                     </div>
