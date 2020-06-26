@@ -213,6 +213,7 @@ entities:
       events: Eventos
       lawyers: Abogados
       articles: Artículos
+      activities: Sectores / Servicios / Desks
       relatedCaseStudies: Casos relacionados
       slug: Slug
   event:
@@ -299,6 +300,9 @@ entities:
   practice:
     fields:
       children: Subáreas
+  product:
+    fields:
+      children: Subproductos
   publishable:
     fields:
       languages: Idiomas de publicación

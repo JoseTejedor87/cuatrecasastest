@@ -13,6 +13,7 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
+use App\Entity\Activity;
 use App\Entity\Event;
 use App\Entity\Lawyer;
 use App\Entity\CaseStudy;
@@ -32,20 +33,6 @@ class CaseStudyFormType extends AbstractType
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
             ])
-            ->add('events', EntityType::class, [
-                'class' => Event::class,
-                'label' => 'entities.case_study.fields.events',
-                'attr' => [
-                    'class' => 'm-select2',
-                    'data-allow-clear' => true
-                ],
-                'multiple' => true,
-                'expanded' => false,
-                'required' => false,
-                'choice_label' => function ($event) {
-                    return $event->translate('es')->getTitle();
-                }
-            ])
             ->add('lawyers', EntityType::class, [
                 'class' => Lawyer::class,
                 'label' => 'entities.case_study.fields.lawyers',
@@ -58,6 +45,20 @@ class CaseStudyFormType extends AbstractType
                 'required' => false,
                 'choice_label' => function ($lawyer) {
                     return $lawyer->getFullName();
+                }
+            ])
+            ->add('activities', EntityType::class, [
+                'class' => Activity::class,
+                'label' => 'entities.case_study.fields.activities',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'required' => false,
+                'choice_label' => function ($activity) {
+                    return $activity->translate('es')->getTitle();
                 }
             ])
             ->add('relatedCaseStudies', EntityType::class, [

@@ -2,15 +2,12 @@
 
 namespace App\Controller\Web;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\PracticeRepository;
 use App\Repository\DeskRepository;
-use App\Repository\ActivityTranslationRepository;
+use App\Repository\CaseStudyRepository;
 use App\Controller\Web\WebController;
 
-class DesksController extends WebController
+class DeskController extends WebController
 {
     public function index(Request $request, DeskRepository $deskRepository)
     {
@@ -24,12 +21,15 @@ class DesksController extends WebController
         ]);
     }
 
-    public function detail(Request $request, DeskRepository $deskRepository)
+    public function detail(Request $request, DeskRepository $deskRepository, CaseStudyRepository $caseStudyRepository)
     {
         $desk = $deskRepository->getInstanceByRequest($request);
 
+        $relatedCaseStudies = $caseStudyRepository->findByActivity($desk);
+
         return $this->render('web/desks/detail.html.twig', [
             'desk' => $desk,
+            'relatedCaseStudies' => $relatedCaseStudies
         ]);
     }
 }
