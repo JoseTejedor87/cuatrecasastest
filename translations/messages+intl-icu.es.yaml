@@ -71,6 +71,8 @@ sections:
     title: Sectores
     specialities: Especialidades
     relatedActivities: Prácticas relacionadas
+  case_studies:
+    specialities: Especialidades
 
 # Menu
 # ###########################################
@@ -134,3 +136,6 @@ reusable_blocks:
       title: Equipo Cuatrecasas
       link: Conoce al equipo
       intro: Cuatrecasas cuenta con un equipo de {team}
+    cases:
+      title: Casos
+      link: Ver más

@@ -162,7 +162,7 @@
 
                 {% if lawyer.person %}
 
-                    {% if lawyer.person.articles|length > 1 %}
+                    {% if lawyer.person.publications|length > 1 %}
                         <section class="row page__block">
                             <div class="col">
                                 <div class="page__block__title">
@@ -170,11 +170,11 @@
                                 </div>
                                 <div class="page__block__content">
                                     <ul class="page__block__content__details">
-                                    {% for article in lawyer.person.articles %}
-                                        {% set PublicationDate = article.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
+                                    {% for publication in lawyer.person.publications %}
+                                        {% set PublicationDate = publication.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                         <li>
                                             <div>{{ PublicationDate[1] }}</div>
-                                            <a href="#"> {{ article.translate(app.request.getLocale()).title}}.</a>
+                                            <a href="#"> {{ publication.translate(app.request.getLocale()).title}}.</a>
                                         </li>
                                     {% endfor %}
                                     </ul>

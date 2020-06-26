@@ -80,8 +80,7 @@ knowledge_index:
     controller: App\Controller\Web\KnowledgeController::insights
 
 
-
-# ACTIVITY
+# Sectors
 # ###########################################
 sectors_index:
     path:
@@ -97,12 +96,14 @@ sectors_detail:
    methods:    GET
    controller: App\Controller\Web\SectorController::detail
 
-success_stories:
+# Case Studies
+# ###########################################
+case_studies_detail:
     path:
-        en:   /success-stories
-        es:   /casos-de-exito
+        en:   /cases/{slug}
+        es:   /casos/{slug}
     methods:    GET
-    controller: App\Controller\Web\ActivityController::successStories
+    controller: App\Controller\Web\CaseStudyController::detail
 
 # Services
 # ###########################################
@@ -139,14 +140,14 @@ desks_index:
        en:   /desks
        es:   /desks
    methods:    GET
-   controller: App\Controller\Web\DesksController::index
+   controller: App\Controller\Web\DeskController::index
 
 desks_detail:
    path:
        en:   /desks/{slug}
        es:   /desks/{slug}
    methods:    GET
-   controller: App\Controller\Web\DesksController::detail
+   controller: App\Controller\Web\DeskController::detail
 
 # Products
 # ###########################################
@@ -156,8 +157,6 @@ products_index:
         es:   /otros-servicios
     methods:    GET
     controller: App\Controller\Web\ProductsController::index
-
-
 
 # Events
 # ###########################################

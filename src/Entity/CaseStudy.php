@@ -20,19 +20,14 @@ class CaseStudy extends Publishable
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="caseStudies")
-     */
-    private $events;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", mappedBy="caseStudies")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="caseStudies")
      */
     private $lawyers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="caseStudies")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="caseStudies")
      */
-    private $articles;
+    private $activities;
 
     /**
      * Many cases have Many cases.
@@ -54,9 +49,8 @@ class CaseStudy extends Publishable
     {
         $this->relatedCaseStudiesWithMe = new ArrayCollection();
         $this->relatedCaseStudies = new ArrayCollection();
-        $this->events = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
-        $this->articles = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     public function getImage(): ?string
@@ -67,34 +61,6 @@ class CaseStudy extends Publishable
     public function setImage(?string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->addCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            $event->removeCaseStudy($this);
-        }
 
         return $this;
     }
@@ -122,34 +88,6 @@ class CaseStudy extends Publishable
         if ($this->lawyers->contains($lawyer)) {
             $this->lawyers->removeElement($lawyer);
             $lawyer->removeCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->addCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            $article->removeCaseStud($this);
         }
 
         return $this;
@@ -209,4 +147,29 @@ class CaseStudy extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+        }
+
+        return $this;
+    }
 }

@@ -84,12 +84,21 @@
         </article>
     </main>
     {% if sector.lawyers|length > 0 %}
-        {% include 'web/shared/team.html.twig' with {team:sector.translate(app.request.getLocale()).title, lawyers:sector.lawyers|slice(0, 5) } %}
+        {% include 'web/shared/team.html.twig' with {
+            team:sector.translate(app.request.getLocale()).title,
+            lawyers:sector.lawyers|slice(0, 5),
+            fixed_activity:sector.translate(app.request.getLocale()).title
+        } %}
     {% endif %}
 
     {# {% include 'web/shared/related-services.html.twig' %} #}
     {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/cases.html.twig' %}
+
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+    {% endif %}
+
     {% include 'web/shared/awards.html.twig' %}
     {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
