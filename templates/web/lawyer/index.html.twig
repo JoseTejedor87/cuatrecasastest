@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="search_selects">
                         <select id="services" class="custom__select">
-                            <option value="hide">Por servicios</option>
+                            <option disabled selected>Por servicios</option>
                             {% for practice in practices %}
                                 {% if practice.translate(app.request.getLocale()).title  %}
                                     <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
@@ -63,7 +63,7 @@
                             {% endfor %}
                         </select>
                         <select id="sector" class="custom__select">
-                            <option value="hide">Por sector</option>
+                            <option disabled selected>Por sector</option>
                             {% for sector in sectors %}
                                 {% if sector.translate(app.request.getLocale()).title  %}
                                     <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
@@ -71,7 +71,7 @@
                             {% endfor %}
                         </select>
                         <select id="office" class="custom__select">
-                            <option value="hide">Por oficina</option>
+                            <option disabled selected>Por oficina</option>
                             {% for office in offices %}
                                 {% if office.city  %}
                                     <option value="{{office.id}}">{{ office.city  }}</option>
