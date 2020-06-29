@@ -188,4 +188,16 @@ class Resource extends Publishable
 
         return $this;
     }
+
+    public function getCaseStudy(): ?CaseStudy
+    {
+        return $this->caseStudy;
+    }
+
+    public function setCaseStudy(?CaseStudy $caseStudy): self
+    {
+        $this->caseStudy = $caseStudy;
+
+        return $this;
+    }
 }
