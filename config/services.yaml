@@ -33,6 +33,9 @@ parameters:
         - partner
         - senior_associate
         - senior_partner
+    app.insight_header_types:
+        - full_width
+        - two_columns
 
     app.known_languages_by_lawyers: [es, en, it, pt, fr]
 
