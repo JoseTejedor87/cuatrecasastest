@@ -148,8 +148,8 @@ class NavigationService
 
         // To avoid the path calculation of a not publishable instances and unpublished instances
         if (($publishable instanceof \App\Entity\Publishable) && $publishable->isPublished($language, $region)) {
-            if ($publishable instanceof \App\Entity\Article) {
-                $pathName = 'articles_detail';
+            if ($publishable instanceof \App\Entity\Publication) {
+                $pathName = 'publications_detail';
                 $params['slug'] = $publishable->translate($language)->getSlug();
             } elseif ($publishable instanceof \App\Entity\CaseStudy) {
                 $pathName = 'case_studies_detail';

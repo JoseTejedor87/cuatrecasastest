@@ -30,7 +30,11 @@ class PublicationTranslation extends PublishableTranslation
     private $content;
 
 
-
+    /**
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @ORM\Column(length=128, nullable=true)
+     */
+    private $slug;
 
     public function getTitle(): ?string
     {
@@ -64,6 +68,18 @@ class PublicationTranslation extends PublishableTranslation
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
