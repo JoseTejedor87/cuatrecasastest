@@ -17,6 +17,11 @@ class Insight extends Publishable
     use ORMBehaviors\Translatable\Translatable;
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $headerType;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Insight", mappedBy="relatedInsights", cascade={"persist"})
      */
     private $relatedInsightsWithMe;
@@ -34,6 +39,26 @@ class Insight extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="insights")
      */
     private $activities;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showKnowledgeBlock;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showEventsBlock;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showLegalNoveltiesBlock;
+
+    /**
+         * @ORM\Column(type="boolean", nullable=false)
+         */
+    private $showCaseStudiesBlock;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="insights")
@@ -152,6 +177,66 @@ class Insight extends Publishable
             $this->lawyers->removeElement($lawyer);
             $lawyer->removeInsight($this);
         }
+
+        return $this;
+    }
+
+    public function getShowKnowledgeBlock(): ?bool
+    {
+        return $this->showKnowledgeBlock;
+    }
+
+    public function setShowKnowledgeBlock(bool $showKnowledgeBlock): self
+    {
+        $this->showKnowledgeBlock = $showKnowledgeBlock;
+
+        return $this;
+    }
+
+    public function getShowEventsBlock(): ?bool
+    {
+        return $this->showEventsBlock;
+    }
+
+    public function setShowEventsBlock(bool $showEventsBlock): self
+    {
+        $this->showEventsBlock = $showEventsBlock;
+
+        return $this;
+    }
+
+    public function getShowLegalNoveltiesBlock(): ?bool
+    {
+        return $this->showLegalNoveltiesBlock;
+    }
+
+    public function setShowLegalNoveltiesBlock(bool $showLegalNoveltiesBlock): self
+    {
+        $this->showLegalNoveltiesBlock = $showLegalNoveltiesBlock;
+
+        return $this;
+    }
+
+    public function getShowCaseStudiesBlock(): ?bool
+    {
+        return $this->showCaseStudiesBlock;
+    }
+
+    public function setShowCaseStudiesBlock(bool $showCaseStudiesBlock): self
+    {
+        $this->showCaseStudiesBlock = $showCaseStudiesBlock;
+
+        return $this;
+    }
+
+    public function getHeaderType(): ?string
+    {
+        return $this->headerType;
+    }
+
+    public function setHeaderType(string $headerType): self
+    {
+        $this->headerType = $headerType;
 
         return $this;
     }

@@ -165,6 +165,9 @@ class ImportCommand extends Command
                 case "newsByActivities":
                     $this->NewsByActivities();
                     break;
+                case "regenerateSlugPublication":
+                    $this->regenerateSlugPublication();
+                    break;
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -1031,14 +1034,14 @@ class ImportCommand extends Command
         foreach ($publications as $key => $item) {
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
-            if($item['tipo_publicacion']==2){
+            if ($item['tipo_publicacion']==2) {
                 $publication = new Article();
-            }
-            if($item['tipo_publicacion']==3){
+            } elseif ($item['tipo_publicacion']==3) {
                 $publication = new Research();
-            }
-            if($item['tipo_publicacion']==1 || $item['tipo_publicacion']==4 || $item['tipo_publicacion']==5 || $item['tipo_publicacion']==6 || $item['tipo_publicacion']==7){
+            } elseif ($item['tipo_publicacion']==1 || $item['tipo_publicacion']==4 || $item['tipo_publicacion']==5 || $item['tipo_publicacion']==6 || $item['tipo_publicacion']==7) {
                 $publication = new LegalNovelty();
+            } else {
+                continue;
             }
             if($publication){
                 $publication->setOldId($oldPublicationId);
@@ -1207,7 +1210,7 @@ class ImportCommand extends Command
         $publicationRepository = $this->em->getRepository(Publication::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [publication_person]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
@@ -1239,7 +1242,7 @@ class ImportCommand extends Command
         $officeRepository = $this->em->getRepository(Office::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [article_office]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [publication_office]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " office:" . $item['oficina_id']);
@@ -1267,7 +1270,7 @@ class ImportCommand extends Command
         $activityRepository = $this->em->getRepository(Activity::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [article_activity]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [publication_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " practica:" . $item['practica_id']);
@@ -1870,6 +1873,22 @@ class ImportCommand extends Command
                 $this->em->flush();
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+    public function regenerateSlugPublication()
+    {
+        $PublicationRepository = $this->em->getRepository(Publication::class);
+        $publications = $PublicationRepository->findAll();
+        foreach ($publications as $keyPublications => $publication) {
+            $Languages = $publication->getLanguages();
+            if($Languages){
+                foreach ($Languages as $key => $Language) {
+                    $publication->translate($Language)->setSlug( $publication->translate($Language)->getTitle());
+
+                }
+                $this->em->persist($publication);
+                $this->em->flush();
             }
         }
     }

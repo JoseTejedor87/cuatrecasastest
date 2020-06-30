@@ -1,0 +1,508 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article>
+
+            {% if insight.headerType == 'two_columns' %}
+
+                <header class="container insights__page">
+                    <div class="row insights__page__header">
+                        <div class="col-md-7 insights__page__content">
+                            <a href="#" class="back__button">{{ "global.goBack"|trans }}</a>
+
+                            <div class="insights__page__info">
+                                <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ path('knowledge_index') }}">{{ 'sections.knowledge.title'|trans }}</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            {{ 'sections.insights.title'|trans }}
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+
+                            <ul class="action__links">
+                                <li><a href="#"><i class="material-icons">share</i></a></li>
+                                <li><a href="#"><i class="material-icons">print</i></a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="lawyer__page__media">
+                                <figure style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}');">
+                                    <img src="{{ asset('web/assets/vector/insight-bg-1.png') }}">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+            {% elseif insight.headerType == 'full_width' %}
+
+                <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+                    <div class="col">
+                        <div class="info__block">
+                            <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ path('knowledge_index') }}">{{ 'sections.knowledge.title'|trans }}</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ 'sections.insights.title'|trans }}
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                </header>
+
+            {% endif %}
+
+            <div class="container">
+
+                <section class="row page__block noborder">
+                    <div class="col">
+                        <div class="page__block__title page__block__title--article">
+                            {{ insight.translate(app.request.getLocale()).summary|raw }}
+                        </div>
+                        <div class="page__block__content page__block__content--article">
+                            {{ insight.translate(app.request.getLocale()).description|raw }}
+                            <button type="button" class="doble__arrow__button">Ver más</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- <section class="row page__block">
+                    <div class="col">
+                        <div class="page__block__title">
+                            <h3 class="subsection__title">Puntos clave</h3>
+                        </div>
+                        <div class="page__block__content">
+                            <ul class="bullet__list">
+                                <li>
+                                    Time and cost effective solutions for the production of KIIDS.
+                                </li>
+                                <li>
+                                    Experienced KIID production teams.
+                                </li>
+                                <li>
+                                    Drafting of plain language objectives, policies and risk disclosure.
+                                </li>
+                                <li>
+                                    Built in compliance awareness
+                                </li>
+                                <li>
+                                    Time and cost effective solutions for the production of KIIDS.
+                                </li>
+                                <li>
+                                    Experienced KIID production teams.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section> -->
+
+                <section class="row page__block--aside">
+                    <div class="col">
+                        <div class="page__block__content">
+                            <p class="contact">
+                                {{ 'sections.insights.contact_with_us'|trans }} <br>
+                                <strong>{{ insight.translate(app.request.getLocale()).title|raw }}</strong>
+                            </p>
+                            <form action="" method="" class="email-subscribe">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group flex-group">
+                                    <div class="checkbox">
+                                        <input id="data-privacy" name="data-privacy" type="checkbox">
+                                        <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                    </div>
+                                    <button type="submit" class="doble__arrow__button">Enviar</button>
+                                    <!-- <button class="btn btn__solid" type="submit">Enviar</button> -->
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="page__block__aside">
+                            <div class="page__aside page__aside--practices">
+                                {% if insight.activities|length > 0 %}
+                                    <h3 class="page__aside__subtitle">{{ 'sections.insights.relatedActivities'|trans }}</h3>
+                                    <ul class="related__services">
+                                        {% for activity in insight.activities %}
+                                            <li class="related__services__item">
+                                                <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <a href="#" class="btn btn__solid btn__solid--icon">
+                                    Descarga el dossier
+                                    <i class="icon ion-ios-download-outline"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {% if insight.showKnowledgeBlock %}
+                    <!-- MASONRY GRID CSS-->
+                    <section class="row masonry__grid bgfull__grey__light">
+                        <div class="col-12">
+                            <h4 class="section__title section__title--recomended">Te recomendamos</h4>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="ms__grid__layout">
+                                <div class="ms__grid__item span--dobleW">
+                                    <article class="boxnews__item boxnews__item--opinion">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Opinion</div>
+                                            <div class="boxnews__info">3 Marzo 2020</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciados
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">Becas y ayudas</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Fundación Cuatrecasas convoca la II edición de la Beca Manuel Olivencia para estudiantes de Derecho
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleH">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">Innovación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">Educación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Universidad Carlos III de Madrid gana la edición nacional del torneo de Derecho Jessup Moot Competition
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--article">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Artículo</div>
+                                            <div class="boxnews__info">New business</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    El outlet de lujo McArthurGlen Designer abre sus puertas en Málaga con el asesoramiento de Cuatrecasas
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleH">
+                                    <article class="boxnews__item boxnews__item--article">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Artículo</div>
+                                            <div class="boxnews__info">Innovación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleW">
+                                    <article class="boxnews__item boxnews__item--opinion">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Opinion</div>
+                                            <div class="boxnews__info">3 Marzo 2020</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <div class="ms__grid__layout" id="loadMoreGrid" style="display:none">
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">Becas y ayudas</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Fundación Cuatrecasas convoca la II edición de la Beca Manuel Olivencia para estudiantes de Derecho
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleH">
+                                    <article class="boxnews__item boxnews__item--article">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Artículo</div>
+                                            <div class="boxnews__info">Innovación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">New business</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    El outlet de lujo McArthurGlen Designer abre sus puertas en Málaga con el asesoramiento de Cuatrecasas
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--news">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Noticia</div>
+                                            <div class="boxnews__info">Educación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Universidad Carlos III de Madrid gana la edición nacional del torneo de Derecho Jessup Moot Competition
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleH">
+                                    <article class="boxnews__item boxnews__item--article">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Artículo</div>
+                                            <div class="boxnews__info">Innovación</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item span--dobleW">
+                                    <article class="boxnews__item boxnews__item--opinion">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Opinion</div>
+                                            <div class="boxnews__info">3 Marzo 2020</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciados
+                                                </a>
+                                            </h5>
+                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="ms__grid__item">
+                                    <article class="boxnews__item boxnews__item--event">
+                                        <div class="boxnews__header">
+                                            <div class="boxnews__type">Evento</div>
+                                            <div class="boxnews__info">24 Febrero 2020</div>
+                                            <div class="boxnews__button">
+                                                <button type="button" class="button__bookmark"></button>
+                                            </div>
+                                        </div>
+                                        <div class="boxnews__content">
+                                            <h5 class="boxnews__copy">
+                                                <a href="#" class="boxnews__link">
+                                                    Publicado el Proyecto de Real Decreto de Comunicaciones Comerciales de las Actividades de Juego
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="viewmore__button">
+                                <button type="button" class="btn btn__viewmore">Cargar más</button>
+                            </div>
+                        </div>
+                    </section>
+
+                {% endif %}
+
+            </div>
+
+        </article>
+    </main>
+
+    {% if insight.showEventsBlock %}
+        {% include 'web/shared/related-events-slider.html.twig' %}
+        {# include 'web/shared/related-events-slider.html.twig' with {items: ... } #}
+    {% endif %}
+
+    {% if insight.showLegalNoveltiesBlock %}
+        {% include 'web/shared/related-legal-slider.html.twig' %}
+        {# include 'web/shared/related-legal-slider.html.twig' with {items: ... } #}
+    {% endif %}
+
+    {% if insight.lawyers|length > 0 %}
+        {% include 'web/shared/team.html.twig' with {
+            team:insight.translate(app.request.getLocale()).title,
+            lawyers:insight.lawyers|slice(0, 5),
+            fixed_activity:insight.translate(app.request.getLocale()).title
+        } %}
+    {% endif %}
+
+    {% if insight.relatedInsights %}
+        {% include 'web/shared/collections.html.twig' %}
+        {# include 'web/shared/collections.html.twig' with {items: ... } #}
+    {% endif %}
+
+    {% if insight.showCaseStudiesBlock %}
+        {# include 'web/shared/cases.html.twig' with {items: ... } #}
+    {% endif %}
+
+    {% include 'web/shared/call-to-action.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+
+<script>
+    $(function () {
+        web.global.sliderGeneral();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    });
+</script>
+{% endblock %}

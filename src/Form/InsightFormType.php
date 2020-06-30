@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Entity\Activity;
 use App\Entity\Lawyer;
@@ -15,6 +16,7 @@ use App\Entity\Insight;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
+use App\Form\Type\InsightHeaderType;
 
 class InsightFormType extends AbstractType
 {
@@ -66,6 +68,12 @@ class InsightFormType extends AbstractType
                     return $insight->translate('es')->getTitle();
                 }
             ])
+
+            ->add('headerType', InsightHeaderType::class, ['label'=>'entities.insight.fields.headerType'])
+            ->add('showKnowledgeBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showKnowledgeBlock', 'required' => false])
+            ->add('showEventsBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showEventsBlock', 'required' => false])
+            ->add('showLegalNoveltiesBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showLegalNoveltiesBlock', 'required' => false])
+            ->add('showCaseStudiesBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showCaseStudiesBlock', 'required' => false])
 
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])

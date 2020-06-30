@@ -14,7 +14,8 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licencitarios
+                            {{ publication.translate(app.request.getLocale()).title|raw }}
+                            {# La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licencitarios #}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -41,7 +42,8 @@
             <section class="row page__block noborder">
                 <div class="col">
                     <div class="page__block__title page__block__title--article">
-                        <p>NBC Universal sancionada por la Comisión Europea con 14,3 millones de euros</p>
+                        <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
+                        {# NBC Universal sancionada por la Comisión Europea con 14,3 millones de euros #}
                         <figure>
                             <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="NBC Universal">
                         </figure>
@@ -51,39 +53,29 @@
                                 <i class="icon ion-ios-download-outline"></i>
                             </a>
                             <ul class="related__content related__content--lawyers">
+                             {% for person in publication.people %}
                                 <li class="related__content__item">
                                     <a href="#" class="related__content__link">
-                                        Laura Vivas
+                                        {{ person.lawyer.name }} {{ person.lawyer.surname }}
                                     </a>
                                 </li>
-                                <li class="related__content__item">
-                                    <a href="#" class="related__content__link">
-                                        Anna García
-                                    </a>
-                                </li>
+                            {% endfor %}
                             </ul>
                             <ul class="related__content related__content--services">
-                                <li class="related__content__item">
-                                    <a href="#" class="related__content__link">
-                                        Alimentación
+                             {% for activity in publication.activities %}
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
                                     </a>
                                 </li>
-                                <li class="related__content__item">
-                                    <a href="#" class="related__content__link">
-                                        Retail
-                                    </a>
-                                </li>
-                                <li class="related__content__item">
-                                    <a href="#" class="related__content__link">
-                                        Infraestructuras
-                                    </a>
-                                </li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="page__block__content page__block__content--article">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
-                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient. Proin fermentum leo vel orci. Velit aliquet sagittis id consectetur purus ut faucibus. Sed egestas egestas fringilla phasellus faucibus <a href="#">gravida dictum fusce ut placerat orci nulla interdum</a>. Massa ultricies mi quis hendrerit. Egestas purus viverra accumsan in nisl. Ac tincidunt vitae semper quis lectus nulla at. Nunc sed blandit libero volutpat sed cras ornare arcu. Pharetra massa massa ultricies mi. Interdum velit laoreet id donec ultrices tincidunt arcu non sodales.</p>
+                        {{ publication.translate(app.request.getLocale()).content|raw }}
+                        {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
+                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient. Proin fermentum leo vel orci. Velit aliquet sagittis id consectetur purus ut faucibus. Sed egestas egestas fringilla phasellus faucibus <a href="#">gravida dictum fusce ut placerat orci nulla interdum</a>. Massa ultricies mi quis hendrerit. Egestas purus viverra accumsan in nisl. Ac tincidunt vitae semper quis lectus nulla at. Nunc sed blandit libero volutpat sed cras ornare arcu. Pharetra massa massa ultricies mi. Interdum velit laoreet id donec ultrices tincidunt arcu non sodales.</p> #}
                         <button type="button" class="doble__arrow__button">Ver más</button>
                     </div>
                 </div>

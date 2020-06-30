@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\PublicationRepository;
 
 
 
@@ -31,12 +32,6 @@ class KnowledgeController extends WebController
         ]);
     }
 
-    public function articleDetail()
-    {
-        return $this->render('web/knowledge/articleDetail.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
 
     public function productDetailKnowledge()
     {

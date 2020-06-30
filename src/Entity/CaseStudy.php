@@ -53,18 +53,6 @@ class CaseStudy extends Publishable
         $this->activities = new ArrayCollection();
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Lawyer[]
      */
@@ -168,6 +156,24 @@ class CaseStudy extends Publishable
     {
         if ($this->activities->contains($activity)) {
             $this->activities->removeElement($activity);
+        }
+
+        return $this;
+    }
+
+    public function getImage(): ?Resource
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Resource $image): self
+    {
+        $this->image = $image;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCaseStudy = null === $image ? null : $this;
+        if ($image->getCaseStudy() !== $newCaseStudy) {
+            $image->setCaseStudy($newCaseStudy);
         }
 
         return $this;

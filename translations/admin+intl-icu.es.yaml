@@ -245,6 +245,11 @@ entities:
       title: Título
       summary: Resumen
       description: Descripción
+      headerType: Tipo de cabecera
+      showKnowledgeBlock: Bloque conocimiento
+      showEventsBlock:  Bloque eventos
+      showLegalNoveltiesBlock: Bloque novedades jurídicas
+      showCaseStudiesBlock: Bloque casos
       activities: Sectores / Servicios / Desks
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
@@ -340,6 +345,7 @@ forms:
   fieldsets:
     relations: Relaciones
     publication: Publicación
+    appearance: Apariencia
     seo: SEO
 
   choices:
@@ -361,3 +367,6 @@ forms:
       partner: Socio
       senior_associate: Asociado sénior
       senior_partner: Presidente
+    insightHeaderTypes:
+      full_width: Una columna con imagen de fondo
+      two_columns: Dos columnas con imagen a la derecha

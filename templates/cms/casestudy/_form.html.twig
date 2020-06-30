@@ -9,7 +9,6 @@
             {{ translatableField.partialTranslations(form.translations, ['title']) }}
             {{ translatableField.partialTranslations(form.translations, ['summary']) }}
             {{ translatableField.partialTranslations(form.translations, ['description']) }}
-            {{ form_row(form.image) }}
         </div>
 
     </div>
@@ -25,6 +24,21 @@
             {{ form_row(form.lawyers) }}
             {{ form_row(form.activities) }}
             {{ form_row(form.relatedCaseStudies) }}
+        </div>
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'entities.case_study.fields.image'|trans }}
+                </h3>
+            </div>
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.image) }}
+                    {{ form_row(form.image.file) }}
+                </div>
+            </div>
+            {% do form.image.setRendered %}
         </div>
 
         <div class="m-form__section m-form__section">

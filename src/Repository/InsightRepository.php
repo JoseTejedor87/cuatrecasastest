@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Insight;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Insight|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +16,24 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Insight[]    findAll()
  * @method Insight[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InsightRepository extends ServiceEntityRepository
+class InsightRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Insight::class);
+        parent::__construct($registry, $navigation, Insight::class);
+    }
+
+    public function getInstanceByRequest(Request $request)
+    {
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->createQueryBuilder('p')
+                ->join('p.translations', 't')
+                ->where('t.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+        return null;
     }
 
     // /**

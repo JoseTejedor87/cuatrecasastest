@@ -253,7 +253,14 @@ resources_detail:
         es:     /ficheros/{slug}
     methods:    GET
     controller: App\Controller\Web\ResourcesController::detail
-
+# Publication
+# ###########################################
+publications_detail:
+    path:
+        en:   /article/{slug}
+        es:   /articulo/{slug}
+    methods:    GET
+    controller: App\Controller\Web\PublicationController::detail
 
 # TEMPORAL (BORRAR)
 ##############################################
@@ -278,12 +285,7 @@ fiscal:
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
 
-articles_detail:
-    path:
-        en:   /article
-        es:   /articulo
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::articleDetail
+
 
 events_detail2:
    path:
