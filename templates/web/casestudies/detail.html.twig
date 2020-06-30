@@ -73,8 +73,8 @@
         {% include 'web/shared/team.html.twig' with { lawyers:casestudy.lawyers|slice(0, 5) } %}
     {% endif %}
 
-    {% if casestudy.relatedCaseStudies|length > 0 %}
-        {% include 'web/shared/cases.html.twig' with {caseStudies: casestudy.relatedCaseStudies} %}
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
     {% include 'web/shared/related-content-slider.html.twig' %}
