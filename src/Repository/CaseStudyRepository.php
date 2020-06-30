@@ -36,6 +36,26 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
         return null;
     }
 
+    public function getRelatedCasesByActivities($casestudy)
+    {
+        $activities = array_map(
+            function ($activity) {
+                return $activity->getId();
+            },
+            $casestudy->getActivities()->getvalues()
+        );
+        return $this->createPublishedQueryBuilder('c')
+            ->join('c.translations', 't')
+            ->join('c.activities', 'a')
+            ->andWhere('a.id IN (:ids)')
+            ->andWhere('c.id != (:casestudy)')
+            ->setParameter('ids', $activities)
+            ->setParameter('casestudy', $casestudy->getId())
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByActivity($activity)
     {
         return $this->createQueryBuilder('c')
