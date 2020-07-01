@@ -29,10 +29,33 @@ class CaseStudy extends Publishable
      */
     private $activities;
 
+    /**
+     * Many cases have Many cases.
+     * @ORM\ManyToMany(targetEntity="CaseStudy", mappedBy="relatedCaseStudies", cascade={"persist"})
+     */
+    private $relatedCaseStudiesWithMe;
+
+    /**
+     * Many cases have many cases.
+     * @ORM\ManyToMany(targetEntity="CaseStudy", inversedBy="relatedCaseStudiesWithMe", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="casestudy_casestudy",
+     *     joinColumns={@ORM\JoinColumn(name="casestudy_source", referencedColumnName="id", onDelete="NO ACTION")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="casestudy_target", referencedColumnName="id", onDelete="NO ACTION")}
+     * )
+     */
+    private $relatedCaseStudies;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="caseStudy")
+     */
+    private $quote;
+    
+
     public function __construct()
     {
         $this->lawyers = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->quote = new ArrayCollection();
     }
 
     /**
@@ -102,6 +125,32 @@ class CaseStudy extends Publishable
         $newCaseStudy = null === $image ? null : $this;
         if ($image->getCaseStudy() !== $newCaseStudy) {
             $image->setCaseStudy($newCaseStudy);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuote(): Collection
+    {
+        return $this->quote;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quote->contains($quote)) {
+            $this->quote[] = $quote;
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quote->contains($quote)) {
+            $this->quote->removeElement($quote);
         }
 
         return $this;

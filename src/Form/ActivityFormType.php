@@ -14,6 +14,7 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
 use App\Entity\Activity;
+use App\Entity\Quote;
 
 abstract class ActivityFormType extends AbstractType
 {
@@ -41,6 +42,19 @@ abstract class ActivityFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
+                }
+            ])
+            ->add('quote', EntityType::class, [
+                'class' => Quote::class,
+                'label' => 'entities.quoteBlock.fields.quote',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($quote) {
+                    return $quote->translate('es')->getBody();
                 }
             ])
             ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])

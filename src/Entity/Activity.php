@@ -90,6 +90,11 @@ abstract class Activity extends Publishable
      */
     private $insights;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="activities")
+     */
+    private $quote;
+
     public function __construct()
     {
         $this->relatedActivitiesWithMe = new ArrayCollection();
@@ -103,6 +108,8 @@ abstract class Activity extends Publishable
         $this->insights = new ArrayCollection();
         $this->caseStudies = new ArrayCollection();
         $this->publication = new ArrayCollection();
+        $this->quote = new ArrayCollection();
+        
     }
 
     public function getImage(): ?string
@@ -406,4 +413,32 @@ abstract class Activity extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuote(): Collection
+    {
+        return $this->quote;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quote->contains($quote)) {
+            $this->quote[] = $quote;
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quote->contains($quote)) {
+            $this->quote->removeElement($quote);
+        }
+
+        return $this;
+    }
+
+
 }

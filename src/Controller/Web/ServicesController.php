@@ -21,10 +21,5 @@ class ServicesController extends WebController
         ]);
     }
 
-    public function productDetailServices()
-    {
-        return $this->render('web/services/productDetail.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
+
 }
