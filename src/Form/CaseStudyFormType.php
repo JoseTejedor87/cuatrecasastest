@@ -17,6 +17,7 @@ use App\Entity\Activity;
 use App\Entity\Event;
 use App\Entity\Lawyer;
 use App\Entity\CaseStudy;
+use App\Entity\Quote;
 
 class CaseStudyFormType extends AbstractType
 {
@@ -73,6 +74,19 @@ class CaseStudyFormType extends AbstractType
                 'required' => false,
                 'choice_label' => function ($caseStudy) {
                     return $caseStudy->translate('es')->getTitle();
+                }
+            ])
+            ->add('quote', EntityType::class, [
+                'class' => Quote::class,
+                'label' => 'entities.quoteBlock.fields.quote',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($quote) {
+                    return $quote->translate('es')->getBody();
                 }
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])

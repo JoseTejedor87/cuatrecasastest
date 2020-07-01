@@ -158,6 +158,13 @@ products_index:
     methods:    GET
     controller: App\Controller\Web\ProductsController::index
 
+products_detail:
+   path:
+       en:   /other-services/{slug}
+       es:   /otros-servicios/{slug}
+   methods:    GET
+   controller: App\Controller\Web\ProductsController::detail
+
 # Events
 # ###########################################
 events_directory:
@@ -264,12 +271,7 @@ publications_detail:
 
 # TEMPORAL (BORRAR)
 ##############################################
-productDetailKnowledge:
-    path:
-        en:   /product-knowledge
-        es:   /producto-conocimiento
-    methods:    GET
-    controller: App\Controller\Web\KnowledgeController::productDetailKnowledge
+
 
 productDetailServices:
     path:

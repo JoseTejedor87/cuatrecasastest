@@ -45,12 +45,18 @@ class CaseStudy extends Publishable
      */
     private $relatedCaseStudies;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="caseStudy")
+     */
+    private $quote;
+    
     public function __construct()
     {
         $this->relatedCaseStudiesWithMe = new ArrayCollection();
         $this->relatedCaseStudies = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->quote = new ArrayCollection();
     }
 
     /**
@@ -174,6 +180,32 @@ class CaseStudy extends Publishable
         $newCaseStudy = null === $image ? null : $this;
         if ($image->getCaseStudy() !== $newCaseStudy) {
             $image->setCaseStudy($newCaseStudy);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuote(): Collection
+    {
+        return $this->quote;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quote->contains($quote)) {
+            $this->quote[] = $quote;
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quote->contains($quote)) {
+            $this->quote->removeElement($quote);
         }
 
         return $this;
