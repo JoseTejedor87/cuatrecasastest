@@ -34,7 +34,14 @@
             background-color: $tab3;
         }
 
+        &.products {
+            &:after {
+                background-color: $tabActive;
+            }
+        }
+
         .nav {
+            width: calc(100% + 142px);
             margin-left: -72px;
         }
 

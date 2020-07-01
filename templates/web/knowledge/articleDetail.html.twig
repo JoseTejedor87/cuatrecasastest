@@ -52,10 +52,11 @@
                                 {% if attachment.type == 'publication_dossier'%}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
-                                    <i class="icon ion-ios-download-outline"></i>
+                                    <span class="icon4-download"></span>
                                 </a>
                                 {% endif %}
                             {% endfor %}
+
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item">
@@ -101,13 +102,11 @@
 
 <script>
     $(function () {
-        web.global.sliderGeneral();
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
             allowTouchMove: true,
-            grabCursor: false,
+            grabCursor: true,
             scrollbar: {
                 el: '.swiper-scrollbar',
                 draggable: true
@@ -133,6 +132,12 @@
             $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
             //$('.doble__arrow__button').blur();
 
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: true
         });
     });
 </script>

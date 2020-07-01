@@ -13,7 +13,8 @@
     // --------------------------------------------------------------------------
 
     @include has("header") {
-        min-height: calc(100vh - 122px);
+        // min-height: calc(100vh - 122px);
+        min-height: 650px;
         background-color: $main-color;
     }
 

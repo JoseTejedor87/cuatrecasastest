@@ -206,10 +206,23 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Lawyer Results -->
+<script type="text/javascript" src="{{ asset('web/assets/js/lawyerResults.js') }}"></script>
 <script>
+    web.global.customSelects();
+
+    var swiperGeneral = new Swiper ('.slider__general', {
+        slidesPerView: 3,
+        spaceBetween: 25,
+        allowTouchMove: true,
+        grabCursor: true,
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            draggable: true
+        }
+    });
+
     $( document ).ready(function() {
-        web.global.customSelects();
-        web.global.sliderGeneral();
 
         // RESULTS VIEWS
         $(document).on('click', '.list', function(e){
@@ -266,158 +279,156 @@
                 page=1;
             }
            ajax(page,initial);
-
         });
-
     });
 
     function ajax(page,initial) {
-            event.preventDefault();
-            textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
-            services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
-            sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
-            office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
-            initial = initial ? initial : $("#initial").val();
-            var page = page ? page : $(this).data("page");
-            if(!page){
-                page=1;
+        event.preventDefault();
+        textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
+        services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
+        sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
+        office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
+        initial = initial ? initial : $("#initial").val();
+        var page = page ? page : $(this).data("page");
+        if(!page){
+            page=1;
+        }
+        $.ajax({
+            method: "GET",
+            data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
+            url: "{{ path('lawyers_index') }}",
+            beforeSend: function( xhr ) {
+                $('.search__component__loader').fadeIn('fast');
             }
-            $.ajax({
-                method: "GET",
-                data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
-                url: "{{ path('lawyers_index') }}",
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').fadeIn('fast');
+        })
+        .done(function( msg ) {
+            $('.search__component__loader').fadeOut();
+            $('#lawyerAjaxResults').empty();
+            var url= "";
+            if(msg['initial']){
+                if(url == ""){
+                    url= "?initial="+msg['initial'];
+                }else{
+                    url= url + "&initial="+msg['initial'];
                 }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $('#lawyerAjaxResults').empty();
-                var url= "";
-                if(msg['initial']){
-                    if(url == ""){
-                        url= "?initial="+msg['initial'];
-                    }else{
-                        url= url + "&initial="+msg['initial'];
-                    }
+            }
+            if(msg['office']){
+                if(url == ""){
+                    url= "?office="+msg['office'];
+                }else{
+                    url= url + "&office="+msg['office'];
                 }
-                if(msg['office']){
-                    if(url == ""){
-                        url= "?office="+msg['office'];
-                    }else{
-                        url= url + "&office="+msg['office'];
-                    }
+            }
+            if(msg['textSearch']){
+                if(url == ""){
+                    url= "?textSearch="+msg['textSearch'];
+                }else{
+                    url= url + "&textSearch="+msg['textSearch'];
                 }
-                if(msg['textSearch']){
-                    if(url == ""){
-                        url= "?textSearch="+msg['textSearch'];
-                    }else{
-                        url= url + "&textSearch="+msg['textSearch'];
-                    }
+            }
+            if(msg['services']){
+                if(url == ""){
+                    url= "?services="+msg['services'];
+                }else{
+                    url= url + "&services="+msg['services'];
                 }
-                if(msg['services']){
-                    if(url == ""){
-                        url= "?services="+msg['services'];
-                    }else{
-                        url= url + "&services="+msg['services'];
-                    }
+            }
+            if(msg['sector']){
+                if(url == ""){
+                    url= "?sector="+msg['sector'];
+                }else{
+                    url= url + "&sector="+msg['sector'];
                 }
-                if(msg['sector']){
-                    if(url == ""){
-                        url= "?sector="+msg['sector'];
-                    }else{
-                        url= url + "&sector="+msg['sector'];
-                    }
+            }
+            if(msg['page']>1){
+                if(url == ""){
+                    url= "?page="+msg['page'];
+                }else{
+                    url= url + "&page="+msg['page'];
                 }
-                if(msg['page']>1){
-                    if(url == ""){
-                        url= "?page="+msg['page'];
-                    }else{
-                        url= url + "&page="+msg['page'];
-                    }
-                }
-                var html = '';
-                html = `<div class="col">
-                                <!-- Info Results -->
-                                <h2 class="section__title">Resultados de búsqueda</h2>
-                                <div class="lawyer__search__info">
-                                    <div class="lawyer__search__text">Mostramos `+msg['countLawyers']+` perfiles que encajan con la búsqueda</div>
-                                    <div class="lawyer__search__chooser">
-                                        <button type="button" class="icon__button list">
-                                            <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
-                                        </button>
-                                        <button type="button" class="icon__button grid active">
-                                            <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
-                                        </button>
-                                    </div>
+            }
+            var html = '';
+            html = `<div class="col">
+                            <!-- Info Results -->
+                            <h2 class="section__title">Resultados de búsqueda</h2>
+                            <div class="lawyer__search__info">
+                                <div class="lawyer__search__text">Mostramos `+msg['countLawyers']+` perfiles que encajan con la búsqueda</div>
+                                <div class="lawyer__search__chooser">
+                                    <button type="button" class="icon__button list">
+                                        <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
+                                    </button>
+                                    <button type="button" class="icon__button grid active">
+                                        <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
+                                    </button>
                                 </div>
+                            </div>
 
-                                <!-- List Results -->
-                                <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">`;
-                msg['lawyers'].forEach(function(lawyer){
-                    html = html + `
-                        <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
-                                <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
-                                <div class="lawyer__details">
-                                    <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
-                                    <ul class="lawyer__practice">
-                                        <li class="lawyer__practice__item">`+ lawyer['activities'] + `</li>
-                                        <li class="lawyer__practice__item">`+ lawyer['office'] + `</li>
-                                    </ul>
-                                </div>
-                                <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName'] + `">
-                            </a>
-                        </div>
-                    `;
-                });
-                html = html + `</div>`;
-
-                    if(msg['pagesTotal']>1){
-                        html = html + `<nav class="search_pagination" aria-label="Results pagination">
-                                                <ul class="pagination" id="lawyerPagination">
-                                                    <li class="page-item">
-                                                        <a class="page-link"  aria-label="Previous" href="abogados`+url+`&page=1"  data-page="1">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                    </li>`;
-                                                    for (var i = 1; i <= msg['pagesTotal']; i++) {
-                                                    html = html + `<li class="page-item">
-                                                        <a class="page-link`;
-                                                    if(i==1 && !msg['page']){
-                                                        html = html + ` active`;
-                                                    }else{
-                                                        if(i==msg['page']){
-                                                            html = html + ` active`;
-                                                        }
-                                                    }
-                                                    html = html + `" href="abogados`+url+`&page=`+i+`" data-page="`+i+`">`+i+`</a>
-                                                    </li>`;
-                                                    }
-
-                                                     html = html + `<li class="page-item">
-                                                        <a class="page-link" href="abogados`+url+`&page=`+ msg['pagesTotal'] + `" data-page="`+ msg['pagesTotal'] + `" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>`;
-                    }
-                html = html + `</div>`;
-                $('#lawyerAjaxResults').append( html  );
-
-                window.history.replaceState(null, null, "abogados"+url);
-                $("#textSearch").val(textSearch);
-                $("#services").val(services);
-                $("#sector").val(sector);
-                $("#office").val(office);
-                $("#initial").val(initial);
-            })
-            .fail(function() {
-
+                            <!-- List Results -->
+                            <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">`;
+            msg['lawyers'].forEach(function(lawyer){
+                html = html + `
+                    <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
+                        <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
+                            <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
+                            <div class="lawyer__details">
+                                <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
+                                <ul class="lawyer__practice">
+                                    <li class="lawyer__practice__item">`+ lawyer['activities'] + `</li>
+                                    <li class="lawyer__practice__item">`+ lawyer['office'] + `</li>
+                                </ul>
+                            </div>
+                            <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName'] + `">
+                        </a>
+                    </div>
+                `;
             });
+            html = html + `</div>`;
+
+                if(msg['pagesTotal']>1){
+                    html = html + `<nav class="search_pagination" aria-label="Results pagination">
+                                            <ul class="pagination" id="lawyerPagination">
+                                                <li class="page-item">
+                                                    <a class="page-link"  aria-label="Previous" href="abogados`+url+`&page=1"  data-page="1">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>`;
+                                                for (var i = 1; i <= msg['pagesTotal']; i++) {
+                                                html = html + `<li class="page-item">
+                                                    <a class="page-link`;
+                                                if(i==1 && !msg['page']){
+                                                    html = html + ` active`;
+                                                }else{
+                                                    if(i==msg['page']){
+                                                        html = html + ` active`;
+                                                    }
+                                                }
+                                                html = html + `" href="abogados`+url+`&page=`+i+`" data-page="`+i+`">`+i+`</a>
+                                                </li>`;
+                                                }
+
+                                                 html = html + `<li class="page-item">
+                                                    <a class="page-link" href="abogados`+url+`&page=`+ msg['pagesTotal'] + `" data-page="`+ msg['pagesTotal'] + `" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>`;
+                }
+            html = html + `</div>`;
+            $('#lawyerAjaxResults').append( html  );
+
+            window.history.replaceState(null, null, "abogados"+url);
+            $("#textSearch").val(textSearch);
+            $("#services").val(services);
+            $("#sector").val(sector);
+            $("#office").val(office);
+            $("#initial").val(initial);
+        })
+        .fail(function() {
+
+        });
     }
 </script>
 {% endblock %}

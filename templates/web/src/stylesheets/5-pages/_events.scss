@@ -449,10 +449,15 @@
         border-left: none !important;
 
         background-color: $event-box-color;
-        // border-top-color: blue !important;
-        // border-left-color: blue !important;
-        box-shadow: inset 1px 0 0 0 $main-color,
-                    inset 0 1px 0 0 $main-color;
+        // box-shadow: inset 1px 0 0 0 $main-color,
+        //             inset 0 1px 0 0 $main-color;
+
+        cursor: default;
+
+        // BORRAR (HOVER FX)
+        // @include on-event() {
+        //     cursor: pointer;
+        // }
     }
 
     &.fc-dayGridMonth-view {
@@ -460,7 +465,7 @@
         .fc-event-container {
             margin: 0 0;
             padding: 0 0;
-            // cursor: default;
+            cursor: default;
             // transition: all 0.3s ease-out;
 
             // &:last-child {
@@ -505,7 +510,8 @@
                 @include fontSet(12px, 12px);
                 letter-spacing: 0.52px;
                 border: none;
-                background-color: $event-box-color;
+                // background-color: $event-box-color;
+                background-color: transparent;
 
                 // white-space: initial;
                 // overflow: initial;
@@ -516,6 +522,9 @@
 
                 transition: all 0.3s ease-out;
 
+
+                // BORRAR (HOVER FX)
+                /*
                 @include on-event() {
                     background-color: rgba($complementary-color, 1);
                     cursor: pointer !important;
@@ -525,6 +534,7 @@
                         color: $white;
                     }
                 }
+                */
             }
         }
 

@@ -78,8 +78,8 @@
         {% include 'web/shared/team.html.twig' with { lawyers:casestudy.lawyers|slice(0, 5) } %}
     {% endif %}
 
-    {% if casestudy.relatedCaseStudies|length > 0 %}
-        {% include 'web/shared/cases.html.twig' with {caseStudies: casestudy.relatedCaseStudies} %}
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
     {% include 'web/shared/related-content-slider.html.twig' %}
@@ -92,8 +92,25 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
     $(function () {
-        web.global.sliderNews();
-        web.global.sliderCases();
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+        {% if relatedCaseStudies|length > 0 %}
+            var swiperCases = new Swiper ('#sliderCases', {
+                slidesPerView: 'auto',
+                spaceBetween: 20,
+                loop: true,
+                allowTouchMove: true,
+                grabCursor: true
+            });
+        {% endif %}
     });
 </script>
 {% endblock %}
