@@ -50,7 +50,7 @@
                         <div class="article__details">
                             <a href="#" class="btn btn__solid btn__solid--icon">
                                 Descarga el dossier
-                                <i class="icon ion-ios-download-outline"></i>
+                                <span class="icon4-download"></span>
                             </a>
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
@@ -97,17 +97,22 @@
 
 <script>
     $(function () {
-        web.global.sliderGeneral();
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
         var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,
             allowTouchMove: true,
-            grabCursor: false,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
+            grabCursor: true
         });
     });
 </script>

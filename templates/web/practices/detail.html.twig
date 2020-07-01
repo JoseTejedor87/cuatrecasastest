@@ -40,7 +40,7 @@
 
             <section class="row page__block--full">
                 <div class="col">
-                    <p class="h3">{{ practice.translate(app.request.getLocale()).summary|raw }}</p>
+                    {{ practice.translate(app.request.getLocale()).summary|raw }}
                 </div>
             </section>
 

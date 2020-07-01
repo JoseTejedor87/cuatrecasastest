@@ -38,7 +38,7 @@
 
             <section class="row page__block--full">
                 <div class="col">
-                    <p class="h3">{{ service.translate(app.request.getLocale()).summary|raw }}</p>
+                    {{ service.translate(app.request.getLocale()).summary|raw }}
                 </div>
             </section>
 
@@ -74,10 +74,10 @@
                                                 <a href="#" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
                                             </li>
                                         {% endif %}
-                                    {% endfor %}  
+                                    {% endfor %}
                                 </ul>
                             </div>
-                        {% endif %}   
+                        {% endif %}
                     </div>
                 </div>
             </section>

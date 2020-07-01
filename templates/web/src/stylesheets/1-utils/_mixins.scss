@@ -141,6 +141,54 @@ img {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    transition: transform 0.3s ease-in-out;
+}
+
+@mixin icons-material($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    transition: transform 0.3s ease-in-out;
+}
+
+@mixin icons-4casas($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    display: inline-block;
+    font-family: 'Cuatrecasasicons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -375,7 +423,7 @@ img {
 @mixin arrow-button($color) {
     @include reset-button;
     position: relative;
-    padding-right: 1.4rem;
+    padding-right: 1.6rem;
     text-decoration: none;
     color: $color;
     // box-shadow: 0 2px 0 transparent;
@@ -383,7 +431,7 @@ img {
 
     &:before,
     &:after {
-        @include icons-ionicons(5px, 0, auto, auto);
+        @include icons-ionicons(-1px, 0, auto, auto);
         content: '\f3d1';
         font-size: 32px;
         width: 12px;
@@ -408,7 +456,7 @@ img {
 
     @include on-event {
         padding-right: 0.2rem;
-        padding-left: 1.4rem;
+        padding-left: 1.6rem;
         color: $color;
         text-decoration: none;
 
