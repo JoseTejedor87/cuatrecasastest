@@ -4,34 +4,26 @@
             <div class="col">
                 <h4 class="section__title section__title--insight">Coleciones</h4>
                 <div class="boxnews__list">
+
+                    {% for insight in insights %}
+
                     <article class="boxnews__item">
                         <div class="boxnews__header">
-                            <div class="boxnews__type">Emergencia climática lorem ipsum dolor</div>
+                            <div class="boxnews__type">{{ insight.translate(app.request.getLocale()).title }}</div>
                         </div>
                         <div class="boxnews__content">
                             <div class="boxnews__excerpt">
-                                Publicado el Proyecto de Real Decreto de Comunicaciones Comerciales de las Actividades de Juego
+                                {{ insight.translate(app.request.getLocale()).summary|raw }}
                             </div>
                             <div class="boxnews__action">
-                                <a href="#" class="doble__arrow__link">Ver más</a>
+                                <a href="{{ path('insights_detail', {slug: insight.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">Ver más</a>
                             </div>
                             <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}')"></div>
                         </div>
                     </article>
-                    <article class="boxnews__item">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">Brexit</div>
-                        </div>
-                        <div class="boxnews__content">
-                            <div class="boxnews__excerpt">
-                                La CNMC archiva de nuevo un expediente sobre el sistema de doble precio de los laboratorios farmacéuticos
-                            </div>
-                            <div class="boxnews__action">
-                                <a href="#" class="doble__arrow__link">Ver más</a>
-                            </div>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg-2.png') }}')"></div>
-                        </div>
-                    </article>
+
+                    {% endfor %}
+
                 </div>
                 <div class="viewmore__button">
                     <button type="button" class="btn btn__viewmore">Ver más colecciones</button>

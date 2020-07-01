@@ -17,15 +17,17 @@ class InsightController extends WebController
         // Revisar $insight y rellenar $contextualBlocks con las diferentes collecciones
         // de elementos en función del estado de los atributos $showKnowledgeBlock, $showEventsBlock,
         // $showLegalNoveltiesBlock y $showCaseStudiesBlock.
-        // 
+        //
         // $relatedPublications = $caseStudyRepository->findByActivities($insight->activities);
         // $relatedCaseStudies = $caseStudyRepository->findByActivities($insight->activities);
         // $relatedEvents = $eventRepository->findByActivities($insight->activities);
-        // $contextualBlocks[] = ...
+        $relatedInsights = $insightRepository->getPublishedRelatedInsights($insight);
+
+        $contextualBlocks['insights'] = $relatedInsights;
 
         return $this->render('web/insights/detail.html.twig', [
             'insight' => $insight,
-            //'contextualBlocks' => $contextualBlocks
+            'contextualBlocks' => $contextualBlocks
         ]);
     }
 }

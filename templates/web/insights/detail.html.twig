@@ -341,9 +341,8 @@
         } %}
     {% endif %}
 
-    {% if insight.relatedInsights %}
-        {% include 'web/shared/collections.html.twig' %}
-        {# include 'web/shared/collections.html.twig' with {items: ... } #}
+    {% if contextualBlocks.insights|length > 0 %}
+        {% include 'web/shared/collections.html.twig' with {insights: contextualBlocks.insights} %}
     {% endif %}
 
     {% if insight.showCaseStudiesBlock %}
