@@ -102,20 +102,13 @@
 
 <script>
     $(function () {
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
         $('.read-more').each(function() {
             if ($(this).children('p').length > 4) {
                 $(this).children('p:lt(3)').show();
                 $(this).append('<button type="button" class="doble__arrow__button loadMore">Ver más</button>');
+            }else{
+                $(this).children('p:lt(3)').show();
+                $(this).parent('.read-more').children('p:gt(2)').slideUp();
             }
         });
         $('.read-more').on("click", '.loadMore', function() {
@@ -131,7 +124,7 @@
             $(this).parent('.read-more').children('p:gt(2)').slideUp();
             $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
             //$('.doble__arrow__button').blur();
-
+        });
         var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
