@@ -346,7 +346,7 @@
     {% endif %}
 
     {% if insight.showCaseStudiesBlock %}
-        {# include 'web/shared/cases.html.twig' with {items: ... } #}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
     {% endif %}
 
     {% include 'web/shared/call-to-action.html.twig' %}
