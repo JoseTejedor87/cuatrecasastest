@@ -62,20 +62,6 @@ class CaseStudyFormType extends AbstractType
                     return $activity->translate('es')->getTitle();
                 }
             ])
-            ->add('relatedCaseStudies', EntityType::class, [
-                'class' => CaseStudy::class,
-                'label' => 'entities.case_study.fields.relatedCaseStudies',
-                'attr' => [
-                    'class' => 'm-select2',
-                    'data-allow-clear' => true
-                ],
-                'multiple' => true,
-                'expanded' => false,
-                'required' => false,
-                'choice_label' => function ($caseStudy) {
-                    return $caseStudy->translate('es')->getTitle();
-                }
-            ])
             ->add('quote', EntityType::class, [
                 'class' => Quote::class,
                 'label' => 'entities.quoteBlock.fields.quote',

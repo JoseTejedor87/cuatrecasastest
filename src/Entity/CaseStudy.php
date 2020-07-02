@@ -30,26 +30,10 @@ class CaseStudy extends Publishable
     private $activities;
 
     /**
-     * Many cases have Many cases.
-     * @ORM\ManyToMany(targetEntity="CaseStudy", mappedBy="relatedCaseStudies", cascade={"persist"})
-     */
-    private $relatedCaseStudiesWithMe;
-
-    /**
-     * Many cases have many cases.
-     * @ORM\ManyToMany(targetEntity="CaseStudy", inversedBy="relatedCaseStudiesWithMe", cascade={"persist", "remove"})
-     * @ORM\JoinTable(name="casestudy_casestudy",
-     *     joinColumns={@ORM\JoinColumn(name="casestudy_source", referencedColumnName="id", onDelete="NO ACTION")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="casestudy_target", referencedColumnName="id", onDelete="NO ACTION")}
-     * )
-     */
-    private $relatedCaseStudies;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="caseStudy")
      */
     private $quote;
-    
+
 
     public function __construct()
     {
