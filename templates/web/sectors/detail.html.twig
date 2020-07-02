@@ -59,9 +59,9 @@
                             </ul>
                         </div>
                         {% endif %}
-                        {% if practice.quote|length > 0 %}
+                        {% if sector.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
-                            {% for quote in practice.quote %}
+                            {% for quote in sector.quote %}
                             <blockquote class="cite__quote">
                                 <p>{{ quote.translate(app.request.getLocale()).body }}</p>
                                 <cite>{{ quote.author}}, {{ quote.year}}</cite>
