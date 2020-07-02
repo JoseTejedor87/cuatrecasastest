@@ -195,41 +195,41 @@
 // Isotope Grid
 // --------------------------------------------------------------------------
 
-.grid-masonry {
-    width: 100%;
-    margin-bottom: 6rem;
-    // background: yellow;
-}
+// .grid-masonry {
+//     width: 100%;
+//     margin-bottom: 6rem;
+//     // background: yellow;
+// }
 
-/* clear fix */
-.grid-masonry:after {
-    content: '';
-    display: block;
-    clear: both;
-}
+// /* clear fix */
+// .grid-masonry:after {
+//     content: '';
+//     display: block;
+//     clear: both;
+// }
 
-.grid-item,
-.grid-sizer {
-    width: 33.3333%;
-}
+// .grid-item,
+// .grid-sizer {
+//     width: 33.3333%;
+// }
 
-.grid-item {
-    float: left;
-    height: 260px;
-    background: #fcf;
-    // border: 2px solid black;
-    border: 10px solid white;
-    // border-color: hsla(0, 0%, 0%, 0.7);
+// .grid-item {
+//     float: left;
+//     height: 260px;
+//     background: #fcf;
+//     // border: 2px solid black;
+//     border: 10px solid white;
+//     // border-color: hsla(0, 0%, 0%, 0.7);
 
-    display: flex;
-    // justify-content: center;
-    // align-items: center;
+//     display: flex;
+//     // justify-content: center;
+//     // align-items: center;
 
-    padding: 2rem;
-}
+//     padding: 2rem;
+// }
 
-.grid-item--width2 { width: 66.6666%; }
-.grid-item--height2 { height: 520px; }
+// .grid-item--width2 { width: 66.6666%; }
+// .grid-item--height2 { height: 520px; }
 
 // .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
 // .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }

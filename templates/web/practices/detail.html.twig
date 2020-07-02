@@ -40,7 +40,7 @@
 
             <section class="row page__block--full">
                 <div class="col">
-                    <p class="h3">{{ practice.translate(app.request.getLocale()).summary|raw }}</p>
+                    {{ practice.translate(app.request.getLocale()).summary|raw }}
                 </div>
             </section>
 
@@ -61,12 +61,16 @@
                                 </ul>
                             </div>
                         {% endif %}
+                        {% if practice.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
+                            {% for quote in practice.quote %}
                             <blockquote class="cite__quote">
-                                <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
-                                <cite>Chambers, 2019</cite>
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
                             </blockquote>
+                            {% endfor %}
                         </div>
+                        {% endif %}
                         {% if practice.relatedActivities|length > 0 %}
                             <div class="page__aside page__aside--practices">
                                 <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedActivities'|trans }}</h3>

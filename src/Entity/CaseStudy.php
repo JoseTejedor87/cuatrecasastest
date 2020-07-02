@@ -45,12 +45,17 @@ class CaseStudy extends Publishable
      */
     private $relatedCaseStudies;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="caseStudy")
+     */
+    private $quote;
+    
+
     public function __construct()
     {
-        $this->relatedCaseStudiesWithMe = new ArrayCollection();
-        $this->relatedCaseStudies = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->quote = new ArrayCollection();
     }
 
     /**
@@ -76,60 +81,6 @@ class CaseStudy extends Publishable
         if ($this->lawyers->contains($lawyer)) {
             $this->lawyers->removeElement($lawyer);
             $lawyer->removeCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CaseStudy[]
-     */
-    public function getRelatedCaseStudiesWithMe(): Collection
-    {
-        return $this->relatedCaseStudiesWithMe;
-    }
-
-    public function addRelatedCaseStudiesWithMe(CaseStudy $relatedCaseStudiesWithMe): self
-    {
-        if (!$this->relatedCaseStudiesWithMe->contains($relatedCaseStudiesWithMe)) {
-            $this->relatedCaseStudiesWithMe[] = $relatedCaseStudiesWithMe;
-            $relatedCaseStudiesWithMe->addRelatedCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRelatedCaseStudiesWithMe(CaseStudy $relatedCaseStudiesWithMe): self
-    {
-        if ($this->relatedCaseStudiesWithMe->contains($relatedCaseStudiesWithMe)) {
-            $this->relatedCaseStudiesWithMe->removeElement($relatedCaseStudiesWithMe);
-            $relatedCaseStudiesWithMe->removeRelatedCaseStudy($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CaseStudy[]
-     */
-    public function getRelatedCaseStudies(): Collection
-    {
-        return $this->relatedCaseStudies;
-    }
-
-    public function addRelatedCaseStudy(CaseStudy $relatedCaseStudy): self
-    {
-        if (!$this->relatedCaseStudies->contains($relatedCaseStudy)) {
-            $this->relatedCaseStudies[] = $relatedCaseStudy;
-        }
-
-        return $this;
-    }
-
-    public function removeRelatedCaseStudy(CaseStudy $relatedCaseStudy): self
-    {
-        if ($this->relatedCaseStudies->contains($relatedCaseStudy)) {
-            $this->relatedCaseStudies->removeElement($relatedCaseStudy);
         }
 
         return $this;
@@ -174,6 +125,32 @@ class CaseStudy extends Publishable
         $newCaseStudy = null === $image ? null : $this;
         if ($image->getCaseStudy() !== $newCaseStudy) {
             $image->setCaseStudy($newCaseStudy);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuote(): Collection
+    {
+        return $this->quote;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quote->contains($quote)) {
+            $this->quote[] = $quote;
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quote->contains($quote)) {
+            $this->quote->removeElement($quote);
         }
 
         return $this;

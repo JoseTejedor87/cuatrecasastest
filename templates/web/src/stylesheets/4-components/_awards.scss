@@ -11,6 +11,10 @@
         margin: 4rem 0;
     }
 
+    .swiper-wrapper {
+        pointer-events: none;
+    }
+
     .swiper-slide {
         position: relative;
         // reset width

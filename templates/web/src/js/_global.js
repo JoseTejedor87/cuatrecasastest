@@ -1,13 +1,11 @@
 // Global
 web.global = {
     init: function(){ // Load all global functions here
-        web.global.loadMiscell();
-        // web.global.mainMenu();
         web.global.stickyMenu();
+        web.global.loadMiscell();
     },
 
     stickyMenu: function(){
-
          // menu interactios (hover versus click)
         $('#about-nav .dropdown-menu')
             .bind('mouseover', function(event) {
@@ -61,7 +59,7 @@ web.global = {
     loadMiscell: function(){
         $('.button__bookmark').click(function(e){
             e.preventDefault();
-            $(this).toggleClass('on');
+            $(this).toggleClass('button__bookmark--on');
         });
 
         $('.no-link').click(function(e){
@@ -69,6 +67,7 @@ web.global = {
         });
     },
 
+    // BORRAR (activar en la propia página)
     showMoreLess: function(){
         // https://stackoverflow.com/questions/58455602/debugging-show-more-show-less-button-missing-paragraphs-of-text
 
@@ -90,9 +89,9 @@ web.global = {
         });
     },
 
-    /* Stand by */
-    /*
 
+    /* Stand by BORRAR MAYBE */
+    /*
     toggleMoreInfo: function(){
         // Show / hide filters
 
@@ -131,56 +130,7 @@ web.global = {
                 : el.text(el.data("text-original"));
         });
     },
-
     */
-
-
-    // BORRAR
-    lawyerResults: function(){
-        // Add display: flex instead of display: block to loader
-        $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
-
-        // Toogle Results View
-        $('.list').click(function(e){
-            e.preventDefault();
-
-            $('.icon__button.grid').removeClass('active');
-            $(this).addClass('active');
-
-            $('.lawyer__search__wrapper__loader').fadeIn('fast');
-
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
-
-            setTimeout(
-                function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-
-        $('.grid').click(function(e){
-            e.preventDefault();
-
-            $('.icon__button.list').removeClass('active');
-            $(this).addClass('active');
-
-            $('.lawyer__search__wrapper__loader').fadeIn('fast');
-
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
-
-            setTimeout(
-                function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-    },
 
     customSelects: function(){
         /*
@@ -252,6 +202,10 @@ web.global = {
         });
     },
 
+    /* BORRAR
+    // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
+    // VER PAGE COMPONENTES */
+    /*
     sliderGeneral: function(){
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
@@ -275,6 +229,9 @@ web.global = {
             grabCursor: true
         });
     },
+    */
+    // END BORRAR
+
 
     sliderAwards: function(){
         var swiperAwards = new Swiper ('#sliderAwards', {

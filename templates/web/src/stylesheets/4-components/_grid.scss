@@ -2,179 +2,19 @@
 // GRID INSIGHTS
 // ==========================================================================
 
-/*
-@include new("grid") {
-    @include has("wrapper") {
-        display: -ms-grid;
-        display: grid;
-        grid-gap: 10px;
-        // grid-gap IE11
-        padding: 10px 0 0 10px;
-
-        //
-        // grid size vars
-        //
-        $col-width: (100% / 3);
-        $row-height: 18rem;
-
-        -ms-grid-columns: $col-width $col-width $col-width;
-        -ms-grid-rows: $row-height $row-height $row-height $row-height;
-        grid-template-columns: $col-width $col-width $col-width;
-        grid-template-rows: $row-height $row-height $row-height $row-height;
-
-        justify-content: center;
-        align-content: center;
-        color: $black;
-        background-color: transparent;
-    }
-
-    @include has("box") {
-        // grid-gap IE11
-        border: 0 solid transparent;
-        border-width: 0 10px 10px 0;
-
-        display: flex;
-
-        .boxnews__item {
-            flex: 0 0 100%;
-            height: 100%;
-            margin: 0 0;
-            color: $article-color;
-            border-top-color: $article-color;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
-             @include on-event() {
-                box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
-                            0 15px 12px rgba(0, 0, 0, 0.1);
-            }
-        }
-
-        @include when("dobleXY") {
-            .boxnews__content {
-                min-height: calc(100% - 3rem);
-                display: flex;
-                flex-flow: row nowrap;
-            }
-
-            .boxnews__copy {
-                flex: 0 0 50%;
-            }
-
-            .boxnews__media {
-                flex: 0 0 50%;
-            }
-
-            .boxnews__link {
-                @include fontSet(46px, 50px);
-            }
-        }
-
-        @include when("dobleY") {
-            .boxnews__content {
-                min-height: calc(100% - 3rem);
-                display: flex;
-                flex-flow: column nowrap;
-                flex: 1 1 auto;
-            }
-
-            .boxnews__link {
-                @include fontSet(30px, 36px);
-            }
-        }
-
-        @include when("normal") {
-            .boxnews__content {
-                min-height: calc(100% - 4rem);
-            }
-
-            .boxnews__link {
-                @include fontSet(24px, 32px);
-            }
-        }
-
-        &:nth-child(1) {
-        -ms-grid-column: 1;
-        -ms-grid-column-span: 2;
-        -ms-grid-row: 1;
-        -ms-grid-row-span: 2;
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
-        }
-
-        &:nth-child(2) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 1;
-        -ms-grid-row-span: 2;
-            grid-column: 3;
-            grid-row: 1 / span 2;
-        }
-
-        &:nth-child(3) {
-        -ms-grid-column: 1;
-        -ms-grid-row: 3;
-        -ms-grid-row-span: 2;
-            grid-column: 1;
-            grid-row: 3 / span 2;
-        }
-
-        &:nth-child(4) {
-        -ms-grid-column: 2;
-        -ms-grid-row: 3;
-            grid-column: 2;
-            grid-row: 3;
-        }
-
-        &:nth-child(5) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 3;
-            grid-column: 3;
-            grid-row: 3;
-        }
-
-        &:nth-child(6) {
-        -ms-grid-column: 2;
-        -ms-grid-row: 4;
-            grid-column: 2;
-            grid-row: 4;
-        }
-
-        &:nth-child(7) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 4;
-            grid-column: 3;
-            grid-row: 4;
-        }
-    }
-}
-*/
-
-
-
 //
-// MASNORY GRID
+// MASNORY GRID JS
 // --------------------------------------------------------------------------
 
-/*
-https://w3bits.com/css-masonry/
-
-https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
-https://css-tricks.com/things-ive-learned-css-grid-layout/
-
-True Masonry with Grid Layout
-https://codepen.io/balazs_sziklai/pen/mOwoLg
-
-https://codeburst.io/how-to-pure-css-masonry-layouts-a8ede07ba31a
-
-Pure CSS masonry layout w/ Flexbox
-https://codepen.io/jh3y/pen/mPgyqw
-
-*/
-
-
 @include new("grid") {
 
-
     // https://github.com/desandro/masonry/issues/393
+    // https://github.com/desandro/masonry/issues/986
+    // https://github.com/desandro/masonry/issues/1006
+    // https://codepen.io/desandro/pen/3d1fac81ee3f6c4315f6b177c20b04c6/
+
+    // Masonry & Isotope horizontalOrder
+    // https://codepen.io/desandro/pen/dWVqmx
 
     // $gutter_size: 10px;
     // $number_of_columns: 3;
@@ -182,26 +22,12 @@ https://codepen.io/jh3y/pen/mPgyqw
 
     // width: calc( ( 100% - #{$total_gutter_space} ) /  #{$number_of_columns} );
 
-
     $gutter-size:   20px;
     $item-width:    32.15%;
     $item-height:   260px;
 
 
-    // https://github.com/desandro/masonry/issues/986
-    // https://codepen.io/desandro/pen/3d1fac81ee3f6c4315f6b177c20b04c6/
-
-
-
-    // https://github.com/desandro/masonry/issues/1006
-
-    // Masonry & Isotope horizontalOrder
-    // https://codepen.io/desandro/pen/dWVqmx
-
     @include has("masonry") {
-        width: 100%;
-        margin-bottom: 6rem;
-
         &:after {
             content: '';
             display: block;
@@ -219,359 +45,99 @@ https://codepen.io/jh3y/pen/mPgyqw
 
     @include has("item") {
         float: left;
+        margin: 0 0;
+        padding: 0 0;
         width: $item-width;
         height: $item-height;
         margin-bottom: $gutter-size;
 
+        //
+        // INSIDE BOXES
+        //
+        .boxnews__item {
+            flex: 0 0 100%;
+            height: 100%;
+            min-height: auto;
+            margin: 0 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-        // borrar
-        padding: 2rem;
-        font-size: 150%;
-        background: #fcf;
+             @include on-event() {
+                box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
+                            0 15px 12px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .boxnews__content {
+            min-height: calc(100% - 4rem);
+        }
+
+
+        //
+        // SIZES
+        //
+        @include when("normal") {
+            .boxnews__copy {
+                margin-bottom: auto;
+                padding-right: 0;
+                padding-bottom: 0;
+            }
+
+            .boxnews__link {
+                @include fontSet(23px, 27px);
+                letter-spacing: 0.4px;
+            }
+        }
 
 
         @include when("dobleW") {
             width: calc((#{$item-width} * 2) + #{$gutter-size});
+            height: calc((#{$item-height} * 2) + #{$gutter-size});
+
+            //
+            // INSIDE BOXES
+            //
+            .boxnews__content {
+                display: flex;
+                flex-flow: row nowrap;
+            }
+
+            .boxnews__copy {
+                flex: 0 0 50%;
+                padding-right: 2rem;
+            }
+
+            .boxnews__media {
+                flex: 0 0 50%;
+            }
+
+            .boxnews__link {
+                @include fontSet(43px, 45px);
+            }
         }
+
 
         @include when("dobleH") {
             height: calc((#{$item-height} * 2) + (#{$gutter-size});
-        }
 
-        @include when("dobleWH") {
-            width: calc((#{$item-width} * 2) + #{$gutter-size});
-            height: calc((#{$item-height} * 2) + #{$gutter-size});
-        }
-    }
-}
+            //
+            // INSIDE BOXES
+            //
+            .boxnews__content {
+                display: flex;
+                flex-flow: column nowrap;
+                flex: 1 1 auto;
+            }
 
+            .boxnews__copy {
+                flex: 0 0 50%;
+                padding-bottom: 1rem;
+            }
 
-// .grid-item:nth-child(10n+0) { background: hsl(   0, 100%, 50%); }
-// .grid-item:nth-child(10n+1) { background: hsl(  36, 100%, 50%); }
-// .grid-item:nth-child(10n+2) { background: hsl(  72, 100%, 50%); }
-// .grid-item:nth-child(10n+3) { background: hsl( 108, 100%, 50%); }
-// .grid-item:nth-child(10n+4) { background: hsl( 144, 100%, 50%); }
-// .grid-item:nth-child(10n+5) { background: hsl( 180, 100%, 50%); }
-// .grid-item:nth-child(10n+6) { background: hsl( 216, 100%, 50%); }
-// .grid-item:nth-child(10n+7) { background: hsl( 252, 100%, 50%); }
-// .grid-item:nth-child(10n+8) { background: hsl( 288, 100%, 50%); }
-// .grid-item:nth-child(10n+9) { background: hsl( 324, 100%, 50%); }
-
-
-
-/*
-* True Masonry with Grid Layout
-https://codepen.io/balazs_sziklai/pen/mOwoLg
-
-https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
-
-* Should I try to use the IE implementation of CSS Grid Layout?
-https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
-
-* Configure Autoprefixer correctly to output -ms-grid prefixes
-https://medium.com/@zaid.aldabbagh/configure-autoprefixer-correctly-to-output-ms-grid-prefixes-97743d0a8eb8
-
-* Building Production-Ready CSS Grid Layouts Today
-https://www.smashingmagazine.com/2017/06/building-production-ready-css-grid-layout/#side-note-a-word-on-browser-support
-
-* Should I try to use the IE implementation of CSS Grid Layout?
-https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
-
-* Grid “fallbacks” and overrides
-https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
-*/
-
-.masonry__grid {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-
-    .viewmore__button {
-        margin-bottom: 2rem;
-    }
-
-    &.no--padding {
-        padding-bottom: 0;
-    }
-
-    .section__title {
-        margin-bottom: 3rem;
-    }
-}
-
-/*
-IE GRID
-
-https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
-
-https://stackoverflow.com/questions/46049653/postcss-autoprefixer-ignoring-grid-properties-with-gulp
-
-https://stackoverflow.com/questions/45786788/css-grid-layout-not-working-in-ie11-even-with-prefixes
-
-https://medium.com/@zaid.aldabbagh/configure-autoprefixer-correctly-to-output-ms-grid-prefixes-97743d0a8eb8
-
-https://www.smashingmagazine.com/2017/06/building-production-ready-css-grid-layout/#side-note-a-word-on-browser-support
-
-https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
-
-
-* CSS Grid in IE11: It's Possible! And Not as Hard as You Think
-https://dev.to/eblairmckee/css-grid-in-ie11-it-s-possible-and-not-as-hard-as-you-think-okp#:~:text=grid%2Dauto%2Drows%20and%20grid,it%20will%20default%20to%20auto.
-
-https://css-tricks.com/css-grid-in-ie-debunking-common-ie-grid-misconceptions/
-
-https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/
-https://rachelandrew.co.uk/archives/2017/07/04/is-it-really-safe-to-start-using-css-grid-layout/
-https://rachelandrew.co.uk/archives/2017/07/01/you-do-not-need-a-css-grid-based-grid-system/
-
-https://codepen.io/collection/AQKYaW/
-
-
-
-https://gridbyexample.com/patterns/header-asmany-span-footer/
-*/
-
-.ms__grid__layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(calc(33.3333% - 20px), 1fr));
-    grid-gap: 20px;
-    grid-auto-rows: minmax(230px, auto);
-    grid-auto-flow: dense;
-
-    margin: 0 0;
-    margin-bottom: 20px;
-
-    // background-color: #fcf;
-}
-
-.ms__grid__item {
-    // padding: 1rem;
-    // text-transform: uppercase;
-    background-color: magenta;
-
-
-    .boxnews__item {
-        flex: 0 0 100%;
-        height: 100%;
-        margin: 0 0;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
-         @include on-event() {
-            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2),
-                        0 15px 12px rgba(0, 0, 0, 0.1);
+            .boxnews__link {
+                @include fontSet(33px, 37px);
+            }
         }
     }
-
-    .boxnews__content {
-        min-height: calc(100% - 4rem);
-    }
-
-    .boxnews__copy {
-        margin-bottom: auto;
-        padding-right: 0;
-        padding-bottom: 0;
-    }
-
-    .boxnews__link {
-        @include fontSet(23px, 27px);
-    }
-}
-
-.span--dobleW {
-    grid-column-end: span 2;
-    grid-row-end: span 2;
-
-    background-color: yellow;
-
-    .boxnews__content {
-        min-height: calc(100% - 3rem);
-        display: flex;
-        flex-flow: row nowrap;
-    }
-
-    .boxnews__copy {
-        flex: 0 0 50%;
-        padding-right: 2rem;
-    }
-
-    .boxnews__media {
-        flex: 0 0 50%;
-    }
-
-    .boxnews__link {
-        @include fontSet(43px, 45px);
-    }
-}
-
-.span--dobleH {
-    grid-column-end: span 1;
-    grid-row-end: span 2;
-
-    background-color: cyan;
-
-    .boxnews__content {
-        min-height: calc(100% - 3rem);
-        display: flex;
-        flex-flow: column nowrap;
-        flex: 1 1 auto;
-    }
-
-    .boxnews__copy {
-        flex: 0 0 50%;
-        padding-bottom: 1rem;
-    }
-
-    .boxnews__link {
-        @include fontSet(33px, 37px);
-    }
 }
 
 
-
-/*
-Pure CSS masonry layout w/ Flexbox
-https://codepen.io/jh3y/pen/mPgyqw
-*/
-
-
-/*
-Grid CR vs. IE10 2: Line-based placement spanning cells
-https://codepen.io/rachelandrew/pen/MboYXz
-*/
-
-.grid-container {
-    padding-top: 2rem;
-    padding-bottom: 6rem;
-}
-
-$ie-grid-gap: 20px;
-$ie-grid-width: calc(33% - (#{$ie-grid-gap} / 2));
-$ie-grid-height: 230px;
-
-.grid-wrapper {
-    display: -ms-grid;
-    display: grid;
-    grid-gap: 20px;
-    -ms-grid-columns: $ie-grid-width $ie-grid-gap $ie-grid-width $ie-grid-gap $ie-grid-width;
-    -ms-grid-rows: $ie-grid-width $ie-grid-gap $ie-grid-width;
-    grid-template-columns: $ie-grid-width $ie-grid-width $ie-grid-width;
-    background-color: #fff;
-    color: #444;
-}
-
-.grid-box {
-    background-color: #fcf;
-    color: #000;
-    border-radius: 5px;
-    padding: 20px;
-    font-size: 150%;
-
-    height: $ie-grid-height;
-}
-
-.grid-box-dobleH {
-    height: 480px;
-}
-
-/* in the current spec these would be postioned using auto-placement. For IE we need to set the position of the items. */
-.a {
-    -ms-grid-row: 1;
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3; /*remember the gutter is a column track!*/
-    grid-column: 1 / 3;
-    grid-row: 1;
-}
-
-.b {
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 3;
-    -ms-grid-column: 5;
-    grid-column: 3;
-    grid-row: 1 / 3;
-}
-
-.c {
-    -ms-grid-row: 3;
-    -ms-grid-column: 1;
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.d {
-    -ms-grid-column: 3;
-    -ms-grid-row: 3;
-    grid-column: 2;
-    grid-row: 2;
-}
-
-
-
-/*
-https://grid.layoutit.com/
-https://grid.layoutit.com/?id=ljGHLW0
-*/
-
-
-
-
-
-.wrapper-grid {
-  max-width: 100%;
-  margin: 0 20px;
- /* display: grid;*/
-  grid-gap: 10px;
-}
-
-
-/* no grid support? */
-
-.wrapper-grid {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.wrapper-grid {
-  display: grid;
-  margin: 0 auto 6rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: minmax(150px, auto);
-}
-
-.panel-box {
-  /* needed for the flex layout*/
-  margin-left: 5px;
-  margin-right: 5px;
-  flex: 1 1 200px;
-  background-color: pink;
-  height: 150px;
-}
-
-.tall-panel-box {
-  grid-row-end: span 2;
-  height: 310px;
-}
-
-.header-grid,
-.footer-grid {
-  margin-left: 5px;
-  margin-right: 5px;
-  flex: 0 1 100%;
-  grid-column: 1 / -1;
-}
-
-.wrapper-grid > * {
-  background-color: #444;
-  color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 150%;
-  margin-bottom: 10px;
-}
-
-
-/* We need to set the margin used on flex items to 0 as we have gaps in grid.  */
-
-@supports (display: grid) {
-  .wrapper-grid > * {
-    margin: 0;
-  }
-}

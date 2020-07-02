@@ -16,7 +16,7 @@
         // Full width hack
         @include reset-full-scren;
 
-        height: 480px;
+        min-height: 480px;
         // height: 60vh;
 
         background-color: $main-color;
@@ -71,7 +71,7 @@
     }
 
     @include has("title") {
-        @include fontSet(60px, 60px);
+        @include fontSet(58px, 58px);
         margin-bottom: 1.4rem;
         color: $white;
     }
@@ -189,7 +189,7 @@
                         position: relative;
                         margin-bottom: 1rem;
                         padding-left: 1.2rem;
-                        @include fontSet(20px, 26px);
+                        @include fontSet(23px, 27px);
                         color: $main-color;
 
                         &:before {
@@ -222,16 +222,16 @@
 
             h3,
             .h3 {
-                @include fontSet(32px, 38px);
+                @include fontSet(33px, 37px);
                 margin-bottom: 1.4rem;
             }
 
             p {
-                @include fontSet(22px, 28px);
+                @include fontSet(33px, 37px);
 
-                @include when-inside(".lawyer__page") {
-                    @include fontSet(32px, 38px);
-                }
+                // @include when-inside(".lawyer__page") {
+                //     @include fontSet(32px, 38px);
+                // }
 
                 a {
                     // @include left-to-right-link($complementary-color, $complementary-color);
@@ -317,7 +317,7 @@
 
             p {
                 color: $main-color;
-                @include fontSet(22px, 30px);
+                @include fontSet(23px, 27px);
 
                 a {
                     // @include classic-link($complementary-color, $complementary-color, $border: true);
@@ -339,6 +339,11 @@
                         @include fancy-link($complementary-color, $complementary-color, $white);
                         // @include background-link($complementary-color, $white, $complementary-color);
                     }
+                }
+
+                img {
+                    width: 100%;
+                    height: auto;
                 }
 
             }
@@ -393,15 +398,15 @@
 
         // [page__block__aside]
         @include has("aside") {
-            flex: 0 0 calc(40% - 2rem);
+            flex: 0 0 calc(40% - 3rem);
             order: 1;
-            margin-right: 2rem;
+            margin-right: 3rem;
         }
 
         // [page__block__title]
         @include has("title") {
-            flex: 0 0 calc(40% - 2rem);
-            margin-right: 2rem;
+            flex: 0 0 calc(40% - 3rem);
+            margin-right: 3rem;
 
             p {
                 @include fontSet(38px, 46px);
@@ -468,7 +473,7 @@
         }
 
         @include has("title") {
-            @include fontSet(22px, 22px);
+            @include fontSet(23px, 23px);
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             color: $main-color;
@@ -479,8 +484,8 @@
         }
 
         @include has("subtitle") {
-            @include fontSet(18px, 18px);
-            margin-bottom: 0.2rem;
+            @include fontSet(16px, 20px);
+            // margin-bottom: 0.2rem;
             text-transform: uppercase;
             color: $main-color;
         }
@@ -492,7 +497,7 @@
 
                 a {
                     display: block;
-                    @include fontSet(22px, 22px);
+                    @include fontSet(23px, 23px);
                     padding: 0.5rem 1.5rem 1.5rem 0;
                     color: $complementary-color;
                     box-shadow: 0 -1px 0 rgba($black, 0.2);

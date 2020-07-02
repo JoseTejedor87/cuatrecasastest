@@ -7,14 +7,14 @@
 
 {% block main %}
 
-    <main role="main">
+    <main role="main" class="lawyer">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ sector.translate(app.request.getLocale()).title|raw }}
+                            {{ practice.translate(app.request.getLocale()).title|raw }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -22,10 +22,10 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('sectors_index') }}">{{ 'sections.sectors.title'|trans }}</a>
+                                    <a href="{{ path('practices_index') }}">{{ 'sections.practices.title'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ sector.translate(app.request.getLocale()).title|raw }}
+                                    {{ practice.translate(app.request.getLocale()).title|raw }}
                                 </li>
                             </ol>
                         </nav>
@@ -37,31 +37,33 @@
                     </ul>
                 </div>
             </header>
+
             <section class="row page__block--full">
                 <div class="col">
-                    {{ sector.translate(app.request.getLocale()).summary|raw }}
+                    <p class="h3">{{ practice.translate(app.request.getLocale()).summary|raw }}</p>
                 </div>
             </section>
 
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
-                        {{ sector.translate(app.request.getLocale()).description|raw }}
+                        <p>{{ practice.translate(app.request.getLocale()).description|raw }}</p>
                     </div>
+
                     <div class="page__block__aside">
-                        {% if sector.children|length > 0 %}
-                        <div class="page__aside">
-                            <h3 class="page__aside__title">{{ 'sections.sectors.specialities'|trans }}</h3>
-                            <ul class="page__aside__list--specialties">
-                                {% for sector in sector.children %}
-                                    <li><a href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+                        {% if practice.children|length > 0 %}
+                            <div class="page__aside">
+                                <h3 class="page__aside__title">{{ 'sections.practices.specialities'|trans }}</h3>
+                                <ul class="page__aside__list--specialties">
+                                    {% for practice in practice.children %}
+                                        <li><a href="{{ navigation_service.getPathByPublishable(practice) }}">{{ practice.translate(app.request.getLocale()).title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         {% endif %}
-                        {% if sector.quote|length > 0 %}
+                        {% if practice.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
-                            {% for quote in sector.quote %}
+                            {% for quote in practice.quote %}
                             <blockquote class="cite__quote">
                                 <p>{{ quote.translate(app.request.getLocale()).body }}</p>
                                 <cite>{{ quote.author}}, {{ quote.year}}</cite>
@@ -69,17 +71,17 @@
                             {% endfor %}
                         </div>
                         {% endif %}
-                        {% if sector.relatedActivities|length > 0 %}
-                        <div class="page__aside page__aside--practices">
-                            <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedActivities'|trans }}</h3>
-                            <ul class="related__services">
-                            {% for activity in sector.relatedActivities %}
-                                <li class="related__services__item">
-                                    <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </div>
+                        {% if practice.relatedActivities|length > 0 %}
+                            <div class="page__aside page__aside--practices">
+                                <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedActivities'|trans }}</h3>
+                                <ul class="related__services">
+                                    {% for activity in practice.relatedActivities %}
+                                        <li class="related__services__item">
+                                            <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -87,24 +89,22 @@
 
         </article>
     </main>
-    {% if sector.lawyers|length > 0 %}
+
+    {% if practice.lawyers|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
-            team:sector.translate(app.request.getLocale()).title,
-            lawyers:sector.lawyers|slice(0, 5),
-            fixed_activity:sector.translate(app.request.getLocale()).title
+            team:practice.translate(app.request.getLocale()).title,
+            lawyers:practice.lawyers|slice(0, 5),
+            fixed_activity:practice.translate(app.request.getLocale()).title
         } %}
     {% endif %}
 
-    {# {% include 'web/shared/related-services.html.twig' %} #}
     {% include 'web/shared/related-content-slider.html.twig' %}
-    {% include 'web/shared/cases.html.twig' %}
 
     {% if relatedCaseStudies|length > 0 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
     {% include 'web/shared/awards.html.twig' %}
-    {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
@@ -115,7 +115,6 @@
 <script>
     $(function () {
         web.global.sliderGeneral();
-        web.global.sliderCases();
         web.global.sliderAwards();
         var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',

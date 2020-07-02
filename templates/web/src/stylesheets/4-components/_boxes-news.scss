@@ -359,6 +359,7 @@
 
     .swiper-wrapper {
         margin-bottom: 1rem;
+        pointer-events: none;
     }
 
     .swiper-container-horizontal {
@@ -404,7 +405,7 @@
     }
 
         @include has("type") {
-            @include fontSet(18px, 18px);
+            @include fontSet(16px, 16px);
             font-weight: bold;
             text-transform: uppercase;
 
@@ -426,7 +427,7 @@
             position: relative;
             margin-left: 1.5rem;
             @include cuatrecasas-font();
-            @include fontSet(18px, 18px);
+            @include fontSet(16px, 16px);
             text-transform: uppercase;
             color: $black;
 
@@ -445,11 +446,11 @@
 
         @include has("button") {
             position: absolute;
-            top: 10px;
+            top: 8px;
             right: 1rem;
 
             .plain__button {
-                @include fontSet(18px, 18px);
+                @include fontSet(16px, 16px);
                 text-transform: uppercase;
                 padding: 2px 4px 0;
             }

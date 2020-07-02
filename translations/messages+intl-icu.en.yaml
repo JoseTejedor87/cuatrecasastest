@@ -132,3 +132,6 @@ reusable_blocks:
       title: Team Cuatrecasas
       link: Meet the team
       intro: Cuatrecasas has a team of {team}
+    cases:
+      title: Cases
+      link: View more

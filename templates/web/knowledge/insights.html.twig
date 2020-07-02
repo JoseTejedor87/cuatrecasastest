@@ -437,30 +437,17 @@
                 </div>
             </section>
 
-
-            <!-- CSS GRID IE -->
-            <!-- <div class="container grid-container">
-                <div class="row">
-                    <div class="col" style="padding:0 0">
-                        <div class="grid-wrapper">
-                            <div class="grid-box a">A</div>
-                            <div class="grid-box b grid-box-dobleH">B</div>
-                            <div class="grid-box c">C</div>
-                            <div class="grid-box d">D</div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- MASONRY GRID CSS-->
-            <section class="row masonry__grid bgfull__grey__light">
+            <!-- MASONRY GRID JS -->
+            <section class="row page__section page__section--fullbg">
                 <div class="col-12">
                     <h4 class="section__title section__title--recomended">Te recomendamos</h4>
                 </div>
-
                 <div class="col-12">
-                    <div class="ms__grid__layout">
-                        <div class="ms__grid__item span--dobleW">
+                    <div class="grid__masonry">
+                        <div class="grid__sizer"></div>
+                        <div class="grid__gutter"></div>
+
+                        <div class="grid__item grid__item--dobleW">
                             <article class="boxnews__item boxnews__item--opinion">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Opinion</div>
@@ -479,7 +466,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
@@ -497,13 +484,13 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleH">
+                        <div class="grid__item grid__item--dobleH">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
                                     <div class="boxnews__info">Innovación</div>
                                     <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
+                                        <button type="button" class="button__bookmark button__bookmark--on"></button>
                                     </div>
                                 </div>
                                 <div class="boxnews__content">
@@ -516,13 +503,13 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
                                     <div class="boxnews__info">Educación</div>
                                     <div class="boxnews__button">
-                                        <button type="button" class="button__bookmark"></button>
+                                        <button type="button" class="button__bookmark button__bookmark--on"></button>
                                     </div>
                                 </div>
                                 <div class="boxnews__content">
@@ -534,7 +521,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--article">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Artículo</div>
@@ -552,7 +539,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleH">
+                        <div class="grid__item grid__item--dobleH">
                             <article class="boxnews__item boxnews__item--article">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Artículo</div>
@@ -571,7 +558,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleW">
+                        <div class="grid__item grid__item--dobleW">
                             <article class="boxnews__item boxnews__item--opinion">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Opinion</div>
@@ -590,9 +577,9 @@
                                 </div>
                             </article>
                         </div>
-                    </div>
-                    <div class="ms__grid__layout" id="loadMoreGrid" style="display:none">
-                        <div class="ms__grid__item">
+
+                        <!-- load more -->
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
@@ -610,7 +597,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleH">
+                        <div class="grid__item grid__item--dobleH">
                             <article class="boxnews__item boxnews__item--article">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Artículo</div>
@@ -629,7 +616,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
@@ -647,7 +634,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Noticia</div>
@@ -665,7 +652,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleH">
+                        <div class="grid__item grid__item--dobleH">
                             <article class="boxnews__item boxnews__item--article">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Artículo</div>
@@ -684,7 +671,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item span--dobleW">
+                        <div class="grid__item grid__item--dobleW">
                             <article class="boxnews__item boxnews__item--opinion">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Opinion</div>
@@ -703,7 +690,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="ms__grid__item">
+                        <div class="grid__item grid__item--normal">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Evento</div>
@@ -723,7 +710,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="viewmore__button">
                         <button type="button" class="btn btn__viewmore">Cargar más</button>
@@ -746,18 +732,29 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- Checkbox Filters -->
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
+<!-- Masonry JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 
 <script>
     $(function () {
-        web.global.sliderGeneral();
-        // web.global.sliderEvents();
-        web.global.sliderNews();
+        // GRID
+        $('.grid__masonry').masonry({
+            itemSelector: '.grid__item',
+            columnWidth: '.grid__sizer',
+            gutter: '.grid__gutter',
+            percentPosition: true
+        });
 
-        // GRID STUFF
-        $('#loadMoreGrid').hide();
-
-        $('.btn__viewmore').click(function(){
-            $('#loadMoreGrid').show();
+        // SLIDER
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
         });
     });
 </script>

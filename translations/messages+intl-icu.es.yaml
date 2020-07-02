@@ -136,7 +136,7 @@ reusable_blocks:
       button: Escoge tus intereses
     team:
       title: Equipo Cuatrecasas
-      link: Conoce al equipo
+      link: Ver equipo
       intro: Cuatrecasas cuenta con un equipo de {team}
     cases:
       title: Casos
