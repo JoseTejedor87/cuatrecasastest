@@ -55,7 +55,7 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
             $query->setParameter('exclude', $exclude);
         }
         return $query
-            ->groupBy('c.id')
+            //->groupBy('c.id')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();
