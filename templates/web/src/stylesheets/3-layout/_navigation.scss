@@ -33,6 +33,7 @@ $menu-height: 55px !default;
         position: fixed;
         top: $menu-height;
         height: $menu-height;
+        visibility: visible;
         opacity: 1;
         // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -41,6 +42,7 @@ $menu-height: 55px !default;
 
         &.stickyNav {
             top: 0;
+            visibility: hidden;
             opacity: 0;
             // height: 0;
 
@@ -51,20 +53,24 @@ $menu-height: 55px !default;
         }
 
         .navbar-brand {
+            visibility: visible;
             opacity: 1;
             transition: opacity 0.2s ease-out;
 
             &.stickyNav {
+                visibility: hidden;
                 opacity: 0;
             }
         }
     }
 
     #userNav {
+        visibility: hidden;
         opacity: 0;
         transition: opacity 0.2s ease-out;
 
         &.stickyNav {
+            visibility: visible;
             opacity: 1;
         }
     }
@@ -156,7 +162,7 @@ header {
 
             .nav-item {
                 position: relative;
-                margin-left: 0.5rem;
+                margin-left: 0.8rem;
 
                 &:first-child {
                     margin-left: 0;
@@ -165,9 +171,24 @@ header {
 
             .nav-link {
                 width: 30px;
+                height: 45px;
                 @include fontSet(28px, 28px);
                 @include classic-link($white, $main-color, $border: false);
                 text-align: center;
+
+                [class^="icon4-"], [class*=" icon4-"] {
+                    &:before {
+                        color: $white;
+                    }
+                }
+
+                @include on-event() {
+                    [class^="icon4-"], [class*=" icon4-"] {
+                        &:before {
+                            color: $main-color;
+                        }
+                    }
+                }
             }
         }
     }
@@ -724,13 +745,14 @@ header {
     .breadcrumb-item {
         @include cuatrecasas-font();
         @include fontSet(16px, 16px);
+        letter-spacing: 0.5px;
         color: $white;
 
         &+.breadcrumb-item {
             &:before {
                 display: inline-block;
-                padding-right: 0.6rem;
-                padding-left: 0.6rem;
+                padding-right: 0.3rem;
+                padding-left: 0.3rem;
                 color: $white;
                 content: "|";
             }
@@ -738,7 +760,7 @@ header {
 
         a {
             @include left-to-right-link($white, $white);
-            padding: 0 0.1rem 0.4rem 0.3rem;
+            padding: 0 0 0.4rem 0;
         }
     }
 }

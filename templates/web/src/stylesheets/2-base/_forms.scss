@@ -4,12 +4,14 @@
 
 .form-control,
 .custom-select {
-    @include fontSet(22px, 22px);
+    @include fontSet(25px, 25px);
+    letter-spacing: 0.43px;
     height: auto;
     padding: 0.8rem 1rem;
     color: $main-color;
     border: 1px solid rgba($black, 0.2);
     border-radius: 0;
+    transition: all 0.3s ease-in-out;
 
     &:focus {
         color: $main-color;
@@ -178,7 +180,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
 
-        @include fontSet(22px, 22px);
+        @include fontSet(25px, 25px);
+        letter-spacing: 0.43px;
         text-align: left;
 
         color: $black;

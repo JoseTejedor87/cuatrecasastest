@@ -67,12 +67,12 @@
                         </div>
 
                         {{ event.translate(app.request.getLocale()).description|raw }}
-                        <button type="button" class="doble__arrow__button">Ver más</button>
+                        <button type="button" class="doble__arrow__link">Ver más</button>
                         <div class="page__event__details">
                             {% for attachment in event.attachments %}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
-                                    <i class="icon ion-ios-download-outline"></i>
+                                    <span class="icon4-download"></span>
                                 </a>
                             {% endfor %}
                             <div class="page__event__info">
@@ -357,10 +357,10 @@
                 .fail(function() {
                 });
             }
-            
 
 
-                 
+
+
         });
         $("#eCountry").change( function() {
             var idCountry  =  $('#eCountry').val();
@@ -382,7 +382,7 @@
                 .fail(function() {
                 });
         });
-        
+
         function validation() {
 
             var contacto =  {};
@@ -442,7 +442,7 @@
                 $("#ePostalCode").addClass('is-invalid');
                 isvalidate = false;
             }
-            
+
             if($("#eCountry").val()){
                 $("#eCountry").addClass('is-valid');
                 contacto['IdPais']= $("#eCountry").val();
@@ -472,9 +472,9 @@
             }else{
                 return isvalidate;
             }
-            
+
         }
-        
+
 
     });
 </script>

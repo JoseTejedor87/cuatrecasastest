@@ -256,7 +256,7 @@ img {
     padding-bottom: 0.05rem;
     text-decoration: none;
     color: $color;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     @if $header {
         padding-bottom: 0;
@@ -419,108 +419,128 @@ img {
     border-color: $complementary-color;
 }
 
-
 @mixin arrow-button($color) {
     @include reset-button;
     position: relative;
-    padding-right: 1.6rem;
+    padding: 0.3rem 2.4rem 0.3rem 0;
     text-decoration: none;
     color: $color;
-    // box-shadow: 0 2px 0 transparent;
     transition: all 0.2s ease-in-out;
 
     &:before,
     &:after {
-        @include icons-ionicons(-1px, 0, auto, auto);
-        content: '\f3d1';
-        font-size: 32px;
-        width: 12px;
-        height: 32px;
+        @include icons-4casas(0, auto, auto, auto);
+        @include fontSet(28px, 36px);
+        content: '\e90a';
     }
 
     &:before {
-        left: -10px;
-        opacity: 0;
+        left: 0;
         visibility: hidden;
-        transition: all 0.2s ease-in-out;
-        // transition: opacity 0.2s ease-out, left 0.2s ease-out;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out, left 0.2s ease-out;
     }
 
     &:after {
         right: 0;
-        opacity: 1;
         visibility: visible;
-        transition: all 0.2s ease-in-out;
-        // transition: opacity 0.2s ease-out, right 0.2s ease-out;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out, right 0.2s ease-out;
     }
 
     @include on-event {
-        padding-right: 0.2rem;
-        padding-left: 1.6rem;
+        padding-right: 0;
+        padding-left: 1.8rem;
         color: $color;
         text-decoration: none;
-
-        &:focus {
-            // outline: 1px solid $color;
-            // outline-offset: 8px;
-        }
+        overflow: hidden;
 
         &:before {
-            left: 0;
-            opacity: 1;
+            left: -6px;
             visibility: visible;
+            opacity: 1;
         }
 
         &:after {
-            right: -10px;
-            opacity: 0;
+            right: 0;
             visibility: hidden;
+            opacity: 0;
         }
     }
 }
 
 @mixin arrow-button-reverse($color) {
     position: relative;
-    padding: 0.3rem 0 0.2rem 1.2rem;
+    padding: 0.4rem 0 0.2rem 1.4rem;
     text-decoration: none;
     color: $color;
     transition: all 0.2s ease-out;
 
     &:before,
     &:after {
-        @include icons-ionicons(-5px, 0, auto, auto);
-        content: '\f3d2';
-        font-size: 32px;
-        font-weight: bold;
+        @include icons-4casas(-2px, auto, auto, auto);
+        @include fontSet(24px, 32px);
+        content: '\e90a';
     }
 
     &:before {
-        left: 0;
+        left: -6px;
+        visibility: visible;
         opacity: 1;
-        transition: opacity 0.2s ease-out;
+        transform: rotate(180deg);
+        transition: opacity 0.2s ease-in-out;
     }
 
     &:after {
         right: 0;
-        visibility: visible;
+        visibility: hidden;
         opacity: 0;
-        transform: translateX(10px);
-        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+        transform: rotate(180deg);
+        transition: opacity 0.2s ease-in-out;
     }
 
     @include on-event {
-        padding-right: 1.4rem;
+        padding-right: 1.8rem;
         padding-left: 0;
         color: $color;
         text-decoration: none;
 
         &:before {
+            visibility: hidden;
             opacity: 0;
         }
 
         &:after {
+            visibility: visible;
             opacity: 1;
-            transform: translateX(0);
+        }
+    }
+}
+
+@mixin accordion-button($color) {
+    @include reset-button;
+    position: relative;
+    padding: 0.3rem 3rem 0.3rem 0;
+    text-decoration: none;
+    color: $color;
+    transition: all 0.2s ease-in-out;
+
+    &:after {
+        @include icons-4casas(0px, 4px, auto, auto);
+        @include fontSet(28px, 32px);
+        content: '\e90a';
+        transform: rotate(90deg);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    @include on-event {
+        color: $color;
+        text-decoration: none;
+        box-shadow: 0 2px 0 $color;
+        overflow: hidden;
+
+        &:after {
+            // transform: rotate(-90deg);
         }
     }
 }

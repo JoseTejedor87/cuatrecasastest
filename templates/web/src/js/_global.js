@@ -62,6 +62,17 @@ web.global = {
             $(this).toggleClass('button__bookmark--on');
         });
 
+        $('.doble__arrow__accordion').click(function(){
+            $(this).toggleClass('doble__arrow__accordion--on');
+
+            if ($(this).hasClass('doble__arrow__accordion--on')) {
+                $(this).text('Ver menos');
+            } else {
+                $(this).text('Ver más');
+            }
+
+        });
+
         $('.no-link').click(function(e){
             e.preventDefault();
         });
@@ -74,18 +85,18 @@ web.global = {
         $('.read-more').each(function() {
             if ($(this).children('p').length > 4) {
                 $(this).children('p:lt(3)').show();
-                $(this).append('<button type="button" class="doble__arrow__button loadMore">Ver más</button>');
+                $(this).append('<button type="button" class="doble__arrow__accordion loadMore">Ver más</button>');
             }
         });
         $('.read-more').on("click", '.loadMore', function() {
             $(this).parent('.read-more').children('p').slideDown();
             $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
-            $('.doble__arrow__button').blur();
+            $('.doble__arrow__accordion').blur();
         });
         $('.read-more').on("click", '.loadLess', function() {
             $(this).parent('.read-more').children('p:gt(2)').slideUp();
             $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
-            $('.doble__arrow__button').blur();
+            $('.doble__arrow__accordion').blur();
         });
     },
 
@@ -184,6 +195,11 @@ web.global = {
         });
     },
 
+    /* BORRAR
+    // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
+    // VER PAGE COMPONENTES */
+    /*
+
     sliderHome: function(){
         var swiperHome = new Swiper ('#sliderHome', {
             slidesPerView: 1,
@@ -193,19 +209,16 @@ web.global = {
             speed: 800,
             allowSlidePrev: false,
             allowTouchMove: false,
-            autoplay: {
-                delay: 5000,
-            },
+            // autoplay: {
+            //     delay: 5000,
+            // },
             navigation: {
                 nextEl: '.home__preview__button'
             }
         });
     },
 
-    /* BORRAR
-    // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
-    // VER PAGE COMPONENTES */
-    /*
+
     sliderGeneral: function(){
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,

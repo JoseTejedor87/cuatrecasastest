@@ -27,12 +27,10 @@ footer {
                 transition: all 0.2s ease-out;
 
                 &:after {
-                    position: absolute;
-                    top: 10px;
-                    left: 18px;
-                    content: '\e0b7';
-                    font-family: 'Material Icons';
-                    font-size: 36px;
+                    @include icons-4casas(16px, 11px, auto, auto);
+                    @include fontSet(40px, 40px);
+                    content: '\e904';
+                    color: $white;
                 }
 
                 @include on-event {
@@ -59,7 +57,7 @@ footer {
         padding: 1.6em 0;
 
         p {
-            @include fontSet(14px, 18px);
+            @include fontSet(13px, 17px);
             color: $black;
         }
     }
@@ -69,7 +67,7 @@ footer {
         border-top: 1px solid rgba($black, 0.2);
 
         p {
-            @include fontSet(14px, 18px);
+            @include fontSet(12px, 16px);
             margin-bottom: 0;
             color: $gray-medium;
         }
