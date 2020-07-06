@@ -55,12 +55,17 @@
                                 {% endfor %}
                             </ul>
                         </div>
+
+                        {% if casestudy.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
+                            {% for quote in casestudy.quote %}
                             <blockquote class="cite__quote">
-                                <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
-                                <cite>Chambers, 2019</cite>
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
                             </blockquote>
+                            {% endfor %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>

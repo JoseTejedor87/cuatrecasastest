@@ -25,7 +25,9 @@ class PracticeController extends WebController
     {
         $practice = $practiceRepository->getInstanceByRequest($request);
 
-        $relatedCaseStudies = $caseStudyRepository->findByActivity($practice);
+        $relatedCaseStudies = $caseStudyRepository->findByActivities(
+            [$practice]
+        );
 
         return $this->render('web/practices/detail.html.twig', [
             'practice' => $practice,

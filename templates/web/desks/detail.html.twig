@@ -61,12 +61,16 @@
                                 </ul>
                             </div>
                         {% endif %}
+                        {% if desk.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
+                            {% for quote in desk.quote %}
                             <blockquote class="cite__quote">
-                                <p>The help us to understand the practical risks based on what they have seen in other deals.</p>
-                                <cite>Chambers, 2019</cite>
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
                             </blockquote>
+                            {% endfor %}
                         </div>
+                        {% endif %}
                         {% if desk.relatedActivities|length > 0 %}
                             <div class="page__aside page__aside--desks">
                                 <h3 class="page__aside__subtitle">{{ 'sections.desks.relatedActivities'|trans }}</h3>

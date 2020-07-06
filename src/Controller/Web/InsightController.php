@@ -9,7 +9,7 @@ use App\Controller\Web\WebController;
 
 class InsightController extends WebController
 {
-    public function detail(Request $request, InsightRepository $insightRepository)
+    public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository)
     {
         $insight = $insightRepository->getInstanceByRequest($request);
 
@@ -17,15 +17,16 @@ class InsightController extends WebController
         // Revisar $insight y rellenar $contextualBlocks con las diferentes collecciones
         // de elementos en función del estado de los atributos $showKnowledgeBlock, $showEventsBlock,
         // $showLegalNoveltiesBlock y $showCaseStudiesBlock.
-        // 
-        // $relatedPublications = $caseStudyRepository->findByActivities($insight->activities);
-        // $relatedCaseStudies = $caseStudyRepository->findByActivities($insight->activities);
+        //
+        // $relatedPublications = $publicationRepository->findByActivities($insight->activities);
         // $relatedEvents = $eventRepository->findByActivities($insight->activities);
-        // $contextualBlocks[] = ...
+
+        $contextualBlocks['cases'] = $caseStudyRepository->findByActivities($insight->getActivities()->toArray());
+        $contextualBlocks['insights'] = $insightRepository->getPublishedRelatedInsights($insight);
 
         return $this->render('web/insights/detail.html.twig', [
             'insight' => $insight,
-            //'contextualBlocks' => $contextualBlocks
+            'contextualBlocks' => $contextualBlocks
         ]);
     }
 }
