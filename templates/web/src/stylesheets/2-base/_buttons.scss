@@ -320,28 +320,24 @@
     }
 
     &:after {
-        // top: 8px;
-        // right: 8px;
-        // content: '\e145';
-        // font-family: 'Material Icons';
-        // font-size: 32px;
-        // font-weight: normal;
-        // line-height: 1;
-
-        @include icons-4casas(8px, 8px, auto, auto);
+        @include icons-4casas(9px, 7px, auto, auto);
+        font-size: 30px;
         content: '\e90a';
         color: $white;
         // transform: scale(1);
         transition: all 0.2s ease-out;
     }
 
-    // &:after {
-    //     @include icons-4casas(8px, 8px, auto, auto);
-    //     content: '\e904';
-    //     font-size: 32px;
-    //     color: $white;
-    //     transition: all 0.2s ease-out;
-    // }
+    @include when("plus") {
+        &:after {
+            @include icons-material(8px, 8px, auto, auto);
+            @include fontSet(32px, 32px);
+            content: '\e145';
+            color: $white;
+            // transform: scale(1);
+            transition: all 0.2s ease-out;
+        }
+    }
 
     @include on-event() {
         color: $white;
@@ -398,8 +394,8 @@
     }
 
     &:after {
-        @include icons-4casas(calc(50% - 18px), auto, auto, calc(100% - 40px));
-        font-size: 36px;
+        @include icons-4casas(calc(50% - 16px), auto, auto, calc(100% - 38px));
+        font-size: 30px;
         content: '\e90a';
         color: $white;
         // transform: scale(1);
