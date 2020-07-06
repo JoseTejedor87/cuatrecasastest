@@ -97,12 +97,24 @@ class Lawyer extends Publishable
      */
     private $caseStudies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Training", mappedBy="lawyer" , cascade={"persist"}, orphanRemoval=true)
+     */
+    private $trainings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mention", mappedBy="lawyer" , cascade={"persist"}, orphanRemoval=true)
+     */
+    private $mentions;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
         $this->secondaryActivities = new ArrayCollection();
         $this->insights = new ArrayCollection();
         $this->caseStudies = new ArrayCollection();
+        $this->mentions = new ArrayCollection();
+        $this->trainings = new ArrayCollection();
     }
 
     public function __toString()
@@ -362,4 +374,63 @@ class Lawyer extends Publishable
 
         return $this;
     }
+
+
+
+    /**
+     * @return Collection|Mention[]
+     */
+    public function getMentions(): Collection
+    {
+        return $this->mentions;
+    }
+
+    public function addMention(Mention $mention): self
+    {
+        if (!$this->mentions->contains($mention)) {
+            $this->mentions[] = $mention;
+            $mention->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMention(Mention $mention): self
+    {
+        if ($this->mentions->contains($mention)) {
+            $this->mentions->removeElement($mention);
+            $mention->removeLawyer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Training[]
+     */
+    public function getTrainings(): Collection
+    {
+        return $this->trainings;
+    }
+
+    public function addTraining(Training $training): self
+    {
+        if (!$this->trainings->contains($training)) {
+            $this->trainings[] = $training;
+            $training->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraining(Training $training): self
+    {
+        if ($this->trainings->contains($training)) {
+            $this->trainings->removeElement($training);
+            $training->removeLawyer($this);
+        }
+
+        return $this;
+    }
+
 }
