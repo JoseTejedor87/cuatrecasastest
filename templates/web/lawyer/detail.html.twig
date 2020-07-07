@@ -134,25 +134,29 @@
                     </div>
                 </section>
 
-                <section class="row page__block">
-                    <div class="col">
-                        <div class="page__block__title">
-                            <h3 class="subsection__title">{{ 'sections.lawyers.cases'|trans }}</h3>
+                {% if cases|length > 0 %}
+                    <section class="row page__block">
+                        <div class="col">
+                            <div class="page__block__title">
+                                <h3 class="subsection__title">{{ 'sections.lawyers.cases'|trans }}</h3>
+                            </div>
+                            <div class="page__block__content">
+                                <ul class="page__block__content__details">
+                                    {% for case in cases %}
+                                        <li>
+                                            <div>***</div>
+                                            <a href="{{ path('case_studies_detail', {slug: case.translate(app.request.getLocale()).slug}) }}">{{ case.translate(app.request.getLocale()).title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="page__block__content">
-                            <ul class="page__block__content__details">
-                                <li>
-                                    <div>20 de febrero de 2020</div>
-                                    <a href="#">Women in business. El futuro de la mujer en la empresa. Perspectivas para la mujer emprendedora y para el acceso a puestos de liderazgo.</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                {% endif %}
 
                 {% if lawyer.person %}
 
-                    {% if lawyer.person.publications|length > 1 %}
+                    {% if lawyer.person.publications|length > 0 %}
                         <section class="row page__block">
                             <div class="col">
                                 <div class="page__block__title">
@@ -173,7 +177,7 @@
                         </section>
                     {% endif %}
 
-                    {% if lawyer.person.events|length > 1 %}
+                    {% if lawyer.person.events|length > 0 %}
                         <section class="row page__block">
                             <div class="col">
                                 <div class="page__block__title">

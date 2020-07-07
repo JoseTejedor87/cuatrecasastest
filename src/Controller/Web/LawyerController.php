@@ -14,6 +14,7 @@ use App\Repository\LawyerRepository;
 use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
+use App\Repository\CaseStudyRepository;
 
 class LawyerController extends WebController
 {
@@ -24,14 +25,14 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    public function detail(Request $request, LawyerRepository $lawyerRepository)
+    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
     {
-        if ($lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')])) {
-            return $this->render('web/lawyer/detail.html.twig', [
-                'controller_name' => 'LawyerController',
-                'lawyer' => $lawyer,
-            ]);
-        }
+        $lawyer = $lawyerRepository->getInstanceByRequest($request);
+        $cases = $caseStudyRepository->findByLawyer($lawyer);
+        return $this->render('web/lawyer/detail.html.twig', [
+            'lawyer' => $lawyer,
+            'cases' => $cases
+        ]);
     }
 
     public function index(Request $request, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository)

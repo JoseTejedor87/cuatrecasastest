@@ -61,6 +61,17 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
             ->getResult();
     }
 
+    public function findByLawyer($lawyer)
+    {
+        return $query = $this->createPublishedQueryBuilder('c')
+            ->join('c.lawyers', 'l')
+            ->andWhere('l.id = :lawyer_id')
+            ->setParameter('lawyer_id', $lawyer->getId())
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return CaseStudy[] Returns an array of CaseStudy objects
     //  */
