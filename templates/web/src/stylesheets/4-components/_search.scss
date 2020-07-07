@@ -40,7 +40,10 @@
             transform-origin: 50px 50px;
         }
 
-        // https://base16solutions.wordpress.com/2018/03/12/css-hacks-to-target-latest-ie-11-and-edge-versions/
+
+        /* HACKING SVG ANIMATION FOR IE & EDGE
+        ** https://base16solutions.wordpress.com/2018/03/12/css-hacks-to-target-latest-ie-11-and-edge-versions/
+        */
 
         /* Microsoft Edge Browser 12+ (All) - @supports method */
         @supports (-ms-ime-align:auto) {
@@ -66,11 +69,23 @@
     @include when("home") {
         padding-top: 1rem;
         padding-bottom: 3rem;
-        // border: 1px solid magenta;
 
         .search_box__wrapper {
             margin: 2rem 0;
-            // border: 1px solid blue;
+        }
+    }
+
+    @include when("global") {
+        padding-top: 1rem;
+        padding-bottom: 3rem;
+
+        .col {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .search_box__wrapper {
+            margin: 2rem 0;
         }
     }
 }

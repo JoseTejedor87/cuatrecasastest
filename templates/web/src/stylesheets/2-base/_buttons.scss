@@ -201,6 +201,7 @@
     letter-spacing: 0.7px;
 }
 
+
 //
 // VIEW MORE ACCORDION (ARROW SYMBOL)
 // --------------------------------------------------------------------------
@@ -209,6 +210,7 @@
     @include accordion-button($complementary-color);
     @include fontSet(23px, 23px);
     letter-spacing: 0.7px;
+    margin-top: 1rem;
 
     &.doble__arrow__accordion--on {
         &:after {
@@ -531,8 +533,16 @@
     display: block;
     width: 40px;
     height: 40px;
-    margin: 0 6px;
-    outline: 4px solid transparent;
+    margin: 0 0.2rem;
+    text-align: center;
+    // outline: 4px solid transparent;
+
+    [class^="icon4-"], [class*=" icon4-"] {
+        &:before {
+            font-size: 30px;
+            color: $main-color;
+        }
+    }
 
     img {
         width: 100%;
@@ -541,11 +551,22 @@
     }
 
     @include on-event() {
-        outline: 4px solid $complementary-color;
+        // outline: 4px solid $complementary-color;
+
+        [class^="icon4-"], [class*=" icon4-"] {
+            &:before {
+                color: $complementary-color;
+            }
+        }
     }
 
     &.active {
-        outline: 4px solid $complementary-color;
+        // outline: 4px solid $complementary-color;
+        [class^="icon4-"], [class*=" icon4-"] {
+            &:before {
+                color: $complementary-color;
+            }
+        }
     }
 }
 

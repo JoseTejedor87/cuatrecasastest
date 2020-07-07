@@ -2,187 +2,187 @@
 // EVENTS
 // ==========================================================================
 
-
 //
-// PROGRAMME
+// PROGRAMME (BORRAR !!!)
 // --------------------------------------------------------------------------
 
-@include new("event") {
-    @include has("programme") {
-        @include reset-full-scren;
-        position: relative;
+// @include new("event") {
+//     @include has("programme") {
+//         @include reset-full-scren;
+//         position: relative;
 
-        &:before {
-            @include reset-pseudo(rgba($black, 0.03));
-        }
+//         &:before {
+//             @include reset-pseudo(rgba($black, 0.03));
+//         }
 
-        .tablesaw-stack {
-            margin-top: 2rem;
+//         .tablesaw-stack {
+//             margin-top: 2rem;
 
-            th, td {
-                padding: 1rem;
-                @include fontSet(16px, 16px);
-                text-transform: uppercase;
-            }
+//             th, td {
+//                 padding: 1rem;
+//                 @include fontSet(16px, 16px);
+//                 text-transform: uppercase;
+//             }
 
-            th {
-                border-top: none;
-                border-bottom: 1px solid $black;
-                color: $main-color;
+//             th {
+//                 border-top: none;
+//                 border-bottom: 1px solid $black;
+//                 color: $main-color;
 
-                &.content {
-                    padding-right: 3rem;
-                    padding-left: 3rem;
-                }
-            }
+//                 &.content {
+//                     padding-right: 3rem;
+//                     padding-left: 3rem;
+//                 }
+//             }
 
-            td {
-                // padding: 1rem 0;
+//             td {
+//                 // padding: 1rem 0;
 
-                &.time {
-                    white-space: nowrap;
-                    color: $main-color;
-                }
+//                 &.time {
+//                     white-space: nowrap;
+//                     color: $main-color;
+//                 }
 
-                &.content {
-                    padding-right: 3rem;
-                    padding-left: 3rem;
-                    @include fontSet(23px, 27px);
-                    text-transform: none;
-                    color: $black;
-                }
+//                 &.content {
+//                     padding-right: 3rem;
+//                     padding-left: 3rem;
+//                     @include fontSet(23px, 27px);
+//                     text-transform: none;
+//                     color: $black;
+//                 }
 
-                &.speakers {
-                    white-space: nowrap;
-                    color: $main-color;
-                }
+//                 &.speakers {
+//                     white-space: nowrap;
+//                     color: $main-color;
+//                 }
 
-                .speakers__list {
-                    @include reset-list;
-                    margin-left: -4px;
+//                 .speakers__list {
+//                     @include reset-list;
+//                     margin-left: -4px;
 
-                    li {
-                        margin-bottom: 5px;
-                    }
+//                     li {
+//                         margin-bottom: 5px;
+//                     }
 
-                    a {
-                        @include background-link($complementary-color, $white, $complementary-color);
-                        margin-left: -4px;
-                        padding: 2px 4px 0;
-                    }
-                }
-            }
-        }
-    }
+//                     a {
+//                         @include background-link($complementary-color, $white, $complementary-color);
+//                         margin-left: -4px;
+//                         padding: 2px 4px 0;
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
-    @include has("wrapper") {
-        position: relative;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
+//     @include has("wrapper") {
+//         position: relative;
+//         padding-top: 4rem;
+//         padding-bottom: 4rem;
 
-        &:before {
-            // @include reset-pseudo(rgba($black, 0.02));
-            @include reset-pseudo(#F7F7F7);
-            @include reset-full-scren;
-        }
+//         &:before {
+//             // @include reset-pseudo(rgba($black, 0.02));
+//             @include reset-pseudo(#F7F7F7);
+//             @include reset-full-scren;
+//         }
 
-        //
-        // EMAIL BOX
-        //
-        .contact {
-            position: relative;
-            margin-top: 4rem;
-            padding-top: 3rem;
+//         //
+//         // EMAIL BOX
+//         //
+//         .contact {
+//             position: relative;
+//             margin-top: 4rem;
+//             padding-top: 3rem;
 
-            &:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 15px;
-                width: calc(100% - 30px);
-                height: 2px;
-                background-color: $complementary-color;
-            }
-        }
+//             &:before {
+//                 content: '';
+//                 position: absolute;
+//                 top: 0;
+//                 left: 15px;
+//                 width: calc(100% - 30px);
+//                 height: 2px;
+//                 background-color: $complementary-color;
+//             }
+//         }
 
-        @include has("chooser") {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 3rem;
-        }
-    }
+//         @include has("chooser") {
+//             display: flex;
+//             justify-content: flex-end;
+//             margin-bottom: 3rem;
+//         }
+//     }
 
-    @include has("list") {
+//     @include has("list") {
 
-        @include has("item") {
-            display: flex;
-            padding-top: 1.5rem;
-            padding-bottom: 3rem;
-            // border-top: 1px solid rgba($black, 0.2);
-            box-shadow: 0 -1px 0 rgba($black, 0.2);
-            transition: box-shadow 0.2s ease-out;
+//         @include has("item") {
+//             display: flex;
+//             padding-top: 1.5rem;
+//             padding-bottom: 3rem;
+//             // border-top: 1px solid rgba($black, 0.2);
+//             box-shadow: 0 -1px 0 rgba($black, 0.2);
+//             transition: box-shadow 0.2s ease-out;
 
-            @include on-event() {
-                // box-shadow: 0 -2px 0 $complementary-color;
-                box-shadow: 0 -2px 0 rgba($black, 0.6);
-            }
-        }
+//             @include on-event() {
+//                 // box-shadow: 0 -2px 0 $complementary-color;
+//                 box-shadow: 0 -2px 0 rgba($black, 0.6);
+//             }
+//         }
 
-        @include has("details") {
-            flex: 0 0 25%;
+//         @include has("details") {
+//             flex: 0 0 25%;
 
-            > * {
-                @include fontSet(16px, 20px);
-                text-transform: uppercase;
-                letter-spacing: 0.7px;
-                color: $main-color;
-            }
+//             > * {
+//                 @include fontSet(16px, 20px);
+//                 text-transform: uppercase;
+//                 letter-spacing: 0.7px;
+//                 color: $main-color;
+//             }
 
-            .event-place {
-                a {
-                    @include classic-link($complementary-color, $black, $border: false);
-                }
-            }
+//             .event-place {
+//                 a {
+//                     @include classic-link($complementary-color, $black, $border: false);
+//                 }
+//             }
 
-            .event-button {
-                margin-top: 1rem;
-            }
+//             .event-button {
+//                 margin-top: 1rem;
+//             }
 
-            .doble__arrow__link {
-                @include fontSet(16px, 20px);
-                text-transform: uppercase;
+//             .doble__arrow__link {
+//                 @include fontSet(16px, 20px);
+//                 // text-transform: uppercase;
+//                 border: 1px solid blue;
 
-                &:before,
-                &:after {
-                    top: -7px;
-                }
-            }
-        }
+//                 &:before,
+//                 &:after {
+//                     top: -7px;
+//                 }
+//             }
+//         }
 
-        @include has("info") {
-            flex: 0 1 auto;
+//         @include has("info") {
+//             flex: 0 1 auto;
 
-            .event-intro {
-                a {
-                    @include classic-link($black, $complementary-color, $border: false);
-                    @include fontSet(32px, 36px);
-                }
-            }
+//             .event-intro {
+//                 a {
+//                     @include classic-link($black, $complementary-color, $border: false);
+//                     @include fontSet(32px, 36px);
+//                 }
+//             }
 
-            .event-speakers {
-                margin-top: 1.5rem;
-                padding-top: 1rem;
-                border-top: 1px solid rgba($black, 0.2);
+//             .event-speakers {
+//                 margin-top: 1.5rem;
+//                 padding-top: 1rem;
+//                 border-top: 1px solid rgba($black, 0.2);
 
-                .title {
-                    @include fontSet(16px, 16px);
-                    text-transform: uppercase;
-                    color: $black;
-                }
-            }
-        }
-    }
-}
+//                 .title {
+//                     @include fontSet(16px, 16px);
+//                     text-transform: uppercase;
+//                     color: $black;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 #eventCalendar {
@@ -289,70 +289,65 @@
     }
 
     .fc-button-group>.fc-button:not(:first-child) {
-        margin-left: 15px;
+        margin-left: 5px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 
 
     // CUSTOM ICONS
-    .fc-icon__button__prev-button,
-    .fc-icon__button__next-button {
-
+    .fc-icon__button__list-button,
+    .fc-icon__button__grid-button {
         @include reset-button;
         display: block;
+        position: relative;
         width: 40px;
         height: 40px;
         text-align: center;
-        color: $complementary-color;
-        outline: 4px solid transparent;
-        // outline: 4px solid $complementary-color;
 
-        .fc-icon {
-            width: 40px;
-            height: 40px;
-            @include fontSet(40px, 38px);
-            color: $complementary-color;
+        &:after {
+            @include icons-4casas(5px, auto, auto, 5px);
+            font-size: 30px;
+            color: $main-color;
         }
 
         @include on-event() {
-            color: $complementary-color;
-            outline: 4px solid $complementary-color;
-        }
-    }
+            // outline: 4px solid $complementary-color;
 
-
-    .fc-icon__button__list-button,
-    .fc-icon__button__grid-button {
-
-        @include reset-button;
-        display: block;
-        width: 40px;
-        height: 40px;
-        outline: 4px solid transparent;
-
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-
-        @include on-event() {
-            outline: 4px solid $complementary-color;
+            &:after {
+                color: $complementary-color;
+            }
         }
 
         &.active {
-            outline: 4px solid $complementary-color;
+            // outline: 4px solid $complementary-color;
+
+            &:after {
+                color: $complementary-color;
+            }
         }
 
+        .fc-button-primary:not(:disabled),
+        .fc-button-primary:not(:disabled):hover,
+        .fc-button-primary:not(:disabled):focus,
+        .fc-button-primary:not(:disabled):active,
+        .fc-button-primary:not(:disabled):active:focus {
+            box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
+            outline: none;
+        }
     }
 
     .fc-icon__button__list-button {
-        background-image: url('/cuatrecasas/web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png');
+        &:after {
+            content: '\e903';
+        }
     }
 
     .fc-icon__button__grid-button {
-        background-image: url('/cuatrecasas/web/assets/icons/Icons_Burgundy/Office/Calender_03.png');
+        &:after {
+            content: '\e902';
+        }
     }
-
 }
 
 
@@ -683,21 +678,10 @@
             }
 
             .doble__arrow__link {
-                padding: 0 1.2rem 0 0;
-                @include fontSet(16px, 20px);
-                text-transform: uppercase;
-                letter-spacing: 0.49px;
-
-                @include on-event() {
-                    padding-left: 1.2rem;
-                }
-
-                &:before,
-                &:after {
-                    font-size: 28px;
-                    top: -5px;
-                }
+                text-transform: none;
             }
+
+
         }
 
         // EVENT TITLE & SPEAKERS

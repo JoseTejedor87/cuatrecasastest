@@ -77,11 +77,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="page__block__content page__block__content--article read-more" id="readstart">
+                    <div class="page__block__content page__block__content--article" id="readMore">
                         {{ publication.translate(app.request.getLocale()).content|raw }}
                         {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
                         <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient. Proin fermentum leo vel orci. Velit aliquet sagittis id consectetur purus ut faucibus. Sed egestas egestas fringilla phasellus faucibus <a href="#">gravida dictum fusce ut placerat orci nulla interdum</a>. Massa ultricies mi quis hendrerit. Egestas purus viverra accumsan in nisl. Ac tincidunt vitae semper quis lectus nulla at. Nunc sed blandit libero volutpat sed cras ornare arcu. Pharetra massa massa ultricies mi. Interdum velit laoreet id donec ultrices tincidunt arcu non sodales.</p> #}
-                        <button type="button" class="doble__arrow__accordion">Ver más</button>
+                        <!-- <button type="button" class="doble__arrow__accordion">Ver más</button> -->
                     </div>
                 </div>
             </section>
@@ -99,39 +99,7 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-
-<script>
-    $(function () {
-        $('.read-more').each(function() {
-            if ($(this).children('p').length > 4) {
-                $(this).children('p:lt(3)').show();
-                $(this).append('<button type="button" class="doble__arrow__button loadMore">Ver más</button>');
-            }else{
-                $(this).children('p:lt(3)').show();
-                $(this).parent('.read-more').children('p:gt(2)').slideUp();
-            }
-        });
-        $('.read-more').on("click", '.loadMore', function() {
-            $(this).parent('.read-more').children('p').slideDown();
-            $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
-            $('.doble__arrow__button').blur();
-
-        });
-        $('.read-more').on("click", '.loadLess', function() {
-            $('html, body').animate({
-                scrollTop: $("#readstart").offset().top
-            }, 200);
-            $(this).parent('.read-more').children('p:gt(2)').slideUp();
-            $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
-            //$('.doble__arrow__button').blur();
-        });
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
-        });
-    });
-</script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
+<!-- Read More -->
+<script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
 {% endblock %}

@@ -28,13 +28,24 @@ q {
     // quote sign
     //
     &:before {
-        @include fontSet(140px, 140px);
-        display: inline-block;
-        content: '\201C';
+        // @include fontSet(140px, 140px);
+        // display: inline-block;
+        // content: '\201C';
+        // position: relative;
+        // top: 8rem;
+        // color: $white;
+        // transform: scale(3);
+
+
+
+        @include icons-4casas(18px, auto, auto, auto);
+
         position: relative;
-        top: 8rem;
+        display: inline-block;
+        margin-bottom: 3rem;
+        content: '\e911';
+        font-size: 92px;
         color: $white;
-        transform: scale(3);
     }
 
     p {
@@ -64,7 +75,7 @@ q {
         @include fontSet(33px, 37px);
 
         @include when-inside(".boxnews__item--blockquote") {
-            @include fontSet(22px, 26px);
+            @include fontSet(23px, 27px);
         }
     }
 }

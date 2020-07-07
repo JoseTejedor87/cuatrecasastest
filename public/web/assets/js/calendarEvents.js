@@ -151,7 +151,7 @@ function newCalendar(eventosjson, month , year) {
             }
         },
 
-        
+
         datesRender: function(info) {
             var listButton = document.getElementById("listBot");
             var gridButton = document.getElementById("gridBot");
@@ -170,7 +170,7 @@ function newCalendar(eventosjson, month , year) {
             }
             */
         },
-        
+
 
         // RENDER VIEWS
         eventRender: function (info) {
@@ -183,7 +183,7 @@ function newCalendar(eventosjson, month , year) {
             // LIST VIEW (MONTH & DAY)
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
                 // DETAILS
-                info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
+                info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><a href="#" class="doble__arrow__link">'+ info.event.extendedProps.button +'</a></div>';
 
                 // TITLE
                 info.el.lastChild.innerHTML = '<div class="event-intro"><a href="events/'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';

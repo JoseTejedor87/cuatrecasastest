@@ -137,7 +137,7 @@
         position: relative;
         margin: 0 0;
         padding: 0.5rem 0;
-        @include fontSet(22px, 22px);
+        @include fontSet(25px, 25px);
         text-align: left;
         border-radius: 0;
         color: $black;
@@ -145,7 +145,7 @@
         transition: all 0.2s ease-in;
 
         &:after {
-            @include icons-ionicons(1px,6px,auto,auto);
+            @include icons-ionicons(2px,6px,auto,auto);
             content: '\f3d1';
             font-size: 36px;
             transform: rotate(90deg);

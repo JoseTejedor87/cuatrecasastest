@@ -42,18 +42,18 @@
                 </div>
             </header>
 
-            <section class="search__component--home">
+            <section class="search__component--global">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form >
+                            <form>
                                 <div class="search_box__wrapper">
                                     <div class="search_box__name search_box__name--full">
                                         <form >
-                                            <input type="text" class="form-control" placeholder="Buscar" id="title" >
+                                            <input type="text" class="form-control" placeholder="Buscar" id="title">
                                             <div class="input-group">
                                                 <button class="search_box__button" type="button">
-                                                    <i class="icon ion-ios-search-strong"></i>
+                                                    <span class="icon4-lupa"></span>
                                                 </button>
                                             </div>
                                         </form>
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="search_selects">
                                     <select id="place" class="custom__select">
-                                        <option value="hide">Lugar</option>
+                                        <option disabled selected>Lugar</option>
                                         <option value="">Barcelona</option>
                                         <option value="">Madrid</option>
                                         <option value="">Lisboa</option>
@@ -79,7 +79,7 @@
                                         <option value="">Shanghai</option>
                                     </select>
                                     <select id="expertise" class="custom__select">
-                                        <option value="hide">Expertise</option>
+                                        <option disabled selected>Expertise</option>
                                         <option value="">Competencia y Derecho de la UE</option>
                                         <option value="">Corporate Governance y Compliance</option>
                                         <option value="">Derecho contable</option>
@@ -94,7 +94,7 @@
                                         <option value="">Mercado de valores</option>
                                     </select>
                                     <select id="month" class="custom__select">
-                                        <option value="hide">Mes</option>
+                                        <option disabled selected>Mes</option>
                                         <option value="1">Enero</option>
                                         <option value="2">Febrero</option>
                                         <option value="3">Marzo</option>
@@ -109,7 +109,7 @@
                                         <option value="12">Diciembre</option>
                                     </select>
                                     <select id="year" class="custom__select">
-                                        <option value="hide">Año</option>
+                                        <option disabled selected>Año</option>
                                         <option value="2020">2020</option>
                                         <option value="2019">2019</option>
                                         <option value="2018">2018</option>
@@ -297,6 +297,7 @@
 {% block javascripts %}
 <!-- Slider JavaScript-->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
 <!-- FullCalendar JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
@@ -310,7 +311,6 @@
 <script>
     $( document ).ready(function() {
         web.global.customSelects();
-        web.global.sliderGeneral();
 
         // EVENTS
         var year = {{ (year) ? year : "" }};
