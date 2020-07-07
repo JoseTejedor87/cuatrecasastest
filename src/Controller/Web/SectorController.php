@@ -25,7 +25,9 @@ class SectorController extends WebController
     {
         $sector = $sectorRepository->getInstanceByRequest($request);
 
-        $relatedCaseStudies = $caseStudyRepository->findByActivity($sector);
+        $relatedCaseStudies = $caseStudyRepository->findByActivities(
+            [$sector]
+        );
 
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,

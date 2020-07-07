@@ -57,11 +57,15 @@ q {
     }
 
     cite {
-        @include fontSet(22px, 26px);
         display: block;
         margin-top: 1rem;
         font-style: normal;
         color: $main-color;
+        @include fontSet(33px, 37px);
+
+        @include when-inside(".boxnews__item--blockquote") {
+            @include fontSet(22px, 26px);
+        }
     }
 }
 

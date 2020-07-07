@@ -25,7 +25,9 @@ class DeskController extends WebController
     {
         $desk = $deskRepository->getInstanceByRequest($request);
 
-        $relatedCaseStudies = $caseStudyRepository->findByActivity($desk);
+        $relatedCaseStudies = $caseStudyRepository->findByActivities(
+            [$desk]
+        );
 
         return $this->render('web/desks/detail.html.twig', [
             'desk' => $desk,

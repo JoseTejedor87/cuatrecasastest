@@ -44,7 +44,7 @@
                             <input type="hidden" id="initial">
                             <div class="input-group">
                                 <button id="searchButton" class="search_box__button" type="submit">
-                                    <i class="icon ion-ios-search-strong"></i>
+                                    <span class="icon4-lupa"></span>
                                 </button>
                             </div>
                     </div>
@@ -131,23 +131,29 @@
                     <!-- List Results -->
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
                         {% for lawyer in lawyers %}
-                        <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
-                            <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
-                                <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
-                                <div class="lawyer__details">
-                                    <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
-                                    <ul class="lawyer__practice">
-                                    {% if lawyer.activities %}
-                                        {% for activity in lawyer.activities %}
-                                            <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
-                                        {% endfor %}
-                                            <li class="lawyer__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
-                                    {% endif %}
-                                    </ul>
-                                </div>
-                                <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}">
-                            </a>
-                        </div>
+
+                            {% if lawyer.photo %}
+                                {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
+                            {% else %}
+                                {% set photo_path = '' %}
+                            {% endif %}
+
+                            <div class="lawyer__search__item" style="background-image: url('{{ photo_path }}');">
+                                <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
+                                    <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
+                                    <div class="lawyer__details">
+                                        <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
+                                        <ul class="lawyer__practice">
+                                        {% if lawyer.activities %}
+                                            {% for activity in lawyer.activities %}
+                                                <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
+                                            {% endfor %}
+                                                <li class="lawyer__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
+                                        {% endif %}
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
                         {% endfor %}
                     </div>
 
@@ -194,6 +200,7 @@
 
     <!-- Loader -->
     <div class="search__component__loader" style="display:none">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -367,7 +374,7 @@
                             <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">`;
             msg['lawyers'].forEach(function(lawyer){
                 html = html + `
-                    <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/foto-lawyer-full.jpg') }}');">
+                    <div class="lawyer__search__item" style="background-image: url('`+ lawyer['photo'] +`');">
                         <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
                             <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                             <div class="lawyer__details">
@@ -377,7 +384,6 @@
                                     <li class="lawyer__practice__item">`+ lawyer['office'] + `</li>
                                 </ul>
                             </div>
-                            <img class="lawyer__photo" src="{{ asset('/web/assets/img/foto-lawyer-full.jpg')|imagine_filter('square') }}" alt="`+ lawyer['FullName'] + `">
                         </a>
                     </div>
                 `;

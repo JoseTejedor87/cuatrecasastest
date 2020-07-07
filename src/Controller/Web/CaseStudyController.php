@@ -12,7 +12,10 @@ class CaseStudyController extends WebController
     {
         $casestudy = $casestudyRepository->getInstanceByRequest($request);
 
-        $relatedCaseStudies = $casestudyRepository->getRelatedCasesByActivities($casestudy);
+        $relatedCaseStudies = $casestudyRepository->findByActivities(
+            $casestudy->getActivities()->toArray(),
+            $casestudy->getId()
+        );
 
         return $this->render('web/casestudies/detail.html.twig', [
             'casestudy' => $casestudy,

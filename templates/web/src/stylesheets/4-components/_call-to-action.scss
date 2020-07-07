@@ -20,7 +20,7 @@
         padding-right: 12rem;
 
         p {
-            @include fontSet(42px, 46px);
+            @include fontSet(43px, 45px);
             margin-bottom: 0;
             color: $white;
         }
@@ -30,7 +30,7 @@
         padding-right: 2rem;
 
         p {
-            @include fontSet(22px, 28px);
+            @include fontSet(23px, 27px);
             margin-bottom: 1.3rem;
             color: $white;
         }
