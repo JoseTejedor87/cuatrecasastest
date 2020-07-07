@@ -10,6 +10,8 @@ global:
     zh: Chino
     it: Italiano
     fr: Francés
+    va: Vasco
+    ca: Catalán
   regions:
     spain: España
     latam: Latinoamerica
