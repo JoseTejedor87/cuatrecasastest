@@ -43,21 +43,29 @@
         padding: 1rem;
         background-color: $complementary-color;
 
-        .double__arrow__link {
+        .doble__arrow__link {
             @include fontSet(20px, 20px);
             position: absolute;
             bottom: 20px;
+            padding: 0.3rem 2rem 0.3rem 0px;
+            letter-spacing: 0.61px;
             color: $white;
 
             &:before,
             &:after {
-                top: -5px;
+                @include fontSet(26px, 40px);
+                top: -4px;
                 color: $white;
+            }
+
+            @include on-event() {
+                padding-left: 1.4rem;
+                padding-right: 0px;
             }
         }
 
         @include has("title") {
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             @include fontSet(16px, 19px);
             font-weight: bold;
             text-transform: uppercase;
@@ -67,7 +75,7 @@
 
         @include has("intro") {
             margin-bottom: 4rem;
-            @include fontSet(28px, 30px);
+            @include fontSet(33px, 37px);
             font-weight: normal;
             color: $white;
         }
@@ -113,7 +121,7 @@
             order: 2;
             margin-top: 1rem;
             width: 140px;
-            @include fontSet(28px, 30px);
+            @include fontSet(33px, 37px);
             font-weight: normal;
             color: $white;
             overflow: hidden;
@@ -291,7 +299,7 @@
             background-position: 94% 100%;
 
             .team__member__name {
-                width: 120px;
+                width: 130px;
             }
 
             // @include on-event() {

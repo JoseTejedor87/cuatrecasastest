@@ -25,11 +25,11 @@
                             </div>
                             <div class="home__preview">
                                 <div class="home__preview__content">
-                                    <span>Siguiente:</span>
-                                    Nos sumamos al compromiso Lisboa Capital Verde Europea 2020
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
                                 </div>
                                 <button type="button" class="home__preview__button">
-                                    <i class="icon ion-ios-arrow-forward"></i>
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
                                 </button>
                             </div>
                         </div>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="home__preview">
                                 <div class="home__preview__content">
-                                    <span>Siguiente:</span>
-                                    Mejoramos nuestra clasificación en los rankings de M&amp;A
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
                                 </div>
                                 <button type="button" class="home__preview__button">
-                                    <i class="icon ion-ios-arrow-forward"></i>
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
                                 </button>
                             </div>
                         </div>
@@ -65,11 +65,11 @@
                             </div>
                             <div class="home__preview">
                                 <div class="home__preview__content">
-                                    <span>Siguiente:</span>
-                                    Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
                                 </div>
                                 <button type="button" class="home__preview__button">
-                                    <i class="icon ion-ios-arrow-forward"></i>
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
                                 </button>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                         <input type="text" class="form-control" placeholder="Buscar" name="search">
                                         <div class="input-group">
                                             <button class="search_box__button" type="submit">
-                                                <i class="icon ion-ios-search-strong"></i>
+                                                <span class="icon4-lupa"></span>
                                             </button>
                                         </div>
                                     </form>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="search_selects">
                                 <select id="area" class="custom__select">
-                                    <option value="hide">Por área</option>
+                                    <option selected disabled>Por área</option>
                                     <option value="">Competencia y Derecho de la UE</option>
                                     <option value="">Corporate Governance y Compliance</option>
                                     <option value="">Derecho contable</option>
@@ -112,7 +112,7 @@
                                     <option value="">Mercado de valores</option>
                                 </select>
                                 <select id="desk" class="custom__select">
-                                    <option value="hide">Por sector o desk</option>
+                                    <option selected disabled>Por sector o desk</option>
                                     <option value="">Alimentación</option>
                                     <option value="">Arte</option>
                                     <option value="">Brexit</option>
@@ -125,7 +125,7 @@
                                     <option value="">Farmacia y Sanitario</option>
                                 </select>
                                 <select id="office" class="custom__select">
-                                    <option value="hide">Por oficina</option>
+                                    <option selected disabled>Por oficina</option>
                                     <option value="">Barcelona</option>
                                     <option value="">Madrid</option>
                                     <option value="">Lisboa</option>
@@ -163,12 +163,35 @@
 <!-- Slider JavaScript-->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
-    $(function () {
-        web.global.customSelects();
-        web.global.sliderHome();
-        web.global.sliderGeneral();
-        web.global.testimonials();
-        // web.global.lawyerResults();
+    web.global.customSelects();
+    web.global.testimonials();
+
+    var swiperHome = new Swiper ('#sliderHome', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        // grabCursor: true,
+        speed: 800,
+        allowSlidePrev: false,
+        allowTouchMove: false,
+        autoplay: {
+            delay: 5000,
+        },
+        navigation: {
+            nextEl: '.home__preview__button'
+        }
+    });
+
+    var swiperGeneral = new Swiper ('.slider__general', {
+        slidesPerView: 3,
+        spaceBetween: 25,
+        // loop: true,
+        allowTouchMove: true,
+        grabCursor: true,
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            draggable: true
+        }
     });
 </script>
 {% endblock %}

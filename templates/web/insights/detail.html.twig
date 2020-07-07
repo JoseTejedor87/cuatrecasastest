@@ -89,7 +89,7 @@
                         </div>
                         <div class="page__block__content page__block__content--article">
                             {{ insight.translate(app.request.getLocale()).description|raw }}
-                            <button type="button" class="doble__arrow__button">Ver más</button>
+                            <button type="button" class="doble__arrow__accordion">Ver más</button>
                         </div>
                     </div>
                 </section>
@@ -140,7 +140,7 @@
                                         <input id="data-privacy" name="data-privacy" type="checkbox">
                                         <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
                                     </div>
-                                    <button type="submit" class="doble__arrow__button">Enviar</button>
+                                    <button type="submit" class="doble__arrow__link">Enviar</button>
                                     <!-- <button class="btn btn__solid" type="submit">Enviar</button> -->
                                 </div>
                             </form>
@@ -160,7 +160,7 @@
                                 {% endif %}
                                 <a href="#" class="btn btn__solid btn__solid--icon">
                                     Descarga el dossier
-                                    <i class="icon ion-ios-download-outline"></i>
+                                    <span class="icon4-download"></span>
                                 </a>
                             </div>
                         </div>

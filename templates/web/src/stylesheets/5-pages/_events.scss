@@ -148,7 +148,7 @@
                 margin-top: 1rem;
             }
 
-            .doble__arrow__button {
+            .doble__arrow__link {
                 @include fontSet(16px, 20px);
                 text-transform: uppercase;
 
@@ -682,7 +682,7 @@
                 margin-top: 1rem;
             }
 
-            .doble__arrow__button {
+            .doble__arrow__link {
                 padding: 0 1.2rem 0 0;
                 @include fontSet(16px, 20px);
                 text-transform: uppercase;
