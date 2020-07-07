@@ -252,14 +252,6 @@ pages_detail:
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
-# Resources
-# ###########################################
-resources_detail:
-    path:
-        en:     /files/{slug}
-        es:     /ficheros/{slug}
-    methods:    GET
-    controller: App\Controller\Web\ResourcesController::detail
 # Publication
 # ###########################################
 publications_detail:

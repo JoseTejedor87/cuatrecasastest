@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 use App\Controller\Web\WebController;
 use App\Entity\Lawyer;
@@ -27,7 +28,7 @@ class LawyerController extends WebController
         }
     }
 
-    public function index(Request $request, LawyerRepository $lawyerRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository)
+    public function index(Request $request, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, CacheManager $imagineCacheManager)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -45,72 +46,69 @@ class LawyerController extends WebController
         if ($initial || $office || $sector || $services || $textSearch) {
             $url= "";
             $query = $lawyerRepository->createQueryBuilder('l');
-                if($services){
-                    $query = $query->innerJoin('l.activities', 'a')
+            if ($services) {
+                $query = $query->innerJoin('l.activities', 'a')
                     ->andWhere('a.id = :activity')
                     ->setParameter('activity', $services);
-                    if($url == ""){
-                        $url= "?services=".$services;
-                    }else{
-                        $url= $url . "&services=".$services;
-                    }
+                if ($url == "") {
+                    $url= "?services=".$services;
+                } else {
+                    $url= $url . "&services=".$services;
                 }
-                if($sector){
-                    $query = $query->innerJoin('l.activities', 's')
+            }
+            if ($sector) {
+                $query = $query->innerJoin('l.activities', 's')
                     ->andWhere('s.id = :sector')
                     ->setParameter('sector', $sector);
-                    if($url == ""){
-                        $url= "?sector=".$sector;
-                    }else{
-                        $url= $url . "&sector=".$sector;
-                    }
+                if ($url == "") {
+                    $url= "?sector=".$sector;
+                } else {
+                    $url= $url . "&sector=".$sector;
                 }
-                if($office){
-                    $query = $query->innerJoin('l.office', 'o')
+            }
+            if ($office) {
+                $query = $query->innerJoin('l.office', 'o')
                     ->andWhere('l.office = :city')
                     ->setParameter('city', $office);
-                    if($url == ""){
-                        $url= "?office=".$office;
-                    }else{
-                        $url= $url . "&office=".$office;
-                    }
+                if ($url == "") {
+                    $url= "?office=".$office;
+                } else {
+                    $url= $url . "&office=".$office;
                 }
-                if($textSearch){
-                    $query = $query->andWhere("CONCAT( l.name,  ' ', l.surname ) LIKE :textSearch")
+            }
+            if ($textSearch) {
+                $query = $query->andWhere("CONCAT( l.name,  ' ', l.surname ) LIKE :textSearch")
                     ->setParameter('textSearch', '%'.$textSearch .'%');
-                    if($url == ""){
-                        $url= "?textSearch=".$textSearch;
-                    }else{
-                        $url= $url . "&textSearch=".$textSearch;
-                    }
+                if ($url == "") {
+                    $url= "?textSearch=".$textSearch;
+                } else {
+                    $url= $url . "&textSearch=".$textSearch;
                 }
-                if($initial){
-                    $query = $query->andWhere('l.surname LIKE :surname')
+            }
+            if ($initial) {
+                $query = $query->andWhere('l.surname LIKE :surname')
                     ->setParameter('surname', $initial .'%');
-                    if($url == ""){
-                        $url= "?initial=".$initial;
-                    }else{
-                        $url= $url . "&initial=".$initial;
-                    }
+                if ($url == "") {
+                    $url= "?initial=".$initial;
+                } else {
+                    $url= $url . "&initial=".$initial;
                 }
+            }
             $countLawyers = count($query->getQuery()->getResult());
             $query = $query->setFirstResult($limit * ($page - 1))
                 ->setMaxResults($limit)
                 ->getQuery();
             $lawyers = $query->getResult();
-            if($lawyers){
+            if ($lawyers) {
                 $pagesTotal = $countLawyers/$limit;
-                if(is_float($pagesTotal)){
+                if (is_float($pagesTotal)) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }
             }
         }
         if ($request->isXMLHttpRequest()) {
-            
             $lawyerA = array();
             if (isset($lawyers)) {
-
-                
                 foreach ($lawyers as $key => $lawyer) {
                     $url =  $this->container->get('router')->generate('lawyers_detail', array('slug' => $lawyer->getSlug()));
                     $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $url);
@@ -120,26 +118,32 @@ class LawyerController extends WebController
                     }
                     $lawyerA[$key]['activities'] = $activities;
                     $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->getCity() : '';
+
+                    if ($photo = $lawyer->getPhoto()) {
+                        $lawyerA[$key]['photo'] = $imagineCacheManager->getBrowserPath(
+                            '/resources/' . $photo->getFileName(),
+                            'lawyers_grid'
+                        );
+                    }
                 }
             }
             $json = array(
                 'lawyers' => $lawyerA,'countLawyers' => isset($countLawyers) ? $countLawyers : 0,'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0 ,'page' => isset($page) ? $page : 0
             );
-            
-            if($initial){
-                $json['initial']= $initial;
 
+            if ($initial) {
+                $json['initial']= $initial;
             }
-            if($office){
+            if ($office) {
                 $json['office'] = $office;
             }
-            if($textSearch){
+            if ($textSearch) {
                 $json['textSearch'] = $textSearch;
             }
-            if($services){
+            if ($services) {
                 $json['services'] = $services;
             }
-            if($sector){
+            if ($sector) {
                 $json['sector'] = $sector;
             }
             return new JsonResponse($json);
