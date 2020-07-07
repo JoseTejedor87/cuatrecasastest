@@ -14,21 +14,28 @@ use App\Repository\LawyerRepository;
 use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
+use App\Repository\CaseStudyRepository;
 
 class LawyerController extends WebController
 {
-    public function detail(Request $request, LawyerRepository $lawyerRepository)
-    {
-        if ($lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')])) {
-            return $this->render('web/lawyer/detail.html.twig', [
-                'controller_name' => 'LawyerController',
-                'lawyer' => $lawyer,
+    protected $imagineCacheManager;
 
-            ]);
-        }
+    public function __construct(CacheManager $imagineCacheManager)
+    {
+        $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    public function index(Request $request, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, CacheManager $imagineCacheManager)
+    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
+    {
+        $lawyer = $lawyerRepository->getInstanceByRequest($request);
+        $cases = $caseStudyRepository->findByLawyer($lawyer);
+        return $this->render('web/lawyer/detail.html.twig', [
+            'lawyer' => $lawyer,
+            'cases' => $cases
+        ]);
+    }
+
+    public function index(Request $request, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -118,13 +125,7 @@ class LawyerController extends WebController
                     }
                     $lawyerA[$key]['activities'] = $activities;
                     $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->getCity() : '';
-
-                    if ($photo = $lawyer->getPhoto()) {
-                        $lawyerA[$key]['photo'] = $imagineCacheManager->getBrowserPath(
-                            '/resources/' . $photo->getFileName(),
-                            'lawyers_grid'
-                        );
-                    }
+                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid');
                 }
             }
             $json = array(
@@ -160,5 +161,16 @@ class LawyerController extends WebController
                 'url' => isset($url) ? $url : '',
             ]);
         }
+    }
+
+    protected function getPhotoPathByFilter($lawyer, $filter)
+    {
+        if ($photo = $lawyer->getPhoto()) {
+            $photo = $this->imagineCacheManager->getBrowserPath(
+                '/resources/' . $photo->getFileName(),
+                $filter
+            );
+        }
+        return $photo;
     }
 }

@@ -190,7 +190,7 @@
         transition: all 0.2s ease-in;
 
         &:after {
-            @include icons-ionicons(10px,6px,auto,auto);
+            @include icons-ionicons(11px,6px,auto,auto);
             content: '\f3d1';
             font-size: 36px;
             transform: rotate(90deg);
@@ -354,7 +354,7 @@ $color-off: $white;
             span {
                 display: inline-block;
                 padding: 0.2rem 0 0 0;
-                @include fontSet(18px, 22px);
+                @include fontSet(20px, 24px);
                 text-align: left;
                 white-space: nowrap;
                 overflow: hidden;

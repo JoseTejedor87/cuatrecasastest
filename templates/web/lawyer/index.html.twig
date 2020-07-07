@@ -40,13 +40,13 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                            <input type="text" id="textSearch" class="form-control" placeholder="{{ 'sections.lawyers.lawyerFilters.placeholder'|trans }}" name="initial">
-                            <input type="hidden" id="initial">
-                            <div class="input-group">
-                                <button id="searchButton" class="search_box__button" type="submit">
-                                    <span class="icon4-lupa"></span>
-                                </button>
-                            </div>
+                        <input type="text" id="textSearch" class="form-control" placeholder="{{ 'sections.lawyers.lawyerFilters.placeholder'|trans }}" name="initial">
+                        <input type="hidden" id="initial">
+                        <div class="input-group">
+                            <button id="searchButton" class="search_box__button" type="submit">
+                                <span class="icon4-lupa"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -120,41 +120,42 @@
                         <div class="lawyer__search__text">{{ 'sections.lawyers.lawyerFilters.search_results_txt1'|trans }} {{ countLawyers }} {{ 'sections.lawyers.lawyerFilters.search_results_txt2'|trans }}</div>
                         <div class="lawyer__search__chooser">
                             <button type="button" class="icon__button list">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="">
+                                <span class="icon4-calendar_list"></span>
                             </button>
                             <button type="button" class="icon__button grid active">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="">
+                                <span class="icon4-grid"></span>
                             </button>
                         </div>
                     </div>
 
                     <!-- List Results -->
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
-                        {% for lawyer in lawyers %}
+                    {% for lawyer in lawyers %}
 
-                            {% if lawyer.photo %}
-                                {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
-                            {% else %}
-                                {% set photo_path = '' %}
-                            {% endif %}
+                        {% if lawyer.photo %}
+                            {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
+                        {% else %}
+                            {% set photo_path = '' %}
+                        {% endif %}
 
-                            <div class="lawyer__search__item" style="background-image: url('{{ photo_path }}');">
-                                <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
-                                    <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
-                                    <div class="lawyer__details">
-                                        <div class="lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</div>
-                                        <ul class="lawyer__practice">
+                        <div class="lawyer__search__item" style="background-image: url('{{ photo_path }}');">
+                            <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
+                                <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
+                                <div class="lawyer__details">
+                                    <ul class="lawyer__practice">
+                                        <li class="lawyer__practice__item lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</li>
                                         {% if lawyer.activities %}
                                             {% for activity in lawyer.activities %}
-                                                <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
+                                        <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
                                             {% endfor %}
-                                                <li class="lawyer__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
+                                        <li class="lawyer__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
                                         {% endif %}
-                                        </ul>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+
+                    {% endfor %}
                     </div>
 
                     {% if pagesTotal > 1 %}
@@ -213,21 +214,9 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Lawyer Results -->
-<script type="text/javascript" src="{{ asset('web/assets/js/lawyerResults.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
 <script>
     web.global.customSelects();
-
-    var swiperGeneral = new Swiper ('.slider__general', {
-        slidesPerView: 3,
-        spaceBetween: 25,
-        allowTouchMove: true,
-        grabCursor: true,
-        scrollbar: {
-            el: '.swiper-scrollbar',
-            draggable: true
-        }
-    });
 
     $( document ).ready(function() {
 
@@ -362,10 +351,10 @@
                                 <div class="lawyer__search__text">Mostramos `+msg['countLawyers']+` perfiles que encajan con la búsqueda</div>
                                 <div class="lawyer__search__chooser">
                                     <button type="button" class="icon__button list">
-                                        <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Results lList">
+                                        <span class="icon4-calendar_list"></span>
                                     </button>
                                     <button type="button" class="icon__button grid active">
-                                        <img src="{{ asset('web/assets/icons/Icons_Burgundy/People/Who_is_who.png') }}" alt="Results grid">
+                                        <span class="icon4-grid"></span>
                                     </button>
                                 </div>
                             </div>
@@ -378,8 +367,8 @@
                         <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
                             <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
                             <div class="lawyer__details">
-                                <div class="lawyer__position">`+ lawyer['LawyerType'] + `</div>
                                 <ul class="lawyer__practice">
+                                    <li class="lawyer__practice__item lawyer__position">`+ lawyer['LawyerType'] + `</li>
                                     <li class="lawyer__practice__item">`+ lawyer['activities'] + `</li>
                                     <li class="lawyer__practice__item">`+ lawyer['office'] + `</li>
                                 </ul>

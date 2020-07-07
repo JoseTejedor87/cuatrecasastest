@@ -253,7 +253,7 @@ img {
 //
 // fancy link underline
 @mixin fancy-link($color, $hover, $bg, $header: false) {
-    padding-bottom: 0.05rem;
+    padding-bottom: 0.1rem;
     text-decoration: none;
     color: $color;
     transition: all 0.2s ease-in-out;
