@@ -375,8 +375,6 @@ class Lawyer extends Publishable
         return $this;
     }
 
-
-
     /**
      * @return Collection|Mention[]
      */
@@ -389,7 +387,7 @@ class Lawyer extends Publishable
     {
         if (!$this->mentions->contains($mention)) {
             $this->mentions[] = $mention;
-            $mention->addLawyer($this);
+            $mention->setLawyer($this);
         }
 
         return $this;
@@ -399,15 +397,18 @@ class Lawyer extends Publishable
     {
         if ($this->mentions->contains($mention)) {
             $this->mentions->removeElement($mention);
-            $mention->removeLawyer($this);
+            // set the owning side to null (unless already changed)
+            if ($mention->getLawyer() === $this) {
+                $mention->setLawyer(null);
+            }
         }
 
         return $this;
     }
 
     /**
-     * @return Collection|Training[]
-     */
+         * @return Collection|Training[]
+         */
     public function getTrainings(): Collection
     {
         return $this->trainings;
@@ -417,7 +418,7 @@ class Lawyer extends Publishable
     {
         if (!$this->trainings->contains($training)) {
             $this->trainings[] = $training;
-            $training->addLawyer($this);
+            $training->setLawyer($this);
         }
 
         return $this;
@@ -427,10 +428,12 @@ class Lawyer extends Publishable
     {
         if ($this->trainings->contains($training)) {
             $this->trainings->removeElement($training);
-            $training->removeLawyer($this);
+            // set the owning side to null (unless already changed)
+            if ($training->getLawyer() === $this) {
+                $training->setLawyer(null);
+            }
         }
 
         return $this;
     }
-
 }

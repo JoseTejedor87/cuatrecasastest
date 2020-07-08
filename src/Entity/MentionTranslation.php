@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
-use App\Entity\PublishableTranslation;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MentionTranslationRepository")
  */
-class MentionTranslation extends PublishableTranslation
+class MentionTranslation
 {
     use ORMBehaviors\Translatable\Translation;
-
 
     /**
      * @ORM\Column(type="text")
@@ -35,6 +33,4 @@ class MentionTranslation extends PublishableTranslation
 
         return $this;
     }
-
-
 }
