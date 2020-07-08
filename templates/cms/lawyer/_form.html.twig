@@ -3,26 +3,27 @@
 
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-7">
 
         <div class="row">
-
-            <div class="col-md-4">
-
+            <div class="col-md-6">
                 <div class="m-form__section m-form__section--first">
                     {{ form_row(form.name) }}
                     {{ form_row(form.surname) }}
                     {{ form_row(form.email) }}
-                    {{ form_row(form.phone) }}
-                    {{ form_row(form.fax) }}
                 </div>
             </div>
-            <div class="col-md-7 offset-md-1">
+            <div class="col-md-6">
                 <div class="m-form__section m-form__section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.phone) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.fax) }}
+                        </div>
+                    </div>
                     {{ form_row(form.lawyerType) }}
-                    {{ form_row(form.office) }}
-                    {{ form_row(form.activities) }}
-                    {{ form_row(form.secondaryActivities) }}
                     {{ form_row(form.knownLanguages) }}
                 </div>
             </div>
@@ -41,7 +42,18 @@
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 offset-md-1">
+
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.relations'|trans }}
+                </h3>
+            </div>
+            {{ form_row(form.office) }}
+            {{ form_row(form.activities) }}
+            {{ form_row(form.secondaryActivities) }}
+        </div>
 
         <div class="m-form__section m-form__section">
             <div class="m-form__heading">
