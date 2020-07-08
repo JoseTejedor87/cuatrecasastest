@@ -139,7 +139,7 @@
             }
         }
 
-        .read-more {
+        #readMore {
             > p {
                 display:none;
             }
@@ -700,6 +700,12 @@
                     }
                 }
             }
+
+            .sticky-top {
+                top: 100px;
+                z-index: 3;
+            }
         }
+
     }
 }

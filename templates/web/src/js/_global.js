@@ -62,16 +62,16 @@ web.global = {
             $(this).toggleClass('button__bookmark--on');
         });
 
-        $('.doble__arrow__accordion').click(function(){
-            $(this).toggleClass('doble__arrow__accordion--on');
+        // $('.doble__arrow__accordion').click(function(){
+        //     $(this).toggleClass('doble__arrow__accordion--on');
 
-            if ($(this).hasClass('doble__arrow__accordion--on')) {
-                $(this).text('Ver menos');
-            } else {
-                $(this).text('Ver más');
-            }
+        //     if ($(this).hasClass('doble__arrow__accordion--on')) {
+        //         $(this).text('Ver menos');
+        //     } else {
+        //         $(this).text('Ver más');
+        //     }
 
-        });
+        // });
 
         $('.no-link').click(function(e){
             e.preventDefault();
@@ -79,26 +79,24 @@ web.global = {
     },
 
     // BORRAR (activar en la propia página)
-    showMoreLess: function(){
-        // https://stackoverflow.com/questions/58455602/debugging-show-more-show-less-button-missing-paragraphs-of-text
-
-        $('.read-more').each(function() {
-            if ($(this).children('p').length > 4) {
-                $(this).children('p:lt(3)').show();
-                $(this).append('<button type="button" class="doble__arrow__accordion loadMore">Ver más</button>');
-            }
-        });
-        $('.read-more').on("click", '.loadMore', function() {
-            $(this).parent('.read-more').children('p').slideDown();
-            $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
-            $('.doble__arrow__accordion').blur();
-        });
-        $('.read-more').on("click", '.loadLess', function() {
-            $(this).parent('.read-more').children('p:gt(2)').slideUp();
-            $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
-            $('.doble__arrow__accordion').blur();
-        });
-    },
+    // showMoreLess: function(){
+    //     $('.read-more').each(function() {
+    //         if ($(this).children('p').length > 4) {
+    //             $(this).children('p:lt(3)').show();
+    //             $(this).append('<button type="button" class="doble__arrow__accordion loadMore">Ver más</button>');
+    //         }
+    //     });
+    //     $('.read-more').on("click", '.loadMore', function() {
+    //         $(this).parent('.read-more').children('p').slideDown();
+    //         $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
+    //         $('.doble__arrow__accordion').blur();
+    //     });
+    //     $('.read-more').on("click", '.loadLess', function() {
+    //         $(this).parent('.read-more').children('p:gt(2)').slideUp();
+    //         $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
+    //         $('.doble__arrow__accordion').blur();
+    //     });
+    // },
 
 
     /* Stand by BORRAR MAYBE */

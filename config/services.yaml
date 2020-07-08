@@ -37,7 +37,7 @@ parameters:
         - full_width
         - two_columns
 
-    app.known_languages_by_lawyers: [es, en, it, pt, fr]
+    app.known_languages_by_lawyers: [es, en, it, pt, fr, va, ca, ge, ho]
 
     app.meta_robots: {"noindex": "noindex", "nofollow": "nofollow", "noindex, nofollow": "noindex, nofollow"}
 

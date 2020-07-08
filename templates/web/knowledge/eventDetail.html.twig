@@ -67,7 +67,7 @@
                         </div>
 
                         {{ event.translate(app.request.getLocale()).description|raw }}
-                        <button type="button" class="doble__arrow__link">Ver más</button>
+                        <button type="button" class="doble__arrow__accordion">Ver más</button>
                         <div class="page__event__details">
                             {% for attachment in event.attachments %}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">

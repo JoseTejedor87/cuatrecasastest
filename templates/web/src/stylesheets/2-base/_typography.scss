@@ -74,8 +74,9 @@ p {
     margin: 0 0 1rem 0;
     padding: 0.7rem 0.8rem 0.5rem;
     @include cuatrecasas-font();
-    @include fontSet(24px, 24px);
+    @include fontSet(23px, 23px);
     text-transform: uppercase;
+    letter-spacing: 0.7px;
     color: $white;
     background-color: $black;
 
