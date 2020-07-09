@@ -193,7 +193,7 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM TrainingTranslation ");
         //  $this->em->getConnection()->executeQuery("ALTER TABLE TrainingTranslation AUTO_INCREMENT = 1");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
-    };
+    }
 
     public function delMentions(){
         $this->em->getConnection()->executeQuery("DELETE FROM Mention ");
