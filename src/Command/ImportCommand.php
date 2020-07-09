@@ -78,6 +78,8 @@ class ImportCommand extends Command
 
         if ($table=="all") {
             $this->logger->info("Se van a importar todas las tablas");
+            $this->delTrainings();  // porque da error constraint al borrar los lawyers sino
+            $this->delMentions();  // porque da error constraint al borrar los lawyers sino
             $this->Lawyers();
             $this->Events();
             $this->Activities();
@@ -183,11 +185,7 @@ class ImportCommand extends Command
         return 0;
     }
 
-    public function Trainings(){
-        $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
-        $data = file_get_contents("JsonExports/abogados.json");
-        $items = json_decode($data, true);
-     
+    public function delTrainings(){
         $this->em->getConnection()->executeQuery("DELETE FROM Training ");
         //  $this->em->getConnection()->executeQuery("ALTER TABLE Training AUTO_INCREMENT = 1");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Training], RESEED, 1)");      
@@ -195,6 +193,23 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM TrainingTranslation ");
         //  $this->em->getConnection()->executeQuery("ALTER TABLE TrainingTranslation AUTO_INCREMENT = 1");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
+    };
+
+    public function delMentions(){
+        $this->em->getConnection()->executeQuery("DELETE FROM Mention ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Mention AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Mention], RESEED, 1)");        
+        $this->em->getConnection()->executeQuery("DELETE FROM MentionTranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE MentionTranslation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([MentionTranslation], RESEED, 1)");
+    }
+
+    public function Trainings(){
+        $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
+        $data = file_get_contents("JsonExports/abogados.json");
+        $items = json_decode($data, true);
+    
+        $this->delTrainings();
 
 
         foreach ($items as $item) {
@@ -294,12 +309,8 @@ class ImportCommand extends Command
         $data = file_get_contents("JsonExports/abogados.json");
         $items = json_decode($data, true);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM Mention ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE Mention AUTO_INCREMENT = 1");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Mention], RESEED, 1)");        
-        $this->em->getConnection()->executeQuery("DELETE FROM MentionTranslation ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE MentionTranslation AUTO_INCREMENT = 1");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([MentionTranslation], RESEED, 1)");
+        $this->delMentions();
+
 
         foreach ($items as $item) {
             
