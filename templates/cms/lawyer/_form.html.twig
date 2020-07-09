@@ -1,5 +1,6 @@
 {% trans_default_domain "admin" %}
 {% import "cms/custom/translatableField.html.twig" as translatableField %}
+{% form_theme form 'cms/form/lawyer_customizations.html.twig' %}
 
 <div class="row">
 
@@ -34,8 +35,8 @@
                 <div class="m-form__section m-form__section">
                     {{ translatableField.partialTranslations(form.translations, ['description']) }}
                     {{ translatableField.partialTranslations(form.translations, ['curriculum']) }}
-                    {{ translatableField.partialTranslations(form.translations, ['training']) }}
-                    {{ translatableField.partialTranslations(form.translations, ['mentions']) }}
+                    {{ form_row(form.mentions) }}
+                    {{ form_row(form.trainings) }}
                 </div>
             </div>
         </div>
