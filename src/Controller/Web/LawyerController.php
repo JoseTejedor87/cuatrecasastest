@@ -15,6 +15,7 @@ use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\TrainingRepository;
 
 class LawyerController extends WebController
 {
@@ -29,6 +30,7 @@ class LawyerController extends WebController
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
         $cases = $caseStudyRepository->findByLawyer($lawyer);
+
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
             'cases' => $cases
