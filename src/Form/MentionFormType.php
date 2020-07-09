@@ -19,6 +19,7 @@ class MentionFormType extends AbstractType
                     'description' => [
                         'label'=>'entities.mention.fields.description',
                         'required'=>true,
+                        'attr'=>['class'=>'summernote']
                     ],
                 ],
             ]);

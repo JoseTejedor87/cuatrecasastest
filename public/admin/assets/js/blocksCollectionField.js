@@ -42,6 +42,7 @@ var blockCollectionManager = {
 
         this.refreshPositions($collection);
         TranslationSelector.refresh();
+        SummernoteDemo.init();
     },
 
     removeItem: function($item) {

@@ -19,6 +19,7 @@ class TrainingFormType extends AbstractType
                     'description' => [
                         'label'=>'entities.training.fields.description',
                         'required'=>true,
+                        'attr'=>['class'=>'summernote']
                     ],
                 ],
             ]);
