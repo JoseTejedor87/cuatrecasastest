@@ -256,6 +256,7 @@ entities:
       slug: Slug
   item:
     fields:
+      createdAt: Fecha de creación
       updatedAt: Última modificación
   lawyer:
     fields:
@@ -266,7 +267,7 @@ entities:
       fax: Fax
       photo: Fotografía
       knownLanguages: Idiomas conocidos
-      lawyerType: Tipo de abogado
+      lawyerType: Tipo
       description: Descripción
       curriculum: Curriculum Vitae
       training: Formación

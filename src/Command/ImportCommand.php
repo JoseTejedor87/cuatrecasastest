@@ -18,6 +18,7 @@ use App\Entity\Desk;
 use App\Entity\Event;
 use App\Entity\Lawyer;
 use App\Entity\Mention;
+use App\Entity\Training;
 use App\Entity\Practice;
 use App\Entity\Quote;
 use App\Entity\Resource;
@@ -77,6 +78,8 @@ class ImportCommand extends Command
 
         if ($table=="all") {
             $this->logger->info("Se van a importar todas las tablas");
+            $this->delTrainings();  // porque da error constraint al borrar los lawyers sino
+            $this->delMentions();  // porque da error constraint al borrar los lawyers sino
             $this->Lawyers();
             $this->Events();
             $this->Activities();
@@ -91,6 +94,8 @@ class ImportCommand extends Command
             $this->ArticlesByActivities();
             $this->ArticlesByOffices();
             $this->ArticlesByLawyers();
+            $this->Mentions();
+            $this->Trainings();
         } else {
             switch ($table) {
                 case "lawyer":
@@ -168,11 +173,180 @@ class ImportCommand extends Command
                 case "regenerateSlugPublication":
                     $this->regenerateSlugPublication();
                     break;
+                case "mentions":
+                    $this->Mentions();
+                break;
+                case "trainings":
+                    $this->Trainings();
+                break;                        
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
+
+    public function delTrainings(){
+        $this->em->getConnection()->executeQuery("DELETE FROM Training ");
+        //  $this->em->getConnection()->executeQuery("ALTER TABLE Training AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Training], RESEED, 1)");      
+
+        $this->em->getConnection()->executeQuery("DELETE FROM TrainingTranslation ");
+        //  $this->em->getConnection()->executeQuery("ALTER TABLE TrainingTranslation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
+    };
+
+    public function delMentions(){
+        $this->em->getConnection()->executeQuery("DELETE FROM Mention ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Mention AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Mention], RESEED, 1)");        
+        $this->em->getConnection()->executeQuery("DELETE FROM MentionTranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE MentionTranslation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([MentionTranslation], RESEED, 1)");
+    }
+
+    public function Trainings(){
+        $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
+        $data = file_get_contents("JsonExports/abogados.json");
+        $items = json_decode($data, true);
+    
+        $this->delTrainings();
+
+
+        foreach ($items as $item) {
+            
+            if($item['formacion'] == '') continue;
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+            $lawyerRepository = $this->em->getRepository(Lawyer::class);
+            
+
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            if($lawyerId == '') {
+                $this->logger->debug("============================= SKIPPED ======================================================== "); 
+                $this->logger->debug("============================= No se encontro lawyer en el repo con OLD ID : ".$item['id_abogado']); 
+                continue;
+            }
+            $this->logger->debug("lawyerId ".$lawyerId); 
+            $lawyer = $lawyerRepository->find($lawyerId);
+
+            if($lawyer == '') {
+                $this->logger->debug("============================= FALLO en la busqueda No se encontro lawyer en el repo "); 
+                continue;
+            }
+            $this->logger->debug(" lawyer: ".$lawyer->getName());
+
+            $training = new Training();
+            
+            if(preg_match('/Languages/',$item['formacion'])){
+                $matches = explode("Languages", $item['formacion']);
+            }else{
+                if(preg_match('/Language/',$item['formacion'])){
+                    $matches = explode("Language", $item['formacion']);
+                }
+            }
+            if(preg_match('/Idiomas/',$item['formacion'])){
+                $matches = explode("Idiomas", $item['formacion']);
+            }else{
+                if(preg_match('/Idioma/',$item['formacion'])){
+                    $matches = explode("Idioma", $item['formacion']);
+                }
+            }
+            
+            if(isset($matches)){
+
+                //  UPDATE the  knownLanguages of Lawyer  Table
+                $delimiter = array(" y ", " e ", " and ");
+                $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
+                $arrayCharacterToQuit = [": ", ".", " ", "&nbsp;", "\\r\\n&nbsp;"];
+                $languages = str_replace($arrayCharacterToQuit, "", $languages);
+                $languageArray = explode(",", $languages);
+
+                // JUST UPDATE IF knowledge_languages is empty
+                if ( $lawyer->getKnownLanguages() == '[]' || $item['lang'] == 'eng'){
+                    // Save from format ["Spanish", "English"] to ['es', 'en']
+                    $languageArrayCoded = [];
+                    foreach($languageArray as $language){
+                        $lan = self::getMappedLanguageParser($language);
+                        if (is_null($lan)) continue ;
+                        array_push($languageArrayCoded,$lan);
+                    }
+
+                    if ( !empty($languageArrayCoded)){
+                        $lawyer->setKnownLanguages($languageArrayCoded);
+                        $lawyer->mergeNewTranslations();
+                        $this->em->persist($lawyer);
+                        $this->em->flush();
+                    }
+
+                }
+                
+                // separar los registro en diferente al </br></br>
+
+                $trainingsArray = explode("<br /><br />",str_replace(["<p>","</p>"], "",$matches[0]));
+                $json = json_encode($trainingsArray);
+
+                foreach($trainingsArray as $item_training){
+                    if ($item_training != ''){
+                        $training->translate($currentLang)->setDescription($item_training);
+                        $training->setLawyer($lawyer);            
+                        $training->mergeNewTranslations();
+                        $this->em->persist($training);
+                        $this->em->flush();
+                        $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());         
+                            
+                    }
+                }
+                $this->logger->debug("string ".$matches[0]); 
+                $this->logger->debug("trainingsArray ".$json); 
+
+            }      
+     
+        }
+
+    }
+
+    public function Mentions(){
+        $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
+        $data = file_get_contents("JsonExports/abogados.json");
+        $items = json_decode($data, true);
+
+        $this->delMentions();
+
+
+        foreach ($items as $item) {
+            
+            if($item['menciones'] == '') continue;
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+            $lawyerRepository = $this->em->getRepository(Lawyer::class);
+
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            if($lawyerId == '') {
+                $this->logger->debug("============================= SKIPPED ======================================================== "); 
+                $this->logger->debug("============================= No se encontro lawyer en el repo con OLD ID : ".$item['id_abogado']); 
+                continue;
+            }
+            $this->logger->debug("lawyerId ".$lawyerId); 
+            $lawyer = $lawyerRepository->find($lawyerId);
+
+            if($lawyer == '') {
+                $this->logger->debug("============================= FALLO en la busqueda No se encontro lawyer en el repo "); 
+                continue;
+            }
+            $this->logger->debug(" lawyer: ".$lawyer->getName());
+
+
+            $mention = new Mention();
+            $mention->translate($currentLang)->setDescription($item['menciones']);
+            $mention->setLawyer($lawyer);
+            
+            $mention->mergeNewTranslations();
+            $this->em->persist($mention);
+            $this->em->flush();
+            $this->logger->debug("Mention ".$mention->getId()." ".$mention->translate($currentLang)->getDescription());         
+     
+        }
+
+    }
+
 
     public function Lawyers()
     {
@@ -256,39 +430,7 @@ class ImportCommand extends Command
             // Filling translatable fields
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
-            $Training = $item['formacion'];
-            if($Training){
-                if(preg_match('/Languages/',$Training)){
-                    $matches = explode("Languages", $Training);
-                }else{
-                    if(preg_match('/Language/',$Training)){
-                        $matches = explode("Language", $Training);
-                    }
-                }
-                if(preg_match('/Idiomas/',$Training)){
-                    $matches = explode("Idiomas", $Training);
-                }else{
-                    if(preg_match('/Idioma/',$Training)){
-                        $matches = explode("Idioma", $Training);
-                    }
-                }
-                if(isset($matches)){
-                    $delimiter = array(" y ", " e ", " and ");
-                    $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
-                    $lawyer->translate($currentLang)->setTraining($matches[0]);
-                    $languages = str_replace(": ", "", $languages);
-                    $languageA = explode(",", $languages);
-                    foreach ($languageA as $languagekey => $language) {
-                        $lawyer->translate($currentLang)->setLanguagesLawyer(
-                            array_unique(
-                                array_merge($lawyer->translate($currentLang)->getLanguagesLawyer() ? $lawyer->translate($currentLang)->getLanguagesLawyer() : [], [$language])
-                            )
-                        );
-                    }
-                }
-            }
-            // $lawyer->translate($currentLang)->setTraining($item['formacion']);
-            $lawyer->translate($currentLang)->setMentions($item['menciones']);
+            
             // Adding the current instance to map
             $processedLawyersMap[$oldLawyerId] = $lawyer;
         }
@@ -2032,6 +2174,23 @@ class ImportCommand extends Command
             '13' => 'managing_partner',
             '14' => 'managing_partner',
             '15' => 'honorary_president',
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
+
+    private static function getMappedLanguageParser(?string $code): ?string
+    {
+        $map = [
+            'Spanish'       => 'es',
+            'English'       => 'en',
+            'French'        => 'fr',
+            'Catalan'       => 'ca',
+            'Chinese'       => 'zh',
+            'Portuguese'    => 'pt',
+            'German'        => 'ge',
+            'Italian'       => 'it',
+            'Basque'        => 'va',
+            'Dutch'         => 'ho',
         ];
         return isset($map[$code]) ? $map[$code] : null;
     }

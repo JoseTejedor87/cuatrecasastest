@@ -32,10 +32,11 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr class="row">
-                            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.name'|trans, 'name') }}</th>
+                            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.name'|trans, 'name') }}</th>
                             <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.surname'|trans, 'surname') }}</th>
                             <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.email'|trans, 'email') }}</th>
                             <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.lawyer.fields.lawyerType'|trans, 'lawyerType') }}</th>
+                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.item.fields.createdAt'|trans, 'createdAt') }}</th>
                             <th class="col-sm-1">{{ 'global.labels.publication'|trans }}</th>
                             <th class="col-sm-1">&nbsp;</th>
                         </tr>
@@ -43,10 +44,11 @@
                     <tbody>
                         {% for lawyer in pagination %}
                         <tr class="row">
-                            <td class="col-sm-3">{{ lawyer.name }}</td>
+                            <td class="col-sm-1">{{ lawyer.name }}</td>
                             <td class="col-sm-2">{{ lawyer.surname }}</td>
                             <td class="col-sm-3">{{ lawyer.email }}</td>
                             <td class="col-sm-2">{{ ('forms.choices.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</td>
+                            <td class="col-sm-2">{{ lawyer.createdAt|format_datetime('short', 'none',locale='es') }}</td>
                             <td class="col-sm-1 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':lawyer.languages} %}
                                 /

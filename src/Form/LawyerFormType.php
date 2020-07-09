@@ -31,7 +31,7 @@ class LawyerFormType extends AbstractType
             ->add('name', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.name'])
             ->add('surname', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.surname'])
             ->add('email', EmailType::class, ['required' => true,'label'=>'entities.lawyer.fields.email'])
-            ->add('phone', TextType::class, ['required' => true,'help' => 'El telefono es texto','label'=>'entities.lawyer.fields.phone'])
+            ->add('phone', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.phone'])
             ->add('fax', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.fax'])
             ->add('slug', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.slug'])
             ->add('office', EntityType::class, [
@@ -42,16 +42,20 @@ class LawyerFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => false,
-                'required' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($office) {
                     return $office->translate('es')->getCity();
                 }
             ])
             ->add('photo', ResourceFormType::class, [
+                'required' => false,
                 'label'=>'entities.lawyer.fields.photo'
             ])
-            ->add('lawyerType', LawyerCategoryType::class, ['label'=>'entities.lawyer.fields.lawyerType'])
+            ->add('lawyerType', LawyerCategoryType::class, [
+                'label'=>'entities.lawyer.fields.lawyerType',
+                'required' => true
+            ])
 
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
@@ -88,6 +92,7 @@ class LawyerFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
+                'required' => false,
                 'multiple' => true,
                 'expanded' => false
             ])
