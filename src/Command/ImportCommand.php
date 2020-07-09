@@ -235,16 +235,55 @@ class ImportCommand extends Command
                     $matches = explode("Idioma", $item['formacion']);
                 }
             }
-            if(isset($matches)){
-                $training->translate($currentLang)->setDescription($matches[0]);
-            }
-
-            $training->setLawyer($lawyer);
             
-            $training->mergeNewTranslations();
-            $this->em->persist($training);
-            $this->em->flush();
-            $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());         
+            if(isset($matches)){
+
+                //  UPDATE the  knownLanguages of Lawyer  Table
+                $delimiter = array(" y ", " e ", " and ");
+                $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
+                $arrayCharacterToQuit = [": ", ".", " ", "&nbsp;", "\\r\\n&nbsp;"];
+                $languages = str_replace($arrayCharacterToQuit, "", $languages);
+                $languageArray = explode(",", $languages);
+
+                // JUST UPDATE IF knowledge_languages is empty
+                if ( $lawyer->getKnownLanguages() == '[]' || $item['lang'] == 'eng'){
+                    // Save from format ["Spanish", "English"] to ['es', 'en']
+                    $languageArrayCoded = [];
+                    foreach($languageArray as $language){
+                        $lan = self::getMappedLanguageParser($language);
+                        if (is_null($lan)) continue ;
+                        array_push($languageArrayCoded,$lan);
+                    }
+
+                    if ( !empty($languageArrayCoded)){
+                        $lawyer->setKnownLanguages($languageArrayCoded);
+                        $lawyer->mergeNewTranslations();
+                        $this->em->persist($lawyer);
+                        $this->em->flush();
+                    }
+
+                }
+                
+                // separar los registro en diferente al </br></br>
+
+                $trainingsArray = explode("<br /><br />",str_replace(["<p>","</p>"], "",$matches[0]));
+                $json = json_encode($trainingsArray);
+
+                foreach($trainingsArray as $item_training){
+                    if ($item_training != ''){
+                        $training->translate($currentLang)->setDescription($item_training);
+                        $training->setLawyer($lawyer);            
+                        $training->mergeNewTranslations();
+                        $this->em->persist($training);
+                        $this->em->flush();
+                        $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());         
+                            
+                    }
+                }
+                $this->logger->debug("string ".$matches[0]); 
+                $this->logger->debug("trainingsArray ".$json); 
+
+            }      
      
         }
 
@@ -2124,6 +2163,23 @@ class ImportCommand extends Command
             '13' => 'managing_partner',
             '14' => 'managing_partner',
             '15' => 'honorary_president',
+        ];
+        return isset($map[$code]) ? $map[$code] : null;
+    }
+
+    private static function getMappedLanguageParser(?string $code): ?string
+    {
+        $map = [
+            'Spanish'       => 'es',
+            'English'       => 'en',
+            'French'        => 'fr',
+            'Catalan'       => 'ca',
+            'Chinese'       => 'zh',
+            'Portuguese'    => 'pt',
+            'German'        => 'ge',
+            'Italian'       => 'it',
+            'Basque'        => 'va',
+            'Dutch'         => 'ho',
         ];
         return isset($map[$code]) ? $map[$code] : null;
     }
