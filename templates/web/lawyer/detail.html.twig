@@ -99,28 +99,33 @@
                                     </ul>
                                 </div>
                             {% endif %}
-                        <div class="page__aside">
-                            <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
-                            <ul class="page__aside__list--career">
-                                {% for training in lawyer.trainings %}
-                                    {% if training.translate(app.request.getLocale()).description != '' %}
-                                    <li>
-                                        {{ training.translate(app.request.getLocale()).description | raw}}                                          
-                                    </li>
+
+                            {% if (lawyer.trainings|length > 0) or (lawyer.mentions|length > 0) %}
+                                <div class="page__aside">
+                                    {% if lawyer.trainings|length > 0 %}
+                                        <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
+                                        <ul class="page__aside__list--career">
+                                            {% for training in lawyer.trainings %}
+                                                <li>
+                                                    {{ training.translate(app.request.getLocale()).description | raw}}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
                                     {% endif %}
-                                {% endfor %}
-                            </ul>
-                            <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
-                            <ul class="page__aside__list--career">
-                                {% for mention in lawyer.mentions %}
-                                    {% if mention.translate(app.request.getLocale()).description != '' %}
-                                    <li>
-                                        {{ mention.translate(app.request.getLocale()).description | raw}}                                          
-                                    </li>
+                                    {% if lawyer.mentions|length > 0 %}
+                                        <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
+                                        <ul class="page__aside__list--career">
+                                            {% for mention in lawyer.mentions %}
+                                                <li>
+                                                    {{ mention.translate(app.request.getLocale()).description | raw}}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
                                     {% endif %}
-                                {% endfor %}
-                            </ul>
+                                </div>
+                            {% endif %}
                         </div>
+
                     </div>
                 </section>
 
