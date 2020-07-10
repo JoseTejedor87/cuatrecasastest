@@ -9,26 +9,26 @@
             {{ translatableField.partialTranslations(form.translations, ['title']) }}
             {{ translatableField.partialTranslations(form.translations, ['summary']) }}
             {{ translatableField.partialTranslations(form.translations, ['description']) }}
-            {{ form_row(form.highlighted) }}
-            <div class="m-form__section m-form__section">
-                <div class="m-form__heading">
-                    <h3 class="m-form__heading-title">
-                        {{ 'entities.activity.fields.image'|trans }}
-                    </h3>
-                </div>
-                <div class="vich-attachment-list">
-                    <div class="vich-attachment-item col-md-12">
-                        {{ form_errors(form.photo) }}
-                        {{ form_row(form.photo.file) }}
-                    </div>
-                </div>
-                {% do form.photo.setRendered %}
-            </div>
         </div>
 
     </div>
 
     <div class="col-md-4 offset-md-1">
+
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'entities.activity.fields.image'|trans }}
+                </h3>
+            </div>
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.photo) }}
+                    {{ form_row(form.photo.file) }}
+                </div>
+            </div>
+            {% do form.photo.setRendered %}
+        </div>
 
         <div class="m-form__section m-form__section">
             <div class="m-form__heading">
@@ -48,6 +48,7 @@
                 </h3>
             </div>
             {{ translatableField.partialTranslations(form.translations, ['slug']) }}
+            {{ form_row(form.highlighted) }}
             {{ form_row(form.languages) }}
             {{ form_row(form.regions) }}
         </div>
