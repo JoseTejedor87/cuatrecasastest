@@ -5,6 +5,10 @@ web.global = {
         web.global.loadMiscell();
     },
 
+    mobileMenu: function(){
+
+    },
+
     stickyMenu: function(){
          // menu interactios (hover versus click)
         $('#about-nav .dropdown-menu')
