@@ -61,6 +61,12 @@ class PracticeController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (isset($request->request->get('practice_form')['photo'])) {
+                $photo = $request->request->get('practice_form')['photo'];
+                if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
+                    $practice->setPhoto(null);
+                }
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('cms_practices_edit', ['id'=>$practice->getId()]);

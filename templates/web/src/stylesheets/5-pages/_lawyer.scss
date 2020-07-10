@@ -56,9 +56,10 @@
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
-                transition: background-blend-mode 0.2s ease-out,
-                            background-size 0.6s,
-                            background-position 0.6s;
+                // transition: background-blend-mode 0.2s ease-out,
+                //             background-size 0.6s,
+                //             background-position 0.6s;
+                transition: all .4s ease-in-out;
 
                 @include on-event() {
                     // background-size: auto 180%;
@@ -135,9 +136,10 @@
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
-                transition: background-blend-mode 0.2s ease-out,
-                            background-size 0.6s,
-                            background-position 0.6s;
+                // transition: background-blend-mode 0.2s ease-out,
+                //             background-size 0.6s,
+                //             background-position 0.6s;
+                transition: all .4s ease-in-out;
 
                 @include on-event() {
                     // background-size: auto 180%;
@@ -193,7 +195,7 @@
 
     @include has("name") {
         order: 2;
-        width: 52%;
+        width: 38%;
         margin-top: 1rem;
         @include fontSet(23px, 27px);
         font-weight: normal;
@@ -201,7 +203,7 @@
         color: $white;
 
         @include when-inside(".lawyer__search__wrapper--grid") {
-            word-spacing: 100vw;
+            // word-spacing: 100vw;
         }
 
         @include when-inside(".lawyer__search__wrapper--list") {
@@ -210,6 +212,7 @@
             margin-top: 0.5rem;
             margin-bottom: 0.2rem;
             @include fontSet(33px, 33px);
+            letter-spacing: 0;
             color: $complementary-color;
         }
 

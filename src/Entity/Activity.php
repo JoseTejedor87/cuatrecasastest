@@ -19,9 +19,9 @@ abstract class Activity extends Publishable
     use ORMBehaviors\Translatable\Translatable;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="activity", cascade={"persist"}, orphanRemoval=true)
      */
-    private $image;
+    private $photo;
 
     /**
      * @ORM\Column(type="boolean", options={"default"=false})
@@ -112,17 +112,7 @@ abstract class Activity extends Publishable
         
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getHighlighted(): ?bool
     {
@@ -435,6 +425,24 @@ abstract class Activity extends Publishable
     {
         if ($this->quote->contains($quote)) {
             $this->quote->removeElement($quote);
+        }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Resource
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?Resource $photo): self
+    {
+        $this->photo = $photo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newActivity = null === $photo ? null : $this;
+        if ($photo->getActivity() !== $newActivity) {
+            $photo->setActivity($newActivity);
         }
 
         return $this;
