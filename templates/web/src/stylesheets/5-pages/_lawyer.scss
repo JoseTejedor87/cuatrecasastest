@@ -51,8 +51,8 @@
                 width: calc(33.3333% - 30px);
                 margin: 0 15px;
                 margin-bottom: 30px;
-                background-size: auto 350px;
-                background-position: -580px -100px;
+                background-size: 100% auto;
+                background-position: 0 0;
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
@@ -131,8 +131,8 @@
 
                 margin: 0 15px;
                 margin-bottom: 30px;
-                background-size: auto 350px;
-                background-position: -580px -100px;
+                background-size: 100% auto;
+                background-position: 0 0;
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
