@@ -89,13 +89,6 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
-  mentions:
-    index:
-      title: Menciones
-    new:
-      title: Nueva Mención
-    edit:
-      title: Editar Mención
   people:
     index:
       title: Personas
@@ -154,7 +147,6 @@ menu:
   practices.title: Áreas de Práctica
   products.title: Productos
   metadata.title: Metadatos
-  mentions.title: Menciones
   quotes.title: Citas
   awards.title: Premios
   office.title: Oficinas
@@ -270,16 +262,15 @@ entities:
       lawyerType: Tipo
       description: Descripción
       curriculum: Curriculum Vitae
-      training: Formación
       activities: Sectores / Servicios / Desks
       secondaryActivities: Sectores / Servicios / Desks (secundarias)
       mentions: Menciones
+      trainings: Formaciones
       office: Oficina
       slug: Slug
   mention:
     fields:
-      body: Texto
-      lawyers: Abogados
+      description: Texto
   office:
     fields:
       city: Ciudad
@@ -339,6 +330,9 @@ entities:
   sector:
     fields:
       children: Subsectores
+  training:
+    fields:
+      description: Texto
 
 # Custom Form Types
 

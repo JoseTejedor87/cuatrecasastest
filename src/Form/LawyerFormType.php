@@ -8,9 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Entity\Activity;
 use App\Entity\Lawyer;
@@ -96,6 +95,20 @@ class LawyerFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false
             ])
+            ->add('mentions', CollectionType::class, [
+                'label'=>'entities.lawyer.fields.mentions',
+                'entry_type' => MentionFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
+            ->add('trainings', CollectionType::class, [
+                'label'=>'entities.lawyer.fields.trainings',
+                'entry_type' => TrainingFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
@@ -105,8 +118,6 @@ class LawyerFormType extends AbstractType
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
                     'description' => ['label'=>'entities.lawyer.fields.description', 'attr'=>['class'=>'summernote']],
                     'curriculum' => ['label'=>'entities.lawyer.fields.curriculum', 'attr'=>['class'=>'summernote']],
-                    'training' => ['label'=>'entities.lawyer.fields.training', 'attr'=>['class'=>'summernote']],
-                    'mentions' => ['label'=>'entities.lawyer.fields.mentions', 'attr'=>['class'=>'summernote']],
                 ],
             ]);
     }
