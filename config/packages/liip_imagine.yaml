@@ -19,16 +19,31 @@ liip_imagine:
 
     filter_sets:
 
+        desks_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
+
         lawyers_grid:
             quality: 75
             filters:
                 scale:
                     dim: [350, 200]
-#                thumbnail:
-#                    size: [350, 200]
-#                    mode: outbound
 
         lawyers_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
+
+        practices_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
+
+        sectors_header:
             quality: 75
             filters:
                 scale:

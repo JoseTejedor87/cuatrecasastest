@@ -10,7 +10,9 @@
     <main role="main" class="lawyer">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            {% set photo = practice.photo ? (asset('/resources/' ~ practice.photo.fileName) | imagine_filter('practices_header')) : '' %}
+
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ photo ? photo : '' }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
