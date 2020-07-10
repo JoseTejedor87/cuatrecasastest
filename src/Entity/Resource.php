@@ -57,6 +57,11 @@ class Resource extends Publishable
     private $caseStudy;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Activity", inversedBy="photo")
+     */
+    private $activity;
+    
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
@@ -200,4 +205,17 @@ class Resource extends Publishable
 
         return $this;
     }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
+
+        return $this;
+    }
+
 }
