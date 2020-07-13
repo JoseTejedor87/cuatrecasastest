@@ -7,11 +7,9 @@
 // ==========================================================================
 
 
-
 //
 // STICKY MENU
 // --------------------------------------------------------------------------
-
 
 $menu-height: 55px !default;
 
@@ -52,16 +50,16 @@ $menu-height: 55px !default;
             // }
         }
 
-        .navbar-brand {
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.2s ease-out;
+        // .navbar-brand {
+        //     visibility: visible;
+        //     opacity: 1;
+        //     transition: opacity 0.2s ease-out;
 
-            &.stickyNav {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
+        //     &.stickyNav {
+        //         visibility: hidden;
+        //         opacity: 0;
+        //     }
+        // }
     }
 
     #userNav {
@@ -90,11 +88,66 @@ header {
 
 
 
+
 //
-// Primary Nav
+// MOBILE NAVIGATION
 // --------------------------------------------------------------------------
 
-.main-nav-wrapper {
+
+#navMobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+    z-index: 9;
+
+    #primaryNav {
+        position: relative;
+        z-index: 99;
+        height: $menu-height;
+
+        border: 2px solid blue;
+    }
+
+    #secondaryNav {
+        position: fixed;
+        top: $menu-height;
+        height: $menu-height;
+        visibility: visible;
+        opacity: 1;
+        // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+        transition: all 0.3s ease-in-out;
+
+        border: 2px solid blue;
+
+        &.stickyNav {
+            top: 0;
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
+    #userNav {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+
+        &.stickyNav {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+
+//
+// DESKTOP NAVIGATION
+// --------------------------------------------------------------------------
+
+#navDesktop {
 
     .navbar {
         padding: 0 0;
@@ -112,7 +165,6 @@ header {
         text-transform: uppercase;
         transition: all 0.3s ease-out;
     }
-
 
     //
     // Main options
@@ -322,14 +374,14 @@ header {
 
             .nav-item {
                 position: relative;
-                margin-right: 0.8rem;
-                margin-left: 0.8rem;
+                margin-right: 0.3rem;
+                margin-left: 0.3rem;
 
                 &:before {
                     content: "";
                     position: absolute;
-                    top: 0;
-                    right: -14px;
+                    top: 8px;
+                    right: -6px;
                     width: 1px;
                     height: 13px;
                     background-color: $main-color;
@@ -689,6 +741,7 @@ header {
         }
     }
 }
+
 
 
 //

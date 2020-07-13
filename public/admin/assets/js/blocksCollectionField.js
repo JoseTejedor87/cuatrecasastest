@@ -86,8 +86,11 @@ var blockCollectionManager = {
                 revert: "invalid",
                 opacity: 0.70
             });
+            // Eliminado temporalmente porque genera problemas con el summernote.
+            // cuando se revise gestor de bloques a nivel de Page habrá que valorar
+            // si es o no imprescindible esta opción.
+            // $item.disableSelection();
         }
-        $item.disableSelection();
 
         return $item;
     },
@@ -129,12 +132,15 @@ var blockCollectionManager = {
             var $list = $collection.find(
                 '#' + $collection.data('items-list-selector')
             );
-            $list.disableSelection()
             $list.children().each((position, item)=> {
                 let $item = jQuery(item);
                 this.initializeItem($item, $collection);
             });
             if ($collection.data('sortable') == true) {
+                // Eliminado temporalmente porque genera problemas con el summernote.
+                // cuando se revise gestor de bloques a nivel de Page habrá que valorar
+                // si es o no imprescindible esta opción.
+                // $list.disableSelection();
                 $list.sortable({
                     revert: true,
                     update: (event, ui) => {
