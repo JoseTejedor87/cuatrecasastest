@@ -25,6 +25,17 @@ global:
 sections:
   knowledge:
     title: Conocimiento
+    knowledgeTypes:
+      news: Noticias
+      opinion: Opinion
+      article: Artículo
+      legalNovelty: Novedades legales
+      research: Investigaciones
+    knowledgeFormat:
+      text: Texto
+      video: Video
+      podcast: Podcast
+      interactive: Interactivo
   lawyers:
     title: Abogados
     office: CUATRECASAS

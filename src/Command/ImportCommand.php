@@ -1352,7 +1352,7 @@ class ImportCommand extends Command
         $publicationRepository = $this->em->getRepository(Publication::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [publication_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM publication_person");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
@@ -1712,23 +1712,9 @@ class ImportCommand extends Command
             true
         );
 
-        // Ordering the items using the publicacion_id column
-        // in order to free memory while doing the loop
-        usort($publication_translations, function ($a, $b) {
-            if ($a['noticias_id'] == $b['noticias_id']) {
-                return 0;
-            }
-            return ($a['noticias_id'] < $b['noticias_id']) ? -1 : 1;
-        });
-
         // Removing files from disk
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/news-*"));
-
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
-        // $this->em->getConnection()->executeQuery("DELETE FROM [ArticleTranslation]");
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Article]");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
 
         $processedPublicationMap = [];
         $processedAttachmentsMap = [];
@@ -1736,24 +1722,39 @@ class ImportCommand extends Command
         foreach ($publications as $key => $item) {
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
-            if($item['tipo_noticia']==3){
-                $publication = new News();
+
+            if(isset($processedPublicationMap[$oldPublicationId])){
+                $publicationRepository = $this->em->getRepository(Publication::class);
+                $publicationId = $this->getMappedPublicationId($oldPublicationId);
+                if($publicationId){
+                    $publication = $publicationRepository->find($publicationId); 
+                }
+            }else{
+                if ($item['tipo_noticia']==3) {
+                    $publication = new News();
+                } elseif ($item['tipo_noticia']==4) {
+                    $publication = new News();
+                } elseif ($item['tipo_noticia']==5) {
+                    $publication = new Opinion();
+                } else {
+                    continue;
+                }
             }
-            if($item['tipo_noticia']==4){
-                $publication = new News();
-            }
-            if($item['tipo_noticia']==5){
-                $publication = new Opinion();
-            }
-            if(isset($publication)){
+            if($publication){
                 $publication->setOldId($oldPublicationId);
                 $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
 				$currentLang = self::getMappedLanguageCode($item['lang']);
                 if ($currentLang && isset($item['title']) && $item['title'] != '') {
-					$publication->translate($currentLang)->setTitle(isset($item['title']) ? $item['title'] : 'Notitle');
-                    $publication->translate($currentLang)->setSummary($item['summary']  ? $item['summary'] : '');
-                    $publication->translate($currentLang)->setContent($item['contenido']  ? $item['contenido'] : '');
+                    $encoding = "UTF-8";
+                    $title = isset($item['title']) ? html_entity_decode($item['title']) : 'Notitle';
+                    if ( false === mb_check_encoding ( $title, $encoding ) )
+                    {
+                        $title =  utf8_decode($title);
+                    }
+					$publication->translate($currentLang)->setTitle($title);
+                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary']) : '');
+                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido']) : '');
                     $publication->setLanguages(
                         array_unique(
                             array_merge(
@@ -1847,41 +1848,29 @@ class ImportCommand extends Command
 
         $this->logger->debug("Actualizando traducciones de artículos...");
 
-        // Just to control when the noticias_id changes during the loop
-        $lastId = 0;
-
         // Attaching translations
         foreach ($publication_translations as $index => $item1) {
             $oldPublicationId = $item1['noticias_id'];
-
-            // The order of the items in the collection guarantees us that
-            // there is no more registers with id = lastId in the collection
-            // Then, we can persist the article with id = lastId
-            // and remove it to free memory
-            if ($lastId != 0 && $lastId != $oldPublicationId) {
-                $publication = $processedPublicationMap[$lastId] ?? null;
-                if ($publication) {
-                    if (!empty($publication->getLanguages())) {
-                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
-                        $this->logger->debug("Updating Publication ".$publication->getId());
-                        if($processedPublicationMap[$lastId])
-                        unset($processedPublicationMap[$lastId]);
-                        if($processedAttachmentsMap[$lastId])
-                        unset($processedAttachmentsMap[$lastId]);
-                        // To force garbage collector to do its job
-                        gc_collect_cycles();
-                    }
-                }
+            $publicationRepository = $this->em->getRepository(Publication::class);
+            $publicationId = $this->getMappedPublicationId($oldPublicationId);
+            if($publicationId){
+                $publication = $publicationRepository->find($publicationId); 
+            }else{
+                continue;
             }
-
-            $publication = $processedPublicationMap[$oldPublicationId] ?? null;
-
+            // $publication = isset($processedPublicationMap[$oldPublicationId]) ? $processedPublicationMap[$oldPublicationId] :  null;
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
                 if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
-                    $publication->translate($currentLang)->setTitle(isset($item1['title']) ? $item1['title'] : 'Notitle');
-                    $publication->translate($currentLang)->setSummary($item1['summary']  ? $item1['summary'] : '');
-                    $publication->translate($currentLang)->setContent($item1['contenido']  ? $item1['contenido'] : '');
+                    $encoding = "UTF-8";
+                    $title = isset($item1['title']) ? html_entity_decode($item1['title']) : 'Notitle';
+                    if ( false === mb_check_encoding ( $title, $encoding ) )
+                    {
+                        $title =  utf8_decode($title);
+                    }
+                    $publication->translate($currentLang)->setTitle($title);
+                    $publication->translate($currentLang)->setSummary($item1['summary']  ? html_entity_decode($item1['summary']) : '');
+                    $publication->translate($currentLang)->setContent($item1['contenido']  ? html_entity_decode($item1['contenido']) : '');
                     $publication->setLanguages(
                         array_unique(
                             array_merge(
@@ -1916,8 +1905,7 @@ class ImportCommand extends Command
                         }
                     }
                 }
-                // Adding the current instance to the offices mapping
-                $processedPublicationMap[$oldPublicationId] = $publication;
+
 
                 // Is the last item in the collection
                 if ($index+1 == count($publication_translations)) {
@@ -1927,8 +1915,6 @@ class ImportCommand extends Command
                     }
                 }
             }
-
-            $lastId = $oldPublicationId;
         }
     }
     public function NewsByLawyers()

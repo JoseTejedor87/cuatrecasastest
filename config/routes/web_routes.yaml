@@ -77,7 +77,7 @@ knowledge_index:
         en:   /knowledge
         es:   /conocimiento
     methods:    GET
-    controller: App\Controller\Web\KnowledgeController::insights
+    controller: App\Controller\Web\KnowledgeController::index
 
 
 # Sectors
