@@ -9,15 +9,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
+use App\Repository\CaseStudyRepository;
 
 
 class PublicationController extends WebController
 {
-    public function detail(Request $request, PublicationRepository $PublicationRepository)
+    public function detail(Request $request, PublicationRepository $PublicationRepository,CaseStudyRepository $caseStudyRepository)
     {
         $publication = $PublicationRepository->getInstanceByRequest($request);
+        $caseStudiesRelated = $caseStudyRepository->findByActivities($publication->getActivities()->toArray());
+        
+
         return $this->render('web/knowledge/articleDetail.html.twig', [
             'publication' => $publication,
+            'caseStudiesRelated'  => $caseStudiesRelated,
         ]);
     }
 }
