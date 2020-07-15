@@ -133,7 +133,11 @@ class KnowledgeController extends WebController
             if ($value instanceof \App\Entity\News){
                 $value->type = 'news';
             }
-           
+            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            if(!$value->photo){
+                $value->photo = 'https://via.placeholder.com/800x400';
+            }
+            
         }
 
         if ($request->isXMLHttpRequest()) {
@@ -142,7 +146,7 @@ class KnowledgeController extends WebController
                 foreach ($publications as $key => $publication) {
                     // $url =  $this->container->get('router')->generate('publications_detail', array('slug' => $publication->translate('es')->getSlug() ? $publication->translate('es')->getSlug() : ''));
                     $publicationsA[$key] = array( 'title' => $publication->translate('es')->getTitle(), 'publicationType' => $publication->type, 'Slug' => $publication->translate('es')->getSlug(), 'Publication_date' => $publication->fechaPubli);
-                    $publicationsA[$key]['photo'] = $this->getPhotoPathByFilter($publication, 'lawyers_grid');
+                    $publicationsA[$key]['photo'] = $publication->photo;
                 }
             }
             $json = array(
