@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ practice.translate(app.request.getLocale()).title|raw }}
+                            {{ product.translate(app.request.getLocale()).title|raw }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -25,7 +25,7 @@
                                     <a href="{{ path('practices_index') }}">{{ 'sections.practices.title'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ practice.translate(app.request.getLocale()).title|raw }}
+                                    {{ product.translate(app.request.getLocale()).title|raw }}
                                 </li>
                             </ol>
                         </nav>
@@ -40,30 +40,30 @@
 
             <section class="row page__block--full">
                 <div class="col">
-                    <p class="h3">{{ practice.translate(app.request.getLocale()).summary|raw }}</p>
+                    <p class="h3">{{ product.translate(app.request.getLocale()).summary|raw }}</p>
                 </div>
             </section>
 
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
-                        <p>{{ practice.translate(app.request.getLocale()).description|raw }}</p>
+                        <p>{{ product.translate(app.request.getLocale()).description|raw }}</p>
                     </div>
 
                     <div class="page__block__aside">
-                        {% if practice.children|length > 0 %}
+                        {% if product.children|length > 0 %}
                             <div class="page__aside">
                                 <h3 class="page__aside__title">{{ 'sections.practices.specialities'|trans }}</h3>
                                 <ul class="page__aside__list--specialties">
-                                    {% for practice in practice.children %}
+                                    {% for practice in product.children %}
                                         <li><a href="{{ navigation_service.getPathByPublishable(practice) }}">{{ practice.translate(app.request.getLocale()).title }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
                         {% endif %}
-                        {% if practice.quote|length > 0 %}
+                        {% if product.quote|length > 0 %}
                         <div class="page__aside page__aside--nobg">
-                            {% for quote in practice.quote %}
+                            {% for quote in product.quote %}
                             <blockquote class="cite__quote">
                                 <p>{{ quote.translate(app.request.getLocale()).body }}</p>
                                 <cite>{{ quote.author}}, {{ quote.year}}</cite>
@@ -71,11 +71,11 @@
                             {% endfor %}
                         </div>
                         {% endif %}
-                        {% if practice.relatedActivities|length > 0 %}
+                        {% if product.relatedActivities|length > 0 %}
                             <div class="page__aside page__aside--practices">
                                 <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedActivities'|trans }}</h3>
                                 <ul class="related__services">
-                                    {% for activity in practice.relatedActivities %}
+                                    {% for activity in product.relatedActivities %}
                                         <li class="related__services__item">
                                             <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
                                         </li>
@@ -90,11 +90,11 @@
         </article>
     </main>
 
-    {% if practice.lawyers|length > 0 %}
+    {% if product.lawyers|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
-            team:practice.translate(app.request.getLocale()).title,
-            lawyers:practice.lawyers|slice(0, 5),
-            fixed_activity:practice.translate(app.request.getLocale()).title
+            team:product.translate(app.request.getLocale()).title,
+            lawyers:product.lawyers|slice(0, 5),
+            fixed_activity:product.translate(app.request.getLocale()).title
         } %}
     {% endif %}
 

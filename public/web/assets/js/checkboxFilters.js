@@ -19,10 +19,15 @@ $checkBoxes.change( function() {
 });
 
 $($checksOutput).on('click', '.checkbox-tag .close-tag', function(element){
-    var value = $(this).data( "value" ).replace('.', '');
-    $('#'+value).prop( "checked", false );
+    var value = $(this).data( "value" );
+    console.log(value);
+        $checkBoxes.each(function(i, elem) {
+            if($(elem).attr("data-name") == value){
+                $(elem).prop( "checked", false );
+                checkboxReset();
+            }
 
-    checkboxReset();
+        });
 });
 
 
@@ -35,9 +40,9 @@ function checkboxReset() {
     $checkBoxes.each(function(i, elem) {
         // if checkbox, use value if checked
         if ( elem.checked ) {
-
+            //console.log($(elem).attr("data-name"));
             // checkbox value
-            inclusivesFilters.push( elem.value );
+            inclusivesFilters.push( $(elem).attr("data-name") );
             // console.log('checkbox value: '+elem.value);
 
             // checkbox text
@@ -79,10 +84,6 @@ function checkboxReset() {
     var valueTags    = filterTags;
     var cleanTags   = '<a href="#" id="deleteFilters">Limpiar filtros</a>';
     var fullTags    = showTags.concat(cleanTags);
-
-    console.log('showTags: '+showTags);
-    console.log('showText: '+showText);
-    console.log('showFull: '+showFull);
 
     var $accordionFilters = $('#filterTabsContent .collapse');
 
