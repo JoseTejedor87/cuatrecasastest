@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AwardRepository")
  */
-class Award extends Publishable
+class Award extends Item
 {
     use ORMBehaviors\Translatable\Translatable;
 
@@ -17,62 +17,42 @@ class Award extends Publishable
     /**
      * @ORM\Column(type="date")
      */
-    private $date;
+    private $year;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="award", cascade={"persist"}, orphanRemoval=true)
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $status;
-
-
-
-    public function getId(): ?int
+    public function getYear(): ?\DateTimeInterface
     {
-        return $this->id;
+        return $this->year;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function setYear(\DateTimeInterface $year): self
     {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
+        $this->year = $year;
 
         return $this;
     }
-
 
     public function getImage(): ?Resource
     {
         return $this->image;
     }
 
-
     public function setImage(?Resource $image): self
     {
         $this->image = $image;
-        if ($image) {
-            $image->setAward($this);
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAward = null === $image ? null : $this;
+        if ($image->getAward() !== $newAward) {
+            $image->setAward($newAward);
         }
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
+
+
 }

@@ -293,7 +293,9 @@
                                                 {{ publication.translate(app.request.getLocale()).title|raw  }}
                                             </a>
                                         </h5>
+                                        {% if style[key] !=  "grid__item--normal"%}
                                         <div class="boxnews__img" style="background-image: url('{{ publication.photo  }}')"></div>
+                                        {% endif %}
                                     </div>
                                 </article>
                             </div>
@@ -491,14 +493,17 @@
                 if(msg['page'] == 1){
                     $('.grid__item').remove();
                 }
-                $grid.masonry('reloadItems');
+                //$grid.masonry('reloadItems');
                 $grid.masonry('destroy');
                 msg['publications'].forEach(function(publication, i){
                     item.find( "a" ).text(publication['title']);
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
-                    item.find( ".boxnews__img" ).css("background-image", "url("+publication['photo']+")");
-
+                    if(style[i] != "grid__item--normal"){
+                        item.find( ".boxnews__img" ).css("background-image", "url("+publication['photo']+")");
+                    }else{
+                        item.find( ".boxnews__img" ).hide();
+                    }
                     item.find( ".boxnews__item--article" ).removeClass("boxnews__item--article");
                     item.find( ".boxnews__item" ).addClass('boxnews__item--'+publication['publicationType'])
                     var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';

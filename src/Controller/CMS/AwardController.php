@@ -69,7 +69,7 @@ class AwardController extends CMSController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('cms_awards_index');
+            return $this->redirectToRoute('cms_awards_edit', ['id'=>$award->getId()]);
         }
 
         return $this->render('cms/award/edit.html.twig', [
