@@ -1053,6 +1053,9 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM [AwardTranslation]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Award]");
 
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Award], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([AwardTranslation], RESEED, 1)");
+
         $processedAwardsMap = [];
         $processedAttachmentsMap = [];
 
@@ -1072,13 +1075,23 @@ class ImportCommand extends Command
                     // in other case, create a new instance and fill it
                     $Award = new Award();
                     $Award->setOldId($oldAwardId);
-                    $Date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
-                    $Award->setDate(
-                        $Date ? $Date : date("Y-m-d H:i:s")
-                    );
-                    $Award->setStatus($item['status']);
+                    
+                    if (preg_match("/\b\d{4}\b/", $item['otorgado']  , $matches)) {
+                        $Date = \DateTime::createFromFormat('Y-m-d', $matches[0].'-01-01');
+                        $Award->setYear(
+                            $Date ? $Date : date("Y-m-d")
+                        );
+                    } else{
+                        $Date = \DateTime::createFromFormat('Y-m-d', date("Y-m-d"));
+                        $Award->setYear(
+                            $Date ? $Date : date("Y-m-d")
+                        );
+                    }
+                    
+
                 }
                 // Updating the languages field using the correspondent visio_* field
+                /*
                 if ($item['visio_'.$item['lang']] == "1") {
                     $Award->setLanguages(
                         array_unique(
@@ -1087,6 +1100,7 @@ class ImportCommand extends Command
                         )
                     );
                 }
+                */
                 // Importing attachments from source
                 if ($item['url_image']) {
                     // Was processed the current attachment instance in a previous iteration ?
@@ -1119,10 +1133,7 @@ class ImportCommand extends Command
                 // Filling translatable fields
                 $Award->translate($currentLang)->setTitle($item['title']);
                 $Award->translate($currentLang)->setGranted($item['otorgado']);
-                $Award->translate($currentLang)->setDescAward($item['desc_award']);
-                $Award->translate($currentLang)->setDescAwardFirma($item['desc_award_firma']);
-                $Award->translate($currentLang)->setDescAwardIndiv($item['desc_award_indiv']);
-                $Award->translate($currentLang)->setTags($item['tags']);
+
                 // Adding the current instance to the events mapping
                 $processedAwardsMap[$oldAwardId] = $Award;
             }

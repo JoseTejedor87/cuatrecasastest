@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use App\Entity\Award;
 use App\Form\ResourceFormType;
@@ -19,20 +20,20 @@ class AwardFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('status', IntegerType::class, ['required' => true,'label'=>'entities.award.fields.status'])
             ->add('image', ResourceFormType::class, [
                 'label'=>'entities.award.fields.image'
+            ])
+            ->add('year', DateType::class, [
+                'label'=>'entities.awards.fields.year',
+                'widget' => 'choice',
+                'required' => true
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                    'title' => ['label'=>'entities.award.fields.title'],
-                    'granted' => ['label'=>'entities.award.fields.granted', 'attr'=>['class'=>'summernote']],
-                    'desc_award' => ['label'=>'entities.award.fields.desc_award', 'attr'=>['class'=>'summernote']],
-                    'desc_award_firma' => ['label'=>'entities.award.fields.desc_award_firma', 'attr'=>['class'=>'summernote']],
-                    'desc_award_indiv' => ['label'=>'entities.award.fields.desc_award_indiv', 'attr'=>['class'=>'summernote']],
-                    'tags' => ['label'=>'entities.award.fields.tags', 'attr'=>['class'=>'summernote']],
+                    'title' => ['label'=>'entities.award.fields.title', 'required' => true, 'empty_data' => ''],
+                    'granted' => ['label'=>'entities.award.fields.granted', 'required' => true, 'empty_data' => ''],
                 ],
             ]);
         ;
