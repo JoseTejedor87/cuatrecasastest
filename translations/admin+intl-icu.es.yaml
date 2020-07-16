@@ -238,6 +238,7 @@ entities:
       summary: Resumen
       description: Descripción
       headerType: Tipo de cabecera
+      showIntroBlock: Bloque introducción
       showKnowledgeBlock: Bloque conocimiento
       showEventsBlock:  Bloque eventos
       showLegalNoveltiesBlock: Bloque novedades jurídicas

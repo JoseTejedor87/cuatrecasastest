@@ -43,6 +43,11 @@ class Insight extends Publishable
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
+    private $showIntroBlock;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
     private $showKnowledgeBlock;
 
     /**
@@ -237,6 +242,18 @@ class Insight extends Publishable
     public function setHeaderType(string $headerType): self
     {
         $this->headerType = $headerType;
+
+        return $this;
+    }
+
+    public function getShowIntroBlock(): ?bool
+    {
+        return $this->showIntroBlock;
+    }
+
+    public function setShowIntroBlock(bool $showIntroBlock): self
+    {
+        $this->showIntroBlock = $showIntroBlock;
 
         return $this;
     }

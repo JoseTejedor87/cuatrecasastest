@@ -36,6 +36,17 @@ parameters:
     app.insight_header_types:
         - full_width
         - two_columns
+    app.publications_types:
+        - news
+        - opinion
+        - article
+        - legalNovelty
+        - research
+    app.publications_format:
+        - text
+        - video
+        - podcast
+        - interactive
 
     app.known_languages_by_lawyers: [es, en, it, pt, fr, va, ca, ge, ho]
 
