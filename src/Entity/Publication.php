@@ -30,6 +30,7 @@ abstract class Publication extends Publishable
      */
     private $format;
 
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="publication", cascade={"persist"}, orphanRemoval=true)
      */
@@ -93,6 +94,7 @@ abstract class Publication extends Publishable
 
         return $this;
     }
+
 
     /**
         * @return Collection|Resource[]

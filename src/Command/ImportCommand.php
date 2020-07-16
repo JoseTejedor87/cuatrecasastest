@@ -1352,7 +1352,7 @@ class ImportCommand extends Command
         $publicationRepository = $this->em->getRepository(Publication::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM publication_person");
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_person");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
@@ -1384,7 +1384,7 @@ class ImportCommand extends Command
         $officeRepository = $this->em->getRepository(Office::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [publication_office]");
+        //$this->em->getConnection()->executeQuery("DELETE FROM [publication_office]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " office:" . $item['oficina_id']);
@@ -1412,7 +1412,7 @@ class ImportCommand extends Command
         $activityRepository = $this->em->getRepository(Activity::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [publication_activity]");
+        //$this->em->getConnection()->executeQuery("DELETE FROM [publication_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['publicacion_id'] . " practica:" . $item['practica_id']);
