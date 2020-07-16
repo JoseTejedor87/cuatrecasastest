@@ -340,7 +340,7 @@ $color-off: $white;
 }
 
 .checkbox {
-    padding: 0.2rem;
+    // padding: 0.2rem;
 
     input[type="checkbox"] {
         position: absolute;
@@ -353,17 +353,18 @@ $color-off: $white;
 
             span {
                 display: inline-block;
+                width: 100%;
                 padding: 0.2rem 0 0 0;
                 @include fontSet(20px, 24px);
                 text-align: left;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                // white-space: nowrap;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
             }
 
             &:before {
                 content: '';
-                display: inline-block;
+                // display: inline-block;
                 width: 25px;
                 height: 25px;
                 position: relative;
