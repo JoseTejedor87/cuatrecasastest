@@ -22,13 +22,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
+                                    <a href="{{ path('home') }}">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#">Conocimiento</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Eventos
+                                    <a href="{{ path('events_directory') }}">Eventos</a>
                                 </li>
                             </ol>
                         </nav>
@@ -65,9 +62,10 @@
                                 {{ (event.phone) ? event.phone : '' }}
                             </div>
                         </div>
-
-                        {{ event.translate(app.request.getLocale()).description|raw }}
-                        <button type="button" class="doble__arrow__accordion">Ver más</button>
+                        <div  id="readMore">
+                            {{ event.translate(app.request.getLocale()).description|raw }}
+                        {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
+                        </div>
                         <div class="page__event__details">
                             {% for attachment in event.attachments %}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
@@ -77,12 +75,12 @@
                             {% endfor %}
                             <div class="page__event__info">
                                 <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
-                                <div data-reading>8' lectura</div>
+                                {# <div data-reading>8' lectura</div> #}
                             </div>
                             <ul class="related__services">
                                 {% for activity in event.activities %}
                                 <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
+                                    <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
                                         {{ activity.translate(app.request.getLocale()).title|raw}}
                                     </a>
                                 </li>
@@ -183,7 +181,7 @@
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
                             {% for speaker in event.people %}
                             <div class="lawyer__search__item">
-                                <a href="#" class="lawyer__link">
+                                <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
                                     <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
                                     <div class="lawyer__details">
                                         <div class="lawyer__company">
@@ -325,6 +323,8 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Read More -->
+<script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
 <script>
     $( document ).ready(function() {
         web.global.sliderGeneral();
