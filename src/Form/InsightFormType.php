@@ -70,6 +70,7 @@ class InsightFormType extends AbstractType
             ])
 
             ->add('headerType', InsightHeaderType::class, ['label'=>'entities.insight.fields.headerType'])
+            ->add('showIntroBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showIntroBlock', 'required' => false])
             ->add('showKnowledgeBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showKnowledgeBlock', 'required' => false])
             ->add('showEventsBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showEventsBlock', 'required' => false])
             ->add('showLegalNoveltiesBlock', CheckboxType::class, ['label'=>'entities.insight.fields.showLegalNoveltiesBlock', 'required' => false])
