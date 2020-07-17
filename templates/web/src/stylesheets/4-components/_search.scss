@@ -130,6 +130,7 @@
 
                 &:before {
                     color: $complementary-color;
+                    transition: all 0.3s ease-in-out;
                 }
             }
 

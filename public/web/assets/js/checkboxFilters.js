@@ -61,7 +61,7 @@ function checkboxReset() {
     // checkboxex autoclose tags
 
     inclusivesFilters.forEach(function(value) {
-        filterTags = filterTags + '<span class="checkbox-tag">'+value.replace('.', '')+'<button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
+        filterTags = filterTags + '<span class="checkbox-tag"><span>'+value.replace('.', '')+'</span><button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
     });
 
     /*
@@ -89,7 +89,8 @@ function checkboxReset() {
 
     // checkboxes & tags & buttons functionality
     if (inclusivesFilters.length == 0) {
-        $checksOutput.fadeOut(200);
+        $checksOutput.hide();
+        // $checksOutput.fadeOut(200);
         // $('.apply_button').prop('disabled', true);
 
         $('.order_abc').removeClass('active');
@@ -101,12 +102,14 @@ function checkboxReset() {
         // }
 
     } else if (inclusivesFilters.length == 1) {
-        $checksOutput.fadeIn();
+        $checksOutput.show();
+        // $checksOutput.fadeIn();
         // $('.apply_button').prop('disabled', false);
         $checksOutput.html(valueTags);
 
     } else if (inclusivesFilters.length > 1) {
-        $checksOutput.fadeIn();
+        $checksOutput.show();
+        // $checksOutput.fadeIn();
         $checksOutput.html(fullTags);
     }
 
