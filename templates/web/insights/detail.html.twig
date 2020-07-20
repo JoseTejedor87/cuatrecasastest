@@ -180,137 +180,37 @@
                             <div class="grid__masonry">
                                 <div class="grid__sizer"></div>
                                 <div class="grid__gutter"></div>
-
-                                <div class="grid__item grid__item--dobleW">
-                                    <article class="boxnews__item boxnews__item--opinion">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Opinion</div>
-                                            <div class="boxnews__info">3 Marzo 2020</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark"></button>
-                                            </div>
+                                 {% for key,publication in publications %}
+                            {% set style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"] %}
+                            {# {% set fecha = publication.publication_date |format_datetime('long', 'none',locale='es')|split(' ') %} #}
+                            <div class="grid__item {{ style[key] }}">
+                                <article class="boxnews__item boxnews__item--{{ publication.type  }}">
+                                    <div class="boxnews__header">
+                                        <div class="boxnews__type">{{ publication.type  }}
+                                        {# Opinion #}
                                         </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciados
-                                                </a>
-                                            </h5>
-                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
+                                        <div class="boxnews__info">
+                                        {{ publication.fechaPubli }} 
+                                        {# 3 Marzo 2020 #}
                                         </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--normal">
-                                    <article class="boxnews__item boxnews__item--news">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Noticia</div>
-                                            <div class="boxnews__info">Becas y ayudas</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark"></button>
-                                            </div>
+                                        <div class="boxnews__button">
+                                            <button type="button" class="button__bookmark"></button>
                                         </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    La Fundación Cuatrecasas convoca la II edición de la Beca Manuel Olivencia para estudiantes de Derecho
-                                                </a>
-                                            </h5>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--dobleH">
-                                    <article class="boxnews__item boxnews__item--news">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Noticia</div>
-                                            <div class="boxnews__info">Innovación</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark button__bookmark--on"></button>
-                                            </div>
-                                        </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
-                                                </a>
-                                            </h5>
-                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--normal">
-                                    <article class="boxnews__item boxnews__item--news">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Noticia</div>
-                                            <div class="boxnews__info">Educación</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark button__bookmark--on"></button>
-                                            </div>
-                                        </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    La Universidad Carlos III de Madrid gana la edición nacional del torneo de Derecho Jessup Moot Competition
-                                                </a>
-                                            </h5>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--normal">
-                                    <article class="boxnews__item boxnews__item--article">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Artículo</div>
-                                            <div class="boxnews__info">New business</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark"></button>
-                                            </div>
-                                        </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    El outlet de lujo McArthurGlen Designer abre sus puertas en Málaga con el asesoramiento de Cuatrecasas
-                                                </a>
-                                            </h5>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--dobleH">
-                                    <article class="boxnews__item boxnews__item--article">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Artículo</div>
-                                            <div class="boxnews__info">Innovación</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark"></button>
-                                            </div>
-                                        </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
-                                                </a>
-                                            </h5>
-                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/800x400')"></div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="grid__item grid__item--dobleW">
-                                    <article class="boxnews__item boxnews__item--opinion">
-                                        <div class="boxnews__header">
-                                            <div class="boxnews__type">Opinion</div>
-                                            <div class="boxnews__info">3 Marzo 2020</div>
-                                            <div class="boxnews__button">
-                                                <button type="button" class="button__bookmark"></button>
-                                            </div>
-                                        </div>
-                                        <div class="boxnews__content">
-                                            <h5 class="boxnews__copy">
-                                                <a href="#" class="boxnews__link">
-                                                    Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
-                                                </a>
-                                            </h5>
-                                            <div class="boxnews__img" style="background-image: url('https://via.placeholder.com/400x800')"></div>
-                                        </div>
-                                    </article>
-                                </div>
+                                    </div>
+                                    <div class="boxnews__content">
+                                        <h5 class="boxnews__copy">
+                                            <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                                {{ publication.translate(app.request.getLocale()).title|raw  }}
+                                            </a>
+                                        </h5>
+                                        {% if style[key] !=  "grid__item--normal"%}
+                                        <div class="boxnews__img" style="background-image: url('{{ publication.photo  }}')"></div>
+                                        {% endif %}
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                                
                             </div>
                         </div>
                         <div class="col-12">
