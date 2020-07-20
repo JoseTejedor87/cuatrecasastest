@@ -19,6 +19,16 @@ class AwardRepository extends ServiceEntityRepository
         parent::__construct($registry, Award::class);
     }
 
+    public function getAll()
+    {
+        return $this->createQueryBuilder('a')
+                ->orderBy('a.year',' DESC')
+                ->getQuery()
+                ->getResult();
+        
+    }
+
+
     // /**
     //  * @return Award[] Returns an array of Award objects
     //  */

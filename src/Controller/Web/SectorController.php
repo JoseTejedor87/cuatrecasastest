@@ -5,6 +5,7 @@ namespace App\Controller\Web;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\SectorRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 
 class SectorController extends WebController
@@ -21,8 +22,9 @@ class SectorController extends WebController
         ]);
     }
 
-    public function detail(Request $request, SectorRepository $sectorRepository, CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, SectorRepository $sectorRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
     {
+        $awards = $awardRepository->getAll();
         $sector = $sectorRepository->getInstanceByRequest($request);
 
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
@@ -31,7 +33,8 @@ class SectorController extends WebController
 
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,
-            'relatedCaseStudies' => $relatedCaseStudies
+            'relatedCaseStudies' => $relatedCaseStudies,
+            'awards' => $awards
         ]);
     }
 }

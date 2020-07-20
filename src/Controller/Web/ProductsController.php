@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ProductRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 
 
@@ -22,8 +23,9 @@ class ProductsController extends WebController
             'products' => $products,
         ]);
     }
-    public function detail(Request $request, productRepository $productRepository, CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, productRepository $productRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
     {
+        $awards = $awardRepository->getAll();
         $product = $productRepository->getInstanceByRequest($request);
 
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
@@ -32,7 +34,8 @@ class ProductsController extends WebController
 
         return $this->render('web/products/detail.html.twig', [
             'product' => $product,
-            'relatedCaseStudies' => $relatedCaseStudies
+            'relatedCaseStudies' => $relatedCaseStudies,
+            'awards' => $awards
         ]);
     }
 
