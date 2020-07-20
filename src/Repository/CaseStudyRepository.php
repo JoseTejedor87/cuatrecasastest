@@ -54,11 +54,17 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
             $query->andWhere('c.id != (:exclude)');
             $query->setParameter('exclude', $exclude);
         }
-        return $query
-            //->groupBy('c.id')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+
+        $dic = $query->select('c.id')->groupBy('c.id')->setMaxResults(10)->getQuery()->getResult();
+        $idArrays = [];
+        foreach ($dic as $key => $value ){  array_push($idArrays,($value['id']));     }
+
+        $query2 = $this->createPublishedQueryBuilder('c')
+                        ->andWhere('c.id IN (:idsCases)')
+                        ->setParameter('idsCases', $idArrays)
+                        ->setMaxResults(10);
+                    
+        return  $query2->getQuery()->getResult();
     }
 
     public function findByLawyer($lawyer)

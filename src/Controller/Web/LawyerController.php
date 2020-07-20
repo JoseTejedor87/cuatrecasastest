@@ -29,11 +29,11 @@ class LawyerController extends WebController
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
-        $cases = $caseStudyRepository->findByLawyer($lawyer);
+        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
-            'cases' => $cases
+            'contextualBlocks' => $contextualBlocks
         ]);
     }
 

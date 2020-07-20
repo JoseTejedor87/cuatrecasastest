@@ -6,10 +6,11 @@
 
 #filterOrderby,
 .filters__order {
+    position: relative;
     display: none;
     display: flex;
-    padding: 2rem 0 1rem;
-    border-bottom: 2px solid rgba($black, 0.5);
+    padding: 1.5rem 0 1rem;
+    border-bottom: 2px solid #B7B7B7;
 
     span {
         @include fontSet(16px, 18px);
@@ -64,27 +65,65 @@
 
 #applyFilters,
 .filters__apply {
+    position: relative;
     display: none;
     display: flex;
     justify-content: center;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100vw;
+        margin-left: -50vw;
+        left: 50%;
+        height: 1px;
+        background-color: #d5d2d2;
+    }
 }
 
 #checksOutput {
+    position: relative;
     display: none;
     display: block;
-    margin-top: 3rem;
+    padding-top: 1rem;
+
+    &:before {
+        @include reset-pseudo(rgba($black,0.07));
+        @include reset-full-scren;
+        z-index: -1;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100vw;
+        margin-left: -50vw;
+        left: 50%;
+        height: 2px;
+        background-color: #d5d2d2;
+    }
 
     .checkbox-tag {
         display: flex;
         float: left;
         margin: 0 1rem 1rem 0;
         padding: 0 0 0 1rem;
-        @include fontSet(16px, 28px);
         color: rgba($black, 0.6);
         background-color: $white;
         border: 1px solid $complementary-color;
         cursor: default;
+
+        span {
+            @include fontSet(16px, 28px);
+            letter-spacing: 0.49px;
+        }
     }
 
     .close-tag {
@@ -119,10 +158,11 @@
 
 
 #filterWrapper {
-    margin-bottom: 3rem;
+    // margin-bottom: 3rem;
 }
 
 #filterTabs {
+    margin-bottom: 2rem;
 
     .nav-item {
         margin-right: 4rem;
@@ -145,7 +185,7 @@
         transition: all 0.2s ease-in;
 
         &:after {
-            @include icons-ionicons(2px,6px,auto,auto);
+            @include icons-ionicons(2px,0,auto,auto);
             content: '\f3d1';
             font-size: 36px;
             transform: rotate(90deg);
@@ -170,20 +210,53 @@
 }
 
 #filterTabsContent {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo(rgba($black,0.07));
+        @include reset-full-scren;
+        z-index: -1;
+    }
+
+    // &:after {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     display: block;
+    //     width: 100vw;
+    //     margin-left: -50vw;
+    //     left: 50%;
+    //     height: 1px;
+    //     background-color: #E2E0E0;
+    // }
 
     .collapse,
     .collapsing {
 
         .chechbox__wrapper {
-            padding: 2rem 0 1rem 4rem;
+            padding: 2rem 4rem 1rem;
             column-count: 3;
             column-gap: 2rem;
             column-fill: auto;
 
+            // display: flex;
+            // flex-flow: row;
+            // flex-wrap: wrap;
+
             .checkbox {
+                display: inline-block;
+                width: 100%;
+                margin-top: 0.2rem;
+
+                // width: 33.3333%;
+
                 input[type="checkbox"] + .checkbox-label {
-                    display: inline-flex;
                     margin-bottom: 1.2rem;
+
+                    span {
+                        width: 88%;
+                    }
                 }
             }
         }

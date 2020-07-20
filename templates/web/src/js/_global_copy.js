@@ -154,18 +154,18 @@ web.global = {
         $('.read-more').each(function() {
             if ($(this).children('p').length > 4) {
                 $(this).children('p:lt(3)').show();
-                $(this).append('<button type="button" class="doble__arrow__button loadMore">Ver más</button>');
+                $(this).append('<button type="button" class="doble__arrow__link loadMore">Ver más</button>');
             }
         });
         $('.read-more').on("click", '.loadMore', function() {
             $(this).parent('.read-more').children('p').slideDown();
             $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
-            $('.doble__arrow__button').blur();
+            $('.doble__arrow__link').blur();
         });
         $('.read-more').on("click", '.loadLess', function() {
             $(this).parent('.read-more').children('p:gt(2)').slideUp();
             $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
-            $('.doble__arrow__button').blur();
+            $('.doble__arrow__link').blur();
         });
     },
 
@@ -897,7 +897,7 @@ web.global = {
 
                     if(info.view.type === "listMonth" || info.view.type === "listDay") {
                         // DETAILS
-                        info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
+                        info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__link">'+ info.event.extendedProps.button +'</button></div>';
 
                         // TITLE
                         info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
@@ -1208,7 +1208,7 @@ web.global = {
 
                         var calendarDayEl = document.getElementById('eventCalendarDay');
 
-                        var dayHtml = '<h4 class="section__title section__title--events">Listado eventos</h4><article class="event__list__item"><div class="event__list__details"><div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div></div>';
+                        var dayHtml = '<h4 class="section__title section__title--events">Listado eventos</h4><article class="event__list__item"><div class="event__list__details"><div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__link">'+ info.event.extendedProps.button +'</button></div></div>';
 
                         dayHtml += '<div class="event__list__info"><div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
 
@@ -1418,7 +1418,7 @@ web.global = {
                 eventRender: function (info) {
 
                     // DETAILS
-                    info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__button">'+ info.event.extendedProps.button +'</button></div>';
+                    info.el.firstChild.innerHTML = '<div class="event-place"><a href="'+ info.event.extendedProps.placeLink +'">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><button type="button" class="doble__arrow__link">'+ info.event.extendedProps.button +'</button></div>';
 
                     // TITLE
                     info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';
