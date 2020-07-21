@@ -129,7 +129,9 @@
 
                     <!-- List Results -->
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid " id="lawyerAjaxResults" >
-                    {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
+                    {% if lawyers == '' %}
+                        {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
+                   {% endif %} 
                     {% for lawyer in lawyers %}
                         {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
                     {% endfor %}
@@ -244,6 +246,7 @@
             }else{
                 $('.search_alphabet .page-link').removeClass('active');
                 $(this).addClass('active');
+                var page = $(this).data("page");
 
             }
             if(!page){
@@ -265,17 +268,20 @@
             page=1;
         }
         item = $(".lawyer__search__item").first().clone();
+        $(".lawyer__search__item").first().hide();
         $.ajax({
             method: "GET",
             data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
             url: "{{ path('lawyers_index') }}",
             beforeSend: function( xhr ) {
+                $('.search_pagination').remove();
                 $('.search__component__loader').fadeIn('fast');
             }
         })
         .done(function( msg ) {
             $('.search__component__loader').fadeOut();
             $('#lawyerAjaxResults').empty();
+            
             var url= "";
             if(msg['initial']){
                 if(url == ""){
@@ -326,11 +332,10 @@
                 item.find( "a" ).attr("href", lawyer['Slug']);
                 item.find( ".lawyer__name" ).text(lawyer['FullName']);
                 item.find( ".lawyer__position" ).text(lawyer['LawyerType']);
-                item.find( ".lawyer__practice" ).children(1).text(lawyer['activities']);
-                item.find( ".lawyer__practice" ).last().text(lawyer['office']);
-                $('#lawyerAjaxResults').append(item);
+                item.find( ".lawyer__activities" ).text(lawyer['activities']);
+                item.find( ".lawyer__city" ).text(lawyer['office']);
+                $('#lawyerAjaxResults').append(item.prop('outerHTML'));
             });
-
                 if(msg['pagesTotal']>1){
                     html = html + `<nav class="search_pagination" aria-label="Results pagination">
                                             <ul class="pagination" id="lawyerPagination">
@@ -364,7 +369,7 @@
                                         </nav>`;
                 }
             html = html ;
-            $('#lawyerAjaxResults').append( html  );
+            $('#lawyerAjaxResults').after( html  );
             $('#lawyerAjaxResults').show();
             $('.lawyer__search').show();            
             window.history.replaceState(null, null, "abogados"+url);

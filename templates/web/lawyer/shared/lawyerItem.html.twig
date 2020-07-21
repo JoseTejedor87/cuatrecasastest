@@ -15,13 +15,13 @@
             {% if lawyer %}
             {% if lawyer.activities %}
                 {% for activity in lawyer.activities %}
-                    <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
+                    <li class="lawyer__practice__item lawyer__activities">{{ activity.translate(app.request.getLocale()).title}}</li>
                 {% endfor %}
             {% endif %}
             {% else %}
-                <li class="lawyer__practice__item"></li>
+                <li class="lawyer__practice__item lawyer__activities"></li>
             {% endif %}
-            <li class="lawyer__practice__item">{{ (lawyer.office is defined)  ? lawyer.office.city : '' }}</li>
+            <li class="lawyer__practice__item lawyer__city">{{ (lawyer.office is defined)  ? lawyer.office.city : '' }}</li>
         </ul>
     </div>
     </a>
