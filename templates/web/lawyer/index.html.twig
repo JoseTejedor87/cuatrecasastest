@@ -328,7 +328,7 @@
             var html = '';
             $('.lawyer__search__text').text('Mostramos '+msg['countLawyers']+' perfiles que encajan con la búsqueda');
             msg['lawyers'].forEach(function(lawyer){
-                item.find( ".lawyer__search__item" ).css("background-image", "url("+lawyer['photo']+")");
+                item.css('background-image', 'url("'+lawyer['photo']+'")');
                 item.find( "a" ).attr("href", lawyer['Slug']);
                 item.find( ".lawyer__name" ).text(lawyer['FullName']);
                 item.find( ".lawyer__position" ).text(lawyer['LawyerType']);
