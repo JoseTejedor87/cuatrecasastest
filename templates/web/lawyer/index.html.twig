@@ -110,8 +110,7 @@
                 </div>
             </section>
 
-            <section id="lawyerAjaxResults" class="row lawyer__search">
-                {% if countLawyers != ''  %}
+            <section class="row lawyer__search" style="{{ (countLawyers == '') ?  'display: none;' : '' }} ">
                 <div class="col">
 
                     <!-- Info Results -->
@@ -129,35 +128,14 @@
                     </div>
 
                     <!-- List Results -->
-                    <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">
+                    <div class="lawyer__search__wrapper lawyer__search__wrapper--grid " id="lawyerAjaxResults" >
+                    {% if lawyers == '' %}
+                        {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
+                   {% endif %} 
                     {% for lawyer in lawyers %}
-
-                        {% if lawyer.photo %}
-                            {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
-                        {% else %}
-                            {% set photo_path = '' %}
-                        {% endif %}
-
-                        <div class="lawyer__search__item" style="background-image: url('{{ photo_path }}');">
-                            <a href="{{ path('lawyers_detail', {slug:lawyer.slug}) }}" class="lawyer__link">
-                                <h3 class="lawyer__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw  }}</h3>
-                                <div class="lawyer__details">
-                                    <ul class="lawyer__practice">
-                                        <li class="lawyer__practice__item lawyer__position">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans }}</li>
-                                        {% if lawyer.activities %}
-                                            {% for activity in lawyer.activities %}
-                                        <li class="lawyer__practice__item">{{ activity.translate(app.request.getLocale()).title}}</li>
-                                            {% endfor %}
-                                        <li class="lawyer__practice__item">{{ lawyer.office ? lawyer.office.city : '' }}</li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-
+                        {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
                     {% endfor %}
                     </div>
-
                     {% if pagesTotal > 1 %}
                     <!-- Pagination -->
                     <nav class="search_pagination" aria-label="Results pagination">
@@ -186,7 +164,6 @@
                     {% endif %}
 
                 </div>
-            {% endif %}
             </section>
 
         </article>
@@ -269,6 +246,7 @@
             }else{
                 $('.search_alphabet .page-link').removeClass('active');
                 $(this).addClass('active');
+                var page = $(this).data("page");
 
             }
             if(!page){
@@ -289,17 +267,21 @@
         if(!page){
             page=1;
         }
+        item = $(".lawyer__search__item").first().clone();
+        $(".lawyer__search__item").first().hide();
         $.ajax({
             method: "GET",
             data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
             url: "{{ path('lawyers_index') }}",
             beforeSend: function( xhr ) {
+                $('.search_pagination').remove();
                 $('.search__component__loader').fadeIn('fast');
             }
         })
         .done(function( msg ) {
             $('.search__component__loader').fadeOut();
             $('#lawyerAjaxResults').empty();
+            
             var url= "";
             if(msg['initial']){
                 if(url == ""){
@@ -344,41 +326,16 @@
                 }
             }
             var html = '';
-            html = `<div class="col">
-                            <!-- Info Results -->
-                            <h2 class="section__title">Resultados de búsqueda</h2>
-                            <div class="lawyer__search__info">
-                                <div class="lawyer__search__text">Mostramos `+msg['countLawyers']+` perfiles que encajan con la búsqueda</div>
-                                <div class="lawyer__search__chooser">
-                                    <button type="button" class="icon__button list">
-                                        <span class="icon4-calendar_list"></span>
-                                    </button>
-                                    <button type="button" class="icon__button grid active">
-                                        <span class="icon4-grid"></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- List Results -->
-                            <div class="lawyer__search__wrapper lawyer__search__wrapper--grid">`;
+            $('.lawyer__search__text').text('Mostramos '+msg['countLawyers']+' perfiles que encajan con la búsqueda');
             msg['lawyers'].forEach(function(lawyer){
-                html = html + `
-                    <div class="lawyer__search__item" style="background-image: url('`+ lawyer['photo'] +`');">
-                        <a href="`+ lawyer['Slug']  + `" class="lawyer__link">
-                            <h3 class="lawyer__name">`+ lawyer['FullName']  + `</h3>
-                            <div class="lawyer__details">
-                                <ul class="lawyer__practice">
-                                    <li class="lawyer__practice__item lawyer__position">`+ lawyer['LawyerType'] + `</li>
-                                    <li class="lawyer__practice__item">`+ lawyer['activities'] + `</li>
-                                    <li class="lawyer__practice__item">`+ lawyer['office'] + `</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
-                `;
+                item.find( ".lawyer__search__item" ).css("background-image", "url("+lawyer['photo']+")");
+                item.find( "a" ).attr("href", lawyer['Slug']);
+                item.find( ".lawyer__name" ).text(lawyer['FullName']);
+                item.find( ".lawyer__position" ).text(lawyer['LawyerType']);
+                item.find( ".lawyer__activities" ).text(lawyer['activities']);
+                item.find( ".lawyer__city" ).text(lawyer['office']);
+                $('#lawyerAjaxResults').append(item.prop('outerHTML'));
             });
-            html = html + `</div>`;
-
                 if(msg['pagesTotal']>1){
                     html = html + `<nav class="search_pagination" aria-label="Results pagination">
                                             <ul class="pagination" id="lawyerPagination">
@@ -411,9 +368,10 @@
                                             </ul>
                                         </nav>`;
                 }
-            html = html + `</div>`;
-            $('#lawyerAjaxResults').append( html  );
-
+            html = html ;
+            $('#lawyerAjaxResults').after( html  );
+            $('#lawyerAjaxResults').show();
+            $('.lawyer__search').show();            
             window.history.replaceState(null, null, "abogados"+url);
             $("#textSearch").val(textSearch);
             $("#services").val(services);
