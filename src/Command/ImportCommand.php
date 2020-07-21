@@ -396,7 +396,11 @@ class ImportCommand extends Command
                 $lawyer->setEmail($item['email']);
                 $lawyer->setPhone(($item['telefono']));
                 $lawyer->setFax(($item['fax']));
-
+                $startDate = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha_modificacion']);
+                $lawyer->setCreatedAt(
+                    $startDate ? $startDate : date("Y-m-d H:i:s")
+                );  
+                
                 if ($item['image']) {
                     // normalizing image paths
                     $path = $item['image'];
