@@ -16,6 +16,7 @@ use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\TrainingRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LawyerController extends WebController
 {
@@ -29,15 +30,15 @@ class LawyerController extends WebController
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
-        $cases = $caseStudyRepository->findByLawyer($lawyer);
+        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
-            'cases' => $cases
+            'contextualBlocks' => $contextualBlocks
         ]);
     }
 
-    public function index(Request $request, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository)
+    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -120,7 +121,7 @@ class LawyerController extends WebController
             if (isset($lawyers)) {
                 foreach ($lawyers as $key => $lawyer) {
                     $url =  $this->container->get('router')->generate('lawyers_detail', array('slug' => $lawyer->getSlug()));
-                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $url);
+                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $translator->trans('sections.lawyers.lawyerCategoryTypes.'.$lawyer->getLawyerType()), 'Slug' => $url);
                     $activities = "";
                     foreach ($lawyer->getActivities() as $activity) {
                         $activities = $activities. ' ' . $activity->translate('es')->getTitle();

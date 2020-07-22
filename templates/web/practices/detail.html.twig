@@ -106,7 +106,7 @@
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
-    {% include 'web/shared/awards.html.twig' %}
+    {% include 'web/shared/awards.html.twig' with { awards: awards} %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}

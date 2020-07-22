@@ -4,6 +4,7 @@ namespace App\Controller\Web;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AwardRepository;
 
 /**
 * @Route("/guide", name="guide")
@@ -13,10 +14,13 @@ class StyleController extends AbstractController
     /**
      * @Route("/style", name="style")
      */
-    public function style()
+    public function style(AwardRepository $awardRepository)
     {
+        $awards = $awardRepository->getAll();
+
         return $this->render('web/guide/style.html.twig', [
             'controller_name' => 'StyleController',
+            'awards' => $awards
         ]);
     }
 

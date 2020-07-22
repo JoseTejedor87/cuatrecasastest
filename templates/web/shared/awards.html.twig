@@ -3,66 +3,23 @@
         <div class="row page__section">
             <div class="col">
                 <h4 class="section__title section__title section__title--awards">Premios</h4>
-                <div id="sliderAwards" class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/ft-innovative-lawyers_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Firma más innovadora en "Collaboration"</div>
-                            <div class="awards__date">Financial Times, 2018</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/forbes_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho de abogados en España</div>
-                            <div class="awards__date">Forbes abogados, 2019</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/ft-innovative-lawyers_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho en "Strategy &amp; Changing behaviours"</div>
-                            <div class="awards__date">Financial Times, 2018</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/forbes_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho de abogados en España</div>
-                            <div class="awards__date">Forbes abogados, 2019</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/ft-innovative-lawyers_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Firma más innovadora en "Collaboration"</div>
-                            <div class="awards__date">Financial Times, 2018</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/forbes_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho de abogados en España</div>
-                            <div class="awards__date">Forbes abogados, 2019</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/ft-innovative-lawyers_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho en "Strategy &amp; Changing behaviours"</div>
-                            <div class="awards__date">Financial Times, 2018</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure class="awards__logo">
-                                <img src="{{ asset('web/assets/logos/forbes_logo.png') }}" alt="">
-                            </figure>
-                            <div class="awards__title">Mejor despacho de abogados en España</div>
-                            <div class="awards__date">Forbes abogados, 2019</div>
+                {% if awards|length > 0 %}
+                    <div id="sliderAwards" class="swiper-container">
+                        <div class="swiper-wrapper">                        
+                            {% for award in awards %}
+                            <div class="swiper-slide">
+                                {% if award.image is not null %}
+                                <figure class="awards__logo">                               
+                                    <img src="{{ asset('/resources/' ~ award.image.getFileName) }}" alt="">   
+                                </figure>
+                                {% endif %}
+                                <div class="awards__title">{{ award.translate(app.request.getLocale()).title }}</div>
+                                <div class="awards__date">{{ award.translate(app.request.getLocale()).granted }}</div>
+                            </div>                        
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Controller\Web;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PracticeRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 
 class PracticeController extends WebController
@@ -21,8 +22,9 @@ class PracticeController extends WebController
         ]);
     }
 
-    public function detail(Request $request, PracticeRepository $practiceRepository, CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, PracticeRepository $practiceRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
     {
+        $awards = $awardRepository->getAll();
         $practice = $practiceRepository->getInstanceByRequest($request);
 
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
@@ -31,7 +33,8 @@ class PracticeController extends WebController
 
         return $this->render('web/practices/detail.html.twig', [
             'practice' => $practice,
-            'relatedCaseStudies' => $relatedCaseStudies
+            'relatedCaseStudies' => $relatedCaseStudies,
+            'awards' => $awards
         ]);
     }
 }

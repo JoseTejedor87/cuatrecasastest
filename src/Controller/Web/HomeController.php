@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\EventTranslationRepository;
+use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 
 class HomeController extends WebController
@@ -20,10 +21,12 @@ class HomeController extends WebController
         ]);
     }
 
-    public function components()
+    public function components(AwardRepository $awardRepository)
     {
+        $awards = $awardRepository->getAll();
         return $this->render('web/home/components.html.twig', [
-            'controller_name' => 'HomeController'
+            'controller_name' => 'HomeController',
+            'awards' => $awards
         ]);
     }
 }
