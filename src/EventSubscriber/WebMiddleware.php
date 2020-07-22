@@ -55,7 +55,7 @@ class WebMiddleware implements EventSubscriberInterface
     public function onKernelControllerArguments(ControllerArgumentsEvent $event)
     {
 
-        // STEP 1: the current request must be checked ?
+        // STEP 1: should the current request be verified ?
         if ($this->mustBeChecked($event)) {
             $request = $event->getRequest();
             list($language, $region) = $this->collectParams($request);
@@ -69,13 +69,14 @@ class WebMiddleware implements EventSubscriberInterface
             $instance = $repository ? $repository->getInstanceByRequest($request) : null;
 
             if ($instance) {
-                // STEP 2: the current instance is published?
-                if (!$instance->isPublished($language, $region)) {
-                    throw new NotPublishedException();
-                }
                 // Adding the identified instance to the router context
                 // to simplify the task of the NavigationService
                 $this->router->getContext()->setParameter('_publishable', $instance);
+
+                // STEP 2: is the current instance published?
+                if (!$instance->isPublished($language, $region)) {
+                    throw new NotPublishedException();
+                }
             } else {
                 // Publishable not found
                 throw new NotFoundHttpException();
