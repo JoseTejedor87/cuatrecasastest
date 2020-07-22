@@ -430,7 +430,7 @@ class ImportCommand extends Command
                 }
             }
             $lawyer->setLanguages($languages);
-
+            self::setRegions($lawyer);
             // Filling translatable fields
             $lawyer->translate($currentLang)->setDescription($item['descripcion']);
             $lawyer->translate($currentLang)->setCurriculum($item['CV']);
@@ -539,6 +539,7 @@ class ImportCommand extends Command
                     }
                 }
             }
+
             // Filling translatable fields
             $event->translate($currentLang)->setTitle($item['titulo']);
             $event->translate($currentLang)->setDescription($item['resumen']);
@@ -562,6 +563,7 @@ class ImportCommand extends Command
                         $event->addAttachment($resource);
                     }
                 }
+                self::setRegions($event);
                 $this->em->persist($event);
                 $this->em->flush();
                 $this->logger->debug("Event ".$event->getId()." ".$event->translate('es')->getTitle());
@@ -992,6 +994,7 @@ class ImportCommand extends Command
         foreach ($processedOfficeMap as $office) {
             // Persist only the registers with at least one active language
             $office->mergeNewTranslations();
+            self::setRegions($office);
             $this->em->persist($office);
             $this->em->flush();
             $this->logger->debug("Office ".$office->getId());
@@ -1208,6 +1211,7 @@ class ImportCommand extends Command
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
                         $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']];
                         $resource->setLanguages(['es','en','pt','zh']);
+                        self::setRegions($resource);
                         $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
                     } else {
                         $path = $item['url_imagen'];
@@ -1221,6 +1225,7 @@ class ImportCommand extends Command
                             $resource->setFileName($attachment->getFileName());
                             $resource->setLanguages(['es','en','pt','zh']);
                             $resource->setType('publication_main_photo');
+                            self::setRegions($resource);
                             $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']] = $resource;
                         }
                     }
@@ -1229,6 +1234,7 @@ class ImportCommand extends Command
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['thumbnail']])) {
                         $resource = $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']];
                         $resource->setLanguages(['es','en','pt','zh']);
+                        self::setRegions($resource);
                         $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
                     } else {
                         $path = $item['thumbnail'];
@@ -1242,11 +1248,12 @@ class ImportCommand extends Command
                             $resource->setFileName($attachment->getFileName());
                             $resource->setLanguages(['es','en','pt','zh']);
                             $resource->setType('publication_thumbnail');
+                            self::setRegions($resource);
                             $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
                         }
                     }
                 }
-
+                
                 $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                 $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
 
@@ -1314,6 +1321,7 @@ class ImportCommand extends Command
                                 array_merge($resource->getLanguages(), [$currentLang])
                             )
                         );
+                        self::setRegions($resource);
                         $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
                     } else {
                         $path = $item1['url_pdf'];
@@ -1326,6 +1334,7 @@ class ImportCommand extends Command
                             $resource->setFile($attachment);
                             $resource->setFileName($attachment->getFileName());
                             $resource->setLanguages([$currentLang]);
+                            self::setRegions($resource);
                             $resource->setType('publication_dossier');
                             $processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']] = $resource;
                         }
@@ -1337,6 +1346,7 @@ class ImportCommand extends Command
                 // Is the last item in the collection
                 if ($index+1 == count($publication_translations)) {
                     if (!empty($publication->getLanguages())) {
+                        self::setRegions($publication);
                         $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                         $this->logger->debug("Updating Publication ".$publication->getId());
                     }
@@ -1355,6 +1365,7 @@ class ImportCommand extends Command
         foreach ($attachments as $key => $resource) {
             $publication->addAttachment($resource);
         }
+        self::setRegions($publication);
         $this->em->persist($publication);
         $this->em->flush();
     }
@@ -1413,6 +1424,7 @@ class ImportCommand extends Command
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
                 $publication->addOffice($office);
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
             } else {
@@ -1441,6 +1453,7 @@ class ImportCommand extends Command
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
                 $publication->addActivity($practica);
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
             } else {
@@ -1483,6 +1496,7 @@ class ImportCommand extends Command
                                 )
                             );
                         }
+                        self::setRegions($ArticleCategory);
                         $ArticleCategory->mergeNewTranslations();
                         $this->em->persist($ArticleCategory);
                         $this->em->flush();
@@ -1511,10 +1525,12 @@ class ImportCommand extends Command
                                     ->getLanguages(), ['en'])
                             )
                         );
+                        self::setRegions($ArticleCategory);
                         $response1 =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?include='.$value2['id'].'&wpml_language=es');
                         $content1 = $response1->toArray();
                         if (!isset($content1[0])) {
                             $ArticleCategory->mergeNewTranslations();
+                            self::setRegions($ArticleCategory);
                             $this->em->persist($ArticleCategory);
                             $this->em->flush();
                         }
@@ -1609,6 +1625,7 @@ class ImportCommand extends Command
                                     )
                                 );
                             }
+                            self::setRegions($article);
                             $article->mergeNewTranslations();
                             $this->em->persist($article);
                             $this->em->flush();
@@ -1669,6 +1686,7 @@ class ImportCommand extends Command
                                     )
                                 );
                             }
+                            self::setRegions($article);
                             $article->mergeNewTranslations();
                             $this->em->persist($article);
                             $this->em->flush();
@@ -1706,6 +1724,8 @@ class ImportCommand extends Command
                             $resource->setArticle($articulo);
                             $resource->setType('article_main_photo');
                             $articulo->addAttachment($resource);
+                            self::setRegions($resource);
+                            self::setRegions($articulo);
                             $this->em->persist($articulo);
                             $this->em->flush();
                         }
@@ -1893,7 +1913,7 @@ class ImportCommand extends Command
                                 [$currentLang]
                             )
                         )
-                    );
+                    );  
                 }
                 if ($item1['url_pdf']) {
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item1['url_pdf']])) {
@@ -1925,6 +1945,7 @@ class ImportCommand extends Command
                 // Is the last item in the collection
                 if ($index+1 == count($publication_translations)) {
                     if (!empty($publication->getLanguages())) {
+                        self::setRegions($publication);
                         $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                         $this->logger->debug("Updating Publication ".$publication->getId());
                     }
@@ -1956,6 +1977,7 @@ class ImportCommand extends Command
                     $person->setLawyer($lawyer);
                 }
                 $publication->addPerson($person);
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
                 // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
@@ -1985,6 +2007,7 @@ class ImportCommand extends Command
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
                 $publication->addOffice($office);
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
             } else {
@@ -2012,6 +2035,7 @@ class ImportCommand extends Command
                 // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
 
                 $publication->addActivity($practica);
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
             } else {
@@ -2030,6 +2054,7 @@ class ImportCommand extends Command
                     $publication->translate($Language)->setSlug( $publication->translate($Language)->getTitle());
 
                 }
+                self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
             }
@@ -2194,6 +2219,19 @@ class ImportCommand extends Command
             'Dutch'         => 'ho',
         ];
         return isset($map[$code]) ? $map[$code] : null;
+    }
+
+    private static function setRegions($entity)
+    {
+        $arrayLang = $entity->getLanguages();
+        $arrayRegions = [];
+        foreach ($arrayLang as $key => $lang) {
+            if ( $lang == 'es' )  array_push($arrayRegions,'latam','spain');
+            if ( $lang == 'pt' )  array_push($arrayRegions,'portugal');
+            if ( $lang == 'en' )  array_push($arrayRegions,'global');
+        }
+        $entity->setRegions($arrayRegions);
+        return $arrayRegions;
     }
 
     private static function getMappedLanguageCode(?string $code): ?string
