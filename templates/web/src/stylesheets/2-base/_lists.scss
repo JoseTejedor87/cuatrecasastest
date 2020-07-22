@@ -279,7 +279,7 @@
         flex: 0 0 calc(33.3333% - 2rem);
         margin: 0 1rem;
 
-        @include when-inside(".two-cols") {
+        @include when-inside(".list-2cols") {
             width: calc(50% - 2rem);
             flex: 0 0 calc(50% - 2rem);
         }
@@ -288,6 +288,43 @@
             width: calc(50% - 6rem);
             flex: 0 0 calc(50% - 6rem);
             margin: 0 3rem 2.5rem;
+        }
+    }
+}
+
+@include new("buttons__list__column") {
+    @include reset-list;
+    column-count: 2;
+    column-gap: 8rem;
+    column-fill: auto;
+
+    @include when("3cols") {
+        column-count: 3;
+    }
+
+    @include has("item") {
+        // display: flex;
+        // flex-direction: column;
+        // width: calc(33.3333% - 2rem);
+        // flex: 0 0 calc(33.3333% - 2rem);
+        // margin: 0 1rem;
+        // background-color: pink;
+    }
+
+    @media(max-width: $max-width-4casas) {
+        column-gap: 2rem;
+
+        @include when("3cols") {
+            column-count: 2;
+            column-gap: 2rem;
+        }
+    }
+
+    @media(max-width: $max-width-md) {
+        column-count: initial;
+
+        @include when("3cols") {
+            column-count: initial;
         }
     }
 }

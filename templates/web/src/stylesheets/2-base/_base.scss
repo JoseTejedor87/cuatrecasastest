@@ -73,6 +73,24 @@ a:link {
     z-index: 3;
 }
 
+//
+// BORRAR [page find-us]
+//
+
+.findus__foto {
+    position: relative;
+    width: 100vw;
+    height: 720px;
+    margin-left: -50vw;
+    left: 50%;
+    background-color: #e2edf1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+
 
 //
 // SECTION BACKGROUND COLORS GLOBAL (from dark to light)
