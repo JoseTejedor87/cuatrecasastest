@@ -54,15 +54,19 @@ class NavigationService
         } else {
             // Rewriting the current request using
             // the $language and $region parameters
-            $pathName = $this->request->get('_route');
-            $path = $this->router->generate(
-                $pathName,
-                [
-                    '_locale' => $language,
-                    '_region' => $region
-                ],
-                UrlGeneratorInterface::ABSOLUTE_URL
-            );
+            try {
+                $pathName = $this->request->get('_route');
+                $path = $this->router->generate(
+                    $pathName,
+                    [
+                        '_locale' => $language,
+                        '_region' => $region
+                    ],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                );
+            } catch (\Exception $e) {
+                $path = '';
+            }
         }
         return $path;
     }
