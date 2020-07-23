@@ -261,8 +261,10 @@ publications_detail:
     methods:    GET
     controller: App\Controller\Web\PublicationController::detail
 
+
 # REGIONS
 # ###########################################
+
 regions_vision:
     path:
         en:   /regions/vision

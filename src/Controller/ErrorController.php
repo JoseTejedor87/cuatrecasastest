@@ -18,19 +18,24 @@ class ErrorController extends AbstractController
 {
     public function show(\Throwable $exception, DebugLoggerInterface $logger): Response
     {
-        if ($this->getParameter('kernel.environment') !== 'dev') {
-            $code = $exception->getCode();
+        // default
+        $template = 'web/errors/error.html.twig';
 
-            if ($exception instanceof NotPublishedException || $exception instanceof NotFoundHttpException) {
-                $template = 'web/errors/404.html.twig';
-            } elseif ($code >= 500) {
-                $template = 'web/errors/500.html.twig';
-            } else {
-                $template = 'web/errors/error.html.twig';
-            }
-            return $this->render($template);
-        } else {
-            throw $exception;
+        // For not found exceptions
+        if ($exception instanceof NotFoundHttpException || $exception instanceof NotPublishedException) {
+            $template = 'web/errors/404.html.twig';
         }
+        // for any other exception
+        else {
+            // Just for fatal errors and NON DEV environment
+            if ($this->getParameter('kernel.environment') !== 'dev') {
+                $template = 'web/errors/500.html.twig';
+            }
+            // For DEV environment, raise the exception
+            else {
+                throw $exception;
+            }
+        }
+        return $this->render($template);
     }
 }

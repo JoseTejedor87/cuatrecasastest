@@ -25,16 +25,20 @@
                 </div>
             </header>
 
-            {% for language in languages %}
-                {% for region in regions %}
+            {% set publishable = navigation_service.getPublishable() %}
 
-                    {% set href = navigation_service.getAlternativePath(language, region) %}
-                    {% if href %}
-                        <a href="{{ href }}" />{{href}}</a><br/>
-                    {% endif %}
+            {% if publishable %}
+                {% for language in languages %}
+                    {% for region in regions %}
 
+                        {% set href = navigation_service.getAlternativePath(language, region) %}
+                        {% if href %}
+                            <a href="{{ href }}" />{{href}}</a><br/>
+                        {% endif %}
+
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
+            {% endif %}
 
         </article>
     </main>

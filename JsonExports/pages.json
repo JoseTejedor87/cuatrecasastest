@@ -1,0 +1,13 @@
+[
+    {"titulo":"Visión General","custom_template":"vision","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"España","custom_template":"spain","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Portugal","custom_template":"portugal","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Latinoamérica","custom_template":"latam","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Other Regions","custom_template":"others","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Continental Europe","custom_template":"europe","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"UK","custom_template":"UK","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"US","custom_template":"US","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Asia","custom_template":"asia","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Africa","custom_template":"Africa","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Middle East","custom_template":"mid-east","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]}
+]
