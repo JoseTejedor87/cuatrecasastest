@@ -32,6 +32,7 @@ use App\Entity\Research;
 use App\Entity\Opinion;
 use App\Entity\News;
 use App\Entity\Publication;
+use App\Entity\Page;
 
 class ImportCommand extends Command
 {
@@ -96,6 +97,7 @@ class ImportCommand extends Command
             $this->ArticlesByLawyers();
             $this->Mentions();
             $this->Trainings();
+            $this->Pages();
         } else {
             switch ($table) {
                 case "lawyer":
@@ -178,7 +180,10 @@ class ImportCommand extends Command
                 break;
                 case "trainings":
                     $this->Trainings();
-                break;                        
+                break;
+                case "pages":
+                    $this->Pages();
+                break;                    
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -347,6 +352,32 @@ class ImportCommand extends Command
 
     }
 
+    public function Pages(){
+        $this->em->getConnection()->executeQuery("DELETE FROM Page ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");      
+
+        $this->em->getConnection()->executeQuery("DELETE FROM PageTranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        $data = file_get_contents("JsonExports/pages.json");
+        $items = json_decode($data, true);
+
+        foreach($items as $item){
+            $page = new Page();
+            $page->setLanguages($item['lenguaje']);
+            $page->setCustomTemplate($item['custom_template']);
+            self::setRegions($page);
+            foreach($item['lenguaje'] as $currentLang){
+                $page->translate($currentLang)->setTitle($item['titulo']);
+            }
+            $page->mergeNewTranslations();
+            $this->em->persist($page);
+            $this->em->flush();
+            $this->logger->debug("Page ".$page->getId());
+        }
+
+    }
 
     public function Lawyers()
     {

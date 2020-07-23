@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
@@ -22,12 +23,14 @@ class PageFormType extends AbstractType
                 'fields' => [
                     'title' => ['label'=>'entities.page.fields.title', 'required'=>true],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
-                    'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
+                    'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
+                    'slug' => ['label'=>'Slug']
                 ],
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
+            ->add('customTemplate',  TextType::class, ['label'=>'Custom-Template'])
             ->add('blocks', CollectionType::class, [
                 'label'=>'entities.page.fields.blocks',
                 'entry_type' => BlockFormType::class,

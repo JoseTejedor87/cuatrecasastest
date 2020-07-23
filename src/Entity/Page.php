@@ -21,6 +21,11 @@ class Page extends Publishable
     }
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $customTemplate;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Block", mappedBy="page", cascade={"persist"}, orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -54,4 +59,19 @@ class Page extends Publishable
         }
         return $this;
     }
+
+    public function getCustomTemplate(): ?string
+    {
+        return $this->customTemplate;
+    }
+
+    public function setCustomTemplate(string $customTemplate): self
+    {
+        $this->customTemplate = $customTemplate;
+
+        return $this;
+    }
+
+
+
 }
