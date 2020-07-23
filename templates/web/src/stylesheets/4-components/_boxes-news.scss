@@ -136,6 +136,13 @@
         @include when-inside(".boxnews--products") {
             flex-flow: row wrap;
         }
+
+        //
+        // RESPONSIVE
+        // --------------------------------------------------------------------------
+        @media(max-width: $max-width-4casas) {
+            display: block;
+        }
     }
 
     @include has("item") {
@@ -199,6 +206,13 @@
         //
         @include when-inside(".boxnews--info") {
             min-height: 25rem;
+
+            //
+            // RESPONSIVE
+            // --------------------------------------------------------------------------
+            @media(max-width: $max-width-4casas) {
+                min-height: auto;
+            }
         }
 
 
@@ -269,7 +283,6 @@
         @include when-inside(".swiper-slide") {
             width: 100%;
             margin: 0 0;
-            // border: 1px solid red;
         }
 
 
@@ -289,6 +302,15 @@
                     // filter: contrast(100%);
                 }
             }
+        }
+
+
+        //
+        // RESPONSIVE
+        // --------------------------------------------------------------------------
+        @media(max-width: $max-width-4casas) {
+            min-height: auto;
+            margin-bottom: 2rem;
         }
     }
 
@@ -541,10 +563,6 @@
             // min-height: auto;
         }
 
-        @include when-inside(".boxnews--career") {
-            outline: 2px solid blue;
-        }
-
 
         //
         // BOX INFO
@@ -553,12 +571,20 @@
             margin-bottom: 1rem;
             @include fontSet(43px, 47px);
             color: $complementary-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(26px, 38px);
+            }
         }
 
         @include has("info") {
             margin-bottom: auto;
             @include fontSet(23px, 27px);
             color: $main-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(20px, 24px);
+            }
         }
 
         @include has("button") {
@@ -574,6 +600,13 @@
             height: auto;
             object-fit: cover;
             margin-top: 1rem;
+
+            @media(max-width: $max-width-4casas) {
+                width: auto;
+                height: 170px;
+                margin-top: 1.4rem;
+            }
+
         }
     }
 

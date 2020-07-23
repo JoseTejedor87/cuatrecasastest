@@ -86,7 +86,18 @@ header {
 }
 
 
+@media(min-width: $min-width-4casas) {
+    #navDesktop {
+        // border: 10px solid blue;
+    }
+}
 
+@media(max-width: $max-width-4casas) {
+    #navDesktop {
+        // display: none;
+        // border: 10px solid yellow;
+    }
+}
 
 
 //

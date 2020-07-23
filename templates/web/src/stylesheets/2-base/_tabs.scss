@@ -3,48 +3,34 @@
 // ==========================================================================
 
 @include new("tabs__component") {
+
+    @include has("full") {
+        position: relative;
+        width: 100vw;
+        margin-left: -50vw;
+        left: 50%;
+    }
+
+
     //
     // TABS
     // --------------------------------------------------------------------------
 
     @include has("tabs") {
-        position: relative;
-        width: 100%;
-        padding-top: 0;
-        padding-bottom: 0;
-        transition: all 0.3s ease-in-out;
+        padding: 0 0.5rem;
 
-        &:before,
-        &:after {
-            @include reset-pseudo(transparent);
-            display: inline-block;
-            z-index: -1;
-            transition: all 0.3s ease-in-out;
-        }
-
-        &:before {
-            left: -50%;
-            background-color: $tab1;
-        }
-
-        &:after {
-            left: auto;
-            right: -50%;
-            background-color: $tab3;
-        }
-
-        &.products {
+        &.tabs--products {
             &:after {
                 background-color: $tabActive;
             }
         }
 
         .nav {
-            width: calc(100% + 142px);
-            margin-left: -72px;
+            width: 100%;
         }
 
         .nav-tabs {
+            flex-flow: row;
             border-bottom: 0 solid transparent;
         }
 
@@ -84,8 +70,8 @@
             transition: all 0.3s ease-in-out;
 
             @include on-event {
-                color: $complementary-color;
-                background-color: $tabActive;
+                // color: $complementary-color;
+                // background-color: $tabActive;
                 border-left: 10px solid $complementary-color;
             }
 
@@ -154,6 +140,10 @@
         .nav {
             justify-content: space-between;
             margin-top: 2rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-top: 0;
+            }
         }
 
         .nav-tabs {
@@ -162,6 +152,14 @@
 
         .nav-item {
             margin-bottom: 0;
+
+            @media(max-width: $max-width-4casas) {
+                &:first-child {
+                    .nav-link {
+                        padding: 1rem 0;
+                    }
+                }
+            }
         }
 
         .nav-link {
@@ -204,9 +202,21 @@
                 font-weight: bold;
                 color: $complementary-color;
 
+                @media(max-width: $max-width-4casas) {
+                    color: $black;
+                }
+
                 &:after {
                     opacity: 1;
                     visibility: visible;
+                }
+            }
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(20px, 34px);
+
+                &:after {
+                    display: none;
                 }
             }
         }
@@ -251,28 +261,138 @@
         display:none;
     }
 
+
+    //
+    // ACCORDION BUTTON
+    // --------------------------------------------------------------------------
+
+    .accordion__button {
+        @include reset-button;
+        position: relative;
+        display: block;
+        margin: 0 0;
+        padding: 0 3rem 0 1rem;
+        @include fontSet(18px, 60px);
+        text-transform: uppercase;
+        color: $main-color;
+        transition: all 0.2s ease-in-out;
+
+        &:after {
+            @include icons-4casas(20px, 18px, auto, auto);
+            @include fontSet(20px, 20px);
+            content: '\e90a';
+            color: $complementary-color;
+            transform: rotate(90deg);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        @include on-event {
+            text-decoration: none;
+            overflow: hidden;
+        }
+    }
+
+
+    //
+    // ACCORDION CONTENT
+    // --------------------------------------------------------------------------
+
     @media(min-width: $min-width-4casas) {
         .nav-tabs {
             display: flex;
         }
 
         .panel {
-            border: none;
+            background-color: $tabActive;
         }
 
         .panel .panel-header {
             display:none;
         }
 
-        .panel .collapse{
+        .panel .collapse {
             display:block;
         }
     }
 
     @media(max-width: $max-width-4casas) {
-        .tab-pane {
-            display: block !important;
+        .tab-content > .tab-pane {
+            display: block;
             opacity: 1;
         }
+
+        .tab-content {
+            .panel {
+
+                [role="tabpanel"] {
+                    margin: 0 1rem;
+                }
+
+                &:nth-of-type(1) {
+                    background-color: $tab1;
+                }
+
+                &:nth-of-type(2) {
+                    background-color: $tab2;
+                }
+
+                &:nth-of-type(3) {
+                    background-color: $tab3;
+                }
+
+                &:nth-of-type(4) {
+                    background-color: $tab4;
+                }
+            }
+        }
+
+        .collapse,
+        .collapsing {
+            .buttons__list__column {
+                padding-bottom: 3rem;
+            }
+        }
+    }
+}
+
+
+//
+// RESPONSIVE TABS
+// --------------------------------------------------------------------------
+
+@media(min-width: $min-width-4casas) {
+    .responsive-tabs .icon4-fletxa_cuatrecasas {
+        display: none;
+    }
+}
+
+@media(max-width: $max-width-4casas) {
+    .responsive-tabs {
+        position: relative;
+    }
+    .responsive-tabs li {
+        width: 100%;
+        margin: 0 !important;
+    }
+    .responsive-tabs li > a {
+        display: none;
+        border: 0 !important;
+        border-radius: 0 !important;
+    }
+    .responsive-tabs.open li > a, .responsive-tabs li > a.active {
+        display: block;
+    }
+    .responsive-tabs .icon4-fletxa_cuatrecasas {
+        position: absolute;
+        top: 22px;
+        right: 10px;
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        transition: all .3s ease-in-out;
+        cursor: pointer;
+    }
+    .responsive-tabs.open .icon4-fletxa_cuatrecasas {
+        transform: rotate(-90deg);
+        transition: all .3s ease-in-out;
     }
 }
