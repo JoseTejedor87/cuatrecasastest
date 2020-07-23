@@ -91,6 +91,16 @@ sections:
   case_studies:
     specialities: Especialidades
 
+# Static Sections
+# ###########################################
+static:
+    offices:
+      officeOthers: Otras regiones
+      officeList: Listado de oficinas
+      deskList: Listado de desk
+      interOrg: Organizaciones internacionales
+
+
 # Menu
 # ###########################################
 menu:
@@ -106,7 +116,7 @@ menu:
     international: Career internacional
     join: Únete a nosotros
   offices:
-    offices: Estamos en
+    offices: Territorios
     vision: Visión general
     spain: España
     portugal: Portugal

@@ -248,6 +248,22 @@
             }
         }
 
+        @include when("regions") {
+            > .col {
+                display: block;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            p {
+                @include fontSet(43px, 47px);
+                text-align: center;
+
+                a {
+                    @include fancy-link($complementary-color, $complementary-color, $white);
+                }
+            }
+        }
+
         @include when("full-line") {
             > .col {
                 position: relative;

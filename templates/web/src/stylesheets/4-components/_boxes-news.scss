@@ -5,6 +5,16 @@
 @include new("boxnews") {
 
     //
+    // INFO BOXES
+    //
+    @include when("info") {
+        .boxnews__item {
+            color: $main-color;
+            border-top-color: $main-color;
+        }
+    }
+
+    //
     // SECTION BACKGROUND COLORS (maybe delete ¿?)
     // --------------------------------------------------------------------------
     @include when("article") {
@@ -177,11 +187,18 @@
         }
 
         //
-        // INSIGHTS MASONRY GRID
+        // INSIGHTS MASONRY GRID (only CSS, still not working for IE)
         //
-        @include when-inside(".ms__grid__layout") {
-            min-height: auto;
-            margin: 0 0;
+        // @include when-inside(".ms__grid__layout") {
+        //     min-height: auto;
+        //     margin: 0 0;
+        // }
+
+        //
+        // INFO BOXES
+        //
+        @include when-inside(".boxnews--info") {
+            min-height: 25rem;
         }
 
 
@@ -244,7 +261,6 @@
             color: $cases-color;
             border-top-color: transparent;
         }
-
 
 
         //
@@ -523,6 +539,41 @@
 
         @include when-inside(".boxnews--career") {
             // min-height: auto;
+        }
+
+        @include when-inside(".boxnews--career") {
+            outline: 2px solid blue;
+        }
+
+
+        //
+        // BOX INFO
+        // --------------------------------------------------------------------------
+        @include has("title") {
+            margin-bottom: 1rem;
+            @include fontSet(43px, 47px);
+            color: $complementary-color;
+        }
+
+        @include has("info") {
+            margin-bottom: auto;
+            @include fontSet(23px, 27px);
+            color: $main-color;
+        }
+
+        @include has("button") {
+            margin-top: 1.5rem;
+
+            @include when("region") {
+                margin-top: 0;
+            }
+        }
+
+        @include has("img") {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin-top: 1rem;
         }
     }
 

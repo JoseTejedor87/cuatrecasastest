@@ -261,10 +261,33 @@ publications_detail:
     methods:    GET
     controller: App\Controller\Web\PublicationController::detail
 
+# REGIONS
+# ###########################################
+regions_vision:
+    path:
+        en:   /regions/vision
+        es:   /territorios/vision
+    methods:    GET
+    controller: App\Controller\Web\RegionsController::vision
+
+regions_spain:
+    path:
+        en:   /regions/spain
+        es:   /territorios/espana
+    methods:    GET
+    controller: App\Controller\Web\RegionsController::spain
+
+regions_latam:
+    path:
+        en:   /regions/latam
+        es:   /territorios/latam
+    methods:    GET
+    controller: App\Controller\Web\RegionsController::latam
+
+
+
 # TEMPORAL (BORRAR)
 ##############################################
-
-
 productDetailServices:
     path:
         en:   /product-service
@@ -278,8 +301,6 @@ fiscal:
         es:   /fiscal
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
-
-
 
 events_detail2:
    path:

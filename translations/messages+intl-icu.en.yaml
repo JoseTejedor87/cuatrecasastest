@@ -70,6 +70,15 @@ sections:
     specialities: Specialities
     relatedPractices: Related Practices
 
+# Static Sections
+# ###########################################
+static:
+    offices:
+      officeOthers: Other regions
+      officeList: Offices list
+      deskList: Desk list
+      interOrg: International organitations
+
 # Menu
 # ###########################################
 menu:

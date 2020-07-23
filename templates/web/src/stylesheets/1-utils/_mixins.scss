@@ -422,7 +422,7 @@ img {
 @mixin arrow-button($color) {
     @include reset-button;
     position: relative;
-    padding: 0.3rem 2.4rem 0.3rem 0;
+    padding: 0.3rem 2rem 0.3rem 0;
     text-decoration: none;
     color: $color;
     transition: all 0.2s ease-in-out;
@@ -442,7 +442,7 @@ img {
     }
 
     &:after {
-        right: 0;
+        right: -6px;
         visibility: visible;
         opacity: 1;
         transition: opacity 0.2s ease-in-out, right 0.2s ease-out;

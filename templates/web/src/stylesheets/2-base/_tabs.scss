@@ -3,7 +3,6 @@
 // ==========================================================================
 
 @include new("tabs__component") {
-
     //
     // TABS
     // --------------------------------------------------------------------------
@@ -64,6 +63,10 @@
             &:nth-of-type(3) {
                 background-color: $tab3;
             }
+
+            &:nth-of-type(4) {
+                background-color: $tab4;
+            }
         }
 
         .nav-link {
@@ -121,5 +124,155 @@
         }
 
         .search_selects {}
+    }
+}
+
+@include new("faketabs__component") {
+    //
+    // TABS
+    // --------------------------------------------------------------------------
+
+    @include has("tabs") {
+        position: relative;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        transition: all 0.3s ease-in-out;
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            display: block;
+            width: 100vw;
+            height: 1px;
+            margin-left: -50vw;
+            background-color: rgba($black, 0.1);
+        }
+
+        .nav {
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-tabs {
+            border-bottom: 0 solid transparent;
+        }
+
+        .nav-item {
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            position: relative;
+            @include fontSet(23px, 23px);
+            text-transform: uppercase;
+            color: $main-color;
+            margin: 0 0;
+            padding: 0.5rem 0;
+            border: 0 solid transparent;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            transition: color 0.2s ease-in-out;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: $complementary-color;
+                z-index: 3;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s ease-out;
+            }
+
+            @include on-event {
+                color: $complementary-color;
+
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            &:active, &.active {
+                font-weight: bold;
+                color: $complementary-color;
+
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    //
+    // CONTENT
+    // --------------------------------------------------------------------------
+
+    @include has("content") {
+        position: relative;
+
+        &:before {
+            @include reset-pseudo($tabActive);
+            @include reset-full-scren;
+        }
+
+        @include when-inside(".sectors") {
+             &:before {
+                background-color: $white;
+            }
+        }
+
+        .page__section > .col {
+            padding: 4rem 0;
+        }
+
+        .search_box__wrapper {
+             margin-bottom: 2rem;
+        }
+    }
+}
+
+
+//
+// TABS TO ACCORDION
+// --------------------------------------------------------------------------
+
+#tabsToAccordion {
+
+    .nav-tabs {
+        display:none;
+    }
+
+    @media(min-width: $min-width-4casas) {
+        .nav-tabs {
+            display: flex;
+        }
+
+        .panel {
+            border: none;
+        }
+
+        .panel .panel-header {
+            display:none;
+        }
+
+        .panel .collapse{
+            display:block;
+        }
+    }
+
+    @media(max-width: $max-width-4casas) {
+        .tab-pane {
+            display: block !important;
+            opacity: 1;
+        }
     }
 }
