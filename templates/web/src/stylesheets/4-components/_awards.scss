@@ -3,7 +3,12 @@
 // ==========================================================================
 
 @include new("awards") {
-    background-color: rgba($black, 0.1);
+    position: relative;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+        @include reset-full-scren;
+    }
 
     .swiper-container {
         // full screen slider (overflow)
