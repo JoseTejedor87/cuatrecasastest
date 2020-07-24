@@ -5,17 +5,17 @@
                 <h4 class="section__title section__title section__title--awards">Premios</h4>
                 {% if awards|length > 0 %}
                     <div id="sliderAwards" class="swiper-container">
-                        <div class="swiper-wrapper">                        
+                        <div class="swiper-wrapper">
                             {% for award in awards %}
                             <div class="swiper-slide">
                                 {% if award.image is not null %}
-                                <figure class="awards__logo">                               
-                                    <img src="{{ asset('/resources/' ~ award.image.getFileName) }}" alt="">   
+                                <figure class="awards__logo">
+                                    <img src="{{ asset('/resources/' ~ award.image.getFileName) }}" alt="">
                                 </figure>
                                 {% endif %}
                                 <div class="awards__title">{{ award.translate(app.request.getLocale()).title }}</div>
                                 <div class="awards__date">{{ award.translate(app.request.getLocale()).granted }}</div>
-                            </div>                        
+                            </div>
                             {% endfor %}
                         </div>
                     </div>

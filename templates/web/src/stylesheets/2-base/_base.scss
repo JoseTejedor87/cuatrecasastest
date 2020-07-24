@@ -77,7 +77,7 @@ a:link {
 // BORRAR [page find-us]
 //
 
-.findus__foto {
+.foto__mapa {
     position: relative;
     width: 100vw;
     height: 720px;
@@ -88,6 +88,12 @@ a:link {
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+}
+
+@media(max-width: $max-width-4casas) {
+    .foto__mapa {
+        display: none;
+    }
 }
 
 
