@@ -36,16 +36,6 @@ class NavigationService
         return $hreflangs[$language][$region] ?? '';
     }
 
-    public function getMessageErrorLanguageFail(){
-        if($this->getLanguage() == 'es'){
-            $msg = 'Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación:';
-        }else{
-            $msg = 'This link is not available in the requested language / region, please try the links below:';
-        }
-        
-        return $msg;
-    }
-
     public function getAlternativePath($language = null, $region = null)
     {
         $language = $language ?? $this->getLanguage();
