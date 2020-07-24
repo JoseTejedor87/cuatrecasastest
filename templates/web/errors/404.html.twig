@@ -4,7 +4,6 @@
 
     <main role="main">
         <article class="container">
-
             <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
@@ -24,25 +23,31 @@
                     </div>
                 </div>
             </header>
-
-            {% set publishable = navigation_service.getPublishable() %}
-
-            {% if publishable %}
-                {% for language in languages %}
-                    {% for region in regions %}
-
-                        {% set href = navigation_service.getAlternativePath(language, region) %}
-                        {% if href %}
-                            <a href="{{ href }}" />{{href}}</a><br/>
-                        {% endif %}
-
-                    {% endfor %}
-                {% endfor %}
-            {% endif %}
-
         </article>
     </main>
 
+    {% set publishable = navigation_service.getPublishable() %}
+    {% if publishable %}
+        <div class="section__title section__title--recomended">
+            </br>
+            <h2>  {{ navigation_service.getMessageErrorLanguageFail()    }}</h1>
+            </br>
+            <ol class="breadcrumb">
+            {% for language in languages %}
+                {% for region in regions %}
+
+                    {% set href = navigation_service.getAlternativePath(language, region) %}
+                    {% if href %}
+                        <li class="breadcrumb-item">
+                        <a href="{{ href }}" />{{language}} / {{region}}</a><br/>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+            {% endfor %}
+            </ol>
+    </div>
+    {% endif %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}
