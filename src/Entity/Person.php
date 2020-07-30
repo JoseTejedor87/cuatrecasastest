@@ -42,11 +42,17 @@ class Person extends Item
      */
     private $lawyer;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Program", mappedBy="people")
+     */
+    private $programs;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -158,6 +164,34 @@ class Person extends Item
         if ($this->publications->contains($publication)) {
             $this->publications->removeElement($publication);
             $publication->removePerson($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Program[]
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): self
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->addPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): self
+    {
+        if ($this->programs->contains($program)) {
+            $this->programs->removeElement($program);
+            $program->removePerson($this);
         }
 
         return $this;

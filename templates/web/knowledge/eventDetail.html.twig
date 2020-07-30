@@ -215,37 +215,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="time">10.30 — 12.30</td>
-                                        <td class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc.</td>
-                                        <td class="speakers">
-                                            <ul class="speakers__list">
-                                                <li><a href="#">Pilar Cavero</a></li>
-                                                <li><a href="#">Francisco Conde</a></li>
-                                                <li>Javier García</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="time">15.00 — 16.30</td>
-                                        <td class="content">Morbi tincidunt ornare massa eget egestas. Vehicula ipsum a arcu cursus. Nec feugiat nisl pretium fusce id velit ut tortor.</td>
-                                        <td class="speakers">
-                                            <ul class="speakers__list">
-                                                <li><a href="#">Juan Antonio Linares</a></li>
-                                                <li><a href="#">Fedra Valencia</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="time">17.00 — 18.00</td>
-                                        <td class="content">Fermentum iaculis eu non diam phasellus vestibulum lorem. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur.</td>
-                                        <td class="speakers">
-                                            <ul class="speakers__list">
-                                                <li><a href="#">Fernando Moreno</a></li>
-                                                <li><a href="#">Álvaro Antón</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                    {% for program in event.programs %}
+                                        <tr>
+                                            <td class="time"> 
+                                            {{ (program.timeStart) }} - {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
+                                            </td>
+                                            <td class="content">{{ program.translate(app.request.getLocale()).title|raw}}</td>
+                                            <td class="speakers">
+                                                <ul class="speakers__list">
+                                                {% for person in program.people %}
+                                                    {% if person.lawyer  %} 
+                                                        <li><a href="{{ path('lawyers_detail', {slug: person.lawyer.slug}) }}">{{ person.lawyer.name }} {{ person.lawyer.surname }}</a></li>
+                                                    {% else %}
+                                                        <li>{{ person.name }} {{ person.surname }}</li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

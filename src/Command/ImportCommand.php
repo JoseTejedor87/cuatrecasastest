@@ -33,6 +33,7 @@ use App\Entity\Opinion;
 use App\Entity\News;
 use App\Entity\Publication;
 use App\Entity\Page;
+use App\Entity\Program;
 
 class ImportCommand extends Command
 {
@@ -114,6 +115,12 @@ class ImportCommand extends Command
                     break;
                 case "event_activity":
                     $this->ActivitiesByEvent();
+                    break;
+                case "EventPrograms":
+                    $this->EventPrograms();
+                    break;
+                case "PeopleByEventProgram":
+                    $this->PeopleByEventProgram();
                     break;
                 case "lawyer_activity":
                     $this->ActivitiesByLawyer();
@@ -432,6 +439,8 @@ class ImportCommand extends Command
                     $startDate ? $startDate : date("Y-m-d H:i:s")
                 );  
                 
+                $lawyer->setInitials(trim($item['siglas']));
+
                 if ($item['image']) {
                     // normalizing image paths
                     $path = $item['image'];
@@ -910,6 +919,133 @@ class ImportCommand extends Command
                 } else {
                     $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
                 }
+            }
+        }
+    }
+    public function EventPrograms()
+    {
+        $data = file_get_contents("JsonExports/eventosPrograma.json");
+        $items = json_decode($data, true);
+        $processedPrograms = [];
+
+        $eventRepository = $this->em->getRepository(Event::class);
+        $programRepository = $this->em->getRepository(Program::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
+
+        foreach ($items as $item) {
+
+            // Skip Person other than lawyers
+            if ($item['id_evento']) {
+                $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento']);
+                $eventId = $this->getMappedEventId($item['id_evento']);
+                if ($eventId) {
+                    $date = \DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']);
+                    $currentLang = self::getMappedLanguageCode($item['lang']);
+                    if(isset($processedPrograms[$eventId][$item['fecha']])){
+                        $program =  $processedPrograms[$eventId][$item['fecha']];
+                        if($item['titulo']){
+                            $program->translate($currentLang)->setTitle($item['titulo']);
+                            $program->translate($currentLang)->setDescription($item['descripcion']);
+                            $program->mergeNewTranslations();
+                        }
+                        $this->em->persist($program);
+                        $this->em->flush();
+                    }else{
+                        $program = new Program();
+                        $program->setOldId($item['id_programa']);
+                        $program->setDateTime(\DateTime::createFromFormat('Y-m-d G:i:s.u', $item['fecha']));
+                        $event = $eventRepository->find($eventId);
+                        $this->logger->debug("- Mapped Event " . $eventId . " · " . $event->translate("es")->getTitle());
+                        $processedPrograms[$eventId][$item['fecha']] = $program;
+                        if($item['titulo']){
+                            $program->translate($currentLang)->setTitle($item['titulo']);
+                            $program->translate($currentLang)->setDescription($item['descripcion']);
+                            $program->mergeNewTranslations();
+                        }
+                        $program->setEvents($event);
+                        $this->em->persist($program);
+                        $this->em->flush();
+                    }       
+                }else {
+                    $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+                }
+            }
+        }
+    }
+    public function PeopleByEventProgram()
+    {
+        $data = file_get_contents("JsonExports/EventosProgramaPonente.json");
+        $items = json_decode($data, true);
+        $processedPeople = [];
+        $processedPeopleName = [];
+
+        $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $personRepository = $this->em->getRepository(Person::class);
+        $programRepository = $this->em->getRepository(Program::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
+
+        foreach ($items as $item) {
+            // Skip Person other than lawyers
+            $programId = $this->getMappedProgramId($item['id_programa']);
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            if($lawyerId){
+                
+                $lawyer = $lawyerRepository->find($lawyerId);
+            }
+            if($programId){
+                $program = $programRepository->find($programId);
+            }
+            if ($item['id_abogado']!=0) {
+                $this->logger->debug("ORIGINAL DATA: program:" . $item['id_programa'] . " lawyer:" . $item['id_abogado']);
+                if ($lawyerId && $programId) {
+                    if (isset($processedPeople[$item['id_abogado']][$item['id_programa']])) {
+                        $person = $processedPeople[$item['id_abogado']][$item['id_programa']];
+                    } else {
+                        $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                        if(!$person){
+                            $person = new Person();
+                            $person->setOldId($item['id']);
+                            $person->setLawyer($lawyer);
+                        }
+                    }
+                    
+                    $program->addPerson($person);
+                    $this->em->persist($program);
+                    $this->em->flush();
+
+                    $processedPeople[$item['id_abogado']][$item['id_programa']] = $person;
+                } else {
+                    $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+                }
+            }else{
+                    if ($programId) {
+                        echo("Tiene programa no abogado");
+                        echo("<br>");
+                        echo($item['nombre']);
+                        echo($item['apellidos']);
+                        echo(isset($processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']]));
+                        if (isset($processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']])) {
+                            echo("Ya se añadio");
+                            $person = $processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']];
+                        } else {
+                                echo("entra". $item['nombre']);
+                                $person = new Person();
+                                $person->setOldId($item['id']);
+                                $person->setName($item['nombre']);
+                                $person->setSurname($item['apellidos']);
+                        }
+                        $program->addPerson($person);
+                        $this->em->persist($program);
+                        $this->em->flush();
+                        $processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']] = $person;
+                    }
+                
             }
         }
     }
@@ -2210,6 +2346,24 @@ class ImportCommand extends Command
         foreach ($People as $person) {
             $this->mappedPersonIds[$person
             ->getOldId()] = $person->getId();
+        }
+    }
+
+    private function getMappedProgramId(?string $id): ?string
+    {
+        if (empty($this->mappedProgramIds)) {
+            $this->loadMappedProgramIds();
+        }
+        return isset($this->mappedProgramIds[$id]) ? $this->mappedProgramIds[$id] : null;
+    }
+
+    private function loadMappedProgramIds()
+    {
+        $repository = $this->em->getRepository(Program::class);
+        $Programs = $repository->findAll();
+        foreach ($Programs as $Program) {
+            $this->mappedProgramIds[$Program
+            ->getOldId()] = $Program->getId();
         }
     }
     private static function getMappedLawyerType(?string $code): ?string

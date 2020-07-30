@@ -181,7 +181,7 @@ class KnowledgeController extends WebController
                 'types' => $types,
                 'formats' => $formats,
                 'publications' => $publications,
-                'pagesTotal' => $pagesTotal,
+                'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
             ]);
         }

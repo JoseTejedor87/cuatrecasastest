@@ -48,3 +48,13 @@ liip_imagine:
             filters:
                 scale:
                     dim: [1280, 720]
+        prodruct_grid:
+            quality: 75
+            filters:
+                scale:
+                    dim: [350, 200]
+        prodruct_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
