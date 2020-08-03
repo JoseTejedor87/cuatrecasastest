@@ -6,11 +6,17 @@
 {% endblock %}
 
 {% block main %}
-
+{% if product %}
+    {% if product.photo %}
+        {% set photo_path = asset('/resources/' ~ product.photo.fileName)|imagine_filter('prodruct_grid') %}
+    {% else %}
+        {% set photo_path = '' %}
+    {% endif %}
+{% endif %}
     <main role="main" class="lawyer">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <header class="row page__header page__header--opacity" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">

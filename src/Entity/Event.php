@@ -75,12 +75,18 @@ class Event extends Publishable
      */
     private $office;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events")
+     */
+    private $programs;
+
 
     public function __construct()
     {
         $this->people = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -275,4 +281,36 @@ class Event extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Program[]
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): self
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): self
+    {
+        if ($this->programs->contains($program)) {
+            $this->programs->removeElement($program);
+            // set the owning side to null (unless already changed)
+            if ($program->getEvents() === $this) {
+                $program->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

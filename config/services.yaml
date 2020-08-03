@@ -89,6 +89,8 @@ services:
     App\Command\MigrationCommand:
         tags:
             - { name: 'console.command', command: 'app:migration' }
+            
+
 
     App\Security\TokenAuthenticator:
         arguments:
