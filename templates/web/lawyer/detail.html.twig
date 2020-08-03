@@ -129,11 +129,7 @@
                     </div>
                 </section>
 
-                {#% if lawyer.showCaseStudiesBlock %#}
-                    {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
-                {#% endif %#}
-
-                {#% if cases|length > 0 %}
+                {% if cases|length > 0 %}
                     <section class="row page__block">
                         <div class="col">
                             <div class="page__block__title">
@@ -151,9 +147,7 @@
                             </div>
                         </div>
                     </section>
-                {% endif %#}
-
-
+                {% endif %}
 
                 {% if lawyer.person %}
 
