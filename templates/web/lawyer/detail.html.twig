@@ -139,7 +139,9 @@
                                 <ul class="page__block__content__details">
                                     {% for case in contextualBlocks.cases %}
                                         <li>
-                                            <div>***</div>
+                                            {% for activities in case.getActivities() | slice(0,1) %}
+                                                <div>{{ activities.translate(app.request.getLocale()).title }}</div>
+                                            {% endfor %}
                                             <a href="{{ path('case_studies_detail', {slug: case.translate(app.request.getLocale()).slug}) }}">{{ case.translate(app.request.getLocale()).title }}</a>
                                         </li>
                                     {% endfor %}
