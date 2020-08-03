@@ -29,6 +29,7 @@ class LawyerFormType extends AbstractType
         $builder
             ->add('name', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.name'])
             ->add('surname', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.surname'])
+            ->add('initials', TextType::class, ['required' => true,'label'=>'entities.lawyer.fields.initials'])
             ->add('email', EmailType::class, ['required' => true,'label'=>'entities.lawyer.fields.email'])
             ->add('phone', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.phone'])
             ->add('fax', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.fax'])

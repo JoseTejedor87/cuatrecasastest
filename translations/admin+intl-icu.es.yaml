@@ -255,6 +255,7 @@ entities:
     fields:
       name: Nombre
       surname: Apellido
+      initials: Iniciales
       email: Correo electrónico
       phone: Teléfono
       fax: Fax

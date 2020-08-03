@@ -129,7 +129,7 @@
                     </div>
                 </section>
 
-                {% if cases|length > 0 %}
+                {% if contextualBlocks.cases|length > 0 %}
                     <section class="row page__block">
                         <div class="col">
                             <div class="page__block__title">
@@ -137,7 +137,7 @@
                             </div>
                             <div class="page__block__content">
                                 <ul class="page__block__content__details">
-                                    {% for case in cases %}
+                                    {% for case in contextualBlocks.cases %}
                                         <li>
                                             <div>***</div>
                                             <a href="{{ path('case_studies_detail', {slug: case.translate(app.request.getLocale()).slug}) }}">{{ case.translate(app.request.getLocale()).title }}</a>

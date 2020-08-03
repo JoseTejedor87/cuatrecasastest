@@ -166,3 +166,9 @@ reusable_blocks:
     cases:
       title: Casos
       link: Ver más
+
+# Errors Messajes
+# ###########################################
+error:
+  msg:
+    fail_route: This link is not available in the requested language / region, please try the links below

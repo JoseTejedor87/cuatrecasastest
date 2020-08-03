@@ -28,6 +28,10 @@ class Lawyer extends Publishable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $initials;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $email;
 
     /**
@@ -436,4 +440,18 @@ class Lawyer extends Publishable
 
         return $this;
     }
+
+    public function getInitials(): ?string
+    {
+        return $this->initials;
+    }
+
+    public function setInitials(?string $initials): self
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+
 }

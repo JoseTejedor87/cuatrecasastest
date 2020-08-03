@@ -94,6 +94,14 @@ class EventController extends WebController
     {
         $paises = $this->soap->getPaises('es')->getContent();
         $event = $EventRepository->getInstanceByRequest($request);
+        foreach ($event->getPrograms() as $key => $value) {
+            $value->timeStart = $value->getDateTime()->format('H:i');
+            if(isset($event->getPrograms()[$key+1])){
+                $value->timeEnd = $event->getPrograms()[$key+1]->getDateTime()->format('H:i');
+            }
+            // dd($value->getPeople());
+        }
+        // dd($event);
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
             'paises' => json_decode($paises),
