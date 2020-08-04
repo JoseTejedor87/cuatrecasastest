@@ -32,10 +32,22 @@ class ProductsController extends WebController
             [$product]
         );
 
+        $awardsFiltered = [];
+        foreach ($awards as $award)
+        {
+            foreach($award->getActivities() as $activity){
+                if ( $activity instanceof \App\Entity\Products)
+                {
+                    array_push($awardsFiltered,$award);
+                    break;
+                }
+            }
+        }
+
         return $this->render('web/products/detail.html.twig', [
             'product' => $product,
             'relatedCaseStudies' => $relatedCaseStudies,
-            'awards' => $awards
+            'awards' => $awardsFiltered
         ]);
     }
 
