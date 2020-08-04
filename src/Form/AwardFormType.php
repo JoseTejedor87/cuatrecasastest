@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use App\Entity\Award;
+use App\Entity\Activity;
 use App\Form\ResourceFormType;
 
 class AwardFormType extends AbstractType
@@ -27,6 +28,20 @@ class AwardFormType extends AbstractType
                 'label'=>'entities.awards.fields.year',
                 'widget' => 'choice',
                 'required' => true
+            ])
+            ->add('activities', EntityType::class, [
+                'class' => Activity::class,
+                'label' => 'entities.award.fields.activities',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'required' => false,
+                'choice_label' => function ($activity) {
+                    return $activity->translate('es')->getTitle();
+                }
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
