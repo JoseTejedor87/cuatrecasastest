@@ -79,7 +79,7 @@ class EventFormType extends AbstractType
                     'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'program' => ['label'=>'entities.event.fields.program', 'attr'=>['class'=>'summernote']],
                     'customCity' => ['label'=>'entities.event.fields.customCity'],
-                    'customAddress' => ['label'=>'entities.event.fields.customAddress'],
+                    'customAddress' => ['label'=>'entities.event.fields.customAddress', 'attr'=>['class'=>'summernote']],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],

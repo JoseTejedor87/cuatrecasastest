@@ -225,7 +225,7 @@ entities:
       contact: Nombre de contacto
       phone: Teléfono de contacto
       capacity: Aforo
-      People: Personas
+      people: Personas
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
   eventsBlock:
