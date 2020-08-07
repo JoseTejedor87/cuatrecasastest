@@ -60,9 +60,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__media">
-                            {% if lawyer.photo %}
-                                <figure style="background-image: url('{{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }}');" />
-                            {% endif %}
+                            <figure style="background-image: url('{{ asset('web/assets/img/photo-lawyer-prep2.jpg') }}">
                         </div>
                     </div>
                 </div>
