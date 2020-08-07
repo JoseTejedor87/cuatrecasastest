@@ -30,7 +30,7 @@
     {% if publishable %}
         <div class="section__title section__title--recomended">
             </br>
-            <h2>  {{ navigation_service.getMessageErrorLanguageFail()    }}</h1>
+            <h2>  {{ error.msg.fail_route    }}</h2>
             </br>
             <ol class="breadcrumb">
             {% for language in languages %}

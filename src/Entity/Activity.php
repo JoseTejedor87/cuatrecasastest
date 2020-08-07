@@ -39,6 +39,11 @@ abstract class Activity extends Publishable
     private $lawyers;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Award", mappedBy="activities")
+     */
+    private $awards;    
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", mappedBy="secondaryActivities")
      */
     private $lawyers_secondary;
@@ -109,6 +114,7 @@ abstract class Activity extends Publishable
         $this->caseStudies = new ArrayCollection();
         $this->publication = new ArrayCollection();
         $this->quote = new ArrayCollection();
+        $this->awards = new ArrayCollection();
         
     }
 
@@ -443,6 +449,34 @@ abstract class Activity extends Publishable
         $newActivity = null === $photo ? null : $this;
         if ($photo->getActivity() !== $newActivity) {
             $photo->setActivity($newActivity);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Award[]
+     */
+    public function getAwards(): Collection
+    {
+        return $this->awards;
+    }
+
+    public function addAward(Award $award): self
+    {
+        if (!$this->awards->contains($award)) {
+            $this->awards[] = $award;
+            $award->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAward(Award $award): self
+    {
+        if ($this->awards->contains($award)) {
+            $this->awards->removeElement($award);
+            $award->removeActivity($this);
         }
 
         return $this;

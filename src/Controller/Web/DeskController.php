@@ -22,6 +22,7 @@ class DeskController extends WebController
         ]);
     }
 
+
     public function detail(Request $request, DeskRepository $deskRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
     {
         $awards = $awardRepository->getAll();
@@ -29,12 +30,23 @@ class DeskController extends WebController
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$desk]
         );
-        // echo $awards[0]->getImage()->getFileName(); die();
+
+        $awardsFiltered = [];
+        foreach ($awards as $award)
+        {
+            foreach($award->getActivities() as $activity){
+                if ( $activity instanceof \App\Entity\Desk)
+                {
+                    array_push($awardsFiltered,$award);
+                    break;
+                }
+            }
+        }
 
         return $this->render('web/desks/detail.html.twig', [
             'desk' => $desk,
             'relatedCaseStudies' => $relatedCaseStudies,
-            'awards' => $awards
+            'awards' => $awardsFiltered
         ]);
     }
 }

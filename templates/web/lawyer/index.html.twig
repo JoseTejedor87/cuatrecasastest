@@ -131,7 +131,7 @@
                     <div class="lawyer__search__wrapper lawyer__search__wrapper--grid " id="lawyerAjaxResults" >
                     {% if lawyers == '' %}
                         {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
-                   {% endif %} 
+                   {% endif %}
                     {% for lawyer in lawyers %}
                         {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
                     {% endfor %}
@@ -281,7 +281,7 @@
         .done(function( msg ) {
             $('.search__component__loader').fadeOut();
             $('#lawyerAjaxResults').empty();
-            
+
             var url= "";
             if(msg['initial']){
                 if(url == ""){
@@ -371,7 +371,7 @@
             html = html ;
             $('#lawyerAjaxResults').after( html  );
             $('#lawyerAjaxResults').show();
-            $('.lawyer__search').show();            
+            $('.lawyer__search').show();
             window.history.replaceState(null, null, "abogados"+url);
             $("#textSearch").val(textSearch);
             $("#services").val(services);

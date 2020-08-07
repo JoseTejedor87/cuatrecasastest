@@ -31,10 +31,22 @@ class SectorController extends WebController
             [$sector]
         );
 
+        $awardsFiltered = [];
+        foreach ($awards as $award)
+        {
+            foreach($award->getActivities() as $activity){
+                if ( $activity instanceof \App\Entity\Sector)
+                {
+                    array_push($awardsFiltered,$award);
+                    break;
+                }
+            }
+        }
+
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,
             'relatedCaseStudies' => $relatedCaseStudies,
-            'awards' => $awards
+            'awards' => $awardsFiltered
         ]);
     }
 }

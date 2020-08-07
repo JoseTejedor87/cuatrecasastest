@@ -40,7 +40,7 @@ class EventTranslation extends PublishableTranslation
     private $customCity;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $customAddress;
 
@@ -126,5 +126,12 @@ class EventTranslation extends PublishableTranslation
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
