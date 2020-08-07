@@ -31,10 +31,22 @@ class PracticeController extends WebController
             [$practice]
         );
 
+        $awardsFiltered = [];
+        foreach ($awards as $award)
+        {
+            foreach($award->getActivities() as $activity){
+                if ( $activity instanceof \App\Entity\Practice)
+                {
+                    array_push($awardsFiltered,$award);
+                    break;
+                }
+            }
+        }
+        
         return $this->render('web/practices/detail.html.twig', [
             'practice' => $practice,
             'relatedCaseStudies' => $relatedCaseStudies,
-            'awards' => $awards
+            'awards' => $awardsFiltered
         ]);
     }
 }

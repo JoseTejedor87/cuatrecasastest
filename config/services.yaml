@@ -95,6 +95,9 @@ services:
     App\Security\TokenAuthenticator:
         arguments:
             $singleSignOnParameters: '%app.single_sign_on%'
+    
+    sensio_framework_extra.view.listener:
+        alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 
 # KnpLab Paginator
 knp_paginator:
@@ -104,3 +107,6 @@ knp_paginator:
         #sortable: '@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig'
         #filtration: '@KnpPaginator/Pagination/filtration.html.twig'
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
+
+    

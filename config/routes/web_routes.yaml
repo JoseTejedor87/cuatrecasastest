@@ -301,6 +301,22 @@ regions_others:
     controller: App\Controller\Web\RegionsController::others
 
 
+# API-PUBLICATIONS
+##############################################
+publications-api:
+    path:
+        en:   /publications-api/posts
+        es:   /publications-api/posts
+    methods:    GET
+    controller: App\Controller\APIController::posts
+
+publications-api-media:
+    path:
+        en:   /publications-api/media
+        es:   /publications-api/media
+    methods:    GET
+    controller: App\Controller\APIController::media
+
 # TEMPORAL (BORRAR)
 ##############################################
 productDetailServices:

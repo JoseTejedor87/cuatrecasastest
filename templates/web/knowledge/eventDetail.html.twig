@@ -45,7 +45,7 @@
                         <!-- duplicate event info -->
                         <div class="boxnews__content" id="eventMainInfo" style="display:none">
                             <div class="place">
-                                <a href="#">{{ customAddress|last }}</a>
+                                <a href="#">{{ customAddress|first|raw }}</a>
                                 <br>
                                 {{ customAddress[:-1]|join(' ') }}
                             </div>
@@ -97,7 +97,7 @@
 
                             <div class="boxnews__content" id="eventBoxInfo">
                                 <div class="place">
-                                    <a href="#">{{ customAddress|last }}</a>
+                                    <a href="#">{{ customAddress|first|raw }}</a>
                                     <br>
                                     {{ customAddress[:-1]|join(' ') }}
                                 </div>
@@ -148,9 +148,9 @@
                                     <div class="form-group">
                                         <select id="eCountry" class="form-control custom-select" required>
                                             <option value="" selected disabled>País *</option>
-                                            {% for pais in paises %}
+                                            {#% for pais in paises %}
                                                 <option value="{{ pais.IdPais }}" id="{{ pais.IdPais }}" >{{ pais.Nombre }}</option>
-                                            {% endfor %}
+                                            {% endfor %#}
                                         </select>
                                     </div>
                                     <div class="form-group">
