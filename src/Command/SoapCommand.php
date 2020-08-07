@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\SOAPContactsClientRepository;
+use App\Controller\SOAPContactsClientController;
 
 
 
@@ -23,16 +25,21 @@ class SoapCommand extends Command
     private $url;
     private $conn;
     private $CrearTablas;
+    private $SOAPContactsClientRepository;
+    private $soap;
 
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
 
-    public function __construct(ContainerInterface $container, LoggerInterface $logger)
+    public function __construct(ContainerInterface $container, LoggerInterface $logger,SOAPContactsClientRepository $SOAPContactsClientRepository)
     {
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
         $this->CrearTablas = false;
         $this->em = $this->container->get('doctrine')->getManager();
+        $this->SOAPContactsClientRepository = $SOAPContactsClientRepository;
+        $this->soap  = new SOAPContactsClientController;
+
     }
 
     protected function configure()
@@ -56,131 +63,57 @@ class SoapCommand extends Command
         $this->logger->info("Se van a importar todas las tablas");
         $em = $this->container->get('doctrine');
         $this->conn = $em->getConnection();
-        $this->getAreasInteres(); 
-
+        if($this->CrearTablas){ 
+            $this->SOAPContactsClientRepository->deleteTables();
+            $this->SOAPContactsClientRepository->createTables();
+        }else{
+            $this->SOAPContactsClientRepository->deleteTables();
+        }
+       
+        $this->getPaises(); 
+        $this->getProvincias(); 
+        $this->getIdiomas(); 
+        $this->getAreasInteres();
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
 
     public function getPaises()
     {
-
-            $client = new \SoapClient($this->url);
-            $res  = $client->GetPaises( array ('filter' =>( array ( 'LanguageId' => '', 'PaisId'  =>  ''))));
-            $data = $res->GetPaisesResult->PaisWebDto;
-            if($this->CrearTablas){
-                $query = "CREATE TABLE GC_paises (
-                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    IdPais VARCHAR(30) NOT NULL,
-                    Nombre VARCHAR(150) NOT NULL
-                    )";
-                $stmt = $this->conn->prepare($query);
-                $stmt->execute();
-            }
-            $values = "";
-            foreach ($data as $key => $value) {
-                if($key==0){
-                    $values = $values . '("'.$value->IdPais.'","'.$value->Nombre.'")';
-                }else{
-                    $values = $values . ',("'.$value->IdPais.'","'.$value->Nombre.'")';
-                }
-                
-            }
-            $query = "INSERT INTO 
-            GC_paises(IdPais, Nombre)
-            VALUES
-            ".$values.";";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
+        $res  = array ('filter' =>( array ( 'IdPais' => "", 'Nombre'  =>  "")));
+        $data = $this->soap->getPaises($res);
+        $this->SOAPContactsClientRepository->setPaises($data);
+           
     }
 
     public function getProvincias()
     {
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->GetProvincias( array ('filter' =>( array ( 'LanguageId' => "", 'PaisId'  =>  "", 'ProvinciaId'  =>  ''))));
-            $data = $res->GetProvinciasResult->ProvinciaWebDto;
-            if($this->CrearTablas){
-                $query = "CREATE TABLE GC_provincias (
-                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    IdPais VARCHAR(30) NOT NULL,
-                    IdProvincia VARCHAR(30) NOT NULL,
-                    Nombre VARCHAR(150) NOT NULL
-                    )";
-                $stmt = $this->conn->prepare($query);
-                $stmt->execute();
-            }
-            $values = "";
-            foreach ($data as $key => $value) {
-                if($key==0){
-                    $values = $values . '("'.$value->IdPais.'","'.$value->IdProvincia.'","'.$value->Nombre.'")';
-                }else{
-                    $values = $values . ',("'.$value->IdPais.'","'.$value->IdProvincia.'","'.$value->Nombre.'")';
-                }
-                
-            }
-            $query = "INSERT INTO 
-            GC_provincias(IdPais, IdProvincia , Nombre)
-            VALUES
-            ".$values.";";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
+
+            $res  = array ('filter' =>( array ( 'LanguageId' => "", 'PaisId'  =>  "", 'ProvinciaId'  =>  '')));
+            $data = $this->soap->getProvincias($res);
+            $this->SOAPContactsClientRepository->setProvincias($data);
+           
     }
     public function getIdiomas()
     {
-        $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-        $res  = $client->GetIdiomas( array ('filter' =>( array ( 'IdiomaId' => "", 'LanguageId'  =>  ""))));
-        $data = $res->GetIdiomasResult->IdiomaDto;
-        if($this->CrearTablas){
-            $query = "CREATE TABLE GC_idiomas (
-                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                IdIdioma VARCHAR(30) NOT NULL,
-                Nombre VARCHAR(150) NOT NULL
-                )";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-        }
-        $values = "";
-        foreach ($data as $key => $value) {
-            if($key==0){
-                $values = $values . '("'.$value->IdIdioma.'","'.$value->Nombre.'")';
-            }else{
-                $values = $values . ',("'.$value->IdIdioma.'","'.$value->Nombre.'")';
-            }
-            
-        }
-        $query = "INSERT INTO 
-        GC_idiomas(IdIdioma , Nombre)
-        VALUES
-        ".$values.";";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+      
+        $res  = array ('filter' =>( array ( 'IdiomaId' => "", 'LanguageId'  =>  "")));
+        $data = $this->soap->getIdiomas($res);
+        $this->SOAPContactsClientRepository->setIdiomas($data);
+        
     }   
     public function getAreasInteres()
     {
-        $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-        $res  = $client->GetAreasInteres( array ('filter' =>( array ( 'AreaInteresId' => "", 'LanguageId'  => ""))));
-        $data = $res->GetAreasInteresResult->AreaInteresWebDto;
-        if($this->CrearTablas){
-            $query = "CREATE TABLE GC_areasInteres (
-                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                IdAreaInteres VARCHAR(30) NOT NULL,
-                Nombre VARCHAR(150) NOT NULL
-                )";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-        }
-        $values = "";
-        foreach ($data as $key => $value) {
-            if($key==0){
-                $values = $values . '("'.$value->IdAreaInteres.'","'.$value->Nombre.'")';
-            }else{
-                $values = $values . ',("'.$value->IdAreaInteres.'","'.$value->Nombre.'")';
-            }
-            
-        }
-        $query = "INSERT INTO GC_areasInteres(IdAreaInteres, Nombre) VALUES ".$values.";";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        
+        $res  =  array ('filter' =>( array ( 'AreaInteresId' => "", 'LanguageId'  => "")));
+        $data = $this->soap->getAreasInteres($res);
+        $this->SOAPContactsClientRepository->setAreasInteres($data);
     }
-
+    public function getOficinas()
+    {
+        
+        $res  = array ('filter' =>( array ( 'OficinaId' => "")));
+        $data = $this->soap->getOficinas($request);
+        $this->SOAPContactsClientRepository->setOficinas($data);
+    }
 }

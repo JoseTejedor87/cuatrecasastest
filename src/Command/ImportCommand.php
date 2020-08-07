@@ -1025,16 +1025,9 @@ class ImportCommand extends Command
                 }
             }else{
                     if ($programId) {
-                        echo("Tiene programa no abogado");
-                        echo("<br>");
-                        echo($item['nombre']);
-                        echo($item['apellidos']);
-                        echo(isset($processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']]));
                         if (isset($processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']])) {
-                            echo("Ya se añadio");
                             $person = $processedPeopleName[$item['id_programa']][$item['nombre'].$item['apellidos']];
                         } else {
-                                echo("entra". $item['nombre']);
                                 $person = new Person();
                                 $person->setOldId($item['id']);
                                 $person->setName($item['nombre']);
