@@ -92,7 +92,9 @@ class EventController extends WebController
 
     public function detail(Request $request, EventRepository $EventRepository)
     {
-        $paises = $this->soap->getPaises('es')->getContent();
+        // $paises = $this->soap->getPaises('es')->getContent();
+
+
         $event = $EventRepository->getInstanceByRequest($request);
         foreach ($event->getPrograms() as $key => $value) {
             $value->timeStart = $value->getDateTime()->format('H:i');
@@ -104,7 +106,7 @@ class EventController extends WebController
         // dd($event);
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
-            'paises' => json_decode($paises),
+            'paises' => '' // json_decode($paises),
         ]);
     }
 

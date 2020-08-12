@@ -1947,9 +1947,10 @@ class ImportCommand extends Command
                     {
                         $title =  utf8_decode($title);
                     }
-					$publication->translate($currentLang)->setTitle($title);
-                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary']) : '');
-                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido']) : '');
+                    $publication->translate($currentLang)->setTitle($title);
+
+                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
+                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
                     $publication->setLanguages(
                         array_unique(
                             array_merge(
@@ -2064,8 +2065,9 @@ class ImportCommand extends Command
                         $title =  utf8_decode($title);
                     }
                     $publication->translate($currentLang)->setTitle($title);
-                    $publication->translate($currentLang)->setSummary($item1['summary']  ? html_entity_decode($item1['summary']) : '');
-                    $publication->translate($currentLang)->setContent($item1['contenido']  ? html_entity_decode($item1['contenido']) : '');
+                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
+                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
+
                     $publication->setLanguages(
                         array_unique(
                             array_merge(
