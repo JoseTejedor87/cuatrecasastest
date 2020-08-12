@@ -248,15 +248,21 @@ web.global = {
     // END BORRAR
 
 
-    sliderAwards: function(){
-        var swiperAwards = new Swiper ('#sliderAwards', {
-            slidesPerView: 'auto',
-            spaceBetween: 60,
-            centeredSlides: true,
-            loop: true,
-            grabCursor: true
-        });
-    },
+    // sliderAwards: function(){
+    //     var swiperAwards = new Swiper ('#sliderAwards', {
+    //         slidesPerView: 1,
+    //         spaceBetween: 0,
+    //         centeredSlides: true,
+    //         loop: true,
+    //         grabCursor: true,
+    //         breakpoints: {
+    //             1199: {
+    //                 slidesPerView: 3,
+    //                 spaceBetween: 60,
+    //             },
+    //         }
+    //     });
+    // },
 
     testimonials: function(){
         $('.testimonials__item').hover(function(){

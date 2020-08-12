@@ -73,7 +73,7 @@
 
             {% include 'web/shared/awards_CMP.html.twig' %}
             {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/related-content.html.twig' %}
+            {% include 'web/shared/related-content-slider.html.twig' %}
             {% include 'web/shared/info.html.twig' %}
 
         </article>
@@ -86,14 +86,54 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperCases.js') }}"></script>
 <!-- Responsive Tabs -->
-<script type="text/javascript" src="{{ asset('web/assets/js/responsive-tabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
-    web.global.sliderAwards();
-
-    (function ($) {
+    $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
-    })(jQuery);
+
+        var swiperAwards = new Swiper ('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: true
+        });
+
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+    });
 </script>
 {% endblock %}

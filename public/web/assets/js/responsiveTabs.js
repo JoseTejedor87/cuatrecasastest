@@ -1,4 +1,4 @@
-(function ($){
+$(function () {
     $.fn.responsiveTabs = function() {
         this.addClass('responsive-tabs'),
         this.append($('<span class="icon4-fletxa_cuatrecasas"></span>')),
@@ -9,4 +9,4 @@
             this.removeClass("open")
         }.bind(this));
     }
-})(jQuery);
+});

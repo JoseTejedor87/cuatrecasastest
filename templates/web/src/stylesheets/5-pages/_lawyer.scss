@@ -51,8 +51,8 @@
                 width: calc(33.3333% - 30px);
                 margin: 0 15px;
                 margin-bottom: 30px;
-                background-size: auto 100%;
-                background-position: 100% 0;
+                background-size: auto 120%;
+                background-position: 100% 100%;
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
@@ -373,13 +373,25 @@
     @include has("content") {
         padding-top: 7rem;
         padding-right: 6rem;
-        padding-bottom: 5rem;
+        padding-bottom: 6rem;
+        min-height: 24rem;
+
+        .doble__arrow__link {
+            display: inline-flex;
+            margin-bottom: 4rem;
+        }
     }
 
     @include has("name") {
         @include fontSet(64px, 64px);
         line-height: 1;
         margin-bottom: 0;
+    }
+
+    @include has("region") {
+        @include fontSet(64px, 64px);
+        line-height: 1;
+        margin-bottom: 2rem;
     }
 
     @include has("position") {
@@ -455,12 +467,12 @@
     }
 
     .action__links {
-        position: relative;
-        bottom: -4rem;
-        margin-left: -0.5rem;
+        position: absolute;
+        bottom: 2rem;
+        // margin-left: -0.5rem;
     }
 
-    @include has("media") {
+    @include has("foto") {
         position: relative;
         width: auto;
         height: 100%;
@@ -469,9 +481,9 @@
             @include reset-figure;
             width: 45vw;
             height: 100%;
-            background-position: 100% 0;
+            background-position: 100% 100%;
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: auto 150%;
         }
 
         img {
@@ -512,5 +524,20 @@
             display: none;
         }
         */
+    }
+
+    @include has("office") {
+        position: relative;
+        width: auto;
+        height: 100%;
+
+        figure {
+            @include reset-figure;
+            width: 45vw;
+            height: 100%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     }
 }

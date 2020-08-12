@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.offices.latam'|trans }}
+                            {{ 'menu.offices.other'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -25,7 +25,7 @@
                                     <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.offices.latam'|trans }}
+                                    {{ 'menu.offices.other'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -52,35 +52,26 @@
                                 <a href="#" class="nav-link">{{ 'menu.offices.portugal'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">{{ 'menu.offices.latam'|trans }}</a>
+                                <a href="#" class="nav-link">{{ 'menu.offices.latam'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                                <a href="#" class="nav-link active">{{ 'menu.offices.other'|trans }}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="row page__block noborder">
+            <section class="row page__block--regions">
                 <div class="col">
-                    <div class="page__block__title page__block__title--article">
-                        <p>Contamos con un grupo de profesionales de diferentes áreas con una amplia experiencia en el asesoramiento a empresas y fondos canadienses con intereses en Europa y Ameríca latina</p>
-                    </div>
-                    <div class="page__block__content page__block__content--article">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
-                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.</p>
-                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
                 </div>
             </section>
 
-            <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-latam.png') }}')">
-            </section>
-
-            {% include 'web/shared/awards_CMP.html.twig' %}
-            {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/related-content-slider.html.twig' %}
-            {% include 'web/shared/info.html.twig' %}
+            {% include 'web/shared/worldwide.html.twig' %}
+            {% include 'web/shared/related-content.html.twig' %}
+            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
+            {% include 'web/shared/cta_CMP.html.twig' %}
 
         </article>
     </main>
@@ -96,34 +87,7 @@
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
-
         $('.faketabs__component__tabs .nav').responsiveTabs();
-
-        var swiperAwards = new Swiper ('#sliderAwards', {
-            slidesPerView: 'auto',
-            spaceBetween: 0,
-            centeredSlides: true,
-            loop: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
-        });
 
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 1,
