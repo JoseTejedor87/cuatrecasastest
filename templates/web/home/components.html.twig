@@ -68,7 +68,16 @@
             </div>
         </div>
     </div>
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider_CMP.html.twig' %}
+
+    <div class="container cmp-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="cmp">[cmp02] Contenido destacado - Fake Slider</div>
+            </div>
+        </div>
+    </div>
+    {% include 'web/shared/related-content-slider-3elem_CMP.html.twig' %}
 
     <div class="container cmp-wrapper">
         <div class="row">
@@ -893,8 +902,6 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperCases.js') }}"></script>
 <!-- Masonry JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <!-- Checkbox Filters -->
@@ -902,9 +909,76 @@
 
 <script>
     $(function () {
-        web.global.sliderAwards();
         web.global.testimonials();
         web.global.customSelects();
+
+        var swiperAwards = new Swiper ('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 60,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: true
+        });
+
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperFake = new Swiper ('.slider__fake', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            // cssMode: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                    allowTouchMove: false,
+                    grabCursor: false,
+                },
+            },
+            on: {
+                resize: function () {
+                    // window.location.reload();
+                }
+            },
+        });
 
         // GRID
         $('.grid__masonry').masonry({

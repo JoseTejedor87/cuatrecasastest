@@ -233,7 +233,7 @@
 
         // one item
         &:first-child:nth-last-child(1) {
-            background-size: auto 130%;
+            background-size: auto 150%;
             background-position: 100% 100%;
 
             .team__member__name {
@@ -252,7 +252,7 @@
         // two items
         &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
             background-size: auto 130%;
-            background-position: 96% 70%;
+            background-position: 100% 100%;
 
             .team__member__name {
                 width: 160px;
@@ -266,8 +266,8 @@
 
         // three items
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
-            background-size: auto 130%;
-            background-position: 96% 70%;
+            background-size: auto 120%;
+            background-position: 95% 100%;
 
             .team__member__name {
                 width: 140px;
@@ -281,8 +281,8 @@
 
         // four items
         &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
-            background-size: auto 120%;
-            background-position: 94% 80%;
+            background-size: auto 100%;
+            background-position: 95% 100%;
 
             .team__member__name {
                 width: 140px;
@@ -296,8 +296,8 @@
 
         // five items
         &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
-            background-size: auto 110%;
-            background-position: 94% 100%;
+            background-size: auto 100%;
+            background-position: 95% 100%;
 
             .team__member__name {
                 width: 140px;

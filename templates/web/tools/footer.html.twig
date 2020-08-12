@@ -7,15 +7,15 @@
                 </div>
             </div>
             <div class="row footer__info">
-                <div class="col-sm-4">
+                <div class="col-4 footer__info--content">
                     <img src="{{ asset('web/assets/img/logos/Cuatrecasas-logo.png') }}" alt="Cuatrecasas" class="footer__logo">
                     <p>{{ 'footer.intro'|trans }}</p>
                 </div>
             </div>
             <div class="row footer__links">
-                <div class="col-sm-6">
-                    <p>{{ 'footer.copyright'|trans }}</p>
-                    <ul class="legal__info">
+                <div class="col-6 footer__links--legal">
+                    <div class="info__copyright">{{ 'footer.copyright'|trans }}</div>
+                    <ul class="info__legal">
                         <li class="legal__item">
                             <a href="#" class="legal__link" rel="nofollow">
                                 {{ 'footer.privacy.cookies'|trans }}
@@ -33,13 +33,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-6 footer__links--social">
                     <ul class="social__media">
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
                                 <i class="fab fa-twitter"></i>
@@ -52,12 +47,17 @@
                         </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
-                                <i class="fab fa-linkedin-in"></i>
+                                <i class="fab fa-facebook-f"></i>
                             </a>
                         </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
                                 <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <i class="fab fa-linkedin-in"></i>
                             </a>
                         </li>
                     </ul>

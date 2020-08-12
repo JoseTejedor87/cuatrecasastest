@@ -80,6 +80,11 @@ p {
     color: $white;
     background-color: $black;
 
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(18px, 26px);
+        letter-spacing: 0;
+    }
+
     //
     // BG COLORS (horizontal modules)
     //

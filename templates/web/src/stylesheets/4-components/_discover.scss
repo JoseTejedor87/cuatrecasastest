@@ -3,25 +3,61 @@
 // ==========================================================================
 
 @include new("discover") {
-    background-color: $main-color;
 
     @include has("content") {
+        position: relative;
         padding: 5rem 2rem 6rem 0;
+
+        &:before {
+            @include reset-pseudo($main-color);
+            @include reset-full-scren;
+            z-index: -1;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            padding: 2rem 0;
+        }
     }
+
+    @include has("link") {
+        display: block;
+        position: relative;
+        width: 100vw;
+        height: 180px;
+        @include box-full-link;
+    }
+
 
     @include has("img") {
         @include stretch-to-right;
+
+        @media(max-width: $max-width-4casas) {
+            width: auto;
+            height: 180px;
+            margin-right: 0;
+            margin-left: -50vw;
+            left: 50%;
+            background-position: 50% 50%;
+        }
     }
 
     @include has("title") {
         @include fontSet(58px, 58px);
         color: $complementary-color;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(25px, 35px);
+        }
     }
 
     @include has("excerpt") {
         margin-bottom: 2rem;
         @include fontSet(58px, 58px);
         color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(25px, 35px);
+        }
     }
 }
 

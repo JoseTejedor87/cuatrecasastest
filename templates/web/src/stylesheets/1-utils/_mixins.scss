@@ -363,6 +363,16 @@ img {
     // z-index: 0;
 }
 
+@mixin box-full-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    @include on-event {
+        text-decoration: none;
+    }
+}
+
 
 //
 // BUTTONS
@@ -422,16 +432,25 @@ img {
 @mixin arrow-button($color) {
     @include reset-button;
     position: relative;
-    padding: 0.3rem 2rem 0.3rem 0;
+    padding: 0.3rem 2.3rem 0.3rem 0;
     text-decoration: none;
     color: $color;
     transition: all 0.2s ease-in-out;
+
+    @media(max-width: $max-width-4casas) {
+        padding: 0.3rem 1.3rem 0.3rem 0;
+    }
 
     &:before,
     &:after {
         @include icons-4casas(0, auto, auto, auto);
         @include fontSet(28px, 36px);
         content: '\e90a';
+
+        @media(max-width: $max-width-4casas) {
+            top: 1px;
+            @include fontSet(20px, 30px);
+        }
     }
 
     &:before {
@@ -442,18 +461,21 @@ img {
     }
 
     &:after {
-        right: -6px;
+        right: 0;
         visibility: visible;
         opacity: 1;
         transition: opacity 0.2s ease-in-out, right 0.2s ease-out;
     }
 
     @include on-event {
-        padding-right: 0;
         padding-left: 1.8rem;
         color: $color;
         text-decoration: none;
         overflow: hidden;
+
+        @media(max-width: $max-width-4casas) {
+            padding-left: 1.2rem;
+        }
 
         &:before {
             left: -6px;
@@ -462,7 +484,6 @@ img {
         }
 
         &:after {
-            right: 0;
             visibility: hidden;
             opacity: 0;
         }

@@ -19,6 +19,10 @@
         min-height: 480px;
         // height: 60vh;
 
+        @media(max-width: $max-width-4casas) {
+            min-height: 290px;
+        }
+
         background-color: $main-color;
         // background-attachment: fixed;
         background-attachment: scroll;
@@ -56,10 +60,20 @@
             @media (min-width: $screen-lg-min) {
                 max-width: $max-width-lg;
             }
+
+            // @media(max-width: $max-width-4casas) {
+            //     padding-right: 25px;
+            //     padding-left: 25px;
+            // }
         }
 
         .info__block {
             flex: 0 0 75%;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         .action__links {
@@ -67,6 +81,14 @@
             justify-content: flex-end;
             position: relative;
             top: 12px;
+
+            @media(max-width: $max-width-4casas) {
+                position: absolute;
+                top: auto;
+                bottom: 20px;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
     }
 
@@ -74,6 +96,11 @@
         @include fontSet(58px, 58px);
         margin-bottom: 1.4rem;
         color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(30px, 35px);
+            margin-bottom: 2.4rem;
+        }
     }
 
 
@@ -119,6 +146,10 @@
             display: flex;
             padding-top: 2rem;
             padding-bottom: 4rem;
+
+            @media(max-width: $max-width-4casas) {
+                display: block;
+            }
 
             &:before {
                 content: '';
@@ -224,10 +255,18 @@
             .h3 {
                 @include fontSet(33px, 37px);
                 margin-bottom: 1.4rem;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(24px, 30px);
+                }
             }
 
             p {
                 @include fontSet(33px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(24px, 30px);
+                }
 
                 // @include when-inside(".lawyer__page") {
                 //     @include fontSet(32px, 38px);
@@ -254,12 +293,17 @@
                 padding-top: 3rem;
                 padding-bottom: 3rem;
             }
+
             p {
                 @include fontSet(43px, 47px);
                 text-align: center;
 
                 a {
                     @include fancy-link($complementary-color, $complementary-color, $white);
+                }
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(24px, 30px);
                 }
             }
         }
@@ -307,7 +351,13 @@
         // [page__block__content]
         @include has("content") {
             flex: 0 0 60%;
+            max-width: 60%;
             order: 2;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
 
             h2,
             .h2 {
@@ -354,6 +404,11 @@
                     a {
                         @include fancy-link($complementary-color, $complementary-color, $white);
                         // @include background-link($complementary-color, $white, $complementary-color);
+                    }
+
+                    @media(max-width: $max-width-4casas) {
+                        // @include fontSet(24px, 30px);
+                        @include fontSet(20px, 25px);
                     }
                 }
 
@@ -415,14 +470,26 @@
         // [page__block__aside]
         @include has("aside") {
             flex: 0 0 calc(40% - 3rem);
+            max-width: calc(40% - 3rem);
             order: 1;
             margin-right: 3rem;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         // [page__block__title]
         @include has("title") {
             flex: 0 0 calc(40% - 3rem);
+            max-width: calc(40% - 3rem);
             margin-right: 3rem;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
 
             p {
                 @include fontSet(38px, 46px);
@@ -436,6 +503,10 @@
 
                 p {
                     @include fontSet(43px, 45px);
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(24px, 30px);
+                    }
                 }
 
                 figure {
@@ -616,6 +687,12 @@
         //
         @include has("content") {
             flex: 0 0 60%;
+            max-width: 60%;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
 
             p {
                 // @include fontSet(22px, 30px);

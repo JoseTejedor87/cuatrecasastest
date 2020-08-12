@@ -94,7 +94,7 @@ header {
 
 @media(max-width: $max-width-4casas) {
     #navDesktop {
-        // display: none;
+        display: none;
         // border: 10px solid yellow;
     }
 }
@@ -274,6 +274,7 @@ header {
         .nav-link {
             padding: 0 0.8rem !important;
             @include classic-link($white, $main-color, $border: false);
+            cursor: default;
 
             &.dropdown-toggle:after {
                 display: none;
@@ -836,4 +837,10 @@ header {
             padding: 0 0 0.4rem 0;
         }
     }
+
+    @media(max-width: $max-width-4casas) {
+        display: none;
+        visibility: hidden;
+    }
 }
+
