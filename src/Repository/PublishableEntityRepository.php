@@ -18,6 +18,9 @@ class PublishableEntityRepository extends ServiceEntityRepository
         $this->navigation = $navigation;
     }
 
+    protected function getNavigation() {
+        return $this->navigation;
+    }
     /**
      * Creates a new QueryBuilder instance that is prepopulated
      * for this entity name and add standard filters by Publishable

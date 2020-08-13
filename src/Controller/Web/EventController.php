@@ -11,6 +11,7 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Controller\Web\WebController;
 use App\Controller\SOAPContactsClientController;
+use App\Controller\Web\NavigationService;
 
 class EventController extends WebController
 {
@@ -104,8 +105,19 @@ class EventController extends WebController
             // dd($value->getPeople());
         }
         // dd($event);
+
+        $navigation = $EventRepository->getNavigation();
+       
+        $attachmentPublished = [];
+        foreach($event->getAttachments() as $attachment)
+        {
+            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+                array_push($attachmentPublished,$attachment);
+        }
+
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
+            'attachmentPublished' => $attachmentPublished,
             'paises' => '' // json_decode($paises),
         ]);
     }

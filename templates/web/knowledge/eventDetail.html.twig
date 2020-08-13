@@ -72,11 +72,13 @@
                         {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
                         </div>
                         <div class="page__event__details">
-                            {% for attachment in event.attachments %}
+                            {% for attachment in attachmentPublished %}
+                                {#% if attachment.publish.language  == app.request.getLocale() && attachment.publish.region == app.request.getRegion() %#}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
+                                {#% endif %#}
                             {% endfor %}
                             <div class="page__event__info">
                                 <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
