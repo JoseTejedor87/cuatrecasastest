@@ -10,16 +10,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
 use App\Repository\CaseStudyRepository;
-
+use App\Controller\Web\NavigationService;
 
 class PublicationController extends WebController
 {
-    public function detail(Request $request, PublicationRepository $PublicationRepository,CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, PublicationRepository $PublicationRepository,CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $publication = $PublicationRepository->getInstanceByRequest($request);
         $caseStudiesRelated = $caseStudyRepository->findByActivities($publication->getActivities()->toArray());
-
-        $navigation = $PublicationRepository->getNavigation();
        
         $attachmentPublished = [];
         foreach($publication->getAttachments() as $attachment)

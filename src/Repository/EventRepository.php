@@ -35,10 +35,6 @@ class EventRepository extends PublishableEntityRepository implements Publishable
         }
         return null;
     }
-
-    public function getNavigation(){
-        return parent::getNavigation();
-    }
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

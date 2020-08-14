@@ -91,7 +91,7 @@ class EventController extends WebController
         ]);
     }
 
-    public function detail(Request $request, EventRepository $EventRepository)
+    public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation)
     {
         // $paises = $this->soap->getPaises('es')->getContent();
 
@@ -105,8 +105,6 @@ class EventController extends WebController
             // dd($value->getPeople());
         }
         // dd($event);
-
-        $navigation = $EventRepository->getNavigation();
        
         $attachmentPublished = [];
         foreach($event->getAttachments() as $attachment)
