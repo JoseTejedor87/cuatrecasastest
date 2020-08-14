@@ -18,11 +18,21 @@ class PublicationController extends WebController
     {
         $publication = $PublicationRepository->getInstanceByRequest($request);
         $caseStudiesRelated = $caseStudyRepository->findByActivities($publication->getActivities()->toArray());
-        
+
+        $navigation = $PublicationRepository->getNavigation();
+       
+        $attachmentPublished = [];
+        foreach($publication->getAttachments() as $attachment)
+        {
+            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+                array_push($attachmentPublished,$attachment);
+        }
+
 
         return $this->render('web/knowledge/articleDetail.html.twig', [
             'publication' => $publication,
             'caseStudiesRelated'  => $caseStudiesRelated,
+            'attachmentPublished' => $attachmentPublished
         ]);
     }
 }

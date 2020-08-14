@@ -36,6 +36,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         }
         return null;
     }
+
+    public function getNavigation(){
+        return parent::getNavigation();
+    }
     // /**
     //  * @return Publication[] Returns an array of Publication objects
     //  */
