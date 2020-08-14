@@ -261,44 +261,44 @@ publications_detail:
     methods:    GET
     controller: App\Controller\Web\PublicationController::detail
 
-
 # REGIONS
 # ###########################################
-
 regions_vision:
     path:
-        en:   /regions/vision
-        es:   /territorios/vision
+        en:   /p/vision-general-1
+        es:   /p/vision-general
     methods:    GET
-    controller: App\Controller\Web\RegionsController::vision
+    controller: App\Controller\Web\PageController::detail
 
-regions_spain:
+regions_espana:
     path:
-        en:   /regions/spain
-        es:   /territorios/espana
+        en:   /p/espana-1
+        es:   /p/espana
     methods:    GET
-    controller: App\Controller\Web\RegionsController::spain
+    controller: App\Controller\Web\PageController::detail
 
 regions_portugal:
     path:
-        en:   /regions/portugal
-        es:   /territorios/portugal
+        en:   /p/portugal-1
+        es:   /p/portugal
     methods:    GET
-    controller: App\Controller\Web\RegionsController::portugal
+    controller: App\Controller\Web\PageController::detail
 
 regions_latam:
     path:
-        en:   /regions/latam
-        es:   /territorios/latam
+        en:   /p/latinoamerica-1
+        es:   /p/latinoamerica
     methods:    GET
-    controller: App\Controller\Web\RegionsController::latam
+    controller: App\Controller\Web\PageController::detail    
 
-regions_others:
+regions_other_regions:
     path:
-        en:   /regions/otros
-        es:   /territorios/others
+        en:   /p/other-regions-1
+        es:   /p/other-regions
     methods:    GET
-    controller: App\Controller\Web\RegionsController::others
+    controller: App\Controller\Web\PageController::detail
+
+#############################################################
 
 detail_office:
     path:
