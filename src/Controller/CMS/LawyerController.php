@@ -4,6 +4,10 @@ namespace App\Controller\CMS;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -12,19 +16,49 @@ use App\Form\LawyerFormType;
 use App\Repository\LawyerRepository;
 use App\Controller\CMS\CMSController;
 
+
 class LawyerController extends CMSController
 {
     public function index(LawyerRepository $lawyerRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $filter = $this->filter($request);
+
+        if ( $filter['fields'] != ''){
+            $result = $lawyerRepository->findFilteredBy($filter['fields']);
+        }else{
+            $result = $lawyerRepository->findAll();
+        }
+
         $pagination = $paginator->paginate(
-            $lawyerRepository->findAll(),
+            $result,
             $request->query->getInt('page', 1),
             25
         );
 
         return $this->render('cms/lawyer/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'formForFilterView' => $filter['form']->createView(),
         ]);
+    }
+
+    private function filter(Request $request){
+        $formForFilter = $this->createFormBuilder(array())
+            ->setMethod('GET')
+            ->add('name', TextType::class, ['required' => false ])
+            ->add('surname', TextType::class, ['required' => false ])
+            //->add('email', TextType::class, ['required' => false ])
+            ->add('send', SubmitType::class)
+            ->getForm();
+    
+        $formForFilter->handleRequest($request);
+        $filterFields = '';
+
+        if ($formForFilter->isSubmitted() && $formForFilter->isValid()) {
+            // filterFields is an array with "name", "email" keys
+            $filterFields = $formForFilter->getData();
+        }
+
+        return array('form' => $formForFilter, 'fields' => $filterFields);
     }
 
     public function new(Request $request): Response

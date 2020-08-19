@@ -18,8 +18,26 @@
                         <a href="{{ path('cms_lawyers_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
-                    </li>
+                    </li> 
+                      
                 </ul>
+                {{ form_start(formForFilterView) }} 
+                          <div class="row">                 
+                                <div class="col-md-3">
+                                 {{ form_row(formForFilterView.name) }}
+                                   
+                                </div>
+                                 <div class="col-md-3">
+                                 {{ form_row(formForFilterView.surname) }}
+                                </div>
+                                <div class="col-md-3">
+                                 {#{ form_row(formForFilterView.email) }#}
+                                </div>
+                                <div class="col-md-3">
+                                 {{ form_row(formForFilterView.send) }}
+                                </div>
+                            </div>
+                {{ form_end(formForFilterView) }}
             </div>
         </div>
     </div>
