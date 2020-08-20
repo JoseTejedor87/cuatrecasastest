@@ -17,8 +17,13 @@
 //
 
 @include new("team") {
-    padding: 2rem 0;
-    background-color: rgba($black, 0.1);
+    position: relative;
+    padding: 3rem 0;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+        @include reset-full-scren;
+    }
 
     .team__member {
         // height: 22rem;

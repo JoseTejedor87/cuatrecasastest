@@ -102,10 +102,14 @@ menu:
     other: Other regions
   firm:
     firm: The Company
+    vision: Overview
+    social: Social
+    environment: Environment
+    governance: Good Governance
+    innovation: Innovation
     contribution: Contribution to Society
     diversity: Diversity
     responsability: Responsability and Compliance
-    innovation: Innovation
   contact: Contact
   webs:
     webs: Webs
@@ -119,6 +123,7 @@ menu:
   events: Events
   practices: Practice areas
   products: Products
+  media_center: Media Center
 
 # Footer
 # ###########################################

@@ -26,7 +26,6 @@
     $item-width:    32.15%;
     $item-height:   260px;
 
-
     @include has("masonry") {
         &:after {
             content: '';
@@ -55,7 +54,8 @@
         // INSIDE BOXES
         //
         .boxnews__item {
-            flex: 0 0 100%;
+            flex: 0 1 100%;
+            max-width: 100%;
             height: 100%;
             min-height: auto;
             margin: 0 0;
@@ -85,6 +85,15 @@
             .boxnews__link {
                 @include fontSet(23px, 27px);
                 letter-spacing: 0.4px;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
+            }
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: 200px;
             }
         }
 
@@ -93,31 +102,63 @@
             width: calc((#{$item-width} * 2) + #{$gutter-size});
             height: calc((#{$item-height} * 2) + #{$gutter-size});
 
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: auto;
+            }
+
             //
             // INSIDE BOXES
             //
             .boxnews__content {
                 display: flex;
                 flex-flow: row nowrap;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                }
             }
 
             .boxnews__copy {
                 flex: 0 0 50%;
+                max-width: 50%;
                 padding-right: 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
             }
 
             .boxnews__media {
                 flex: 0 0 50%;
+                max-width: 50%;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
             }
 
             .boxnews__link {
                 @include fontSet(43px, 45px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
             }
         }
 
 
         @include when("dobleH") {
             height: calc((#{$item-height} * 2) + (#{$gutter-size});
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: auto;
+            }
 
             //
             // INSIDE BOXES
@@ -130,11 +171,15 @@
 
             .boxnews__copy {
                 flex: 0 0 50%;
-                padding-bottom: 1rem;
+                // padding-bottom: 1rem;
             }
 
             .boxnews__link {
                 @include fontSet(33px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
             }
         }
     }

@@ -35,7 +35,7 @@ class SoapCommand extends Command
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
-        $this->CrearTablas = false;
+        $this->CrearTablas = true;
         $this->em = $this->container->get('doctrine')->getManager();
         $this->SOAPContactsClientRepository = $SOAPContactsClientRepository;
         $this->soap  = new SOAPContactsClientController;
@@ -59,61 +59,70 @@ class SoapCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->logger->info('Empezando la migración...');
-        $this->logger->info("Se van a importar todas las tablas");
         $em = $this->container->get('doctrine');
         $this->conn = $em->getConnection();
         if($this->CrearTablas){ 
-            $this->SOAPContactsClientRepository->deleteTables();
+            //$this->SOAPContactsClientRepository->deleteTables();
             $this->SOAPContactsClientRepository->createTables();
         }else{
-            $this->SOAPContactsClientRepository->deleteTables();
+            $this->SOAPContactsClientRepository->truncateTables();
         }
        
         $this->getPaises(); 
         $this->getProvincias(); 
         $this->getIdiomas(); 
         $this->getAreasInteres();
+
+        $this->getOficinas(); 
+        $this->getSecretarias(); 
+        $this->getResponsablesMarketing(); 
+        $this->getSociosResponsables();
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
 
     public function getPaises()
     {
-        $res  = array ('filter' =>( array ( 'IdPais' => "", 'Nombre'  =>  "")));
-        $data = $this->soap->getPaises($res);
-        $this->SOAPContactsClientRepository->setPaises($data);
+        $data = $this->soap->getPaises("");
+        $this->SOAPContactsClientRepository->setPaises(json_decode($data->getContent()));
            
     }
 
     public function getProvincias()
     {
-
-            $res  = array ('filter' =>( array ( 'LanguageId' => "", 'PaisId'  =>  "", 'ProvinciaId'  =>  '')));
-            $data = $this->soap->getProvincias($res);
-            $this->SOAPContactsClientRepository->setProvincias($data);
+            $data = $this->soap->getProvincias("","");
+            $this->SOAPContactsClientRepository->setProvincias(json_decode($data->getContent()));
            
     }
     public function getIdiomas()
     {
-      
-        $res  = array ('filter' =>( array ( 'IdiomaId' => "", 'LanguageId'  =>  "")));
-        $data = $this->soap->getIdiomas($res);
-        $this->SOAPContactsClientRepository->setIdiomas($data);
+        $data = $this->soap->getIdiomas();
+        $this->SOAPContactsClientRepository->setIdiomas(json_decode($data->getContent()));
         
     }   
     public function getAreasInteres()
     {
-        
-        $res  =  array ('filter' =>( array ( 'AreaInteresId' => "", 'LanguageId'  => "")));
-        $data = $this->soap->getAreasInteres($res);
-        $this->SOAPContactsClientRepository->setAreasInteres($data);
+        $data = $this->soap->getAreasInteres();
+        $this->SOAPContactsClientRepository->setAreasInteres(json_decode($data->getContent()));
     }
     public function getOficinas()
     {
-        
-        $res  = array ('filter' =>( array ( 'OficinaId' => "")));
-        $data = $this->soap->getOficinas($request);
-        $this->SOAPContactsClientRepository->setOficinas($data);
+        $data = $this->soap->getOficinas();
+        $this->SOAPContactsClientRepository->setOficinas(json_decode($data->getContent()));
+    }
+    public function getSecretarias()
+    {
+        $data = $this->soap->getSecretarias();
+        $this->SOAPContactsClientRepository->setSecretarias(json_decode($data->getContent()));
+    }
+    public function getResponsablesMarketing()
+    {
+        $data = $this->soap->getResponsablesMarketing();
+        $this->SOAPContactsClientRepository->setResponsablesMarketings(json_decode($data->getContent()));
+    }
+    public function getSociosResponsables()
+    {
+        $data = $this->soap->getSociosResponsables();
+        $this->SOAPContactsClientRepository->setSociosResponsables(json_decode($data->getContent()));
     }
 }

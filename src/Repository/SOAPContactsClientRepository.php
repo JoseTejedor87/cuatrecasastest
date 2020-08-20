@@ -10,12 +10,14 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class SOAPContactsClientRepository extends ServiceEntityRepository
 {
     private $container;
+    private $em;
     private $conn;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->em = $this->container->get('doctrine')->getManager();
+        $this->conn = $this->em->getConnection();
     }
 
 
@@ -62,6 +64,45 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
             )";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+
+        $query = "CREATE TABLE GC_secretarias (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            EmpId VARCHAR(30) NOT NULL,
+            Iniciales VARCHAR(150) NOT NULL,
+            Nombre VARCHAR(150) ,
+            Apellidos VARCHAR(150) ,
+            Email VARCHAR(150) ,
+            Telefono VARCHAR(150) 
+            )";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "CREATE TABLE GC_responsablesMarketings (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            EmpId VARCHAR(30) NOT NULL,
+            Iniciales VARCHAR(150) NOT NULL,
+            Nombre VARCHAR(150) ,
+            Apellidos VARCHAR(150) ,
+            Email VARCHAR(150) ,
+            Telefono VARCHAR(150) 
+            )";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "CREATE TABLE GC_sociosResponsables (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            EmpId VARCHAR(30) NOT NULL,
+            Iniciales VARCHAR(150) NOT NULL,
+            Nombre VARCHAR(150) ,
+            Apellidos VARCHAR(150) ,
+            Email VARCHAR(150) ,
+            Telefono VARCHAR(150) 
+            )";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+
+        
         
         return true;
     }
@@ -85,6 +126,20 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
         
         $query = "DROP TABLE GC_oficinas";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        
+        $query = "DROP TABLE GC_secretarias";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        
+        $query = "DROP TABLE GC_responsablesMarketings";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "DROP TABLE GC_sociosResponsables";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
@@ -112,12 +167,24 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $query = "TRUNCATE TABLE GC_oficinas";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+
+        $query = "TRUNCATE TABLE GC_secretarias";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
         
+
+        $query = "TRUNCATE TABLE GC_responsablesMarketings";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "TRUNCATE TABLE GC_sociosResponsables";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
         return true;
     }
     public function setPaises($data)
     {
-        
         $values = "";
             foreach ($data as $key => $value) {
                 if($key==0){
@@ -212,7 +279,64 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
             }
             
         }
-        $query = "INSERT INTO GC_oficinas(IdOficina, Nombre) VALUES ".$values.";";
+        $query = "INSERT INTO GC_oficinas(OficinaId, Nombre) VALUES ".$values.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        
+        return true;
+    }
+
+    public function setSecretarias($data)
+    {
+        
+        $values = "";
+        foreach ($data as $key => $value) {
+            if($key==0){
+                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }else{
+                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }
+            
+        }
+        $query = "INSERT INTO GC_secretarias(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        
+        return true;
+    }
+
+    public function setResponsablesMarketings($data)
+    {
+        
+        $values = "";
+        foreach ($data as $key => $value) {
+            if($key==0){
+                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }else{
+                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }
+            
+        }
+        $query = "INSERT INTO GC_responsablesMarketings(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        
+        return true;
+    }
+
+    public function setSociosResponsables($data)
+    {
+        
+        $values = "";
+        foreach ($data as $key => $value) {
+            if($key==0){
+                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }else{
+                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+            }
+            
+        }
+        $query = "INSERT INTO GC_sociosResponsables(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values.";";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         

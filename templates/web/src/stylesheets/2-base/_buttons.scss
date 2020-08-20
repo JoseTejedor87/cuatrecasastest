@@ -142,6 +142,19 @@
             // box-shadow: -6px 6px 0 transparent, 0 10px 20px transparent;
         }
     }
+
+    // SPECIFIC
+    @include when-inside(".cta--fundation") {
+        color: $light-brown;
+        background-color: $white;
+
+        @include on-event {
+            text-decoration: none;
+            color: $white;
+            background-color: $dark-brown;
+            outline: 1px solid $light-brown;
+        }
+    }
 }
 
 .btn__naked {
@@ -207,6 +220,7 @@
 // SUBCATEGORIES BUTTON (ARROW SYMBOL)
 // --------------------------------------------------------------------------
 
+/*
 .btn__subcat {
     flex: 1 0 auto;
     position: relative;
@@ -223,18 +237,18 @@
         content: '\e90a';
         font-size: 32px;
         color: $complementary-color;
-        transition: all 0.3s ease-out;
+        transition: all 0.2s ease-out;
     }
 
     &:before {
-        left: -10px;
+        left: -8px;
         opacity: 0;
         visibility: hidden;
         // transition: left 0.2s ease-out, opacity 0.3s ease-in-out;
     }
 
     &:after {
-        right: -10px;
+        right: -8px;
         opacity: 1;
         visibility: visible;
         // transition: right 0.2s ease-out, opacity 0.3s ease-in-out;
@@ -242,7 +256,7 @@
 
     @include on-event() {
         padding-right: 1rem;
-        padding-left: 2rem;
+        padding-left: 2.2rem;
         text-decoration: none;
         color: $white;
         background-color: $complementary-color;
@@ -284,6 +298,52 @@
             padding-left: 0;
             color: $complementary-color;
             background-color: transparent;
+            border-bottom: 1px solid rgba($black, 0.5);
+        }
+    }
+}
+*/
+
+.btn__subcat {
+    flex: 1 0 auto;
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.6rem .6rem 0;
+    @include fontSet(20px, 20px);
+    color: $black;
+    border-bottom: 1px solid rgba($black, 0.1);
+    overflow: hidden;
+
+    &:after {
+        @include icons-4casas(12px, -8px, auto, auto);
+        content: '\e90a';
+        font-size: 32px;
+        color: $complementary-color;
+        transition: all 0.2s ease-out;
+    }
+
+    @include on-event() {
+        text-decoration: none;
+        color: $complementary-color;
+        border-bottom: 1px solid $complementary-color;
+    }
+
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(16px, 16px);
+        padding-right: 0;
+        padding-left: 0;
+        color: $complementary-color;
+        border-bottom: 1px solid rgba($black, 0.5);
+
+        &:after {
+            display: none;
+            visibility: hidden;
+        }
+
+        @include on-event() {
+            padding-right: 0;
+            padding-left: 0;
+            color: $complementary-color;
             border-bottom: 1px solid rgba($black, 0.5);
         }
     }
@@ -406,7 +466,7 @@
         display: block;
         min-height: 45px;
         padding: 0.5rem 4.2rem 0.5rem 1rem;
-        @include fontSet(18px, 29px);
+        @include fontSet(18px, 28px);
         letter-spacing: 0;
     }
 
@@ -477,16 +537,17 @@
         &:after {
             @include icons-4casas(calc(50% - 14px), auto, auto, calc(100% - 54px));
             font-size: 28px;
-            transform: scale(1);
-            transition: color 0.3s ease-in-out, transform 0.3s ease-out;
+            transition: color 0.2s ease-in-out;
+
+            @media(max-width: $max-width-4casas) {
+                top: calc(50% - 10px);
+                left: calc(100% - 50px);
+                font-size: 20px;
+            }
         }
 
         @include on-event() {
             color: $white;
-
-            &:after {
-                transform: scale(1.6);
-            }
         }
     }
 }
@@ -527,25 +588,23 @@
     overflow: hidden;
     transition: all 0.3s ease-out;
 
-    // &:after {
-    //     @include icons-4casas(4px, 0, auto, auto);
-    //     position: relative;
-    //     @include fontSet(26px, 26px);
-    //     content: '\e900';
-    //     color: $complementary-color;
-    //     transform: scale(1.3);
-    //     transition: all 0.2s ease-out;
-    // }
+    @media(max-width: $max-width-4casas) {
+        width: 30px;
+        height: 30px;
+    }
 
     &:after {
         @include icons-material(4px, 0, auto, auto);
         position: relative;
-        top: 4px;
         font-size: 28px;
         content: '\e867';
         color: $complementary-color;
         transform: scale(1.3);
         transition: all 0.2s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            font-size: 22px;
+        }
     }
 
     @include on-event() {
@@ -640,7 +699,7 @@
         @include fontSet(26px, 26px);
         content: '\e90a';
         color: $complementary-color;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-out;
     }
 
     @include on-event {
@@ -649,7 +708,9 @@
         overflow: hidden;
 
         &:after {
+            right: 2px;
             color: $main-color;
+            transform: rotate(90deg) scale(1.2);
         }
     }
 
@@ -730,7 +791,14 @@
     display: flex;
     flex-flow: column;
     padding: 1rem;
-    background-color: rgba($black, 0.01);
+
+    @media(max-width: $max-width-4casas) {
+        min-height: 160px;
+    }
+
+    @include when-inside(".boxnews--regions") {
+        background-color: rgba($black, 0.01);
+    }
 
     h5 {
         @include fontSet(33px, 33px);
@@ -744,7 +812,7 @@
 
     p {
         @include fontSet(23px, 27px);
-        margin-top: auto;
+        // margin-top: auto;
         margin-bottom: 2.5rem;
         transition: all 0.2s ease-in-out;
 
@@ -759,6 +827,7 @@
         @include fontSet(26px, 26px);
         content: '\e90a';
         color: $complementary-color;
+        transition: all 0.2s ease-out;
 
         @media(max-width: $max-width-4casas) {
             @include fontSet(16px, 16px);
@@ -769,16 +838,38 @@
         text-decoration: none;
         background-color: rgba($black, 0.01);
 
-        h5 {
-            // color: $main-color;
-        }
-
         p {
             color: $complementary-color;
         }
+
+        &:after {
+            transform: rotate(90deg) scale(1.2);
+        }
     }
 
-    @media(max-width: $max-width-4casas) {
-        min-height: auto;
+    @include when("download") {
+        &:after {
+            @include fontSet(26px, 26px);
+            content: '\e907';
+        }
+
+        @include on-event {
+            &:after {
+                transform: rotate(0deg) scale(1.4);
+            }
+        }
     }
+}
+
+
+//
+// VIDEO BUTTON
+// --------------------------------------------------------------------------
+
+.btn__video {
+    display: block;
+    width: 82px;
+    height: 82px;
+    border: 4px solid $complementary-color;
+    border-radius: 50%;
 }

@@ -51,8 +51,8 @@
                 width: calc(33.3333% - 30px);
                 margin: 0 15px;
                 margin-bottom: 30px;
-                background-size: auto 120%;
-                background-position: 100% 100%;
+                background-size: auto 350px;
+                background-position: 100% 73%;
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
@@ -360,13 +360,23 @@
         //
         // CONTENT BOX
         //
-        > div:first-child {}
+        > div:first-child {
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
 
         //
         // PHOTO BOX
         //
         > div:last-child {
             padding: 0 0;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
     }
 
@@ -375,6 +385,13 @@
         padding-right: 6rem;
         padding-bottom: 6rem;
         min-height: 24rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-top: 11rem;
+            padding-right: 15px;
+            padding-bottom: 5rem;
+            min-height: auto;
+        }
 
         .doble__arrow__link {
             display: inline-flex;
@@ -390,8 +407,12 @@
 
     @include has("region") {
         @include fontSet(64px, 64px);
-        line-height: 1;
         margin-bottom: 2rem;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(30px, 30px);
+            margin-bottom: 0;
+        }
     }
 
     @include has("position") {
@@ -477,18 +498,12 @@
         width: auto;
         height: 100%;
 
-        figure {
-            @include reset-figure;
+        @include when("img") {
             width: 45vw;
             height: 100%;
-            background-position: 100% 100%;
+            background-position: 100% 80%;
             background-repeat: no-repeat;
-            background-size: auto 150%;
-        }
-
-        img {
-            display: none;
-            visibility: hidden;
+            background-size: auto auto;
         }
 
         /*
@@ -538,6 +553,19 @@
             background-position: 50% 50%;
             background-repeat: no-repeat;
             background-size: cover;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            width: 100vw;
+            height: auto;
+            margin-left: 0;
+            // margin-left: -10vw;
+
+            figure {
+                width: 100vw;
+                height: 180px;
+                background-position: 0 0;
+            }
         }
     }
 }

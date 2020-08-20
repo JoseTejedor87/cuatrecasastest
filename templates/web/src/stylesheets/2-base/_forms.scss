@@ -29,6 +29,12 @@
     &.is-valid {
         // background-image: none;
     }
+
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(16px, 16px);
+        height: 45px;
+        padding: 0.6rem 1rem;
+    }
 }
 
 .form-group {

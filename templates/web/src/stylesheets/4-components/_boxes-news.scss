@@ -9,15 +9,80 @@
     //
     @include when("info") {
         .boxnews__item {
+            margin-bottom: 1.6rem;
             color: $main-color;
             border-top-color: $main-color;
+            background-color: #FCFCFC;
+
+            //
+            // ESPECIFIC
+            // --------------------------------------------------------------------------
+
+            @include when("acelera") {
+                color: $acelera-color;
+                border-top-color: $acelera-color;
+
+                .boxnews__content__title {
+                    color: $acelera-color;
+                }
+
+                .doble__arrow__link {
+                    color: $acelera-color;
+                }
+            }
+
+            @include when("fundation") {
+                color: $fundation-color;
+                border-top-color: $fundation-color;
+
+                .boxnews__content__title {
+                    color: $fundation-color;
+                }
+
+                .doble__arrow__link {
+                    color: $fundation-color;
+                }
+            }
+
+            @include when("colored") {
+                padding: 1rem;
+                border-top: none;
+                background-color: $complementary-color;
+
+                @media(max-width: $max-width-4casas) {
+                    padding: 0;
+                }
+
+                .boxnews__content__title,
+                .boxnews__content__info p,
+                .doble__arrow__link,
+                .doble__arrow__link:before,
+                .doble__arrow__link:after {
+                    color: $white;
+                }
+            }
         }
     }
 
-    @include when("regions") {
+    @include when("doble") {
+        .page__section > .col {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    @include when("links") {
         .boxnews__item {
             color: $main-color;
             border-top-color: $main-color;
+        }
+
+        .button__wrapper {
+            margin: 0 1rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin: 1rem 1rem;
+            }
         }
     }
 
@@ -145,6 +210,16 @@
         }
 
         //
+        // BGCOLORED GRID
+        //
+        @include when-inside(".boxnews--bgcolor") {
+            margin-top: 3rem;
+        }
+
+
+
+
+        //
         // RESPONSIVE
         // --------------------------------------------------------------------------
         @media(max-width: $max-width-4casas) {
@@ -155,7 +230,8 @@
     @include has("item") {
         // flex: 1;
         display: flex;
-        flex: 1 0 0%;
+        flex: 0 1 calc(33.3333% - 1.6rem);
+        max-width: calc(33.3333% - 1.6rem);
         flex-direction: column;
         // min-width: 0;
         min-height: 31rem;
@@ -170,18 +246,94 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: box-shadow 0.2s ease-out;
 
-        @media(max-width: $max-width-4casas) {
-            flex: 0 1 100%;
-            max-width: 100%;
-            border-top: 6px solid transparent;
-        }
-
         @include when("blockquote") {
             border-top: none;
 
             .cite__quote {
                 padding: 1rem;
             }
+        }
+
+        @include when("doble") {
+            flex: 0 1 calc(66.6666% - 1.6rem);
+            max-width: calc(66.6666% - 1.6rem);
+
+            .boxnews__wrapper {
+                display: flex;
+                height: 100%;
+                padding: 2rem 2rem 2rem 1rem;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    padding: 1rem 1rem;
+                }
+
+                .boxnews__content {
+                    flex: 0 1 40%;
+                    max-width: 40%;
+                    padding: 0 0;
+
+                    @media(max-width: $max-width-4casas) {
+                        flex: 0 1 100%;
+                        max-width: 100%;
+                    }
+                }
+
+                .boxnews__foto {
+                    flex: 0 1 60%;
+                    max-width: 60%;
+                    position: relative;
+                    background-position: 0 0;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    overflow: hidden;
+
+                    @media(max-width: $max-width-4casas) {
+                        flex: 0 1 100%;
+                        max-width: 100%;
+                        height: 120px;
+                        margin-top: 1rem;
+                    }
+                }
+            }
+        }
+
+        @include when("bgcolor") {
+            border-top: none;
+
+            &.bgcolor--even {
+                background-color: #D5D2D2;
+            }
+
+            &.bgcolor--odd {
+                background-color: #EFEFEF;
+            }
+        }
+
+        @include when-inside(".boxnews--collections") {
+            flex: 0 1 calc(50% - 1.6rem);
+            max-width: calc(50% - 1.6rem);
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 1 100%;
+                max-width: 100%;
+            }
+        }
+
+        @include when-inside(".boxnews--doble") {
+            flex: 0 1 calc(50% - 1.6rem);
+            max-width: calc(50% - 1.6rem);
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 1 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            flex: 0 1 100%;
+            max-width: 100%;
+            border-top: 6px solid transparent;
         }
 
 
@@ -221,21 +373,40 @@
         @include when-inside(".boxnews--info") {
             min-height: 25rem;
 
-            //
-            // RESPONSIVE
-            // --------------------------------------------------------------------------
             @media(max-width: $max-width-4casas) {
                 min-height: auto;
             }
         }
 
+        @include when-inside(".boxnews--bgcolor") {
+            min-height: auto;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0);
 
-        @include when-inside(".boxnews--regions") {
+            @include on-event() {
+                box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0);
+            }
+
+            @media(max-width: $max-width-4casas) {
+                min-height: auto;
+                border-top-color: transparent;
+
+                .boxnews__content {
+                    border-bottom: none;
+                }
+            }
+        }
+
+
+        @include when-inside(".boxnews--links") {
             flex: 0 1 calc(33.3333% - 1.6rem);
-            min-height: 14.38rem;
+            // min-height: 14.38rem;
             min-height: auto;
             margin-bottom: 1.6rem;
             // background-color: rgba($black, 0.01);
+
+            @media(max-width: $max-width-4casas) {
+                min-height: 160px;
+            }
         }
 
 
@@ -282,6 +453,13 @@
         @include when("others2") {
             color: $others2-color;
             border-top-color: $others2-color;
+        }
+
+        .boxnews__item {
+            margin-bottom: 1.6rem;
+            color: $main-color;
+            border-top-color: $main-color;
+            background-color: #FCFCFC;
         }
 
         //
@@ -369,6 +547,8 @@
             }
 
             .boxnews__item {
+                flex: 0 1 100%;
+                max-width: 100%;
                 height: 100%;
             }
 
@@ -410,50 +590,6 @@
             }
         }
     }
-
-
-    // not used anymore
-    /*
-    .swiper__nav__wrapper {
-        position: relative;
-        top: -30px;
-
-        .swiper__nav__buttons {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60px;
-            height: 44px;
-
-            .swiper-button-next,
-            .swiper-button-prev {
-                color: $complementary-color;
-                outline: none;
-
-                &:after {
-                    font-size: 24px;
-                    font-weight: bold;
-                    transform: scale(1);
-                    transition: all 0.2s ease-out;
-                }
-
-                @include on-event {
-                    &:after {
-                        transform: scale(1.2);
-                    }
-                }
-            }
-
-            .swiper-button-next {
-                right: 0;
-            }
-
-            .swiper-button-prev {
-                left: 0;
-            }
-        }
-    }
-    */
 
     .swiper-wrapper {
         margin-bottom: 1rem;
@@ -602,12 +738,21 @@
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
+        height: 100%;
         // min-height: 20rem;
         padding: 1rem;
         transition: all 0.2s ease-out;
 
         @media(max-width: $max-width-4casas) {
             border-bottom: 1px solid $black;
+
+            @include when-inside(".boxnews--links") {
+                border-bottom: none;
+            }
+
+            @include when-inside(".boxnews--info") {
+                border-bottom: none;
+            }
         }
 
 
@@ -658,7 +803,7 @@
             padding: 0;
         }
 
-        @include when-inside(".boxnews--regions") {
+        @include when-inside(".boxnews--links") {
             padding: 0;
         }
 
@@ -675,18 +820,43 @@
             @include fontSet(43px, 47px);
             color: $complementary-color;
 
+            @include when("social") {
+                color: $main-color;
+            }
+
             @media(max-width: $max-width-4casas) {
-                @include fontSet(26px, 38px);
+                @include fontSet(24px, 30px);
             }
         }
 
         @include has("info") {
             margin-bottom: auto;
-            @include fontSet(23px, 27px);
-            color: $main-color;
+            padding-bottom: 1rem;
 
             @media(max-width: $max-width-4casas) {
-                @include fontSet(20px, 24px);
+                padding-bottom: 0;
+            }
+
+            p {
+                @include fontSet(23px, 27px);
+                color: $main-color;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(14px, 20px);
+                }
+
+                &:nth-child(2) {
+                    @include fontSet(18px, 27px);
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(14px, 20px);
+                    }
+                }
+
+                a {
+                    @include left-to-right-link($complementary-color, $complementary-color);
+                    padding-bottom: 1px;
+                }
             }
         }
 
@@ -700,20 +870,29 @@
             @include when("arrow") {
                 border: 1px solid red;
             }
+
+            @media(max-width: $max-width-4casas) {
+                margin-top: 0.4rem;
+                margin-bottom: 0.4rem;
+            }
         }
 
         @include has("img") {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
+            // width: 100%;
+            // height: auto;
+            // object-fit: cover;
+
+            @include cover-img();
+
             margin-top: 1rem;
 
             @media(max-width: $max-width-4casas) {
                 width: auto;
                 height: 170px;
                 margin-top: 1.4rem;
-            }
 
+                border: 2px solid blue;
+            }
         }
     }
 
@@ -722,6 +901,11 @@
             margin-bottom: auto;
             padding-right: 1rem;
             padding-bottom: 2rem;
+
+            @media(max-width: $max-width-4casas) {
+                padding-right: 0;
+                padding-bottom: 1rem;
+            }
         }
 
         @include has("excerpt") {
@@ -806,6 +990,11 @@
             @include has("img") {
                 @include cover-img();
 
+                @media(max-width: $max-width-4casas) {
+                    width: auto;
+                    height: 170px;
+                }
+
                 @include when-inside(".boxnews--collections") {
                     align-self: flex-start;
                     // margin-top: auto;
@@ -834,8 +1023,21 @@
     // --------------------------------------------------------------------------
 
     @include has("photo") {
+
+        @include when("logo") {
+            margin-top: 4rem;
+        }
+
         img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
             padding: 1rem 1rem;
+
+            @include when-inside(".boxnews--info") {
+                margin-top: 1rem;
+                padding: 0 0;
+            }
         }
     }
 }

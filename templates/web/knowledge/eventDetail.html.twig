@@ -18,7 +18,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -155,9 +155,9 @@
                                     <div class="form-group">
                                         <select id="eCountry" class="form-control custom-select" required>
                                             <option value="" selected disabled>País *</option>
-                                            {#% for pais in paises %}
+                                            {% for pais in paises %}
                                                 <option value="{{ pais.IdPais }}" id="{{ pais.IdPais }}" >{{ pais.Nombre }}</option>
-                                            {% endfor %#}
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -224,14 +224,14 @@
                                 <tbody>
                                     {% for program in event.programs %}
                                         <tr>
-                                            <td class="time"> 
+                                            <td class="time">
                                             {{ (program.timeStart) }} - {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
                                             </td>
                                             <td class="content">{{ program.translate(app.request.getLocale()).title|raw}}</td>
                                             <td class="speakers">
                                                 <ul class="speakers__list">
                                                 {% for person in program.people %}
-                                                    {% if person.lawyer  %} 
+                                                    {% if person.lawyer  %}
                                                         <li><a href="{{ path('lawyers_detail', {slug: person.lawyer.slug}) }}">{{ person.lawyer.name }} {{ person.lawyer.surname }}</a></li>
                                                     {% else %}
                                                         <li>{{ person.name }} {{ person.surname }}</li>
@@ -311,7 +311,7 @@
 
     {% include 'web/shared/related-events-slider.html.twig' %}
     {% include 'web/shared/related-content-slider.html.twig' %}
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 
@@ -369,7 +369,7 @@
                     })
                 .done(function( data ) {
                     var html = '';
-                    JSON.parse(data).forEach(function(region){
+                    data.forEach(function(region){
                         html = html + `<option value="`+region['IdProvincia']+`">`+region['Nombre']+`</option>`;
                     })
                     $('#eRegion').append( html  );

@@ -52,7 +52,7 @@
 
             {% elseif insight.headerType == 'full_width' %}
 
-                <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+                <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
                     <div class="col">
                         <div class="info__block">
                             <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
@@ -190,7 +190,7 @@
                                         {# Opinion #}
                                         </div>
                                         <div class="boxnews__info">
-                                        {{ publication.fechaPubli }} 
+                                        {{ publication.fechaPubli }}
                                         {# 3 Marzo 2020 #}
                                         </div>
                                         <div class="boxnews__button">
@@ -210,7 +210,7 @@
                                 </article>
                             </div>
                         {% endfor %}
-                                
+
                             </div>
                         </div>
                         <div class="col-12">
@@ -252,7 +252,7 @@
         {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
     {% endif %}
 
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 

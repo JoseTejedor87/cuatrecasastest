@@ -66,9 +66,14 @@
             top: 2px;
             left: -12px;
             width: 1px;
-            height: 90%;
+            height: 18px;
             background-color: $complementary-color;
             opacity: 0.8;
+
+            @media(max-width: $max-width-4casas) {
+                top: 6px;
+                height: 12px;
+            }
 
             @include when-inside(".boxnews") {
                 left: -6px;
@@ -99,8 +104,14 @@
         margin: 0 0;
         padding: 2px 0 0;
         @include fontSet(16px, 18px);
-        @include classic-link($complementary-color, $white, $border: false);
+        letter-spacing: 0.7px;
         text-transform: uppercase;
+        @include classic-link($complementary-color, $white, $border: false);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
 
         @include when-inside(".boxnews") {
             @include background-link($complementary-color, $white, $complementary-color);
@@ -144,9 +155,14 @@
             top: 2px;
             left: -4px;
             width: 1px;
-            height: 90%;
+            height: 18px;
             background-color: $complementary-color;
             opacity: 0.8;
+
+            @media(max-width: $max-width-4casas) {
+                top: 6px;
+                height: 12px;
+            }
         }
 
         &:first-child {
@@ -161,8 +177,14 @@
         margin: 0 0;
         padding: 2px 4px 0;
         @include fontSet(16px, 18px);
-        @include background-link($complementary-color, $white, $complementary-color);
+        letter-spacing: 0.7px;
         text-transform: uppercase;
+        @include background-link($complementary-color, $white, $complementary-color);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
     }
 
     span {
@@ -267,27 +289,50 @@
     flex-flow: row wrap;
     margin-bottom: 1rem;
 
-    &.tools {
+    @include when("tools") {
         margin-top: 4rem;
         padding: 0 4rem;
+
+        &.intro {
+            margin-top: 0;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            margin-top: 0;
+            padding: 0 0;
+        }
     }
 
     @include has("item") {
         display: flex;
         flex-direction: column;
-        width: calc(33.3333% - 2rem);
         flex: 0 0 calc(33.3333% - 2rem);
+        width: calc(33.3333% - 2rem);
         margin: 0 1rem;
 
         @include when-inside(".list-2cols") {
-            width: calc(50% - 2rem);
             flex: 0 0 calc(50% - 2rem);
+            width: calc(50% - 2rem);
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                width: 100%;
+            }
         }
 
         @include when-inside(".tools") {
-            width: calc(50% - 6rem);
             flex: 0 0 calc(50% - 6rem);
+            width: calc(50% - 6rem);
             margin: 0 3rem 2.5rem;
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                width: 100%;
+                margin: 0 0 1rem;
+            }
         }
     }
 }
@@ -325,6 +370,57 @@
 
         @include when("3cols") {
             column-count: initial;
+        }
+    }
+}
+
+@include new("social__media") {
+    @include reset-list;
+    display: flex;
+    justify-content: space-around;
+
+    @include when-inside(".boxnews__content") {
+        margin-top: auto;
+        margin-bottom: 1rem;
+
+        @media(max-width: $max-width-4casas) {
+            margin-top: 2rem;
+        }
+    }
+
+    .social__item {
+        margin: 0 0;
+    }
+
+    .social__link {
+        display: block;
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        color: $complementary-color;
+        border-radius: 50%;
+        transition: all 0.2s ease-in-out;
+
+        @media(max-width: $max-width-4casas) {
+            width: 34px;
+            height: 34px;
+        }
+
+        @include on-event {
+            text-decoration: none;
+            color: $white;
+            background-color: $complementary-color;
+            border-color: $complementary-color;
+        }
+
+        .fab {
+            font-size: 28px;
+            line-height: 44px;
+
+            @media(max-width: $max-width-4casas) {
+                font-size: 22px;
+                line-height: 34px;
+            }
         }
     }
 }
