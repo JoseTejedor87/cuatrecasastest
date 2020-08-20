@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title section__title--black">Career</h4>
+                <h4 class="section__title section__title{% if classTittle is defined %}{{ classTittle }}{% else %}--career{% endif %}">Career</h4>
                 <div class="boxnews__list">
                     <article class="boxnews__item boxnews__item--blockquote">
                         <blockquote class="cite__quote">

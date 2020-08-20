@@ -11,49 +11,49 @@ class RegionsController extends WebController
 {
     public function vision()
     {
-        return $this->render('web/regions/vision.html.twig', [
+        return $this->render('web/pages/custom/vision.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function spain()
     {
-        return $this->render('web/regions/spain.html.twig', [
+        return $this->render('web/pages/custom/spain.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function portugal()
     {
-        return $this->render('web/regions/portugal.html.twig', [
+        return $this->render('web/pages/custom/portugal.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function latam()
     {
-        return $this->render('web/regions/latam.html.twig', [
+        return $this->render('web/pages/custom/latam.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function others()
     {
-        return $this->render('web/regions/others.html.twig', [
+        return $this->render('web/pages/custom/others.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function detailOffice()
     {
-        return $this->render('web/regions/office-detail.html.twig', [
+        return $this->render('web/pages/custom/office-detail.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }
 
     public function detailOthers()
     {
-        return $this->render('web/regions/office-others.html.twig', [
+        return $this->render('web/pages/custom/office-others.html.twig', [
             'controller_name' => 'RegionsController'
         ]);
     }

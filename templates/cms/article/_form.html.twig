@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        {{ form_row(form.status) }}
+        {# { form_row(form.status) }#}
         {{ form_row(form.featured) }}
         {{ form_row(form.publication_date) }}
         {{ form_row(form.activities) }}
@@ -35,12 +35,14 @@
         </button>
 
         {% do form.attachments.setRendered %}
-        {{ form_row(form.languages) }}
+
     </div>
     <div class="col-md-8">
         {{ form_row(form.translations) }}
+        {{ form_row(form.languages) }}
+        {{ form_rest(form) }}
     </div>
-    {{ form_rest(form) }}
+
 </div>
 
 

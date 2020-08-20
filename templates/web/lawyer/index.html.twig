@@ -170,10 +170,10 @@
     </main>
 
     {% if  countLawyers == '' %}
-        {% include 'web/shared/related-content-slider.html.twig' %}
+        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado' } %}
         {% include 'web/shared/insight.html.twig' %}
     {% endif %}
-    {% include 'web/shared/career.html.twig' %}
+    {% include 'web/shared/career.html.twig'  with { classTittle: '--main'} %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
     <!-- Loader -->

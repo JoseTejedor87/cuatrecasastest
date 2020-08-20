@@ -226,6 +226,8 @@ entities:
       phone: Teléfono de contacto
       capacity: Aforo
       people: Personas
+      office: Oficina
+      no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
   eventsBlock:

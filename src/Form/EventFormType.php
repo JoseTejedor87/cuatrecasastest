@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Event;
 use App\Entity\Person;
+use App\Entity\Office;
 use App\Entity\Activity;
 use App\Entity\Resource;
 use App\Form\Type\EventCategoryType;
@@ -72,6 +73,22 @@ class EventFormType extends AbstractType
                     return $person->getFullName();
                 }
             ])
+            ->add('office', EntityType::class, [
+                'class' => Office::class,
+                'label' => 'entities.event.fields.office',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'required' => false,
+                'placeholder' => 'entities.event.fields.no-office',
+                'empty_data' => null,
+                'multiple' => false,
+                'expanded' => false,
+                'choice_label' => function ($office) {
+                    return $office->getAddress();
+                }
+            ])            
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.event.fields.title', 'required' => true],

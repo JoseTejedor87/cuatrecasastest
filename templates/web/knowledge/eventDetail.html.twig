@@ -9,7 +9,12 @@
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
-{% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
+{% if  event.getOffice() %}
+    {% set customAddress = event.getOffice().getAddress()| replace({"<BR>":"<br>"}) |split('<br>') %}
+{% else %}
+    {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
+{% endif %}
+
     <main role="main">
         <article class="container">
 
@@ -67,11 +72,13 @@
                         {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
                         </div>
                         <div class="page__event__details">
-                            {% for attachment in event.attachments %}
+                            {% for attachment in attachmentPublished %}
+                                {#% if attachment.publish.language  == app.request.getLocale() && attachment.publish.region == app.request.getRegion() %#}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
+                                {#% endif %#}
                             {% endfor %}
                             <div class="page__event__info">
                                 <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
@@ -148,9 +155,9 @@
                                     <div class="form-group">
                                         <select id="eCountry" class="form-control custom-select" required>
                                             <option value="" selected disabled>País *</option>
-                                            {#% for pais in paises %}
+                                            {% for pais in paises %}
                                                 <option value="{{ pais.IdPais }}" id="{{ pais.IdPais }}" >{{ pais.Nombre }}</option>
-                                            {% endfor %#}
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -362,7 +369,7 @@
                     })
                 .done(function( data ) {
                     var html = '';
-                    JSON.parse(data).forEach(function(region){
+                    data.forEach(function(region){
                         html = html + `<option value="`+region['IdProvincia']+`">`+region['Nombre']+`</option>`;
                     })
                     $('#eRegion').append( html  );

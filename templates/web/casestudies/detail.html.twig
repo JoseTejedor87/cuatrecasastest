@@ -82,7 +82,7 @@
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--complementary'} %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}

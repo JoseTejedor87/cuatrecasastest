@@ -18,7 +18,13 @@ class PagesController extends WebController
 
         $page = $PageRepository->getInstanceByRequest($request);
 
-        return $this->render('web/regions/'.$page->getCustomTemplate().'.html.twig', [
+        $urlTemplate = 'empty';
+        if (null !== $page->getCustomTemplate() && $page->getCustomTemplate() != '')
+        {
+            $urlTemplate = 'custom/'.$page->getCustomTemplate();
+        }
+
+        return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
             'page' => $page,
             'controller_name' => 'PageController'
         ]);

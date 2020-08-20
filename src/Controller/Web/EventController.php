@@ -11,13 +11,21 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Controller\Web\WebController;
 use App\Controller\SOAPContactsClientController;
+use App\Controller\Web\NavigationService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EventController extends WebController
 {
     private $soap;
-    public function __construct()
+    private $em;
+    private $conn;
+
+    public function __construct(ContainerInterface $container)
     {
         $this->soap  = new SOAPContactsClientController;
+        $this->container = $container;
+        $this->em = $this->container->get('doctrine')->getManager();
+        $this->conn = $this->em->getConnection();
     }
 
     public function index(Request $request, EventRepository $EventRepository)
@@ -90,9 +98,15 @@ class EventController extends WebController
         ]);
     }
 
-    public function detail(Request $request, EventRepository $EventRepository)
+    public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation)
     {
-        $paises = $this->soap->getPaises('es')->getContent();
+        // $paises = $this->soap->getPaises('es')->getContent();
+        $query = "Select * From GC_paises order by nombre";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $paises = $stmt->fetchAll();
+
+
         $event = $EventRepository->getInstanceByRequest($request);
         foreach ($event->getPrograms() as $key => $value) {
             $value->timeStart = $value->getDateTime()->format('H:i');
@@ -102,9 +116,18 @@ class EventController extends WebController
             // dd($value->getPeople());
         }
         // dd($event);
+       
+        $attachmentPublished = [];
+        foreach($event->getAttachments() as $attachment)
+        {
+            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+                array_push($attachmentPublished,$attachment);
+        }
+
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
-            'paises' => json_decode($paises),
+            'attachmentPublished' => $attachmentPublished,
+            'paises' => $paises // json_decode($paises),
         ]);
     }
 
@@ -213,7 +236,11 @@ class EventController extends WebController
     public function ajaxActionRegions(Request $request)
     {
         $idCountry = $request->query->get('idCountry');
-        $regions = $this->soap->getProvincias('es',$idCountry)->getContent();
+        $query = "Select * From GC_provincias where IdPais='".$idCountry."' order by nombre";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $regions = $stmt->fetchAll();
+        //$regions = $this->soap->getProvincias('es',$idCountry)->getContent();
         return new JsonResponse($regions);
 
     }

@@ -29,7 +29,7 @@ class ArticleFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('status', IntegerType::class, ['required' => true,'label'=>'entities.article.fields.status'])
+            //->add('status', IntegerType::class, ['required' => true,'label'=>'entities.article.fields.status'])
             ->add('featured', IntegerType::class, ['required' => true,'label'=>'entities.article.fields.featured'])
             ->add('publication_date', DateType::class, ['label'=>'entities.article.fields.publication_date', 'required' => true])
             ->add('activities', EntityType::class, [
@@ -92,11 +92,13 @@ class ArticleFormType extends AbstractType
                     'title' => ['label'=>'entities.article.fields.title'],
                     'summary' => ['label'=>'entities.article.fields.summary', 'attr'=>['class'=>'summernote'], 'required' => false],
                     'content' => ['label'=>'entities.article.fields.content', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    /*
                     'caption' => ['label'=>'entities.article.fields.caption', 'attr'=>['class'=>'summernote'], 'required' => false],
                     'tags' => ['label'=>'entities.article.fields.tags', 'attr'=>['class'=>'summernote'], 'required' => false],
                     'lawyer_tags' => ['label'=>'entities.article.fields.lawyer_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
                     'office_tags' => ['label'=>'entities.article.fields.office_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
                     'practice_tags' => ['label'=>'entities.article.fields.practice_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    */
                 ],
             ]);
     }

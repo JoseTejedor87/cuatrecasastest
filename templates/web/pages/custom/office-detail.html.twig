@@ -1,0 +1,126 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="lawyer__page">
+        <article>
+
+            <header class="container">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
+                        <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
+                        <h1 class="lawyer__page__region">
+                            Oporto
+                        </h1>
+                        <div class="lawyer__page__contact">
+                            <div data-address>
+                                Av. da Boavista, 3265 - 5.1<br>
+                                4100-137 Oporto
+                            </div>
+                            <div data-telephone>
+                                666 66 66 66
+                            </div>
+                            <div data-email>
+                                <a href="mailto:">
+                                    office-detail@cuatrecasas.com
+                                </a>
+                            </div>
+                        </div>
+                        <a href="#" class="doble__arrow__link">Ver mapa</a>
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__office">
+                            <figure style="background-image: url('{{ asset('web/assets/img/oporto.jpg') }}"></figure>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos minima nesciunt accusantium dolores reiciendis dolorum. Quibusdam quasi perferendis at mollitia nobis, dignissimos, officiis reiciendis, dolorum modi, ducimus dolorem esse numquam.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            {% include 'web/shared/team-five.html.twig' %}
+            {% include 'web/shared/related-content-slider.html.twig' %}
+            {% include 'web/shared/cases_CMP.html.twig' %}
+            {% include 'web/shared/cta_CMP.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        var swiperAwards = new Swiper ('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: true
+        });
+
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+    });
+</script>
+{% endblock %}
