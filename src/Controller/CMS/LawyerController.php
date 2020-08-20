@@ -49,9 +49,9 @@ class LawyerController extends CMSController
             ->add('surname', TextType::class, ['required' => false, 'label' => false ])
             ->add('email', TextType::class, ['required' => false, 'label' => false])
             ->add('lawyerType', LawyerCategoryType::class, ['required' => false,'label'=> false ])
-            ->add('fechaDesde', DateType::class, ['label'=>'Desde', 'widget' => 'single_text', 'required' => false])
-            ->add('fechaHasta', DateType::class, ['label'=>'Hasta', 'widget' => 'single_text', 'required' => false])
-            ->add('send', SubmitType::class)
+            ->add('fechaDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
             ->getForm();
     
         $formForFilter->handleRequest($request);
