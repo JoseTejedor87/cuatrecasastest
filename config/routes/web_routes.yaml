@@ -315,6 +315,51 @@ detail_others:
     controller: App\Controller\Web\RegionsController::detailOthers
 
 
+# FIRM
+# ###########################################
+
+firm_vision:
+    path:
+        en:   /firm/general-vision
+        es:   /firma/vision-general
+    methods:    GET
+    controller: App\Controller\Web\FirmController::vision
+
+firm_social:
+    path:
+        en:   /firm/social
+        es:   /firma/social
+    methods:    GET
+    controller: App\Controller\Web\FirmController::social
+
+firm_environment:
+    path:
+        en:   /firm/environment
+        es:   /firma/medioambiente
+    methods:    GET
+    controller: App\Controller\Web\FirmController::environment
+
+firm_governance:
+    path:
+        en:   /firm/good-governance
+        es:   /firma/buen-gobierno
+    methods:    GET
+    controller: App\Controller\Web\FirmController::governance
+
+firm_innovation:
+    path:
+        en:   /firm/innovation
+        es:   /firma/innovacion
+    methods:    GET
+    controller: App\Controller\Web\FirmController::innovation
+
+firm_mediaCenter:
+    path:
+        en:   /firm/media-center
+        es:   /firma/centro-de-medios
+    methods:    GET
+    controller: App\Controller\Web\FirmController::mediaCenter
+
 # API-PUBLICATIONS
 ##############################################
 publications-api:
