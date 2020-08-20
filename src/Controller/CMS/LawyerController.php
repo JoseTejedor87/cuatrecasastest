@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -15,7 +16,7 @@ use App\Entity\Lawyer;
 use App\Form\LawyerFormType;
 use App\Repository\LawyerRepository;
 use App\Controller\CMS\CMSController;
-
+use App\Form\Type\LawyerCategoryType;
 
 class LawyerController extends CMSController
 {
@@ -44,9 +45,12 @@ class LawyerController extends CMSController
     private function filter(Request $request){
         $formForFilter = $this->createFormBuilder(array())
             ->setMethod('GET')
-            ->add('name', TextType::class, ['required' => false ])
-            ->add('surname', TextType::class, ['required' => false ])
-            //->add('email', TextType::class, ['required' => false ])
+            ->add('name', TextType::class, ['required' => false, 'label' => false ])
+            ->add('surname', TextType::class, ['required' => false, 'label' => false ])
+            ->add('email', TextType::class, ['required' => false, 'label' => false])
+            ->add('lawyerType', LawyerCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('fechaDesde', DateType::class, ['label'=>'Desde', 'widget' => 'single_text', 'required' => false])
+            ->add('fechaHasta', DateType::class, ['label'=>'Hasta', 'widget' => 'single_text', 'required' => false])
             ->add('send', SubmitType::class)
             ->getForm();
     

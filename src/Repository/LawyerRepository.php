@@ -34,12 +34,22 @@ class LawyerRepository extends PublishableEntityRepository implements Publishabl
     }
 
     public function findFilteredBy($arrayFields){
-       // Array ( [name] => dasdasd [surname] => asdasda [email] => asdasd@asdasd )
-
-
 
         $query = $this->filterByFieldsQueryBuilder($arrayFields,'l');
+        $fechaInicial = '2015-01-01';
+
+        if ( isset ( $arrayFields['fechaDesde'])){
+            $query->andWhere('l.createdAt > :desde')
+                ->setParameter('desde', $arrayFields['fechaDesde']->format('Y-m-d'));
+        }
+
+        if( isset ( $arrayFields['fechaHasta']) ){
+            $query->andWhere('l.createdAt < :hasta')                
+            ->setParameter('hasta', $arrayFields['fechaHasta']->format('Y-m-d'));
+        }
         
         return  $query->getQuery()->getResult();
+        
+
     }
 }

@@ -1,6 +1,9 @@
 {% extends 'cms/base.html.twig' %}
 {% trans_default_domain "admin" %}
 
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+
 {% block title %}{{ 'sections.lawyers.index.title'|trans }}{% endblock %}
 
 {% block body %}
@@ -24,18 +27,36 @@
                 {{ form_start(formForFilterView) }} 
                           <div class="row">                 
                                 <div class="col-md-3">
-                                 {{ form_row(formForFilterView.name) }}
+                                {{ 'entities.lawyer.fields.name'|trans }}
+                                {{ form_row(formForFilterView.name) }}
                                    
                                 </div>
                                  <div class="col-md-3">
-                                 {{ form_row(formForFilterView.surname) }}
+                                 {{ 'entities.lawyer.fields.surname'|trans }}
+                                {{ form_row(formForFilterView.surname) }}
+                                </div>
+                                <div class="col-md-4">
+                                {{ 'entities.lawyer.fields.email'|trans }}
+                                {{ form_row(formForFilterView.email) }}
+                                </div>
+                                <div class="col-md-2">
+                                {{'entities.lawyer.fields.lawyerType'|trans}}
+                                {{ form_row(formForFilterView.lawyerType) }}
+                                </div>
+                                    
+
+                                <div class="col-md-3">
+                                    {{ form_row(formForFilterView.fechaDesde) }}
                                 </div>
                                 <div class="col-md-3">
-                                 {#{ form_row(formForFilterView.email) }#}
+                                    {{ form_row(formForFilterView.fechaHasta) }} 
                                 </div>
-                                <div class="col-md-3">
-                                 {{ form_row(formForFilterView.send) }}
-                                </div>
+                                <div class="col-md-2">
+                                    <p>
+                                    {{'Filtrar'}}
+                                    {{ form_row(formForFilterView.send) }}
+                                    </p>
+                                </div>                                
                             </div>
                 {{ form_end(formForFilterView) }}
             </div>

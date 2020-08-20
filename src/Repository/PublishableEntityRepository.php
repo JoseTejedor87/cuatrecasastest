@@ -47,11 +47,11 @@ class PublishableEntityRepository extends ServiceEntityRepository
 
     public function filterByFieldsQueryBuilder($fields,$alias)
     {
-        //print_r($fields); die();
+
         $queryBuilder = parent::createQueryBuilder($alias);
         foreach($fields as $key => $value){
-            if ($value != ''){
-                $queryBuilder->andWhere($alias.'.'.$key.' LIKE :'.$value)->setParameter($value, '%'.$value.'%');
+            if ($value != '' && (strpos($key,'fecha') === false) && (strpos($key,'date') === false)&& (strpos($key,'Date') === false)){
+                $queryBuilder->andWhere($alias.'.'.$key.' LIKE :'.$key)->setParameter($key, '%'.$value.'%');
             }
         }
         return $queryBuilder;
