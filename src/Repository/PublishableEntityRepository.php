@@ -44,4 +44,16 @@ class PublishableEntityRepository extends ServiceEntityRepository
             ->setParameter('language', '%"'.$language.'"%');
         return $queryBuilder;
     }
+
+    public function filterByFieldsQueryBuilder($fields,$alias)
+    {
+
+        $queryBuilder = parent::createQueryBuilder($alias);
+        foreach($fields as $key => $value){
+            if ($value != '' && (strpos($key,'fecha') === false) && (strpos($key,'date') === false)&& (strpos($key,'Date') === false)){
+                $queryBuilder->andWhere($alias.'.'.$key.' LIKE :'.$key)->setParameter($key, '%'.$value.'%');
+            }
+        }
+        return $queryBuilder;
+    }
 }

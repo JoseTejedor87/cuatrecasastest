@@ -338,7 +338,10 @@ entities:
   training:
     fields:
       description: Texto
-
+  filter:
+    action: Filtrar
+    fechaDesde: Desde
+    fechaHasta: Hasta
 # Custom Form Types
 
 forms:
