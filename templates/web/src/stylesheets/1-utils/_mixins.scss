@@ -422,23 +422,17 @@ img {
     }
 }
 
-@mixin button-hover {
-    text-decoration: none;
-    color: $white;
-    background-color: $complementary-color;
-    border-color: $complementary-color;
-}
-
 @mixin arrow-button($color) {
     @include reset-button;
     position: relative;
     padding: 0.3rem 2.3rem 0.3rem 0;
     text-decoration: none;
     color: $color;
+    overflow: hidden;
     transition: all 0.2s ease-in-out;
 
     @media(max-width: $max-width-4casas) {
-        padding: 0.3rem 1.3rem 0.3rem 0;
+        padding: 0.3rem 1.6rem 0.3rem 0;
     }
 
     &:before,
@@ -455,23 +449,24 @@ img {
 
     &:before {
         left: 0;
-        visibility: hidden;
         opacity: 0;
-        transition: opacity 0.2s ease-in-out, left 0.2s ease-out;
+        visibility: hidden;
+        transition: left 0.2s ease-out, opacity 0.2s ease-in-out;
+        // transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     &:after {
         right: 0;
-        visibility: visible;
         opacity: 1;
-        transition: opacity 0.2s ease-in-out, right 0.2s ease-out;
+        visibility: visible;
+        transition: right 0.2s ease-out, opacity 0.2s ease-in-out;
+        // transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     @include on-event {
         padding-left: 1.8rem;
         color: $color;
         text-decoration: none;
-        overflow: hidden;
 
         @media(max-width: $max-width-4casas) {
             padding-left: 1.2rem;

@@ -6,8 +6,8 @@
     {% endif %}
 {% endif %}
 
-<div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}">
-<!-- <div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/photo-lawyer-prep2.jpg') }}"> -->
+<!-- <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}"> -->
+<div class="lawyer__search__item" style="background-image: url('{{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }}">
     <a href="{{ (lawyer.slug is defined) ? path('lawyers_detail', {slug:lawyer.slug}) : "" }}" class="lawyer__link">
     <h3 class="lawyer__name">{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
     <div class="lawyer__details">

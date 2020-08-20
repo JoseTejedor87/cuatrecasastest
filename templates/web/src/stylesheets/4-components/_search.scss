@@ -94,7 +94,7 @@
 
     > .col {
         padding-top: 3rem;
-        padding-bottom: 2rem;
+        padding-bottom: 3rem;
     }
 
     @include has("wrapper") {
@@ -124,6 +124,11 @@
             border: none;
             transition: all 0.3s ease-in-out;
 
+            @media(max-width: $max-width-4casas) {
+                top: -45px;
+                height: 45px;
+            }
+
             [class^="icon4-"], [class*=" icon4-"] {
                 @include fontSet(36px, 36px);
                 transition: all 0.3s ease-in-out;
@@ -131,6 +136,10 @@
                 &:before {
                     color: $complementary-color;
                     transition: all 0.3s ease-in-out;
+                }
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(30px, 30px);
                 }
             }
 

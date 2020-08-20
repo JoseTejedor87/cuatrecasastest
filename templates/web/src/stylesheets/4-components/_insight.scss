@@ -158,10 +158,19 @@
             @include fontSet(20px, 20px);
             font-weight: bold;
             text-transform: uppercase;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 1rem;
+                @include fontSet(12px, 12px);
+            }
         }
 
         @include has("content") {
             margin-bottom: 6rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 2rem;
+            }
 
             @include when-inside(".insight--carousel") {
                 margin-bottom: 10rem;
@@ -177,6 +186,10 @@
                 @include fontSet(58px, 58px);
                 color: $complementary-color;
 
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(30px, 35px);
+                }
+
                 @include when-inside(".insight--carousel") {
                     @include fontSet(40px, 44px);
                     color: $cases-color;
@@ -191,6 +204,10 @@
                 @include fontSet(58px, 58px);
                 @include classic-link($main-color, $complementary-color, $border: false);
                 // @include fancy-link($main-color, $main-color, #F7F7F7, $header: true);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(30px, 35px);
+                }
             }
 
             @include has("excerpt") {
@@ -218,6 +235,10 @@
         @include has("meta") {
             margin-bottom: 4rem;
 
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 0;
+            }
+
             @include has("info") {
                 @include fontSet(16px, 16px);
                 font-weight: bold;
@@ -237,5 +258,12 @@
 
     @include has("vector") {
         @include stretch-to-right;
+
+        @media(max-width: $max-width-4casas) {
+            width: 100vw;
+            height: 240px;
+            margin: 0 0 0 -6vw;
+
+        }
     }
 }

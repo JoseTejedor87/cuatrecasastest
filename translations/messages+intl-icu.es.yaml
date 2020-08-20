@@ -109,11 +109,11 @@ menu:
   services: Servicios
   sectors: Sectores
   career:
-    career: Career
+    career: Carrera
     live: Vive Cuatrecasas
     revolution: Revolución
     learn: Aprende con los mejores
-    international: Career internacional
+    international: Carrera internacional
     join: Únete a nosotros
   offices:
     offices: Territorios
@@ -123,11 +123,15 @@ menu:
     latam: Latinoamérica
     other: Otras regiones
   firm:
-    firm: La Firma
+    firm: La firma
+    vision: Visión general
+    social: Social
+    environment: Medioambiente
+    governance: Buen gobierno
+    innovation: Innovación
     contribution: Contribución a la sociedad
     diversity: Diversidad
     responsability: Responsabilidad y cumplimiento
-    innovation: Innovación
   contact: Contacto
   webs:
     webs: Webs
@@ -141,6 +145,7 @@ menu:
   events: Eventos
   practices: Áreas de práctica
   products: Productos
+  media_center: Centro de medios
 
 # Footer
 # ###########################################

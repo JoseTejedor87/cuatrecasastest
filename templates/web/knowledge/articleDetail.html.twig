@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -91,8 +91,8 @@
 
     {% include 'web/shared/related-content-slider.html.twig' %}
     {% include 'web/shared/insight.html.twig' %}
-    {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}   
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 

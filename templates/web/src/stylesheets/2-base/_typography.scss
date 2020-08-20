@@ -89,6 +89,18 @@ p {
     // BG COLORS (horizontal modules)
     //
 
+    @include when("main") {
+        background-color: $main-color;
+    }
+
+    @include when("complementary") {
+        background-color: $complementary-color;
+    }
+
+    @include when("black") {
+        background-color: $black;
+    }
+
     @include when("news") {
         background-color: $news-color;
     }

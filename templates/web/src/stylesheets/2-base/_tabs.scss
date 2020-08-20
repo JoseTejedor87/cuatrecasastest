@@ -204,7 +204,7 @@
             }
 
             @include on-event {
-                color: $complementary-color;
+                // color: $complementary-color;
 
                 &:after {
                     opacity: 1;
@@ -290,6 +290,10 @@
         display: none;
         border: 0 !important;
         border-radius: 0 !important;
+
+        @include on-event {
+            color: $complementary-color;
+        }
     }
 
     .responsive-tabs.open li > a, .responsive-tabs li > a.active {

@@ -15,6 +15,7 @@
         }
     }
 
+    // NOT SURE IF ITS STILL NECESARY
     .panel-group {
 
         .panel,
@@ -65,6 +66,145 @@
             p {
                 @include fontSet(20px, 20px);
                 margin-bottom: 3rem;
+            }
+        }
+    }
+}
+
+@include new("accordion__columns") {
+    margin: 2rem 0 6rem;
+
+    @media(max-width: $max-width-4casas) {
+        margin: 1rem 0 3rem;
+    }
+
+    .panel-group {
+
+
+        // display: flex;
+        // flex-flow: row wrap;
+        // margin: 0 -2rem;
+
+        // .panel {
+        //     flex: 0 1 calc(50% - 4rem);
+        //     max-width: calc(50% - 4rem);
+        //     margin: 0 2rem;
+        //     padding: 0 0;
+        // }
+
+        // .panel,
+        // .panel-heading {
+        //     margin: 0 0;
+        //     padding: 0 0;
+        // }
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-fill: auto;
+
+        @media(max-width: $max-width-4casas) {
+            column-count: 1;
+            column-gap: 0;
+        }
+
+        .panel {
+            display: inline-block;
+            width: 100%;
+            margin: 0 0 10px;
+            padding: 0 0;
+        }
+
+        .panel-heading {
+            margin: 0 0;
+            padding: 0 0;
+        }
+
+        .panel-title {
+            a {
+                position: relative;
+                display: block;
+                @include fontSet(33px, 33px);
+                letter-spacing: 0;
+                padding: 2rem 2rem 1rem 3rem;
+                color: $complementary-color;
+                box-shadow: 0 1px 0 rgba($black, 0.2);
+                transition: all 0.3s ease-in-out;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(24px, 24px);
+                    padding: 2rem 1rem 0.5rem 2rem;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 2rem;
+                    left: 0;
+                    display: block;
+                    width: 30px;
+                    height: 30px;
+                    background-color: $complementary-color;
+
+                    @media(max-width: $max-width-4casas) {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                &:after {
+                    @include icons-ionicons(38px,auto,auto,10px);
+                    content: '\f218';
+                    // content: '\f489';
+                    font-size: 16px;
+                    color: $white;
+
+                    @media(max-width: $max-width-4casas) {
+                        top: 34px;
+                        left: 4px;
+                    }
+                }
+
+                &:not(.collapsed) {
+                    box-shadow: 0 1px 0 rgba($black, 0.2);
+
+                    &:after {
+                        content: '\f209';
+                        // content: '\f462';
+                    }
+                }
+
+                @include on-event {
+                    text-decoration: none;
+                    box-shadow: 0 2px 0 $complementary-color;
+                }
+
+                &:focus, &:active {
+                    box-shadow: 0 1px 0 rgba($black, 0.2);
+                }
+            }
+        }
+
+        .panel-body {
+            position: relative;
+            margin: 0 0;
+            padding: 0 0;
+
+            p {
+                @include fontSet(23px, 29px);
+                padding: 1rem 0 1rem 3rem;
+                // margin-bottom: 3rem;
+                box-shadow: 0 1px 0 rgba($black, 0.2);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(16px, 22px);
+                    padding: 1rem 0 1rem 2rem;
+                }
+
+                a {
+                    // @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
+                    font-weight: bold;
+                }
             }
         }
     }
