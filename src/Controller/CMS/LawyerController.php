@@ -58,7 +58,6 @@ class LawyerController extends CMSController
         $filterFields = '';
 
         if ($formForFilter->isSubmitted() && $formForFilter->isValid()) {
-            // filterFields is an array with "name", "email" keys
             $filterFields = $formForFilter->getData();
         }
 

@@ -35,17 +35,26 @@ class LawyerRepository extends PublishableEntityRepository implements Publishabl
 
     public function findFilteredBy($arrayFields){
 
-        $query = $this->filterByFieldsQueryBuilder($arrayFields,'l');
-        $fechaInicial = '2015-01-01';
-
-        if ( isset ( $arrayFields['fechaDesde'])){
-            $query->andWhere('l.createdAt > :desde')
-                ->setParameter('desde', $arrayFields['fechaDesde']->format('Y-m-d'));
+        if ( isset ( $arrayFields['fechaDesde']) && isset ( $arrayFields['fechaDesde'])){
+            $fechaDesde = $arrayFields['fechaDesde'];
+            unset($arrayFields['fechaDesde']);
         }
 
-        if( isset ( $arrayFields['fechaHasta']) ){
+        if( isset ( $arrayFields['fechaHasta'])  && isset ( $arrayFields['fechaHasta'])){
+            $fechaHasta = $arrayFields['fechaHasta'];
+            unset($arrayFields['fechaHasta']);
+        }
+
+        $query = $this->filterByFieldsQueryBuilder($arrayFields,'l');
+
+        if ( isset ( $fechaDesde)){
+            $query->andWhere('l.createdAt > :desde')
+                ->setParameter('desde', $fechaDesde->format('Y-m-d'));
+        }
+
+        if( isset ( $fechaHasta) ){
             $query->andWhere('l.createdAt < :hasta')                
-            ->setParameter('hasta', $arrayFields['fechaHasta']->format('Y-m-d'));
+            ->setParameter('hasta', $fechaHasta->format('Y-m-d'));
         }
         
         return  $query->getQuery()->getResult();

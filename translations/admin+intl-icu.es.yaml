@@ -342,6 +342,11 @@ entities:
     action: Filtrar
     fechaDesde: Desde
     fechaHasta: Hasta
+    incioDesde: Fecha Inicio Desde
+    inicioHasta: Fecha Inicio Hasta
+    finHasta:  Fecha Fin Hasta
+    finDesde: Fecha Fin Desde
+
 # Custom Form Types
 
 forms:

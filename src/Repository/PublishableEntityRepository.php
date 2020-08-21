@@ -50,7 +50,7 @@ class PublishableEntityRepository extends ServiceEntityRepository
 
         $queryBuilder = parent::createQueryBuilder($alias);
         foreach($fields as $key => $value){
-            if ($value != '' && (strpos($key,'fecha') === false) && (strpos($key,'date') === false)&& (strpos($key,'Date') === false)){
+            if ($value != ''){
                 $queryBuilder->andWhere($alias.'.'.$key.' LIKE :'.$key)->setParameter($key, '%'.$value.'%');
             }
         }
