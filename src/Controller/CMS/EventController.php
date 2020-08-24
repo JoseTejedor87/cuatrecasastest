@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use App\Form\Type\EventCategoryType;
+use App\Form\Type\LawyerCategoryType;
+use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
 
 use App\Entity\Event;
 use App\Form\EventFormType;
@@ -51,6 +54,8 @@ class EventController extends CMSController
             ->add('inicioHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
             ->add('finDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
             ->add('finHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('languages', LanguageType::class, ['label'=>false])
+            ->add('regions', RegionType::class, ['label'=>false])
             ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
             ->getForm();
     

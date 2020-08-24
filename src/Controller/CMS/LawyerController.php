@@ -17,6 +17,8 @@ use App\Form\LawyerFormType;
 use App\Repository\LawyerRepository;
 use App\Controller\CMS\CMSController;
 use App\Form\Type\LawyerCategoryType;
+use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
 
 class LawyerController extends CMSController
 {
@@ -51,6 +53,8 @@ class LawyerController extends CMSController
             ->add('lawyerType', LawyerCategoryType::class, ['required' => false,'label'=> false ])
             ->add('fechaDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
             ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('languages', LanguageType::class, ['label'=>false])
+            ->add('regions', RegionType::class, ['label'=>false])
             ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
             ->getForm();
     
