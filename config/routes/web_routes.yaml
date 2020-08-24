@@ -360,7 +360,6 @@ firm_mediaCenter:
     methods:    GET
     controller: App\Controller\Web\FirmController::mediaCenter
 
-
 # API-PUBLICATIONS
 ##############################################
 publications-api:
