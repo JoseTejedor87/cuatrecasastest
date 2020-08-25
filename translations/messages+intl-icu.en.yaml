@@ -15,6 +15,9 @@ global:
     latam: Latam
     portugal: Portugal
     global: Global
+  messages:
+    page_not_found: Page not found
+    alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
 
 # Sections
 # ###########################################
@@ -149,9 +152,3 @@ reusable_blocks:
     cases:
       title: Cases
       link: View more
-
-# Errors Messajes
-# ###########################################
-error:
-  msg:
-    fail_route: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación

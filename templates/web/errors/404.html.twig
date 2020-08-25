@@ -4,7 +4,7 @@
 
     <main role="main">
         <article class="container">
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <header class="row page__header">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -16,38 +16,51 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    XXX
+                                    {{ 'global.messages.page_not_found'|trans }}
                                 </li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </header>
+
+            {% set publishable = navigation_service.getPublishable() %}
+
+            <section class="row page__block--full">
+                <div class="col">
+                    <div class="page__block__content--full">
+
+                        {% if publishable %}
+                            <h2>{{ 'global.messages.alternative_urls'|trans }}</h2>
+                            <ul>
+                            {% for language in languages %}
+                                {% for region in regions %}
+                                    {% set href = navigation_service.getAlternativePath(language, region) %}
+                                    {% if href %}
+                                    <li>
+                                        <a href="{{ href }}" />{{('global.languages.'~language)|trans}} / {{('global.regions.'~region)|trans}}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h2>{{ 'global.messages.page_not_found'|trans }}</h2>
+                            <br/>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere enim quis
+                                ipsum tincidunt pretium. Sed placerat sit amet urna ut tristique. Cras pretium
+                                ipsum mauris, id consequat ex mattis in. Proin volutpat in tellus ac placerat.
+                            </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </section>
+
         </article>
     </main>
 
-    {% set publishable = navigation_service.getPublishable() %}
-    {% if publishable %}
-        <div class="section__title section__title--recomended">
-            </br>
-            <h2>  {{ error.msg.fail_route    }}</h2>
-            </br>
-            <ol class="breadcrumb">
-            {% for language in languages %}
-                {% for region in regions %}
-
-                    {% set href = navigation_service.getAlternativePath(language, region) %}
-                    {% if href %}
-                        <li class="breadcrumb-item">
-                        <a href="{{ href }}" />{{language}} / {{region}}</a><br/>
-                        </li>
-                    {% endif %}
-
-                {% endfor %}
-            {% endfor %}
-            </ol>
-    </div>
-    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
