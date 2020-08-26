@@ -6,6 +6,7 @@ use App\Entity\Publication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 use App\Controller\Web\NavigationService;
 use App\Repository\PublishableEntityRepository;
@@ -19,8 +20,11 @@ use App\Repository\PublishableInterfaceRepository;
  */
 class PublicationRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
+    protected $imagineCacheManager;
+
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation,CacheManager $imagineCacheManager)
     {
+        $this->imagineCacheManager = $imagineCacheManager;
         parent::__construct($registry, $navigation, Publication::class);
     }
 
@@ -35,6 +39,60 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->getOneOrNullResult();
         }
         return null;
+    }
+    public function findByActivities($activities)
+    {
+        $activitiesA = array();
+        if($activities){
+            foreach ($activities as $key => $activity) {
+                array_push($activitiesA,$activity->getId());
+             }
+        }
+        $results =  $this->createQueryBuilder('p');
+            if ($activitiesA) {
+                $results =  $results->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity', implode(",", $activitiesA));
+            }
+            //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
+            $results =  $results->orderBy('p.publication_date', 'DESC')
+                ->setMaxResults(5)
+                ->getQuery()
+                ->getResult();
+        foreach ($results as $key => $value) {
+                $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
+                $value->type = 'article';
+            }
+            if ($value instanceof \App\Entity\Opinion){
+                $value->type = 'opinion';
+            }
+            if ($value instanceof \App\Entity\News){
+                $value->type = 'news';
+            }
+            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            if(!$value->photo){
+                $value->photo = 'https://via.placeholder.com/800x400';
+            }
+                    
+        }
+        return $results;
+    }
+    protected function getPhotoPathByFilter($publication, $filter)
+    {
+        if ($photos = $publication->getAttachments()) {
+            foreach ($photos as $key => $photo) {
+
+                if($photo->getType() == "publication_main_photo"){
+                    $photo = $this->imagineCacheManager->getBrowserPath(
+                        '/resources/' . $photo->getFileName(),
+                        $filter
+                    );
+                    return $photo;
+                }  
+            }
+        }
+        
     }
     // /**
     //  * @return Publication[] Returns an array of Publication objects

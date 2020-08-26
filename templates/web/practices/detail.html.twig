@@ -100,7 +100,7 @@
         } %}
     {% endif %}
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
 
     {% if relatedCaseStudies|length > 0 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}

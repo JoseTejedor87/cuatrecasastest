@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Event;
 use App\Repository\EventRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 use App\Controller\SOAPContactsClientController;
 use App\Controller\Web\NavigationService;
@@ -28,12 +29,14 @@ class EventController extends WebController
         $this->conn = $this->em->getConnection();
     }
 
-    public function index(Request $request, EventRepository $EventRepository)
+    public function index(Request $request, EventRepository $EventRepository, PublicationRepository $publicationRepository)
     {
   
         $month = $request->query->get('month');
         $year = $request->query->get('year');
-
+        $relatedEvents = $EventRepository->findByActivities('');
+        $relatedPublications = $publicationRepository->findByActivities('');
+        // dd($relatedPublications);
         if( !$month ||  !$year){
             $fechaHoy = new \DateTime();
             if(!$month){
@@ -95,10 +98,12 @@ class EventController extends WebController
             'events' => $events,
             'month' => $month ? $month : "",
             'year' => $year ? $year : "",
+            'relatedEvents' =>  $relatedEvents,
+            'relatedPublications' => $relatedPublications
         ]);
     }
 
-    public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation)
+    public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation, PublicationRepository $publicationRepository)
     {
         // $paises = $this->soap->getPaises('es')->getContent();
         $query = "Select * From GC_paises order by nombre";
@@ -108,6 +113,9 @@ class EventController extends WebController
 
 
         $event = $EventRepository->getInstanceByRequest($request);
+        $relatedEvents = $EventRepository->findByActivities($event->getActivities());
+        $relatedPublications = $publicationRepository->findByActivities($event->getActivities());
+
         foreach ($event->getPrograms() as $key => $value) {
             $value->timeStart = $value->getDateTime()->format('H:i');
             if(isset($event->getPrograms()[$key+1])){
@@ -127,7 +135,9 @@ class EventController extends WebController
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
-            'paises' => $paises // json_decode($paises),
+            'paises' => $paises,
+            'relatedEvents' =>$relatedEvents,
+            'relatedPublications' => $relatedPublications
         ]);
     }
 

@@ -18,7 +18,7 @@ class PublicationController extends WebController
     {
         $publication = $PublicationRepository->getInstanceByRequest($request);
         $caseStudiesRelated = $caseStudyRepository->findByActivities($publication->getActivities()->toArray());
-       
+        $relatedPublications = $PublicationRepository->findByActivities($publication->getActivities());
         $attachmentPublished = [];
         foreach($publication->getAttachments() as $attachment)
         {
@@ -30,7 +30,8 @@ class PublicationController extends WebController
         return $this->render('web/knowledge/articleDetail.html.twig', [
             'publication' => $publication,
             'caseStudiesRelated'  => $caseStudiesRelated,
-            'attachmentPublished' => $attachmentPublished
+            'attachmentPublished' => $attachmentPublished,
+            'relatedPublications' => $relatedPublications
         ]);
     }
 }

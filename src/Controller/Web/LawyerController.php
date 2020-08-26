@@ -16,6 +16,7 @@ use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\TrainingRepository;
+use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LawyerController extends WebController
@@ -34,11 +35,11 @@ class LawyerController extends WebController
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
-            'contextualBlocks' => $contextualBlocks
+            'contextualBlocks' => $contextualBlocks,
         ]);
     }
 
-    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository)
+    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -51,7 +52,7 @@ class LawyerController extends WebController
         $sector = $request->query->get('sector');
         $office = $request->query->get('office');
 
-
+        $relatedPublications = $publicationRepository->findByActivities('');
         $limit = 18;
         if ($initial || $office || $sector || $services || $textSearch) {
             $url= "";
@@ -161,6 +162,7 @@ class LawyerController extends WebController
                 'sectors' => $sectors,
                 'practices' => $practices,
                 'offices' => $offices,
+                'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
             ]);
         }

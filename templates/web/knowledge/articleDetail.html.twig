@@ -88,8 +88,9 @@
 
         </article>
     </main>
-
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% if relatedPublications %}
+        {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% endif %}
     {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}   
     {% include 'web/shared/call-to-action.html.twig' %}

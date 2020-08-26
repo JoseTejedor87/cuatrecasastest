@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\SectorRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\AwardRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 
 class SectorController extends WebController
@@ -22,7 +23,7 @@ class SectorController extends WebController
         ]);
     }
 
-    public function detail(Request $request, SectorRepository $sectorRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
+    public function detail(Request $request, SectorRepository $sectorRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository, PublicationRepository $publicationRepository)
     {
         $awards = $awardRepository->getAll();
         $sector = $sectorRepository->getInstanceByRequest($request);
@@ -30,7 +31,7 @@ class SectorController extends WebController
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$sector]
         );
-
+        $relatedPublications = $publicationRepository->findByActivities([$sector]);
         $awardsFiltered = [];
         foreach ($awards as $award)
         {
@@ -46,6 +47,7 @@ class SectorController extends WebController
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,
             'relatedCaseStudies' => $relatedCaseStudies,
+            'relatedPublications' => $relatedPublications,
             'awards' => $awardsFiltered
         ]);
     }

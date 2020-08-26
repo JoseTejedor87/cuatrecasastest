@@ -11,6 +11,7 @@ use App\Repository\PublicationRepository;
 use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
+use App\Repository\EventRepository;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use App\Entity\Publication;
 use App\Controller\Web\WebController;
@@ -29,7 +30,7 @@ class KnowledgeController extends WebController
         $this->params = $params;
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository)
+    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository, EventRepository $eventRepository)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -44,7 +45,7 @@ class KnowledgeController extends WebController
         $type = $request->query->get('type');
         $date = $request->query->get('date');
         $format = $request->query->get('format');
-
+        $relatedEvents = $eventRepository->findByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
         //dd($page);
@@ -181,6 +182,7 @@ class KnowledgeController extends WebController
                 'types' => $types,
                 'formats' => $formats,
                 'publications' => $publications,
+                'relatedEvents' => $relatedEvents,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
             ]);

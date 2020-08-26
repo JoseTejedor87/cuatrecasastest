@@ -169,6 +169,18 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required>
                                     </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos.
+                                        </label>
+                                        <input class="form-check-input" type="radio" name="sucribeA" id="sucribeA" value="1" >Acepto</input>
+                                        <input class="form-check-input" type="radio" name="sucribeN" id="sucribeN" value="0" >No acepto</input>
+
+                                    </div>
+
                                     <button type="submit" class="btn btn__solid__arrow btn__solid__arrow--nohover" >Inscribirme</button>
                                 </form>
                             </div>
@@ -309,8 +321,9 @@
         </article>
     </main>
 
-    {% include 'web/shared/related-events-slider.html.twig' %}
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
+
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications }  %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}

@@ -71,7 +71,7 @@
         </article>
     </main>
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}

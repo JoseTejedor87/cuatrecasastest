@@ -103,14 +103,15 @@
             fixed_activity:product.translate(app.request.getLocale()).title
         } %}
     {% endif %}
-
-    {% include 'web/shared/related-content-slider.html.twig' %}
-
+    {% if relatedPublications|length > 0 %}
+      {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% endif %}
     {% if relatedCaseStudies|length > 0 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
-
-    {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% if awards|length > 0 %}
+        {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% endif %}
     {% include 'web/shared/call-to-action.html.twig' %}
 
 {% endblock %}

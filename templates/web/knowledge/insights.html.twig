@@ -322,7 +322,7 @@
             </path>
         </svg>
     </div>
-    {% include 'web/shared/related-events-slider.html.twig' %}
+    {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
     {% include 'web/shared/related-legal-slider.html.twig' %}
     {% include 'web/shared/collections.html.twig' with {insights: []} %}
     {% include 'web/shared/call-to-action.html.twig' %}
