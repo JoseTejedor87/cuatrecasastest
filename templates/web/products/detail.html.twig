@@ -16,7 +16,7 @@
     <main role="main" class="lawyer">
         <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}')">
+            <header class="row page__header" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -109,10 +109,12 @@
     {% if relatedCaseStudies|length > 0 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
+
     {% if awards|length > 0 %}
         {% include 'web/shared/awards.html.twig' with { awards: awards} %}
     {% endif %}
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
 
 {% endblock %}
 

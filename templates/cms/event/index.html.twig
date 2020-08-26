@@ -26,6 +26,49 @@
                         </a>
                     </li>
                 </ul>
+                <div class="m-portlet m--padding-15" >
+                    {{ form_start(formForFilterView) }} 
+                        <div class="row">                 
+                            <div class="col-md-3">
+                                {{ 'entities.event.fields.title'|trans }}
+                                {{ form_row(formForFilterView.title) }} 
+                            </div>
+                            <div class="col-md-3">
+                                {{ 'entities.event.fields.eventType'|trans }}
+                                {{ form_row(formForFilterView.eventType) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ 'entities.filter.incioDesde'|trans }}
+                                {{ form_row(formForFilterView.inicioDesde) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.filter.inicioHasta'|trans}}
+                                {{ form_row(formForFilterView.inicioHasta) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.filter.finDesde'|trans}}
+                                {{ form_row(formForFilterView.finDesde) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.filter.finHasta'|trans}}
+                                {{ form_row(formForFilterView.finHasta) }} 
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.publishable.fields.languages'|trans}}
+                                {{ form_row(formForFilterView.languages) }} 
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.publishable.fields.regions'|trans}}
+                                {{ form_row(formForFilterView.regions) }} 
+                            </div>
+                            <div class="col-md-2">
+                                <p>
+                                {{ form_row(formForFilterView.send) }}
+                                </p>
+                            </div>                                 
+                        </div>
+                    {{ form_end(formForFilterView) }}
+                </div>
             </div>
         </div>
     </div>

@@ -39,7 +39,7 @@ footer {
                 }
 
                 @include on-event {
-                    @include button-hover;
+                    text-decoration: none;
                     color: $complementary-color;
                     background-color: $white;
                     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
@@ -180,7 +180,10 @@ footer {
                     transition: all 0.2s ease-in-out;
 
                     @include on-event {
-                        @include button-hover;
+                        text-decoration: none;
+                        color: $white;
+                        background-color: $complementary-color;
+                        border-color: $complementary-color;
                     }
 
                     .fab {

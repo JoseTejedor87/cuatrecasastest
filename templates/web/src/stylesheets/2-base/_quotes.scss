@@ -28,24 +28,19 @@ q {
     // quote sign
     //
     &:before {
-        // @include fontSet(140px, 140px);
-        // display: inline-block;
-        // content: '\201C';
-        // position: relative;
-        // top: 8rem;
-        // color: $white;
-        // transform: scale(3);
-
-
-
         @include icons-4casas(18px, auto, auto, auto);
-
         position: relative;
         display: inline-block;
         margin-bottom: 3rem;
         content: '\e911';
         font-size: 92px;
         color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            top: 0;
+            margin-bottom: 1rem;
+            font-size: 50px;
+        }
     }
 
     p {
@@ -54,6 +49,11 @@ q {
         margin-bottom: 1rem;
         padding-bottom: 2.6rem;
         color: $main-color;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(20px, 25px);
+            padding-bottom: 1.6rem;
+        }
 
         &:after {
             content: '';
@@ -64,6 +64,13 @@ q {
             width: 16%;
             height: 3px;
             background-color: $main-color;
+
+            @media(max-width: $max-width-4casas) {
+                bottom: -6px;
+                left: calc(50% - 4%);
+                width: 8%;
+                height: 2px;
+            }
         }
     }
 
@@ -74,8 +81,17 @@ q {
         color: $main-color;
         @include fontSet(33px, 37px);
 
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 16px);
+        }
+
         @include when-inside(".boxnews__item--blockquote") {
             @include fontSet(23px, 27px);
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(16px, 16px);
+                padding-bottom: 1rem;
+            }
         }
     }
 }
@@ -105,6 +121,10 @@ q {
 
     > * {
         @include fontSet(32px, 36px);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 16px);
+        }
     }
 
     @include has("text") {

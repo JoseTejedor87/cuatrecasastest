@@ -7,6 +7,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+use App\Form\Type\EventCategoryType;
+use App\Form\Type\LawyerCategoryType;
+use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+
 use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
@@ -16,15 +25,48 @@ class EventController extends CMSController
 {
     public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $filter = $this->filter($request);
+
+        if ( $filter['fields'] != ''){
+            $result = $eventRepository->findFilteredBy($filter['fields']);
+        }else{
+            $result = $eventRepository->findAll();
+        }
+ 
         $pagination = $paginator->paginate(
-            $eventRepository->findAll(),
+            $result,
             $request->query->getInt('page', 1),
             25
         );
 
         return $this->render('cms/event/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'formForFilterView' => $filter['form']->createView(),
         ]);
+    }
+
+    private function filter(Request $request){
+        $formForFilter = $this->createFormBuilder(array())
+            ->setMethod('GET')
+            ->add('title', TextType::class, ['required' => false, 'label' => false ])
+            ->add('eventType', EventCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('inicioDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('inicioHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('finDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('finHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('languages', LanguageType::class, ['label'=>false])
+            ->add('regions', RegionType::class, ['label'=>false])
+            ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
+            ->getForm();
+    
+        $formForFilter->handleRequest($request);
+        $filterFields = '';
+
+        if ($formForFilter->isSubmitted() && $formForFilter->isValid()) {
+            $filterFields = $formForFilter->getData();
+        }
+
+        return array('form' => $formForFilter, 'fields' => $filterFields);
     }
 
     public function new(Request $request): Response

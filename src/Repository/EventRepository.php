@@ -35,6 +35,7 @@ class EventRepository extends PublishableEntityRepository implements Publishable
         }
         return null;
     }
+
     public function findByActivities($activities)
     {
         $activitiesA = array();
@@ -56,6 +57,67 @@ class EventRepository extends PublishableEntityRepository implements Publishable
                 ->getResult();
         
         return $results;
+
+    }
+    public function findFilteredBy($arrayFields){
+
+        // se quitan los filtros que necesitan un join de tablas 
+        if ( isset ( $arrayFields['title']) && $arrayFields['title'] != ''){
+            $title = $arrayFields['title'];
+            unset($arrayFields['title']);
+        }
+
+        if ( isset ( $arrayFields['finDesde']) && isset ( $arrayFields['finDesde'])){
+            $finDesde = $arrayFields['finDesde'];
+            unset($arrayFields['finDesde']);
+        }
+
+        if( isset ( $arrayFields['finHasta'])  && isset ( $arrayFields['finHasta'])){
+            $finHasta = $arrayFields['finHasta'];
+            unset($arrayFields['finHasta']);
+        }
+
+        if( isset ( $arrayFields['inicioDesde'])  && isset ( $arrayFields['inicioDesde'])){
+            $inicioDesde = $arrayFields['inicioDesde'];
+            unset($arrayFields['inicioDesde']);
+        }
+
+        if( isset ( $arrayFields['inicioHasta'])  && isset ( $arrayFields['inicioHasta'])){
+            $inicioHasta = $arrayFields['inicioHasta'];
+            unset($arrayFields['inicioHasta']);
+        }
+
+
+
+        $query = $this->filterByFieldsQueryBuilder($arrayFields,'e');
+
+        if ( isset ( $title)){
+            $query->join('e.translations', 't')
+                ->andWhere('t.title LIKE :titulo')
+                ->setParameter('titulo', '%'.$title.'%');
+        }
+        if (isset($finDesde)){
+            $query->andWhere('e.endDate > :desde')
+                ->setParameter('desde', $finDesde->format('Y-m-d'));
+        }
+
+        if( isset ( $finHasta )){
+            $query->andWhere('e.endDate < :hasta')                
+                ->setParameter('hasta', $finHasta->format('Y-m-d'));
+        }
+
+        if( isset ( $inicioDesde )){
+            $query->andWhere('e.startDate > :desde')                
+                ->setParameter('desde', $inicioDesde->format('Y-m-d'));
+        }
+
+        if( isset ( $inicioHasta )){
+            $query->andWhere('e.startDate < :hasta')                
+                ->setParameter('hasta', $inicioHasta->format('Y-m-d'));
+        }
+
+        return  $query->getQuery()->getResult();
+
     }
     // /**
     //  * @return Event[] Returns an array of Event objects

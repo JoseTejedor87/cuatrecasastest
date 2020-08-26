@@ -1,0 +1,172 @@
+// ==========================================================================
+// OVERVIEW (COUNTER LIKE)
+// ==========================================================================
+
+@include new("overview") {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo($complementary-color);
+        @include reset-full-scren;
+    }
+
+    @include when("nobg") {
+        &:before {
+            background-color: $white;
+        }
+    }
+
+    @include when("component") {
+        margin: 3em 0;
+
+        .page__block--component {
+            position: relative;
+
+            &:before {
+                @include reset-pseudo($white);
+                @include reset-full-scren;
+            }
+        }
+    }
+
+    .section__title {
+        background-color: $main-color;
+    }
+
+
+
+    @include has("wrapper") {
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 0 2rem;
+        background-color: $complementary-color;
+
+        @include when("2cols") {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 0;
+
+            @include when("boxes") {
+                flex: 0 1 50%;
+                max-width: 50%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                padding: 1rem 1rem;
+
+                @media(max-width: $max-width-4casas) {
+                    flex: 0 1 100%;
+                    max-width: 100%;
+                    padding: 0 0;
+                }
+            }
+
+            @include when("img") {
+                flex: 0 1 50%;
+                max-width: 50%;
+
+                @media(max-width: $max-width-4casas) {
+                    display: none;
+                    visibility: hidden;
+                }
+            }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            padding: 2rem 0;
+        }
+    }
+
+    @include has("item") {
+        flex: 0 1 calc(25% - 2rem);
+        max-width: calc(25% - 2rem);
+        margin: 0 1rem;
+        padding: 1.2rem 0 1rem;
+        text-align: center;
+
+        @include when-inside(".overview__wrapper--2cols") {
+            flex: 0 1 calc(50% - 3rem);
+            max-width: calc(50% - 3rem);
+            margin: 0 1.5rem;
+            padding: 1.2rem 0 0;
+
+            @media(max-width: $max-width-4casas) {
+                display: block;
+                flex: 0 1 100%;
+                max-width: 100%;
+                margin: 0 0;
+                padding: 0 1rem;
+            }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            flex: 0 1 100%;
+            max-width: 100%;
+            margin: 0 0;
+            padding: 0 1rem;
+        }
+    }
+
+    @include has("img") {
+        @include stretch-to-right;
+    }
+
+    @include has("number") {
+        @include fontSet(50px, 60px);
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(38px, 38px);
+            letter-spacing: 0;
+        }
+    }
+
+    @include has("title") {
+        @include fontSet(33px, 37px);
+        text-transform: uppercase;
+        color: $main-color;
+        // word-break: break-all;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(20px, 37px);
+        }
+    }
+
+    @include has("content") {
+        p {
+            position: relative;
+            @include fontSet(23px, 27px);
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            color: $main-color;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: calc(50% - 8%);
+                display: block;
+                width: 16%;
+                height: 3px;
+                background-color: $main-color;
+            }
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(14px, 20px);
+                margin-top: 0.5rem;
+
+                &:after {
+                    left: calc(50% - 4%);
+                    width: 8%;
+                    height: 2px;
+                }
+            }
+        }
+    }
+}

@@ -793,7 +793,7 @@ header {
             }
 
             @include on-event() {
-                // @include button-hover;
+                text-decoration: none;
                 color: $complementary-color;
                 background-color: $white;
                 border-color: $white;
