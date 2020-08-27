@@ -388,8 +388,10 @@ forms:
       managing_partner: Consejero delegado
       no_position: Sin cargo
       partner: Socio
+      knowledge: Abogado de gestión del conocimiento
       senior_associate: Asociado sénior
       senior_partner: Presidente
+      senior_knowledge: Abogado senior de gestión del conocimiento
     insightHeaderTypes:
       full_width: Una columna con imagen de fondo
       two_columns: Dos columnas con imagen a la derecha

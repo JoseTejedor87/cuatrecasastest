@@ -53,8 +53,10 @@ sections:
       managing_partner: Managing Partner
       no_position: No position
       partner: Partner
+      knowledge: Knowledge Lawyer 
       senior_associate: Senior Associate
       senior_partner: Senior Partner
+      senior_knowledge: Senior Knowledge Lawyer
   practices:
     title: Practice
     specialities: Specialities

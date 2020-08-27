@@ -31,8 +31,10 @@ parameters:
         - managing_partner
         - no_position
         - partner
+        - knowledge
         - senior_associate
         - senior_partner
+        - senior_knowledge
     app.insight_header_types:
         - full_width
         - two_columns

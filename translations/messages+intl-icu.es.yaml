@@ -68,8 +68,10 @@ sections:
       managing_partner: Consejero delegado
       no_position: Sin cargo
       partner: Socio
+      knowledge: Abogado de gestión del conocimiento
       senior_associate: Asociado sénior
       senior_partner: Presidente
+      senior_knowledge: Abogado senior de gestión del conocimiento
   insights:
     title: Insights
     contact_with_us: Contacta con nuestros expertos en
