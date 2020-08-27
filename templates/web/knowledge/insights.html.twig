@@ -93,7 +93,7 @@
                                 {% for sector in sectors %}
                                     {% if sector.translate(app.request.getLocale()).title  %}
                                         <div class="checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="sector-{{sector.id}}" data-name="{{ sector.translate(app.request.getLocale()).title|raw  }}" value="{{sector.id}}">
+                                            <input type="checkbox" id="sector-{{sector.id}}" data-name="{{ sector.translate(app.request.getLocale()).title|raw  }}" value="{{sector.id}}">
                                             <label class="checkbox-label" for="sector-{{sector.id}}"><span>{{ sector.translate(app.request.getLocale()).title|raw  }}</span></label>
                                         </div>
                                     {% endif %}
@@ -115,7 +115,7 @@
                                     {% for practice in practices %}
                                         {% if practice.translate(app.request.getLocale()).title  %}
                                             <div class="checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="services-{{practice.id}}" data-name="{{ practice.translate(app.request.getLocale()).title|raw  }}" value="{{practice.id}}">
+                                                <input type="checkbox" id="services-{{practice.id}}" data-name="{{ practice.translate(app.request.getLocale()).title|raw  }}" value="{{practice.id}}">
                                                 <label class="checkbox-label" for="services-{{practice.id}}"><span>{{ practice.translate(app.request.getLocale()).title|raw  }}</span></label>
                                             </div>
                                         {% endif %}
@@ -138,7 +138,7 @@
                                         {% if type  %}
                                         {% set typeTrans = 'sections.knowledge.knowledgeTypes.'~type %}
                                             <div class="checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="type-{{type}}" data-name="{{ typeTrans | trans }}" value="{{ type | trans }}">
+                                                <input type="checkbox" id="type-{{type}}" data-name="{{ typeTrans | trans }}" value="{{ type | trans }}">
                                                 <label class="checkbox-label" for="type-{{type}}"><span>{{ typeTrans | trans }}</span></label>
                                             </div>
                                         {% endif %}
@@ -160,7 +160,7 @@
                                     {% for office in offices %}
                                         {% if office.city  %}
                                             <div class="checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="region-{{office.id}}" data-name="{{ office.city }}" value="{{office.id}}">
+                                                <input type="checkbox" id="region-{{office.id}}" data-name="{{ office.city }}" value="{{office.id}}">
                                                 <label class="checkbox-label" for="region-{{office.id}}"><span>{{ office.city  }}</span></label>
                                             </div>
                                         {% endif %}
@@ -181,7 +181,7 @@
                                 <div class="chechbox__wrapper">
                                     {% for i in 2010..2020 %}
                                          <div class="checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="date-{{ i }}" data-name="{{ i }}" value="{{ i }}">
+                                            <input type="checkbox" id="date-{{ i }}" data-name="{{ i }}" value="{{ i }}">
                                             <label class="checkbox-label" for="date-{{ i }}"><span>{{ i }}</span></label>
                                         </div>
 
@@ -201,27 +201,27 @@
                                 </div>
                                 <div class="chechbox__wrapper">
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-01" value=".collection-01">
+                                        <input type="checkbox" id="collection-01" value=".collection-01">
                                         <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-02" value=".collection-02">
+                                        <input type="checkbox" id="collection-02" value=".collection-02">
                                         <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-03" value=".collection-03">
+                                        <input type="checkbox" id="collection-03" value=".collection-03">
                                         <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-04" value=".collection-04">
+                                        <input type="checkbox" id="collection-04" value=".collection-04">
                                         <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-05" value=".collection-05">
+                                        <input type="checkbox" id="collection-05" value=".collection-05">
                                         <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="collection-06" data-name="" value=".collection-06">
+                                        <input type="checkbox" id="collection-06" data-name="" value=".collection-06">
                                         <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
                                     </div>
                                 </div>
@@ -242,7 +242,7 @@
                                         {% if format  %}
                                         {% set formatTrans = 'sections.knowledge.knowledgeFormat.'~format %}
                                             <div class="checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="format-{{format}}" data-name="{{ formatTrans | trans }}" value="{{ format | trans }}">
+                                                <input type="checkbox" id="format-{{format}}" data-name="{{ formatTrans | trans }}" value="{{ format | trans }}">
                                                 <label class="checkbox-label" for="format-{{format}}"><span>{{ formatTrans | trans }}</span></label>
                                             </div>
                                         {% endif %}
