@@ -9,15 +9,18 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\EventTranslationRepository;
 use App\Repository\AwardRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 
 class HomeController extends WebController
 {
-    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
+    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository, PublicationRepository $publicationRepository)
     {
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
+        $relatedPublications = $publicationRepository->findByActivities('');
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
+            'relatedPublications' => $relatedPublications,
         ]);
     }
 

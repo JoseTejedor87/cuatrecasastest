@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\DeskRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\AwardRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 
 class DeskController extends WebController
@@ -23,14 +24,14 @@ class DeskController extends WebController
     }
 
 
-    public function detail(Request $request, DeskRepository $deskRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository)
+    public function detail(Request $request, DeskRepository $deskRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository, PublicationRepository $publicationRepository)
     {
         $awards = $awardRepository->getAll();
         $desk = $deskRepository->getInstanceByRequest($request);
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$desk]
         );
-
+        $relatedPublications = $publicationRepository->findByActivities([$desk]);
         $awardsFiltered = [];
         foreach ($awards as $award)
         {
@@ -46,7 +47,8 @@ class DeskController extends WebController
         return $this->render('web/desks/detail.html.twig', [
             'desk' => $desk,
             'relatedCaseStudies' => $relatedCaseStudies,
-            'awards' => $awardsFiltered
+            'awards' => $awardsFiltered,
+            'relatedPublications' => $relatedPublications
         ]);
     }
 }

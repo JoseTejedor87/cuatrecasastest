@@ -5,6 +5,7 @@ namespace App\Controller\Web;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\InsightRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\EventRepository;
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -18,7 +19,7 @@ class InsightController extends WebController
      
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository)
+    public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
     {
         $insight = $insightRepository->getInstanceByRequest($request);
         $limit = 14;
@@ -52,8 +53,9 @@ class InsightController extends WebController
         // de elementos en función del estado de los atributos $showKnowledgeBlock, $showEventsBlock,
         // $showLegalNoveltiesBlock y $showCaseStudiesBlock.
         //
-        // $relatedPublications = $publicationRepository->findByActivities($insight->activities);
-        // $relatedEvents = $eventRepository->findByActivities($insight->activities);
+        $relatedPublications = $publicationRepository->findByActivities($insight->getActivities());
+        //dd($relatedPublications);
+        $relatedEvents = $eventRepository->findByActivities($insight->getActivities());
 
         $contextualBlocks['cases'] = $caseStudyRepository->findByActivities($insight->getActivities()->toArray());
         $contextualBlocks['insights'] = $insightRepository->getPublishedRelatedInsights($insight);
@@ -62,6 +64,8 @@ class InsightController extends WebController
             'insight' => $insight,
             'contextualBlocks' => $contextualBlocks,
             'publications' => $publications,
+            'relatedEvents'=>$relatedEvents,
+            'relatedPublications' => $relatedPublications
         ]);
     }
     protected function getPhotoPathByFilter($publication, $filter)

@@ -5,51 +5,50 @@
                 <h4 class="section__title section__title--event">Eventos destacados</h4>
                 <div class="swiper-container slider__general">
                     <div class="swiper-wrapper">
+                        {% for event in events %}
+                        {% if   event.translate(app.request.getLocale()).title %}
+                        {% if  event.getOffice() %}
+                            {% set customAddress = event.getOffice().getAddress()| replace({"<BR>":"<br>"}) |split('<br>') %}
+                        {% else %}
+                            {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
+                        {% endif %}
+                        {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">
-                                    <div class="boxnews__type">Webinar</div>
-                                    <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
+                                    <div class="boxnews__type">{{ event.eventType|raw }}</div>
+                                    <div class="boxnews__button"><a href="{{ path('events_detail', {slug: event.translate(app.request.getLocale()).slug}) }}" class="plain__button">Inscribirme</a></div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública
+                                        <a href="{{ path('events_detail', {slug: event.translate(app.request.getLocale()).slug}) }}" class="boxnews__link">
+                                            {{ event.translate(app.request.getLocale()).title|raw }}
                                         </a>
                                     </h5>
                                     <div class="boxnews__meta">
-                                        <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
-                                        <div class="boxnews__meta__date">23 abril 2020</div>
-                                        <div class="boxnews__meta__time">10.30 — 14.30</div>
+                                        <div class="boxnews__meta__place"><a href="#">{{ customAddress[:-1]|join(' ') }}</a></div>
+                                        <div class="boxnews__meta__date">{{ fecha[0] }} {{ fecha[1:]|join(' ') }}
+                                        {# 23 abril 2020 #}
+                                        </div>
+                                        <div class="boxnews__meta__time">{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</div>
                                     </div>
                                 </div>
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
+                                    {% for activity in event.activities %}
                                         <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                MERCANTIL Y SOCIETARIO
+                                            <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
+                                                {{ activity.translate(app.request.getLocale()).title|raw}}
                                             </a>
                                         </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                ARBITRAJE
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                PENAL
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LITIGACIÓN
-                                            </a>
-                                        </li>
+                                    {% endfor %}
                                     </ul>
                                 </div>
                             </article>
                         </div>
-                        <div class="swiper-slide">
+                        {% endif %}
+                    {% endfor %}
+                        {# <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Evento</div>
@@ -353,7 +352,7 @@
                                     </ul>
                                 </div>
                             </article>
-                        </div>
+                        </div> #}
                     </div>
                     <div class="swiper-scrollbar"></div>
                 </div>

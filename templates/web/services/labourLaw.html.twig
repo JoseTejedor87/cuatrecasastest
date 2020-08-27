@@ -133,7 +133,7 @@
         </div>
     </section> #}
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
     {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/awards.html.twig' %}
     {% include 'web/shared/insight.html.twig' %}

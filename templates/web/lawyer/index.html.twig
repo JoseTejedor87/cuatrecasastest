@@ -170,7 +170,7 @@
     </main>
 
     {% if  countLawyers == '' %}
-        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado' } %}
+        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
         {% include 'web/shared/insight.html.twig' %}
     {% endif %}
     {% include 'web/shared/career.html.twig'  with { classTittle: '--main'} %}

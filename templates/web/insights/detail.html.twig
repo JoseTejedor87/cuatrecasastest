@@ -227,8 +227,7 @@
     </main>
 
     {% if insight.showEventsBlock %}
-        {% include 'web/shared/related-events-slider.html.twig' %}
-        {# include 'web/shared/related-events-slider.html.twig' with {items: ... } #}
+        {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
     {% endif %}
 
     {% if insight.showLegalNoveltiesBlock %}

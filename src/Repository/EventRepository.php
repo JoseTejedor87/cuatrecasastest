@@ -36,6 +36,29 @@ class EventRepository extends PublishableEntityRepository implements Publishable
         return null;
     }
 
+    public function findByActivities($activities)
+    {
+        $activitiesA = array();
+        if($activities){
+            foreach ($activities as $key => $activity) {
+                array_push($activitiesA,$activity->getId());
+             }
+        }
+        $results =  $this->createQueryBuilder('p');
+            if ($activitiesA) {
+                $results =  $results->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity', implode(",", $activitiesA));
+            }
+            //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
+            $results =  $results->orderBy('p.startDate', 'DESC')
+                ->setMaxResults(5)
+                ->getQuery()
+                ->getResult();
+        
+        return $results;
+
+    }
     public function findFilteredBy($arrayFields){
 
         // se quitan los filtros que necesitan un join de tablas 
