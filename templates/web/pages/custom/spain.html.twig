@@ -43,19 +43,19 @@
                     <div class="col faketabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
+                                <a href="{{ path('regions_vision') }}" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">{{ 'menu.offices.spain'|trans }}</a>
+                                <a href="{{ path('regions_espana') }}" class="nav-link">{{ 'menu.offices.spain'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.offices.portugal'|trans }}</a>
+                                <a href="{{ path('regions_portugal') }}" class="nav-link">{{ 'menu.offices.portugal'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.offices.latam'|trans }}</a>
+                                <a href="{{ path('regions_latam') }}" class="nav-link active">{{ 'menu.offices.latam'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                                <a href="{{ path('regions_other_regions') }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -73,7 +73,7 @@
 
             {% include 'web/shared/awards_CMP.html.twig' %}
             {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/related-content-slider.html.twig' %}
+            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
             {% include 'web/shared/info.html.twig' %}
 
         </article>
