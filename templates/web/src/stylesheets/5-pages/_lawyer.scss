@@ -466,7 +466,41 @@
         }
 
         [data-langs] {
+            @include reset-list;
+            position: relative;
+            left: -6px;
+            margin: 0 0 0.6rem;
+            padding: 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
             color: rgba($white, 0.5);
+
+            span {
+                position: relative;
+                margin: 0 6px 0 0;
+                padding: 0 0 0 6px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 1px;
+                    height: 16px;
+                    background-color: rgba($white, 0.5);
+
+                    @media(max-width: $max-width-4casas) {
+                        height: 12px;
+                    }
+                }
+
+                &:first-child {
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
         }
 
         [data-vcard] {

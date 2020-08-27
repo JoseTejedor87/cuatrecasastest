@@ -10,10 +10,10 @@ $white:                 rgba(255, 255, 255 , 1) !default;
 
 $text-color:            rgb(52, 52, 52) !default;           // #343434
 
-$main-color:            rgb(70, 0, 29) !default;            // #46001d
-$complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60
+$main-color:            rgb(70, 0, 29) !default;            // #46001d -- burdeos
+$complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60 -- coral
 
-$submenu-color:         rgb(249, 249, 249) !default;        // #F9F9F9
+$submenu-color:         rgb(249, 249, 249) !default;        // #F9F9F9 -- light gray
 
 $gray-dark:             rgb(72, 72, 72) !default;           // #484848
 $gray-medium:           rgb(128, 128, 128) !default;        // #808080
@@ -25,10 +25,20 @@ $white-light:           rgb(253, 253, 253) !default;        // #fdfdfd
 
 
 //
+// COLORES CORPORATIVOS
+//
+$color-burdeos:         rgb(70, 0, 29) !default;            // #46001d -- burdeos
+$color-coral:           rgb(255, 90, 96) !default;          // #ff5a60 -- coral
+$color-yellow:          rgb(233, 155, 0) !default;          // #e99b00 -- yellow
+$color-light-blue:      rgb(26, 150, 196) !default;         // #1A96C4 -- light blue
+$color-navy-blue:       rgb(14, 0, 150) !default;           // #0E0096 -- navy blue
+
+
+//
 // BLOCK COLORS
 // https://www.rapidtables.com/convert/color/hex-to-rgb.html
 
-$news-color:          rgb(81, 163, 163) !default;      // #51A3A3
+$news-color:          rgb(81, 163, 163) !default;      // #51A3A3 -- azul turquesa oscuro
 $article-color:       rgb(158, 100, 93) !default;      // #9E645D
 $opinion-color:       rgb(206, 167, 121) !default;     // #CEA779
 $events-color:        rgb(70, 0, 29) !default;         // #46001D
@@ -60,7 +70,7 @@ $light-brown:         rgb(206, 167, 121) !default;     // #CEA779
 $article-color:         rgb(0, 151, 143) !default;          // #00978f
 $event-color:           rgb(70, 0, 29) !default;            // #46001d
 $insight-color:         rgb(255, 99, 105) !default;         // #FF6369
-$cases-color:           rgb(233, 155, 0) !default;          // #e99b00
+$cases-color:           rgb(233, 155, 0) !default;          // #e99b00 -- amarillo
 $related-color:         rgb(51, 117, 181) !default;         // #3375b5
 
 

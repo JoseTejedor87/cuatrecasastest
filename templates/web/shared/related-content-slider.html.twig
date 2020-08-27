@@ -12,17 +12,17 @@
                 <div class="swiper-container slider__general">
                     <div class="swiper-wrapper">
                     {% for key,publication in publications %}
-                     {% if publication.translate(app.request.getLocale()).title  %}
+                    {% if publication.translate(app.request.getLocale()).title %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
-                                    <div class="boxnews__type">{{ publication.type  }}</div>
-                                    <div class="boxnews__info">Educación</div>
+                                    <div class="boxnews__type">{{ publication.type }}</div>
+                                    <div class="boxnews__info">Education</div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
                                         <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
-                                            {{ publication.translate(app.request.getLocale()).title|raw  }}
+                                            {{ publication.translate(app.request.getLocale()).title|raw }}
                                         </a>
                                     </h5>
                                     <div class="boxnews__meta">
@@ -30,69 +30,21 @@
                                         <div class="boxnews__meta__author">{% for person in publication.people %} {{ person.lawyer.name }} {{ person.lawyer.surname }} {% endfor %}</div>
                                     </div>
                                 </div>
+                                {% for activity in publication.activities %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
-                                    {% for activity in publication.activities %}
                                         <li class="related__services__item">
                                             <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
                                                  {{ activity.translate(app.request.getLocale()).title|raw}}
                                             </a>
                                         </li>
-                                    {% endfor %}
                                     </ul>
                                 </div>
+                                {% endfor %}
                             </article>
                         </div>
-                        {% endif %}
-                        {% endfor %}
-                        {# <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--event">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Evento</div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__meta">
-                                        <div class="boxnews__meta__place"><a href="#">Madrid</a></div>
-                                        <div class="boxnews__meta__date">26 Febrero 2020 a 8 Marzo 2020</div>
-                                        <div class="boxnews__meta__time">10.30 — 14.30</div>
-                                    </div>
-                                </div>
-                                <div class="boxnews__footer">
-                                    <ul class="related__services">
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Fiscal
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Dac 6
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Nacional
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Comercio
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Infraestructuras
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div> #}
+                    {% endif %}
+                    {% endfor %}
                     </div>
                     <div class="swiper-scrollbar"></div>
                 </div>

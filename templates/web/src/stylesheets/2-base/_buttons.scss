@@ -196,6 +196,45 @@
         @include fontSet(18px, 18px);
         letter-spacing: 0;
     }
+
+    @include when("download") {
+        padding: 0.3rem 2.8rem 0.3rem 0;
+
+        &:before,
+        &:after {
+            top: -3px;
+            content: '\e907';
+        }
+
+        &:before {
+            left: 0;
+        }
+
+        &:after {
+            right: 0;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            padding: 0.3rem 2.2rem 0.3rem 0;
+
+            &:before,
+            &:after {
+                top: -2px;
+            }
+        }
+
+        @include on-event {
+            padding-left: 2.6rem;
+
+            @media(max-width: $max-width-4casas) {
+                padding-left: 2rem;
+            }
+
+            &:before {
+                left: 0;
+            }
+        }
+    }
 }
 
 
@@ -468,6 +507,10 @@
         padding: 0.5rem 4.2rem 0.5rem 1rem;
         @include fontSet(18px, 28px);
         letter-spacing: 0;
+
+        @include when-inside(".buttons__list__item") {
+            @include fontSet(18px, 20px);
+        }
     }
 
     @include when("solid") {
@@ -812,7 +855,7 @@
 
     p {
         @include fontSet(23px, 27px);
-        // margin-top: auto;
+        letter-spacing: 0.4px;
         margin-bottom: 2.5rem;
         transition: all 0.2s ease-in-out;
 
@@ -823,7 +866,7 @@
     }
 
     &:after {
-        @include icons-4casas(auto, 1rem, 1rem, auto);
+        @include icons-4casas(auto, 0.6rem, 1rem, auto);
         @include fontSet(26px, 26px);
         content: '\e90a';
         color: $complementary-color;
@@ -843,21 +886,23 @@
         }
 
         &:after {
-            transform: rotate(90deg) scale(1.2);
+            // transform: rotate(90deg) scale(1.2);
+            transform: scale(1.5);
         }
     }
 
     @include when("download") {
         &:after {
             @include fontSet(26px, 26px);
+            right: 1rem;
             content: '\e907';
         }
 
-        @include on-event {
-            &:after {
-                transform: rotate(0deg) scale(1.4);
-            }
-        }
+        // @include on-event {
+        //     &:after {
+        //         transform: scale(1.4);
+        //     }
+        // }
     }
 }
 

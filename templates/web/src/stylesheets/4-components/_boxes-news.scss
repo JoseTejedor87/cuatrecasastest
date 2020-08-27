@@ -817,11 +817,21 @@
         // --------------------------------------------------------------------------
         @include has("title") {
             margin-bottom: 1rem;
-            @include fontSet(43px, 47px);
+            @include fontSet(43px, 45px);
             color: $complementary-color;
 
             @include when("social") {
                 color: $main-color;
+            }
+
+            @include when-inside(".boxnews__item--colored") {
+                @include fontSet(43px, 47px);
+                letter-spacing: -0.65px;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(24px, 30px);
+                    letter-spacing: 0;
+                }
             }
 
             @media(max-width: $max-width-4casas) {
@@ -839,14 +849,17 @@
 
             p {
                 @include fontSet(23px, 27px);
+                letter-spacing: 0.4px;
                 color: $main-color;
 
                 @media(max-width: $max-width-4casas) {
                     @include fontSet(14px, 20px);
+                    letter-spacing: 0;
                 }
 
-                &:nth-child(2) {
+                &.contact-info {
                     @include fontSet(18px, 27px);
+                    letter-spacing: 0.55px;
 
                     @media(max-width: $max-width-4casas) {
                         @include fontSet(14px, 20px);

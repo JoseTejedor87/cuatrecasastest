@@ -96,29 +96,23 @@
         }
     }
 
-    @include has("logo") {
+    @include has("wrapper") {
         @include reset-figure;
         width: 100%;
+    }
+
+    @include has("logo") {
+        width: auto;
         height: 60px;
+        object-fit: cover;
         margin-bottom: 1rem;
 
         @media(max-width: $max-width-4casas) {
             height: 50px;
         }
-
-        img {
-            width: auto;
-            height: 60px;
-            object-fit: cover;
-
-            @media(max-width: $max-width-4casas) {
-                height: 50px;
-            }
-        }
     }
 
     @include has("title") {
-        width: 80%;
         @include fontSet(16px, 20px);
         font-weight: bold;
         color: $black;

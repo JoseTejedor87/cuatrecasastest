@@ -8,13 +8,13 @@
                         <div class="swiper-wrapper">
                             {% for award in awards %}
                             <div class="swiper-slide">
-                                {% if award.image is not null %}
-                                <figure class="awards__logo">
-                                    <img src="{{ asset('/resources/' ~ award.image.getFileName) }}" alt="">
+                                <figure class="awards__wrapper">
+                                    {% if award.image is not null %}
+                                    <img src="{{ asset('/resources/' ~ award.image.getFileName) }}" class="awards__logo" alt="Nombre Empresa">
+                                    {% endif %}
+                                    <div class="awards__title">{{ award.translate(app.request.getLocale()).title }}</div>
+                                    <div class="awards__date">{{ award.translate(app.request.getLocale()).granted }}</div>
                                 </figure>
-                                {% endif %}
-                                <div class="awards__title">{{ award.translate(app.request.getLocale()).title }}</div>
-                                <div class="awards__date">{{ award.translate(app.request.getLocale()).granted }}</div>
                             </div>
                             {% endfor %}
                         </div>
