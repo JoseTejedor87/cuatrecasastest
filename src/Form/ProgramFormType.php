@@ -45,7 +45,7 @@ class ProgramFormType extends AbstractType
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.programs.fields.title', 'required' => true],
-                    'description' => ['label'=>'entities.programs.fields.description', 'attr'=>['class'=>'summernote']],
+                    'description' => ['label'=>'entities.programs.fields.description','required' => true, 'attr'=>['class'=>'summernote']],
                 ],
             ]);
         ;
