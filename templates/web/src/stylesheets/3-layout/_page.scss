@@ -727,7 +727,7 @@
 
             p {
                 // @include fontSet(22px, 30px);
-                @include fontSet(32px, 38px);
+                @include fontSet(33px, 37px);
                 margin-bottom: 2.2rem;
 
                 a {
@@ -784,10 +784,6 @@
                     padding-left: 1rem;
                     color: rgba($black, 0.4);
                 }
-            }
-
-            .boxnews__content {
-                padding: 0 0 4rem 0;
             }
         }
 

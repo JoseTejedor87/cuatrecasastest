@@ -759,6 +759,12 @@
         //
         // EVENT DETAIL BOX
         // --------------------------------------------------------------------------
+        @include when("event") {
+            display: block;
+            height: auto;
+            padding: 0 0 4rem 0;
+        }
+
         .place {
             margin-top: 1rem;
             @include fontSet(22px, 26px);

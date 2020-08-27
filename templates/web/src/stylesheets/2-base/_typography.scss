@@ -172,6 +172,10 @@ p {
     @include fontSet(32px, 32px);
     text-transform: uppercase;
     color: $main-color;
+
+    @include when("event") {
+        @include fontSet(43px, 43px);
+    }
 }
 
 

@@ -48,7 +48,7 @@
                 <div class="col">
                     <div class="page__event__content">
                         <!-- duplicate event info -->
-                        <div class="boxnews__content" id="eventMainInfo" style="display:none">
+                        <div class="boxnews__content boxnews__content--event" id="eventMainInfo" style="display:none">
                             <div class="place">
                                 <a href="#">{{ customAddress|first|raw }}</a>
                                 <br>
@@ -67,7 +67,7 @@
                                 {{ (event.phone) ? event.phone : '' }}
                             </div>
                         </div>
-                        <div  id="readMore">
+                        <div id="readMore">
                             {{ event.translate(app.request.getLocale()).description|raw }}
                         {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
                         </div>
@@ -80,9 +80,8 @@
                                 </a>
                                 {#% endif %#}
                             {% endfor %}
-                            <div class="page__event__info">
+                            <!-- <div class="page__event__info">
                                 <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
-                                {# <div data-reading>8' lectura</div> #}
                             </div>
                             <ul class="related__services">
                                 {% for activity in event.activities %}
@@ -92,16 +91,14 @@
                                     </a>
                                 </li>
                                 {% endfor %}
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                     <div class="page__event__aside">
                         <article class="boxnews__item boxnews__item--event sticky-top">
-
                             <div class="boxnews__header">
                                 <div class="boxnews__type">Evento</div>
                             </div>
-
                             <div class="boxnews__content" id="eventBoxInfo">
                                 <div class="place">
                                     <a href="#">{{ customAddress|first|raw }}</a>
@@ -123,7 +120,6 @@
                                 </div>
                                 <button type="button" class="btn btn__arrow" id="botPreReg">Inscribirme</button>
                             </div>
-
                             <div class="boxnews__content" id="eventBoxForm" style="display:none">
                                 <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
                                 <div class="txt__required__fields">* Campos requeridos</div>
@@ -169,22 +165,35 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input>
+                                    <div class="form-group mt-4">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="accept">
+                                            <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                        </div>
+                                        <!-- <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input> -->
                                     </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos.
-                                        </label>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="subscribe">
+                                            <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <p>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos.</p>
+                                        <div class="radiobox">
+                                            <input type="radio" name="sucribeA" id="sucribeA" value="1">
+                                            <label class="radio-label" for="sucribeA"><span>Acepto</span></label>
+                                        </div>
+                                        <div class="radiobox">
+                                            <input type="radio" name="sucribeN" id="sucribeN" value="0">
+                                            <label class="radio-label" for="sucribeN"><span>No acepto</span></label>
+                                        </div>
                                         <input class="form-check-input" type="radio" name="sucribeA" id="sucribeA" value="1" >Acepto</input>
                                         <input class="form-check-input" type="radio" name="sucribeN" id="sucribeN" value="0" >No acepto</input>
-
-                                    </div>
-
-                                    <button type="submit" class="btn btn__solid__arrow btn__solid__arrow--nohover" >Inscribirme</button>
+                                    </div> -->
+                                    <button type="submit" class="btn btn__solid__arrow">Inscribirme</button>
                                 </form>
                             </div>
-
                         </article>
                     </div>
                 </div>
@@ -194,7 +203,7 @@
             <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
-                        <h2 class="subsection__title">Ponentes</h2>
+                        <h2 class="subsection__title subsection__title--event">Ponentes</h2>
                     </div>
                     <div class="page__block__content">
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
@@ -264,9 +273,9 @@
                 <div class="col">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis asperiores eos totam enim molestias. Magnam minima placeat neque, quaerat esse itaque facilis labore quia, dignissimos debitis, quidem, tempora obcaecati ipsa.</p>
                 </div>
-            </section> -->
+            </section>
 
-            <!-- <section class="container">
+            <section class="container">
                 <div class="row">
                     <div class="col-md-8 article-section detail">
                         {{ event.translate(app.request.getLocale()).description|raw  }}
@@ -317,7 +326,6 @@
                     </aside>
                 </div>
             </section> -->
-
         </article>
     </main>
 
@@ -347,6 +355,7 @@
             $('#eventBoxForm').show();
             $('#eventMainInfo').show();
         });
+
         $("#eventBoxForm .btn").click( function() {
             $("#eventBoxForm .form-control").removeClass('is-valid');
             $("#eventBoxForm .form-control").removeClass('is-invalid');
@@ -365,10 +374,6 @@
                 .fail(function() {
                 });
             }
-
-
-
-
         });
         $("#eCountry").change( function() {
             var idCountry  =  $('#eCountry').val();
@@ -480,10 +485,7 @@
             }else{
                 return isvalidate;
             }
-
         }
-
-
     });
 </script>
 {% endblock %}

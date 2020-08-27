@@ -28,6 +28,10 @@
                 margin-bottom: 4rem;
             }
 
+            @include when("speakers") {
+                margin-top: -1.2rem;
+            }
+
             //
             // FAKE LOADER
             //
