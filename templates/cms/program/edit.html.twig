@@ -12,18 +12,12 @@
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
                     <i class="m-menu__link-icon flaticon-calendar"></i>
-                    {{ 'sections.events.index.title'|trans }}
+                    {{ 'sections.events.index.title'|trans }} - {{ 'sections.events.programs.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('cms_events_index') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{  path('cms_programs_index', {'id': event_id}) }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-reply"></i> {{ 'global.actions.backToList'|trans }}
-                        </a>
-                    </li>
-                    <li class="m-nav__separator">-</li>                                        
-                    <li class="m-nav__item">
-                        <a href="{{ path('cms_programs_index', {'id': event.id} )  }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
-                            <i class="flaticon-calendar"></i> {{ 'sections.events.programs.programsList'|trans }}
                         </a>
                     </li>
                 </ul>
@@ -43,7 +37,7 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        {{ 'sections.events.edit.title'|trans }}
+                                        {{ 'sections.events.programs.new.title'|trans }}
                                     </h3>
                                 </div>
                             </div>
@@ -52,7 +46,7 @@
                             </div>
                         </div>
                         <div class="m-portlet__body">
-                            {{ include('cms/event/_form.html.twig') }}  
+                            {{ include('cms/program/_form.html.twig') }}  
                         </div>
                         <div class="m-portlet__foot m-portlet__foot--fit m--align-right">
                             <div class="m-form__actions">

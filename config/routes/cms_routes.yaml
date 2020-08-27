@@ -98,6 +98,26 @@ cms_events_delete:
     methods:    DELETE
     controller: App\Controller\CMS\EventController::delete
 
+# EVENTS-PROGRAMS
+# ####################################
+
+cms_programs_index:
+    path:       /events/{id}/programs
+    methods:    GET
+    controller: App\Controller\CMS\ProgramController::index
+cms_programs_new:
+    path:       /events/{id}/programs/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProgramController::new
+cms_programs_edit:
+    path:       /programs/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProgramController::edit
+cms_programs_delete:
+    path:       /programs/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\ProgramController::delete
+
 # INSIGHTS
 # ####################################
 cms_insights_index:

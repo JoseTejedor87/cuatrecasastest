@@ -105,6 +105,15 @@ sections:
       title: Editar Evento
     actions:
       addPerson: Crear Persona
+    programs: 
+      index:
+        title: Programas
+      new:
+        title: Nuevo Programa
+      edit:
+        title: Editar Programa
+      backToIndexList: Volver a la edicion del Evento
+      programsList: Listado de Programas del Evento
   awards:
     index:
       title: Premios
@@ -230,6 +239,12 @@ entities:
       no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+  programs:
+    fields:
+      title: Titulo
+      description: Descripcion
+      date_time: Fecha - Hora
+      people: Personas
   eventsBlock:
     fields:
       activities: Filtrar eventos etiquetados con
