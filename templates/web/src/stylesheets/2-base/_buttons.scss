@@ -132,15 +132,7 @@
         color: $complementary-color;
         background-color: $white;
         outline: 1px solid $complementary-color;
-    }
-
-    @include when("nohover") {
-        text-align: left;
-
-        @include on-event() {
-            background-color: $main-color;
-            // box-shadow: -6px 6px 0 transparent, 0 10px 20px transparent;
-        }
+        box-shadow: 0 0 0 transparent;
     }
 
     // SPECIFIC

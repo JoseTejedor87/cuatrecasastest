@@ -4,9 +4,9 @@
 
 .form-control,
 .custom-select {
-    @include fontSet(25px, 25px);
+    @include fontSet(23px, 23px);
     letter-spacing: 0.43px;
-    height: auto;
+    height: 50px;
     padding: 0.8rem 1rem;
     color: $main-color;
     border: 1px solid rgba($black, 0.2);
@@ -81,10 +81,19 @@
         // color: $main-color;
     }
 
+    .form-group {
+
+        label {
+            a {
+                @include left-to-right-link($complementary-color, $complementary-color);
+            }
+        }
+    }
+
+
     //
     // PLACEHOLDERS TUNNING
     //
-
     select:required:invalid {
         color: $complementary-color;
     }
@@ -277,74 +286,6 @@
 $color-on: $complementary-color;
 $color-off: $white;
 
-.radiobox {
-
-    input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-
-        + .radio-label {
-
-            @include fontSet(16px, 30px);
-
-            &:before {
-                content: '';
-                background: $color-off;
-                border-radius: 100%;
-                border: 1px solid rgba($black, 0.2);
-                display: inline-block;
-                width: 25px;
-                height: 25px;
-                position: relative;
-                top: 0;
-                margin-right: 10px;
-                vertical-align: top;
-                cursor: pointer;
-                text-align: center;
-                transition: all 250ms ease;
-            }
-
-            &:empty {
-                &:before {
-                    margin-right: 0;
-                }
-            }
-        }
-
-        &:checked {
-            + .radio-label {
-                &:before {
-                    border-color: $color-on;
-                    background-color: $color-on;
-                    border-color: rgba($black, 0.2);
-                    box-shadow: inset 0 0 0 4px $color-off;
-                }
-            }
-        }
-
-        &:focus {
-            + .radio-label {
-                &:before {
-                    outline: none;
-                    border-color: $color-on;
-                    box-shadow: 0 0 0 0 rgba($white, 0);
-                    // box-shadow: 0 0 0 .2rem rgba($color-on, 0.25);
-                }
-            }
-        }
-
-        &:disabled {
-            + .radio-label {
-                &:before {
-                    box-shadow: inset 0 0 0 4px $color-off;
-                    border-color: rgba($black, 0.2);
-                    background: darken($color-off, 25%);
-                }
-            }
-        }
-    }
-}
-
 .checkbox {
     // padding: 0.2rem;
 
@@ -359,9 +300,9 @@ $color-off: $white;
 
             span {
                 display: inline-block;
-                width: 100%;
+                width: calc(100% - 25px);
                 padding: 0.2rem 0 0 0;
-                @include fontSet(20px, 24px);
+                @include fontSet(20px, 25px);
                 text-align: left;
                 // white-space: nowrap;
                 // overflow: hidden;
@@ -435,6 +376,79 @@ $color-off: $white;
     }
 }
 
+.radiobox {
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        + .radio-label {
+
+            @include fontSet(20px, 25px);
+            width: calc(100% - 25px);
+
+            &:before {
+                content: '';
+                background: $color-off;
+                border-radius: 100%;
+                border: 1px solid rgba($black, 0.2);
+                display: inline-block;
+                width: 25px;
+                height: 25px;
+                position: relative;
+                top: 0;
+                margin-right: 10px;
+                vertical-align: top;
+                cursor: pointer;
+                text-align: center;
+                transition: all 250ms ease;
+            }
+
+            &:empty {
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &:checked {
+            + .radio-label {
+                &:before {
+                    border-color: $color-on;
+                    background-color: $color-on;
+                    border-color: rgba($black, 0.2);
+                    box-shadow: inset 0 0 0 4px $color-off;
+                }
+            }
+        }
+
+        &:focus {
+            + .radio-label {
+                &:before {
+                    outline: none;
+                    // border-color: $color-on;
+                    // box-shadow: 0 0 0 0 rgba($white, 0);
+                    // box-shadow: 0 0 0 .2rem rgba($color-on, 0.25);
+
+                    border-color: $color-on;
+                    background-color: $color-on;
+                    border-color: rgba($black, 0.2);
+                    box-shadow: inset 0 0 0 4px $color-off;
+                }
+            }
+        }
+
+        &:disabled {
+            + .radio-label {
+                &:before {
+                    box-shadow: inset 0 0 0 4px $color-off;
+                    border-color: rgba($black, 0.2);
+                    background: darken($color-off, 25%);
+                }
+            }
+        }
+    }
+}
 
 
 //
