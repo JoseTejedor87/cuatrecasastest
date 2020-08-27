@@ -62,36 +62,19 @@
                                 <div class="search_selects">
                                     <select id="place" class="custom__select">
                                         <option disabled selected>Lugar</option>
-                                        <option value="">Barcelona</option>
-                                        <option value="">Madrid</option>
-                                        <option value="">Lisboa</option>
-                                        <option value="">Beijing</option>
-                                        <option value="">Bogotá</option>
-                                        <option value="">Brussels</option>
-                                        <option value="">Casablanca</option>
-                                        <option value="">Lima</option>
-                                        <option value="">London</option>
-                                        <option value="">Luanda</option>
-                                        <option value="">Maputo</option>
-                                        <option value="">Mexico City</option>
-                                        <option value="">New York</option>
-                                        <option value="">Sao Paulo</option>
-                                        <option value="">Shanghai</option>
+                                        {% for office in offices %}
+                                            {% if office.city  %}
+                                                <option value="{{office.id}}">{{ office.city  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
                                     </select>
                                     <select id="expertise" class="custom__select">
                                         <option disabled selected>Expertise</option>
-                                        <option value="">Competencia y Derecho de la UE</option>
-                                        <option value="">Corporate Governance y Compliance</option>
-                                        <option value="">Derecho contable</option>
-                                        <option value="">Derecho Laboral</option>
-                                        <option value="">Financiero</option>
-                                        <option value="">Fiscal</option>
-                                        <option value="">Fiscalidad Contenciosa</option>
-                                        <option value="">Fiscalidad Financiera</option>
-                                        <option value="">Fusiones y Adquisiciones</option>
-                                        <option value="">Litigación</option>
-                                        <option value="">Mediación</option>
-                                        <option value="">Mercado de valores</option>
+                                        {% for activity in activities %}
+                                            {% if activity.translate(app.request.getLocale()).title  %}
+                                                <option value="{{activity.id}}">{{ activity.translate(app.request.getLocale()).title|raw  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
                                     </select>
                                     <select id="month" class="custom__select">
                                         <option disabled selected>Mes</option>
@@ -361,11 +344,13 @@
         $(document).on("click", ".search_box__button", function(){
             month = $("#month").val();
             year = $("#year").val();
+            activity = $("#expertise").val();
+            office = $("#place").val();
             title = $("#title").val();
             $.ajax({
                 method: "GET",
                 url: "{{ path('get_events') }}",
-                data: { month: month, year: year, title: title },
+                data: { month: month, year: year, title: title, activity: activity, office: office  },
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
                 }
