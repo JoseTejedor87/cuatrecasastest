@@ -9,5 +9,12 @@
     {"titulo":"US","custom_template":"US","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
     {"titulo":"Asia","custom_template":"asia","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
     {"titulo":"Africa","custom_template":"Africa","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
-    {"titulo":"Middle East","custom_template":"mid-east","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]}
+    {"titulo":"Middle East","custom_template":"mid-east","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Firm Visión General","custom_template":"firm/vision","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Social","custom_template":"firm/social","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Medio Ambiente","custom_template":"firm/environment","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Buen Gobierno","custom_template":"firm/governance","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"innovación","custom_template":"firm/innovation","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]},
+    {"titulo":"Centro de medios","custom_template":"firm/media-center","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en"]}
+
 ]

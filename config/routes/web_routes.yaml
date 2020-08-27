@@ -263,40 +263,41 @@ publications_detail:
 
 # REGIONS
 # ###########################################
+# estas urls estan fijas para poder acceder desde el menu de navgacion luego se deberia reemplazar por la dinamica de manera exclusiva
 regions_vision:
     path:
         en:   /p/vision-general-1
         es:   /p/vision-general
     methods:    GET
-    controller: App\Controller\Web\PageController::detail
+    controller: App\Controller\Web\PagesController::detail
 
 regions_espana:
     path:
         en:   /p/espana-1
         es:   /p/espana
     methods:    GET
-    controller: App\Controller\Web\PageController::detail
+    controller: App\Controller\Web\PagesController::detail
 
 regions_portugal:
     path:
         en:   /p/portugal-1
         es:   /p/portugal
     methods:    GET
-    controller: App\Controller\Web\PageController::detail
+    controller: App\Controller\Web\PagesController::detail
 
 regions_latam:
     path:
         en:   /p/latinoamerica-1
         es:   /p/latinoamerica
     methods:    GET
-    controller: App\Controller\Web\PageController::detail
+    controller: App\Controller\Web\PagesController::detail
 
 regions_other_regions:
     path:
         en:   /p/other-regions-1
         es:   /p/other-regions
     methods:    GET
-    controller: App\Controller\Web\PageController::detail
+    controller: App\Controller\Web\PagesController::detail
 
 #############################################################
 
@@ -320,45 +321,44 @@ detail_others:
 
 firm_vision:
     path:
-        en:   /firm/general-vision
-        es:   /firma/vision-general
+        en:   /p/firm-vision-general-1
+        es:   /p/firm-vision-general
     methods:    GET
-    controller: App\Controller\Web\FirmController::vision
+    controller: App\Controller\Web\PagesController::detail
 
 firm_social:
     path:
-        en:   /firm/social
-        es:   /firma/social
+        en:   /p/social-1
+        es:   /p/social
     methods:    GET
-    controller: App\Controller\Web\FirmController::social
-
+    controller: App\Controller\Web\PagesController::detail
 firm_environment:
     path:
-        en:   /firm/environment
-        es:   /firma/medioambiente
+        en:   /p/medio-ambiente-1
+        es:   /p/medio-ambiente
     methods:    GET
-    controller: App\Controller\Web\FirmController::environment
+    controller: App\Controller\Web\PagesController::detail
 
 firm_governance:
     path:
-        en:   /firm/good-governance
-        es:   /firma/buen-gobierno
+        en:   /p/buen-gobierno-1
+        es:   /p/buen-gobierno
     methods:    GET
-    controller: App\Controller\Web\FirmController::governance
+    controller: App\Controller\Web\PagesController::detail
 
 firm_innovation:
     path:
-        en:   /firm/innovation
-        es:   /firma/innovacion
+        en:   /p/innovacion-1
+        es:   /p/innovacion
     methods:    GET
-    controller: App\Controller\Web\FirmController::innovation
+    controller: App\Controller\Web\PagesController::detail
 
 firm_mediaCenter:
     path:
-        en:   /firm/media-center
-        es:   /firma/centro-de-medios
+        en:   /p/centro-de-medios-1
+        es:   /p/centro-de-medios
     methods:    GET
-    controller: App\Controller\Web\FirmController::mediaCenter
+    controller: App\Controller\Web\PagesController::detail
 
 # API-PUBLICATIONS
 ##############################################

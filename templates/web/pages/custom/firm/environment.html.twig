@@ -3,6 +3,8 @@
 {% block stylesheets %}
 <!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- Video Popup -->
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -14,7 +16,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.firm.social'|trans }}
+                            {{ 'menu.firm.environment'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -25,7 +27,7 @@
                                     <a href="#}">{{ 'menu.firm.firm'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.firm.social'|trans }}
+                                    {{ 'menu.firm.environment'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -43,19 +45,19 @@
                     <div class="col faketabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
+                                <a href="{{ path('firm_vision') }}" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">{{ 'menu.firm.social'|trans }}</a>
+                                <a href="{{ path('firm_social') }}" class="nav-link">{{ 'menu.firm.social'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.environment'|trans }}</a>
+                                <a href="{{ path('firm_environment') }}" class="nav-link active">{{ 'menu.firm.environment'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.governance'|trans }}</a>
+                                <a href="{{ path('firm_governance') }}" class="nav-link">{{ 'menu.firm.governance'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.innovation'|trans }}</a>
+                                <a href="{{ path('firm_innovation') }}" class="nav-link">{{ 'menu.firm.innovation'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -68,12 +70,8 @@
                 </div>
             </section>
 
-            {% include 'web/shared/overview-probono.html.twig' %}
-            {% include 'web/shared/info-6boxes.html.twig' %}
-            {% include 'web/shared/overview-diversity.html.twig' %}
-            {% include 'web/shared/collections-firm_CMP.html.twig' %}
-            {% include 'web/shared/asociaciones-firm.html.twig' %}
-            {% include 'web/shared/cta-fundation_CMP.html.twig' %}
+            {% include 'web/shared/cta-video_CMP.html.twig' %}
+            {% include 'web/shared/flipboxes_CMP.html.twig' %}
             {% include 'web/shared/cta-corporative_CMP.html.twig' %}
             {% include 'web/shared/awards_CMP.html.twig' %}
             {% include 'web/shared/related-content-slider_CMP.html.twig' %}
@@ -90,6 +88,10 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- Responsive Tabs -->
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<!-- Video Popup -->
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
+
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

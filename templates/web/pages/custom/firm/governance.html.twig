@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.firm.innovation'|trans }}
+                            {{ 'menu.firm.governance'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -25,7 +25,7 @@
                                     <a href="#}">{{ 'menu.firm.firm'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.firm.innovation'|trans }}
+                                    {{ 'menu.firm.governance'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -43,19 +43,19 @@
                     <div class="col faketabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
+                                <a href="{{ path('firm_vision') }}" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.social'|trans }}</a>
+                                <a href="{{ path('firm_social') }}" class="nav-link">{{ 'menu.firm.social'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.environment'|trans }}</a>
+                                <a href="{{ path('firm_environment') }}" class="nav-link ">{{ 'menu.firm.environment'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{ 'menu.firm.governance'|trans }}</a>
+                                <a href="{{ path('firm_governance') }}" class="nav-link active">{{ 'menu.firm.governance'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">{{ 'menu.firm.innovation'|trans }}</a>
+                                <a href="{{ path('firm_innovation') }}" class="nav-link">{{ 'menu.firm.innovation'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -64,19 +64,18 @@
 
             <section class="row page__block--regions">
                 <div class="col">
-                    <p>Propuesta de valor lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                    <p>Propuesta de valor lorem ipsum dolor sit amet, consectetur adipiscing elit incididunt magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
                 </div>
             </section>
 
-            {% include 'web/shared/flipboxes-intro_CMP.html.twig' %}
-            {% include 'web/shared/info-title.html.twig' %}
-            {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/insight.html.twig' %}
-            {% include 'web/shared/overview-diversity.html.twig' %}
+            {% include 'web/shared/info-6boxes-colored.html.twig' %}
+            {% include 'web/shared/accordion-2cols.html.twig' %}
+            {% include 'web/shared/cta-fundation_CMP.html.twig' %}
+            {% include 'web/shared/products_CMP.html.twig' %}
+            {% include 'web/shared/info-fundation.html.twig' %}
+            {% include 'web/shared/team-five.html.twig' %}
             {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-            {% include 'web/shared/info-acelera.html.twig' %}
-            {% include 'web/shared/awards_CMP.html.twig' %}
-            {% include 'web/shared/cta-corporative_CMP.html.twig' %}
+            {% include 'web/shared/insight.html.twig' %}
 
         </article>
     </main>
@@ -90,7 +89,6 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <!-- Responsive Tabs -->
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
-
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
@@ -128,14 +126,6 @@
                     spaceBetween: 25,
                 },
             }
-        });
-
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
         });
     });
 </script>
