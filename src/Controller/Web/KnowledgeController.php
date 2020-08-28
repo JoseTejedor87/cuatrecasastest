@@ -49,7 +49,7 @@ class KnowledgeController extends WebController
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
         //dd($page);
-        $query = $publicationRepository->createPublishedQueryBuilder('p');
+        $query = $publicationRepository->createQueryBuilder('p');
         if($services){
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
