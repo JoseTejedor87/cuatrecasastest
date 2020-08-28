@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
-                                        <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                        <a href="{{ path('publications_detail', {slug: publication.translate(app.request.getLocale()).slug}) }}" class="boxnews__link">
                                             {{ publication.translate(app.request.getLocale()).title|raw }}
                                         </a>
                                     </h5>

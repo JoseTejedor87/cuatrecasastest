@@ -48,7 +48,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 array_push($activitiesA,$activity->getId());
              }
         }
-        $results =  $this->createQueryBuilder('p');
+        $results =  $this->createPublishedQueryBuilder('p');
             if ($activitiesA) {
                 $results =  $results->innerJoin('p.activities', 'a')
                 ->andWhere('a.id in (:activity)')

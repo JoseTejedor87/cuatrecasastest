@@ -57,7 +57,7 @@ class EventController extends WebController
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
-        $query = $EventRepository->createQueryBuilder('e');
+        $query = $EventRepository->createPublishedQueryBuilder('e');
         if ($activity) {
             $query = $query->innerJoin('e.activities', 'a')
                 ->andWhere('a.id = :activity')
@@ -106,7 +106,7 @@ class EventController extends WebController
 
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $event->translate('es')->getSlug(),
+                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
                     "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
                     "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
                     "sector" => $activities,
@@ -219,7 +219,7 @@ class EventController extends WebController
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
-        $query = $EventRepository->createQueryBuilder('e');
+        $query = $EventRepository->createPublishedQueryBuilder('e');
         if ($activity) {
             $query = $query->innerJoin('e.activities', 'a')
                 ->andWhere('a.id = :activity')
@@ -267,7 +267,7 @@ class EventController extends WebController
 
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $event->translate('es')->getSlug(),
+                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())),
                     "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
                     "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
                     "sector" => $activities,
