@@ -14,6 +14,8 @@ use App\Controller\Web\WebController;
 use App\Controller\SOAPContactsClientController;
 use App\Controller\Web\NavigationService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use App\Repository\OfficeRepository;
+use App\Repository\ActivityRepository;
 
 class EventController extends WebController
 {
@@ -29,13 +31,17 @@ class EventController extends WebController
         $this->conn = $this->em->getConnection();
     }
 
-    public function index(Request $request, EventRepository $EventRepository, PublicationRepository $publicationRepository)
+    public function index(Request $request, EventRepository $EventRepository, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
     {
-
+  
         $month = $request->query->get('month');
         $year = $request->query->get('year');
+        $activity = $request->query->get('activity');
+        $office = $request->query->get('office');
         $relatedEvents = $EventRepository->findByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
+        $activities = $ActivityRepository->findAll();
+        $offices = $OfficeRepository->findAll();
         // dd($relatedPublications);
         if( !$month ||  !$year){
             $fechaHoy = new \DateTime();
@@ -50,10 +56,45 @@ class EventController extends WebController
         $fecha = new \DateTime($year.'-'.$month.'-01');
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
-        $events = $this->getDoctrine()
-                        ->getManager()
-                        ->createQuery("SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'")
-                        ->getResult();
+        $url= "";
+        $query = $EventRepository->createQueryBuilder('e');
+        if ($activity) {
+            $query = $query->innerJoin('e.activities', 'a')
+                ->andWhere('a.id = :activity')
+                ->setParameter('activity', $activity);
+            if ($url == "") {
+                $url= "?activity=".$activity;
+            } else {
+                $url= $url . "&activity=".$activity;
+            }
+        }
+        if ($office) {
+            $query = $query->innerJoin('e.office', 'o')
+                ->andWhere('e.office = :city')
+                ->setParameter('city', $office);
+            if ($url == "") {
+                $url= "?office=".$office;
+            } else {
+                $url= $url . "&office=".$office;
+            }
+        }
+        $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
+        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
+        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') );
+        $events = $query->getQuery()->getResult();
+
+        // if($activity){
+        //     $sql = "SELECT e FROM App:Event e inner JOIN event_activity a ON a.event_id = e.idWHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and a.activity_id=".$activity;
+        // }else{
+        //     $sql = "SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'";
+        // }
+        // if($office){
+        //     $sql = $sql . "AND e.office_id=".$office;
+        // }
+        // $events = $this->getDoctrine()
+        //                 ->getManager()
+        //                 ->createQuery($sql)
+        //                 ->getResult();
 
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
@@ -65,7 +106,7 @@ class EventController extends WebController
 
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $event->translate('es')->getSlug(),
+                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
                     "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
                     "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
                     "sector" => $activities,
@@ -99,19 +140,20 @@ class EventController extends WebController
             'month' => $month ? $month : "",
             'year' => $year ? $year : "",
             'relatedEvents' =>  $relatedEvents,
-            'relatedPublications' => $relatedPublications
+            'relatedPublications' => $relatedPublications,
+            'activities'=> $activities,
+            'offices'=> $offices,
+
         ]);
     }
 
     public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation, PublicationRepository $publicationRepository)
     {
         // $paises = $this->soap->getPaises('es')->getContent();
-
-        // comentario temporal
-        // $query = "Select * From GC_paises order by nombre";
-        // $stmt = $this->conn->prepare($query);
-        // $stmt->execute();
-        // $paises = $stmt->fetchAll();
+        $query = "Select * From GC_paises order by nombre";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $paises = $stmt->fetchAll();
 
 
         $event = $EventRepository->getInstanceByRequest($request);
@@ -126,7 +168,7 @@ class EventController extends WebController
             // dd($value->getPeople());
         }
         // dd($event);
-
+       
         $attachmentPublished = [];
         foreach($event->getAttachments() as $attachment)
         {
@@ -137,7 +179,7 @@ class EventController extends WebController
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
-            'paises' => [],
+            'paises' => $paises,
             'relatedEvents' =>$relatedEvents,
             'relatedPublications' => $relatedPublications
         ]);
@@ -155,11 +197,13 @@ class EventController extends WebController
         ]);
     }
 
-    public function ajaxActionEvent(Request $request)
+    public function ajaxActionEvent(Request $request, EventRepository $EventRepository)    
     {
         $month = $request->query->get('month');
         $year = $request->query->get('year');
         $title = $request->query->get('title');
+        $activity = $request->query->get('activity');
+        $office = $request->query->get('office');
 
         if( !$month ||  !$year){
             $fechaHoy = new \DateTime();
@@ -174,11 +218,45 @@ class EventController extends WebController
         $fecha = new \DateTime($year.'-'.$month.'-01');
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
-        $events = $this->getDoctrine()
-                        ->getManager()
-                        ->createQuery("SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'")
-                        ->getResult();
-
+        $url= "";
+        $query = $EventRepository->createQueryBuilder('e');
+        if ($activity) {
+            $query = $query->innerJoin('e.activities', 'a')
+                ->andWhere('a.id = :activity')
+                ->setParameter('activity', $activity);
+            if ($url == "") {
+                $url= "?activity=".$activity;
+            } else {
+                $url= $url . "&activity=".$activity;
+            }
+        }
+        if ($office) {
+            $query = $query->innerJoin('e.office', 'o')
+                ->andWhere('e.office = :city')
+                ->setParameter('city', $office);
+            if ($url == "") {
+                $url= "?office=".$office;
+            } else {
+                $url= $url . "&office=".$office;
+            }
+        }
+        $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
+        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
+        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') );
+        $events = $query->getQuery()->getResult();
+        // if($activity){
+        //     $sql = "SELECT e FROM App:Event e  WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and e.activities=".$activity;
+        // }else{
+        //     $sql = "SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'";
+        // }
+        // if($office){
+        //     $sql = $sql . "AND e.office=".$office;
+        // }
+        // $events = $this->getDoctrine()
+        //                 ->getManager()
+        //                 ->createQuery($sql)
+        //                 ->getResult();
+        
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
             if($event->translate('es')->getSlug()){
@@ -189,7 +267,7 @@ class EventController extends WebController
 
                 $array = array(
                     "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $event->translate('es')->getSlug(),
+                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())),
                     "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
                     "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
                     "sector" => $activities,
@@ -221,16 +299,16 @@ class EventController extends WebController
                 }else{
                     array_push($eventsCalendar,$array);
                 }
-
-            }
+                
+            }   
         }
-        if ($eventsCalendar) {
+        if ($eventsCalendar) {         
             return new JsonResponse($eventsCalendar);
         }
 
         return new JsonResponse($eventsCalendar['Results']=false);
-    }
-    public function ajaxActionContact(Request $request)
+    } 
+    public function ajaxActionContact(Request $request)    
     {
         $contacto = $request->query->get('contacto');
         $contactoA = json_decode($contacto, true);
@@ -244,7 +322,7 @@ class EventController extends WebController
         $contactoReturn = $this->soap->createContactoForGestionEventos(array('contactoGestionEventosCreateParamDto'=>($contactoA)));
         return new JsonResponse($contactoReturn);
     }
-
+    
     public function ajaxActionRegions(Request $request)
     {
         $idCountry = $request->query->get('idCountry');

@@ -24,7 +24,7 @@ class InsightController extends WebController
         $insight = $insightRepository->getInstanceByRequest($request);
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
-        $query = $publicationRepository->createQueryBuilder('p');
+        $query = $publicationRepository->createPublishedQueryBuilder('p');
         $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         $countPublications = count($query->getQuery()->getResult());
         $query = $query->setFirstResult($limit * ($page - 1))

@@ -56,7 +56,7 @@ class LawyerController extends WebController
         $limit = 18;
         if ($initial || $office || $sector || $services || $textSearch) {
             $url= "";
-            $query = $lawyerRepository->createQueryBuilder('l');
+            $query = $lawyerRepository->createPublishedQueryBuilder('l');
             if ($services) {
                 $query = $query->innerJoin('l.activities', 'a')
                     ->andWhere('a.id = :activity')

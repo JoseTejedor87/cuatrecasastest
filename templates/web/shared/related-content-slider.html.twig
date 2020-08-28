@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
-                                        <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                        <a href="{{ path('publications_detail', {slug: publication.translate(app.request.getLocale()).slug}) }}" class="boxnews__link">
                                             {{ publication.translate(app.request.getLocale()).title|raw }}
                                         </a>
                                     </h5>
@@ -30,17 +30,19 @@
                                         <div class="boxnews__meta__author">{% for person in publication.people %} {{ person.lawyer.name }} {{ person.lawyer.surname }} {% endfor %}</div>
                                     </div>
                                 </div>
-                                {% for activity in publication.activities %}
+                                {% if publication.activities|length > 1 %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
+                                    {% for activity in publication.activities %}
                                         <li class="related__services__item">
                                             <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
                                                  {{ activity.translate(app.request.getLocale()).title|raw}}
                                             </a>
                                         </li>
+                                     {% endfor %}
                                     </ul>
                                 </div>
-                                {% endfor %}
+                               {% endif %}
                             </article>
                         </div>
                     {% endif %}

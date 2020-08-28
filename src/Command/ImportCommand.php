@@ -986,7 +986,7 @@ class ImportCommand extends Command
         $personRepository = $this->em->getRepository(Person::class);
         $programRepository = $this->em->getRepository(Program::class);
 
-        //$this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
+        $this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 

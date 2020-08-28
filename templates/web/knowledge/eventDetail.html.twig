@@ -167,7 +167,7 @@
                                     </div>
                                     <div class="form-group mt-4">
                                         <div class="checkbox">
-                                            <input type="checkbox" id="accept">
+                                            <input type="checkbox" id="accept" required>
                                             <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
                                         </div>
                                         <!-- <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input> -->
@@ -478,6 +478,23 @@
             }else{
                 $("#eTel").addClass('is-invalid');
                 isvalidate = false;
+            }
+            
+            if($("#accept").is(':checked')){
+                contacto['GDPR']= 1;
+            }else{
+                isvalidate = false;
+            }
+            
+            if($("#accept").is(':checked')){
+                contacto['GDPR']= 1;
+            }else{
+                isvalidate = false;
+            }
+            if($("#subscribe").is(':checked')){
+                contacto['Suscripcion']= 1;
+            }else{
+                contacto['Suscripcion']= 0;
             }
 
             if(isvalidate){
