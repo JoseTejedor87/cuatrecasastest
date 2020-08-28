@@ -356,7 +356,7 @@
     @include on-event() {
         text-decoration: none;
         color: $complementary-color;
-        border-bottom: 1px solid $complementary-color;
+        // border-bottom: 1px solid $complementary-color;
     }
 
     @media(max-width: $max-width-4casas) {

@@ -31,7 +31,7 @@ class EventController extends WebController
 
     public function index(Request $request, EventRepository $EventRepository, PublicationRepository $publicationRepository)
     {
-  
+
         $month = $request->query->get('month');
         $year = $request->query->get('year');
         $relatedEvents = $EventRepository->findByActivities('');
@@ -106,10 +106,12 @@ class EventController extends WebController
     public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation, PublicationRepository $publicationRepository)
     {
         // $paises = $this->soap->getPaises('es')->getContent();
-        $query = "Select * From GC_paises order by nombre";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        $paises = $stmt->fetchAll();
+
+        // comentario temporal
+        // $query = "Select * From GC_paises order by nombre";
+        // $stmt = $this->conn->prepare($query);
+        // $stmt->execute();
+        // $paises = $stmt->fetchAll();
 
 
         $event = $EventRepository->getInstanceByRequest($request);
@@ -124,7 +126,7 @@ class EventController extends WebController
             // dd($value->getPeople());
         }
         // dd($event);
-       
+
         $attachmentPublished = [];
         foreach($event->getAttachments() as $attachment)
         {
@@ -135,7 +137,7 @@ class EventController extends WebController
         return $this->render('web/knowledge/eventDetail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
-            'paises' => $paises,
+            'paises' => [],
             'relatedEvents' =>$relatedEvents,
             'relatedPublications' => $relatedPublications
         ]);
@@ -153,7 +155,7 @@ class EventController extends WebController
         ]);
     }
 
-    public function ajaxActionEvent(Request $request)    
+    public function ajaxActionEvent(Request $request)
     {
         $month = $request->query->get('month');
         $year = $request->query->get('year');
@@ -176,7 +178,7 @@ class EventController extends WebController
                         ->getManager()
                         ->createQuery("SELECT e FROM App:Event e WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."'")
                         ->getResult();
-        
+
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
             if($event->translate('es')->getSlug()){
@@ -219,16 +221,16 @@ class EventController extends WebController
                 }else{
                     array_push($eventsCalendar,$array);
                 }
-                
-            }   
+
+            }
         }
-        if ($eventsCalendar) {         
+        if ($eventsCalendar) {
             return new JsonResponse($eventsCalendar);
         }
 
         return new JsonResponse($eventsCalendar['Results']=false);
-    } 
-    public function ajaxActionContact(Request $request)    
+    }
+    public function ajaxActionContact(Request $request)
     {
         $contacto = $request->query->get('contacto');
         $contactoA = json_decode($contacto, true);
@@ -242,7 +244,7 @@ class EventController extends WebController
         $contactoReturn = $this->soap->createContactoForGestionEventos(array('contactoGestionEventosCreateParamDto'=>($contactoA)));
         return new JsonResponse($contactoReturn);
     }
-    
+
     public function ajaxActionRegions(Request $request)
     {
         $idCountry = $request->query->get('idCountry');
