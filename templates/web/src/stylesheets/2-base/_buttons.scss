@@ -879,7 +879,7 @@
 
         &:after {
             // transform: rotate(90deg) scale(1.2);
-            transform: scale(1.5);
+            transform: scale(1.5) rotate(45deg);
         }
     }
 
@@ -890,11 +890,12 @@
             content: '\e907';
         }
 
-        // @include on-event {
-        //     &:after {
-        //         transform: scale(1.4);
-        //     }
-        // }
+        @include on-event {
+            &:after {
+                bottom: 1.2rem;
+                transform: scale(1.5) rotate(0deg);
+            }
+        }
     }
 }
 
