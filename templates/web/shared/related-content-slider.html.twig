@@ -30,7 +30,7 @@
                                         <div class="boxnews__meta__author">{% for person in publication.people %} {{ person.lawyer.name }} {{ person.lawyer.surname }} {% endfor %}</div>
                                     </div>
                                 </div>
-                                
+                                {% if publication.activities|length > 1 %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
                                     {% for activity in publication.activities %}
@@ -42,7 +42,7 @@
                                      {% endfor %}
                                     </ul>
                                 </div>
-                               
+                               {% endif %}
                             </article>
                         </div>
                     {% endif %}
