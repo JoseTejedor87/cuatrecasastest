@@ -353,15 +353,17 @@ header {
         // ON HOVER ¿?
         //
         .dropdown:hover > .dropdown-menu {
-            display: block;
+            // display: block;
         }
 
         .dropdown > .dropdown-toggle:active {
             // Without this, clicking will make it sticky
-            pointer-events: none;
+            // pointer-events: none;
         }
 
         .dropdown-toggle {
+            cursor: pointer;
+
             &.active {
                 color: $main-color;
             }
@@ -386,10 +388,6 @@ header {
             }
         }
 
-
-        //
-        // Contact, webs, city, langs
-        //
         .contact-nav {
             margin-right: 1rem;
 

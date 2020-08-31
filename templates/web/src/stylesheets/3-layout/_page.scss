@@ -464,9 +464,9 @@
                 }
 
                 a {
-                    // @include classic-link($complementary-color, $main-color, $border: false);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                     // @include background-link($complementary-color, $black, rgba($complementary-color, 0.2));
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    // @include fancy-link($complementary-color, $complementary-color, $white);
                 }
             }
 

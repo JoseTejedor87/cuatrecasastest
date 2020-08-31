@@ -33,6 +33,7 @@
                                         <div class="boxnews__meta__time">{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</div>
                                     </div>
                                 </div>
+                                {% if event.activities|length > 1 %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
                                     {% for activity in event.activities %}
@@ -44,6 +45,7 @@
                                     {% endfor %}
                                     </ul>
                                 </div>
+                                {% endif %}
                             </article>
                         </div>
                         {% endif %}

@@ -39,6 +39,8 @@ web.global = {
         var secondaryNav    = $('#navDesktop #secondaryNav');
         var logoNav         = $('#navDesktop #secondaryNav .navbar-brand');
         var subMenuNav      = $('#navDesktop #secondaryNav .dropdown-menu');
+        // submenu click
+        var aboutNav        = $('#navDesktop #primaryNav #aboutNav .dropdown-menu');
         var userNav         = $('#navDesktop #userNav');
         var mainHeader      = $('header');
         var langsNav        = $('#navDesktop .lang-region-menu');
@@ -48,6 +50,8 @@ web.global = {
             secondaryNav.toggleClass('stickyNav', scrollTop > prev);
             logoNav.toggleClass('stickyNav', scrollTop > prev);
             subMenuNav.removeClass('show', scrollTop > prev);
+            // submenu click
+            aboutNav.removeClass('show', scrollTop > prev);
             userNav.toggleClass('stickyNav', scrollTop > prev);
             mainHeader.toggleClass('stickyNav', scrollTop > prev);
             langsNav.hide();
