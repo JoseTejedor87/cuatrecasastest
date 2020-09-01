@@ -6,7 +6,7 @@
 .custom-select {
     @include fontSet(23px, 23px);
     letter-spacing: 0.43px;
-    height: 50px;
+    height: 58px;
     padding: 0.8rem 1rem;
     color: $main-color;
     border: 1px solid rgba($black, 0.2);
@@ -58,6 +58,7 @@
 #eventBoxForm {
     .form-control,
     .custom-select {
+        height: 50px;
         background-color: transparent;
         border: 1px solid rgba($complementary-color, 1);
 
@@ -85,7 +86,8 @@
 
         label {
             a {
-                @include left-to-right-link($complementary-color, $complementary-color);
+                // @include left-to-right-link($complementary-color, $complementary-color);
+                @include classic-link($complementary-color, $main-color, $border: false);
             }
         }
     }

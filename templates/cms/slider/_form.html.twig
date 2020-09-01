@@ -1,0 +1,32 @@
+{% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+
+<div class="row">
+    <div class="col-md-8">                    
+        <div class="m-form__section m-form__section">
+            {{ translatableField.partialTranslations(form.translations, ['title']) }}
+            {{ translatableField.partialTranslations(form.translations, ['description']) }}
+            {{ translatableField.partialTranslations(form.translations, ['url']) }}
+            
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}                                                 
+        </div>     
+    </div>
+    <div class="col-md-4">
+        <div class="m-form__section m-form__section">
+            {{ form_rest(form) }}
+        </div>
+    </div>
+    
+</div>
+
+{% do form.translations.setRendered %}
+
+
+

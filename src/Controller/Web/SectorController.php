@@ -13,10 +13,7 @@ class SectorController extends WebController
 {
     public function index(Request $request, SectorRepository $sectorRepository)
     {
-        $sectors = $sectorRepository->createPublishedQueryBuilder('s')
-            ->andwhere('s.highlighted = true')
-            ->getQuery()
-            ->getResult();
+        $sectors = $sectorRepository->getSectorsByName($request)->getResult();
 
         return $this->render('web/sectors/index.html.twig', [
             'sectors' => $sectors,

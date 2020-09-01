@@ -118,6 +118,26 @@ cms_programs_delete:
     methods:    DELETE
     controller: App\Controller\CMS\ProgramController::delete
 
+# SLIDERS
+# ####################################
+
+cms_sliders_index:
+    path:       /sliders/
+    methods:    GET
+    controller: App\Controller\CMS\SliderController::index
+cms_sliders_new:
+    path:       /sliders/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::new
+cms_sliders_edit:
+    path:       /sliders/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::edit
+cms_sliders_delete:
+    path:       /sliders/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\SliderController::delete
+
 # INSIGHTS
 # ####################################
 cms_insights_index:

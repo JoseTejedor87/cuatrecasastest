@@ -36,6 +36,25 @@ class PracticeRepository extends PublishableEntityRepository implements Publisha
         return null;
     }
 
+    public function getPracticeByName(Request $request){
+        $entityManager = $this->getEntityManager();
+        
+        $region = $request->attributes->get('_region');
+        $language = $request->attributes->get('_locale');
+
+        $query = $entityManager->createQuery(
+                "SELECT p FROM App\Entity\Practice p INNER JOIN p.translations t 
+                WHERE p.regions LIKE :region AND p.languages LIKE :language AND t.locale LIKE :local
+                AND p.highlighted = true ORDER BY t.title ASC "
+        )->setParameters(array( 
+                'language' => '%'.$language.'%',
+                'region' => '%'.$region.'%',
+                'local' => '%'.$language.'%',
+        ));
+
+        return $query;
+    }
+
     // /**
     //  * @return Practice[] Returns an array of Practice objects
     //  */
