@@ -135,13 +135,13 @@ sections:
       title: Nueva Página
     edit:
       title: Nueva Página
-  article:
+  publication:
       index:
-        title: Artículos
+        title: Conocimiento
       new:
-        title: Nuevo Articulo
+        title: Nuevo Conocimiento
       edit:
-        title: Editar Articulo
+        title: Editar Conocimiento
 
 # Menu
 # ###########################################
@@ -160,7 +160,7 @@ menu:
   awards.title: Premios
   office.title: Oficinas
   page.title: Páginas
-  article.title: Artículos
+  publication.title: Conocimiento
   insight.title: Colecciones
   knowledge.title: Conocimiento
   case_studies.title: Casos
@@ -179,7 +179,7 @@ entities:
       blocks: Bloques
       relatedActivities: Actividades relacionadas
       slug: Slug
-  article:
+  publication:
     fields:
       title: Título
       publication_date: Fecha de publicación
@@ -187,7 +187,7 @@ entities:
       featured: Destacado
       activities: Sectores / Servicios / Desks
       offices: Oficinas
-      lawyers: Abogados
+      people: Abogados
       summary: Resumen
       content: Contenido
       caption: Subtitulo
