@@ -25,13 +25,7 @@ use App\Controller\CMS\CMSController;
 class ProgramController extends CMSController
 {
     public function index(ProgramRepository $programRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        /*
-        echo '<pre>';
-        print_r($request->attributes->get('id')); 
-        echo '</pre>';
-        die();
-*/        
+    {   
 
         $result= $programRepository->findBy(array("events" => $request->attributes->get('id') ));
  

@@ -3,24 +3,24 @@ cms_dashboard:
     methods:    GET
     controller: App\Controller\CMS\DashboardController::index
 
-# ARTICLES
+# Publication
 # ####################################
-cms_articles_index:
-    path:       /articles
+cms_publication_index:
+    path:       /publication
     methods:    GET
-    controller: App\Controller\CMS\ArticleController::index
-cms_articles_new:
-    path:       /articles/new
+    controller: App\Controller\CMS\PublicationController::index
+cms_publication_new:
+    path:       /publication/new
     methods:    GET|POST
-    controller: App\Controller\CMS\ArticleController::new
-cms_articles_edit:
-    path:       /articles/{id}/edit
+    controller: App\Controller\CMS\PublicationController::new
+cms_publication_edit:
+    path:       /publication/{id}/edit
     methods:    GET|POST
-    controller: App\Controller\CMS\ArticleController::edit
-cms_articles_delete:
-    path:       /articles/{id}
+    controller: App\Controller\CMS\PublicationController::edit
+cms_publication_delete:
+    path:       /publication/{id}
     methods:    DELETE
-    controller: App\Controller\CMS\ArticleController::delete
+    controller: App\Controller\CMS\PublicationController::delete
 
 # AWARDS
 # ####################################
@@ -117,6 +117,26 @@ cms_programs_delete:
     path:       /programs/{id}
     methods:    DELETE
     controller: App\Controller\CMS\ProgramController::delete
+
+# SLIDERS
+# ####################################
+
+cms_sliders_index:
+    path:       /sliders/
+    methods:    GET
+    controller: App\Controller\CMS\SliderController::index
+cms_sliders_new:
+    path:       /sliders/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::new
+cms_sliders_edit:
+    path:       /sliders/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::edit
+cms_sliders_delete:
+    path:       /sliders/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\SliderController::delete
 
 # INSIGHTS
 # ####################################
