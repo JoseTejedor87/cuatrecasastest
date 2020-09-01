@@ -142,6 +142,13 @@ sections:
         title: Nuevo Articulo
       edit:
         title: Editar Articulo
+  sliders:
+    index:
+      title: Slider
+    new:
+      title: Nuevo Slider
+    edit:
+      title: Editar Slider        
 
 # Menu
 # ###########################################
@@ -361,7 +368,12 @@ entities:
     inicioHasta: Fecha Inicio Hasta
     finHasta:  Fecha Fin Hasta
     finDesde: Fecha Fin Desde
-
+  slider:
+    fields:
+      title: Titulo
+      description: Descripcion
+      url: Url Destino
+      image: Imagen
 # Custom Form Types
 
 forms:
