@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="App\Repository\PublicationRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"article" = "Article", "news" = "News","opinion" = "Opinion", "legalNovelty" = "LegalNovelty", "research" = "Research"})
+ * @ORM\DiscriminatorMap({"academy" = "Academy", "news" = "News","opinion" = "Opinion", "legalNovelty" = "LegalNovelty"})
  *
  */
 abstract class Publication extends Publishable
@@ -35,12 +35,6 @@ abstract class Publication extends Publishable
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="publication", cascade={"persist"}, orphanRemoval=true)
      */
     private $attachments;
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ArticleCategory", inversedBy="article")
-     */
-    private $category;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="publication")
@@ -187,32 +181,6 @@ abstract class Publication extends Publishable
     public function setPublicationDate(\DateTimeInterface $publication_date): self
     {
         $this->publication_date = $publication_date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ArticleCategory[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(ArticleCategory $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(ArticleCategory $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-        }
 
         return $this;
     }
