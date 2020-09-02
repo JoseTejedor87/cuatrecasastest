@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SliderRepository")
  */
-class Slider extends Item
+class Slider extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
 

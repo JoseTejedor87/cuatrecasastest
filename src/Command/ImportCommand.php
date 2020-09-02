@@ -399,7 +399,7 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        //$this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
         $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
         $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
@@ -1256,16 +1256,16 @@ class ImportCommand extends Command
                     }
                 }
                 // Updating the languages field using the correspondent visio_* field
-                /*
-                if ($item['visio_'.$item['lang']] == "1") {
-                    $Award->setLanguages(
-                        array_unique(
-                            array_merge($Award
-                        ->getLanguages(), [$currentLang])
-                        )
-                    );
-                }
-                */
+                
+                // if ($item['visio_'.$item['lang']] == "1") {
+                //     $Award->setLanguages(
+                //         array_unique(
+                //             array_merge($Award
+                //         ->getLanguages(), [$currentLang])
+                //         )
+                //     );
+                // }
+                
                 // Importing attachments from source
                 if ($item['url_image']) {
                     // Was processed the current attachment instance in a previous iteration ?
@@ -1306,13 +1306,13 @@ class ImportCommand extends Command
 
         foreach ($processedAwardsMap as $Award) {
             // Persist only the registers with at least one active language
-            if (!empty($Award->getLanguages())) {
+            // if (!empty($Award->getLanguages())) {
                 // Persist the instance
                 $Award->mergeNewTranslations();
                 $this->em->persist($Award);
                 $this->em->flush();
                 $this->logger->debug("Award ".$Award->getId()." ".$Award->translate('es')->getTitle());
-            }
+            // }
         }
     }
 
