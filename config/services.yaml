@@ -6,8 +6,7 @@
 parameters:
 
     # Languages & Translations
-    # app.languages: [es, en, pt, zh, de]     # The list of available languages
-    app.languages: [es, en]
+    app.languages: [es, en, pt]     # The list of available languages
 
     app.default_language: es        # The default language
 
@@ -15,7 +14,7 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
-    app.language_switcher: {es: es, en: en}
+    app.language_switcher: {es: es, en: en, pt: pt}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -91,13 +90,13 @@ services:
     App\Command\MigrationCommand:
         tags:
             - { name: 'console.command', command: 'app:migration' }
-            
+
 
 
     App\Security\TokenAuthenticator:
         arguments:
             $singleSignOnParameters: '%app.single_sign_on%'
-    
+
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 
@@ -111,4 +110,3 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
 
 
-    
