@@ -48,6 +48,64 @@ abstract class Activity extends Publishable
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $blocks;
+    private $lawyers_secondary;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", mappedBy="secondaryActivities")
+     */
+    private $key_contacts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="activities")
+     */
+    private $caseStudies;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="activities")
+     */
+    private $publication;
+
+    /**
+     * Many activities have Many activities.
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="relatedActivities", cascade={"persist"})
+     */
+    private $relatedActivitiesWithMe;
+
+    /**
+     * Many activities have many activities.
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="relatedActivitiesWithMe", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="activity_activity",
+     *     joinColumns={@ORM\JoinColumn(name="activity_source", referencedColumnName="id", onDelete="NO ACTION")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="activity_target", referencedColumnName="id", onDelete="NO ACTION")}
+     * )
+     */
+    private $relatedActivities;
+
+    /**
+     * A parent has many children and a child has many parents
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="children", cascade={"persist"})
+     */
+    private $parents;
+
+    /**
+     * A parent has many children and a child has many parents
+     * @ORM\ManyToMany(targetEntity="Activity", inversedBy="parents", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="activity_activity_parents",
+     *     joinColumns={@ORM\JoinColumn(name="activity_parent", referencedColumnName="id", onDelete="NO ACTION")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="activity_children", referencedColumnName="id", onDelete="NO ACTION")}
+     * )
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="activities")
+     */
+    private $insights;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="activities")
+     */
+    private $quote;
 
     public function __construct()
     {
