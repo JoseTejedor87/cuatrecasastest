@@ -15,26 +15,26 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
-use App\Entity\Article;
+use App\Entity\Publication;
 use App\Entity\Activity;
-use App\Entity\Lawyer;
 use App\Entity\Office;
+use App\Entity\Person;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 
-class ArticleFormType extends AbstractType
+class PublicationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('status', IntegerType::class, ['required' => true,'label'=>'entities.article.fields.status'])
-            ->add('featured', IntegerType::class, ['required' => true,'label'=>'entities.article.fields.featured'])
-            ->add('publication_date', DateType::class, ['label'=>'entities.article.fields.publication_date', 'required' => true])
+            //->add('status', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.status'])
+            ->add('featured', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.featured'])
+            ->add('publication_date', DateType::class, ['label'=>'entities.publication.fields.publication_date', 'required' => true])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
-                'label' => 'entities.article.fields.activities',
+                'label' => 'entities.publication.fields.activities',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -48,7 +48,7 @@ class ArticleFormType extends AbstractType
             ])
             ->add('offices', EntityType::class, [
                 'class' => Office::class,
-                'label' => 'entities.article.fields.offices',
+                'label' => 'entities.publication.fields.offices',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -60,21 +60,20 @@ class ArticleFormType extends AbstractType
                     return $office->translate('es')->getCity();
                 }
             ])
-            // ->add('lawyers', EntityType::class, [
-            //     'class' => Lawyer::class,
-            //     'label' => 'entities.article.fields.lawyers',
-            //     'help' => 'entities.person.help.lawyer',
-            //     'placeholder' => '',
-            //     'attr' => [
-            //         'class' => 'm-select2'
-            //     ],
-            //     'multiple' => true,
-            //     'required' => true,
-            //     'expanded' => false,
-            //     'choice_label' => function ($lawyer) {
-            //         return $lawyer->getFullName();
-            //     }
-            // ])
+            ->add('people', EntityType::class, [
+                'class' => Person::class,
+                'label' => 'entities.publication.fields.people',
+                'placeholder' => '',
+                'attr' => [
+                    'class' => 'm-select2'
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($person) {
+                    return $person->getFullName();
+                }
+            ])
             ->add('attachments', CollectionType::class, [
                 'label' => 'entities.event.fields.attachments',
                 'entry_type' => ResourceFormType::class,
@@ -89,15 +88,15 @@ class ArticleFormType extends AbstractType
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                    'title' => ['label'=>'entities.article.fields.title'],
-                    'summary' => ['label'=>'entities.article.fields.summary', 'attr'=>['class'=>'summernote'], 'required' => false],
-                    'content' => ['label'=>'entities.article.fields.content', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'title' => ['label'=>'entities.publication.fields.title'],
+                    'summary' => ['label'=>'entities.publication.fields.summary', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'content' => ['label'=>'entities.publication.fields.content', 'attr'=>['class'=>'summernote'], 'required' => false],
                     /*
-                    'caption' => ['label'=>'entities.article.fields.caption', 'attr'=>['class'=>'summernote'], 'required' => false],
-                    'tags' => ['label'=>'entities.article.fields.tags', 'attr'=>['class'=>'summernote'], 'required' => false],
-                    'lawyer_tags' => ['label'=>'entities.article.fields.lawyer_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
-                    'office_tags' => ['label'=>'entities.article.fields.office_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
-                    'practice_tags' => ['label'=>'entities.article.fields.practice_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'caption' => ['label'=>'entities.publication.fields.caption', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'tags' => ['label'=>'entities.publication.fields.tags', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'lawyer_tags' => ['label'=>'entities.publication.fields.lawyer_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'office_tags' => ['label'=>'entities.publication.fields.office_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
+                    'practice_tags' => ['label'=>'entities.publication.fields.practice_tags', 'attr'=>['class'=>'summernote'], 'required' => false],
                     */
                 ],
             ]);
@@ -110,7 +109,7 @@ class ArticleFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Publication::class,
             'translation_domain' => 'admin'
         ]);
     }

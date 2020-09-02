@@ -1,0 +1,155 @@
+{% extends 'cms/base.html.twig' %}
+{% trans_default_domain "admin" %}
+
+{% block title %}{{ 'sections.publication.index.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <i class="m-menu__link-icon flaticon-file"></i>
+                    {{ 'sections.publication.index.title'|trans }}
+                </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-portlet__nav-item">
+                        <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+                            m-dropdown-toggle="hover" aria-expanded="true">
+                            <a href="#"
+                                class="m-portlet__nav-link btn   m-btn m-btn--icon    m-dropdown__toggle">
+                                {{ 'global.actions.create'|trans }} <i class="flaticon-plus"></i>
+                            </a>
+                            <div class="m-dropdown__wrapper" style="z-index: 101;">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"
+                                    style="left: auto; right: 21.5px;"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">                                               
+                                                <li class="m-nav__item">
+                                                    <a href="{{ path('cms_publication_new',{'type': 'article'}) }}" class="m-nav__link">
+                                                        <span class="m-nav__link-text">
+                                                            Academia
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="{{ path('cms_publication_new',{'type': 'opinion'}) }}" class="m-nav__link">
+                                                        <span class="m-nav__link-text">
+                                                            Publicación
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="{{ path('cms_publication_new',{'type': 'legalNovelty'}) }}" class="m-nav__link">
+                                                        <span class="m-nav__link-text">
+                                                            Novedad legal
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="{{ path('cms_publication_new',{'type': 'news'}) }}" class="m-nav__link">
+                                                        <span class="m-nav__link-text">
+                                                            Noticia
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                        {#                     <div class="dropdown show btn-icon-h">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							{{ 'global.actions.create'|trans }}
+						</button>
+                        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -136px, 0px);">
+                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'article'}) }}" data-toggle="m-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title">
+                                {{ 'global.actions.create'|trans }}Academy
+                            </a>
+                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'opinion'}) }}">
+                                {{ 'global.actions.create'|trans }}Opinion
+                            </a>
+                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'legalNovelty'}) }}" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Tooltip title">
+                                {{ 'global.actions.create'|trans }}LegalNovelty
+                            </a>
+                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'news'}) }}" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Tooltip title">
+                                {{ 'global.actions.create'|trans }}News
+                            </a>
+                        </div>
+					</div> #}
+    {#                     <a href="{{ path('cms_publication_new',{'type': 'article'}) }}"
+                            class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
+                        </a> #}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        {% if pagination %}
+        <div class="m-section">
+            <div class="m-portlet container-fluid">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr class="row">
+                            <th class="col-sm-5">
+                                {{ knp_pagination_sortable(pagination, 'entities.publication.fields.title'|trans, 'title') }}
+                            </th>
+                            <th class="col-sm-4 text-nowrap">
+                                {{ knp_pagination_sortable(pagination, 'entities.publication.fields.publication_date'|trans, 'publication_date') }}
+                            </th>
+                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in pagination %}
+                        <tr class="row">
+                            <td class="col-sm-5">
+                                {{ article.translate(app.request.getLocale()).title ?  article.translate(app.request.getLocale()).title : article.translate('en').title}}
+                            </td>
+                            <td class="col-sm-4">
+                                {{ article.publicationdate ? article.publicationdate|date('d-m-Y') : ''  }}</td>
+                            <td class="col-sm-2 text-nowrap">
+                                {% include 'cms/tools/languageStatus.html.twig' with {'values':article.languages} %}
+                                /
+                                {% include 'cms/tools/regionStatus.html.twig' with {'values':article.regions} %}
+                            </td>
+                            <td class="col-sm-1 text-right">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill"
+                                    href="{{ path('cms_publication_edit', {'id': article.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="m-section">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-elevate fade show" role="alert">
+                    {{ 'global.messages.noRecordsFound'|trans }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
