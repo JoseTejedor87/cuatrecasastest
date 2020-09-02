@@ -8,7 +8,15 @@ global:
     zh: Chino
     it: Italiano
     fr: Francés
-
+    va: Vasco
+    ca: Catalán
+    ge: Alemán
+    ho: Holandés
+    ar: Árabe
+    eu: Euskera
+    ja: Japonés
+    ga: Gallego
+    ru: Ruso
   regions:
     spain: España
     latam: Latinoamérica

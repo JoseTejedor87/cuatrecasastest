@@ -50,7 +50,7 @@ parameters:
         - podcast
         - interactive
 
-    app.known_languages_by_lawyers: [es, en, it, pt, fr, va, ca, ge, ho]
+    app.known_languages_by_lawyers: [es, en, it, pt, fr, ca, ge, ho, zh, ar, eu, ja, ga, ru]
 
     app.meta_robots: {"noindex": "noindex", "nofollow": "nofollow", "noindex, nofollow": "noindex, nofollow"}
 
