@@ -10,6 +10,14 @@ global:
     zh: Chinese
     it: Italian
     fr: French
+    ca: Catalan
+    ge: German
+    ho: Dutch
+    ar: Arabic
+    eu: Euskera
+    ja: Japanese
+    ga: Gallego
+    ru: Russian
   regions:
     spain: Spain
     latam: Latam
