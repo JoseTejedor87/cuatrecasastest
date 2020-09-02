@@ -1,0 +1,679 @@
+// ==========================================================================
+// FORMS
+// ==========================================================================
+
+// .form-control {
+//     display: block;
+//     width: 100%;
+//     height: calc(1.5em + 0.75rem + 2px);
+//     padding: 0.375rem 0.75rem;
+//     font-size: 1rem;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     color: #495057;
+//     background-color: #fff;
+//     background-clip: padding-box;
+//     border: 1px solid #ced4da;
+//     border-radius: 0.25rem;
+//     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+// }
+
+// .custom-select {
+//     display: inline-block;
+//     width: 100%;
+//     height: calc(1.5em + 0.75rem + 2px);
+//     padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+//     font-size: 1rem;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     color: #495057;
+//     vertical-align: middle;
+//     border: 1px solid #ced4da;
+//     border-radius: 0.25rem;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+// }
+
+
+.form-control,
+.custom-select {
+    height: auto;
+    padding: 1.4rem 2.4rem;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: $gray-medium;
+    border: 1px solid $gray-light;
+}
+
+.form-control {}
+
+.custom-select {
+
+  padding: 0 0;
+
+  &.icon-select {
+    border: 1px solid red;
+    padding: 1.4rem 2.4rem;
+    // padding-right: 3.2rem;
+  }
+}
+
+
+
+//
+// CUSTOM RADIO / CHECKBOX
+// --------------------------------------------------------------------------
+
+// https://codepen.io/triss90/pen/XNEdRe
+
+$color-off: #f4f4f4;
+$color-on: #3197EE;
+
+
+.radio {
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        + .radio-label {
+            &:before {
+                content: '';
+                background: $color-off;
+                border-radius: 100%;
+                border: 1px solid darken($color-off, 25%);
+                display: inline-block;
+                width: 1.4em;
+                height: 1.4em;
+                position: relative;
+                top: -0.2em;
+                margin-right: 1em;
+                vertical-align: top;
+                cursor: pointer;
+                text-align: center;
+                transition: all 250ms ease;
+            }
+        }
+
+        &:checked {
+            + .radio-label {
+                &:before {
+                    background-color: $color-on;
+                    box-shadow: inset 0 0 0 4px $color-off;
+                }
+            }
+        }
+
+        &:focus {
+            + .radio-label {
+                &:before {
+                    outline: none;
+                    border-color: $color-on;
+                }
+            }
+        }
+
+        &:disabled {
+            + .radio-label {
+                &:before {
+                    box-shadow: inset 0 0 0 4px $color-off;
+                    border-color: darken($color-off, 25%);
+                    background: darken($color-off, 25%);
+                }
+            }
+        }
+
+        + .radio-label {
+            &:empty {
+                &:before {
+                    margin-right: 0;
+                }
+
+            }
+        }
+    }
+}
+
+.checkbox {
+
+    input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+
+        + .checkbox-label {
+            span {
+                display: inline-block;
+                margin-top: 0.6em;
+                font-size: 90%;
+                line-height: 1;
+            }
+
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 1.8em;
+                height: 1.8em;
+                position: relative;
+                top: 2px;
+                margin-right: 0.6em;
+                vertical-align: top;
+                text-align: center;
+
+                // background: $color-off;
+                // border-radius: 0;
+                // border: 1px solid darken($color-off, 25%);
+
+                border: 1px solid rgba(0,0,0,.5);
+                border-radius: 2px;
+                background-color: $white;
+                background-position: 3px 3px;
+
+                cursor: pointer;
+                transition: all 250ms ease;
+            }
+        }
+
+        &:checked {
+            + .checkbox-label {
+                &:before {
+                    background-color: $color-on;
+                    box-shadow: inset 0 0 0 0 $color-off;
+                    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E");
+                }
+            }
+        }
+
+        &:focus {
+            + .checkbox-label {
+                &:before {
+                    outline: none;
+                    border-color: $color-on;
+                }
+            }
+        }
+
+        &:disabled {
+            + .checkbox-label {
+                &:before {
+                    box-shadow: inset 0 0 0 4px $color-off;
+                    border-color: darken($color-off, 25%);
+                    background: darken($color-off, 25%);
+                }
+            }
+        }
+
+        + .checkbox-label {
+            &:empty {
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+// https://codepen.io/melnik909/pen/YjGZqQ
+// https://codepen.io/cabrera/pen/mKoBa/
+
+// https://codepen.io/north-of-rapture/pen/rWqega/
+
+// https://codepen.io/andreasstorm/pen/yjLGGN
+// https://codepen.io/rolchau/pen/rlAtq/
+
+
+
+/*Checkboxes styles*/
+// https://codepen.io/valerypatorius/pen/oXGMGL
+
+// input[type="checkbox"] {
+//     display: none;
+// }
+
+// input[type="checkbox"] + label {
+//     display: block;
+//     position: relative;
+//     padding-left: 35px;
+//     margin-bottom: 20px;
+//     cursor: pointer;
+//     -webkit-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+// }
+
+// input[type="checkbox"] + label:last-child {
+//     margin-bottom: 0;
+// }
+
+// input[type="checkbox"] + label:before {
+//     content: '';
+//     display: block;
+//     width: 30px;
+//     height: 30px;
+//     border: 1px solid #6cc0e5;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     opacity: 1;
+//     -webkit-transition: all 0.12s, border-color 0.08s;
+//     transition: all 0.12s, border-color 0.08s;
+// }
+
+// input[type="checkbox"]:checked + label:before {
+//     width: 10px;
+//     top: -5px;
+//     left: 5px;
+//     border-radius: 0;
+//     opacity: 1;
+//     border-top-color: transparent;
+//     border-left-color: transparent;
+//     -webkit-transform: rotate(45deg);
+//     transform: rotate(45deg);
+// }
+
+
+
+
+/*
+<div class="container">
+    <div class="radio">
+        <input id="radio-1" name="radio" type="radio" checked>
+        <label for="radio-1" class="radio-label">Checked</label>
+    </div>
+    <div class="radio">
+        <input id="radio-2" name="radio" type="radio">
+        <label for="radio-2" class="radio-label">Unchecked</label>
+    </div>
+    <div class="radio">
+        <input id="radio-3" name="radio" type="radio" disabled>
+        <label for="radio-3" class="radio-label">Disabled</label>
+    </div>
+</div>
+<div class="container">
+    <div class="checkbox">
+        <input id="checkbox-1" name="checkbox-1" type="checkbox" checked>
+        <label for="checkbox-1" class="checkbox-label">Checked</label>
+    </div>
+    <div class="checkbox">
+        <input id="checkbox-2" name="checkbox-2" type="checkbox">
+        <label for="checkbox-2" class="checkbox-label">Unchecked</label>
+    </div>
+    <div class="checkbox">
+        <input id="checkbox-3" name="checkbox-3" type="checkbox" disabled>
+        <label for="checkbox-3" class="checkbox-label">Disabled</label>
+    </div>
+</div>
+*/
+
+// BOOTSTRAP
+
+.custom-control-input {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: 1rem;
+    height: 1.25rem;
+    opacity: 0;
+}
+
+.custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    font-size: 80%;
+    border: 1px solid red;
+}
+
+.custom-control-label::before {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: #adb5bd solid 1px;
+
+    border: 1px solid green;
+}
+
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0.25rem;
+}
+
+.custom-control-label::after {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    content: "";
+    background: no-repeat 50%/50% 50%;
+
+    border: 1px solid blue;
+}
+
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+
+}
+
+
+
+/*
+.inputGroup {
+    position: relative;
+    display: block;
+    margin: 0 0 5px;
+    background-color: #fff;
+    border-radius: 8px;
+
+
+    border: 1px solid blue;
+}
+
+.inputGroup input {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin: 0 0 5px;
+    width: 24px;
+    height: 24px;
+    order: 1;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.inputGroup label {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 0;
+    padding: 0.9rem 2rem 0.8rem 3.8rem;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+    text-transform: none;
+    text-align: left;
+    color: #666;
+    border: 2px dotted #d3d3d4;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out
+}
+
+.inputGroup label.duplicate {
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #666
+}
+
+.inputGroup label:before {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 10px;
+    content: '';
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0;
+    z-index: -1;
+    -webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+.inputGroup label:after {
+    position: absolute;
+    left: 16px;
+    top: 26px;
+    width: 24px;
+    height: 24px;
+    content: '';
+    border: 2px solid #d3d3d4;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    transition: all 200ms ease-in
+}
+
+.inputGroup label.checkboxes:after {
+    border-radius: 4px
+}
+
+.inputGroup input:checked ~ label {
+    color: #000;
+    border: 2px solid #d3d3d4
+}
+
+.inputGroup input:checked ~ label:before {
+    -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1
+}
+
+.inputGroup input:checked ~ label:after {
+    background-color: #666;
+    border-color: #666
+}
+
+.inputGroup input:focus ~ label, .inputGroup input:focus ~ label.duplicate {
+    outline: 0;
+    border: 2px solid #2a6df4;
+    -webkit-box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.2);
+    box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.2)
+}
+
+.inline-radios {
+    display: flex;
+    margin: 0 -5px
+}
+
+.inline-radios .inputGroup {
+    flex: 1;
+    margin: 0 5px
+}
+
+.inline-radios label:first-child {
+    display: block
+}
+
+.inline-radios .inputGroup label {
+    margin-bottom: 0
+}
+*/
+
+
+
+//
+// CUSTOM SELECT
+// --------------------------------------------------------------------------
+
+// https://codepen.io/afalchi82/pen/aNXjgb
+// https://codepen.io/vulchivijay/pen/rxyBpg
+
+
+// https://custom-select.github.io/custom-select/
+// https://github.com/custom-select/custom-select
+
+// https://speckyboy.com/open-source-css-javascript-select-box-snippets/
+
+
+
+// https://codepen.io/wallaceerick/pen/ctsCz
+
+$select-color: $gray-medium;
+$select-background: transparent;
+$select-width: 28%;
+$select-height: 42px;
+
+.select-hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    margin: 0 10px;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: $select-color;
+    width: $select-width;
+    height: $select-height;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 2px;
+        height: 100%;
+        background-color: $white-dark;
+    }
+
+    &:last-child {
+        &:before {
+            display: none;
+        }
+    }
+
+    select {
+        + .select-styled {
+            &:before {
+                @include icons-ionicons(8px,auto,auto,10px);
+                font-size: 24px;
+                transition: all 0.2s;
+            }
+        }
+    }
+
+    #area {
+        + .select-styled {
+            &:before {
+                content: "\f3ed";
+            }
+        }
+    }
+
+    #desk {
+        + .select-styled {
+            &:before {
+                content: "\f229"; /*\f229*/ /*\f318*/ /*\f44f*/ /*\f4d2*/ /*\f2a5*/ /*\f229*/ /*\f228*/
+            }
+        }
+    }
+
+    #office {
+        + .select-styled {
+            &:before {
+                content: "\f2a7"; /*\f2a7*/
+            }
+        }
+    }
+}
+
+.select-styled {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 12px 10px 12px 40px;
+    line-height: 1;
+    text-align: left;
+    background-color: $select-background;
+    transition: all 0.2s ease-in;
+
+    &:after {
+        @include icons-ionicons(12px,22px,auto,auto);
+        position: absolute;
+        content: "\f3d0";
+        font-size: 18px;
+        color: $complementary-color;
+        transition: all 0.2s;
+    }
+
+    &:hover {
+        color: $black;
+    }
+
+    &:active, &.active {
+        color: $black;
+        // background-color: rgba(255,90,96,.1);
+        box-shadow: 0 1px 0 $complementary-color;
+
+        &:after {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    max-height: 295px;
+    overflow-y: scroll;
+    z-index: 999;
+    margin: 1px 0 0 0;
+    padding: 0;
+    list-style: none;
+    background-color: $white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+    li {
+        margin: 0;
+        padding: 10px 42px 10px 42px;
+        line-height: 1;
+        text-align: left;
+        border-bottom: 1px solid $white-dark;
+        transition: all 0.15s ease-in;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            color: $white;
+            background-color: $complementary-color;
+        }
+
+        &[rel="hide"] {
+            display: none;
+        }
+
+    }
+
+}
+
+
+//
+// SEARCH
+// --------------------------------------------------------------------------

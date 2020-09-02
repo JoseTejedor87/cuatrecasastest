@@ -16,6 +16,7 @@ class ajaxGetLawersController extends WebController
  */
 public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)    
 {
+    // aa;
     $initial = $request->get('initial');
     $page = $request->get('page');
     if(!isset($page))
@@ -49,11 +50,17 @@ public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)
             $lawyerA = array ();
             foreach ($lawyers as $key => $lawyer) {
                 $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $lawyer->getLawyerType(), 'Slug' => $lawyer->getSlug());
+                    $activities = "";
+                    foreach ($lawyer->getActivities() as $activity) {
+                        $activities = $activities. ' ' . $activity->translate('es')->getTitle();
+                    }
+                    $lawyerA[$key]['activities'] = $activities;
+                    $lawyerA[$key]['office'] = $lawyer->getOffice()->getCity();
+                
             }
         }
-    //die($page);
     if ($request->isXMLHttpRequest()) {         
-        return new JsonResponse(array('lawyers' => $lawyerA,'$countLawyers' => $countLawyers ));
+        return new JsonResponse(array('lawyers' => $lawyerA,'countLawyers' => $countLawyers,'pagesTotal' => $pagesTotal ,'page' => $page,'initial' => $initial));
     }
 
     return new Response('This is not ajax!', 400);

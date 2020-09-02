@@ -56,7 +56,7 @@ class LawyerController extends WebController
         $page = 1;  
         $limit = 6;
         if(!$initial ){
-        $initial = $request->query->get('search');
+        $initial = $request->query->get('initial');
         
         }
         if($initial ){
@@ -76,7 +76,7 @@ class LawyerController extends WebController
                if($lawyers){
                 $countLawyers = count($query->getResult());
                 $pagesTotal = $countLawyers/6;
-                if(is_float($pagesTotal)){
+                if(is_float($pagesTotal) && $pagesTotal>=1){
                     $pagesTotal = $pagesTotal + 1;
                 }
                }

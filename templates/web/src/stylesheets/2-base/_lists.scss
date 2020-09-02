@@ -15,12 +15,12 @@
         padding: 0 0;
     }
 
-    @include when-inside(".services") {
+    @include when-inside(".insight") {
         position: relative;
         left: -4px;
     }
 
-    @include when-inside(".insight") {
+    @include when-inside(".page__aside--practices") {
         position: relative;
         left: -4px;
     }
@@ -41,6 +41,10 @@
             margin: 0 10px 2px 0;
         }
 
+        @include when-inside(".page__aside--practices") {
+            margin: 0 8px 2px 0;
+        }
+
         &:before {
             content: "";
             position: absolute;
@@ -57,6 +61,10 @@
 
             @include when-inside(".insight") {
                 left: -6px;
+            }
+
+            @include when-inside(".page__aside--practices") {
+                left: -4px;
             }
         }
 
@@ -79,12 +87,12 @@
             padding: 2px 4px 0;
         }
 
-        @include when-inside(".services") {
+        @include when-inside(".insight") {
             @include background-link($complementary-color, $white, $complementary-color);
             padding: 2px 4px 0;
         }
 
-        @include when-inside(".insight") {
+        @include when-inside(".page__aside--practices") {
             @include background-link($complementary-color, $white, $complementary-color);
             padding: 2px 4px 0;
         }
@@ -133,4 +141,102 @@
     }
 
     [data-university] {}
+}
+
+@include new("arrow__list") {
+    @include reset-list;
+    display: block;
+    list-style-type: none !important;
+
+    li {
+        position: relative;
+        margin-bottom: 0.6rem;
+        padding-left: 1rem;
+        @include fontSet(20px, 26px);
+
+        &:before {
+            @include icons-ionicons(7px,auto,auto,0);
+            content: '\f10a';
+            font-size: 12px;
+        }
+    }
+}
+
+@include new("buttons__list") {
+    @include reset-list;
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 1rem;
+
+    @include has("item") {
+        display: flex;
+        flex-direction: column;
+        width: calc(33.3333% - 2em);
+        flex: 0 0 calc(33.3333% - 2em);
+        margin: 0 1em;
+
+        @include when-inside(".two-cols") {
+            width: calc(50% - 2em);
+            flex: 0 0 calc(50% - 2em);
+        }
+    }
+
+    @include has("link") {
+        flex: 1 0 auto;
+        position: relative;
+        display: block;
+        padding: 1.2rem 1.6rem .6rem 0;
+        @include fontSet(20px, 20px);
+        color: $black;
+        border-bottom: 1px solid rgba($black, 0.1);
+
+        &:after,
+        &:before {
+            @include icons-ionicons(12px, auto, auto, auto);
+            content: '\f3d3';
+            font-size: 32px;
+            font-weight: bold;
+            color: $complementary-color;
+        }
+
+        &:before {
+            left: -10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: left 0.3s ease-in-out, opacity 0.2s ease-out;
+        }
+
+        &:after {
+            right: 0;
+            opacity: 1;
+            visibility: visible;
+            transition: right 0.3s ease-in-out, opacity 0.2s ease-out;
+        }
+
+        @include on-event() {
+            padding-right: 1rem;
+            padding-left: 2rem;
+            text-decoration: none;
+            color: $white;
+            background-color: $complementary-color;
+            border-bottom: 1px solid $main-color;
+
+            &:before,
+            &:after {
+                color: $white;
+            }
+
+            &:before {
+                left: 10px;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            &:after {
+                right: 10px;
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    }
 }

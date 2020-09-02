@@ -6,7 +6,8 @@ twig:
     form_themes:
         - 'bootstrap_4_layout.html.twig'
         - 'cms/custom/vich_form_fields.html.twig'
-        - 'cms/form/ordered_collection_row.html.twig'
+        - 'cms/form/blocks_collection_row.html.twig'
 
     globals:
         languages: '%app.languages%'
+        block_types: '%app.block_types%'

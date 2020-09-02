@@ -24,20 +24,17 @@ body {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     @include cuatrecasas-font();
-    // line-height: 1.25;
-    // letter-spacing: -.0415625em;
     margin: 0 0;
-    // margin: 3.5rem 0 2rem
 }
 
 p {
-    margin: 0 0 1.4em;
+    margin: 0 0 1.4rem;
     color: $main-color;
 }
 
 
 //
-// FONT SIZES AJUSTMENTS
+// FONT SIZES MIXING
 // --------------------------------------------------------------------------
 
 $rem-base-font: 16px !default;
@@ -69,7 +66,7 @@ $rem-base-font: 16px !default;
     @include fontSet(24px, 24px);
     text-transform: uppercase;
     color: $white;
-    background-color: rgba($black, 0.5);
+    background-color: $black;
 
     //
     // BG COLORS

@@ -139,6 +139,7 @@
                     </div>
                 </div>
             </section>
+            {% if lawyer.articles %}
             {% if lawyer.articles|length > 1 %}
                 <section class="row page__block">
                     <div class="col">
@@ -161,6 +162,8 @@
                     </div>
                 </section>
             {% endif %}
+            {% endif %}
+            {% if lawyer.speaker %}
             {% if lawyer.speaker.events|length > 1 %}
             <section class="row page__block">
                 <div class="col">
@@ -182,6 +185,7 @@
                     </div>
                 </div>
             </section>
+            {% endif %}
             {% endif %}
         </article>
     </main>

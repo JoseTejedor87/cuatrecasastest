@@ -5,7 +5,7 @@ var blockCollectionManager = {
 
     addItemTo: function(itemType, $collection) {
 
-        var list = $collection.find(
+        var $list = $collection.find(
             '#' + $collection.data('items-list-selector')
         );
 
@@ -13,7 +13,7 @@ var blockCollectionManager = {
         // IMPORTANT:
         // We must use the widget-counter property always if exists.
         // The length of the list is not always a correct measure if the "remove" option is allowed.
-        const counter = $collection.data('widget-counter') || list.children().length;
+        const counter = $collection.data('widget-counter') || $list.children().length;
 
         // grab the prototype template
         var protoItem = $collection.data('prototype');
@@ -23,26 +23,31 @@ var blockCollectionManager = {
 
         // create and initialize a new
         // list item using the protoItem
-        var newItem = this.initializeItem(
+        var $newItem = this.initializeItem(
             jQuery(protoItem),
+            $collection,
             itemType
         );
 
         // Adding the newItem to the list.
-        newItem.appendTo(list);
+        $newItem.appendTo($list);
 
         // Scroll to the position of the newItem
         // to improve the usability
-        newItem.get(0).scrollIntoView();
+        $newItem.get(0).scrollIntoView();
 
         // Add 1 to the widget-counter attribute.
         // Remember, the length of the list cannot be used if the "remove" option is allowed
-        list.data('widget-counter', counter + 1);
+        $collection.data('widget-counter', counter + 1);
 
         this.refreshPositions($collection);
     },
 
-    initializeItem: function($item, type) {
+    removeItem: function($item) {
+        $item.parent('fieldset.form-group').remove();
+    },
+
+    initializeItem: function($item, $collection, type) {
         if (type) {
             // select the current type from the block type selector
             $item.find(".item-type-selector").val(type);
@@ -62,8 +67,23 @@ var blockCollectionManager = {
             }
         });
 
+        // Attach the "Remove Item" button to newItem
+        $closeButton = $("<i class='close-button flaticon-close'></i>");
+        $closeButton.on('click' , (event)=> {
+            this.removeItem(jQuery(event.target));
+        });
+        $item.prepend($closeButton);
+
         // apply select2 behaviour over each dropdown selector
         $item.find("select.m-select2").select2();
+
+        // Make it draggable (relative to its parent list)
+        $item.draggable({
+            connectToSortable: $collection.find('#' + $collection.data('items-list-selector')),
+            revert: "invalid",
+            opacity: 0.70
+        });
+        $item.disableSelection();
 
         return $item;
     },
@@ -103,9 +123,16 @@ var blockCollectionManager = {
 
             // Initializing each item in the collection
             $collection.find('#' + $collection.data('items-list-selector'))
+                .sortable({
+                    revert: true,
+                    update: (event, ui) => {
+                        this.refreshPositions($collection);
+                    }
+                })
+                .disableSelection()
                 .children().each((position, item)=> {
                     let $item = jQuery(item);
-                    this.initializeItem($item);
+                    this.initializeItem($item, $collection);
                 });
 
         });
