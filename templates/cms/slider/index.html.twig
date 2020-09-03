@@ -1,7 +1,7 @@
 {% extends 'cms/base.html.twig' %}
 {% trans_default_domain "admin" %}
 
-{% block title %}{{ 'sections.article.index.title'|trans }}{% endblock %}
+{% block title %}{{ 'sections.sliders.index.title'|trans }}{% endblock %}
 
 {% block body %}
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -10,16 +10,17 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <i class="m-menu__link-icon flaticon-file"></i>
-                    {{ 'sections.article.index.title'|trans }}
+                    <i class="m-menu__link-icon flaticon-calendar"></i>
+                    {{ 'sections.sliders.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('cms_articles_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_sliders_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
                 </ul>
+        
             </div>
         </div>
     </div>
@@ -32,24 +33,26 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr class="row">
-                            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'entities.article.fields.title'|trans, 'title') }}</th>
-                            <th class="col-sm-4 text-nowrap">{{ knp_pagination_sortable(pagination, 'entities.article.fields.publication_date'|trans, 'publication_date') }}</th>
-                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'entities.slider.fields.title'|trans, 'translate.title') }}</th>
+                            <th class="col-sm-3 text-nowrap">{{ knp_pagination_sortable(pagination, 'entities.slider.fields.description'|trans, 'description') }}</th>
+                            <th class="col-sm-3 text-nowrap">{{ knp_pagination_sortable(pagination, 'entities.slider.fields.url'|trans, 'description') }}</th>
+                            <th class="col-sm-2 text-nowrap">{{ 'global.labels.publication'|trans }}</th>
                             <th class="col-sm-1"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for article in pagination %}
+                        {% for slider in pagination %}
                         <tr class="row">
-                            <td class="col-sm-5">{{ article.translate(app.request.getLocale()).title ?  article.translate(app.request.getLocale()).title : article.translate('en').title}}</td>
-                            <td class="col-sm-4">{{ article.publicationdate ? article.publicationdate|date('d-m-Y') : ''  }}</td>
+                            <td class="col-sm-3">{{ slider.translate.title }}</td>
+                            <td class="col-sm-3 text-nowrap">{{ slider.translate.description }}</td>
+                            <td class="col-sm-3 text-nowrap">{{  slider.translate.url  }}</td>
                             <td class="col-sm-2 text-nowrap">
-                                {% include 'cms/tools/languageStatus.html.twig' with {'values':article.languages} %}
+                                {% include 'cms/tools/languageStatus.html.twig' with {'values':slider.languages} %}
                                 /
-                                {% include 'cms/tools/regionStatus.html.twig' with {'values':article.regions} %}
+                                {% include 'cms/tools/regionStatus.html.twig' with {'values':slider.regions} %}
                             </td>
                             <td class="col-sm-1 text-right">
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_articles_edit', {'id': article.id}) }}">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_sliders_edit', {'id': slider.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
@@ -77,4 +80,3 @@
 
 </div>
 {% endblock %}
-

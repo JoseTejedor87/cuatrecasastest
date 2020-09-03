@@ -47,7 +47,13 @@ class Resource extends Publishable
     private $award;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Slider", inversedBy="image")
+     */
+    private $slider;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Publication", inversedBy="attachments")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
     private $publication;
 
@@ -60,7 +66,7 @@ class Resource extends Publishable
      * @ORM\OneToOne(targetEntity="App\Entity\Activity", inversedBy="photo")
      */
     private $activity;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -218,4 +224,15 @@ class Resource extends Publishable
         return $this;
     }
 
+    public function getSlider(): ?Slider
+    {
+        return $this->slider;
+    }
+
+    public function setSlider(?Slider $slider): self
+    {
+        $this->slider = $slider;
+
+        return $this;
+    }
 }

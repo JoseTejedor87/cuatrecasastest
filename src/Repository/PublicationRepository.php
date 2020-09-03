@@ -52,7 +52,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             if ($activitiesA) {
                 $results =  $results->innerJoin('p.activities', 'a')
                 ->andWhere('a.id in (:activity)')
-                ->setParameter('activity', implode(",", $activitiesA));
+                ->setParameter('activity',  $activitiesA);
             }
             //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
             $results =  $results->orderBy('p.publication_date', 'DESC')

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Research;
+use App\Entity\Academy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -12,16 +12,16 @@ use App\Repository\PublishableEntityRepository;
 use App\Repository\PublishableInterfaceRepository;
 
 /**
- * @method Research|null find($id, $lockMode = null, $lockVersion = null)
- * @method Research|null findOneBy(array $criteria, array $orderBy = null)
- * @method Research[]    findAll()
- * @method Research[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Academy|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Academy|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Academy[]    findAll()
+ * @method Academy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ResearchRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
+class AcademyRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
     public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, $navigation, Research::class);
+        parent::__construct($registry, $navigation, Academy::class);
     }
 
     public function getInstanceByRequest(Request $request)

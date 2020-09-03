@@ -39,6 +39,7 @@ class EventRepository extends PublishableEntityRepository implements Publishable
     public function findByActivities($activities)
     {
         $activitiesA = array();
+        
         if($activities){
             foreach ($activities as $key => $activity) {
                 array_push($activitiesA,$activity->getId());
@@ -48,14 +49,16 @@ class EventRepository extends PublishableEntityRepository implements Publishable
             if ($activitiesA) {
                 $results =  $results->innerJoin('p.activities', 'a')
                 ->andWhere('a.id in (:activity)')
-                ->setParameter('activity', implode(",", $activitiesA));
+                ->setParameter('activity',$activitiesA);
+                
             }
             //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
             $results =  $results->orderBy('p.startDate', 'DESC')
                 ->setMaxResults(5)
                 ->getQuery()
                 ->getResult();
-        
+             
+   
         return $results;
 
     }

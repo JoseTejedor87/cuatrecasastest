@@ -8,7 +8,15 @@ global:
     zh: Chino
     it: Italiano
     fr: Francés
-
+    va: Vasco
+    ca: Catalán
+    ge: Alemán
+    ho: Holandés
+    ar: Árabe
+    eu: Euskera
+    ja: Japonés
+    ga: Gallego
+    ru: Ruso
   regions:
     spain: España
     latam: Latinoamérica
@@ -135,13 +143,20 @@ sections:
       title: Nueva Página
     edit:
       title: Nueva Página
-  article:
+  publication:
       index:
-        title: Artículos
+        title: Conocimiento
       new:
-        title: Nuevo Articulo
+        title: Nuevo Conocimiento
       edit:
-        title: Editar Articulo
+        title: Editar Conocimiento
+  sliders:
+    index:
+      title: Slider
+    new:
+      title: Nuevo Slider
+    edit:
+      title: Editar Slider        
 
 # Menu
 # ###########################################
@@ -160,7 +175,7 @@ menu:
   awards.title: Premios
   office.title: Oficinas
   page.title: Páginas
-  article.title: Artículos
+  publication.title: Conocimiento
   insight.title: Colecciones
   knowledge.title: Conocimiento
   case_studies.title: Casos
@@ -179,7 +194,7 @@ entities:
       blocks: Bloques
       relatedActivities: Actividades relacionadas
       slug: Slug
-  article:
+  publication:
     fields:
       title: Título
       publication_date: Fecha de publicación
@@ -187,7 +202,7 @@ entities:
       featured: Destacado
       activities: Sectores / Servicios / Desks
       offices: Oficinas
-      lawyers: Abogados
+      people: Abogados
       summary: Resumen
       content: Contenido
       caption: Subtitulo
@@ -361,7 +376,12 @@ entities:
     inicioHasta: Fecha Inicio Hasta
     finHasta:  Fecha Fin Hasta
     finDesde: Fecha Fin Desde
-
+  slider:
+    fields:
+      title: Titulo
+      description: Descripcion
+      url: Url Destino
+      image: Imagen
 # Custom Form Types
 
 forms:

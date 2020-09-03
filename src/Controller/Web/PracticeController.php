@@ -13,11 +13,14 @@ class PracticeController extends WebController
 {
     public function index(Request $request, PracticeRepository $practiceRepository, PublicationRepository $publicationRepository)
     {
+        /*
         $practices = $practiceRepository->createPublishedQueryBuilder('p')
             ->andwhere('p.highlighted = true')
             ->getQuery()
             ->getResult();
-            $relatedPublications = $publicationRepository->findByActivities('');
+        */
+        $practices = $practiceRepository->getPracticeByName($request)->getResult();
+        $relatedPublications = $publicationRepository->findByActivities('');
 
         return $this->render('web/practices/index.html.twig', [
             'practices' => $practices,

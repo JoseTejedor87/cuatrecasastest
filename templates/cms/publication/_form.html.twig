@@ -1,0 +1,104 @@
+{% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="m-form__section m-form__section--first">
+                    {{ form_row(form.featured) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="m-form__section m-form__section">
+                    {{ form_row(form.publication_date) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-form__section m-form__section">
+                    {{ translatableField.partialTranslations(form.translations, ['title']) }}
+                    {{ translatableField.partialTranslations(form.translations, ['summary']) }}
+                    {{ translatableField.partialTranslations(form.translations, ['content']) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4 offset-md-1">
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.relations'|trans }}
+                </h3>
+            </div>
+            {{ form_row(form.activities) }}
+            {{ form_row(form.people) }}
+            {{ form_row(form.offices) }}
+        </div>
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'entities.lawyer.fields.photo'|trans }}
+                </h3>
+            </div>
+            {{ form_label(form.attachments) }}
+            <div id="attachments-fields-list" class="vich-attachment-list"
+                data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}"
+                data-widget-tags="{{ '<div class="vich-attachment-item col-md-12"></div>'|e }}"
+                data-widget-counter="{{ form.attachments|length }}">
+                {% for attachment in form.attachments %}
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(attachment) }}
+                    {{ form_widget(attachment) }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="button" class="add-another-collection-widget btn btn-secondary"
+                data-list-selector="#attachments-fields-list">
+                <span>
+                    <i class="fa flaticon-plus"></i>
+                    <span>
+                        Añadir fichero
+                    </span>
+                </span>
+            </button>
+
+            {% do form.attachments.setRendered %}
+        </div>
+
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.publication'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['slug']) }}
+            {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+            {{ form_row(form.metaRobots) }}
+        </div>
+
+    </div>
+    {% do form.translations.setRendered %}
+
+    {{ form_rest(form) }}
+
+</div>
