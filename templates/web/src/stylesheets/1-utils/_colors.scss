@@ -10,8 +10,10 @@ $white:                 rgba(255, 255, 255 , 1) !default;
 
 $text-color:            rgb(52, 52, 52) !default;           // #343434
 
-$main-color:            rgb(70, 0, 29) !default;            // #46001d
-$complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60
+$main-color:            rgb(70, 0, 29) !default;            // #46001d -- burdeos
+$complementary-color:   rgb(255, 90, 96) !default;          // #ff5a60 -- coral
+
+$submenu-color:         rgb(249, 249, 249) !default;        // #F9F9F9 -- light gray
 
 $gray-dark:             rgb(72, 72, 72) !default;           // #484848
 $gray-medium:           rgb(128, 128, 128) !default;        // #808080
@@ -23,26 +25,83 @@ $white-light:           rgb(253, 253, 253) !default;        // #fdfdfd
 
 
 //
+// COLORES CORPORATIVOS
+//
+$color-burdeos:         rgb(70, 0, 29) !default;            // #46001d -- burdeos
+$color-coral:           rgb(255, 90, 96) !default;          // #ff5a60 -- coral
+$color-yellow:          rgb(233, 155, 0) !default;          // #e99b00 -- yellow
+$color-light-blue:      rgb(26, 150, 196) !default;         // #1A96C4 -- light blue
+$color-navy-blue:       rgb(14, 0, 150) !default;           // #0E0096 -- navy blue
+
+
+//
+// BLOCK COLORS
+// https://www.rapidtables.com/convert/color/hex-to-rgb.html
+
+$news-color:          rgb(81, 163, 163) !default;      // #51A3A3 -- azul turquesa oscuro
+$article-color:       rgb(158, 100, 93) !default;      // #9E645D
+$opinion-color:       rgb(206, 167, 121) !default;     // #CEA779
+$events-color:        rgb(70, 0, 29) !default;         // #46001D
+$insights-color:      rgb(255, 99, 105) !default;      // #FF6369
+$cases-color:         rgb(233, 155, 0) !default;       // #E99B00
+$recomended-color:    rgb(48, 64, 77) !default;        // #30404D
+$related-color:       rgb(255, 99, 105) !default;      // #FF6369
+$awards-color:        rgb(165, 165, 165) !default;     // #A5A5A5
+// $tools-color:         rgb(113, 85, 103) !default;      // #715567
+$tools-color:         rgb(70, 0, 29) !default;         // #46001d
+$career-color:        rgb(0, 0, 0) !default;           // #000000
+$programme-color:     rgb(70, 0, 29) !default;         // #46001D
+$others1-color:       rgb(199, 201, 53) !default;      // #C7C935
+$others2-color:       rgb(85, 135, 82) !default;       // #558752
+
+
+$acelera-color:       rgb(98, 209, 255) !default;     // #62D1FF
+$fundation-color:     rgb(206, 167, 120) !default;    // #CEA778
+
+
+// BY COLOR
+$dark-brown:          rgb(70, 0, 29) !default;         // #46001D
+$light-brown:         rgb(206, 167, 121) !default;     // #CEA779
+
+
+//
 // BOX NEWS / EVENTS COLORS
 //
 $article-color:         rgb(0, 151, 143) !default;          // #00978f
 $event-color:           rgb(70, 0, 29) !default;            // #46001d
-$insight-color:         rgb(255, 90, 96) !default;          // #ff5a60
-$cases-color:           rgb(233, 155, 0) !default;          // #e99b00
+$insight-color:         rgb(255, 99, 105) !default;         // #FF6369
+$cases-color:           rgb(233, 155, 0) !default;          // #e99b00 -- amarillo
 $related-color:         rgb(51, 117, 181) !default;         // #3375b5
+
+
+//
+// OTHERS
+//
+$others-01:       rgb(82, 65, 77) !default;         // #52414D
+$others-02:       rgb(57, 44, 0) !default;          // #392C00
+$others-03:       rgb(80, 37, 24) !default;         // #502518
+$others-04:       rgb(51, 152, 95) !default;        // #33985F
+$others-05:       rgb(38, 70, 83) !default;         // #264653
+$others-06:       rgb(235, 121, 39) !default;       // #EB7927
+$others-07:       rgb(78, 81, 102) !default;        // #4E5166
+$others-08:       rgb(120, 138, 116) !default;      // #788A74
+$others-09:       rgb(39, 7, 33) !default;          // #270721
+$others-10:       rgb(115, 104, 59) !default;       // #73683B
+$others-11:       rgb(202, 209, 120) !default;      // #CAD178
 
 
 //
 // BG BOX COLORS
 //
-$event-box-color:        rgb(246, 237, 241) !default;        // #f6edf1
+$event-box-color:        rgb(246, 237, 241) !default;        // #F6EDF1
 
 
 //
 // TABS COLORS
 //
-$tab1:      #efefef !default;
-$tab2:      #e0e0e0 !default;
-$tab3:      #d4d4d4 !default;
-$tabActive: #f7f7f7 !default;
+$tab1:      #EFEFEF !default;
+$tab2:      #E0E0E0 !default;
+$tab3:      #D4D4D4 !default;
+$tab4:      #C6C5C5 !default;
+$tabActive: #F7F7F7 !default;
 

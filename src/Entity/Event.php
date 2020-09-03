@@ -15,12 +15,12 @@ class Event extends Publishable
     use ORMBehaviors\Translatable\Translatable;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $endDate;
 
@@ -35,7 +35,7 @@ class Event extends Publishable
     private $contact;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phone;
 
@@ -55,9 +55,9 @@ class Event extends Publishable
     private $customSignup;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Speaker", cascade="persist", inversedBy="events")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", cascade="persist", inversedBy="events")
      */
-    private $speakers;
+    private $people;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
@@ -69,11 +69,24 @@ class Event extends Publishable
      */
     private $attachments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="event")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $office;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events")
+     */
+    private $programs;
+
+
     public function __construct()
     {
-        $this->speakers = new ArrayCollection();
+        $this->people = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -172,31 +185,7 @@ class Event extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Speaker[]
-     */
-    public function getSpeakers(): Collection
-    {
-        return $this->speakers;
-    }
 
-    public function addSpeaker(Speaker $speaker): self
-    {
-        if (!$this->speakers->contains($speaker)) {
-            $this->speakers[] = $speaker;
-        }
-
-        return $this;
-    }
-
-    public function removeSpeaker(Speaker $speaker): self
-    {
-        if ($this->speakers->contains($speaker)) {
-            $this->speakers->removeElement($speaker);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Activity[]
@@ -254,4 +243,74 @@ class Event extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
+    public function getOffice(): ?Office
+    {
+        return $this->office;
+    }
+
+    public function setOffice(?Office $office): self
+    {
+        $this->office = $office;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Program[]
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): self
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): self
+    {
+        if ($this->programs->contains($program)) {
+            $this->programs->removeElement($program);
+            // set the owning side to null (unless already changed)
+            if ($program->getEvents() === $this) {
+                $program->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

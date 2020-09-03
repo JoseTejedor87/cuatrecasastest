@@ -1,391 +1,372 @@
 {% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- FullCalendar CSS -->
+<link href="{{ asset('web/vendor/fullcalendar/core/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/list/main.min.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
-<main role="main" class="">
-    <article class="blog-article">
-        <header id="page-header">
-            <figure class="full-width">
-                <img class="vt45" src="{{ asset('web/assets/img/christian-perner-fYO1T495QCM-unsplash.jpg') }}" alt="">
-            </figure>
-            <div class="container">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="header-info d-flex flex-column">
-                            {# <big class="hash-text">SectoresCuatrecasas</big> #}
-                            <h1 class="order-2">
-                                Próximos Eventos
-                            </h1>
-                            <nav class="order-1" aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Sectores</a></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Lorem ipsum dolor</li>
-                                </ol>
-                            </nav>
-                            <ul class="action-icons order-3">
-                                <li><a href="#"><i class="material-icons">share</i></a></li>
-                                <li><a href="#"><i class="material-icons">print</i></a></li>
-                                <li><a href="#"><i class="material-icons">picture_as_pdf</i></a></li>
-                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                            </ul>
-                            {# <a href="#" class="back-button">volver</a> #}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <section class="event-info-wrapper">
-            <div class="container">
-                <div class="row event-search">
-                    <div class="col-8 form-group">
-                        <div class="search-name">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                            <div class="input-group">
-                                <button class="" type="button">
-                                    <i class="icon ion-ios-search-strong"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 form-group">
-                        <a href="#" class="toggle-filters" data-text-original="Mostrar filtros" data-text-swap="Ocultar filtros">Mostrar filtros</a>
-                    </div>
-                </div>
-                <div class="row event-filters">
-                    <div class="col form-group">
-                        <div class="event-filters-selects">
-                            <div class="filter-toggler">Ciudad</div>
-                            <div class="filter-toggler">Expertise</div>
-                            <div class="filter-toggler fecha">Fecha</div>
-                            <div id="datePicker" class="input-group date">
-                                <input type="text" class="input-date" placeholder="Selecciona una fecha">
-                                <span class="input-group-addon"><i class="material-icons">event</i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        {% include 'web/shared/slider-events.html.twig' %}
+    <main role="main">
+        <article class="container">
 
-        <section class="event-results-wrapper">
-            <div class="container">
-                <div class="row event-toolbar d-flex justify-content-between">
-                    <ul class="event-chooser">
-                        <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/calendar-small.png') }}" alt=""> Ver todos los eventos</a></li>
-                        <li><a href="#" class="no-link"><img src="{{ asset('web/assets/icons/favorite.png') }}" alt=""> Ver eventos favoritos</a></li>
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Próximos eventos
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Eventos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                     </ul>
-                    <ul class="event-view">
-                        <li><a href="#" id="viewEventList"><img src="{{ asset('web/assets/icons/list.png') }}" alt="list view"></a></li>
-                        <li><a href="#" id="viewEventCalendar"><img src="{{ asset('web/assets/icons/calendar.png') }}" alt="calendar view"></a></li>
-                    </ul>
+                </div>
+            </header>
+
+            <section class="search__component--global">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <form>
+                                <div class="search_box__wrapper">
+                                    <div class="search_box__name search_box__name--full">
+                                        <form >
+                                            <input type="text" class="form-control" placeholder="Buscar" id="title">
+                                            <div class="input-group">
+                                                <button class="search_box__button" type="button">
+                                                    <span class="icon4-lupa"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="search_selects">
+                                    <select id="place" class="custom__select">
+                                        <option disabled selected>Lugar</option>
+                                        {% for office in offices %}
+                                            {% if office.city  %}
+                                                <option value="{{office.id}}">{{ office.city  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <select id="expertise" class="custom__select">
+                                        <option disabled selected>Expertise</option>
+                                        {% for activity in activities %}
+                                            {% if activity.translate(app.request.getLocale()).title  %}
+                                                <option value="{{activity.id}}">{{ activity.translate(app.request.getLocale()).title|raw  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <select id="month" class="custom__select">
+                                        <option disabled selected>Mes</option>
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                    <select id="year" class="custom__select">
+                                        <option disabled selected>Año</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
+
+            <section class="event__wrapper">
+                <div class="row" id="gridFocus">
+                    <div class="col">
+                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        <div id="eventCalendar">
+                        </div>
+                        <div id="eventCalendarList">
+                        </div>
+                    </div>
+                </div>
+           </section>
+
+
+            <!-- Events List / Stand by -->
+            <!-- <section class="event__wrapper">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="event__wrapper__chooser">
+                            <button type="button" id="viewEventList" class="icon__button list active">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Calendar List">
+                            </button>
+                            <button type="button" id="viewEventCalendar" class="icon__button grid">
+                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Office/Calender_03.png') }}" alt="Calendar Grid">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <div id="eventCalendar" style="display:none"></div>
                         <div id="eventList">
-                            <article class="event-box">
-                                <div class="event-info">
-                                    <div class="event-dates">
-                                        <div data-day>24 Feb</div>
-                                        <div data-year>2019</div>
+                            <h2 class="fc-list-heading-main">4 de mayo de 2020</h2>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Barcelona</a></div>
+                                    <div class="event-date">16 febrero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
                                     </div>
-                                    <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Añadir favorito</a></li>
-                                        <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Añadir calendario</a></li>
-                                    </ul>
                                 </div>
-                                <div class="event-details">
-                                    <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
-                                    <div data-where><i class="material-icons">place</i> Barcelona</div>
-                                    <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
-                                </div>
-                                <div class="event-button">
-                                    <a href="#" class="btn-arrow-new">inscribirme</a>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
+                                    </div>
                                 </div>
                             </article>
-                            <article class="event-box">
-                                <div class="event-info">
-                                    <div class="event-dates">
-                                        <div data-day>24 Feb</div>
-                                        <div data-day>02 Mar</div>
-                                        <div data-year>2019</div>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Bilbao</a></div>
+                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
                                     </div>
-                                    <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Quitar favorito</a></li>
-                                        <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Quitar calendario</a></li>
-                                    </ul>
                                 </div>
-                                <div class="event-details">
-                                    <div data-when>De 10 a 12 h <span data-duration>(2 horas)</span></div>
-                                    <div data-where><i class="material-icons">place</i> Lisboa</div>
-                                    <h2 data-info>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt tincidunt tortor aliquam nulla. Purus in mollis nunc sed id semper risus libero volutpat sed.</h2>
-                                </div>
-                                <div class="event-button">
-                                    <a href="#" class="btn-arrow-new">inscribirme</a>
-                                    {# <a href="#" class="btn-arrow-new"><span>inscribirme</span></a> #}
-                                    {# <a href="#" class="mainBttn">
-                                        <div class="mainBttn__text">inscribirme</div>
-                                        <div class="mainBttn__border"></div>
-                                        <div class="mainBttn__bg"></div>
-                                    </a> #}
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
+                                    </div>
+                                    <div class="event-speakers">
+                                        <div class="title">ponentes</div>
+                                        <ul class="related__content">
+                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
+                                            <li><a href="#">Elvira Azaola</a></li>
+                                            <li><span>Ignacio Javier Irigoyen</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </article>
-                            <article class="event-box">
-                                <div class="event-info">
-                                    <div class="event-dates">
-                                        <div data-day>24 Feb</div>
-                                        <div data-year>2019</div>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Madrid</a></div>
+                                    <div class="event-date">17 a 19 enero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
                                     </div>
-                                    <ul class="event-actions">
-                                        <li><a href="#" class="button-favorite" data-text-original="Añadir favorito" data-text-swap="Quitar favorito">Añadir favorito</a></li>
-                                        <li><a href="#" class="button-calendar" data-text-original="Añadir calendario" data-text-swap="Quitar calendario">Añadir calendario</a></li>
-                                    </ul>
                                 </div>
-                                <div class="event-details">
-                                    <div data-when>De 18.30 a 22 h <span data-duration>(3,5 horas)</span></div>
-                                    <div data-where><i class="material-icons">place</i> Barcelona</div>
-                                    <h2 data-info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu minim veniam quis exercitation ullamco.</h2>
-                                    <ul class="speakers-wrapper">
-                                        <li data-speakers>
-                                            <figure data-speaker-photo>
-                                                <img src="{{ asset('web/assets/img/peter-van-eijk-eiDw0oX8YQQ-unsplash.jpg') }}" alt="Nombre Apellido">
-                                            </figure>
-                                            <div data-speaker-details>
-                                                <div data-speaker-name>José Luis Gutierrez García</div>
-                                                <div data-speaker-position>Asociado senior</div>
-                                            </div>
-                                        </li>
-                                        <li data-speakers>
-                                            <figure data-speaker-photo>
-                                                <img src="{{ asset('web/assets/img/yuliya-kosolapova-6agC_7WU5_0-unsplash.jpg') }}" alt="Nombre Apellido">
-                                            </figure>
-                                            <div data-speaker-details>
-                                                <div data-speaker-name>Paloma Gómez Pascual</div>
-                                                <div data-speaker-position>Asociada senior</div>
-                                            </div>
-                                        </li>
-                                        <li data-speakers>
-                                            <figure data-speaker-photo>
-                                                <img src="{{ asset('web/assets/img/anastasia-vityukova-S9gIUu5riYs-unsplash.jpg') }}" alt="Nombre Apellido">
-                                            </figure>
-                                            <div data-speaker-details>
-                                                <div data-speaker-name>María Gomez Urrutia</div>
-                                                <div data-speaker-position>Asociada senior</div>
-                                            </div>
-                                        </li>
-                                        <li data-speakers>
-                                            <figure data-speaker-photo>
-                                                <img src="{{ asset('web/assets/img/reza-biazar-eSjmZW97cH8-unsplash.jpg') }}" alt="Nombre Apellido">
-                                            </figure>
-                                            <div data-speaker-details>
-                                                <div data-speaker-name>Juan José Lopez Fernández</div>
-                                                <div data-speaker-position>Asociado senior</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="event-button">
-                                    <a href="#" class="btn-arrow-new">inscribirme</a>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
+                                    </div>
+                                    <div class="event-speakers">
+                                        <div class="title">ponentes</div>
+                                        <ul class="related__content">
+                                            <li><a href="#">Albert Garrofé</a></li>
+                                            <li><a href="#">Sonia Velasco</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </article>
-                            <div class="button-wrapper">
-                                <button class="btn btn-color ">Cargar más</button>
+                            <article class="event__list__item">
+                                <div class="event__list__details">
+                                    <div class="event-place"><a href="#">Lisboa</a></div>
+                                    <div class="event-date">10 enero 2020</div>
+                                    <div class="event-time">10.30 — 14.30</div>
+                                    <div class="event-button">
+                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
+                                    </div>
+                                </div>
+                                <div class="event__list__info">
+                                    <div class="event-intro">
+                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <div class="viewmore__button">
+                                <button type="button" class="btn btn__viewmore">Cargar más</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </article>
-</main>
-{% include 'web/shared/insights.html.twig' %}
+                <div class="row contact">
+                    <div class="col-4">
+                        <p class="emphasis">
+                            Recibe en tu correo el calendario de <strong>Eventos</strong>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <form action="" method="" class="email-subscribe">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group flex-group">
+                                <div class="checkbox">
+                                    <input id="data-privacy" name="data-privacy" type="checkbox">
+                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                </div>
+                                <button type="submit" class="btn doble__arrow__link">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section> -->
+
+
+            {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications } %}
+
+        </article>
+    </main>
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+    <!-- Loader -->
+    <div class="search__component__loader" style="display:none">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+            </path>
+        </svg>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
+<!-- Slider JavaScript-->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
+<!-- FullCalendar JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
+<!-- Events Calendar -->
+<script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
+
+
 <script>
-    $(document).ready(function () {
-        var mySwiper = new Swiper ('#sliderEvents', {
-            loop: true,
-            // autoplay: {
-            //     delay: 5000,
-            // },
-            // effect: 'fade',
-            // fadeEffect: {
-            //     crossFade: true
-            // },
-            // navigation: {
-            //     nextEl: '.swiper-button-next',
-            //     prevEl: '.swiper-button-prev',
-            // },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-                // dynamicBullets: true,
-            },
-        })
+    $( document ).ready(function() {
+        web.global.customSelects();
 
-        // Show / hide filters
-        $('.toggle-filters').click(function(e){
-            e.preventDefault();
-            $('.event-filters').slideToggle();
-
-            $('#datePicker').hide();
-            $('#datePicker .input-date').val('');
-            $('#datePicker ').datepicker('update');
-        });
-
-        // Toggle text literal buttons
-        $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('on');
-
-            var el = $(this);
-            el.text() == el.data("text-original")
-                ? el.text(el.data("text-swap"))
-                : el.text(el.data("text-original"));
-        });
-
-        $('.no-link').click(function(e){
-            e.preventDefault();
-        });
-
-        // Load DatePicker
-        var bd = $('<div class="modal-backdrop calendar"></div>');
-
-        $('#datePicker').datepicker({
-            weekStart: 1,
-            // todayHighlight: true,
-            autoclose: true,
-            // clearBtn: true,
-            orientation: "left bottom",
-            language: "es"
-        })
-        .on('show', function(e) {
-            bd.appendTo(document.body);
-        })
-        .on('hide', function(e) {
-            bd.remove();
-        });
-
-        // Toggle calendar
-        $('.filter-toggler.fecha').click(function(e){
-            e.preventDefault();
-            $('#datePicker').toggle();
-            $('#datePicker .input-date').val('');
-            $('#datePicker ').datepicker('update');
-        });
-
-    });
-
-    // Events list & calendar stuff
-    document.addEventListener('DOMContentLoaded', function() {
-
-        var eventList = document.getElementById('eventList');
-        var calendarEl = document.getElementById('eventCalendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'dayGrid' ],
-            defaultView: 'dayGridMonth',
-            locale: 'es',
-            weekNumberCalculation: 'ISO',
-            columnHeaderFormat: { weekday: 'long' },
-            header: {
-              left: 'prev',
-              center: 'title',
-              right: 'next'
-            },
-            height: 'auto',
-            events: [
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-01",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                "start":"2020-02-04",
-                "end":"2020-02-06",
-                place: 'Lisboa'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-07"
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Conference lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-12",
-                "end":"2020-02-14",
-                place: 'Madrid'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-13T10:30:00+00:00",
-                "end":"2020-02-13T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting",
-                "start":"2020-02-17T10:00:00+00:00",
-                "end":"2020-02-18T10:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lunch",
-                "start":"2020-02-17T12:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Vestibulum lorem sed risus ultricies tristique nulla aliquet enim pulvinar sapien condimentum lacinia quis",
-                "start":"2020-02-26",
-                "end":"2020-02-29",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-03-10T10:30:00+00:00",
-                "end":"2020-03-12T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-            ],
-            eventRender: function (info) {
-                if (info.event.extendedProps.place) {
-                    info.el.firstChild.innerHTML = "<div class=\"fc-title\">"+ info.event.title +"</div><div class=\"fc-place\">"+ info.event.extendedProps.place +"</div>";
+        // EVENTS
+        var year = {{ (year) ? year : "" }};
+        var month = {{ (month) ? month : "" }};
+        newCalendar( {{ eventsCalendar |raw }},month,year);
+        $(document).on("click", ".fc-icon__button__prev-button .fc-icon-chevron-left", function(){
+            month = parseInt(month)-1;
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month },
+                beforeSend: function( xhr ) {
+                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
                 }
-            }
+            })
+            .done(function( msg ) {
+                $('.search__component__loader').fadeOut();
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
+
+            })
+            .fail(function() {
+
+            });
+
         });
+        $(document).on("click", ".fc-icon__button__next-button .fc-icon-chevron-right", function(){
+            month = parseInt(month)+1;
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month },
+                beforeSend: function( xhr ) {
+                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
+                }
+            })
+            .done(function( msg ) {
+                $('.search__component__loader').fadeOut();
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
 
-        $('#viewEventCalendar').click(function(e){
-            e.preventDefault();
+            })
+            .fail(function() {
 
-            // Load Calendar
-            calendar.render();
+            });
 
-            $('#eventCalendar').show();
-            $('#eventList').hide();
         });
+        $(document).on("click", ".search_box__button", function(){
+            month = $("#month").val();
+            year = $("#year").val();
+            activity = $("#expertise").val();
+            office = $("#place").val();
+            title = $("#title").val();
+            $.ajax({
+                method: "GET",
+                url: "{{ path('get_events') }}",
+                data: { month: month, year: year, title: title, activity: activity, office: office  },
+                beforeSend: function( xhr ) {
+                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
+                }
+            })
+            .done(function( msg ) {
+                $('.search__component__loader').fadeOut();
+                $("#eventCalendar").empty();
+                newCalendar( msg,month,year);
 
-        $('#viewEventList').click(function(e){
-            e.preventDefault();
+            })
+            .fail(function() {
 
-            // Remove Calendar
-            calendar.destroy();
+            });
 
-            $('#eventCalendar').hide();
-            $('#eventList').show();
         });
     });
+
 </script>
 {% endblock %}
-

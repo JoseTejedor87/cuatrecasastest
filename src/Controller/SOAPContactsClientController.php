@@ -17,174 +17,99 @@ class SOAPContactsClientController extends AbstractController
 
     }
 
-    public function getPaises($request): Response
+    public function getPaises($LanguageId): Response
     {
-        
-        if(is_array($request->query->all())){
-            if($request->query->get('LanguageId')){
-                $LanguageId = $request->query->get('LanguageId');
-            }else{
-                $LanguageId = "";
-            }
+
             $client = new \SoapClient($this->url);
             $res  = $client->GetPaises( array ('filter' =>( array ( 'LanguageId' => $LanguageId, 'PaisId'  =>  ''))));
             $data = $res->GetPaisesResult->PaisWebDto;
             return new Response(json_encode($data));
-
-        }
         
     }
-    /**
-     * @Route("/getProvincias", name="getProvincias", methods={"GET"})
-     */
-    public function getProvincias(Request $request): Response
+
+
+    public function getProvincias($LanguageId,$PaisId): Response
     {
-        //Ejemplo http://127.0.0.1:8000/gestorcontactos/getProvincias?PaisId=es
-        if(is_array($request->query->all())){
-            if($request->query->get('LanguageId')){
-                $LanguageId = $request->query->get('LanguageId');
-            }else{
-                $LanguageId = "";
-            }
-            if($request->query->get('PaisId')){
-                $PaisId = $request->query->get('PaisId');
-            }else{
-                $PaisId = "";
-            }
-            if($request->query->get('ProvinciaId')){
-                $ProvinciaId = $request->query->get('ProvinciaId');
-            }else{
-                $ProvinciaId = "";
-            }
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->GetProvincias( array ('filter' =>( array ( 'LanguageId' => $LanguageId, 'PaisId'  =>  $PaisId, 'ProvinciaId'  =>  $ProvinciaId))));
+            $res  = $client->GetProvincias( array ('filter' =>( array ( 'LanguageId' => $LanguageId, 'PaisId'  =>  $PaisId, 'ProvinciaId'  =>  ''))));
             $data = $res->GetProvinciasResult->ProvinciaWebDto;
             return new Response(json_encode($data));
-
-        }
-        
     }
 
 
-    public function getIdiomas(Request $request): Response
+    public function getIdiomas(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getIdiomas?IdiomaId=es
-        if(is_array($request->query->all())){
-            if($request->query->get('IdiomaId')){
-                $IdiomaId = $request->query->get('IdiomaId');
-            }else{
-                $IdiomaId = "";
-            }
-            if($request->query->get('LanguageId')){
-                $LanguageId = $request->query->get('LanguageId');
-            }else{
-                $LanguageId = "";
-            }
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->GetIdiomas( array ('filter' =>( array ( 'IdiomaId' => $IdiomaId, 'LanguageId'  =>  $LanguageId))));
-            $data = $res->GetIdiomasResult->IdiomaDto;
-            return new Response(json_encode($data));
+        
+        $IdiomaId = "";
+        $LanguageId = "";
+           
+        $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+        $res  = $client->GetIdiomas( array ('filter' =>( array ( 'IdiomaId' => $IdiomaId, 'LanguageId'  =>  $LanguageId))));
+        $data = $res->GetIdiomasResult->IdiomaDto;
+        return new Response(json_encode($data));
 
-        }
+        
         
         
         
     }
 
-    public function getAreasInteres(Request $request): Response
+    public function getAreasInteres(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getAreasInteres?IdiomaId=es
 
-        if(is_array($request->query->all())){
-            if($request->query->get('AreaInteresId')){
-                $AreaInteresId = $request->query->get('AreaInteresId');
-            }else{
-                $AreaInteresId = "";
-            }
-            if($request->query->get('LanguageId')){
-                $LanguageId = $request->query->get('LanguageId');
-            }else{
-                $LanguageId = "";
-            }
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->GetAreasInteres( array ('filter' =>( array ( 'AreaInteresId' => $AreaInteresId, 'LanguageId'  => $LanguageId))));
-            $data = $res->GetAreasInteresResult->AreaInteresWebDto;
-            return new Response(json_encode($data));
-
-        }
+        $AreaInteresId = "";
+        $LanguageId = "";
+        $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+        $res  = $client->GetAreasInteres( array ('filter' =>( array ( 'AreaInteresId' => $AreaInteresId, 'LanguageId'  => $LanguageId))));
+        $data = $res->GetAreasInteresResult->AreaInteresWebDto;
+        return new Response(json_encode($data));
     }
 
-    public function getOficinas(Request $request): Response
+    public function getOficinas(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getOficinas?OficinaId=WALC
 
-        if(is_array($request->query->all())){
-            if($request->query->get('OficinaId')){
-                $OficinaId = $request->query->get('OficinaId');
-            }else{
-                $OficinaId = "";
-            }
+            $OficinaId = "";
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->GetOficinas( array ('filter' =>( array ( 'OficinaId' => $OficinaId))));
             $data = $res->GetOficinasResult->OficinaWebDto;
             return new Response(json_encode($data));
-
-        }
     }
 
-    public function getSecretarias(Request $request): Response
+    public function getSecretarias(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSecretarias?Iniciales=JH
 
-        if(is_array($request->query->all())){
-            if($request->query->get('Iniciales')){
-                $Iniciales = $request->query->get('Iniciales');
-            }else{
-                $Iniciales = "";
-            }
+            $Iniciales = "";
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->GetSecretarias( array ('filter' =>( array ( 'Iniciales' => $Iniciales))));
             $data = $res->GetSecretariasResult->SecretariaWebDto;
             return new Response(json_encode($data));
-
-        }
     }
 
-    public function getResponsablesMarketing(Request $request): Response
+    public function getResponsablesMarketing(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getResponsablesMarketing?Iniciales=LCM
 
-        if(is_array($request->query->all())){
-            if($request->query->get('Iniciales')){
-                $Iniciales = $request->query->get('Iniciales');
-            }else{
-                $Iniciales = "";
-            }
+            $Iniciales = "";
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->GetResponsablesMarketing( array ('filter' =>( array ( 'Iniciales' => $Iniciales))));
             $data = $res->GetResponsablesMarketingResult->ResponsableMarketingWebDto;
             return new Response(json_encode($data));
+   }
 
-        }
-    }
-
-    public function getSociosResponsables(Request $request): Response
+    public function getSociosResponsables(): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSociosResponsables?Iniciales=JCV
-
-        if(is_array($request->query->all())){
-            if($request->query->get('Iniciales')){
-                $Iniciales = $request->query->get('Iniciales');
-            }else{
-                $Iniciales = "";
-            }
+            $Iniciales = "";
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->GetSociosResponsables( array ('filter' =>( array ( 'Iniciales' => $Iniciales))));
             $data = $res->GetSociosResponsablesResult->SocioResponsableWebDto;
             return new Response(json_encode($data));
-
-        }
     }
+
 
     public function getContactoWebtForm(Request $request): Response
     {
@@ -287,21 +212,13 @@ class SOAPContactsClientController extends AbstractController
         }
     }
 
-    public function createContactoForGestionEventos(Request $request): Response
+    public function createContactoForGestionEventos($parametros): Response
     {
-        //Ejemplo http://127.0.0.1:8000/gestorcontactos/createContactoForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
-        if(is_array($request->query->all())){
-            if($request->query->get('Guid')){
-                $Guid = $request->query->get('Guid');
-            }
-            $parametros = $this->Contacto("test");
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->CreateContactoForGestionEventos($parametros);
             $data = $res->CreateContactoForGestionEventosResult->Data;
             return new Response(json_encode($data));
 
-        }
     }
     
 

@@ -6,19 +6,68 @@
 // MAIN BUTTON
 // --------------------------------------------------------------------------
 
-.btn__main {
-    @include reset-button;
+.button__wrapper {
+    @include when("right") {
+        text-align: right;
+    }
+}
+
+.btn__solid {
+    @include reset-link-button;
+    // padding: 0.8rem 6.2rem 0.8rem 1rem;
+    padding: 0.8rem 1rem;
+    @include fontSet(23px, 23px);
+    letter-spacing: 0.7px;
     color: $white;
     background-color: $complementary-color;
-    border: 1px solid transparent;
-    border-color: $complementary-color;
+
+    // &:after {
+    //     @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
+    //     font-size: 36px;
+    //     content: '\f3d1';
+    //     color: $white;
+    //     transform: scale(1);
+    // }
 
     @include on-event() {
         color: $white;
         text-decoration: none;
-        box-shadow: -8px 8px 0 $main-color,
-                    0 19px 38px rgba(0, 0, 0, 0.30),
-                    0 15px 12px rgba(0, 0, 0, 0.22);
+        // box-shadow: -6px 6px 0 $main-color,
+        //             0 19px 38px rgba(0, 0, 0, 0.30),
+        //             0 15px 12px rgba(0, 0, 0, 0.22);
+
+        // box-shadow: 0 3px 18px rgba(0,0,0, 0.3);
+        box-shadow: -6px 6px 0 $main-color, 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @include when("icon") {
+        padding-right: 60px;
+
+        .icon {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+
+            &:before {
+                font-size: 34px;
+                color: $white;
+            }
+        }
+
+        [class^="icon4-"], [class*=" icon4-"] {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+
+            &:before {
+                font-size: 24px;
+                color: $white;
+            }
+        }
+
+        @include on-event() {
+            box-shadow: -6px 6px 0 $main-color, 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
     }
 
     @include when("transparent") {
@@ -31,78 +80,97 @@
         @include on-event() {
             background-color: $complementary-color !important;
             border-color: $complementary-color !important;
-            box-shadow: -8px 8px 0 $main-color,
+            box-shadow: -6px 6px 0 $main-color,
                         0 19px 38px rgba(0, 0, 0, 0.30),
                         0 15px 12px rgba(0, 0, 0, 0.22);
         }
     }
 
-    @include when("bgcolor"){
+    @include when("bgcolor") {
         @include on-event() {
             background-color: $complementary-color !important;
             border-color: $complementary-color !important;
-            box-shadow: -8px 8px 0 $white,
+            box-shadow: -6px 6px 0 $white,
                         0 19px 38px rgba(0, 0, 0, 0.30),
                         0 15px 12px rgba(0, 0, 0, 0.22);
         }
     }
 }
 
+.btn__solid__arrow {
+    @include reset-link-button;
+    padding: 1rem 4rem 1rem 1rem;
+    @include fontSet(23px, 23px);
+    letter-spacing: 0.7px;
+    text-align: left;
+    color: $white;
+    background-color: $complementary-color;
+    outline: 1px solid transparent;
+    transition: all 0.3s ease-out;
 
-//
-// VIEW MORE (PLUS SYMBOL)
-// --------------------------------------------------------------------------
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(18px, 27px);
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        display: block;
+    }
 
-.viewmore__button {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 2rem;
+    &:after {
+        @include icons-4casas(12px, 30px, auto, auto);
+        content: '\e90a';
+        font-size: 32px;
+        width: 12px;
+        height: 32px;
 
-    .btn__viewmore {
-        position: relative;
-        padding: 0.5rem 3rem 0.5rem 1rem;
-        @include fontSet(16px, 16px);
-        font-weight: bold;
-        text-align: right;
-        color: $black;
-        background: none;
-        border: none;
-        border-radius: 0;
-        transition: all 0.3s ease-out;
-
-        &:after {
-            display: inline-block;
-            position: absolute;
-            top: 6px;
-            right: 2px;
-            content: '\e148';
-            font-family: 'Material Icons';
-            font-size: 36px;
-            font-weight: normal;
-            line-height: 1;
-            color: $complementary-color;
-            transform: scale(1);
-            transition: all 0.3s ease-out;
-            will-change: transform;
+        @media(max-width: $max-width-4casas) {
+            right: 1rem;
+            font-size: 16px;
         }
+    }
 
-        @include when("oneline") {
-            padding: 1rem 3rem;
+    @include on-event {
+        text-decoration: none;
+        color: $complementary-color;
+        background-color: $white;
+        outline: 1px solid $complementary-color;
+        box-shadow: 0 0 0 transparent;
+    }
+
+    // SPECIFIC
+    @include when-inside(".cta--fundation") {
+        color: $light-brown;
+        background-color: $white;
+
+        @include on-event {
+            text-decoration: none;
+            color: $white;
+            background-color: $dark-brown;
+            outline: 1px solid $light-brown;
         }
+    }
+}
 
-        @include on-event() {
-            padding-right: 4rem;
-            // color: $complementary-color;
+.btn__naked {
+    @include reset-link-button;
+    padding: 0.8rem 4rem;
+    @include fontSet(23px, 23px);
+    letter-spacing: 0.7px;
+    color: $complementary-color;
+    background-color: transparent;
+    border: 1px solid $complementary-color;
 
-            &:focus {
-                box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
-            }
+    @include on-event() {
+        color: $white;
+        background-color: $complementary-color;
+        text-decoration: none;
+    }
 
-            &:after {
-                right: 6px;
-                transform: scale(1.5) rotate(180deg);
-            }
-        }
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
 }
 
@@ -111,25 +179,424 @@
 // VIEW MORE (ARROW SYMBOL)
 // --------------------------------------------------------------------------
 
-.viewmore__arrow__button {
-    @include arrow-link($complementary-color);
-    @include fontSet(24px, 24px);
+.doble__arrow__link {
+    @include arrow-button($complementary-color);
+    @include fontSet(23px, 27px);
+    letter-spacing: 0.7px;
 
-    // @include when-inside("team") {
-    //     @include arrow-link($main-color);
-    // }
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(18px, 18px);
+        letter-spacing: 0;
+    }
+
+    @include when("download") {
+        padding: 0.3rem 2.8rem 0.3rem 0;
+
+        &:before,
+        &:after {
+            top: -3px;
+            content: '\e907';
+        }
+
+        &:before {
+            left: 0;
+        }
+
+        &:after {
+            right: 0;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            padding: 0.3rem 2.2rem 0.3rem 0;
+
+            &:before,
+            &:after {
+                top: -2px;
+            }
+        }
+
+        @include on-event {
+            padding-left: 2.6rem;
+
+            @media(max-width: $max-width-4casas) {
+                padding-left: 2rem;
+            }
+
+            &:before {
+                left: 0;
+            }
+        }
+    }
 }
 
 
 //
-// BACK BUTTON
+// VIEW MORE ACCORDION (ARROW SYMBOL)
+// --------------------------------------------------------------------------
+
+.doble__arrow__accordion {
+    @include accordion-button($complementary-color);
+    @include fontSet(23px, 23px);
+    letter-spacing: 0.7px;
+    margin-top: 1rem;
+
+    &.doble__arrow__accordion--on {
+        &:after {
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+//
+// SUBCATEGORIES BUTTON (ARROW SYMBOL)
+// --------------------------------------------------------------------------
+
+/*
+.btn__subcat {
+    flex: 1 0 auto;
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.6rem .6rem 0;
+    @include fontSet(20px, 20px);
+    color: $black;
+    border-bottom: 1px solid rgba($black, 0.1);
+    overflow: hidden;
+
+    &:after,
+    &:before {
+        @include icons-4casas(12px, auto, auto, auto);
+        content: '\e90a';
+        font-size: 32px;
+        color: $complementary-color;
+        transition: all 0.2s ease-out;
+    }
+
+    &:before {
+        left: -8px;
+        opacity: 0;
+        visibility: hidden;
+        // transition: left 0.2s ease-out, opacity 0.3s ease-in-out;
+    }
+
+    &:after {
+        right: -8px;
+        opacity: 1;
+        visibility: visible;
+        // transition: right 0.2s ease-out, opacity 0.3s ease-in-out;
+    }
+
+    @include on-event() {
+        padding-right: 1rem;
+        padding-left: 2.2rem;
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+        border-bottom: 1px solid $main-color;
+
+        &:before,
+        &:after {
+            color: $white;
+        }
+
+        &:before {
+            left: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &:after {
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(16px, 16px);
+        padding-right: 0;
+        padding-left: 0;
+        color: $complementary-color;
+        border-bottom: 1px solid rgba($black, 0.5);
+
+        &:before,
+        &:after {
+            display: none;
+            visibility: hidden;
+        }
+
+        @include on-event() {
+            padding-right: 0;
+            padding-left: 0;
+            color: $complementary-color;
+            background-color: transparent;
+            border-bottom: 1px solid rgba($black, 0.5);
+        }
+    }
+}
+*/
+
+.btn__subcat {
+    flex: 1 0 auto;
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.6rem .6rem 0;
+    @include fontSet(20px, 20px);
+    color: $black;
+    border-bottom: 1px solid rgba($black, 0.1);
+    overflow: hidden;
+
+    &:after {
+        @include icons-4casas(12px, -8px, auto, auto);
+        content: '\e90a';
+        font-size: 32px;
+        color: $complementary-color;
+        transition: all 0.2s ease-out;
+    }
+
+    @include on-event() {
+        text-decoration: none;
+        color: $complementary-color;
+        // border-bottom: 1px solid $complementary-color;
+    }
+
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(16px, 16px);
+        padding-right: 0;
+        padding-left: 0;
+        color: $complementary-color;
+        border-bottom: 1px solid rgba($black, 0.5);
+
+        &:after {
+            display: none;
+            visibility: hidden;
+        }
+
+        @include on-event() {
+            padding-right: 0;
+            padding-left: 0;
+            color: $complementary-color;
+            border-bottom: 1px solid rgba($black, 0.5);
+        }
+    }
+}
+
+
+//
+// VIEW MORE BUTTON (PLUS SYMBOL)
+// --------------------------------------------------------------------------
+
+.viewmore__button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+
+    @media(max-width: $max-width-4casas) {
+        // display: block;
+    }
+}
+
+.btn__viewmore {
+    @include reset-button;
+    position: relative;
+    height: 50px;
+    padding: 0 4.2rem 0 1rem;
+    @include fontSet(23px, 47px);
+    letter-spacing: 0.7px;
+    color: $complementary-color;
+    background-color: transparent;
+    outline: 1px solid $complementary-color;
+
+    @media(max-width: $max-width-4casas) {
+        width: 100%;
+        height: 45px;
+        @include fontSet(18px, 44px);
+        letter-spacing: 0;
+    }
+
+    &:before,
+    &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline-block;
+    }
+
+    &:before {
+        width: 50px;
+        height: 50px;
+        content: '';
+        background-color: $complementary-color;
+        transition: background-color 0.3s ease-in-out;
+
+        @media(max-width: $max-width-4casas) {
+            width: 45px;
+            height: 45px;
+        }
+    }
+
+    &:after {
+        @include icons-4casas(9px, 7px, auto, auto);
+        font-size: 30px;
+        content: '\e90a';
+        color: $white;
+        // transform: scale(1);
+        transition: all 0.2s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            font-size: 20px;
+            top: 12px;
+            right: 10px;
+        }
+    }
+
+    @include when("plus") {
+        &:after {
+            @include icons-material(8px, 8px, auto, auto);
+            @include fontSet(32px, 32px);
+            content: '\e145';
+            color: $white;
+            // transform: scale(1);
+            transition: all 0.2s ease-out;
+        }
+    }
+
+    @include on-event() {
+        color: $white;
+        background-color: $complementary-color;
+        outline: 1px solid $complementary-color;
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+
+        &:before {
+            background-color: $main-color;
+        }
+
+        &:after {
+            color: $complementary-color;
+            // transform: scale(1.2);
+        }
+    }
+}
+
+
+//
+// ARROW BUTTON (GENERAL & TOOLS)
+// --------------------------------------------------------------------------
+
+.btn__arrow {
+    @include reset-button;
+    flex: 1 0 auto;
+    position: relative;
+    min-height: 50px;
+    padding: 0.8rem 4.2rem 0.8rem 1rem;
+    @include fontSet(23px, 27px);
+    letter-spacing: 0.7px;
+    color: $complementary-color;
+    outline: 1px solid $complementary-color;
+
+    @media(max-width: $max-width-4casas) {
+        display: block;
+        min-height: 45px;
+        padding: 0.5rem 4.2rem 0.5rem 1rem;
+        @include fontSet(18px, 28px);
+        letter-spacing: 0;
+
+        @include when-inside(".buttons__list__item") {
+            @include fontSet(18px, 20px);
+        }
+    }
+
+    @include when("solid") {
+        color: $white;
+        background-color: $complementary-color;
+    }
+
+    &:before,
+    &:after {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &:before {
+        width: 3rem;
+        height: 100%;
+        content: '';
+        background-color: $complementary-color;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    &:after {
+        @include icons-4casas(calc(50% - 16px), auto, auto, calc(100% - 38px));
+        font-size: 30px;
+        content: '\e90a';
+        color: $white;
+        // transform: scale(1);
+        transition: color 0.2s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            @include icons-4casas(calc(50% - 11px), auto, auto, calc(100% - 33px));
+            font-size: 20px;
+        }
+    }
+
+    @include on-event() {
+        text-decoration: none;
+        color: $white;
+        background-color: $complementary-color;
+        outline: 1px solid $complementary-color;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+
+        // &:focus {
+        //     box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25)
+        // }
+
+        &:before {
+            background-color: $main-color;
+        }
+
+        &:after {
+            color: $complementary-color;
+            // transform: scale(1.2);
+        }
+    }
+
+    @include when-inside(".tools") {
+        padding: 1rem 6.2rem 1rem 1rem;
+        color: $main-color;
+
+        &:before {
+            width: 5.2rem;
+        }
+
+        &:after {
+            @include icons-4casas(calc(50% - 14px), auto, auto, calc(100% - 54px));
+            font-size: 28px;
+            transition: color 0.2s ease-in-out;
+
+            @media(max-width: $max-width-4casas) {
+                top: calc(50% - 10px);
+                left: calc(100% - 50px);
+                font-size: 20px;
+            }
+        }
+
+        @include on-event() {
+            color: $white;
+        }
+    }
+}
+
+
+//
+// BACK BUTTON (ARROW SYMBOL)
 // --------------------------------------------------------------------------
 
 .back__button {
-    @include arrow-link-reverse($complementary-color);
+    @include arrow-button-reverse($complementary-color);
     position: absolute;
     top: 2rem;
-    @include fontSet(16px, 16px);
+    @include fontSet(16px, 20px);
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -140,29 +607,39 @@
 // --------------------------------------------------------------------------
 
 .button__bookmark {
-    position: relative;
-    width: 44px;
-    height: 44px;
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    width: 40px;
+    height: 40px;
     margin: 0 0;
-    padding: 0.2em;
-    color: red;
+    padding: 0 0;
+    color: transparent;
+    background: none;
     background-color: transparent;
     border: none;
     border-color: transparent;
     border-radius: 50%;
+    overflow: hidden;
     transition: all 0.3s ease-out;
 
+    @media(max-width: $max-width-4casas) {
+        width: 30px;
+        height: 30px;
+    }
+
     &:after {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        // display: inline-block;
-        // width: 1px;
-        // height: 1px;
+        @include icons-material(4px, 0, auto, auto);
+        position: relative;
+        font-size: 28px;
         content: '\e867';
-        font-family: 'Material Icons';
-        @include fontSet(40px, 40px);
-        font-weight: normal;
+        color: $complementary-color;
+        transform: scale(1.3);
+        transition: all 0.2s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            font-size: 22px;
+        }
     }
 
     @include on-event() {
@@ -172,15 +649,15 @@
         outline: none;
 
         &:after {
-            top: 6px;
-            left: 6px;
-            @include fontSet(32px, 32px);
+            color: $white;
+            transform: scale(1);
         }
     }
 
-    &.on {
+    @include when("on") {
         &:after {
             content: '\e866';
+            color: $complementary-color;
         }
     }
 }
@@ -191,12 +668,20 @@
 // --------------------------------------------------------------------------
 
 .icon__button {
+    @include reset-button;
     display: block;
     width: 40px;
     height: 40px;
-    margin: 0 6px;
-    outline: 4px solid transparent;
-    transition: all 0.2s ease-out;
+    margin: 0 0.2rem;
+    text-align: center;
+    // outline: 4px solid transparent;
+
+    [class^="icon4-"], [class*=" icon4-"] {
+        &:before {
+            font-size: 30px;
+            color: $main-color;
+        }
+    }
 
     img {
         width: 100%;
@@ -205,10 +690,224 @@
     }
 
     @include on-event() {
-        outline: 4px solid $complementary-color;
+        // outline: 4px solid $complementary-color;
+
+        [class^="icon4-"], [class*=" icon4-"] {
+            &:before {
+                color: $complementary-color;
+            }
+        }
     }
 
     &.active {
-        outline: 4px solid $complementary-color;
+        // outline: 4px solid $complementary-color;
+        [class^="icon4-"], [class*=" icon4-"] {
+            &:before {
+                color: $complementary-color;
+            }
+        }
     }
+}
+
+
+//
+// BOX NEWS BUTTONS
+// --------------------------------------------------------------------------
+
+.plain__button {
+    @include background-link($complementary-color, $white, $complementary-color);
+}
+
+.floating__arrow__img {
+    @include reset-button;
+    @include fontSet(43px, 47px);
+    position: relative;
+    display: block;
+    margin: 0 0;
+    padding: 0 0 2rem 0;
+    text-decoration: none;
+    color: $complementary-color;
+    transition: all 0.2s ease-in-out;
+
+    &:after {
+        @include icons-4casas(auto, -6px, 0, auto);
+        @include fontSet(26px, 26px);
+        content: '\e90a';
+        color: $complementary-color;
+        transition: all 0.2s ease-out;
+    }
+
+    @include on-event {
+        color: $main-color;
+        text-decoration: none;
+        overflow: hidden;
+
+        &:after {
+            right: 2px;
+            color: $main-color;
+            transform: rotate(90deg) scale(1.2);
+        }
+    }
+
+    //
+    // RESPONSIVE
+    // --------------------------------------------------------------------------
+    @media(max-width: $max-width-4casas) {
+        padding: 0 0 0 0;
+        @include fontSet(24px, 32px);
+        text-transform: uppercase;
+
+        &:after {
+            bottom: 5px;
+        }
+    }
+}
+
+.floating__arrow__txt {
+    @include reset-button;
+    @include fontSet(43px, 47px);
+    position: relative;
+    display: block;
+    margin: 0 0;
+    padding: 0 0 2rem 0;
+    text-decoration: none;
+    color: $complementary-color;
+    transition: all 0.2s ease-in-out;
+
+    &:after {
+        @include icons-4casas(auto, -6px, 0, auto);
+        @include fontSet(26px, 26px);
+        content: '\e90a';
+        color: $complementary-color;
+        transition: all 0.2s ease-in-out;
+    }
+
+    @include on-event {
+        color: $main-color;
+        text-decoration: none;
+        overflow: hidden;
+
+        &:after {
+            color: $main-color;
+        }
+    }
+
+    //
+    // RESPONSIVE
+    // --------------------------------------------------------------------------
+    @media(max-width: $max-width-4casas) {
+        padding: 0 0 0 0;
+        @include fontSet(24px, 32px);
+        text-transform: uppercase;
+
+        &:after {
+            bottom: 5px;
+        }
+    }
+}
+
+
+//
+// BACKGROUND LINK
+// --------------------------------------------------------------------------
+
+.box__link {
+    @include background-link($complementary-color, $white, $complementary-color);
+}
+
+
+//
+// FULL BOX INVISIBLE LINK
+// --------------------------------------------------------------------------
+
+.box__link__trans {
+    @include box-full-link;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding: 1rem;
+
+    @media(max-width: $max-width-4casas) {
+        min-height: 160px;
+    }
+
+    @include when-inside(".boxnews--regions") {
+        background-color: rgba($black, 0.01);
+    }
+
+    h5 {
+        @include fontSet(33px, 33px);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(20px, 20px);
+        }
+    }
+
+    p {
+        @include fontSet(23px, 27px);
+        letter-spacing: 0.4px;
+        margin-bottom: 2.5rem;
+        transition: all 0.2s ease-in-out;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(14px, 20px);
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &:after {
+        @include icons-4casas(auto, 0.6rem, 1rem, auto);
+        @include fontSet(26px, 26px);
+        content: '\e90a';
+        color: $complementary-color;
+        transition: all 0.2s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 16px);
+        }
+    }
+
+    @include on-event {
+        text-decoration: none;
+        background-color: rgba($black, 0.01);
+
+        p {
+            color: $complementary-color;
+        }
+
+        &:after {
+            // transform: rotate(90deg) scale(1.2);
+            transform: scale(1.5) rotate(45deg);
+        }
+    }
+
+    @include when("download") {
+        &:after {
+            @include fontSet(26px, 26px);
+            right: 1rem;
+            content: '\e907';
+        }
+
+        @include on-event {
+            &:after {
+                bottom: 1.2rem;
+                transform: scale(1.5) rotate(0deg);
+            }
+        }
+    }
+}
+
+
+//
+// VIDEO BUTTON
+// --------------------------------------------------------------------------
+
+.btn__video {
+    display: block;
+    width: 82px;
+    height: 82px;
+    border: 4px solid $complementary-color;
+    border-radius: 50%;
 }

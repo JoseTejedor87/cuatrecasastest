@@ -2,7 +2,19 @@
 // INSIGHTS COMPONENT
 // ==========================================================================
 
+
+@include new("insights__grid") {
+}
+
 @include new("insight") {
+    position: relative;
+    // background-color: rgba($black, 0.03);
+
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.03));
+        @include reset-full-scren;
+    }
 
     .col {
         padding-right: 0;
@@ -15,21 +27,25 @@
 
     @include has("highlight") {
         display: flex;
-        background-color: $event-box-color;
 
         > * {
-            flex: 1;
-            width: 100%;
+            flex: 0 1 50%;
+            width: 50%;
         }
-
     }
 
     //
-    // CAROUSEL ADJUSTMENTS
+    // CAROUSEL ADJUSTMENTS [cmp11] CASOS
     //
 
     @include when("carousel") {
-        background-color: rgba($black, 0.05);
+        position: relative;
+        // background-color: rgba($black, 0.05);
+
+        &:before {
+            @include reset-pseudo(rgba($black, 0.05));
+            @include reset-full-scren;
+        }
 
         .swiper-container {
             // full screen slider (overflow)
@@ -39,41 +55,50 @@
             margin-left: -1rem;
             margin-right: -1rem;
             // extra space
-            margin-bottom: 3rem;
+            // margin-bottom: 3rem;
         }
 
         .swiper-slide {
             // reset width
-            width: 67%;
+            width: 66%;
+            // width: 50%;
             // forze same height items
             height: auto;
             // outside elements opacity
             opacity: 0.3;
+            pointer-events: none;
             transition: opacity 0.2s ease-in-out;
 
             // focus element opacity
-            &-active,
-            &-next {
+            &-active {
                 opacity: 1;
+                pointer-events: auto;
             }
-
-            // don't make sense!
-            // &-next {
-            //     .insight__img {
-            //         opacity: 0.3;
-            //     }
-            // }
         }
 
-        // last child reset
-        // .swiper-slide-active + .swiper-slide-next:last-child {
-        //     border: 1px solid blue;
+        .swiper-wrapper {
+            margin-bottom: 1rem;
+            pointer-events: none;
+        }
 
-        //     .insight__img {
-        //         border: 1px solid red;
-        //         opacity: 1;
-        //     }
-        // }
+        .swiper-container-horizontal {
+            > .swiper-scrollbar {
+                position: absolute;
+                left: 1.5%;
+                bottom: 0;
+                width: 97%;
+                height: 1px;
+                border-radius: 0;
+                background: rgba(0,0,0,0.2);
+            }
+
+            .swiper-scrollbar-drag {
+                top: -3px;
+                height: 7px;
+                border-radius: 0;
+                background: $complementary-color;
+            }
+        }
     }
 
     //
@@ -87,17 +112,29 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: box-shadow 0.2s ease-out;
 
+        @media(max-width: $max-width-4casas) {
+            flex-flow: column;
+            flex-wrap: nowrap;
+        }
+
         .insight__article {
             width: 50%;
+
+             @media(max-width: $max-width-4casas) {
+                width: 100%;
+            }
         }
 
         .insight__img {
             width: 50%;
-        }
 
-        // > * {
-        //     width: 50%;
-        // }
+             @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: 100%;
+                min-height: 120px;
+                background-size: cover;
+            }
+        }
 
         @include on-event() {
             box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 12px rgba(0, 0, 0, 0.1);
@@ -109,7 +146,7 @@
     //
 
     @include has("article") {
-        padding: 2rem 4vw 2rem $screen-width;
+        padding: 2rem 0;
 
         @include when-inside(".insight--carousel") {
             padding: 1rem 2rem;
@@ -121,32 +158,55 @@
             @include fontSet(20px, 20px);
             font-weight: bold;
             text-transform: uppercase;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 1rem;
+                @include fontSet(12px, 12px);
+            }
         }
 
         @include has("content") {
             margin-bottom: 6rem;
 
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 2rem;
+            }
+
             @include when-inside(".insight--carousel") {
                 margin-bottom: 10rem;
+
+                @media(max-width: $max-width-4casas) {
+                    min-height: 220px;
+                    margin-bottom: 0;
+                }
             }
         }
 
             @include has("title") {
-                @include fontSet(44px, 44px);
+                @include fontSet(58px, 58px);
                 color: $complementary-color;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(30px, 35px);
+                }
 
                 @include when-inside(".insight--carousel") {
                     @include fontSet(40px, 44px);
                     color: $cases-color;
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(20px, 25px);
+                    }
                 }
             }
 
             @include has("link") {
-                @include fontSet(44px, 46px);
-                @include box-link($main-color, $main-color, $event-box-color);
+                @include fontSet(58px, 58px);
+                @include classic-link($main-color, $complementary-color, $border: false);
+                // @include fancy-link($main-color, $main-color, #F7F7F7, $header: true);
 
-                @include when-inside(".insight--carousel") {
-                    @include box-link($main-color, $main-color, $white);
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(30px, 35px);
                 }
             }
 
@@ -156,16 +216,28 @@
 
                 @include when-inside(".insight--carousel") {
                     color: $main-color;
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(20px, 25px);
+                    }
                 }
             }
 
         @include has("viewmore") {
             position: absolute;
             bottom: 2rem;
+
+            @media(max-width: $max-width-4casas) {
+                bottom: 9rem;
+            }
         }
 
         @include has("meta") {
             margin-bottom: 4rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 0;
+            }
 
             @include has("info") {
                 @include fontSet(16px, 16px);
@@ -184,8 +256,14 @@
             }
         }
 
-    @include has("img") {
-        @include cover-vector();
+    @include has("vector") {
+        @include stretch-to-right;
+
+        @media(max-width: $max-width-4casas) {
+            width: 100vw;
+            height: 240px;
+            margin: 0 0 0 -6vw;
+
+        }
     }
 }
-

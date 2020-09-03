@@ -2,11 +2,18 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link href="https://www.cuatrecasas.com/favicon.ico" rel="shortcut icon" />
-        <title>{% block title %}Cuatrecasas Web{% endblock %}</title>
+        {% set canonical = app.request.attributes.get('_route') ? url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) : '' %}
+        {% if canonical %}
+            <link rel="canonical" href="{{ canonical }}" />
+        {% endif %}
+        <title>{% block title %}{{ navigation_service.getPageTitleByPublishable() }}{% endblock %}</title>
+        <meta name="robots" content="{% block metaRobots %}{{ navigation_service.getMetaRobotsByPublishable() }}{% endblock %}" />
+        <meta name="description" content="{% block metaDescription %}{{ navigation_service.getMetaDescriptionByPublishable() }}{% endblock %}" />
+        {% include 'web/tools/hreflang.html.twig' %}
         {% include 'web/tools/stylesheets.html.twig' %}
         {% block stylesheets %}{% endblock %}
     </head>

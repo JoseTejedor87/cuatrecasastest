@@ -25,7 +25,7 @@ class loginController extends AbstractController
         // dump($client->__getLastRequestHeaders());
         $data = $res->ValidateSSOResult->Data;
         $result = $res->ValidateSSOResult->Result;
-        
+
         if($result){
             $session = new Session();
             $session->start();
@@ -42,9 +42,6 @@ class loginController extends AbstractController
             // ]);
     }
 
-    /**
-     * @Route("/logout", name="app_logout", methods={"GET"})
-     */
     public function logout()
     {
         // controller can be blank: it will never be executed!

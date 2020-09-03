@@ -13,6 +13,7 @@ class MigrationCommand extends Command
     protected static $defaultName = 'app:migration';
     private $container;
     private $logger;
+    
     public function __construct(ContainerInterface $container, LoggerInterface $logger)
     {
         parent::__construct();
@@ -61,6 +62,9 @@ class MigrationCommand extends Command
                 case "activity":
                     $this->Activity($conn);
                     break;
+                case "relatedActivities":
+                    $this->relatedActivities($conn);
+                    break;
                 case "event":
                     $this->Eventos($conn,$output);
                     break;
@@ -69,6 +73,15 @@ class MigrationCommand extends Command
                     break;
                 case "eventosPonente":
                     $this->EventosPonente($conn,$output);
+                    break;
+                case "oficinaEventos":
+                    $this->OficinaEventos($conn,$output);
+                    break;
+                case "EventosPrograma":
+                    $this->EventosPrograma($conn,$output);
+                    break;
+                case "EventosProgramaPonente":
+                    $this->EventosProgramaPonente($conn,$output);
                     break;
                 case "abogadoArea":
                     $this->AbogadoArea($conn,$output);
@@ -90,10 +103,11 @@ class MigrationCommand extends Command
                     break;
                 case "noticias":
                     $this->Noticias($conn,$output);
-                    break;     
-                case "noticiasIdioma":
                     $this->NoticiasIdioma($conn,$output);
-                    break;  
+                    $this->NoticiasAbogados($conn,$output);
+                    $this->NoticiasPractica($conn,$output);
+                    $this->NoticiasOficina($conn,$output);
+                    break;      
                 case "publicaciones":
                     $this->Publicaciones($conn,$output);
                     $this->PublicacionesIdiomas($conn,$output);
@@ -147,6 +161,22 @@ class MigrationCommand extends Command
     // - sectorial
     // - legal
     }
+    public function relatedActivities($conn){
+        $query = "SELECT  [id_area_padre] ,[id_area_hija] FROM areas_relacionades  ORDER BY [id_area_padre] , [id_area_hija] desc";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/areas_relacionades.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla areas_relacionades');
+        $this->logger->info('Se ha guardado con el nombre areas_relacionades.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+
+    // activity
+    // - sectorial
+    // - legal
+    }
     public function EventosArea($conn,$output){
         $query = "SELECT [id_evento] ,[id_area] ,[id_area_sub]  FROM eventos_area";        $stmt = $conn->prepare($query);
         $stmt->execute();
@@ -169,6 +199,7 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     } 
+
     public function AbogadoArea($conn,$output){
         $query = "SELECT  [id_abogado] ,[id_area] ,[id_area_sub] ,[principal] FROM abogado_area";       
         $stmt = $conn->prepare($query);
@@ -238,6 +269,18 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/OficinaAbogado.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla OficinaAbogado');
         $this->logger->info('Se ha guardado con el nombre OficinaAbogado.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function OficinaEventos($conn,$output){
+        $query = "SELECT [id_evento], [id_oficina] FROM eventos_oficina";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/OficinaEventos.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla OficinaEventos');
+        $this->logger->info('Se ha guardado con el nombre OficinaEventos.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
@@ -334,6 +377,67 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/PublicacionesOficina.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla PublicacionesOficina');
         $this->logger->info('Se ha guardado con el nombre PublicacionesOficina.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+
+    public function NoticiasAbogados($conn,$output){
+        $query = "SELECT [noticia_id] ,[abogado_id] FROM NoticiaAbogado";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiasAbogados.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiasAbogados');
+        $this->logger->info('Se ha guardado con el nombre NoticiasAbogados.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function NoticiasPractica($conn,$output){
+        $query = "SELECT [noticia_id] ,[practica_id] FROM NoticiaPractica";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiaPractica.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiaPractica');
+        $this->logger->info('Se ha guardado con el nombre NoticiaPractica.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function NoticiasOficina($conn,$output){
+        $query = "SELECT [noticia_id] ,[oficina_id]  FROM NoticiaOficina";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/NoticiaOficina.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla NoticiaOficina');
+        $this->logger->info('Se ha guardado con el nombre NoticiaOficina.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function EventosPrograma($conn,$output){
+        $query = "SELECT [id_programa] ,[id_evento] ,[lang] ,[hash] ,[fecha] ,[titulo] ,[descripcion] FROM eventos_programa";        
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/eventosPrograma.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_programa');
+        $this->logger->info('Se ha guardado con el nombre eventosPrograma.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    } 
+    public function EventosProgramaPonente($conn,$output){
+        $query = "SELECT [id] ,epp.[id_programa],[id_evento] ,[lang] ,[nombre]  ,[apellidos] ,[link] ,[id_abogado] ,[hash]  FROM eventos_ponente ep right JOIN eventos_programa_ponentes epp ON ep.[hash] = epp.[hash_ponente];";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/EventosProgramaPonente.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla EventosProgramaPonente');
+        $this->logger->info('Se ha guardado con el nombre EventosProgramaPonente.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }

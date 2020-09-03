@@ -1,272 +1,58 @@
-<section class="boxnews boxnews--slider">
-    <div class="container-fluid">
+<section class="boxnews bg__grey__03">
+    <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title">Contenido relacionado</h4>
-                <div class="swiper__nav__wrapper">
-                    <div class="swiper__nav__buttons">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-                <div id="sliderNews" class="swiper-container">
+                <h4 class="section__title section__title{% if classTittle is defined %}{{ classTittle }}{% else %}--insight{% endif %}">
+                    {% if tittle is defined %}
+                        {{ tittle }}
+                        {% else %}
+                        Contenido relacionado
+                    {% endif %}
+                </h4>
+                <div class="swiper-container slider__general">
                     <div class="swiper-wrapper">
+                    {% for key,publication in publications %}
+                    {% if publication.translate(app.request.getLocale()).title %}
                         <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--article">
+                            <article class="boxnews__item boxnews__item--news">
                                 <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">Educación</div>
+                                    <div class="boxnews__type">{{ publication.type }}</div>
+                                    <div class="boxnews__info">Education</div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La CNMC archiva de nuevo un expediente sobre el sistema de doble precio de los laboratorios farmacéuticos
+                                        <a href="{{ path('publications_detail', {slug: publication.translate(app.request.getLocale()).slug}) }}" class="boxnews__link">
+                                            {{ publication.translate(app.request.getLocale()).title|raw }}
                                         </a>
                                     </h5>
                                     <div class="boxnews__meta">
-                                        <div class="boxnews__meta__date">8 Marzo 2020</div>
-                                        <div class="boxnews__meta__author">Antoni-Jesús Pérez de Gregorio</div>
+                                        <div class="boxnews__meta__date">{{ publication.fechaPubli }}</div>
+                                        <div class="boxnews__meta__author">{% for person in publication.people %} {{ person.lawyer.name }} {{ person.lawyer.surname }} {% endfor %}</div>
                                     </div>
                                 </div>
+                                {% if publication.activities|length > 1 %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
+                                    {% for activity in publication.activities %}
                                         <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                MERCANTIL Y SOCIETARIO
+                                            <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
+                                                 {{ activity.translate(app.request.getLocale()).title|raw}}
                                             </a>
                                         </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                ARBITRAJE
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                PENAL
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LITIGACIÓN
-                                            </a>
-                                        </li>
+                                     {% endfor %}
                                     </ul>
                                 </div>
+                               {% endif %}
                             </article>
                         </div>
-                        <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--event">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Evento</div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Mesa redonda: información privilegiada y otra información relevante
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__meta">
-                                        <div class="boxnews__meta__place">Barcelona</div>
-                                        <div class="boxnews__meta__date">26 Febrero 2020 a 8 Marzo 2020</div>
-                                        <div class="boxnews__meta__time">10.30 — 14.30</div>
-                                    </div>
-                                </div>
-                                <div class="boxnews__footer">
-                                    <ul class="related__services">
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                MERCANTIL Y SOCIETARIO
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                ARBITRAJE
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                PENAL
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LITIGACIÓN
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="swiper-slide">
-                    <article class="boxnews__item boxnews__item--event">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">Evento</div>
-                        </div>
-                        <div class="boxnews__content">
-                            <h5 class="boxnews__copy">
-                                <a href="#" class="boxnews__link">
-                                    Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020
-                                </a>
-                            </h5>
-                            <div class="boxnews__meta">
-                                <div class="boxnews__meta__place">Barcelona</div>
-                                <div class="boxnews__meta__date">26 Febrero 2020 a 8 Marzo 2020</div>
-                                <div class="boxnews__meta__time">10.30 — 14.30</div>
-                            </div>
-                        </div>
-                        <div class="boxnews__footer">
-                            <ul class="related__services">
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        LABORAL
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        LOGÍSTICA Y TRANSPORTE
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        HOTELES, TURISMO Y OCIO
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
-                        </div>
-                        <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--article">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Noticia</div>
-                                    <div class="boxnews__info">Educación</div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La CNMC archiva de nuevo un expediente sobre el sistema de doble precio de los laboratorios farmacéuticos
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__meta">
-                                        <div class="boxnews__meta__date">8 Marzo 2020</div>
-                                        <div class="boxnews__meta__author">Antoni-Jesús Pérez de Gregorio</div>
-                                    </div>
-                                </div>
-                                <div class="boxnews__footer">
-                                    <ul class="related__services">
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                MERCANTIL Y SOCIETARIO
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                ARBITRAJE
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                PENAL
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LITIGACIÓN
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--article">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Artículo</div>
-                                    <div class="boxnews__info">Internacional</div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            Cuatrecasas asesora a JD Sports y Sprinter en la integración con Sport Zone en España y Portugal
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__meta">
-                                        <div class="boxnews__meta__date">9 Marzo 2020</div>
-                                        <div class="boxnews__meta__author">Guillermo García</div>
-                                    </div>
-                                </div>
-                                <div class="boxnews__footer">
-                                    <ul class="related__services">
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LABORAL
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                DEPORTE
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                LOGÍSTICA Y TRANSPORTE
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--event">
-                                <div class="boxnews__header">
-                                    <div class="boxnews__type">Evento</div>
-                                </div>
-                                <div class="boxnews__content">
-                                    <h5 class="boxnews__copy">
-                                        <a href="#" class="boxnews__link">
-                                            La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos
-                                        </a>
-                                    </h5>
-                                    <div class="boxnews__meta">
-                                        <div class="boxnews__meta__place">Barcelona</div>
-                                        <div class="boxnews__meta__date">26 Febrero 2020 a 8 Marzo 2020</div>
-                                        <div class="boxnews__meta__time">10.30 — 14.30</div>
-                                    </div>
-                                </div>
-                                <div class="boxnews__footer">
-                                    <ul class="related__services">
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Fiscal
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Dac 6
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Nacional
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Comercio
-                                            </a>
-                                        </li>
-                                        <li class="related__services__item">
-                                            <a href="#" class="related__services__link">
-                                                Infraestructuras
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
+                    {% endif %}
+                    {% endfor %}
                     </div>
+                    <div class="swiper-scrollbar"></div>
                 </div>
-
+                <div class="viewmore__button">
+                    <button type="button" class="btn btn__viewmore">Ver más</button>
+                </div>
             </div>
         </div>
     </div>

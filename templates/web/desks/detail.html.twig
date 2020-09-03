@@ -1,0 +1,133 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="lawyer">
+        <article class="container">
+
+            {% set photo = desk.photo ? (asset('/resources/' ~ desk.photo.fileName) | imagine_filter('desks_header')) : '' %}
+
+            <header class="row page__header" style="background-image: url('{{ photo }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ desk.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('desks_index') }}">{{ 'sections.desks.title'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ desk.translate(app.request.getLocale()).title|raw }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="row page__block--full">
+                <div class="col">
+                    {{ desk.translate(app.request.getLocale()).summary|raw }}
+                </div>
+            </section>
+
+            <section class="row page__block--aside">
+                <div class="col">
+                    <div class="page__block__content">
+                        <p>{{ desk.translate(app.request.getLocale()).description|raw }}</p>
+                    </div>
+
+                    <div class="page__block__aside">
+                        {% if desk.children|length > 0 %}
+                            <div class="page__aside">
+                                <h3 class="page__aside__title">{{ 'sections.desks.specialities'|trans }}</h3>
+                                <ul class="page__aside__list--specialties">
+                                    {% for desk in desk.children %}
+                                        <li><a href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {% if desk.quote|length > 0 %}
+                        <div class="page__aside page__aside--nobg">
+                            {% for quote in desk.quote %}
+                            <blockquote class="cite__quote">
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
+                            </blockquote>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if desk.relatedActivities|length > 0 %}
+                            <div class="page__aside page__aside--desks">
+                                <h3 class="page__aside__subtitle">{{ 'sections.desks.relatedActivities'|trans }}</h3>
+                                <ul class="related__services">
+                                    {% for activity in desk.relatedActivities %}
+                                        <li class="related__services__item">
+                                            <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% if desk.lawyers|length > 0 %}
+        {% include 'web/shared/team.html.twig' with {
+            lawyers:desk.lawyers|slice(0, 5),
+            fixed_activity: desk.translate(app.request.getLocale()).title
+        } %}
+    {% endif %}
+
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+    {% endif %}
+
+    {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        web.global.sliderGeneral();
+        web.global.sliderAwards();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    });
+</script>
+{% endblock %}

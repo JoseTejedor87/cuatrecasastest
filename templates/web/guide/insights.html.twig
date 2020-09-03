@@ -1,4 +1,4 @@
-{% extends 'web/baseNew.html.twig' %}
+{% extends 'web/base.html.twig' %}
 
 {% block main %}
 
@@ -45,7 +45,7 @@
                                 <input type="text" class="form-control" placeholder="Buscar">
                                 <div class="input-group">
                                     <button class="" type="button">
-                                        <i class="icon ion-ios-search-strong"></i>
+                                        <span class="icon4-lupa"></span>
                                     </button>
                                 </div>
                             </div>
@@ -158,20 +158,20 @@
 
     </main>
 
-    {% include 'web/shared/insights.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
 <!-- Isotope JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('web/vendor/isotope.pkgd.min.js') }}"></script> -->
 <script>
-    $('.grid-masonry').isotope({
-        itemSelector: '.grid-item',
-        // percentPosition: true,
-        masonry: {
-            columnWidth: '.grid-sizer'
-        }
-    });
+    // $('.grid-masonry').isotope({
+    //     itemSelector: '.grid-item',
+    //     // percentPosition: true,
+    //     masonry: {
+    //         columnWidth: '.grid-sizer'
+    //     }
+    // });
 </script>
 {% endblock %}

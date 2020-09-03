@@ -1,28 +1,23 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<!-- Slider CSS -->
-<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
-    <main role="main" class="services">
-        <article class="container-fluid">
+    <main role="main">
+        <article class="container">
 
-            <header class="row page__header page__header--opacity" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Áreas de práctica
+                            {{ 'sections.products.title' | trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Áreas de práctica
+                                    {{ 'sections.products.title' | trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -36,44 +31,33 @@
             </header>
 
             <section class="tabs__component">
-                <!-- Tabs -->
-                <div class="row">
-                    <div class="col tabs__component__tabs">
+                <div class="tabs__component__full">
+                    <div class="tabs__component__tabs tabs--products">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/practiceAreas')}}" class="nav-link">Áreas de práctica</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/desks')}}" class="nav-link">Desks</a>
+                                <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ relative_path('/services/products')}}" class="nav-link active">Otros servicios</a>
+                                <a href="{{ path('products_index') }}" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <div class="tabs__component__content">
+                    {% include 'web/services/shared/products-grid.html.twig'  %}
+                </div>
 
-                <!-- Content -->
-                {% include 'web/shared/products-grid.html.twig' %}
-                {% include 'web/shared/products-tools.html.twig' %}
+                {% include 'web/services/shared/products-tools.html.twig' %}
 
             </section>
 
         </article>
     </main>
 
+    {% include 'web/shared/insight.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
-    {% include 'web/shared/insightsHighlight.html.twig' %}
-    {% include 'web/shared/call-to-action.html.twig' %}
-
-{% endblock %}
-
-{% block javascripts %}
-<!-- Slider JS -->
-<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        web.global.sliderNews();
-    });
-</script>
 {% endblock %}

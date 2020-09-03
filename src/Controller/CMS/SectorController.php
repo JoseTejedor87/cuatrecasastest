@@ -13,14 +13,8 @@ use App\Form\SectorFormType;
 use App\Repository\SectorRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/sectors")
- */
 class SectorController extends CMSController
 {
-    /**
-     * @Route("/", name="sector_index", methods={"GET"})
-     */
     public function index(SectorRepository $sectorRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,9 +28,6 @@ class SectorController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="sector_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $sector = new Sector();
@@ -49,7 +40,7 @@ class SectorController extends CMSController
             $sector->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('sector_index');
+            return $this->redirectToRoute('cms_sectors_index');
         }
 
         return $this->render('cms/sector/new.html.twig', [
@@ -58,9 +49,6 @@ class SectorController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="sector_show", methods={"GET"})
-     */
     public function show(Sector $sector): Response
     {
         return $this->render('sector/show.html.twig', [
@@ -68,9 +56,6 @@ class SectorController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="sector_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Sector $sector): Response
     {
         $form = $this->createForm(SectorFormType::class, $sector);
@@ -79,7 +64,7 @@ class SectorController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sector_index');
+            return $this->redirectToRoute('cms_sectors_edit', ['id'=>$sector->getId()]);
         }
 
         return $this->render('cms/sector/edit.html.twig', [
@@ -88,9 +73,6 @@ class SectorController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="sector_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Sector $sector): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sector->getId(), $request->request->get('_token'))) {
@@ -99,6 +81,6 @@ class SectorController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('sector_index');
+        return $this->redirectToRoute('cms_sectors_index');
     }
 }

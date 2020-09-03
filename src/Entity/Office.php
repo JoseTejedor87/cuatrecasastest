@@ -93,7 +93,7 @@ class Office extends Publishable
     private $sap;
 
     /**
-     * @Gedmo\Slug(fields={"city", "address"})
+     * @Gedmo\Slug(fields={"city", "address"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -104,16 +104,29 @@ class Office extends Publishable
      */
     private $lawyer;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="office", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $event;
+
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="offices")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="offices")
      */
-    private $Articles;
+    private $publication;
 
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
-        $this->Articles = new ArrayCollection();
+        $this->Article = new ArrayCollection();
+        $this->event = new ArrayCollection();
+        $this->publication = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getCity();
     }
 
     public function getId(): ?int
@@ -302,10 +315,10 @@ class Office extends Publishable
 
         return $this;
     }
-    
-     /**
-     * @return Collection|Lawyer[]
-     */
+
+    /**
+    * @return Collection|Lawyer[]
+    */
     public function getLawyer(): Collection
     {
         return $this->lawyer;
@@ -334,33 +347,6 @@ class Office extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Articles[]
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Articles $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Articles $article): self
-    {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            $article->removeActivity($this);
-        }
-
-        return $this;
-    }
 
     public function getSlug(): ?string
     {
@@ -370,6 +356,65 @@ class Office extends Publishable
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+            $event->setOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->event->contains($event)) {
+            $this->event->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getOffice() === $this) {
+                $event->setOffice(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Publication[]
+     */
+    public function getPublication(): Collection
+    {
+        return $this->publication;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publication->contains($publication)) {
+            $this->publication[] = $publication;
+            $publication->addOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publication->contains($publication)) {
+            $this->publication->removeElement($publication);
+            $publication->removeOffice($this);
+        }
 
         return $this;
     }

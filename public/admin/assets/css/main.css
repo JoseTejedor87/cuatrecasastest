@@ -74,3 +74,16 @@ body{
     right: 5px;
     cursor: pointer;
 }
+
+.blocks-collection-field #lawyer_form_mentions fieldset.form-group fieldset,
+.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background-color:none;
+    margin-bottom: 0;
+}
+.blocks-collection-field #lawyer_form_mentions fieldset.form-group fieldset label,
+.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset label{
+    display: none;
+}

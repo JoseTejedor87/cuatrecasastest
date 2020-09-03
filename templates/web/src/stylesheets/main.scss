@@ -29,67 +29,25 @@
 
 // 4. Components
 @import
+    '4-components/cta',
+    '4-components/cta-footer',
     '4-components/grid',
-    '4-components/boxnews',
+    '4-components/boxes-news',
     '4-components/insight',
-    '4-components/discover',
     '4-components/search',
-    '4-components/call-to-action',
+    '4-components/search-multiple',
     '4-components/related-services',
     '4-components/contact',
     '4-components/team',
     '4-components/awards',
     '4-components/testimonials',
-    '4-components/brands';
+    '4-components/brands',
+    '4-components/overview',
+    '4-components/flipbox';
 
 // 5. Page-specific styles
 @import
     '5-pages/home',
-    '5-pages/lawyers',
-    '5-pages/insights';
-
-
-/*
- * Sass Boilerplate
-   ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
- * https://sass-guidelin.es/#architecture
-  * https://github.com/HugoGiraudel/sass-boilerplate
- * https://itnext.io/structuring-your-sass-projects-c8d41fa55ed4
-
-stylesheets/
-|
-|– 1-utils/
-|   |– _variables.scss    # Sass Variables
-|   |– _functions.scss    # Sass Functions
-|   |– _mixins.scss       # Sass Mixins
-|   |– _placeholders.scss # Sass Placeholders
-|
-|– 2-base/
-|   |– _reset.scss        # Reset/normalize
-|   |– _typography.scss   # Typography rules
-|   …                     # Etc.
-|
-|– 3-layout/
-|   |– _navigation.scss   # Navigation
-|   |– _grid.scss         # Grid system
-|   |– _header.scss       # Header
-|   |– _footer.scss       # Footer
-|   |– _sidebar.scss      # Sidebar
-|   |– _forms.scss        # Forms
-|   …                     # Etc.
-|
-|– 4-components/
-|   |– _buttons.scss      # Buttons
-|   |– _carousel.scss     # Carousel
-|   |– _cover.scss        # Cover
-|   |– _dropdown.scss     # Dropdown
-|   …                     # Etc.
-|
-|– 5-pages/
-|   |– _home.scss         # Home specific styles
-|   |– _contact.scss      # Contact specific styles
-|   …                     # Etc.
-|
-|
-`– main.scss              # Main Sass file
-*/
+    '5-pages/lawyer',
+    '5-pages/insights-page',
+    '5-pages/events';

@@ -16,7 +16,7 @@ security:
                 authenticators:
                     - App\Security\TokenAuthenticator
             logout:
-                path:   app_logout
+                path:   cms_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

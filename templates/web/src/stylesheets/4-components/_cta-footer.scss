@@ -1,0 +1,66 @@
+// ==========================================================================
+// CALL TO ACTION (footer)
+// ==========================================================================
+
+@include new("cta-footer") {
+    margin-top: 0;
+    padding: 3.6rem 0;
+    color: $white;
+    background-color: $main-color;
+
+    @media(max-width: $max-width-4casas) {
+        padding: 1.6rem 0;
+    }
+
+    @include has("block") {
+        display: flex;
+        align-content: flex-start;
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+
+            [class^="col-"],
+            [class*=" col-"] {
+                flex: 100%;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    .customize__interests {
+        padding-right: 12rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-right: 15px;
+        }
+
+        p {
+            @include fontSet(43px, 45px);
+            margin-bottom: 0;
+            color: $white;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(30px, 35px);
+            }
+        }
+    }
+
+    .choose__interests {
+        padding-right: 2rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-right: 15px;
+        }
+
+        p {
+            @include fontSet(23px, 27px);
+            margin-bottom: 1.3rem;
+            color: $white;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(18px, 25px);
+            }
+        }
+    }
+}

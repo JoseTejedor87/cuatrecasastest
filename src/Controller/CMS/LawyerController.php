@@ -4,7 +4,11 @@ namespace App\Controller\CMS;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -12,46 +16,72 @@ use App\Entity\Lawyer;
 use App\Form\LawyerFormType;
 use App\Repository\LawyerRepository;
 use App\Controller\CMS\CMSController;
+use App\Form\Type\LawyerCategoryType;
+use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
 
-/**
- * @Route("cms/lawyers")
- */
 class LawyerController extends CMSController
 {
-
-    /**
-     * @Route("/", name="lawyer_index", methods={"GET"})
-     */
     public function index(LawyerRepository $lawyerRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $filter = $this->filter($request);
+
+        if ( $filter['fields'] != ''){
+            $result = $lawyerRepository->findFilteredBy($filter['fields']);
+        }else{
+            $result = $lawyerRepository->findAll();
+        }
+
         $pagination = $paginator->paginate(
-            $lawyerRepository->findAll(),
+            $result,
             $request->query->getInt('page', 1),
             25
         );
 
         return $this->render('cms/lawyer/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'formForFilterView' => $filter['form']->createView(),
         ]);
     }
 
-    /**
-     * @Route("/new", name="lawyer_new", methods={"GET","POST"})
-     */
+    private function filter(Request $request){
+        $formForFilter = $this->createFormBuilder(array())
+            ->setMethod('GET')
+            ->add('name', TextType::class, ['required' => false, 'label' => false ])
+            ->add('surname', TextType::class, ['required' => false, 'label' => false ])
+            ->add('email', TextType::class, ['required' => false, 'label' => false])
+            ->add('lawyerType', LawyerCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('fechaDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('languages', LanguageType::class, ['label'=>false])
+            ->add('regions', RegionType::class, ['label'=>false])
+            ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
+            ->getForm();
+    
+        $formForFilter->handleRequest($request);
+        $filterFields = '';
+
+        if ($formForFilter->isSubmitted() && $formForFilter->isValid()) {
+            $filterFields = $formForFilter->getData();
+        }
+
+        return array('form' => $formForFilter, 'fields' => $filterFields);
+    }
+
     public function new(Request $request): Response
     {
         $lawyer = new Lawyer();
         $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lawyer);
             $lawyer->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('lawyer_index');
-         }
+            return $this->redirectToRoute('cms_lawyers_index');
+        }
 
         return $this->render('cms/lawyer/new.html.twig', [
             'lawyer' => $lawyer,
@@ -59,9 +89,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="lawyer_show", methods={"GET"})
-     */
     public function show(Lawyer $lawyer): Response
     {
         return $this->render('cms/lawyer/show.html.twig', [
@@ -69,16 +96,12 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="lawyer_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Lawyer $lawyer): Response
     {
         $form = $this->createForm(LawyerFormType::class, $lawyer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (isset($request->request->get('lawyer_form')['photo'])) {
                 $photo = $request->request->get('lawyer_form')['photo'];
                 if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
@@ -88,7 +111,7 @@ class LawyerController extends CMSController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('lawyer_edit', ['id'=>$lawyer->getId()]);
+            return $this->redirectToRoute('cms_lawyers_edit', ['id'=>$lawyer->getId()]);
         }
 
         return $this->render('cms/lawyer/edit.html.twig', [
@@ -97,9 +120,6 @@ class LawyerController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="lawyer_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Lawyer $lawyer): Response
     {
         if ($this->isCsrfTokenValid('delete'.$lawyer->getId(), $request->request->get('_token'))) {
@@ -108,6 +128,6 @@ class LawyerController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('lawyer_index');
+        return $this->redirectToRoute('cms_lawyers_index');
     }
 }

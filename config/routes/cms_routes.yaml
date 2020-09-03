@@ -1,0 +1,314 @@
+cms_dashboard:
+    path:       /
+    methods:    GET
+    controller: App\Controller\CMS\DashboardController::index
+
+# Publication
+# ####################################
+cms_publication_index:
+    path:       /publication
+    methods:    GET
+    controller: App\Controller\CMS\PublicationController::index
+cms_publication_new:
+    path:       /publication/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\PublicationController::new
+cms_publication_edit:
+    path:       /publication/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\PublicationController::edit
+cms_publication_delete:
+    path:       /publication/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\PublicationController::delete
+
+# AWARDS
+# ####################################
+cms_awards_index:
+    path:       /awards
+    methods:    GET
+    controller: App\Controller\CMS\AwardController::index
+cms_awards_new:
+    path:       /awards/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\AwardController::new
+cms_awards_edit:
+    path:       /awards/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\AwardController::edit
+cms_awards_delete:
+    path:       /awards/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\AwardController::delete
+
+# CASE STUDIES
+# ####################################
+cms_case_studies_index:
+    path:       /case-studies
+    methods:    GET
+    controller: App\Controller\CMS\CaseStudyController::index
+cms_case_studies_new:
+    path:       /case-studies/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\CaseStudyController::new
+cms_case_studies_edit:
+    path:       /case-studies/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\CaseStudyController::edit
+cms_case_studies_delete:
+    path:       /case-studies/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\CaseStudyController::delete
+
+# DESKS
+# ####################################
+cms_desks_index:
+    path:       /desks
+    methods:    GET
+    controller: App\Controller\CMS\DeskController::index
+cms_desks_new:
+    path:       /desks/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\DeskController::new
+cms_desks_edit:
+    path:       /desks/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\DeskController::edit
+cms_desks_delete:
+    path:       /desks/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\DeskController::delete
+
+# EVENTS
+# ####################################
+cms_events_index:
+    path:       /events
+    methods:    GET
+    controller: App\Controller\CMS\EventController::index
+cms_events_new:
+    path:       /events/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\EventController::new
+cms_events_edit:
+    path:       /events/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\EventController::edit
+cms_events_delete:
+    path:       /events/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\EventController::delete
+
+# EVENTS-PROGRAMS
+# ####################################
+
+cms_programs_index:
+    path:       /events/{id}/programs
+    methods:    GET
+    controller: App\Controller\CMS\ProgramController::index
+cms_programs_new:
+    path:       /events/{id}/programs/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProgramController::new
+cms_programs_edit:
+    path:       /programs/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProgramController::edit
+cms_programs_delete:
+    path:       /programs/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\ProgramController::delete
+
+# SLIDERS
+# ####################################
+
+cms_sliders_index:
+    path:       /sliders/
+    methods:    GET
+    controller: App\Controller\CMS\SliderController::index
+cms_sliders_new:
+    path:       /sliders/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::new
+cms_sliders_edit:
+    path:       /sliders/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\SliderController::edit
+cms_sliders_delete:
+    path:       /sliders/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\SliderController::delete
+
+# INSIGHTS
+# ####################################
+cms_insights_index:
+    path:       /insights
+    methods:    GET
+    controller: App\Controller\CMS\InsightController::index
+cms_insights_new:
+    path:       /insights/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\InsightController::new
+cms_insights_edit:
+    path:       /insights/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\InsightController::edit
+cms_insights_delete:
+    path:       /insights/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\InsightController::delete
+
+# LAWYERS
+# ####################################
+cms_lawyers_index:
+    path:       /lawyers
+    methods:    GET
+    controller: App\Controller\CMS\LawyerController::index
+cms_lawyers_new:
+    path:       /lawyers/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\LawyerController::new
+cms_lawyers_edit:
+    path:       /lawyers/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\LawyerController::edit
+cms_lawyers_delete:
+    path:       /lawyers/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\LawyerController::delete
+
+# OFFICES
+# ####################################
+cms_offices_index:
+    path:       /offices
+    methods:    GET
+    controller: App\Controller\CMS\OfficeController::index
+cms_offices_new:
+    path:       /offices/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\OfficeController::new
+cms_offices_edit:
+    path:       /offices/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\OfficeController::edit
+cms_offices_delete:
+    path:       /offices/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\OfficeController::delete
+
+# PAGES
+# ####################################
+cms_pages_index:
+    path:       /pages
+    methods:    GET
+    controller: App\Controller\CMS\PageController::index
+cms_pages_new:
+    path:       /pages/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\PageController::new
+cms_pages_edit:
+    path:       /pages/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\PageController::edit
+cms_pages_delete:
+    path:       /pages/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\PageController::delete
+
+# PERSON
+# ####################################
+cms_people_index:
+    path:       /people
+    methods:    GET
+    controller: App\Controller\CMS\PersonController::index
+cms_people_new:
+    path:       /people/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\PersonController::new
+cms_people_edit:
+    path:       /people/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\PersonController::edit
+cms_people_delete:
+    path:       /people/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\PersonController::delete
+
+# PRACTICES
+# ####################################
+cms_practices_index:
+    path:       /practices
+    methods:    GET
+    controller: App\Controller\CMS\PracticeController::index
+cms_practices_new:
+    path:       /practices/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\PracticeController::new
+cms_practices_edit:
+    path:       /practices/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\PracticeController::edit
+cms_practices_delete:
+    path:       /practices/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\PracticeController::delete
+
+# PRODUCTS
+# ####################################
+cms_products_index:
+    path:       /products
+    methods:    GET
+    controller: App\Controller\CMS\ProductController::index
+cms_products_new:
+    path:       /products/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProductController::new
+cms_products_edit:
+    path:       /products/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\ProductController::edit
+cms_products_delete:
+    path:       /products/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\ProductController::delete
+
+# QUOTES
+# ####################################
+cms_quotes_index:
+    path:       /quotes
+    methods:    GET
+    controller: App\Controller\CMS\QuoteController::index
+cms_quotes_new:
+    path:       /quotes/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\QuoteController::new
+cms_quotes_edit:
+    path:       /quotes/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\QuoteController::edit
+cms_quotes_delete:
+    path:       /quotes/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\QuoteController::delete
+
+# SECTORS
+# ####################################
+cms_sectors_index:
+    path:       /sectors
+    methods:    GET
+    controller: App\Controller\CMS\SectorController::index
+cms_sectors_new:
+    path:       /sectors/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\SectorController::new
+cms_sectors_edit:
+    path:       /sectors/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\SectorController::edit
+cms_sectors_delete:
+    path:       /sectors/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\SectorController::delete
+
+cms_logout:
+    path:       /logout
+    methods:   GET

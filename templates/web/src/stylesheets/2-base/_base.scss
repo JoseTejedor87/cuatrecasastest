@@ -8,13 +8,26 @@
 // =>
 // =>
 // =>
+
+// https://css-tricks.com/almanac/properties/b/box-shadow/
+// https://brumm.af/shadows
+// https://cssgradient.io/
+
 // ==========================================================================
 
 
 html {
     // Force no horizontal scrollbar (for full screen CAROUSEL)
     overflow-x: hidden;
+    // scroll-behavior: smooth;
 }
+
+// * Disable smooth scrolling when users have prefers-reduced-motion enabled
+// @media screen and (prefers-reduced-motion: reduce) {
+//     html {
+//         scroll-behavior: auto;
+//     }
+// }
 
 body {
     // Custom Scrollbars
@@ -41,29 +54,134 @@ a:link {
 }
 
 
+
+
 //
-// OVERRIDING DEFAULT TEXT SELECTION
-// Blue: #3390FF
-// Yellow: #FFFF00;
+// BORRAR [page componentes]
+//
+
+.cmp-wrapper {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+.cmp {
+    position: absolute;
+    padding: 0.2rem 0.6rem;
+    color: black;
+    background-color: yellow;
+    z-index: 3;
+}
+
+//
+// BORRAR [page find-us]
+//
+
+.foto__mapa {
+    position: relative;
+    width: 100vw;
+    height: 720px;
+    margin-left: -50vw;
+    left: 50%;
+    background-color: #e2edf1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+@media(max-width: $max-width-4casas) {
+    .foto__mapa {
+        display: none;
+    }
+}
+
+
+
+//
+// SECTION BACKGROUND COLORS GLOBAL (from dark to light)
 // --------------------------------------------------------------------------
 
-::selection {
-    // color: $white;
-    // background: $complementary-color;
-    // background: #FFFF00;
-    color: $black;
-    background: rgba($main-color, 0.2);
-    text-shadow: 0 0 transparent;
+.bg__grey__01 {
+    // background-color: rgba($black, 0.2);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.2));
+    }
 }
 
-::-moz-selection {
-    // color: $white;
-    // background: $complementary-color;
-    // background: #FFFF00;
-    color: $black;
-    background: rgba($main-color, 0.2);
-    text-shadow: 0 0 transparent;
+.bg__grey__02 {
+    // background-color: rgba($black, 0.1);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+    }
 }
+
+.bg__grey__03 {
+    // background-color: rgba($black, 0.08);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.08));
+    }
+}
+
+.bg__grey__04 {
+    // background-color: rgba($black, 0.05);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.05));
+    }
+}
+
+.bg__grey__05 {
+    // background-color: rgba($black, 0.02);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.02));
+    }
+}
+
+.bg__grey__06 {
+    // background-color: rgba($black, 0.01);
+    position: relative;
+    @include reset-full-scren;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.01));
+    }
+}
+
+
+
+.bgfull__grey__light {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.08));
+        @include reset-full-scren;
+    }
+}
+
+.bgfull__grey__lighter {
+    position: relative;
+
+    &:before {
+        @include reset-pseudo($tabActive);
+        @include reset-full-scren;
+    }
+}
+
 
 
 //
@@ -98,3 +216,97 @@ a:link {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+//
+// OVERRIDING DEFAULT TEXT SELECTION
+// Blue: #3390FF
+// Yellow: #FFFF00;
+// --------------------------------------------------------------------------
+
+/*
+::selection {
+    // color: $white;
+    // background: $complementary-color;
+    // background: #FFFF00;
+    color: $black;
+    background: rgba(#FFFF00, 0.5);
+    text-shadow: 0 0 transparent;
+}
+
+::-moz-selection {
+    // color: $white;
+    // background: $complementary-color;
+    // background: #FFFF00;
+    color: $black;
+    // background: rgba($main-color, 0.2);
+    background: rgba(#FFFF00, 0.5);
+    text-shadow: 0 0 transparent;
+}
+*/
+
+
+
+//
+// SCREEN WIDTH
+// --------------------------------------------------------------------------
+
+/*
+main {
+    .container-fluid {
+        .col {
+            border: 1px solid red;
+
+            @include mediaQuery($massive-width, $large-width) {
+                background-color: violet;
+                padding: 0 20%;
+            }
+
+            @include mediaQuery($large-width, $desktop-width) {
+                background-color: lightblue;
+                padding: 0 8%;
+            }
+
+            @include mediaQuery($desktop-width, $tablet-width) {
+                background-color: purple;
+                padding: 0 30px;
+            }
+
+            @include mediaQuery($tablet-width, $mobile-width) {
+                background-color: yellow;
+                padding: 0 30px;
+            }
+        }
+    }
+}
+*/
+
+
+/*
+main {
+    .container-fluid {
+        // padding: 0 $screen-width;
+        // border: 1px solid red;
+        // padding: 0 20vw;
+
+        @include mediaQuery($massive-width, $large-width) {
+            background-color: violet;
+        }
+
+        @include mediaQuery($large-width, $desktop-width) {
+            background-color: lightblue;
+            padding: 0 0;
+        }
+
+        @include mediaQuery($desktop-width, $tablet-width) {
+            background-color: purple;
+            padding: 0 0;
+        }
+
+        @include mediaQuery($tablet-width, $mobile-width) {
+            background-color: yellow;
+            padding: 0 0;
+        }
+    }
+}
+*/

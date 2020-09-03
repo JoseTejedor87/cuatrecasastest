@@ -1,0 +1,736 @@
+// ==========================================================================
+// EVENTS
+// ==========================================================================
+
+.event__wrapper {
+    padding: 4rem 0;
+}
+
+
+
+//
+// PROGRAMME (BORRAR !!!)
+// --------------------------------------------------------------------------
+
+// @include new("event") {
+//     @include has("programme") {
+//         @include reset-full-scren;
+//         position: relative;
+
+//         &:before {
+//             @include reset-pseudo(rgba($black, 0.03));
+//         }
+
+//         .tablesaw-stack {
+//             margin-top: 2rem;
+
+//             th, td {
+//                 padding: 1rem;
+//                 @include fontSet(16px, 16px);
+//                 text-transform: uppercase;
+//             }
+
+//             th {
+//                 border-top: none;
+//                 border-bottom: 1px solid $black;
+//                 color: $main-color;
+
+//                 &.content {
+//                     padding-right: 3rem;
+//                     padding-left: 3rem;
+//                 }
+//             }
+
+//             td {
+//                 // padding: 1rem 0;
+
+//                 &.time {
+//                     white-space: nowrap;
+//                     color: $main-color;
+//                 }
+
+//                 &.content {
+//                     padding-right: 3rem;
+//                     padding-left: 3rem;
+//                     @include fontSet(23px, 27px);
+//                     text-transform: none;
+//                     color: $black;
+//                 }
+
+//                 &.speakers {
+//                     white-space: nowrap;
+//                     color: $main-color;
+//                 }
+
+//                 .speakers__list {
+//                     @include reset-list;
+//                     margin-left: -4px;
+
+//                     li {
+//                         margin-bottom: 5px;
+//                     }
+
+//                     a {
+//                         @include background-link($complementary-color, $white, $complementary-color);
+//                         margin-left: -4px;
+//                         padding: 2px 4px 0;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     @include has("wrapper") {
+//         position: relative;
+//         padding-top: 4rem;
+//         padding-bottom: 4rem;
+
+//         &:before {
+//             // @include reset-pseudo(rgba($black, 0.02));
+//             @include reset-pseudo(#F7F7F7);
+//             @include reset-full-scren;
+//         }
+
+//         //
+//         // EMAIL BOX
+//         //
+//         .contact {
+//             position: relative;
+//             margin-top: 4rem;
+//             padding-top: 3rem;
+
+//             &:before {
+//                 content: '';
+//                 position: absolute;
+//                 top: 0;
+//                 left: 15px;
+//                 width: calc(100% - 30px);
+//                 height: 2px;
+//                 background-color: $complementary-color;
+//             }
+//         }
+
+//         @include has("chooser") {
+//             display: flex;
+//             justify-content: flex-end;
+//             margin-bottom: 3rem;
+//         }
+//     }
+
+//     @include has("list") {
+
+//         @include has("item") {
+//             display: flex;
+//             padding-top: 1.5rem;
+//             padding-bottom: 3rem;
+//             // border-top: 1px solid rgba($black, 0.2);
+//             box-shadow: 0 -1px 0 rgba($black, 0.2);
+//             transition: box-shadow 0.2s ease-out;
+
+//             @include on-event() {
+//                 // box-shadow: 0 -2px 0 $complementary-color;
+//                 box-shadow: 0 -2px 0 rgba($black, 0.6);
+//             }
+//         }
+
+//         @include has("details") {
+//             flex: 0 0 25%;
+
+//             > * {
+//                 @include fontSet(16px, 20px);
+//                 text-transform: uppercase;
+//                 letter-spacing: 0.7px;
+//                 color: $main-color;
+//             }
+
+//             .event-place {
+//                 a {
+//                     @include classic-link($complementary-color, $black, $border: false);
+//                 }
+//             }
+
+//             .event-button {
+//                 margin-top: 1rem;
+//             }
+
+//             .doble__arrow__link {
+//                 @include fontSet(16px, 20px);
+//                 // text-transform: uppercase;
+//                 border: 1px solid blue;
+
+//                 &:before,
+//                 &:after {
+//                     top: -7px;
+//                 }
+//             }
+//         }
+
+//         @include has("info") {
+//             flex: 0 1 auto;
+
+//             .event-intro {
+//                 a {
+//                     @include classic-link($black, $complementary-color, $border: false);
+//                     @include fontSet(32px, 36px);
+//                 }
+//             }
+
+//             .event-speakers {
+//                 margin-top: 1.5rem;
+//                 padding-top: 1rem;
+//                 border-top: 1px solid rgba($black, 0.2);
+
+//                 .title {
+//                     @include fontSet(16px, 16px);
+//                     text-transform: uppercase;
+//                     color: $black;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+#eventCalendar {
+    .related__content li:before {
+        background-color: $main-color;
+    }
+}
+
+//
+// FULLCALENDAR
+// --------------------------------------------------------------------------
+
+
+
+//
+// HEADER BUTTONS
+// --------------------------------------------------------------------------
+
+.fc-list-empty-wrap2 {
+    position: relative !important;
+}
+
+.fc-list-empty {
+    padding: 10rem 0 !important;
+}
+
+.fc-toolbar {
+
+    &.fc-header-toolbar {
+        margin-bottom: 2rem !important;
+    }
+
+    // HEADER
+    h2 {
+        padding-top: 10px;
+        font-size: 26px !important;
+        line-height: 1;
+        color: rgba($black, 0.5);
+    }
+
+    .fc-left {
+        margin-left: 4px;
+    }
+
+    .fc-right {
+        margin-right: 4px;
+    }
+
+    // RESET BUTTONS
+    .fc-button {
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: .4em .65em;
+        font-size: 1em;
+        line-height: 1.5;
+        border-radius: 0;
+        outline: none;
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+
+        .fc-icon {
+            color: $complementary-color;
+        }
+    }
+
+    .fc-button-primary {
+        color: transparent;
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    }
+
+    .fc-button-primary:not(:disabled).fc-button-active,
+    .fc-button-primary:not(:disabled):active,
+    .fc-button-primary:not(:disabled):focus {
+        color: transparent;
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    .fc-header-toolbar .fc-button-primary,
+    .fc-header-toolbar .fc-button-primary:hover,
+    .fc-header-toolbar .fc-button-primary:not(:disabled).fc-button-active,
+    .fc-header-toolbar .fc-button-primary:not(:disabled):active,
+    .fc-header-toolbar .fc-button-primary:not(:disabled):focus {
+        color: transparent;
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    }
+
+    .fc-button:focus,
+    .fc-button-primary:focus {
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+        outline: none;
+        border: none;
+    }
+
+    .fc-button-primary:hover {
+        color: transparent;
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    .fc-header-toolbar .fc-button-group>.fc-button {
+        border-radius: 0;
+    }
+
+    .fc-button-group>.fc-button:not(:first-child) {
+        margin-left: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+
+    // CUSTOM ICONS
+    .fc-icon__button__list-button,
+    .fc-icon__button__grid-button {
+        @include reset-button;
+        display: block;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+
+        &:after {
+            @include icons-4casas(5px, auto, auto, 5px);
+            font-size: 30px;
+            color: $main-color;
+        }
+
+        @include on-event() {
+            // outline: 4px solid $complementary-color;
+
+            &:after {
+                color: $complementary-color;
+            }
+        }
+
+        &.active {
+            // outline: 4px solid $complementary-color;
+
+            &:after {
+                color: $complementary-color;
+            }
+        }
+
+        .fc-button-primary:not(:disabled),
+        .fc-button-primary:not(:disabled):hover,
+        .fc-button-primary:not(:disabled):focus,
+        .fc-button-primary:not(:disabled):active,
+        .fc-button-primary:not(:disabled):active:focus {
+            box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
+            outline: none;
+        }
+    }
+
+    .fc-icon__button__list-button {
+        &:after {
+            content: '\e903';
+        }
+    }
+
+    .fc-icon__button__grid-button {
+        &:after {
+            content: '\e902';
+        }
+    }
+}
+
+
+//
+// LIST VIEW (day)
+// --------------------------------------------------------------------------
+
+#eventCalendarDay {
+    margin-top: 3rem;
+    outline: 2px solid black;
+    outline-offset: 4px;
+}
+
+.fc-unthemed .fc-list-view {
+    border-color: transparent;
+}
+
+
+// GLOBAL RESETS
+.fc table,
+.fc-unthemed .fc-row,
+.fc-unthemed thead,
+.fc-unthemed th {
+    border-color: transparent !important;
+}
+
+.fc-unthemed th {
+    @include fontSet(16px, 36px);
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.fc-unthemed td {
+    border-color: #ADADAD !important;
+}
+
+.fc-unthemed .fc-list-item:hover td {
+    background-color: transparent !important;
+}
+
+.fc-unthemed .fc-popover {
+    margin-left: -4px;
+    box-shadow: 0 5px 10px rgba($black, 0.2), 0 10px 20px rgba($black, 0.1);
+}
+
+.fc-unthemed .fc-popover .fc-header {
+    background: $event-box-color !important;
+}
+
+.fc-day.fc-other-month.fc-past,
+.fc-day.fc-other-month.fc-future {
+    background-color: #EFEFEF;
+}
+
+.fc-event-day {}
+
+.fc-dayGrid-view .fc-day-number {
+    @include fontSet(14px, 14px);
+    letter-spacing: 0.7px;
+    padding: 10px !important;
+    color: rgba($black, 0.5);
+}
+
+
+.fc-content-skeleton .fc-event-container {
+    // border: 1px solid red !important;
+
+    &:last-child {
+        // border: 1px solid blue !important;
+    }
+}
+
+
+//
+// CALENDAR VIEW (grid & list)
+// --------------------------------------------------------------------------
+
+.fc-view {
+
+    //
+    // GRID VIEW (month)
+    // --------------------------------------------------------------------------
+
+    .fc td,
+    .fc-unthemed td,
+    .fc td .day-bg,
+    .fc-unthemed td .day-bg,
+    .day-bg {
+        // border-top-color: transparent !important;
+        // border-top: 1px solid transparent !important;
+        // border-top: none !important;
+        border-left-color: transparent !important;
+        border-left: 1px solid transparent !important;
+        border-left: none !important;
+
+        background-color: $event-box-color;
+        // box-shadow: inset 1px 0 0 0 $main-color,
+        //             inset 0 1px 0 0 $main-color;
+
+        cursor: default;
+
+        // BORRAR (HOVER FX)
+        // @include on-event() {
+        //     cursor: pointer;
+        // }
+    }
+
+    &.fc-dayGridMonth-view {
+
+        .fc-event-container {
+            margin: 0 0;
+            padding: 0 0;
+            cursor: default;
+            // transition: all 0.3s ease-out;
+
+            // &:last-child {
+            //     margin-bottom: 1rem;
+            //     background-color: cyan;
+            // }
+
+            // @include on-event() {
+            //     background-color: rgba($complementary-color, 1) !important;
+            //     cursor: pointer !important;
+
+            //     .fc-day-grid-event.fc-content {
+            //         background-color: rgba($complementary-color, 1) !important;
+            //     }
+
+            //     .fc-event-place,
+            //     .fc-event-sector {
+            //         color: $white;
+            //     }
+            // }
+        }
+
+
+        .fc-event {
+            position: relative;
+            display: block;
+            margin: 0 0 0 1px;
+            padding: 0 0;
+            @include fontSet(12px, 12px);
+            letter-spacing: 0.52px;
+            background-color: transparent;
+            border-radius: 0;
+            border: none;
+        }
+
+        .fc-day-grid-event {
+
+            .fc-content {
+                // display: block;
+                margin: 0 0;
+                padding: 6px 8px;
+                @include fontSet(12px, 12px);
+                letter-spacing: 0.52px;
+                border: none;
+                // background-color: $event-box-color;
+                background-color: transparent;
+
+                // white-space: initial;
+                // overflow: initial;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                transition: all 0.3s ease-out;
+
+
+                // BORRAR (HOVER FX)
+                /*
+                @include on-event() {
+                    background-color: rgba($complementary-color, 1);
+                    cursor: pointer !important;
+
+                    .fc-event-place,
+                    .fc-event-sector {
+                        color: $white;
+                    }
+                }
+                */
+            }
+        }
+
+        .fc-more-cell {
+            // position: relative;
+            // padding-bottom: 20px;
+            // float: right;
+            padding: 4px;
+            background-color: $event-box-color !important;
+
+            .fc-more {
+                position: relative;
+                float: right;
+                display: block;
+                width: 18px;
+                height: 18px;
+                text-indent: -99999px;
+                color: transparent;
+                // background-color: $event-box-color;
+                border: 2px solid $complementary-color;
+                border-radius: 50%;
+                z-index: 5;
+
+                &:after {
+                    @include icons-ionicons(2px,3px,auto,auto);
+                    content: '\f218';
+                    font-size: 14px;
+                    text-indent: 0;
+                    color: $complementary-color;
+                    transition: all 0.2s;
+                }
+
+                @include on-event() {
+                    text-decoration: none;
+                    background-color: $complementary-color;
+
+                    &:after {
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        .fc-today {
+            background-color: inherit;
+
+            .fc-day-number {
+                color: rgba($black, 1);
+            }
+        }
+
+        .fc-event-place,
+        .fc-event-sector {
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.3s ease-out;
+        }
+
+        .fc-event-place {
+            color: $main-color;
+        }
+
+        .fc-event-sector {
+            color: $complementary-color;
+        }
+    }
+
+    //
+    // LIST VIEW (month & day)
+    // --------------------------------------------------------------------------
+    &.fc-listMonth-view,
+    &.fc-listDay-view {
+        border-radius: 0;
+        border-color: transparent !important;
+        border: none !important;
+        // margin-top: 4rem;
+
+        // RESETS
+        .fc-list-table {
+            border-color: transparent !important;
+            border: none !important;
+        }
+
+        .fc.fc-bootstrap a {
+            text-decoration: none;
+        }
+
+        .fc-list-table td {
+            border: none;
+            border-width: 0 0 0;
+        }
+
+        .fc-list-item ~ .fc-list-heading td {
+            padding-top: 3rem;
+        }
+
+        // EVENT DAY TITLE
+        .fc-list-heading td {
+            padding-right: 0;
+            padding-left: 0;
+            @include fontSet(33px, 19px);
+            font-weight: normal;
+            letter-spacing: 1.44px;
+            text-transform: uppercase;
+            color: $main-color;
+            background: none;
+            border: none;
+        }
+
+        .fc-list-heading-main {
+            padding-bottom: 0.6rem;
+        }
+
+        // EVENT BOX ITEM (row)
+        .fc-list-item {
+            box-shadow: 0 -1px 0 #B5B5B5;
+            transition: box-shadow 0.2s ease-out;
+
+            @include on-event() {
+                box-shadow: 0 -2px 0 #333;
+            }
+        }
+
+        // EVENT DETAILS
+        .fc-list-item-time {
+            width: 25%;
+            padding: 1.5rem 0 3rem;
+
+            > * {
+                @include fontSet(16px, 20px);
+                text-transform: uppercase;
+                letter-spacing: 0.7px;
+                color: $main-color;
+            }
+
+            .event-place {
+                a {
+                    @include classic-link($complementary-color, $black, $border: false);
+                }
+            }
+
+            .event-button {
+                margin-top: 1rem;
+            }
+
+            .doble__arrow__link {
+                text-transform: none;
+            }
+
+
+        }
+
+        // EVENT TITLE & SPEAKERS
+        .fc-list-item-title {
+            width: 75%;
+            padding: 1.5rem 0 3rem;
+
+            .event-intro {
+                a {
+                    @include classic-link($black, $complementary-color, $border: false);
+                    @include fontSet(32px, 36px);
+                }
+            }
+
+            .event-speakers {
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                box-shadow: 0 -1px 0 #B5B5B5;
+
+                .title {
+                    @include fontSet(16px, 18px);
+                    text-transform: uppercase;
+                    color: $black;
+                }
+
+                a {
+                    @include background-link($complementary-color, $white, $complementary-color);
+                }
+            }
+        }
+
+        .fc-list-item-marker {
+            display: none;
+            width: 0;
+
+            .fc-event-dot {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,67 +1,153 @@
 // Global
 web.global = {
     init: function(){ // Load all global functions here
+        web.global.stickyMenu();
         web.global.loadMiscell();
     },
 
+    mobileMenu: function(){
+
+    },
+
+    stickyMenu: function(){
+         // menu interactios (hover versus click)
+        $('#about-nav .dropdown-menu')
+            .bind('mouseover', function(event) {
+                $(this).prev('.nav-link').addClass('active');
+            })
+            .bind('mouseleave', function(event) {
+                $(this).prev('.nav-link').removeClass('active');
+        });
+
+        $('.lang-region-menu').hide();
+
+        // region / lang switch
+        $('.lang-region-toggle').click(function(e){
+            e.preventDefault();
+            $(this).next('.lang-region-menu').show();
+        });
+
+        $('.menu-close.langs').click(function(e){
+            e.preventDefault();
+            $(this).parent().parent('.lang-region-menu').hide();
+        });
+
+        // sticky menu
+        var prev            = 0;
+        var $window         = $(window);
+
+        var secondaryNav    = $('#navDesktop #secondaryNav');
+        var logoNav         = $('#navDesktop #secondaryNav .navbar-brand');
+        var subMenuNav      = $('#navDesktop #secondaryNav .dropdown-menu');
+        // submenu click
+        var aboutNav        = $('#navDesktop #primaryNav #aboutNav .dropdown-menu');
+        var userNav         = $('#navDesktop #userNav');
+        var mainHeader      = $('header');
+        var langsNav        = $('#navDesktop .lang-region-menu');
+
+        $window.on('scroll', function(){
+            var scrollTop = $window.scrollTop();
+            secondaryNav.toggleClass('stickyNav', scrollTop > prev);
+            logoNav.toggleClass('stickyNav', scrollTop > prev);
+            subMenuNav.removeClass('show', scrollTop > prev);
+            // submenu click
+            aboutNav.removeClass('show', scrollTop > prev);
+            userNav.toggleClass('stickyNav', scrollTop > prev);
+            mainHeader.toggleClass('stickyNav', scrollTop > prev);
+            langsNav.hide();
+            prev = scrollTop;
+        });
+
+        $('#hamburgerButton').click(function(e){
+            e.preventDefault();
+            secondaryNav.toggleClass('stickyNav');
+        });
+    },
+
     loadMiscell: function(){
-        // Miscell Stuff
-        $(function () {
-            $('.button__bookmark').click(function(e){
-                e.preventDefault();
-                $(this).toggleClass('on');
-            });
+        $('.button__bookmark').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('button__bookmark--on');
+        });
 
-            $('.no-link').click(function(e){
-                e.preventDefault();
-            });
+        // $('.doble__arrow__accordion').click(function(){
+        //     $(this).toggleClass('doble__arrow__accordion--on');
+
+        //     if ($(this).hasClass('doble__arrow__accordion--on')) {
+        //         $(this).text('Ver menos');
+        //     } else {
+        //         $(this).text('Ver más');
+        //     }
+
+        // });
+
+        $('.no-link').click(function(e){
+            e.preventDefault();
         });
     },
 
-    lawyerResults: function(){
-        // Toogle Results View
-        $('.lawyer__search__wrapper__loader').css("display", "flex").hide();
+    // BORRAR (activar en la propia página)
+    // showMoreLess: function(){
+    //     $('.read-more').each(function() {
+    //         if ($(this).children('p').length > 4) {
+    //             $(this).children('p:lt(3)').show();
+    //             $(this).append('<button type="button" class="doble__arrow__accordion loadMore">Ver más</button>');
+    //         }
+    //     });
+    //     $('.read-more').on("click", '.loadMore', function() {
+    //         $(this).parent('.read-more').children('p').slideDown();
+    //         $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
+    //         $('.doble__arrow__accordion').blur();
+    //     });
+    //     $('.read-more').on("click", '.loadLess', function() {
+    //         $(this).parent('.read-more').children('p:gt(2)').slideUp();
+    //         $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
+    //         $('.doble__arrow__accordion').blur();
+    //     });
+    // },
 
-        $('.list').click(function(e){
-            e.preventDefault();
 
-            $('.icon__button.grid').removeClass('active');
-            $(this).addClass('active');
+    /* Stand by BORRAR MAYBE */
+    /*
+    toggleMoreInfo: function(){
+        // Show / hide filters
 
-            $('.lawyer__search__wrapper__loader').fadeIn();
+        // <button data-id="add_group"> Add Group </button>
 
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
-
-            setTimeout(
-                function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--loading');
-                }
-            , 600);
+        $('button').on('click', function() {
+            $('#' + $(this).data('id')).slideToggle();
         });
 
-        $('.grid').click(function(e){
+
+        // $('.toggle-filters').click(function(e){
+        //     e.preventDefault();
+        //     $('.event-filters').slideToggle();
+        // });
+
+        // $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
+        //     e.preventDefault();
+        //     $(this).toggleClass('on');
+
+        //     var el = $(this);
+        //     el.text() == el.data("text-original")
+        //         ? el.text(el.data("text-swap"))
+        //         : el.text(el.data("text-original"));
+        // });
+    },
+
+    toggleTextButton: function(){
+        // Change text literal buttons
+        $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
             e.preventDefault();
+            $(this).toggleClass('on');
 
-            $('.icon__button.list').removeClass('active');
-            $(this).addClass('active');
-
-            $('.lawyer__search__wrapper__loader').fadeIn();
-
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
-
-            setTimeout(
-                function(){
-                    $('.lawyer__search__wrapper__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--loading');
-                }
-            , 600);
+            var el = $(this);
+            el.text() == el.data("text-original")
+                ? el.text(el.data("text-swap"))
+                : el.text(el.data("text-original"));
         });
     },
+    */
 
     customSelects: function(){
         /*
@@ -115,194 +201,81 @@ web.global = {
         });
     },
 
+    /* BORRAR
+    // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
+    // VER PAGE COMPONENTES */
+    /*
+
     sliderHome: function(){
-        // Slider Home
-        var swiperCarousel = new Swiper ('#sliderHome', {
+        var swiperHome = new Swiper ('#sliderHome', {
             slidesPerView: 1,
             spaceBetween: 0,
             loop: true,
-            grabCursor: true,
-            // navigation: {
-            //     nextEl: '.home__preview'
-            // }
+            // grabCursor: true,
+            speed: 800,
+            allowSlidePrev: false,
+            allowTouchMove: false,
+            // autoplay: {
+            //     delay: 5000,
+            // },
+            navigation: {
+                nextEl: '.home__preview__button'
+            }
         });
     },
 
-    sliderNews: function(){
-        // Slider News
-        var swiperCarousel = new Swiper ('#sliderNews', {
+
+    sliderGeneral: function(){
+        var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
             spaceBetween: 25,
-            loop: true,
+            // loop: true,
+            allowTouchMove: true,
             grabCursor: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
             }
         });
     },
 
     sliderCases: function(){
-        // Slider Cases
-         var swiperSlider = new Swiper ('#sliderCases', {
+        var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
-            // loop: true,
-            grabCursor: true
-        });
-    },
-
-    sliderAwards: function(){
-        // Slider Awards
-        var swiperCarousel = new Swiper ('#sliderAwards', {
-            slidesPerView: 'auto',
-            spaceBetween: 60,
-            centeredSlides: true,
             loop: true,
+            allowTouchMove: true,
             grabCursor: true
         });
     },
-
-    loadCalendar: function(){
-        document.addEventListener('DOMContentLoaded', function() {
-
-          var calendarEl = document.getElementById('eventCalendar');
-          var calendar = new FullCalendar.Calendar(calendarEl, {
-
-           /*
-           https://fullcalendar.io/docs/locale
-           https://fullcalendar.io/docs/locale-demo
-           https://codepen.io/pen/?&editable=true&editors=001
-           */
-
-            plugins: [ 'dayGrid' ],
-            defaultView: 'dayGridMonth',
-
-            locale: 'es',
-            weekNumberCalculation: 'ISO',
-            // firstDay: 1,
-            // timeZone: 'UTC',
-
-            columnHeaderFormat: { weekday: 'long' },
-
-            header: {
-              left: 'prev',
-              center: 'title',
-              right: 'next'
-            },
-
-            /*
-            https://fullcalendar.io/docs/height
-            https://fullcalendar.io/docs/full-height-demo
-            */
-            height: 'auto',
+    */
+    // END BORRAR
 
 
-            /*
-            eventLimit: true, // for all non-TimeGrid views
-            views: {
-              timeGrid: {
-                eventLimit: 2 // adjust to 6 only for timeGridWeek/timeGridDay
-              }
-            },
-            */
+    // sliderAwards: function(){
+    //     var swiperAwards = new Swiper ('#sliderAwards', {
+    //         slidesPerView: 1,
+    //         spaceBetween: 0,
+    //         centeredSlides: true,
+    //         loop: true,
+    //         grabCursor: true,
+    //         breakpoints: {
+    //             1199: {
+    //                 slidesPerView: 3,
+    //                 spaceBetween: 60,
+    //             },
+    //         }
+    //     });
+    // },
 
-            // events: 'https://fullcalendar.io/demo-events.json',
-            /*
-            https://fullcalendar.io/docs/event-object
-            */
-            events: [
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-01",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                "start":"2020-02-04",
-                "end":"2020-02-06",
-                place: 'Lisboa'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                // "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "title":"\"Quick fixes\": análisis detallado de las novedades en el régimen...",
-                "start":"2020-02-07"
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Conference lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-12",
-                "end":"2020-02-14",
-                place: 'Madrid'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-02-13T10:30:00+00:00",
-                "end":"2020-02-13T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting",
-                "start":"2020-02-17T10:00:00+00:00",
-                "end":"2020-02-18T10:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Lunch",
-                "start":"2020-02-17T12:00:00+00:00",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Vestibulum lorem sed risus ultricies tristique nulla aliquet enim pulvinar sapien condimentum lacinia quis",
-                "start":"2020-02-26",
-                "end":"2020-02-29",
-                place: 'Barcelona'
-              },
-              {
-                "url":"https:\/\/www.cuatrecasas.com\/",
-                "title":"Meeting lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "start":"2020-03-10T10:30:00+00:00",
-                "end":"2020-03-12T12:30:00+00:00",
-                place: 'Barcelona'
-              },
-            ],
-
-            eventRender: function (info) {
-              /*
-              https://stackoverflow.com/questions/56280133/how-to-add-an-image-to-an-event-on-vue-fullcalendar-imageurl-returns-undefined
-              https://github.com/fullcalendar/fullcalendar/issues/2919
-              */
-              if (info.event.extendedProps.place) {
-                  info.el.firstChild.innerHTML = "<div class=\"fc-title\">"+ info.event.title +"</div><div class=\"fc-place\">"+ info.event.extendedProps.place +"</div>";
-              }
-            }
-
-            // eventRender: function(info) {
-            //   if (info.event.extendedProps.status === 'done') {
-
-            //     // Change background color of row
-            //     info.el.style.backgroundColor = 'red';
-
-            //     // Change color of dot marker
-            //     var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
-            //     if (dotEl) {
-            //       dotEl.style.backgroundColor = 'white';
-            //     }
-            //   }
-            // }
-          });
-
-          calendar.render();
+    testimonials: function(){
+        $('.testimonials__item').hover(function(){
+            if ($(this).hasClass('selected')) return;
+            $('.selected').removeClass('selected');
+            $(this).addClass('selected');
         });
-    }
+    },
+
 }
 
 // Run the global stuff

@@ -1,0 +1,14 @@
+{% for language in languages %}
+
+    {% for region in regions %}
+
+        {% set href = navigation_service.getAlternativePath(language, region) %}
+        {% set hreflang = navigation_service.getHrefLang(language, region) %}
+
+        {% if href and hreflang %}
+            <link rel="alternate" hreflang="{{ hreflang }}" href="{{ href }}" />
+        {% endif %}
+
+    {% endfor %}
+
+{% endfor %}

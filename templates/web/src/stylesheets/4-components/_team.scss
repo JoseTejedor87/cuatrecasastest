@@ -17,55 +17,17 @@
 //
 
 @include new("team") {
+    position: relative;
+    padding: 3rem 0;
 
-    .container-fluid {
-        padding-right: 0;
-        padding-left: 0;
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+        @include reset-full-scren;
     }
 
-    //
-    // MORE THAN ONE MEMBER
-   //
-    @include when("full") {
-        background-color: rgba($black, 0.1);
-
-        .team__member {
-            height: 30rem;
-        }
-    }
-
-    //
-    // JUST ONE MEMBER
-    //
-    @include when("contact") {
-        background-color: rgba($black, 0.1);
-
-        .team__member {
-            height: 30rem;
-        }
-    }
-
-    //
-    // GENERAL TYPO SETTINGS
-    // --------------------------------------------------------------------------
-
-    h3 {
-        margin-bottom: 1rem;
-        @include fontSet(16px, 18px);
-        font-weight: bold;
-        text-transform: uppercase;
-        color: $main-color;
-    }
-
-    h4 {
-        @include fontSet(28px, 30px);
-        font-weight: normal;
-        color: $white;
-    }
-
-    p {
-        @include fontSet(20px, 24px);
-        color: $white;
+    .team__member {
+        // height: 22rem;
+        min-height: 330px;
     }
 
 
@@ -86,16 +48,41 @@
         padding: 1rem;
         background-color: $complementary-color;
 
-        .viewmore__arrow__button {
-            @include arrow-link($main-color);
+        .doble__arrow__link {
             @include fontSet(20px, 20px);
             position: absolute;
             bottom: 20px;
+            padding: 0.3rem 2rem 0.3rem 0px;
+            letter-spacing: 0.61px;
+            color: $white;
 
             &:before,
             &:after {
-                top: -3px;
+                @include fontSet(26px, 40px);
+                top: -4px;
+                color: $white;
             }
+
+            @include on-event() {
+                padding-left: 1.4rem;
+                padding-right: 0px;
+            }
+        }
+
+        @include has("title") {
+            margin-bottom: 1rem;
+            @include fontSet(16px, 19px);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $main-color;
+            word-spacing: 100vw;
+        }
+
+        @include has("intro") {
+            margin-bottom: 4rem;
+            @include fontSet(33px, 37px);
+            font-weight: normal;
+            color: $white;
         }
     }
 
@@ -117,12 +104,10 @@
         display: flex;
         flex-flow: column nowrap;
 
-        // background-size: cover;
-        // background-position: 0 30%;
-        background-size: auto 100%;
-        background-position: 94% 0;
+        // background-size: auto 100%;
+        // background-position: 94% 0;
         background-repeat: no-repeat;
-        // background-blend-mode: normal;
+        background-blend-mode: normal;
         background-color: rgba($black, 0.5);
 
         // background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
@@ -130,6 +115,115 @@
 
         &:last-child {
             margin-right: 0;
+        }
+
+        @include has("link") {
+            @include box-hidden-link;
+            margin: -1rem 0 0 -1rem;
+        }
+
+        @include has("name") {
+            order: 2;
+            margin-top: 1rem;
+            // width: 140px;
+            @include fontSet(33px, 37px);
+            font-weight: normal;
+            color: $white;
+            word-spacing: 100vw;
+            overflow: hidden;
+        }
+
+        @include has("details") {
+            order: 1;
+        }
+
+        @include has("position") {
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $main-color;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @include has("practice") {
+            @include reset-list;
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0.2rem 0;
+            overflow: hidden;
+
+            @include has("item") {
+                flex: 0 0 auto;
+                position: relative;
+                margin: 0 16px 0 0;
+                padding: 0 0;
+                @include fontSet(16px, 16px);
+                font-weight: bold;
+                text-transform: uppercase;
+                color: $main-color;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: -3px;
+                    left: -8px;
+                    width: 2px;
+                    height: 100%;
+                    background-color: $main-color;
+                }
+
+                &:first-child {
+                    display: block;
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        @include has("sector") {
+            margin: 0.2rem 0;
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            color: $main-color;
+        }
+
+        @include has("place") {
+            @include fontSet(16px, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $main-color;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @include has("resume") {
+            position: absolute;
+            bottom: 1rem;
+            width: 50%;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+
+            p {
+                margin-bottom: 0;
+                @include fontSet(20px, 24px);
+                color: $white;
+            }
+        }
+
+        @include on-event() {
+            background-blend-mode: luminosity;
+            background-color: rgba($complementary-color, 0.3);
         }
 
 
@@ -142,100 +236,84 @@
         // https://codepen.io/mattlubner-the-decoder/pen/ExaQZQR
         // --------------------------------------------------------------------------
 
-
-        // /* one item */
+        // one item
         &:first-child:nth-last-child(1) {
-            // width: 100%;
-            // outline: 5px solid #4b6cb7;
-        }
-
-        // /* two items */
-        &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
-            // width: 50%;
-            // outline: 5px solid #00C9FF;
-        }
-
-        // /* three items */
-        &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
-            // width: 33.3333%;
-            // outline: 5px solid #FC466B;
-        }
-
-        // /* four items */
-        &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
-            // width: 25%;
-            // outline: 5px solid #3F2B96;
-        }
-
-        // /* five items */
-        &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
-            // width: 20%;
-            // outline: 5px solid #FDBB2D;
-        }
-
-
-
-
-        @include has("link") {
-            @include box-hidden-link;
-            margin: -1rem 0 0 -1rem;
-        }
-
-        @include has("position") {}
-        @include has("name") {}
-
-        @include has("resume") {
-            position: absolute;
-            bottom: 1rem;
-            width: 75%;
-            height: 76px;
-            overflow: hidden;
-            opacity: 0;
-            transition: width 0.2s ease-out, opacity 0.8s ease-out;
-
-            p {
-                margin-bottom: 0;
-            }
-        }
-
-        //
-        // JUST ONE MEMBER
-        //
-        &:only-child {
+            background-size: auto 150%;
             background-position: 100% 100%;
+
+            .team__member__name {
+                width: 180px;
+            }
+
+            .team__member__details {
+                width: 75%;
+            }
+
+            // @include on-event() {
+            //     background-position: 100% 100%;
+            // }
+        }
+
+        // two items
+        &:first-child:nth-last-child(2), &:first-child:nth-last-child(2) ~ article {
             background-size: auto 130%;
+            background-position: 100% 100%;
 
-            .team__member__resume {
-                width: 40%;
-                opacity: 1;
+            .team__member__name {
+                width: 160px;
             }
+
+            // @include on-event() {
+            //     flex-grow: 3;
+            //     background-position: 100% 70%;
+            // }
         }
 
+        // three items
+        &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
+            background-size: auto 120%;
+            background-position: 95% 100%;
 
-        @include on-event() {
-            // flex-grow: 3;
-            // background-position: 92% 0;
-            // background-blend-mode: overlay;
-
-            flex-grow: 3;
-            // background-position: 94% 0;
-            background-blend-mode: luminosity;
-            background-color: rgba($complementary-color, 0.3);
-
-            .team__member__resume {
-                width: 50%;
-                opacity: 0;
+            .team__member__name {
+                width: 140px;
             }
 
-            &:only-child {
-                background-position: 100% 100%;
-                background-size: auto 130%;
-
-                .team__member__resume {
-                    width: 40%;
-                }
-            }
+            // @include on-event() {
+            //     flex-grow: 4;
+            //     background-position: 100% 70%;
+            // }
         }
+
+        // four items
+        &:first-child:nth-last-child(4), &:first-child:nth-last-child(4) ~ article {
+            background-size: auto 100%;
+            background-position: 95% 100%;
+
+            .team__member__name {
+                width: 140px;
+            }
+
+            // @include on-event() {
+            //     flex-grow: 5;
+            //     background-position: 100% 80%;
+            // }
+        }
+
+        // five items
+        &:first-child:nth-last-child(5), &:first-child:nth-last-child(5) ~ article {
+            background-size: auto 100%;
+            background-position: 95% 100%;
+
+            .team__member__name {
+                width: 140px;
+            }
+
+            // @include on-event() {
+            //     flex-grow: 6;
+            //     background-position: 100% 100%;
+            // }
+        }
+
 
         //
         // maybe... ¿?
@@ -247,7 +325,6 @@
         //     filter: grayscale(100%);
         //     transition: all 1s ease-in-out;
         // }
-
 
     }
 

@@ -1,0 +1,66 @@
+{% extends 'web/base.html.twig' %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+            <header class="row page__header">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            404
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'global.messages.page_not_found'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            {% set publishable = navigation_service.getPublishable() %}
+
+            <section class="row page__block--full">
+                <div class="col">
+                    <div class="page__block__content--full">
+
+                        {% if publishable %}
+                            <h2>{{ 'global.messages.alternative_urls'|trans }}</h2>
+                            <ul>
+                            {% for language in languages %}
+                                {% for region in regions %}
+                                    {% set href = navigation_service.getAlternativePath(language, region) %}
+                                    {% if href %}
+                                    <li>
+                                        <a href="{{ href }}" />{{('global.languages.'~language)|trans}} / {{('global.regions.'~region)|trans}}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h2>{{ 'global.messages.page_not_found'|trans }}</h2>
+                            <br/>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere enim quis
+                                ipsum tincidunt pretium. Sed placerat sit amet urna ut tristique. Cras pretium
+                                ipsum mauris, id consequat ex mattis in. Proin volutpat in tellus ac placerat.
+                            </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

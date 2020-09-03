@@ -1,3 +1,15 @@
-controllers:
-    resource: '../src/Controller/CMS'
-    type:     annotation
+web:
+    resource:       routes/web_routes.yaml
+    prefix:         /{_locale}/{_region}
+    requirements:
+        _locale:   es|en|pt
+        _region:   spain|latam|portugal|global
+    defaults:
+        _locale:    '%app.default_language%'
+        _region:    spain
+
+cms:
+    resource:       routes/cms_routes.yaml
+    prefix:         /cms
+    defaults:
+        _locale:    es

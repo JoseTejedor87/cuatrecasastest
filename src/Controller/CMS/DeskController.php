@@ -4,7 +4,6 @@ namespace App\Controller\CMS;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -13,14 +12,8 @@ use App\Form\DeskFormType;
 use App\Repository\DeskRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/desks")
- */
 class DeskController extends CMSController
 {
-    /**
-     * @Route("/", name="desk_index", methods={"GET"})
-     */
     public function index(DeskRepository $deskRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,9 +27,6 @@ class DeskController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="desk_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $desk = new Desk();
@@ -49,7 +39,7 @@ class DeskController extends CMSController
             $desk->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('desk_index');
+            return $this->redirectToRoute('cms_desks_index');
         }
 
         return $this->render('cms/desk/new.html.twig', [
@@ -58,9 +48,6 @@ class DeskController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="desk_show", methods={"GET"})
-     */
     public function show(Desk $desk): Response
     {
         return $this->render('desk/show.html.twig', [
@@ -68,9 +55,6 @@ class DeskController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="desk_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Desk $desk): Response
     {
         $form = $this->createForm(DeskFormType::class, $desk);
@@ -79,7 +63,7 @@ class DeskController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('desk_index');
+            return $this->redirectToRoute('cms_desks_index');
         }
 
         return $this->render('cms/desk/edit.html.twig', [
@@ -88,9 +72,6 @@ class DeskController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="desk_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Desk $desk): Response
     {
         if ($this->isCsrfTokenValid('delete'.$desk->getId(), $request->request->get('_token'))) {
@@ -99,6 +80,6 @@ class DeskController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('desk_index');
+        return $this->redirectToRoute('cms_desks_index');
     }
 }

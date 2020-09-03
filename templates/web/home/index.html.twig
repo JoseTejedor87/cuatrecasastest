@@ -14,42 +14,63 @@
                 <div id="sliderHome" class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide opacity2" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
-                            <div class="home__item">
-                                <div class="home__item__type">Publicación</div>
-                                <div class="home__item__content">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
-                                <div class="home__item__link"><a href="#" class="viewmore__arrow__button">Ver más</a></div>
+                            <div class="home__wrapper">
+                                <div class="home__article">
+                                    <div class="home__article__type">Publicación</div>
+                                    <div class="home__article__content">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
+                                    <div class="home__article__link">
+                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="home__preview">
                                 <div class="home__preview__content">
-                                    Nos sumamos al compromiso Lisboa Capital Verde Europea 2020
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
                                 </div>
+                                <button type="button" class="home__preview__button">
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
+                                </button>
                             </div>
                         </div>
                         <div class="swiper-slide opacity4" style="background-image: url('{{ asset('web/assets/img/andrew-buchanan-7IcnYYVgdn8-unsplash.jpg') }}')">
-                            <div class="home__item">
-                                <div class="home__item__type">Noticia</div>
-                                <div class="home__item__content">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
-                                <div class="home__item__link"><a href="#" class="viewmore__arrow__button">Ver más</a></div>
+                            <div class="home__wrapper">
+                                <div class="home__article">
+                                    <div class="home__article__type">Noticia</div>
+                                    <div class="home__article__content">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
+                                    <div class="home__article__link">
+                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="home__preview">
-                                <div class="home__preview__next">
-                                    next
-                                </div>
                                 <div class="home__preview__content">
-                                    Mejoramos nuestra clasificación en los rankings de M&amp;A
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
                                 </div>
+                                <button type="button" class="home__preview__button">
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
+                                </button>
                             </div>
                         </div>
                         <div class="swiper-slide opacity4" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
-                            <div class="home__item">
-                                <div class="home__item__type">Publicación</div>
-                                <div class="home__item__content">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
-                                <div class="home__item__link"><a href="#" class="viewmore__arrow__button">Ver más</a></div>
+                            <div class="home__wrapper">
+                                <div class="home__article">
+                                    <div class="home__article__type">Publicación</div>
+                                    <div class="home__article__content">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
+                                    <div class="home__article__link">
+                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="home__preview">
                                 <div class="home__preview__content">
-                                    Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales
+                                    <div class="preview__title">Siguiente:</div>
+                                    <div class="preview__intro">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
                                 </div>
+                                <button type="button" class="home__preview__button">
+                                    <span class="icon4-fletxa_cuatrecasas"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -58,99 +79,71 @@
         </header>
 
         <section class="search__component--home">
-            <div class="container-fluid">
-                <!-- Search Tabs -->
+            <div class="container">
                 <div class="row">
-                    <div class="search_tab">
-                        <ul class="nav nav-tabs" id="searchTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="searchLawyer-tab" data-toggle="tab" href="#searchLawyer" role="tab" aria-controls="searchLawyer" aria-selected="true">Busca tu<br>abogado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="searchSector-tab" data-toggle="tab" href="#searchSector" role="tab" aria-controls="searchSector" aria-selected="false">Busca tu<br>sector</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Search Content -->
-                <div class="row">
-                    <div class="col search__tab-content">
+                    <div class="col">
                         <form action="{{ relative_path('/es/lawyer/filter')}}" method="get">
-                            <div class="tab-content">
-
-                                <!-- LAWYER Search -->
-                                <div class="tab-pane active" id="searchLawyer" role="tabpanel" aria-labelledby="searchLawyer">
-                                    <div class="search_box__wrapper">
-                                        <div class="search_box__name search_box__name--full">
-                                            <form action="{{ relative_path('/es/lawyer/filter')}}" method="get">
-                                                <input type="text" class="form-control" placeholder="Buscar abogado" name="search">
-                                                <div class="input-group">
-                                                    <button class="search_box__button" type="submit">
-                                                        <i class="icon ion-ios-search-strong"></i>
-                                                    </button>
-                                                </div>
-                                            </form>
+                            <div class="search_box__wrapper">
+                                <div class="search_box__name search_box__name--full">
+                                    <form action="{{ relative_path('/es/lawyer/filter')}}" method="get">
+                                        <input type="text" class="form-control" placeholder="Buscar" name="search">
+                                        <div class="input-group">
+                                            <button class="search_box__button" type="submit">
+                                                <span class="icon4-lupa"></span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="search_selects">
-                                        <select id="area" class="custom__select">
-                                            <option value="hide">Por área de práctica</option>
-                                            <option value="">Competencia y Derecho de la UE</option>
-                                            <option value="">Corporate Governance y Compliance</option>
-                                            <option value="">Derecho contable</option>
-                                            <option value="">Derecho Laboral</option>
-                                            <option value="">Financiero</option>
-                                            <option value="">Fiscal</option>
-                                            <option value="">Fiscalidad Contenciosa</option>
-                                            <option value="">Fiscalidad Financiera</option>
-                                            <option value="">Fusiones y Adquisiciones</option>
-                                            <option value="">Litigación</option>
-                                            <option value="">Mediación</option>
-                                            <option value="">Mercado de valores</option>
-                                        </select>
-                                        <select id="desk" class="custom__select">
-                                            <option value="hide">Por sector o desk</option>
-                                            <option value="">Alimentación</option>
-                                            <option value="">Arte</option>
-                                            <option value="">Brexit</option>
-                                            <option value="">Canadian Desk</option>
-                                            <option value="">Ciberseguridad</option>
-                                            <option value="">Consumo y Retail</option>
-                                            <option value="">Deporte</option>
-                                            <option value="">Empresa Familiar</option>
-                                            <option value="">Energía y Recursos Naturales</option>
-                                            <option value="">Farmacia y Sanitario</option>
-                                        </select>
-                                        <select id="office" class="custom__select">
-                                            <option value="hide">Por oficina</option>
-                                            <option value="">Barcelona</option>
-                                            <option value="">Madrid</option>
-                                            <option value="">Lisboa</option>
-                                            <option value="">Beijing</option>
-                                            <option value="">Bogotá</option>
-                                            <option value="">Brussels</option>
-                                            <option value="">Casablanca</option>
-                                            <option value="">Lima</option>
-                                            <option value="">London</option>
-                                            <option value="">Luanda</option>
-                                            <option value="">Maputo</option>
-                                            <option value="">Mexico City</option>
-                                            <option value="">New York</option>
-                                            <option value="">Sao Paulo</option>
-                                            <option value="">Shanghai</option>
-                                        </select>
-                                    </div>
+                                    </form>
                                 </div>
-
-                                <!-- SECTOR Search -->
-                                <div class="tab-pane" id="searchSector" role="tabpanel" aria-labelledby="searchSector">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, quisquam qui error nesciunt illo in quaerat odit voluptatibus ratione accusantium magni et, saepe magnam provident totam.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe dolores, labore ratione quibusdam aut adipisci totam temporibus minus iusto facere explicabo nemo iste aliquid laboriosam porro maiores magni, odit eos.</p>
-                                </div>
-
+                            </div>
+                            <div class="search_selects">
+                                <select id="area" class="custom__select">
+                                    <option selected disabled>Por área</option>
+                                    <option value="">Competencia y Derecho de la UE</option>
+                                    <option value="">Corporate Governance y Compliance</option>
+                                    <option value="">Derecho contable</option>
+                                    <option value="">Derecho Laboral</option>
+                                    <option value="">Financiero</option>
+                                    <option value="">Fiscal</option>
+                                    <option value="">Fiscalidad Contenciosa</option>
+                                    <option value="">Fiscalidad Financiera</option>
+                                    <option value="">Fusiones y Adquisiciones</option>
+                                    <option value="">Litigación</option>
+                                    <option value="">Mediación</option>
+                                    <option value="">Mercado de valores</option>
+                                </select>
+                                <select id="desk" class="custom__select">
+                                    <option selected disabled>Por sector o desk</option>
+                                    <option value="">Alimentación</option>
+                                    <option value="">Arte</option>
+                                    <option value="">Brexit</option>
+                                    <option value="">Canadian Desk</option>
+                                    <option value="">Ciberseguridad</option>
+                                    <option value="">Consumo y Retail</option>
+                                    <option value="">Deporte</option>
+                                    <option value="">Empresa Familiar</option>
+                                    <option value="">Energía y Recursos Naturales</option>
+                                    <option value="">Farmacia y Sanitario</option>
+                                </select>
+                                <select id="office" class="custom__select">
+                                    <option selected disabled>Por oficina</option>
+                                    <option value="">Barcelona</option>
+                                    <option value="">Madrid</option>
+                                    <option value="">Lisboa</option>
+                                    <option value="">Beijing</option>
+                                    <option value="">Bogotá</option>
+                                    <option value="">Brussels</option>
+                                    <option value="">Casablanca</option>
+                                    <option value="">Lima</option>
+                                    <option value="">London</option>
+                                    <option value="">Luanda</option>
+                                    <option value="">Maputo</option>
+                                    <option value="">Mexico City</option>
+                                    <option value="">New York</option>
+                                    <option value="">Sao Paulo</option>
+                                    <option value="">Shanghai</option>
+                                </select>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -158,96 +151,47 @@
 
     </main>
 
-    {% include 'web/shared/related-content-slider.html.twig' %}
-    {% include 'web/shared/insightsHighlight.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/testimonials.html.twig' %}
     {% include 'web/shared/brands.html.twig' %}
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
 <!-- Slider JavaScript-->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-
 <script>
-    // Slider Home
-    var swiperCarousel = new Swiper ('#sliderHome', {
+    web.global.customSelects();
+    web.global.testimonials();
+
+    var swiperHome = new Swiper ('#sliderHome', {
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
-        grabCursor: true,
-        // navigation: {
-        //     nextEl: '.home__preview'
-        // }
-    });
-
-    // Slider News
-    var swiperCarousel = new Swiper ('#sliderNews', {
-        slidesPerView: 3,
-        spaceBetween: 25,
-        loop: true,
-        grabCursor: true,
+        // grabCursor: true,
+        speed: 800,
+        allowSlidePrev: false,
+        allowTouchMove: false,
+        autoplay: {
+            delay: 5000,
+        },
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: '.home__preview__button'
         }
     });
 
-    $(function () {
-        // Custom Selects
-        // Reference: http://jsfiddle.net/BB3JK/47/
-        $('.custom__select').each(function(){
-            var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-            $this.addClass('select-hidden');
-            $this.wrap('<div class="select"></div>');
-            $this.after('<div class="select-styled"></div>');
-
-            var $styledSelect = $this.next('div.select-styled');
-            // $styledSelect.text($this.children('option').eq(0).text());
-            $styledSelect.text($this.children('option:selected').text())
-
-            var $list = $('<ul/>', {
-                'class': 'select-options'
-            }).insertAfter($styledSelect);
-
-            for (var i = 0; i < numberOfOptions; i++) {
-                $('<li/>', {
-                    text: $this.children('option').eq(i).text(),
-                    rel: $this.children('option').eq(i).val()
-                }).appendTo($list);
-            }
-
-            var $listItems = $list.children('li');
-
-            $styledSelect.click(function(e) {
-                e.stopPropagation();
-                $('div.select-styled.active').not(this).each(function(){
-                    $(this).removeClass('active').next('ul.select-options').hide();
-                });
-                $(this).toggleClass('active').next('ul.select-options').toggle();
-            });
-
-            $listItems.click(function(e) {
-                e.stopPropagation();
-                $styledSelect.text($(this).text()).removeClass('active');
-                $this.val($(this).attr('rel'));
-                $list.hide();
-                //console.log($this.val());
-            });
-
-            $(document).click(function() {
-                $styledSelect.removeClass('active');
-                $list.hide();
-            });
-        });
-
-        // Testimonials
-        $('.testimonials__item').mouseover(function() {
-            $('.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
+    var swiperGeneral = new Swiper ('.slider__general', {
+        slidesPerView: 3,
+        spaceBetween: 25,
+        // loop: true,
+        allowTouchMove: true,
+        grabCursor: true,
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            draggable: true
+        }
     });
 </script>
 {% endblock %}

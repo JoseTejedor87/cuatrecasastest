@@ -1,0 +1,400 @@
+# Test BORRARRRR
+# ###########################################
+gestorgetpaises:
+    path:
+        en:   /gestor/getpaises
+        es:   /gestor/getpaises
+    methods:    GET
+    controller: App\Controller\TestController::getPaises
+gestorgetProvincias:
+    path:
+        en:   /gestor/getProvincias
+        es:   /gestor/getProvincias
+    methods:    GET
+    controller: App\Controller\TestController::getProvincias
+gestorgetIdiomas:
+    path:
+        en:   /gestor/getIdiomas
+        es:   /gestor/getIdiomas
+    methods:    GET
+    controller: App\Controller\TestController::getIdiomas
+gestorgetAreasInteres:
+    path:
+        en:   /gestor/getAreasInteres
+        es:   /gestor/getAreasInteres
+    methods:    GET
+    controller: App\Controller\TestController::getAreasInteres
+gestorgetOficinas:
+    path:
+        en:   /gestor/getOficinas
+        es:   /gestor/getOficinas
+    methods:    GET
+    controller: App\Controller\TestController::getOficinas
+gestorgetSecretarias:
+    path:
+        en:   /gestor/getSecretarias
+        es:   /gestor/getSecretarias
+    methods:    GET
+    controller: App\Controller\TestController::getSecretarias
+gestorgetResponsablesMarketing:
+    path:
+        en:   /gestor/getResponsablesMarketing
+        es:   /gestor/getResponsablesMarketing
+    methods:    GET
+    controller: App\Controller\TestController::getResponsablesMarketing
+gestorgetSociosResponsables:
+    path:
+        en:   /gestor/getSociosResponsables
+        es:   /gestor/getSociosResponsables
+    methods:    GET
+    controller: App\Controller\TestController::getSociosResponsables
+gestorgetContactoWebtForm:
+    path:
+        en:   /gestor/getContactoWebtForm
+        es:   /gestor/getContactoWebtForm
+    methods:    GET
+    controller: App\Controller\TestController::getContactoWebtForm
+
+# HOME
+# ###########################################
+home:
+    path: /
+    methods:    GET
+    controller: App\Controller\Web\HomeController::index
+
+components:
+    path:
+        en:   /components
+        es:   /componentes
+    methods:    GET
+    controller: App\Controller\Web\HomeController::components
+
+
+# KNOWLEDGE
+# ###########################################
+knowledge_index:
+    path:
+        en:   /knowledge
+        es:   /conocimiento
+    methods:    GET
+    controller: App\Controller\Web\KnowledgeController::index
+
+
+# Sectors
+# ###########################################
+sectors_index:
+    path:
+        en:   /sectors
+        es:   /sectores
+    methods:    GET
+    controller: App\Controller\Web\SectorController::index
+
+sectors_detail:
+   path:
+       en:   /sectors/{slug}
+       es:   /sectores/{slug}
+   methods:    GET
+   controller: App\Controller\Web\SectorController::detail
+
+# Case Studies
+# ###########################################
+case_studies_detail:
+    path:
+        en:   /cases/{slug}
+        es:   /casos/{slug}
+    methods:    GET
+    controller: App\Controller\Web\CaseStudyController::detail
+
+# Services
+# ###########################################
+services_index:
+    path:
+        en:   /services
+        es:   /servicios
+    methods:    GET
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        route: practices_index
+        keepQueryParams: true
+
+# Practices
+# ###########################################
+practices_index:
+    path:
+        en:   /practice-areas
+        es:   /areas-de-practica
+    methods:    GET
+    controller: App\Controller\Web\PracticeController::index
+
+practices_detail:
+   path:
+       en:   /practice-areas/{slug}
+       es:   /areas-de-practica/{slug}
+   methods:    GET
+   controller: App\Controller\Web\PracticeController::detail
+
+# Desks
+# ###########################################
+desks_index:
+   path:
+       en:   /desks
+       es:   /desks
+   methods:    GET
+   controller: App\Controller\Web\DeskController::index
+
+desks_detail:
+   path:
+       en:   /desks/{slug}
+       es:   /desks/{slug}
+   methods:    GET
+   controller: App\Controller\Web\DeskController::detail
+
+# Products
+# ###########################################
+products_index:
+    path:
+        en:   /other-services
+        es:   /otros-servicios
+    methods:    GET
+    controller: App\Controller\Web\ProductsController::index
+
+products_detail:
+   path:
+       en:   /other-services/{slug}
+       es:   /otros-servicios/{slug}
+   methods:    GET
+   controller: App\Controller\Web\ProductsController::detail
+
+# Events
+# ###########################################
+events_directory:
+   path:
+       en:   /events
+       es:   /eventos
+   methods:      GET
+   controller:   App\Controller\Web\EventController::index
+
+events_detail:
+   path:
+       en:   /events/{slug}
+       es:   /eventos/{slug}
+   methods:    GET
+   controller: App\Controller\Web\EventController::detail
+
+get_events:
+   path:
+       en:   /get_events_ajax
+       es:   /get_events_ajax
+   methods:    GET
+   controller: App\Controller\Web\EventController::ajaxActionEvent
+
+set_event_contact:
+   path:
+       en:   /set_contact_ajax
+       es:   /set_contact_ajax
+   methods:    GET
+   controller: App\Controller\Web\EventController::ajaxActionContact
+
+get_regions:
+   path:
+       en:   /get_regions
+       es:   /get_regions
+   methods:    GET
+   controller: App\Controller\Web\EventController::ajaxActionRegions
+
+# Lawyers
+# ###########################################
+lawyers_index:
+    path:
+        en:     /lawyers
+        es:     /abogados
+    methods:      GET
+    controller:   App\Controller\Web\LawyerController::index
+
+lawyers_detail:
+    path:
+        en:     /lawyers/{slug}
+        es:     /abogados/{slug}
+    methods:    GET
+    controller: App\Controller\Web\LawyerController::detail
+
+# Insights
+# ###########################################
+insights_detail:
+    path:
+        en:     /insights/{slug}
+        es:     /insights/{slug}
+    methods:    GET
+    controller: App\Controller\Web\InsightController::detail
+
+# Offices
+# ###########################################
+offices_index:
+    path:
+        en:     /offices/{slug}
+        es:     /oficinas/{slug}
+    methods:    GET
+    controller: App\Controller\Web\OfficeController::detail
+
+offices_detail:
+    path:
+        en:     /offices/{slug}
+        es:     /oficinas/{slug}
+    methods:    GET
+    controller: App\Controller\Web\OfficeController::detail
+
+# Pages
+# ###########################################
+pages_detail:
+    path:
+        en:     /p/{slug}
+        es:     /p/{slug}
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+# Publication
+# ###########################################
+publications_detail:
+    path:
+        en:   /article/{slug}
+        es:   /articulo/{slug}
+    methods:    GET
+    controller: App\Controller\Web\PublicationController::detail
+
+# REGIONS
+# ###########################################
+# estas urls estan fijas para poder acceder desde el menu de navgacion luego se deberia reemplazar por la dinamica de manera exclusiva
+regions_vision:
+    path:
+        en:   /p/vision-general-1
+        es:   /p/vision-general
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+regions_espana:
+    path:
+        en:   /p/espana-1
+        es:   /p/espana
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+regions_portugal:
+    path:
+        en:   /p/portugal-1
+        es:   /p/portugal
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+regions_latam:
+    path:
+        en:   /p/latinoamerica-1
+        es:   /p/latinoamerica
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+regions_other_regions:
+    path:
+        en:   /p/other-regions-1
+        es:   /p/other-regions
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+#############################################################
+
+detail_office:
+    path:
+        en:   /regions/office-detail
+        es:   /territorios/detalle-oficina
+    methods:    GET
+    controller: App\Controller\Web\RegionsController::detailOffice
+
+detail_others:
+    path:
+        en:   /regions/office-others
+        es:   /territorios/detalle-otros
+    methods:    GET
+    controller: App\Controller\Web\RegionsController::detailOthers
+
+
+# FIRM
+# ###########################################
+
+firm_vision:
+    path:
+        en:   /p/firm-vision-general-1
+        es:   /p/firm-vision-general
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+firm_social:
+    path:
+        en:   /p/social-1
+        es:   /p/social
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+firm_environment:
+    path:
+        en:   /p/medio-ambiente-1
+        es:   /p/medio-ambiente
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+firm_governance:
+    path:
+        en:   /p/buen-gobierno-1
+        es:   /p/buen-gobierno
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+firm_innovation:
+    path:
+        en:   /p/innovacion-1
+        es:   /p/innovacion
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+firm_mediaCenter:
+    path:
+        en:   /p/centro-de-medios-1
+        es:   /p/centro-de-medios
+    methods:    GET
+    controller: App\Controller\Web\PagesController::detail
+
+# API-PUBLICATIONS
+##############################################
+publications-api:
+    path:
+        en:   /publications-api/posts
+        es:   /publications-api/posts
+    methods:    GET
+    controller: App\Controller\APIController::posts
+
+publications-api-media:
+    path:
+        en:   /publications-api/media
+        es:   /publications-api/media
+    methods:    GET
+    controller: App\Controller\APIController::media
+
+# TEMPORAL (BORRAR)
+##############################################
+productDetailServices:
+    path:
+        en:   /product-service
+        es:   /producto-servicio
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::productDetailServices
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+    methods:    GET
+    controller: App\Controller\Web\ServicesController::fiscal
+
+events_detail2:
+   path:
+       en:   /event
+       es:   /evento
+   methods:    GET
+   controller: App\Controller\Web\KnowledgeController::detail2

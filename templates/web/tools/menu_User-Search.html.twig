@@ -1,0 +1,163 @@
+{% block menu %}
+    <div id="navDesktop" class="main-nav-wrapper">
+        <div class="container" id="primaryNav">
+            <div class="row">
+                <nav id="mainNav" class="col-lg-7 navbar navbar-expand-md justify-content-end" aria-label="main-nav">
+                    <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
+                        <img src="{{ asset('web/assets/logos/4casas.png') }}" alt="Cuatrecasas">
+                    </a>
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('knowledge_index') }}">{{ 'menu.knowledge' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('lawyers_index') }}">{{ 'menu.lawyers' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('services_index') }}">{{ 'menu.services' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('sectors_index') }}">{{ 'menu.sectors' | trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav id="aboutNav" class="col-lg-5 navbar navbar-expand-md justify-content-start" aria-label="about-nav">
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Career</a>
+                                <ul class="dropdown-menu dropdown-menu--inline">
+                                    <li><a href="#">Career</a></li>
+                                    <li><a href="#">Vive Cuatrecasas</a></li>
+                                    <li><a href="#">Revolution</a></li>
+                                    <li><a href="#">Aprende con los mejores</a></li>
+                                    <li><a href="#">International Career</a></li>
+                                    <li><a href="#">Join Us</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Estamos en</a>
+                                <ul class="dropdown-menu dropdown-menu--inline">
+                                    <li><a href="#">Visión general</a></li>
+                                    <li><a href="#">España</a></li>
+                                    <li><a href="#">Portugal</a></li>
+                                    <li><a href="#">Latinoamérica</a></li>
+                                    <li><a href="#">Otras regiones</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">La Firma</a>
+                                <ul class="dropdown-menu dropdown-menu--inline">
+                                    <li><a href="#">Contribution to Society</a></li>
+                                    <li><a href="#">Diversity</a></li>
+                                    <li><a href="#">Responsability and Compliance</a></li>
+                                    <li><a href="#">Innovation</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav id="userNav" class="navbar" aria-label="user-nav">
+                    <ul class="navbar-nav user-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="hamburgerButton"><i class="icon ion-android-menu"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link no-link" href="#"><span class="icon4-user"></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link no-link" href="#"><span class="icon4-lupa"></span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="container-fluid" id="secondaryNav">
+            <div class="row">
+                <nav id="contactNav" class="col-md-12 navbar navbar-expand-md" aria-label="contact-nav">
+                    <a href="{{ path('home') }}" class="navbar-brand">
+                        <img src="{{ asset('web/assets/logos/cuatrecasas.png') }}" alt="Cuatrecasas">
+                    </a>
+                    <div class="navbar-collapse justify-content-end">
+                        <ul class="navbar-nav contact-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contacto</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Webs</a>
+                                <ul class="dropdown-menu dropdown-menu--inline">
+                                    <li><a href="#">Cuatrecasas Acelera</a></li>
+                                    <li><a href="#">Instituto RRHH</a></li>
+                                    <li><a href="#">La Fundación</a></li>
+                                    <li><a href="#">App Corporativa</a></li>
+                                    <li><button type="button" class="menu-close" aria-label="Close"></button></li>
+                                </ul>
+                            </li>
+
+                            <!-- REGION / LANG  -->
+                            <li class="nav-item">
+                                <a class="nav-link lang-region-toggle" href="#" role="button">
+                                    <span class="region">{{ ('global.regions.' ~ navigation_service.getRegion())|trans }}</span>
+                                    <span class="lang">{{ language_switcher[navigation_service.getLanguage()] }}</span>
+                                </a>
+                                <div class="dropdown-menu--inline lang-region-menu">
+                                    <div class="langs-nav">
+                                        <div class="adapt-txt">Adapta el site para tener una experiencia personalizada:</div>
+                                        <ul class="langs-wrapper">
+                                            <li class="nav-item dropdown dropdown--inline">
+                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="careerDropdown" role="button">{{ ('global.regions.' ~ navigation_service.getRegion())|trans }}</a>
+                                                <ul class="dropdown-menu">
+                                                    {% for region in regions %}
+                                                        {% if region != navigation_service.getRegion() %}
+                                                            {% set href = navigation_service.getAlternativePath(null, region) %}
+                                                            {% if href %}
+                                                                <li>
+                                                                    <a href="{{ href }}">
+                                                                        {{ ('global.regions.' ~ region)|trans }}
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item dropdown dropdown--inline">
+                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="careerDropdown" role="button">{{ language_switcher[navigation_service.getLanguage()] }}</a>
+                                                <ul class="dropdown-menu">
+                                                    {% for language in languages %}
+                                                        {% if language != navigation_service.getLanguage() %}
+                                                            {% set href = navigation_service.getAlternativePath(language) %}
+                                                            {% if href %}
+                                                                <li>
+                                                                    <a href="{{ href }}">
+                                                                        {{ language_switcher[language] }}
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="menu-close langs" aria-label="Close"></button>
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav user-nav">
+                            <li class="nav-item">
+                                <a class="nav-link no-link" href="#"><span class="icon4-user"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link no-link" href="#"><span class="icon4-lupa"></span></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}

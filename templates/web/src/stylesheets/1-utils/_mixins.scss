@@ -141,6 +141,54 @@ img {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    transition: transform 0.3s ease-in-out;
+}
+
+@mixin icons-material($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    transition: transform 0.3s ease-in-out;
+}
+
+@mixin icons-4casas($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    display: inline-block;
+    font-family: 'Cuatrecasasicons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -150,7 +198,9 @@ img {
 // LINKS
 // --------------------------------------------------------------------------
 
-@mixin fancy-link($color, $hover) {
+//
+// fancy link left to right
+@mixin left-to-right-link($color, $hover) {
     position: relative;
     display: inline-block;
     font-weight: normal;
@@ -200,6 +250,50 @@ img {
     }
 }
 
+//
+// fancy link underline
+@mixin fancy-link($color, $hover, $bg, $header: false) {
+    padding-bottom: 0.1rem;
+    text-decoration: none;
+    color: $color;
+    transition: all 0.2s ease-in-out;
+
+    @if $header {
+        padding-bottom: 0;
+    }
+
+    &::selection {
+        color: #FFFFFF;
+        background-color: #318EFD;
+        text-shadow: 0 0 transparent;
+        box-shadow: 0 0 transparent;
+        pointer-events: none;
+    }
+
+    &::-moz-selection {
+        color: #FFFFFF;
+        background-color: #318EFD;
+        text-shadow: 0 0 transparent;
+        box-shadow: 0 0 transparent;
+        pointer-events: none;
+    }
+
+    @include on-event {
+        color: $hover;
+        text-decoration: none;
+        // text-shadow: 0px 3px $bg, -3px 0px $bg, 3px 0px $bg;
+        text-shadow: 0 2px $bg, 0 -2px $bg, -2px 0 $bg, 2px 2px $bg, -2px 2px $bg;
+        box-shadow: inset 0 -0.12em $bg, inset 0 -0.2em $hover;
+
+        @if $header {
+            // text-shadow: -3px -3px $bg, -3px 3px $bg, 3px -3px $bg, 3px 3px $bg;
+
+            text-shadow: -3px -3px $bg, -3px 3px $bg, 3px -3px $bg, -1px 5px $bg, -3px 3px $bg, 3px 3px $bg, -3px -1px $bg;
+            box-shadow: inset 0 -0.13em $bg, inset 0 -0.2em $hover;
+        }
+    }
+}
+
 @mixin classic-link($color, $hover, $border: true) {
     text-decoration: none;
     color: $color;
@@ -226,21 +320,6 @@ img {
         color: $hover;
         text-decoration: none;
         box-shadow: 0 2px 0 $hover;
-    }
-}
-
-@mixin box-link($color, $hover, $bg) {
-    padding-bottom: 0.1rem;
-    text-decoration: none;
-    color: $color;
-    transition: all 0.2s ease-in-out;
-
-    @include on-event {
-        color: $hover;
-        text-decoration: none;
-        text-shadow: -2px -2px $bg, -2px 2px $bg, 2px -2px $bg, 2px 2px $bg;
-        box-shadow: inset 0 -0.175em $bg, inset 0 -0.2em $hover;
-        // background-image: linear-gradient(to right, $hover 75%, transparent 75%);
     }
 }
 
@@ -273,103 +352,6 @@ img {
     }
 }
 
-@mixin arrow-link($color) {
-    position: relative;
-    padding: 0.4rem 1.6rem 0.4rem 0;
-    text-decoration: none;
-    color: $color;
-    // box-shadow: 0 2px 0 transparent;
-    transition: all 0.2s ease-out;
-
-    &:before,
-    &:after {
-        @include icons-ionicons(4px, 0, auto, auto);
-        content: '\f3d1';
-        font-size: 32px;
-    }
-
-    &:before {
-        left: -10px;
-        opacity: 0;
-        visibility: hidden;
-        transition: left 0.3s ease-out, opacity 0.2s ease-out;
-        // transition: opacity 0.2s ease-out, left 0.2s ease-out;
-    }
-
-    &:after {
-        right: 0;
-        opacity: 1;
-        visibility: visible;
-        transition: right 0.3s ease-out, opacity 0.2s ease-out;
-        // transition: opacity 0.2s ease-out, right 0.2s ease-out;
-    }
-
-    @include on-event {
-        padding-right: 0.2rem;
-        padding-left: 1.6rem;
-        color: $color;
-        text-decoration: none;
-
-        &:before {
-            left: 0;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        &:after {
-            right: -10px;
-            opacity: 0;
-            visibility: hidden;
-        }
-    }
-}
-
-@mixin arrow-link-reverse($color) {
-    position: relative;
-    padding: 0.3rem 0 0.2rem 1.2rem;
-    text-decoration: none;
-    color: $color;
-    transition: all 0.2s ease-out;
-
-    &:before,
-    &:after {
-        @include icons-ionicons(-5px, 0, auto, auto);
-        content: '\f3d2';
-        font-size: 32px;
-        font-weight: bold;
-    }
-
-    &:before {
-        left: 0;
-        opacity: 1;
-        transition: opacity 0.2s ease-out;
-    }
-
-    &:after {
-        right: 0;
-        visibility: visible;
-        opacity: 0;
-        transform: translateX(10px);
-        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    @include on-event {
-        padding-right: 1.4rem;
-        padding-left: 0;
-        color: $color;
-        text-decoration: none;
-
-        &:before {
-            opacity: 0;
-        }
-
-        &:after {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-}
-
 @mixin box-hidden-link {
     display: block;
     position: absolute;
@@ -381,42 +363,207 @@ img {
     // z-index: 0;
 }
 
+@mixin box-full-link {
+    display: block;
+    width: 100%;
+    height: 100%;
 
-//
-// ¿? delete
-//
-@mixin link-hover {
-    text-decoration: none;
-    color: $complementary-color;
-    // box-shadow: 0 2px 0 $black;
+    @include on-event {
+        text-decoration: none;
+    }
 }
-
 
 
 //
 // BUTTONS
 //--------------------------------------------------------------------------
 
-@mixin reset-button {
+@mixin reset-link-button {
     position: relative;
-    padding: 1em 1.4em 0.8em 1.4em;
-    @include fontSet(18px, 18px);
+    margin: 0 0;
+    padding: 0 0;
     letter-spacing: 0;
-    text-transform: uppercase;
     white-space: nowrap;
     background: none;
     border: none;
     border-radius: 0;
+    outline: none;
     transition: all 0.3s ease-in-out;
 }
 
-@mixin button-hover {
-    text-decoration: none;
-    color: $white;
-    background-color: $complementary-color;
-    border-color: $complementary-color;
+// @mixin reset-button {
+//     position: relative;
+//     padding: 1rem 1.4rem 0.8rem 1.4rem;
+//     @include fontSet(18px, 18px);
+//     letter-spacing: 0;
+//     text-transform: uppercase;
+//     white-space: nowrap;
+//     background: none;
+//     border: none;
+//     border-radius: 0;
+//     outline: none;
+//     transition: all 0.3s ease-in-out;
+// }
+
+
+@mixin reset-button {
+    margin: 0 0;
+    padding: 0 0;
+    line-height: 1;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    @include on-event {
+        outline: none;
+    }
 }
 
+@mixin arrow-button($color) {
+    @include reset-button;
+    position: relative;
+    padding: 0.3rem 2.3rem 0.3rem 0;
+    text-decoration: none;
+    color: $color;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+
+    @media(max-width: $max-width-4casas) {
+        padding: 0.3rem 1.6rem 0.3rem 0;
+    }
+
+    &:before,
+    &:after {
+        @include icons-4casas(0, auto, auto, auto);
+        @include fontSet(28px, 36px);
+        content: '\e90a';
+
+        @media(max-width: $max-width-4casas) {
+            top: 1px;
+            @include fontSet(20px, 30px);
+        }
+    }
+
+    &:before {
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: left 0.2s ease-out, opacity 0.2s ease-in-out;
+        // transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    &:after {
+        right: 0;
+        opacity: 1;
+        visibility: visible;
+        transition: right 0.2s ease-out, opacity 0.2s ease-in-out;
+        // transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+
+        @media(max-width: $max-width-4casas) {
+            right: -4px;
+        }
+    }
+
+    @include on-event {
+        padding-left: 1.8rem;
+        color: $color;
+        text-decoration: none;
+
+        @media(max-width: $max-width-4casas) {
+            padding-left: 1.2rem;
+        }
+
+        &:before {
+            left: -6px;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &:after {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+}
+
+@mixin arrow-button-reverse($color) {
+    position: relative;
+    padding: 0.4rem 0 0.2rem 1.4rem;
+    text-decoration: none;
+    color: $color;
+    transition: all 0.2s ease-out;
+
+    &:before,
+    &:after {
+        @include icons-4casas(-2px, auto, auto, auto);
+        @include fontSet(24px, 32px);
+        content: '\e90a';
+    }
+
+    &:before {
+        left: -6px;
+        visibility: visible;
+        opacity: 1;
+        transform: rotate(180deg);
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    &:after {
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        transform: rotate(180deg);
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    @include on-event {
+        padding-right: 1.8rem;
+        padding-left: 0;
+        color: $color;
+        text-decoration: none;
+
+        &:before {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        &:after {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+@mixin accordion-button($color) {
+    @include reset-button;
+    position: relative;
+    padding: 0.3rem 3rem 0.3rem 0;
+    text-decoration: none;
+    color: $color;
+    transition: all 0.2s ease-in-out;
+
+    &:after {
+        @include icons-4casas(0px, 4px, auto, auto);
+        @include fontSet(28px, 32px);
+        content: '\e90a';
+        transform: rotate(90deg);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    @include on-event {
+        color: $color;
+        text-decoration: none;
+        box-shadow: 0 2px 0 $color;
+        overflow: hidden;
+
+        &:after {
+            // transform: rotate(-90deg);
+        }
+    }
+}
 
 
 //
@@ -428,6 +575,35 @@ img {
     margin: 0 0;
     padding: 0 0;
     overflow: hidden;
+}
+
+@mixin stretch-to-left {
+    @include reset-figure;
+    margin-left: -22vw;
+
+    img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@mixin stretch-to-right {
+    @include reset-figure;
+    width: auto;
+    height: 100%;
+    margin-right: -22vw;
+
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    // border: 1px solid blue;
+
+    img {
+        display: none;
+        visibility: hidden;
+    }
 }
 
 @mixin cover-img() {
@@ -477,6 +653,12 @@ img {
 // RESETS MISCELL ELEMENTS
 //--------------------------------------------------------------------------
 
+@mixin reset-full-scren {
+    width: 100vw;
+    margin-left: -50vw;
+    left: 50%;
+}
+
 @mixin reset-list {
     margin: 0;
     padding: 0;
@@ -490,6 +672,8 @@ img {
 @mixin reset-pseudo($color) {
     content: '';
     position: absolute;
+    top: 0;
+    left: 0;
     display: block;
     width: 100%;
     height: 100%;
@@ -627,4 +811,143 @@ img {
     }
 
 }
+*/
+
+
+
+//
+// BOOTSTRAP GRID MIXINS
+// --------------------------------------------------------------------------
+
+/*
+// Centered container element
+@mixin container-fixed($gutter: $grid-gutter-width) {
+  padding-right: ceil(($gutter / 2));
+  padding-left: floor(($gutter / 2));
+  margin-right: auto;
+  margin-left: auto;
+  @include clearfix;
+}
+
+// Creates a wrapper for a series of columns
+@mixin make-row($gutter: $grid-gutter-width) {
+  margin-right: floor(($gutter / -2));
+  margin-left: ceil(($gutter / -2));
+  @include clearfix;
+}
+
+// Generate the extra small columns
+@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  float: left;
+  width: percentage(($columns / $grid-columns));
+  min-height: 1px;
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+}
+@mixin make-xs-column-offset($columns) {
+  margin-left: percentage(($columns / $grid-columns));
+}
+@mixin make-xs-column-push($columns) {
+  left: percentage(($columns / $grid-columns));
+}
+@mixin make-xs-column-pull($columns) {
+  right: percentage(($columns / $grid-columns));
+}
+
+// Generate the small columns
+@mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+
+  @media (min-width: $screen-sm-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-offset($columns) {
+  @media (min-width: $screen-sm-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-push($columns) {
+  @media (min-width: $screen-sm-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-pull($columns) {
+  @media (min-width: $screen-sm-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the medium columns
+@mixin make-md-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+
+  @media (min-width: $screen-md-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-offset($columns) {
+  @media (min-width: $screen-md-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-push($columns) {
+  @media (min-width: $screen-md-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-pull($columns) {
+  @media (min-width: $screen-md-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the large columns
+@mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+
+  @media (min-width: $screen-lg-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-offset($columns) {
+  @media (min-width: $screen-lg-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-push($columns) {
+  @media (min-width: $screen-lg-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-pull($columns) {
+  @media (min-width: $screen-lg-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+*/
+
+/*
+// Creates a wrapper for a series of columns
+@include make-row();
+
+// Make the element grid-ready (applying everything but the width)
+@include make-col-ready();
+@include make-col($size, $columns: $grid-columns);
+
+// Get fancy by offsetting, or changing the sort order
+@include make-col-offset($size, $columns: $grid-columns);
 */

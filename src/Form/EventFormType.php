@@ -14,11 +14,14 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Event;
-use App\Entity\Speaker;
+use App\Entity\Person;
+use App\Entity\Office;
 use App\Entity\Activity;
 use App\Entity\Resource;
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 use App\Form\ResourceFormType;
 
 class EventFormType extends AbstractType
@@ -35,6 +38,8 @@ class EventFormType extends AbstractType
             ->add('customMap', TextType::class, ['label'=>'entities.event.fields.customMap'])
             ->add('customSignup', TextType::class, ['label'=>'entities.event.fields.customSignup'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('attachments', CollectionType::class, [
                 'label' => 'entities.event.fields.attachments',
                 'entry_type' => ResourceFormType::class,
@@ -55,19 +60,35 @@ class EventFormType extends AbstractType
                     return $activity->translate('es')->getTitle();
                 }
             ])
-            ->add('speakers', EntityType::class, [
-                'class' => Speaker::class,
-                'label' => 'entities.event.fields.speakers',
+            ->add('people', EntityType::class, [
+                'class' => Person::class,
+                'label' => 'entities.event.fields.people',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
                 'expanded' => false,
-                'choice_label' => function ($speaker) {
-                    return $speaker->getFullName();
+                'choice_label' => function ($person) {
+                    return $person->getFullName();
                 }
             ])
+            ->add('office', EntityType::class, [
+                'class' => Office::class,
+                'label' => 'entities.event.fields.office',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'required' => false,
+                'placeholder' => 'entities.event.fields.no-office',
+                'empty_data' => null,
+                'multiple' => false,
+                'expanded' => false,
+                'choice_label' => function ($office) {
+                    return $office->getAddress();
+                }
+            ])            
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.event.fields.title', 'required' => true],
@@ -75,7 +96,7 @@ class EventFormType extends AbstractType
                     'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'program' => ['label'=>'entities.event.fields.program', 'attr'=>['class'=>'summernote']],
                     'customCity' => ['label'=>'entities.event.fields.customCity'],
-                    'customAddress' => ['label'=>'entities.event.fields.customAddress'],
+                    'customAddress' => ['label'=>'entities.event.fields.customAddress', 'attr'=>['class'=>'summernote']],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],

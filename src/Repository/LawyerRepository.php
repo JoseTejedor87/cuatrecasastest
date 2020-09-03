@@ -3,8 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\Lawyer;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
+
 
 /**
  * @method Lawyer|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,39 +18,47 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Lawyer[]    findAll()
  * @method Lawyer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LawyerRepository extends ServiceEntityRepository
+class LawyerRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Lawyer::class);
+        parent::__construct($registry, $navigation, Lawyer::class);
     }
 
-    // /**
-    //  * @return Lawyer[] Returns an array of Lawyer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getInstanceByRequest(Request $request)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->findOneBy(['slug' => $slug]);
+        }
+        return null;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Lawyer
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    public function findFilteredBy($arrayFields){
+
+        if ( isset ( $arrayFields['fechaDesde']) && isset ( $arrayFields['fechaDesde'])){
+            $fechaDesde = $arrayFields['fechaDesde'];
+            unset($arrayFields['fechaDesde']);
+        }
+
+        if( isset ( $arrayFields['fechaHasta'])  && isset ( $arrayFields['fechaHasta'])){
+            $fechaHasta = $arrayFields['fechaHasta'];
+            unset($arrayFields['fechaHasta']);
+        }
+
+        $query = $this->filterByFieldsQueryBuilder($arrayFields,'l');
+
+        if ( isset ( $fechaDesde)){
+            $query->andWhere('l.createdAt > :desde')
+                ->setParameter('desde', $fechaDesde->format('Y-m-d'));
+        }
+
+        if( isset ( $fechaHasta) ){
+            $query->andWhere('l.createdAt < :hasta')                
+            ->setParameter('hasta', $fechaHasta->format('Y-m-d'));
+        }
+        
+        return  $query->getQuery()->getResult();
+        
+
     }
-    */
 }

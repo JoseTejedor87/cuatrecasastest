@@ -21,18 +21,6 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    @include cuatrecasas-font();
-    margin: 0 0;
-}
-
-p {
-    margin: 0 0 1.4rem;
-    color: $main-color;
-}
-
-
 //
 // FONT SIZES MIXING
 // --------------------------------------------------------------------------
@@ -55,25 +43,74 @@ $rem-base-font: 16px !default;
 //
 
 
+
+//
+// BASIC SETTINGS
+// --------------------------------------------------------------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    @include cuatrecasas-font();
+    margin: 0 0;
+}
+
+p {
+    margin: 0 0 1.4rem;
+    color: $main-color;
+
+    &.emphasis {
+        @include fontSet(32px, 36px);
+        color: $black;
+    }
+}
+
+
+
 //
 // FULL WIDHT & BACKGROUND COLOR
 // --------------------------------------------------------------------------
 
 .section__title {
-    margin: 0 0 2rem 0;
+    margin: 0 0 1rem 0;
     padding: 0.7rem 0.8rem 0.5rem;
     @include cuatrecasas-font();
-    @include fontSet(24px, 24px);
+    @include fontSet(23px, 23px);
     text-transform: uppercase;
+    letter-spacing: 0.7px;
     color: $white;
     background-color: $black;
 
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(18px, 26px);
+        letter-spacing: 0;
+    }
+
     //
-    // BG COLORS
+    // BG COLORS (horizontal modules)
     //
+
+    @include when("main") {
+        background-color: $main-color;
+    }
+
+    @include when("complementary") {
+        background-color: $complementary-color;
+    }
+
+    @include when("black") {
+        background-color: $black;
+    }
+
+    @include when("news") {
+        background-color: $news-color;
+    }
 
     @include when("article") {
         background-color: $article-color;
+    }
+
+    @include when("opinion") {
+        background-color: $opinion-color;
     }
 
     @include when("event") {
@@ -84,20 +121,44 @@ $rem-base-font: 16px !default;
         background-color: $insight-color;
     }
 
-    @include when("related") {
-        background-color: $related-color;
-    }
-
-    @include when("slider") {
-        background-color: $insight-color;
-    }
-
     @include when("cases") {
         background-color: $cases-color;
     }
 
+    @include when("recomended") {
+        background-color: $recomended-color;
+    }
+
+    @include when("related") {
+        background-color: $related-color;
+    }
+
     @include when("awards") {
-        background-color: $black;
+        background-color: $awards-color;
+    }
+
+    @include when("tools") {
+        background-color: $tools-color;
+    }
+
+    @include when("career") {
+        background-color: $career-color;
+    }
+
+    @include when("programme") {
+        background-color: $programme-color;
+    }
+
+    @include when("events") {
+        background-color: $programme-color;
+    }
+
+    @include when("others1") {
+        background-color: $others1-color;
+    }
+
+    @include when("others2") {
+        background-color: $others2-color;
     }
 }
 
@@ -111,6 +172,10 @@ $rem-base-font: 16px !default;
     @include fontSet(32px, 32px);
     text-transform: uppercase;
     color: $main-color;
+
+    @include when("event") {
+        @include fontSet(43px, 43px);
+    }
 }
 
 
@@ -119,8 +184,8 @@ $rem-base-font: 16px !default;
 // --------------------------------------------------------------------------
 
 .emphasis {
-    @include copy-font(300, normal);
-    @include fontSet(48px, 56px);
+    @include cuatrecasas-font();
+    @include fontSet(42px, 46px);
     color: $white;
 }
 

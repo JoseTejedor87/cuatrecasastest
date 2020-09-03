@@ -1,3 +1,7 @@
+###> Sublime Project ###
+_web-cuatrecasas.sublime-project
+_web-cuatrecasas.sublime-workspace
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -19,3 +23,5 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+
+/config/packages/doctrine.yaml

@@ -18,6 +18,7 @@
                 </h3>
             </div>
             {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
         </div>
 
         <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -31,11 +32,16 @@
             {{ translatableField.partialTranslations(form.translations, ['slug']) }}
             {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
             {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+            {{ form_row(form.metaRobots) }}
+            {{ form_row(form.customTemplate) }}
         </div>
+
+        
 
     </div>
 
     <div class="col-xl-6 offset-xl-1 col-md-9">
+
         {{ form_row(form.blocks) }}
     </div>
 
