@@ -248,6 +248,7 @@
 
         @include when("blockquote") {
             border-top: none;
+            background-color: $complementary-color;
 
             .cite__quote {
                 padding: 1rem;

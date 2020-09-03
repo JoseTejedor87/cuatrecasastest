@@ -2,10 +2,38 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
+        web.global.headerControl();
         web.global.loadMiscell();
     },
 
-    mobileMenu: function(){
+    headerControl: function(){
+        function checkWindowSize() {
+            var width       = $(window).width();
+            var maxWidth    = 1200;
+            var body        = $('body');
+
+            if (width < maxWidth) {
+                body.addClass('mobile');
+                body.removeClass('desktop');
+            } else {
+                body.addClass('desktop');
+                body.removeClass('mobile');
+            }
+        }
+
+        $(function() {
+            checkWindowSize();
+        });
+
+        $(window).resize(function() {
+            checkWindowSize();
+        });
+
+        // close all submenus (mobileNav)
+        $('#navMobileWrapper .navbar-toggler.close').click(function(e){
+            e.preventDefault();
+            $("#navMobile .collapse").collapse("hide");
+        });
 
     },
 
@@ -42,7 +70,7 @@ web.global = {
         // submenu click
         var aboutNav        = $('#navDesktop #primaryNav #aboutNav .dropdown-menu');
         var userNav         = $('#navDesktop #userNav');
-        var mainHeader      = $('header');
+        var mainHeader      = $('body.desktop header');
         var langsNav        = $('#navDesktop .lang-region-menu');
 
         $window.on('scroll', function(){
@@ -60,7 +88,7 @@ web.global = {
 
         $('#hamburgerButton').click(function(e){
             e.preventDefault();
-            secondaryNav.toggleClass('stickyNav');
+            secondaryNav.toggleClass('stickyNav', scrollTop > prev);
         });
     },
 
