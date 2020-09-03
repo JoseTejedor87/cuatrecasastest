@@ -1,0 +1,119 @@
+// ==========================================================================
+// INSIGHTS PAGE
+// ==========================================================================
+
+@include new("insights__page") {
+
+    @include has("header") {
+
+        position: relative;
+        min-height: 430px;
+        color: $white;
+        background-color: $main-color;
+
+        &:before {
+            @include reset-pseudo($main-color);
+            width: 100vw;
+            margin-left: -50vw;
+            z-index: -1;
+        }
+
+        &:after {
+            @include reset-pseudo($main-color);
+            width: 100vw;
+            margin-right: -50vw;
+            z-index: -1;
+        }
+
+        //
+        // CONTENT BOX
+        //
+        > div:first-child {}
+
+        //
+        // PHOTO BOX
+        //
+        > div:last-child {
+            padding: 0 0;
+        }
+    }
+
+    @include has("content") {
+        // background-color: purple;
+        // padding: 7rem 6rem 5rem 0;
+
+        display: flex;
+        align-items: flex-end;
+        // min-height: 40vh;
+
+        padding-top: 6rem;
+        padding-bottom: 2rem;
+    }
+
+    @include has("info") {
+        flex: 1 1 auto;
+    }
+
+    .action__links {
+        flex: 0 0 120px;
+    }
+
+    @include has("title") {
+        @include fontSet(58px, 58px);
+        line-height: 1;
+        margin-bottom: 0;
+    }
+
+    @include has("media") {
+        position: relative;
+        width: auto;
+        height: 100%;
+
+        figure {
+            @include reset-figure;
+            width: 45vw;
+            height: 100%;
+            background-position: 100% 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        img {
+            display: none;
+        }
+
+        /*
+        @include mediaQuery($massive-width, $large-width) {
+            // border: 1px solid yellow;
+            // background-size: 110% auto;
+            // background-position: 100% 60%;
+
+            background-size: 120% auto;
+            background-position: 100% 66%;
+        }
+
+        @include mediaQuery($large-width, $desktop-width) {
+            // border: 1px solid cyan;
+            // background-size: 140% auto;
+            // background-position: 100% 70%;
+
+            background-size: 160% auto;
+            background-position: 84% 72%;
+        }
+
+        @include mediaQuery($desktop-width, $tablet-width) {
+            // border: 1px solid magenta;
+            // background-size: 170% auto;
+            // background-position: 90% 80%;
+
+            background-size: 130% auto;
+            background-position: 100% 62%;
+        }
+
+        @include mediaQuery($tablet-width, $mobile-width) {
+            // border: 1px solid blue;
+            display: none;
+        }
+        */
+    }
+}

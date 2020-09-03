@@ -1,33 +1,156 @@
-admin:
+# Global
+# ###########################################
+global:
+  home: Home
+  goBack: Back
+  languages:
+    es: Spanish
+    en: English
+    pt: Portuguese
+    zh: Chinese
+    it: Italian
+    fr: French
+  regions:
+    spain: Spain
+    latam: Latam
+    portugal: Portugal
+    global: Global
+  messages:
+    page_not_found: Page not found
+    alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
 
-  publishable:
-
-    fields:
-      metaTitle: Meta Title
-      metaDescription: Meta Description
-
+# Sections
+# ###########################################
+sections:
+  knowledge:
+    title: Knowledge
   lawyers:
+    title: Lawyers
+    office: CUATRECASAS
+    vcard: vcard
+    full_cv: Full CV
+    specialties: Specialties
+    training: Training
+    mentions: Mentions
+    cases: Cases
+    publications: Publications
+    events: Events
+    lawyerFilters:
+      placeholder: Search lawyer
+      by_services: By services
+      by_sector: By sector
+      by_office: By office
+      by_category: By category
+      by_initial: Search by initial
+      search_results: Search results
+      search_results_txt1: Showing
+      search_results_txt2: profiles that match the search
+    lawyerCategoryTypes:
+      associate: Associate
+      counsel: Counsel
+      honorary_partner: Honorary Partner
+      honorary_president: Honorary President
+      managing_partner: Managing Partner
+      no_position: No position
+      partner: Partner
+      knowledge: Knowledge Lawyer 
+      senior_associate: Senior Associate
+      senior_partner: Senior Partner
+      senior_knowledge: Senior Knowledge Lawyer
+  practices:
+    title: Practice
+    specialities: Specialities
+    relatedPractices: Related Practices
+  desks:
+    title: Desks
+    discover_title: European Presence
+    discover_text: Cuatrecasas has offices in the main European cities
+    discover_button: Discover
+    specialities: Specialities
+    relatedActivities: Related Practices
+  products:
+    title: Other services
+  sectors:
+    title: Sectors
+    specialities: Specialities
+    relatedPractices: Related Practices
 
-    index.title: Lawyers
-    index.create_link: Create new
+# Static Sections
+# ###########################################
+static:
+    offices:
+      officeOthers: Other regions
+      officeList: Offices list
+      deskList: Desk list
+      interOrg: International organitations
 
-    new.title: Create Lawyer
-    new.button: Save
+# Menu
+# ###########################################
+menu:
+  knowledge: Knowledge
+  lawyers: Lawyers
+  services: Services
+  sectors: Sectors
+  career:
+    career: Career
+    live: Live Cuatrecasas
+    revolution: Revolution
+    learn: Learn with the best
+    international: International Career
+    join: Join Us
+  offices:
+    offices: Find us
+    vision: Overview
+    spain: Spain
+    portugal: Portugal
+    latam: Latin America
+    other: Other regions
+  firm:
+    firm: The Company
+    vision: Overview
+    social: Social
+    environment: Environment
+    governance: Good Governance
+    innovation: Innovation
+    contribution: Contribution to Society
+    diversity: Diversity
+    responsability: Responsability and Compliance
+  contact: Contact
+  webs:
+    webs: Webs
+    acelera: Cuatrecasas Acelera
+    rrhh: Instituto RRHH
+    fundacion: La Fundación
+    app: App Corporativa
+  reg_lang: Adapt the site to have a personalized experience
 
-    edit.title: Edit Lawyer
-    edit.button: Update
+  desks: Desks
+  events: Events
+  practices: Practice areas
+  products: Products
+  media_center: Media Center
 
-    fields:
-      name: Name
-      surname: Surname
-      email: Email
-      phone: Phone
-      fax: Fax
-      photo: Photo
-      lawyer_type: Lawyer type
-      languages: Publication languages
-      description: Description
-      curriculum: Curriculum Vitae
-      training: Training
+# Footer
+# ###########################################
+footer:
+  intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+  copyright: © 2020 Cuatrecasas. All right reserved.
+  privacy:
+    cookies: Privacy & Cookies
+    terms: Terms of Use
+    contact: Contac Us
 
-  back_to_list: Back to list
+# Reusable Blocks
+# ###########################################
+reusable_blocks:
+    cta_footer:
+      title: Personalize your insights, read only what <strong>interests you</strong>
+      intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+      button: Choose your interests
+    team:
+      title: Team Cuatrecasas
+      link: Meet the team
+      intro: Cuatrecasas has a team of {team}
+    cases:
+      title: Cases
+      link: View more

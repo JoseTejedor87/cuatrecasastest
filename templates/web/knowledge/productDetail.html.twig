@@ -1,0 +1,208 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article>
+
+            <header class="container insights__page">
+                <div class="row insights__page__header">
+                    <div class="col-md-7 insights__page__content">
+                        <a href="#" class="back__button">volver</a>
+
+                        <div class="insights__page__info">
+                            <h1 class="page__title">Cambio climático</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Inicio</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Conocimiento</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Insights
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__media">
+                            <figure style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}');">
+                                <img src="{{ asset('web/assets/vector/insight-bg-1.png') }}">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Cambio climático
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Insights
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header> -->
+
+            <div class="container">
+
+                <section class="row page__block noborder">
+                    <div class="col">
+                        <div class="page__block__title page__block__title--article">
+                            <p>Contamos con un grupo de profesionales de diferentes áreas con una amplia experiencia en el asesoramiento a empresas y fondos canadienses con intereses en Europa y Ameríca latina</p>
+                        </div>
+                        <div class="page__block__content page__block__content--article">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
+                            <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.</p>
+                            <button type="button" class="doble__arrow__link">Ver más</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- <section class="row page__block">
+                    <div class="col">
+                        <div class="page__block__title">
+                            <h3 class="subsection__title">Puntos clave</h3>
+                        </div>
+                        <div class="page__block__content">
+                            <ul class="bullet__list">
+                                <li>
+                                    Time and cost effective solutions for the production of KIIDS.
+                                </li>
+                                <li>
+                                    Experienced KIID production teams.
+                                </li>
+                                <li>
+                                    Drafting of plain language objectives, policies and risk disclosure.
+                                </li>
+                                <li>
+                                    Built in compliance awareness
+                                </li>
+                                <li>
+                                    Time and cost effective solutions for the production of KIIDS.
+                                </li>
+                                <li>
+                                    Experienced KIID production teams.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section> -->
+
+                <section class="row page__block--aside">
+                    <div class="col">
+                        <div class="page__block__content">
+                            <p class="contact">
+                                Contacta con nuestros expertos en<br>
+                                <strong>Brexit</strong>
+                            </p>
+                            <form action="" method="" class="email-subscribe">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group flex-group">
+                                    <div class="checkbox">
+                                        <input id="data-privacy" name="data-privacy" type="checkbox">
+                                        <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                    </div>
+                                    <button type="submit" class="doble__arrow__link">Enviar</button>
+                                    <!-- <button class="btn btn__solid" type="submit">Enviar</button> -->
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="page__block__aside">
+                            <div class="page__aside page__aside--practices">
+                                <h3 class="page__aside__subtitle">Prácticas relacionadas</h3>
+                                <ul class="related__services">
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">Deporte</a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">Fiscal</a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">Fusiones y adquisiciones</a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">Litigación</a>
+                                    </li>
+                                    <li class="related__services__item">
+                                        <a href="#" class="related__services__link">Mercantil y societario</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn__solid btn__solid--icon">
+                                    Descarga el dossier
+                                    <span class="icon4-download"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/related-events-slider.html.twig' %}
+    {% include 'web/shared/related-legal-slider.html.twig' %}
+    {% include 'web/shared/collections.html.twig' %}
+    {% include 'web/shared/cases.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+
+<script>
+    $(function () {
+        web.global.sliderGeneral();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    });
+</script>
+{% endblock %}

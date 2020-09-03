@@ -42,24 +42,44 @@ class Resource extends Publishable
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Awards", inversedBy="img_office")
+     * @ORM\OneToOne(targetEntity="App\Entity\Award", inversedBy="image")
      */
     private $award;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Articles", inversedBy="attachments")
+     * @ORM\OneToOne(targetEntity="App\Entity\Slider", inversedBy="image")
      */
-    private $article;
+    private $slider;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Publication", inversedBy="attachments")
      */
-    private $type;
+    private $publication;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CaseStudy", inversedBy="image")
+     */
+    private $caseStudy;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Activity", inversedBy="photo")
+     */
+    private $activity;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $title;
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -154,12 +174,12 @@ class Resource extends Publishable
 
         return $this;
     }
-    public function getAward(): ?Awards
+    public function getAward(): ?Award
     {
         return $this->award;
     }
 
-    public function setAward(?Awards $award): self
+    public function setAward(?Award $award): self
     {
         $this->award = $award;
 
@@ -167,17 +187,52 @@ class Resource extends Publishable
     }
 
 
-    public function getArticle(): ?Articles
+    public function getPublication(): ?Publication
     {
-        return $this->article;
+        return $this->publication;
     }
 
-    public function setArticle(?Articles $article): self
+    public function setPublication(?Publication $publication): self
     {
-        $this->article = $article;
+        $this->publication = $publication;
 
         return $this;
     }
 
+    public function getCaseStudy(): ?CaseStudy
+    {
+        return $this->caseStudy;
+    }
+
+    public function setCaseStudy(?CaseStudy $caseStudy): self
+    {
+        $this->caseStudy = $caseStudy;
+
+        return $this;
+    }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
+
+        return $this;
+    }
+
+    public function getSlider(): ?Slider
+    {
+        return $this->slider;
+    }
+
+    public function setSlider(?Slider $slider): self
+    {
+        $this->slider = $slider;
+
+        return $this;
+    }
 
 }

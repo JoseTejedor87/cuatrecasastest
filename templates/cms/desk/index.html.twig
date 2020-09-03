@@ -10,12 +10,12 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <i class="m-menu__link-icon flaticon-share"></i>
+                    <i class="m-menu__link-icon flaticon-suitcase"></i>
                     {{ 'sections.desks.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('desk_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_desks_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -28,31 +28,34 @@
 
         {% if pagination %}
         <div class="m-section">
-            <div class="m-portlet">
+            <div class="m-portlet container-fluid">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th>{{ knp_pagination_sortable(pagination, 'entities.activity.fields.title'|trans, 'translate.title') }}</th>
-                            <th class="text-center" style="width:30px;">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.highlighted'|trans, 'highlighted') }}</th>
-                            <th colspan="2" style="width:10%;"></th>
+                        <tr class="row">
+                            <th class="col-sm-8">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.title'|trans, 'translate.title') }}</th>
+                            <th class="col-sm-1 text-center" style="width:30px;">{{ knp_pagination_sortable(pagination, 'entities.activity.fields.highlighted'|trans, 'highlighted') }}</th>
+                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-1"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for desk in pagination %}
-                        <tr>
-                            <td>{{ desk.translate(app.request.getLocale()).title }}</td>
-                            <td class="text-center">
+                        <tr class="row">
+                            <td class="col-sm-8">{{ desk.translate(app.request.getLocale()).title }}</td>
+                            <td class="col-sm-1 text-center">
                             {% if desk.highlighted %}
                                 <i class="fa fa-check m--font-success"></i>
                             {% else %}
                                 <i class="fa fa-check m--font-metal"></i>
                             {% endif %}
                             </td>
-                            <td class="text-nowrap">
+                            <td class="col-sm-2 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':desk.languages} %}
+                                /
+                                {% include 'cms/tools/regionStatus.html.twig' with {'values':desk.regions} %}
                             </td>
-                            <td>
-                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('desk_edit', {'id': desk.id}) }}">
+                            <td class="col-sm-1 text-nowrap text-right">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_desks_edit', {'id': desk.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>

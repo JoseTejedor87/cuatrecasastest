@@ -3,7 +3,12 @@
 // ==========================================================================
 
 @include new("awards") {
-    background-color: rgba($black, 0.1);
+    position: relative;
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.1));
+        @include reset-full-scren;
+    }
 
     .swiper-container {
         // full screen slider (overflow)
@@ -11,26 +16,62 @@
         margin: 4rem 0;
     }
 
+    .swiper-wrapper {
+        pointer-events: none;
+    }
+
+    .swiper-container-horizontal {
+        > .swiper-scrollbar {
+            display: none;
+            position: absolute;
+            left: 1.5%;
+            bottom: -50%;
+            width: 100%;
+            height: 1px;
+            border-radius: 0;
+            background: rgba(0,0,0,0.2);
+
+            @media(max-width: $max-width-4casas) {
+                display: block;
+            }
+        }
+
+        .swiper-scrollbar-drag {
+            top: -3px;
+            height: 7px;
+            border-radius: 0;
+            background: $complementary-color;
+        }
+    }
+
     .swiper-slide {
         position: relative;
         // reset width
-        width: 25%;
+        // width: 25%;
         // forze same height items
         height: auto;
         // outside elements opacity TRICK
         opacity: 0.3;
+
+        padding-left: 4rem;
+        transition: all 0.3s ease-out;
+
+        @media(max-width: $max-width-4casas) {
+            padding-left: 0;
+            transition: all 0s ease-out;
+        }
 
         > * {
             position: relative;
             z-index: 1;
         }
 
-        &:before {
-            opacity: 0;
-            @include reset-pseudo($white);
-            transform: scale(1.05, 1.05);
-            transition: all 0.2s ease-out;
-        }
+        // &:before {
+        //     opacity: 0;
+        //     @include reset-pseudo($white);
+        //     transform: scale(1.05, 1.05);
+        //     transition: all 0.2s ease-out;
+        // }
 
         // focus element opacity TRICK
         &-active,
@@ -38,39 +79,56 @@
         &-next {
             opacity: 1;
 
-            @include on-event() {
-                &:before {
-                    opacity: 1;
-                    transform: scale(1.15, 1.3);
-                    // box-shadow: 0 19px 38px rgba(0,0,0,.2), 0 15px 12px rgba(0,0,0,.1);
-                }
+            // @include on-event() {
+            //     &:before {
+            //         opacity: 1;
+            //         transform: scale(1.15, 1.3);
+            //         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 12px rgba(0, 0, 0, 0.1);
+            //     }
+            // }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            &-prev,
+            &-next {
+                opacity: 0;
             }
         }
     }
 
-    @include has("logo") {
+    @include has("wrapper") {
         @include reset-figure;
         width: 100%;
+    }
+
+    @include has("logo") {
+        width: auto;
         height: 60px;
+        object-fit: cover;
         margin-bottom: 1rem;
 
-        img {
-            width: auto;
-            height: 60px;
-            object-fit: cover;
+        @media(max-width: $max-width-4casas) {
+            height: 50px;
         }
     }
 
     @include has("title") {
-        width: 80%;
         @include fontSet(16px, 20px);
         font-weight: bold;
         color: $black;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 14px);
+        }
     }
 
     @include has("date") {
         margin-top: 0.5rem;
         @include fontSet(16px, 20px);
         color: rgba($black, 0.6);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 14px);
+        }
     }
 }

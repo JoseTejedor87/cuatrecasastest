@@ -3,19 +3,38 @@
 // ==========================================================================
 
 @include new("brands") {
+    position: relative;
     display: block;
     margin: 0 0;
     padding: 3em 0;
-    background-color: rgba($black, 0.03);
+
+    @media(max-width: $max-width-4casas) {
+        padding: 1em 0;
+    }
+
+    &:before {
+        @include reset-pseudo(rgba($black, 0.03));
+        @include reset-full-scren;
+    }
+
 
     @include has("wrapper") {
-        align-items: flex-start;
-        padding: 4rem $screen-width;
+        align-items: stretch;
+        padding: 4rem 0;
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            padding: 0 0;
+        }
     }
 
     @include has("item") {
         padding-right: 0;
         padding-left: 0;
+
+        @media(max-width: $max-width-4casas) {
+            padding: 2rem 0;
+        }
     }
 
     @include has("link") {
@@ -25,15 +44,27 @@
         align-items: flex-start;
         width: 100%;
         height: 100%;
-        color: $black;
+        color: $main-color;
+        border-bottom: 4px solid transparent;
 
         > img {
             position: relative;
             z-index: 1;
 
+            @media(max-width: $max-width-4casas) {
+                width: 160px;
+                height: auto;
+            }
+
             &:first-child {
                 margin-top: 2px;
                 margin-bottom: 8px;
+
+                @media(max-width: $max-width-4casas) {
+                    width: auto;
+                    height: 40px;
+                    margin-bottom: 10px;
+                }
             }
         }
 
@@ -42,7 +73,19 @@
             width: 100%;
             height: 50px;
             transition: all 0.3s ease-in-out;
+
+            @media(max-width: $max-width-4casas) {
+                height: 45px;
+            }
         }
+
+        // @include on-event() {
+        //     border-bottom: 4px solid $main-color;
+
+        //     &:before {
+        //         background-color: $main-color;
+        //     }
+        // }
 
         @include when("acelera") {
             &:before {
@@ -56,15 +99,9 @@
             }
         }
 
-        @include when("fundacion") {
+        @include when("fundation") {
             &:before {
                 background-color: #cea77b;
-            }
-        }
-
-        @include on-event() {
-            &:before {
-                background-color: $main-color;
             }
         }
     }

@@ -1,0 +1,104 @@
+// ==========================================================================
+// FLIPBOXES
+// ==========================================================================
+
+@include new("flipbox") {
+
+    @include has("list") {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -1rem;
+
+        @include when("plain") {
+            margin-top: 4rem;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+        }
+    }
+
+    @include has("item") {
+        position: relative;
+        flex: 0 0 calc(33.3333% - 2rem);
+        max-width: calc(33.3333% - 2rem);
+        height: auto;
+        margin: 0 1rem 1rem;
+        padding-left: 3.8rem;
+        overflow: hidden;
+
+        &:before {
+            @include icons-ionicons(10px, auto, auto, 0);
+            font-size: 54px;
+            content: '\f228';
+            color: $main-color;
+            z-index: 1;
+            transition: color 0.2s ease-out;
+        }
+
+        @include has("front") {
+            position: absolute;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+
+            h5 {
+                @include fontSet(23px, 23px);
+                text-transform: uppercase;
+                color: $complementary-color;
+                transform: translateY(30px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(18px, 18px);
+                }
+            }
+        }
+
+        @include has("back") {
+            opacity: 0;
+            visibility: hidden;
+            background-color: $white;
+            transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+
+            p {
+                @include fontSet(18px, 22px);
+                color: $main-color;
+                transform: translateY(40px);
+                transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(16px, 20px);
+                }
+            }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            flex: 0 1 100%;
+            max-width: 100%;
+        }
+
+        @include on-event() {
+            cursor: default;
+
+            &:before {
+                color: $complementary-color;
+            }
+
+            .flipbox__item__front {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .flipbox__item__back {
+                opacity: 1;
+                visibility: visible;
+
+                p {
+                    transform: translateY(10px);
+                }
+            }
+        }
+    }
+
+}

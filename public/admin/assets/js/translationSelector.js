@@ -13,7 +13,12 @@ var TranslationSelector = {
         $('.translatable-field-wrapper').hide();
         // Show fields tagged with the selected locale
         $('.translatable-field-wrapper[data-locale="'+locale+'"]').show();
-    }
+        this.locale = locale;
+    },
+    refresh: function() {
+        this.changeView(this.locale);
+    },
+    locale: 'es'
 };
 jQuery(document).ready(()=> {
     TranslationSelector.init();

@@ -1,0 +1,106 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ publication.translate(app.request.getLocale()).title|raw }}
+                            {# La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licencitarios #}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Artículos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="row page__block noborder">
+                <div class="col">
+                    <div class="page__block__title page__block__title--article">
+                        <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
+                        {# NBC Universal sancionada por la Comisión Europea con 14,3 millones de euros #}
+                        <figure>
+                            <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="NBC Universal">
+                        </figure>
+                        <div class="article__details">
+                            {% for attachment in attachmentPublished %}
+                                {% if attachment.type == 'article_dossier'%}
+                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    Descarga el dossier
+                                    <span class="icon4-download"></span>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+
+                            <ul class="related__content related__content--lawyers">
+                             {% for person in publication.people %}
+                                <li class="related__content__item">
+                                    <a href="#" class="related__content__link">
+                                        {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            <ul class="related__content related__content--services">
+                             {% for activity in publication.activities %}
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="page__block__content page__block__content--article" id="readMore">
+                        {{ publication.translate(app.request.getLocale()).content|raw }}
+                        {# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
+                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient. Proin fermentum leo vel orci. Velit aliquet sagittis id consectetur purus ut faucibus. Sed egestas egestas fringilla phasellus faucibus <a href="#">gravida dictum fusce ut placerat orci nulla interdum</a>. Massa ultricies mi quis hendrerit. Egestas purus viverra accumsan in nisl. Ac tincidunt vitae semper quis lectus nulla at. Nunc sed blandit libero volutpat sed cras ornare arcu. Pharetra massa massa ultricies mi. Interdum velit laoreet id donec ultrices tincidunt arcu non sodales.</p> #}
+                        <!-- <button type="button" class="doble__arrow__accordion">Ver más</button> -->
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+    {% if relatedPublications %}
+        {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% endif %}
+    {% include 'web/shared/insight.html.twig' %}
+    {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperGeneral.js') }}"></script>
+<!-- Read More -->
+<script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
+{% endblock %}

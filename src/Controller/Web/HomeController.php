@@ -8,22 +8,28 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\EventTranslationRepository;
+use App\Repository\AwardRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
-/**
-* @Route("/home", name="home")
-*/
+
 class HomeController extends WebController
 {
-    /**
-     * @Route("/index", name="index")
-     */
-    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository)
+    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository, PublicationRepository $publicationRepository)
     {
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
-        // $this->isThisLocale($request, $request->attributes->get('idioma'));
+        $relatedPublications = $publicationRepository->findByActivities('');
         return $this->render('web/home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'events' => $events,
+            'relatedPublications' => $relatedPublications,
+        ]);
+    }
+
+    public function components(AwardRepository $awardRepository)
+    {
+        $awards = $awardRepository->getAll();
+        return $this->render('web/home/components.html.twig', [
+            'controller_name' => 'HomeController',
+            'awards' => $awards
         ]);
     }
 }

@@ -1,10 +1,10 @@
-<section class="boxnews boxnews--article">
-    <div class="container-fluid">
+<section class="boxnews bg__grey__01">
+    <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title section__title">Contenido relacionado</h4>
+                <h4 class="section__title section__title--recomended">Contenido relacionado</h4>
                 <div class="boxnews__list">
-                    <article class="boxnews__item">
+                    <article class="boxnews__item boxnews__item--news">
                         <div class="boxnews__header">
                             <div class="boxnews__type">Noticia</div>
                             <div class="boxnews__info">Educación</div>
@@ -17,7 +17,7 @@
                             </h5>
                             <div class="boxnews__meta">
                                 <div class="boxnews__meta__date">8 Marzo 2020</div>
-                                <div class="boxnews__meta__author">Antoni-Jesús Pérez de Gregorio</div>
+                                <!-- <div class="boxnews__meta__author">&nbsp;</div> -->
                             </div>
                         </div>
                         <div class="boxnews__footer">
@@ -45,56 +45,21 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="boxnews__item">
+                    <article class="boxnews__item boxnews__item--event">
                         <div class="boxnews__header">
-                            <div class="boxnews__type">Artículo</div>
-                            <div class="boxnews__info">Internacional</div>
+                            <div class="boxnews__type">Evento</div>
+                            <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
                                 <a href="#" class="boxnews__link">
-                                    Cuatrecasas asesora a JD Sports y Sprinter en la integración con Sport Zone en España y Portugal
+                                    La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos
                                 </a>
                             </h5>
                             <div class="boxnews__meta">
-                                <div class="boxnews__meta__date">9 Marzo 2020</div>
-                                <div class="boxnews__meta__author">Guillermo García</div>
-                            </div>
-                        </div>
-                        <div class="boxnews__footer">
-                            <ul class="related__services">
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        LABORAL
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        DEPORTE
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        LOGÍSTICA Y TRANSPORTE
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="boxnews__item">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">Noticia</div>
-                            <div class="boxnews__info">Innovación</div>
-                        </div>
-                        <div class="boxnews__content">
-                            <h5 class="boxnews__copy">
-                                <a href="#" class="boxnews__link">
-                                    Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública
-                                </a>
-                            </h5>
-                            <div class="boxnews__meta">
-                                <div class="boxnews__meta__date">26 Febrero 2020</div>
-                                <div class="boxnews__meta__author">Irene Moreno-Tapia</div>
+                                <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
+                                <div class="boxnews__meta__date">21 Marzo 2020</div>
+                                <div class="boxnews__meta__time">10.30 — 14.30</div>
                             </div>
                         </div>
                         <div class="boxnews__footer">
@@ -127,63 +92,47 @@
                             </ul>
                         </div>
                     </article>
+                    <article class="boxnews__item boxnews__item--article">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Artículo</div>
+                            <div class="boxnews__info">Internacional</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <h5 class="boxnews__copy">
+                                <a href="#" class="boxnews__link">
+                                    Cuatrecasas asesora a JD Sports y Sprinter en la integración con Sport Zone en España y Portugal
+                                </a>
+                            </h5>
+                            <div class="boxnews__meta">
+                                <div class="boxnews__meta__date">9 Marzo 2020</div>
+                                <!-- <div class="boxnews__meta__author">&nbsp;</div> -->
+                            </div>
+                        </div>
+                        <div class="boxnews__footer">
+                            <ul class="related__services">
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">
+                                        LABORAL
+                                    </a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">
+                                        DEPORTE
+                                    </a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="#" class="related__services__link">
+                                        LOGÍSTICA Y TRANSPORTE
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
                 </div>
                 <div class="viewmore__button">
-                    <a href="#" class="btn btn__viewmore">Ver más<br>contenido</a>
+                    <button type="button" class="btn btn__viewmore btn__viewmore--plus">Ver más</button>
                 </div>
             </div>
-            {# <div class="box-articles-wrapper">
-                <article class="box box-article">
-                    <div class="box-header">
-                        <div class="info-date">15 Enero 2020</div>
-                        <div class="info-type">Artículo</div>
-                        <button type="button" class="button-bookmark"></button>
-                    </div>
-                    <div class="box-body">
-                        <h3><a href="#">La Audiencia Provincial de Barcelona interpreta la cesión de derechos sobre la obra futura</a></h3>
-                    </div>
-                    <div class="box-footer">
-                        <ul class="list-inline-dots">
-                            <li><a href="#" class="tag-link">Alimentación</a></li>
-                            <li><a href="#" class="tag-link">Retail</a></li>
-                            <li><a href="#" class="tag-link">Infraestructuras</a></li>
-                        </ul>
-                    </div>
-                </article>
-                <article class="box box-article">
-                    <div class="box-header">
-                        <div class="info-date">24 Febrero 2019</div>
-                        <div class="info-type">Artículo</div>
-                        <button type="button" class="button-bookmark bookmark-on"></button>
-                    </div>
-                    <div class="box-body">
-                        <h3><a href="#">Quince altos directivos españoles explican cómo liderar en un libro de la AED</a></h3>
-                    </div>
-                    <div class="box-footer">
-                        <ul class="list-inline-dots">
-                            <li><a href="#" class="tag-link">Empresas</a></li>
-                            <li><a href="#" class="tag-link">Negocios</a></li>
-                        </ul>
-                    </div>
-                </article>
-                <article class="box box-event">
-                    <div class="box-header">
-                        <div class="info-date">Del 24 Febrero al 2 Marzo 2019</div>
-                        <div class="info-type">Evento</div>
-                        <button type="button" class="button-bookmark"></button>
-                    </div>
-                    <div class="box-body">
-                        <h3><a href="#">"Quick fixes": análisis detallado de las novedades del régimen intracomunitario para 2020</a></h3>
-                        <div class="info-time">De 10.30 a 18.30 h</div>
-                    </div>
-                    <div class="box-footer">
-                        <div class="map-pin"><a href="#" class="map-pin-link">Barcelona</a></div>
-                    </div>
-                </article>
-            </div> #}
-            {# <div class="col button-wrapper">
-                <a href="#" class="btn btn-main hover-white btn-arrow">Más conocimiento</a>
-            </div> #}
         </div>
     </div>
 </section>

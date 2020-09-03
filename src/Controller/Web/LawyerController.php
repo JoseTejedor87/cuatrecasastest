@@ -1,97 +1,181 @@
 <?php
 
 namespace App\Controller\Web;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\Web\WebController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
+use App\Controller\Web\WebController;
 use App\Entity\Lawyer;
 use App\Repository\LawyerRepository;
+use App\Repository\SectorRepository;
+use App\Repository\PracticeRepository;
+use App\Repository\OfficeRepository;
+use App\Repository\CaseStudyRepository;
+use App\Repository\TrainingRepository;
+use App\Repository\PublicationRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
-* @Route("/{idioma}/lawyer", name="lawyer", methods={"GET"})
-*/
 class LawyerController extends WebController
 {
-    /**
-     * @Route("/detail/{slug}", name="detail", methods={"GET"})
-     */
-    public function detail(Request $request, LawyerRepository $lawyerRepository)
-    {
-       
-        $lawyer = $lawyerRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
-        $this->isThisLocale($request, $request->attributes->get('idioma'));
-        //dd($lawyer->translate('es'));
-        // $Speaker = $lawyer->getSpeaker();
-        // $Events = $Speaker->getEvents();
-        // $Office = $lawyer->getOffice();
-        // var_dump($Speaker);
-        // $descrip = $Office->translate('es')->getDescriptions();
-        // var_dump($Office);
-        // $Officeid = $Office->getId();
-        // var_dump($Office->translate('es')->getDescriptions());
-        // die();
-        // dd(var_dump($lawyer));
-        // foreach ($Events as $key => $value) {
-        //     dd($value->translate('es')->getTitle());
-        // }
-        // var_dump($lawyer);
-        // dd($lawyer);
-        return $this->render('web/lawyer/detail.html.twig', [
-            'controller_name' => 'LawyerController',
-            'lawyer' => $lawyer,
+    protected $imagineCacheManager;
 
+    public function __construct(CacheManager $imagineCacheManager)
+    {
+        $this->imagineCacheManager = $imagineCacheManager;
+    }
+
+    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
+    {
+        $lawyer = $lawyerRepository->getInstanceByRequest($request);
+        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
+
+        return $this->render('web/lawyer/detail.html.twig', [
+            'lawyer' => $lawyer,
+            'contextualBlocks' => $contextualBlocks,
         ]);
     }
 
-    /**
-     * @Route("/filter", name="filter", methods={"GET"})
-     */
-    public function filter(Request $request, LawyerRepository $lawyerRepository)
+    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository)
     {
-        $initial = $request->query->get('initial');
-        $page = $request->query->get('page');
-        if(!isset($page))
-        $page = 1;  
-        $limit = 6;
-        if(!$initial ){
-        $initial = $request->query->get('initial');
-        
-        }
-        if($initial ){
-            //$lawyers = $lawyerRepository->findBy(['surname'=> 'p%']); 
-            // createQuery("SELECT TOP * FROM Lawyer where surname like 'p%'");
-            $query = $lawyerRepository->createQueryBuilder('l')
-               ->where('l.surname LIKE :surname')
-               ->setParameter('surname', $initial .'%')
-               ->setFirstResult($limit * ($page - 1))
-               ->setMaxResults($limit)
-               ->getQuery();
-            $lawyers = $query->getResult();
-            $query = $lawyerRepository->createQueryBuilder('l')
-               ->where('l.surname LIKE :surname')
-               ->setParameter('surname', $initial .'%')
-               ->getQuery();
-               if($lawyers){
-                $countLawyers = count($query->getResult());
-                $pagesTotal = $countLawyers/6;
-                if(is_float($pagesTotal) && $pagesTotal>=1){
-                    $pagesTotal = $pagesTotal + 1;
-                }
-               }
-            
-            //dd($lawyers);
-        }
+        $practices = $PracticeRepository->findAll();
+        $sectors = $sectorRepository->findAll();
+        $offices = $OfficeRepository->findAll();
 
-        
-        // dd($_SERVER['REQUEST_URI']);
-        return $this->render('web/lawyer/filter.html.twig', [
-            'controller_name' => 'LawyerController',
-            'lawyers' => isset($lawyers) ? $lawyers : '',
-            'countLawyers' => isset($countLawyers) ? $countLawyers : '',
-            'page' => isset($page) ? $page : '',
-            'pagesTotal' => isset($pagesTotal) ? $pagesTotal : '',
-        ]);
+        $initial = $request->query->get('initial');
+        $page = $request->query->get('page') ?: 1;
+        $textSearch = $request->query->get('textSearch');
+        $services = $request->query->get('services');
+        $sector = $request->query->get('sector');
+        $office = $request->query->get('office');
+
+        $relatedPublications = $publicationRepository->findByActivities('');
+        $limit = 18;
+        if ($initial || $office || $sector || $services || $textSearch) {
+            $url= "";
+            $query = $lawyerRepository->createPublishedQueryBuilder('l');
+            if ($services) {
+                $query = $query->innerJoin('l.activities', 'a')
+                    ->andWhere('a.id = :activity')
+                    ->setParameter('activity', $services);
+                if ($url == "") {
+                    $url= "?services=".$services;
+                } else {
+                    $url= $url . "&services=".$services;
+                }
+            }
+            if ($sector) {
+                $query = $query->innerJoin('l.activities', 's')
+                    ->andWhere('s.id = :sector')
+                    ->setParameter('sector', $sector);
+                if ($url == "") {
+                    $url= "?sector=".$sector;
+                } else {
+                    $url= $url . "&sector=".$sector;
+                }
+            }
+            if ($office) {
+                $query = $query->innerJoin('l.office', 'o')
+                    ->andWhere('l.office = :city')
+                    ->setParameter('city', $office);
+                if ($url == "") {
+                    $url= "?office=".$office;
+                } else {
+                    $url= $url . "&office=".$office;
+                }
+            }
+            if ($textSearch) {
+                $query = $query->andWhere("CONCAT( l.name,  ' ', l.surname ) LIKE :textSearch")
+                    ->setParameter('textSearch', '%'.$textSearch .'%');
+                if ($url == "") {
+                    $url= "?textSearch=".$textSearch;
+                } else {
+                    $url= $url . "&textSearch=".$textSearch;
+                }
+            }
+            if ($initial) {
+                $query = $query->andWhere('l.surname LIKE :surname')
+                    ->setParameter('surname', $initial .'%');
+                if ($url == "") {
+                    $url= "?initial=".$initial;
+                } else {
+                    $url= $url . "&initial=".$initial;
+                }
+            }
+            $countLawyers = count($query->getQuery()->getResult());
+            $query = $query->setFirstResult($limit * ($page - 1))
+                ->setMaxResults($limit)
+                ->getQuery();
+            $lawyers = $query->getResult();
+            if ($lawyers) {
+                $pagesTotal = $countLawyers/$limit;
+                if (is_float($pagesTotal)) {
+                    $pagesTotal = intval($pagesTotal + 1);
+                }
+            }
+        }
+        if ($request->isXMLHttpRequest()) {
+            $lawyerA = array();
+            if (isset($lawyers)) {
+                foreach ($lawyers as $key => $lawyer) {
+                    $url =  $this->container->get('router')->generate('lawyers_detail', array('slug' => $lawyer->getSlug()));
+                    $lawyerA[$key] = array( 'FullName' => $lawyer->getName(). ' ' .  $lawyer->getSurname(), 'LawyerType' => $translator->trans('sections.lawyers.lawyerCategoryTypes.'.$lawyer->getLawyerType()), 'Slug' => $url);
+                    $activities = "";
+                    foreach ($lawyer->getActivities() as $activity) {
+                        $activities = $activities. ' ' . $activity->translate('es')->getTitle();
+                    }
+                    $lawyerA[$key]['activities'] = $activities;
+                    $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->getCity() : '';
+                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid');
+                }
+            }
+            $json = array(
+                'lawyers' => $lawyerA,'countLawyers' => isset($countLawyers) ? $countLawyers : 0,'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0 ,'page' => isset($page) ? $page : 0
+            );
+
+            if ($initial) {
+                $json['initial']= $initial;
+            }
+            if ($office) {
+                $json['office'] = $office;
+            }
+            if ($textSearch) {
+                $json['textSearch'] = $textSearch;
+            }
+            if ($services) {
+                $json['services'] = $services;
+            }
+            if ($sector) {
+                $json['sector'] = $sector;
+            }
+            return new JsonResponse($json);
+        } else {
+            return $this->render('web/lawyer/index.html.twig', [
+                'controller_name' => 'LawyerController',
+                'lawyers' => isset($lawyers) ? $lawyers : '',
+                'countLawyers' => isset($countLawyers) ? $countLawyers : '',
+                'page' => isset($page) ? $page : '',
+                'pagesTotal' => isset($pagesTotal) ? $pagesTotal : '',
+                'sectors' => $sectors,
+                'practices' => $practices,
+                'offices' => $offices,
+                'relatedPublications' => $relatedPublications,
+                'url' => isset($url) ? $url : '',
+            ]);
+        }
+    }
+
+    protected function getPhotoPathByFilter($lawyer, $filter)
+    {
+        if ($photo = $lawyer->getPhoto()) {
+            $photo = $this->imagineCacheManager->getBrowserPath(
+                '/resources/' . $photo->getFileName(),
+                $filter
+            );
+        }
+        return $photo;
     }
 }

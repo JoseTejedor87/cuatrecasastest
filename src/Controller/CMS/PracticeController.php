@@ -12,14 +12,8 @@ use App\Form\PracticeFormType;
 use App\Repository\PracticeRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/practices")
- */
 class PracticeController extends CMSController
 {
-    /**
-     * @Route("/", name="practice_index", methods={"GET"})
-     */
     public function index(PracticeRepository $practiceRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -33,9 +27,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="practice_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $practice = new Practice();
@@ -48,7 +39,7 @@ class PracticeController extends CMSController
             $practice->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('practice_index');
+            return $this->redirectToRoute('cms_practices_index');
         }
 
         return $this->render('cms/practice/new.html.twig', [
@@ -57,9 +48,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="practice_show", methods={"GET"})
-     */
     public function show(Practice $practice): Response
     {
         return $this->render('practice/show.html.twig', [
@@ -67,18 +55,21 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="practice_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Practice $practice): Response
     {
         $form = $this->createForm(PracticeFormType::class, $practice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (isset($request->request->get('practice_form')['photo'])) {
+                $photo = $request->request->get('practice_form')['photo'];
+                if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
+                    $practice->setPhoto(null);
+                }
+            }
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('practice_edit', ['id'=>$practice->getId()]);
+            return $this->redirectToRoute('cms_practices_edit', ['id'=>$practice->getId()]);
         }
 
         return $this->render('cms/practice/edit.html.twig', [
@@ -87,9 +78,6 @@ class PracticeController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="practice_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Practice $practice): Response
     {
         if ($this->isCsrfTokenValid('delete'.$practice->getId(), $request->request->get('_token'))) {
@@ -98,6 +86,6 @@ class PracticeController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('practice_index');
+        return $this->redirectToRoute('cms_practices_index');
     }
 }

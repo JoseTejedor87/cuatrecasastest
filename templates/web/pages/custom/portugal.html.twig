@@ -1,0 +1,140 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.offices.portugal'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.offices.portugal'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('regions_vision') }}" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('regions_espana') }}" class="nav-link">{{ 'menu.offices.spain'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('regions_portugal') }}" class="nav-link active">{{ 'menu.offices.portugal'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('regions_latam') }}" class="nav-link ">{{ 'menu.offices.latam'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('regions_other_regions') }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block--regions">
+                <div class="col">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                </div>
+            </section>
+
+            <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-spain.png') }}')">
+            </section>
+
+            {% include 'web/shared/awards_CMP.html.twig' %}
+            {% include 'web/shared/cases_CMP.html.twig' %}
+            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
+            {% include 'web/shared/info.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        var swiperAwards = new Swiper ('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: true
+        });
+
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+    });
+</script>
+{% endblock %}

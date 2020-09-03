@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use App\Entity\PublishableTranslation;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LawyerTranslationRepository")
  */
 class LawyerTranslation extends PublishableTranslation
 {
     use ORMBehaviors\Translatable\Translation;
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -23,15 +25,7 @@ class LawyerTranslation extends PublishableTranslation
      */
     private $curriculum;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $training;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $mentions;
 
     public function getDescription(): ?string
     {
@@ -57,28 +51,8 @@ class LawyerTranslation extends PublishableTranslation
         return $this;
     }
 
-    public function getTraining(): ?string
-    {
-        return $this->training;
-    }
-
-    public function setTraining(?string $training): self
-    {
-        $this->training = $training;
-
-        return $this;
-    }
-
-    public function getMentions(): ?string
-    {
-        return $this->mentions;
-    }
-
-    public function setMentions(?string $mentions): self
-    {
-        $this->mentions = $mentions;
-
-        return $this;
-    }
+    /**
+     * @return Collection|Mention[]
+     */
 
 }

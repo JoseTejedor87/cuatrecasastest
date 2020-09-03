@@ -1,7 +1,5 @@
 {% for language in languages|sort %}
-    {% if language in values %}
-        <span class="m-badge m-badge--success">{{ language }}</span>
-    {% else %}
-        <span class="m-badge m-badge--secondary">{{ language }}</span>
-    {% endif %}
+    <span class="m-badge {{ (language in values) ? 'm-badge--success' : 'm-badge--secondary' }}" title="{{ language }}">
+        {{ language }}
+    </span>
 {% endfor %}

@@ -1,0 +1,241 @@
+// ==========================================================================
+// NAVIGATION
+//
+// => Main Navs Header
+// => Action links (icons)
+// => Breadcrumb
+// ==========================================================================
+
+
+//
+// STICKY MENU
+// --------------------------------------------------------------------------
+
+$menu-height: 55px !default;
+
+#navDesktop {
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+
+    // box-shadow: inset 10px 0 10px red;
+}
+
+#primaryNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $menu-height;
+    z-index: 1;
+
+    #userNav {
+        // display: none;
+    }
+}
+
+#secondaryNav {
+    position: fixed;
+    top: $menu-height;
+    left: 0;
+    width: 100%;
+    height: $menu-height;
+    // box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    transition: all 0.3s ease-in-out;
+
+     #contactNav {
+        background-color: transparent;
+        transition: background-color 0.2s ease-out;
+    }
+
+     #contactNav {
+        background-color: transparent;
+        transition: background-color 0.2s ease-out;
+    }
+
+    &.stickyNav {
+        top: 0;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0);
+
+        #contactNav {
+            background-color: transparent;
+            transition: background-color 0.2s ease-out;
+        }
+    }
+
+    .navbar-brand {
+        opacity: 1;
+        transition: opacity 0.2s ease-out;
+
+        &.stickyNav {
+            opacity: 0;
+        }
+    }
+}
+
+header {
+    margin-top: $menu-height * 2;
+    transition: all 0.2s ease-in-out;
+
+    &.stickyNav {
+        margin-top: 162px;
+    }
+}
+
+
+
+//
+// SITE NAVS
+// --------------------------------------------------------------------------
+
+.main__nav__wrapper {
+
+    .navbar {
+        padding: 0 0.8rem;
+    }
+
+    .navbar-nav {
+        align-items: center;
+    }
+
+    .navbar-expand-md .navbar-nav .nav-link {
+        // padding-right: 0.5rem;
+        // padding-left: 0.5rem;
+    }
+
+    .nav-link {
+        position: relative;
+        margin-right: 0.3rem;
+        margin-left: 0.3rem;
+        @include cuatrecasas-font();
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        // @include left-to-right-link($white, $white);
+        transition: all 0.3s ease-out;
+
+        ~ .dropdown-menu {
+            border: 1px solid red;
+        }
+    }
+
+
+    //
+    // MAIN NAV >>> Primay options
+    // --------------------------------------------------------------------------
+    #mainNav {
+        background-color: $main-color;
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+
+        .navbar {
+            padding: 2px 0.8rem 0;
+        }
+
+        .nav-link {
+            @include fontSet(22px, 22px);
+            @include classic-link($white, $complementary-color, $border: false);
+        }
+    }
+
+
+    //
+    // MAIN NAV >>> Secondary options
+    // --------------------------------------------------------------------------
+    #aboutNav {
+        background-color: $complementary-color;
+
+        .navbar-collapse {
+            justify-content: flex-start;
+        }
+
+        .navbar {
+            padding: 2px 0.8rem 0;
+        }
+
+        .nav-link {
+            @include fontSet(22px, 22px);
+            @include classic-link($white, $main-color, $border: false);
+        }
+    }
+
+
+    //
+    // MAIN NAV >>> SUBMENU
+    // --------------------------------------------------------------------------
+
+    .sub-menu {
+        display: none;
+        position: static;
+        width: 100vw;
+        max-width: none;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        background-color: $submenu-color;
+    }
+
+
+    //
+    // SECONDARY NAV >>> Contact, Webs, Site, Langs
+    // --------------------------------------------------------------------------
+    #contactNav {
+        background-color: $white;
+
+        .navbar {
+            padding: 0 0.2rem;
+        }
+
+        .nav-item {
+            padding-top: 3px;
+
+            .icon {
+                @include fontSet(16px, 16px);
+            }
+        }
+
+        .nav-link {
+            color: $black;
+            @include fontSet(15px, 15px);
+            // @include left-to-right-link($black, $complementary-color);
+            @include classic-link($black, $complementary-color, $border: false);
+            // padding-right: .3rem;
+            // padding-left: .3rem;
+        }
+    }
+
+
+    //
+    // SECONDARY NAV >>> User, Search
+    // --------------------------------------------------------------------------
+    #userNav {
+        background-color: $white;
+
+        .navbar {
+            padding: 0 0.2rem;
+        }
+
+        .nav-item {
+            padding-top: 3px;
+
+            .icon {
+                @include fontSet(24px, 24px);
+            }
+        }
+
+        .nav-link {
+            color: $black;
+            @include fontSet(15px, 15px);
+            // @include left-to-right-link($black, $complementary-color);
+            @include classic-link($black, $complementary-color, $border: false);
+            // padding-right: .3rem;
+            // padding-left: .3rem;
+        }
+    }
+}
+

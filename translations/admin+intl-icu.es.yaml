@@ -6,9 +6,20 @@ global:
     en: Inglés
     pt: Portugués
     zh: Chino
+    it: Italiano
+    fr: Francés
+
+  regions:
+    spain: España
+    latam: Latinoamérica
+    portugal: Portugal
+    global: Global
 
   messages:
     noRecordsFound: No se han encontrado registros
+
+  labels:
+    publication: Publicación
 
   actions:
     create: Crear nuevo
@@ -22,6 +33,13 @@ global:
 sections:
   dashboard:
     title: Escritorio
+  case_studies:
+    index:
+      title: Casos
+    new:
+      title: Nuevo Caso
+    edit:
+      title: Editar Caso
   desks:
     index:
       title: Desks
@@ -29,6 +47,13 @@ sections:
       title: Nuevo Desk
     edit:
       title: Editar Desk
+  insights:
+    index:
+      title: Colecciones
+    new:
+      title: Nueva Colección
+    edit:
+      title: Editar Colección
   practices:
     index:
       title: Áreas de Práctica
@@ -64,20 +89,13 @@ sections:
       title: Nuevo Abogado
     edit:
       title: Editar Abogado
-  mentions:
+  people:
     index:
-      title: Menciones
+      title: Personas
     new:
-      title: Nueva Mención
+      title: Nuevo Persona
     edit:
-      title: Editar Mención
-  speakers:
-    index:
-      title: Ponentes
-    new:
-      title: Nuevo Ponente
-    edit:
-      title: Editar Ponente
+      title: Editar Persona
   events:
     index:
       title: Eventos
@@ -86,7 +104,16 @@ sections:
     edit:
       title: Editar Evento
     actions:
-      addSpeaker: Crear Ponente
+      addPerson: Crear Persona
+    programs: 
+      index:
+        title: Programas
+      new:
+        title: Nuevo Programa
+      edit:
+        title: Editar Programa
+      backToIndexList: Volver a la edicion del Evento
+      programsList: Listado de Programas del Evento
   awards:
     index:
       title: Premios
@@ -108,13 +135,20 @@ sections:
       title: Nueva Página
     edit:
       title: Nueva Página
-  articles:
+  publication:
       index:
-        title: Artículos
+        title: Conocimiento
       new:
-        title: Nuevo Articulo
+        title: Nuevo Conocimiento
       edit:
-        title: Editar Articulo
+        title: Editar Conocimiento
+  sliders:
+    index:
+      title: Slider
+    new:
+      title: Nuevo Slider
+    edit:
+      title: Editar Slider        
 
 # Menu
 # ###########################################
@@ -122,33 +156,75 @@ menu:
   lawyers.title: Abogados
   events.title: Eventos
   events.searcher.title: Buscador
-  speakers.title: Ponentes
+  people.title: Personas
   services.title: Servicios
   desks.title: Desks
   sectors.title: Sectores
   practices.title: Áreas de Práctica
   products.title: Productos
   metadata.title: Metadatos
-  mentions.title: Menciones
   quotes.title: Citas
   awards.title: Premios
   office.title: Oficinas
   page.title: Páginas
-  articles.title: Artículos
+  publication.title: Conocimiento
+  insight.title: Colecciones
+  knowledge.title: Conocimiento
+  case_studies.title: Casos
+
 # Entities
 # ###########################################
 entities:
   activity:
     fields:
       title: Título
+      summary: Resumen
       description: Descripción
       image: Imagen
       highlighted: Menú
       experience: Experiencia
       blocks: Bloques
-  quoteBlock:
+      relatedActivities: Actividades relacionadas
+      slug: Slug
+  publication:
     fields:
-      quote: Cita
+      title: Título
+      publication_date: Fecha de publicación
+      status: Estado
+      featured: Destacado
+      activities: Sectores / Servicios / Desks
+      offices: Oficinas
+      people: Abogados
+      summary: Resumen
+      content: Contenido
+      caption: Subtitulo
+      tags: Tags
+      lawyer_tags: Tags de abogados
+      office_tags: Tags de oficinas
+      practice_tags: Tags de práctica
+  award:
+    fields:
+      title: Título
+      granted: Concedido
+      status: Estado
+      image: Imagen premio
+      desc_award: Descripción del premio
+      desc_award_firma: Descripción de la firma del premio
+      desc_award_indiv: Descripción del premio
+      activities: Actividades Relacionadas
+      tags: Tags
+  case_study:
+    fields:
+      title: Título
+      summary: Resumen
+      description: Descripción
+      image: Imagen
+      events: Eventos
+      lawyers: Abogados
+      articles: Artículos
+      activities: Sectores / Servicios / Desks
+      relatedCaseStudies: Casos relacionados
+      slug: Slug
   event:
     fields:
       title: Título
@@ -165,69 +241,63 @@ entities:
       contact: Nombre de contacto
       phone: Teléfono de contacto
       capacity: Aforo
-      speakers: Ponentes
+      people: Personas
+      office: Oficina
+      no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+  programs:
+    fields:
+      title: Titulo
+      description: Descripcion
+      date_time: Fecha - Hora
+      people: Personas
   eventsBlock:
     fields:
       activities: Filtrar eventos etiquetados con
       eventType: Tipo de Evento
       numberOfEvents: Cantidad de eventos a mostrar
+  insight:
+    fields:
+      title: Título
+      summary: Resumen
+      description: Descripción
+      headerType: Tipo de cabecera
+      showIntroBlock: Bloque introducción
+      showKnowledgeBlock: Bloque conocimiento
+      showEventsBlock:  Bloque eventos
+      showLegalNoveltiesBlock: Bloque novedades jurídicas
+      showCaseStudiesBlock: Bloque casos
+      activities: Sectores / Servicios / Desks
+      lawyers: Abogados
+      relatedInsights: Colecciones relacionadas
+      slug: Slug
   item:
     fields:
+      createdAt: Fecha de creación
       updatedAt: Última modificación
   lawyer:
     fields:
       name: Nombre
       surname: Apellido
+      initials: Iniciales
       email: Correo electrónico
       phone: Teléfono
       fax: Fax
       photo: Fotografía
-      lawyerType: Tipo de abogado
+      knownLanguages: Idiomas conocidos
+      lawyerType: Tipo
       description: Descripción
       curriculum: Curriculum Vitae
-      training: Formación
       activities: Sectores / Servicios / Desks
+      secondaryActivities: Sectores / Servicios / Desks (secundarias)
       mentions: Menciones
+      trainings: Formaciones
       office: Oficina
+      slug: Slug
   mention:
     fields:
-      body: Texto
-      lawyers: Abogados
-  publishable:
-    fields:
-      languages: Idiomas de publicación
-      locations: Ubicación de publicación
-      metaTitle: Meta Título
-      metaDescription: Meta Descripción
-  quote:
-    fields:
-      author: Autor
-      year: Año
-      body: Contenido
-  resource:
-    fields:
-      title: Título
-      file: Fichero
-  speaker:
-    fields:
-      name: Nombre
-      surname: Apellidos
-      position: Posición / Cargo
-      lawyer: Abogado
-    help:
-      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
-  awards:
-    fields:
-      title: Título
-      granted: Concedido
-      status: Estado
-      img_office: Imagen premio
-      desc_award: Descripción del premio
-      desc_award_firma: Descripción de la firma del premio
-      desc_award_indiv: Descripción del premio
-      tags: Tags
+      description: Texto
   office:
     fields:
       city: Ciudad
@@ -251,27 +321,68 @@ entities:
     fields:
       title: Título
       blocks: Bloques
-  article:
+  practice:
+    fields:
+      children: Subáreas
+  product:
+    fields:
+      children: Subproductos
+  publishable:
+    fields:
+      languages: Idiomas de publicación
+      regions: Regiones de publicación
+      metaTitle: Meta Título
+      metaDescription: Meta Descripción
+      metaRobots: Meta Robots
+  quote:
+    fields:
+      author: Autor
+      year: Año
+      body: Contenido
+  quoteBlock:
+    fields:
+      quote: Cita
+  resource:
     fields:
       title: Título
-      publication_date: Fecha de publicación
-      status: Estado
-      featured: Destacado
-      activities: Sectores / Servicios / Desks
-      offices: Oficinas
-      lawyers: Abogados
-      summary: Resumen
-      content: Contenido
-      caption: Subtitulo
-      tags: Tags
-      lawyer_tags: Tags de abogados
-      office_tags: Tags de oficinas
-      practice_tags: Tags de práctica
-
-
+      file: Fichero
+  person:
+    fields:
+      name: Nombre
+      surname: Apellidos
+      position: Posición / Cargo
+      lawyer: Abogado
+    help:
+      lawyer: Utilice este campo cuando el ponente sea un abogado de Cuatre Casas
+  sector:
+    fields:
+      children: Subsectores
+  training:
+    fields:
+      description: Texto
+  filter:
+    action: Filtrar
+    fechaDesde: Desde
+    fechaHasta: Hasta
+    incioDesde: Fecha Inicio Desde
+    inicioHasta: Fecha Inicio Hasta
+    finHasta:  Fecha Fin Hasta
+    finDesde: Fecha Fin Desde
+  slider:
+    fields:
+      title: Titulo
+      description: Descripcion
+      url: Url Destino
+      image: Imagen
 # Custom Form Types
 
 forms:
+  fieldsets:
+    relations: Relaciones
+    publication: Publicación
+    appearance: Apariencia
+    seo: SEO
+
   choices:
     blockTypes:
       quoteBlock: Bloque de cita
@@ -289,5 +400,10 @@ forms:
       managing_partner: Consejero delegado
       no_position: Sin cargo
       partner: Socio
+      knowledge: Abogado de gestión del conocimiento
       senior_associate: Asociado sénior
       senior_partner: Presidente
+      senior_knowledge: Abogado senior de gestión del conocimiento
+    insightHeaderTypes:
+      full_width: Una columna con imagen de fondo
+      two_columns: Dos columnas con imagen a la derecha

@@ -1,0 +1,45 @@
+{% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'Imagen'|trans }}
+                </h3>
+            </div>
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.image) }}
+                    {{ form_row(form.image.file) }}
+                </div>
+            </div>
+            <div class="m-form__section m-form__section">
+                {{ form_widget(form.year) }}
+            </div>            
+            {% do form.image.setRendered %}
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="m-form__section m-form__section">
+            {{ translatableField.partialTranslations(form.translations, ['title']) }}
+        </div>
+        <div class="m-form__section m-form__section">
+            {{ translatableField.partialTranslations(form.translations, ['granted']) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
+        </div>
+
+        {% do form.translations.setRendered %}
+
+        {{ form_rest(form) }}
+    </div>
+</div>

@@ -4,79 +4,22 @@ namespace App\Controller\Web;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\PracticeRepository;
+use App\Repository\DeskRepository;
+use App\Repository\ActivityTranslationRepository;
+use App\Controller\Web\WebController;
 
-/**
-* @Route("/services", name="services")
-*/
-class ServicesController extends AbstractController
+class ServicesController extends WebController
 {
-    /**
-     * @Route("/practiceAreas", name="practiceAreas")
-     */
-    public function practiceAreas()
+    public function desks(Request $request, DeskRepository $DeskRepository)
     {
-        return $this->render('web/services/practiceAreas.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
-
-    /**
-     * @Route("/desks", name="desks")
-     */
-    public function desks()
-    {
+        $desks = $DeskRepository->findAll();
         return $this->render('web/services/desks.html.twig', [
             'controller_name' => 'ServicesController',
+            'desks' => $desks,
         ]);
     }
 
-    /**
-     * @Route("/products", name="products")
-     */
-    public function products()
-    {
-        return $this->render('web/services/products.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
 
-    /**
-     * @Route("/labourLaw", name="labourLaw")
-     */
-    public function labourLaw()
-    {
-        return $this->render('web/services/labourLaw.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
-
-    /**
-     * @Route("/labourLaw2", name="labourLaw2")
-     */
-    public function labourLaw2()
-    {
-        return $this->render('web/services/labourLaw2.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
-
-    /**
-     * @Route("/productDetail", name="productDetail")
-     */
-    public function productDetail()
-    {
-        return $this->render('web/services/productDetail.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
-
-    /**
-     * @Route("/fiscal", name="fiscal")
-     */
-    public function fiscal()
-    {
-        return $this->render('web/services/fiscal.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-    }
 }

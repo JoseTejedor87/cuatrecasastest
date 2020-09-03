@@ -28,6 +28,10 @@ class Lawyer extends Publishable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $initials;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $email;
 
     /**
@@ -46,30 +50,46 @@ class Lawyer extends Publishable
     private $lawyerType;
 
     /**
-     * @Gedmo\Slug(fields={"name", "surname"})
+     * @Gedmo\Slug(fields={"name", "surname"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers")
      */
     private $activities;
-    
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="lawyers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="lawyers_secondary")
+     * @ORM\JoinTable(name="lawyer_secondary_activity",
+     *      joinColumns = {@ORM\JoinColumn(name="lawyer_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")}
+     * )
      */
-    private $articles;
+    private $secondaryActivities;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="key_contacts")
+     */
+    private $specificActivities;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $knownLanguages = [];
+
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="lawyer", cascade={"persist"}, orphanRemoval=true)
      */
     private $photo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Speaker", mappedBy="lawyer", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="lawyer", orphanRemoval=true)
      */
-    private $speaker;
+    private $person;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Office", inversedBy="lawyer")
@@ -77,12 +97,40 @@ class Lawyer extends Publishable
      */
     private $office;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="lawyers")
+     */
+    private $insights;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="lawyers")
+     */
+    private $caseStudies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Training", mappedBy="lawyer" , cascade={"persist"}, orphanRemoval=true)
+     */
+    private $trainings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mention", mappedBy="lawyer" , cascade={"persist"}, orphanRemoval=true)
+     */
+    private $mentions;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->articles = new ArrayCollection();
+        $this->secondaryActivities = new ArrayCollection();
+        $this->insights = new ArrayCollection();
+        $this->caseStudies = new ArrayCollection();
+        $this->mentions = new ArrayCollection();
+        $this->trainings = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
 
     public function getName(): ?string
     {
@@ -110,7 +158,7 @@ class Lawyer extends Publishable
 
     public function getFullName(): ?string
     {
-        return $this->surname . ", " . $this->name;
+        return $this->name . " " . $this->surname;
     }
 
     public function getEmail(): ?string
@@ -166,6 +214,13 @@ class Lawyer extends Publishable
         return $this->slug;
     }
 
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 
     /**
      * @return Collection|Activity[]
@@ -219,55 +274,199 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    public function getKnownLanguages(): ?array
+    {
+        return $this->knownLanguages;
+    }
+
+    public function setKnownLanguages(array $languages): self
+    {
+        $this->knownLanguages = $languages;
+        return $this;
+    }
+
     /**
-     * @return Collection|Articles[]
+     * @return Collection|Activity[]
      */
-    public function getArticles(): Collection
+    public function getSecondaryActivities(): Collection
     {
-        return $this->articles;
+        return $this->secondaryActivities;
     }
 
-    public function addArticle(Articles $article): self
+    public function addSecondaryActivity(Activity $secondaryActivity): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->addActivity($this);
+        if (!$this->secondaryActivities->contains($secondaryActivity)) {
+            $this->secondaryActivities[] = $secondaryActivity;
         }
 
         return $this;
     }
 
-    public function removeArticle(Articles $article): self
+    public function removeSecondaryActivity(Activity $secondaryActivity): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            $article->removeActivity($this);
+        if ($this->secondaryActivities->contains($secondaryActivity)) {
+            $this->secondaryActivities->removeElement($secondaryActivity);
         }
 
         return $this;
     }
 
-    public function setSlug(string $slug): self
+    public function getPerson(): ?Person
     {
-        $this->slug = $slug;
-
-        return $this;
+        return $this->person;
     }
 
-    public function getSpeaker(): ?Speaker
+    public function setPerson(?Person $person): self
     {
-        return $this->speaker;
-    }
-
-    public function setSpeaker(?Speaker $speaker): self
-    {
-        $this->speaker = $speaker;
+        $this->person = $person;
 
         // set (or unset) the owning side of the relation if necessary
-        $newLawyer = null === $speaker ? null : $this;
-        if ($speaker->getLawyer() !== $newLawyer) {
-            $speaker->setLawyer($newLawyer);
+        $newLawyer = null === $person ? null : $this;
+        if ($person->getLawyer() !== $newLawyer) {
+            $person->setLawyer($newLawyer);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removeLawyer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseStudy[]
+     */
+    public function getCaseStudies(): Collection
+    {
+        return $this->caseStudies;
+    }
+
+    public function addCaseStudy(CaseStudy $caseStudy): self
+    {
+        if (!$this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies[] = $caseStudy;
+            $caseStudy->addLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseStudy(CaseStudy $caseStudy): self
+    {
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+            $caseStudy->removeLawyer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mention[]
+     */
+    public function getMentions(): Collection
+    {
+        return $this->mentions;
+    }
+
+    public function addMention(Mention $mention): self
+    {
+        if (!$this->mentions->contains($mention)) {
+            $this->mentions[] = $mention;
+            $mention->setLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMention(Mention $mention): self
+    {
+        if ($this->mentions->contains($mention)) {
+            $this->mentions->removeElement($mention);
+            // set the owning side to null (unless already changed)
+            if ($mention->getLawyer() === $this) {
+                $mention->setLawyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+         * @return Collection|Training[]
+         */
+    public function getTrainings(): Collection
+    {
+        return $this->trainings;
+    }
+
+    public function addTraining(Training $training): self
+    {
+        if (!$this->trainings->contains($training)) {
+            $this->trainings[] = $training;
+            $training->setLawyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraining(Training $training): self
+    {
+        if ($this->trainings->contains($training)) {
+            $this->trainings->removeElement($training);
+            // set the owning side to null (unless already changed)
+            if ($training->getLawyer() === $this) {
+                $training->setLawyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getInitials(): ?string
+    {
+        return $this->initials;
+    }
+
+    public function setInitials(?string $initials): self
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    public function getSpecificActivities(): ?Activity
+    {
+        return $this->specificActivities;
+    }
+
+    public function setSpecificActivities(?Activity $specificActivities): self
+    {
+        $this->specificActivities = $specificActivities;
 
         return $this;
     }

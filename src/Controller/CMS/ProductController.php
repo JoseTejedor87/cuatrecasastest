@@ -4,7 +4,6 @@ namespace App\Controller\CMS;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -13,14 +12,8 @@ use App\Form\ProductFormType;
 use App\Repository\ProductRepository;
 use App\Controller\CMS\CMSController;
 
-/**
- * @Route("cms/products")
- */
 class ProductController extends CMSController
 {
-    /**
-     * @Route("/", name="product_index", methods={"GET"})
-     */
     public function index(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
@@ -34,9 +27,6 @@ class ProductController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/new", name="product_new", methods={"GET","POST"})
-     */
     public function new(Request $request): Response
     {
         $product = new Product();
@@ -49,7 +39,7 @@ class ProductController extends CMSController
             $product->mergeNewTranslations();
             $entityManager->flush();
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('cms_products_index');
         }
 
         return $this->render('cms/product/new.html.twig', [
@@ -58,9 +48,6 @@ class ProductController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
-     */
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
@@ -68,9 +55,6 @@ class ProductController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
-     */
     public function edit(Request $request, Product $product): Response
     {
         $form = $this->createForm(ProductFormType::class, $product);
@@ -79,7 +63,7 @@ class ProductController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('cms_products_edit', ['id'=>$product->getId()]);
         }
 
         return $this->render('cms/product/edit.html.twig', [
@@ -88,9 +72,6 @@ class ProductController extends CMSController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="product_delete", methods={"DELETE"})
-     */
     public function delete(Request $request, Product $product): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
@@ -99,6 +80,6 @@ class ProductController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('product_index');
+        return $this->redirectToRoute('cms_products_index');
     }
 }

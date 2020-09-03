@@ -2,45 +2,63 @@
 // GRID INSIGHTS
 // ==========================================================================
 
+//
+// MASNORY GRID JS
+// --------------------------------------------------------------------------
+
 @include new("grid") {
 
-    @include has("wrapper") {
-        display: -ms-grid;
-        display: grid;
-        grid-gap: 10px;
-        // grid-gap IE11
-        padding: 10px 0 0 10px;
+    // https://github.com/desandro/masonry/issues/393
+    // https://github.com/desandro/masonry/issues/986
+    // https://github.com/desandro/masonry/issues/1006
+    // https://codepen.io/desandro/pen/3d1fac81ee3f6c4315f6b177c20b04c6/
 
-        //
-        // grid size vars
-        //
-        $col-width: (100% / 3);
-        $row-height: 18rem;
+    // Masonry & Isotope horizontalOrder
+    // https://codepen.io/desandro/pen/dWVqmx
 
-        -ms-grid-columns: $col-width $col-width $col-width;
-        -ms-grid-rows: $row-height $row-height $row-height $row-height;
-        grid-template-columns: $col-width $col-width $col-width;
-        grid-template-rows: $row-height $row-height $row-height $row-height;
+    // $gutter_size: 10px;
+    // $number_of_columns: 3;
+    // $total_gutter_space: ( $number_of_columns - 1 ) * $gutter_size;
 
-        justify-content: center;
-        align-content: center;
-        color: $black;
-        background-color: transparent;
+    // width: calc( ( 100% - #{$total_gutter_space} ) /  #{$number_of_columns} );
+
+    $gutter-size:   20px;
+    $item-width:    32.15%;
+    $item-height:   260px;
+
+    @include has("masonry") {
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
     }
 
-    @include has("box") {
-        // grid-gap IE11
-        border: 0 solid transparent;
-        border-width: 0 10px 10px 0;
+    @include has("gutter") {
+        width: $gutter-size;
+    }
 
-        display: flex;
+    @include has("sizer") {
+        width: $item-width;
+    }
 
+    @include has("item") {
+        float: left;
+        margin: 0 0;
+        padding: 0 0;
+        width: $item-width;
+        height: $item-height;
+        margin-bottom: $gutter-size;
+
+        //
+        // INSIDE BOXES
+        //
         .boxnews__item {
-            flex: 0 0 100%;
+            flex: 0 1 100%;
+            max-width: 100%;
             height: 100%;
+            min-height: auto;
             margin: 0 0;
-            color: $article-color;
-            border-top-color: $article-color;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
              @include on-event() {
@@ -49,100 +67,122 @@
             }
         }
 
-        @include when("dobleXY") {
+        .boxnews__content {
+            min-height: calc(100% - 4rem);
+        }
+
+
+        //
+        // SIZES
+        //
+        @include when("normal") {
+            .boxnews__copy {
+                margin-bottom: auto;
+                padding-right: 0;
+                padding-bottom: 0;
+            }
+
+            .boxnews__link {
+                @include fontSet(23px, 27px);
+                letter-spacing: 0.4px;
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
+            }
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+
+        @include when("dobleW") {
+            width: calc((#{$item-width} * 2) + #{$gutter-size});
+            height: calc((#{$item-height} * 2) + #{$gutter-size});
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: auto;
+            }
+
+            //
+            // INSIDE BOXES
+            //
             .boxnews__content {
-                min-height: calc(100% - 3rem);
                 display: flex;
                 flex-flow: row nowrap;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                }
             }
 
             .boxnews__copy {
                 flex: 0 0 50%;
+                max-width: 50%;
+                padding-right: 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
             }
 
             .boxnews__media {
                 flex: 0 0 50%;
+                max-width: 50%;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
             }
 
             .boxnews__link {
-                @include fontSet(46px, 50px);
+                @include fontSet(43px, 45px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
             }
         }
 
-        @include when("dobleY") {
+
+        @include when("dobleH") {
+            height: calc((#{$item-height} * 2) + (#{$gutter-size});
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: auto;
+            }
+
+            //
+            // INSIDE BOXES
+            //
             .boxnews__content {
-                min-height: calc(100% - 3rem);
                 display: flex;
                 flex-flow: column nowrap;
                 flex: 1 1 auto;
             }
 
-            .boxnews__link {
-                @include fontSet(30px, 36px);
-            }
-        }
-
-        @include when("normal") {
-            .boxnews__content {
-                min-height: calc(100% - 4rem);
+            .boxnews__copy {
+                flex: 0 0 50%;
+                // padding-bottom: 1rem;
             }
 
             .boxnews__link {
-                @include fontSet(24px, 32px);
+                @include fontSet(33px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(20px, 25px);
+                }
             }
-        }
-
-        &:nth-child(1) {
-        -ms-grid-column: 1;
-        -ms-grid-column-span: 2;
-        -ms-grid-row: 1;
-        -ms-grid-row-span: 2;
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
-        }
-
-        &:nth-child(2) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 1;
-        -ms-grid-row-span: 2;
-            grid-column: 3;
-            grid-row: 1 / span 2;
-        }
-
-        &:nth-child(3) {
-        -ms-grid-column: 1;
-        -ms-grid-row: 3;
-        -ms-grid-row-span: 2;
-            grid-column: 1;
-            grid-row: 3 / span 2;
-        }
-
-        &:nth-child(4) {
-        -ms-grid-column: 2;
-        -ms-grid-row: 3;
-            grid-column: 2;
-            grid-row: 3;
-        }
-
-        &:nth-child(5) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 3;
-            grid-column: 3;
-            grid-row: 3;
-        }
-
-        &:nth-child(6) {
-        -ms-grid-column: 2;
-        -ms-grid-row: 4;
-            grid-column: 2;
-            grid-row: 4;
-        }
-
-        &:nth-child(7) {
-        -ms-grid-column: 3;
-        -ms-grid-row: 4;
-            grid-column: 3;
-            grid-row: 4;
         }
     }
 }
+
+

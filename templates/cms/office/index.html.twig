@@ -15,7 +15,7 @@
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item">
-                        <a href="{{ path('office_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                        <a href="{{ path('cms_offices_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
                     </li>
@@ -28,40 +28,38 @@
 
         {% if pagination %}
         <div class="m-section">
-            <div class="m-portlet">
-    <table class="table table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'entities.office.fields.city'|trans, 'city') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'entities.office.fields.address'|trans, 'address') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'entities.office.fields.country'|trans, 'country') }}</th>
-                <th colspan="2" style="width:10%;"></th>
-            </tr>
-        </thead>
-        <tbody>
-        
-        {% for office in offices %}
-            <tr>
-                <td>{{ office.city }}</td>
-                <td>{{ office.address }}</td>
-                <td>{{ office.country }}</td>
-                <td class="text-nowrap">
-                    {% include 'cms/tools/languageStatus.html.twig' with {'values':office.languages} %}
-                </td>
-                <td>
-                    <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('office_edit', {'id': office.id}) }}">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="22">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
- </div>
+            <div class="m-portlet container-fluid">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr class="row">
+                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.office.fields.city'|trans, 'city') }}</th>
+                            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'entities.office.fields.address'|trans, 'address') }}</th>
+                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.office.fields.country'|trans, 'country') }}</th>
+                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for office in offices %}
+                        <tr class="row">
+                            <td class="col-sm-2">{{ office.city }}</td>
+                            <td class="col-sm-5">{{ office.address }}</td>
+                            <td class="col-sm-2">{{ office.country }}</td>
+                            <td class="col-sm-2 text-nowrap">
+                                {% include 'cms/tools/languageStatus.html.twig' with {'values':office.languages} %}
+                                /
+                                {% include 'cms/tools/regionStatus.html.twig' with {'values':office.regions} %}
+                            </td>
+                            <td class="col-sm-1 text-right">
+                                <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_offices_edit', {'id': office.id}) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="m-section">

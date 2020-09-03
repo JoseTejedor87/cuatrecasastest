@@ -22,10 +22,14 @@ class ActivityTranslation extends PublishableTranslation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $summary;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $description;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -42,6 +46,18 @@ class ActivityTranslation extends PublishableTranslation
         return $this;
     }
 
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(string $summary): self
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -53,8 +69,15 @@ class ActivityTranslation extends PublishableTranslation
 
         return $this;
     }
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

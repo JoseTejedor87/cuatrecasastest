@@ -10,4 +10,7 @@ twig:
 
     globals:
         languages: '%app.languages%'
+        regions: '%app.regions%'
         block_types: '%app.block_types%'
+        language_switcher: '%app.language_switcher%'
+        navigation_service: '@App\Controller\Web\NavigationService'

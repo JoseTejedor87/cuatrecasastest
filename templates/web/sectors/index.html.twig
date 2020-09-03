@@ -1,0 +1,52 @@
+{% extends 'web/base.html.twig' %}
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'sections.sectors.title'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'sections.sectors.title'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="tabs__component__content">
+                <div class="row page__section">
+                    <div class="col">
+                        <ul class="buttons__list">
+                        {% for sector in sectors %}
+                            <li class="buttons__list__item">
+                                <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/related-content.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

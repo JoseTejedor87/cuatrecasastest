@@ -5,11 +5,17 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+    # Languages & Translations
+    # app.languages: [es, en, pt, zh, de]     # The list of available languages
+    app.languages: [es, en]
+
+    app.default_language: es        # The default language
+
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
-    # Languages & Translations
-    app.languages: [es, en, pt, zh] # The list of available languages
-    app.default_language: es        # The default language
+    app.regions: [spain, latam, portugal, global]
+
+    app.language_switcher: {es: es, en: en}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -25,16 +31,39 @@ parameters:
         - managing_partner
         - no_position
         - partner
+        - knowledge
         - senior_associate
         - senior_partner
+        - senior_knowledge
+    app.insight_header_types:
+        - full_width
+        - two_columns
+    app.publications_types:
+        - news
+        - opinion
+        - article
+        - legalNovelty
+        - research
+    app.publications_format:
+        - text
+        - video
+        - podcast
+        - interactive
+
+    app.known_languages_by_lawyers: [es, en, it, pt, fr, va, ca, ge, ho]
+
+    app.meta_robots: {"noindex": "noindex", "nofollow": "nofollow", "noindex, nofollow": "noindex, nofollow"}
+
     app.event_types:
         - standard
         - webinar
         - breakfast
         - institutional
+
     app.block_types:
         - quoteBlock
         - eventsBlock
+
     app.path.uploads.resources: '/resources'
 
 services:
@@ -47,7 +76,9 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude:
+            - '../src/Repository/PublishableEntityRepository.php'
+            - '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -60,10 +91,15 @@ services:
     App\Command\MigrationCommand:
         tags:
             - { name: 'console.command', command: 'app:migration' }
+            
+
 
     App\Security\TokenAuthenticator:
         arguments:
             $singleSignOnParameters: '%app.single_sign_on%'
+    
+    sensio_framework_extra.view.listener:
+        alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 
 # KnpLab Paginator
 knp_paginator:
@@ -73,3 +109,6 @@ knp_paginator:
         #sortable: '@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig'
         #filtration: '@KnpPaginator/Pagination/filtration.html.twig'
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
+
+    

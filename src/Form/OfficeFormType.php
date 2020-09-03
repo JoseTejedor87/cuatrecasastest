@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +14,9 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 use App\Entity\Office;
 use App\Form\ResourceFormType;
+use App\Form\Type\LanguageType;
+use App\Form\Type\RegionType;
+use App\Form\Type\MetaRobotsType;
 
 class OfficeFormType extends AbstractType
 {
@@ -38,6 +40,9 @@ class OfficeFormType extends AbstractType
             ->add('img_office', ResourceFormType::class, [
                 'label'=>'entities.office.fields.img_office'
             ])
+            ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
+            ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
@@ -46,7 +51,7 @@ class OfficeFormType extends AbstractType
                     'tags' => ['label'=>'entities.office.fields.tags', 'attr'=>['class'=>'summernote']],
                     'city' => ['label'=>'entities.office.fields.city'],
                     'country' => ['label'=>'entities.office.fields.country'],
-                    
+
                 ],
             ]);
         ;

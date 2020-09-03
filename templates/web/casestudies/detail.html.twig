@@ -1,0 +1,116 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ casestudy.translate(app.request.getLocale()).title|raw  }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ casestudy.translate(app.request.getLocale()).title|raw  }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="row page__block--full">
+                <div class="col">
+                    {{ casestudy.translate(app.request.getLocale()).summary|raw  }}
+                </div>
+            </section>
+
+            <section class="row page__block--aside">
+                <div class="col">
+                    <div class="page__block__content">
+                        {{ casestudy.translate(app.request.getLocale()).description|raw  }}
+                    </div>
+                    <div class="page__block__aside">
+                        <div class="page__aside">
+                            <h3 class="page__aside__title">{{ 'sections.case_studies.specialities'|trans }}</h3>
+                            <ul class="page__aside__list--specialties">
+                                {% for activity in casestudy.activities %}
+                                    <li><a href="{{ navigation_service.getPathByPublishable(activity) }}">{{ activity.translate(app.request.getLocale()).title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        {% if casestudy.quote|length > 0 %}
+                        <div class="page__aside page__aside--nobg">
+                            {% for quote in casestudy.quote %}
+                            <blockquote class="cite__quote">
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
+                            </blockquote>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+        </article>
+
+    </main>
+
+    {% if casestudy.lawyers|length > 0 %}
+        {% include 'web/shared/team.html.twig' with { lawyers:casestudy.lawyers|slice(0, 5) } %}
+    {% endif %}
+
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+    {% endif %}
+
+    {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--complementary'} %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+        {% if relatedCaseStudies|length > 0 %}
+            var swiperCases = new Swiper ('#sliderCases', {
+                slidesPerView: 'auto',
+                spaceBetween: 20,
+                loop: true,
+                allowTouchMove: true,
+                grabCursor: true
+            });
+        {% endif %}
+    });
+</script>
+{% endblock %}

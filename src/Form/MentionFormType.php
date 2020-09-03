@@ -6,8 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
-//use Symfony\Component\Form\Extension\Core\Type\TextType;
-//use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Entity\Mention;
 
@@ -18,8 +16,8 @@ class MentionFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'body' => [
-                        'label'=>'entities.mention.fields.body',
+                    'description' => [
+                        'label'=>'entities.mention.fields.description',
                         'required'=>true,
                         'attr'=>['class'=>'summernote']
                     ],
@@ -36,5 +34,4 @@ class MentionFormType extends AbstractType
             'required' => false
         ]);
     }
-
 }

@@ -1,25 +1,65 @@
 # Global
 # ###########################################
 global:
+  home: Inicio
+  goBack: Volver
   languages:
     es: Español
     en: Inglés
     pt: Portugués
     zh: Chino
-
-  general:
-    hashtag: AbogadosCuatrecasas
+    it: Italiano
+    fr: Francés
+    va: Vasco
+    ca: Catalán
+    ge: Alemán
+    ho: Holandés
+  regions:
+    spain: España
+    latam: Latinoamerica
+    portugal: Portugal
+    global: Global
+  messages:
+    page_not_found: Página no encontrada
+    alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
 
 # Sections
 # ###########################################
 sections:
+  knowledge:
+    title: Conocimiento
+    knowledgeTypes:
+      news: Noticias
+      opinion: Opinion
+      article: Artículo
+      legalNovelty: Novedades legales
+      research: Investigaciones
+    knowledgeFormat:
+      text: Texto
+      video: Video
+      podcast: Podcast
+      interactive: Interactivo
   lawyers:
-    index:
-      title: Abogados
-    new:
-      title: Nuevo Abogado
-    edit:
-      title: Editar Abogado
+    title: Abogados
+    office: CUATRECASAS
+    vcard: vcard
+    full_cv: CV Completo
+    specialties: Especialidades
+    training: Formación
+    mentions: Menciones
+    cases: Casos
+    publications: Publicaciones
+    events: Eventos
+    lawyerFilters:
+      placeholder: Buscar abogado
+      by_services: Por servicios
+      by_sector: Por sector
+      by_office: Por oficina
+      by_category: Por categoria
+      by_initial: Buscar por inicial
+      search_results: Resultados de la búsqueda
+      search_results_txt1: Mostramos
+      search_results_txt2: perfiles que encajan con la búsqueda
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero
@@ -28,15 +68,117 @@ sections:
       managing_partner: Consejero delegado
       no_position: Sin cargo
       partner: Socio
+      knowledge: Abogado de gestión del conocimiento
       senior_associate: Asociado sénior
       senior_partner: Presidente
+      senior_knowledge: Abogado senior de gestión del conocimiento
+  insights:
+    title: Insights
+    contact_with_us: Contacta con nuestros expertos en
+    relatedActivities: Prácticas relacionadas
+  practices:
+    title: Áreas de Práctica
+    specialities: Especialidades
+    relatedActivities: Prácticas relacionadas
+  desks:
+    title: Desks
+    discover_title: Presencia Europea
+    discover_text: Cuatrecasas cuenta con oficinas en las principales ciudades europeas
+    discover_button: Descubre
+    specialities: Especialidades
+    relatedActivities: Prácticas relacionadas
+  products:
+    title: Otros servicios
+  sectors:
+    title: Sectores
+    specialities: Especialidades
+    relatedActivities: Prácticas relacionadas
+  case_studies:
+    specialities: Especialidades
+
+# Static Sections
+# ###########################################
+static:
+    offices:
+      officeOthers: Otras regiones
+      officeList: Listado de oficinas
+      deskList: Listado de desk
+      interOrg: Organizaciones internacionales
+
 
 # Menu
 # ###########################################
 menu:
-  lawyers.title: Abogados
-  events.title: Eventos
-  desks.title: Desks
-  sectors.title: Sectores
-  practices.title: Áreas de Práctica
-  products.title: Productos
+  knowledge: Conocimiento
+  lawyers: Abogados
+  services: Servicios
+  sectors: Sectores
+  career:
+    career: Carrera
+    live: Vive Cuatrecasas
+    revolution: Revolución
+    learn: Aprende con los mejores
+    international: Carrera internacional
+    join: Únete a nosotros
+  offices:
+    offices: Territorios
+    vision: Visión general
+    spain: España
+    portugal: Portugal
+    latam: Latinoamérica
+    other: Otras regiones
+  firm:
+    firm: La firma
+    vision: Visión general
+    social: Social
+    environment: Medioambiente
+    governance: Buen gobierno
+    innovation: Innovación
+    contribution: Contribución a la sociedad
+    diversity: Diversidad
+    responsability: Responsabilidad y cumplimiento
+  contact: Contacto
+  webs:
+    webs: Webs
+    acelera: Cuatrecasas Acelera
+    rrhh: Instituto RRHH
+    fundacion: La Fundación
+    app: App Corporativa
+  reg_lang: Adapta el site para tener una experiencia personalizada
+
+  desks: Desks
+  events: Eventos
+  practices: Áreas de práctica
+  products: Productos
+  media_center: Centro de medios
+
+# Footer
+# ###########################################
+footer:
+  intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+  copyright: © 2020 Cuatrecasas. Todos los derechos reservados.
+  privacy:
+    cookies: Privacidad y cookies
+    terms: Términos de uso
+    contact: Contacto
+
+# Reusable Blocks
+# ###########################################
+reusable_blocks:
+    cta_footer:
+      title: Personaliza tus insights, lee solo lo que te <strong>interesa</strong>
+      intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+      button: Escoge tus intereses
+    team:
+      title: Equipo Cuatrecasas
+      link: Ver equipo
+      intro: Cuatrecasas cuenta con un equipo de {team}
+    cases:
+      title: Casos
+      link: Ver más
+
+# Errors Messajes
+# ###########################################
+error:
+  msg:
+    fail_route: This link is not available in the requested language / region, please try the links below

@@ -1,0 +1,63 @@
+{% extends 'web/base.html.twig' %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'sections.products.title' | trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'sections.products.title' | trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="tabs__component">
+                <div class="tabs__component__full">
+                    <div class="tabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('products_index') }}" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tabs__component__content">
+                    {% include 'web/services/shared/products-grid.html.twig'  %}
+                </div>
+
+                {% include 'web/services/shared/products-tools.html.twig' %}
+
+            </section>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/insight.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

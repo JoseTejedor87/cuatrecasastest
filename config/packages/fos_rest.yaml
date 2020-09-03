@@ -1,0 +1,46 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+# fos_rest:
+#    param_fetcher_listener:  true
+#    allowed_methods_listener:  true
+#    routing_loader: false
+#    view:
+#        view_response_listener:  true
+#    exception:
+#        enabled: true
+#        codes:
+#            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+#            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+#        messages:
+#            'Acme\HelloBundle\Exception\MyExceptionWithASafeMessage': true
+#    format_listener:
+#        rules:
+#            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+# fos_rest:
+#     routing_loader: false
+#     body_listener: true
+#     format_listener:
+#        rules:
+#           - { path: ^/rest/path, priorities: [html, json, xml], fallback_format: json, prefer_extension: true}
+#     param_fetcher_listener: true
+#     access_denied_listener:
+#        json: true
+#     view:
+#        view_response_listener: 'force'
+#        formats:
+#            json: true
+#     exception:
+#         enabled: true
+#         exception_controller: true
+
+    
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+# fos_rest:
+#     view:
+#         view_response_listener:  true
+#     format_listener:
+#         rules:
+#             - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+fos_rest:
+    view:
+        jsonp_handler:
+            callback_param: false

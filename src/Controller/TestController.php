@@ -7,10 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\SOAPContactsClientController;
+use Symfony\Component\HttpClient\HttpClient;
+use App\Repository\ArticleCategoryRepository;
+use App\Repository\ArticleRepository;
 
-/**
- * @Route("gestorcontactos")
-*/
 class TestController extends AbstractController
 {
     private $soap;
@@ -18,76 +18,57 @@ class TestController extends AbstractController
     {
         $this->soap  = new SOAPContactsClientController;
     }
-     /**
-     * @Route("/getPaises", name="getPaises", methods={"GET"})
-     */
+
     public function getPaises(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getPaises?LanguageId=es
         dd($this->soap->getPaises($request));
     }
 
-    /**
-     * @Route("/getProvincias", name="getProvincias", methods={"GET"})
-     */
     public function getProvincias(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getProvincias?PaisId=es
         dd($this->soap->getProvincias($request));
 
     }
-    /**
-     * @Route("/getIdiomas", name="getIdiomas", methods={"GET"})
-     */
+
     public function getIdiomas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getIdiomas?IdiomaId=es
         dd($this->soap->getIdiomas($request));
 
     }
-    /**
-     * @Route("/getAreasInteres", name="getAreasInteres", methods={"GET"})
-     */
+
     public function getAreasInteres(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getAreasInteres?IdiomaId=es
         dd($this->soap->getAreasInteres($request));
     }
-    /**
-     * @Route("/getOficinas", name="getOficinas", methods={"GET"})
-     */
+
     public function getOficinas(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getOficinas?OficinaId=WALC
         dd($this->soap->getOficinas($request));
     }
-    /**
-     * @Route("/getSecretarias", name="getSecretarias", methods={"GET"})
-     */
+
     public function getSecretarias(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSecretarias?Iniciales=JH
         dd($this->soap->getSecretarias($request));
     }
-    /**
-     * @Route("/getResponsablesMarketing", name="getResponsablesMarketing", methods={"GET"})
-     */
+
     public function getResponsablesMarketing(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getResponsablesMarketing?Iniciales=LCM
         dd($this->soap->getResponsablesMarketing($request));
     }
-    /**
-     * @Route("/getSociosResponsables", name="getSociosResponsables", methods={"GET"})
-     */
+
     public function getSociosResponsables(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getSociosResponsables?Iniciales=JCV
         dd($this->soap->getSociosResponsables($request));
     }
-    /**
-     * @Route("/getContactoWebtForm", name="getContactoWebtForm", methods={"GET"})
-     */
+
     public function getContactoWebtForm(Request $request)
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getContactoWebtForm?Guid=00505693770F1EDA8B93326D22524160
@@ -171,4 +152,5 @@ class TestController extends AbstractController
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/addContactoWebForm?Guid=00505693770F1EDA8B93326D22524160
         dd($this->soap->addContactoWebForm($request));
     }
+
 }

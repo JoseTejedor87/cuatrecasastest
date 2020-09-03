@@ -41,6 +41,8 @@ var blockCollectionManager = {
         $collection.data('widget-counter', counter + 1);
 
         this.refreshPositions($collection);
+        TranslationSelector.refresh();
+        SummernoteDemo.init();
     },
 
     removeItem: function($item) {
@@ -78,12 +80,17 @@ var blockCollectionManager = {
         $item.find("select.m-select2").select2();
 
         // Make it draggable (relative to its parent list)
-        $item.draggable({
-            connectToSortable: $collection.find('#' + $collection.data('items-list-selector')),
-            revert: "invalid",
-            opacity: 0.70
-        });
-        $item.disableSelection();
+        if ($collection.data('sortable') == true) {
+            $item.draggable({
+                connectToSortable: $collection.find('#' + $collection.data('items-list-selector')),
+                revert: "invalid",
+                opacity: 0.70
+            });
+            // Eliminado temporalmente porque genera problemas con el summernote.
+            // cuando se revise gestor de bloques a nivel de Page habrá que valorar
+            // si es o no imprescindible esta opción.
+            // $item.disableSelection();
+        }
 
         return $item;
     },
@@ -122,18 +129,25 @@ var blockCollectionManager = {
             });
 
             // Initializing each item in the collection
-            $collection.find('#' + $collection.data('items-list-selector'))
-                .sortable({
+            var $list = $collection.find(
+                '#' + $collection.data('items-list-selector')
+            );
+            $list.children().each((position, item)=> {
+                let $item = jQuery(item);
+                this.initializeItem($item, $collection);
+            });
+            if ($collection.data('sortable') == true) {
+                // Eliminado temporalmente porque genera problemas con el summernote.
+                // cuando se revise gestor de bloques a nivel de Page habrá que valorar
+                // si es o no imprescindible esta opción.
+                // $list.disableSelection();
+                $list.sortable({
                     revert: true,
                     update: (event, ui) => {
                         this.refreshPositions($collection);
                     }
                 })
-                .disableSelection()
-                .children().each((position, item)=> {
-                    let $item = jQuery(item);
-                    this.initializeItem($item, $collection);
-                });
+            }
 
         });
 

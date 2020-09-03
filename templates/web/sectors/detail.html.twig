@@ -1,0 +1,134 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            {% set photo = sector.photo ? (asset('/resources/' ~ sector.photo.fileName) | imagine_filter('sectors_header')) : '' %}
+
+            <header class="row page__header" style="background-image: url('{{ photo ? photo : '' }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ sector.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('sectors_index') }}">{{ 'sections.sectors.title'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ sector.translate(app.request.getLocale()).title|raw }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+            <section class="row page__block--full">
+                <div class="col">
+                    {{ sector.translate(app.request.getLocale()).summary|raw }}
+                </div>
+            </section>
+
+            <section class="row page__block--aside">
+                <div class="col">
+                    <div class="page__block__content">
+                        {{ sector.translate(app.request.getLocale()).description|raw }}
+                    </div>
+                    <div class="page__block__aside">
+                        {% if sector.children|length > 0 %}
+                        <div class="page__aside">
+                            <h3 class="page__aside__title">{{ 'sections.sectors.specialities'|trans }}</h3>
+                            <ul class="page__aside__list--specialties">
+                                {% for sector in sector.children %}
+                                    <li><a href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if sector.quote|length > 0 %}
+                        <div class="page__aside page__aside--nobg">
+                            {% for quote in sector.quote %}
+                            <blockquote class="cite__quote">
+                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <cite>{{ quote.author}}, {{ quote.year}}</cite>
+                            </blockquote>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if sector.relatedActivities|length > 0 %}
+                        <div class="page__aside page__aside--practices">
+                            <h3 class="page__aside__subtitle">{{ 'sections.practices.relatedActivities'|trans }}</h3>
+                            <ul class="related__services">
+                            {% for activity in sector.relatedActivities %}
+                                <li class="related__services__item">
+                                    <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+    {% if sector.lawyers|length > 0 %}
+        {% include 'web/shared/team.html.twig' with {
+            team:sector.translate(app.request.getLocale()).title,
+            lawyers:sector.lawyers|slice(0, 5),
+            fixed_activity:sector.translate(app.request.getLocale()).title
+        } %}
+    {% endif %}
+
+    {# {% include 'web/shared/related-services.html.twig' %} #}
+    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+
+    {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+    {% endif %}
+
+    {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% include 'web/shared/insight.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Slider JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script>
+    $(function () {
+        web.global.sliderGeneral();
+        web.global.sliderCases();
+        web.global.sliderAwards();
+        var swiperCases = new Swiper ('#sliderCases', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: true,
+            grabCursor: false,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
+    });
+</script>
+{% endblock %}
