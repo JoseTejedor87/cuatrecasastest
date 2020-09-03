@@ -25,7 +25,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
     {
         
         $query = "CREATE TABLE GC_paises (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id int  IDENTITY(1,1) PRIMARY KEY,
             IdPais VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -33,7 +33,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_provincias (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT IDENTITY(1,1) PRIMARY KEY,
             IdPais VARCHAR(30) NOT NULL,
             IdProvincia VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
@@ -42,7 +42,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_idiomas (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT IDENTITY(1,1) PRIMARY KEY,
             IdIdioma VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -50,7 +50,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_areasInteres (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT  IDENTITY(1,1) PRIMARY KEY,
             IdAreaInteres VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -58,7 +58,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_oficinas (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT  IDENTITY(1,1) PRIMARY KEY,
             OficinaId VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -66,7 +66,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_secretarias (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT  IDENTITY(1,1) PRIMARY KEY,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -78,7 +78,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_responsablesMarketings (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT  IDENTITY(1,1) PRIMARY KEY,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -90,7 +90,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_sociosResponsables (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT IDENTITY(1,1) PRIMARY KEY,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -188,9 +188,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
             foreach ($data as $key => $value) {
                 if($key==0){
-                    $values = $values . '("'.$value->IdPais.'","'.$value->Nombre.'")';
+                    $values = $values . "('".$value->IdPais."','".str_replace("'","",$value->Nombre) ."')";
                 }else{
-                    $values = $values . ',("'.$value->IdPais.'","'.$value->Nombre.'")';
+                    $values = $values . ",('".$value->IdPais."','".str_replace("'","",$value->Nombre)."')";
                 }
                 
             }
@@ -210,16 +210,13 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->IdPais.'","'.$value->IdProvincia.'","'.$value->Nombre.'")';
+                $values = $values . "('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
             }else{
-                $values = $values . ',("'.$value->IdPais.'","'.$value->IdProvincia.'","'.$value->Nombre.'")';
+                $values = $values . ",('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
             }
             
         }
-        $query = "INSERT INTO 
-        GC_provincias(IdPais, IdProvincia , Nombre)
-        VALUES
-        ".$values.";";
+        $query = "INSERT INTO GC_provincias (IdPais, IdProvincia , Nombre) SELECT * FROM (VALUES".$values.") a (Col1, Col2, Col3);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
@@ -232,9 +229,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->IdIdioma.'","'.$value->Nombre.'")';
+                $values = $values . "('".$value->IdIdioma."','".str_replace("'","",$value->Nombre) ."')";
             }else{
-                $values = $values . ',("'.$value->IdIdioma.'","'.$value->Nombre.'")';
+                $values = $values . ",('".$value->IdIdioma."','".str_replace("'","",$value->Nombre) ."')";
             }
             
         }
@@ -254,9 +251,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->IdAreaInteres.'","'.$value->Nombre.'")';
+                $values = $values . "('".$value->IdAreaInteres."','".str_replace("'","",$value->Nombre) ."')";
             }else{
-                $values = $values . ',("'.$value->IdAreaInteres.'","'.$value->Nombre.'")';
+                $values = $values . ",('".$value->IdAreaInteres."','".str_replace("'","",$value->Nombre) ."')";
             }
             
         }
@@ -273,9 +270,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->IdOficina.'","'.$value->Nombre.'")';
+                $values = $values . "('".$value->IdOficina."','".str_replace("'","",$value->Nombre) ."')";
             }else{
-                $values = $values . ',("'.$value->IdOficina.'","'.$value->Nombre.'")';
+                $values = $values . ",('".$value->IdOficina."','".str_replace("'","",$value->Nombre) ."')";
             }
             
         }
@@ -292,9 +289,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }else{
-                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }
             
         }
@@ -311,9 +308,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }else{
-                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }
             
         }
@@ -330,9 +327,9 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $values = "";
         foreach ($data as $key => $value) {
             if($key==0){
-                $values = $values . '("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }else{
-                $values = $values . ',("'.$value->EmpId.'","'.$value->Iniciales.'","'.$value->Nombre.'","'.$value->Apellidos.'","'.$value->Email.'","'.$value->Telefono.'")';
+                $values = $values . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }
             
         }
