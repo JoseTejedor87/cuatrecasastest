@@ -6,37 +6,6 @@ web.global = {
         web.global.loadMiscell();
     },
 
-    headerControl: function(){
-        function checkWindowSize() {
-            var width       = $(window).width();
-            var maxWidth    = 1200;
-            var body        = $('body');
-
-            if (width < maxWidth) {
-                body.addClass('mobile');
-                body.removeClass('desktop');
-            } else {
-                body.addClass('desktop');
-                body.removeClass('mobile');
-            }
-        }
-
-        $(function() {
-            checkWindowSize();
-        });
-
-        $(window).resize(function() {
-            checkWindowSize();
-        });
-
-        // close all submenus (mobileNav)
-        $('#navMobileWrapper .navbar-toggler.close').click(function(e){
-            e.preventDefault();
-            $("#navMobile .collapse").collapse("hide");
-        });
-
-    },
-
     stickyMenu: function(){
          // menu interactios (hover versus click)
         $('#about-nav .dropdown-menu')
@@ -86,10 +55,42 @@ web.global = {
             prev = scrollTop;
         });
 
-        $('#hamburgerButton').click(function(e){
-            e.preventDefault();
-            secondaryNav.toggleClass('stickyNav', scrollTop > prev);
+        // $('#hamburgerButton').click(function(e){
+        //     e.preventDefault();
+        //     console.log($('#navDesktop #secondaryNav').attr("class"));
+        //     secondaryNav.toggleClass('stickyNav');
+        // });
+    },
+
+    headerControl: function(){
+        function checkWindowSize() {
+            var width       = $(window).width();
+            var maxWidth    = 1200;
+            var body        = $('body');
+
+            if (width < maxWidth) {
+                body.addClass('mobile');
+                body.removeClass('desktop');
+            } else {
+                body.addClass('desktop');
+                body.removeClass('mobile');
+            }
+        }
+
+        $(function() {
+            checkWindowSize();
         });
+
+        $(window).resize(function() {
+            checkWindowSize();
+        });
+
+        // close all submenus (mobileNav)
+        $('#navMobileWrapper .navbar-toggler.close').click(function(e){
+            e.preventDefault();
+            $("#navMobile .collapse").collapse("hide");
+        });
+
     },
 
     loadMiscell: function(){
