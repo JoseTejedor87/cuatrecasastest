@@ -2,7 +2,7 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
-        web.global.headerControl();
+        web.global.mobileNav();
         web.global.loadMiscell();
     },
 
@@ -62,7 +62,9 @@ web.global = {
         // });
     },
 
-    headerControl: function(){
+    mobileNav: function(){
+
+        // Reposition header
         function checkWindowSize() {
             var width       = $(window).width();
             var maxWidth    = 1200;
@@ -85,9 +87,16 @@ web.global = {
             checkWindowSize();
         });
 
-        // close all submenus (mobileNav)
-        $('#navMobileWrapper .navbar-toggler.close').click(function(e){
+        // Mobile Nav - Hide logo
+        $('#navMobileWrapper .navbar-toggler.navbar-open').click(function(e){
             e.preventDefault();
+            $('#navMobileWrapper .navbar-brand').addClass('off');
+        });
+
+        // Mobile Nav - Close all submenus & show logo
+        $('#navMobileWrapper .navbar-toggler.navbar-close').click(function(e){
+            e.preventDefault();
+            $('#navMobileWrapper .navbar-brand').removeClass('off');
             $("#navMobile .collapse").collapse("hide");
         });
 

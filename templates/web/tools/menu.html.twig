@@ -146,13 +146,13 @@
         </div>
     </div>
     <!-- Mobile Nav -->
-    <div class="navbar" id="navMobileWrapper">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="icon ion-android-menu"></i>
-        </button>
+    <nav class="navbar" id="navMobileWrapper">
         <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
             <img src="{{ asset('web/assets/logos/cuatrecasas_mobile.png') }}" alt="Cuatrecasas">
         </a>
+        <button class="navbar-toggler navbar-open" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="icon ion-android-menu"></i>
+        </button>
         <div class="navbar-collapse collapse" id="navMobile">
             <ul class="navbar-nav mainNav">
                 <li class="nav-item">
@@ -248,8 +248,8 @@
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggler close" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
             <i class="icon ion-android-close"></i>
         </button>
-    </div>
+    </nav>
 {% endblock %}
