@@ -54,9 +54,9 @@
                 <div class="tabs__component__content">
                     <div class="row page__section">
                         <div class="col">
-                            <ul class="buttons__list list-2cols">
+                            <ul class="buttons__list__column">
                                 {% for practice in practices %}
-                                    <li class="buttons__list__item">
+                                    <li class="buttons__list__column__item">
                                         <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(practice) }}">
                                             {{ practice.translate(app.request.getLocale()).title }}
                                         </a>

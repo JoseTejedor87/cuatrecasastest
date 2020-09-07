@@ -2,11 +2,8 @@
 web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
+        web.global.mobileNav();
         web.global.loadMiscell();
-    },
-
-    mobileMenu: function(){
-
     },
 
     stickyMenu: function(){
@@ -42,7 +39,7 @@ web.global = {
         // submenu click
         var aboutNav        = $('#navDesktop #primaryNav #aboutNav .dropdown-menu');
         var userNav         = $('#navDesktop #userNav');
-        var mainHeader      = $('header');
+        var mainHeader      = $('body.desktop header');
         var langsNav        = $('#navDesktop .lang-region-menu');
 
         $window.on('scroll', function(){
@@ -60,14 +57,83 @@ web.global = {
 
         $('#hamburgerButton').click(function(e){
             e.preventDefault();
+            console.log($('#navDesktop #secondaryNav').attr("class"));
             secondaryNav.toggleClass('stickyNav');
         });
+    },
+
+    mobileNav: function(){
+
+        // function getViewports() {
+        //     document.getElementById("innerWidth").innerHTML =
+        //     window.innerWidth;
+        //     document.getElementById("innerHeight").innerHTML =
+        //     window.innerHeight;
+
+        //     document.getElementById("clientWidth").innerHTML =
+        //     document.documentElement.clientWidth;
+        //     document.getElementById("clientHeight").innerHTML =
+        //     document.documentElement.clientHeight;
+
+        //     var body = document.body;
+
+        //     if (document.getElementById("clientWidth").innerHTML < 1199) {
+        //         body.classList.add('mobile');
+        //         body.classList.remove('desktop');
+        //     } else if (document.getElementById("clientWidth").innerHTML > 1200) {
+        //         body.classList.add('desktop');
+        //         body.classList.remove('mobile');
+        //     }
+        // }
+
+        // window.addEventListener('resize', getViewports);
+        // window.addEventListener('orientationchange', getViewports);
+
+        // getViewports();
+
+        // Reposition header
+        function checkWindowSize() {
+            var body        = $('body');
+            if (window.matchMedia('(max-width: 1199px)').matches) {
+                body.addClass('mobile');
+                body.removeClass('desktop');
+            } else {
+                body.addClass('desktop');
+                body.removeClass('mobile');
+            }
+        }
+
+        $(function() {
+            checkWindowSize();
+        });
+
+        $(window).resize(function() {
+            checkWindowSize();
+        });
+
+        // Mobile Nav - Hide logo
+        $('#navMobileWrapper .navbar-toggler.navbar-open').click(function(e){
+            e.preventDefault();
+            $('#navMobileWrapper .navbar-brand').addClass('off');
+        });
+
+        // Mobile Nav - Close all submenus & show logo
+        $('#navMobileWrapper .navbar-toggler.navbar-close').click(function(e){
+            e.preventDefault();
+            $('#navMobileWrapper .navbar-brand').removeClass('off');
+            $("#navMobile .collapse").collapse("hide");
+        });
+
     },
 
     loadMiscell: function(){
         $('.button__bookmark').click(function(e){
             e.preventDefault();
             $(this).toggleClass('button__bookmark--on');
+        });
+
+        $('.no-link').click(function(e){
+            e.preventDefault();
         });
 
         // $('.doble__arrow__accordion').click(function(){
@@ -80,10 +146,6 @@ web.global = {
         //     }
 
         // });
-
-        $('.no-link').click(function(e){
-            e.preventDefault();
-        });
     },
 
     // BORRAR (activar en la propia página)
@@ -201,6 +263,14 @@ web.global = {
         });
     },
 
+    testimonials: function(){
+        $('.testimonials__item').hover(function(){
+            if ($(this).hasClass('selected')) return;
+            $('.selected').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    },
+
     /* BORRAR
     // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
     // VER PAGE COMPONENTES */
@@ -267,14 +337,6 @@ web.global = {
     //         }
     //     });
     // },
-
-    testimonials: function(){
-        $('.testimonials__item').hover(function(){
-            if ($(this).hasClass('selected')) return;
-            $('.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-    },
 
 }
 

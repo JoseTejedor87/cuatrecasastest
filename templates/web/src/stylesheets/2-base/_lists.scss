@@ -335,7 +335,8 @@
 @include new("buttons__list__column") {
     @include reset-list;
     column-count: 2;
-    column-gap: 8rem;
+    column-gap: 5rem;
+    margin: 0 1rem;
     column-fill: auto;
 
     @include when("3cols") {
@@ -343,12 +344,8 @@
     }
 
     @include has("item") {
-        // display: flex;
-        // flex-direction: column;
-        // width: calc(33.3333% - 2rem);
-        // flex: 0 0 calc(33.3333% - 2rem);
-        // margin: 0 1rem;
-        // background-color: pink;
+        display: inline-block;
+        width: 100%;
     }
 
     @media(max-width: $max-width-4casas) {
@@ -356,7 +353,6 @@
 
         @include when("3cols") {
             column-count: 2;
-            column-gap: 2rem;
         }
     }
 

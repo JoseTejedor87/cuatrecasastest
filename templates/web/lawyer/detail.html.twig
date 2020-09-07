@@ -60,6 +60,12 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__foto">
+                            <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
+                            <ul class="action__links">
+                                <li><a href="#"><i class="material-icons">share</i></a></li>
+                                <li><a href="#"><i class="material-icons">print</i></a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                            </ul>
                             {#% if lawyer.photo %#}
                                 <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }#}');"></div> -->
                             {#% endif %#}
@@ -80,53 +86,49 @@
                 </section>
 
                 <section class="row page__block--aside">
-                    <div class="col">
-                        <div class="page__block__content">
-                            {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
-                        </div>
+                    <div class="page__block__content">
+                        {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                    </div>
+                    <div class="page__block__aside">
+                        {% if lawyer.secondaryActivities|length > 0 %}
+                            <div class="page__aside">
+                                <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
+                                <ul class="page__aside__list--specialties">
+                                {% for activity in lawyer.secondaryActivities %}
+                                    <li>
+                                        <a href="{{ navigation_service.getPathByPublishable(activity)}}">
+                                            {{ activity.translate(app.request.getLocale()).title}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
 
-                        <div class="page__block__aside">
-                            {% if lawyer.secondaryActivities|length > 0 %}
-                                <div class="page__aside">
-                                    <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
-                                    <ul class="page__aside__list--specialties">
-                                    {% for activity in lawyer.secondaryActivities %}
-                                        <li>
-                                            <a href="{{ navigation_service.getPathByPublishable(activity)}}">
-                                                {{ activity.translate(app.request.getLocale()).title}}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
+                        {% if (lawyer.trainings|length > 0) or (lawyer.mentions|length > 0) %}
+                            <div class="page__aside">
+                                {% if lawyer.trainings|length > 0 %}
+                                    <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
+                                    <ul class="page__aside__list--career">
+                                        {% for training in lawyer.trainings %}
+                                            <li>
+                                                {{ training.translate(app.request.getLocale()).description | raw}}
+                                            </li>
+                                        {% endfor %}
                                     </ul>
-                                </div>
-                            {% endif %}
-
-                            {% if (lawyer.trainings|length > 0) or (lawyer.mentions|length > 0) %}
-                                <div class="page__aside">
-                                    {% if lawyer.trainings|length > 0 %}
-                                        <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
-                                        <ul class="page__aside__list--career">
-                                            {% for training in lawyer.trainings %}
-                                                <li>
-                                                    {{ training.translate(app.request.getLocale()).description | raw}}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if lawyer.mentions|length > 0 %}
-                                        <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
-                                        <ul class="page__aside__list--career">
-                                            {% for mention in lawyer.mentions %}
-                                                <li>
-                                                    {{ mention.translate(app.request.getLocale()).description | raw}}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-
+                                {% endif %}
+                                {% if lawyer.mentions|length > 0 %}
+                                    <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
+                                    <ul class="page__aside__list--career">
+                                        {% for mention in lawyer.mentions %}
+                                            <li>
+                                                {{ mention.translate(app.request.getLocale()).description | raw}}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                 </section>
 
