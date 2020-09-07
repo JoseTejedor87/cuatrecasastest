@@ -93,6 +93,10 @@
         background-color: rgba($black, 0.05);
     }
 
+    @include when("academy") {
+        background-color: rgba($black, 0.05);
+    }
+
     @include when("event") {
         background-color: rgba($black, 0.2);
     }
@@ -423,6 +427,11 @@
         @include when("article") {
             color: $article-color;
             border-top-color: $article-color;
+        }
+
+        @include when("academy") {
+            color: $academy-color;
+            border-top-color: $academy-color;
         }
 
         @include when("opinion") {

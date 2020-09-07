@@ -731,6 +731,7 @@ body {
     min-height: $menu-mobile-height;
     padding: 0 0;
     background-color: $main-color;
+    z-index: 999;
 
     #navMobile {
         width: 100%;

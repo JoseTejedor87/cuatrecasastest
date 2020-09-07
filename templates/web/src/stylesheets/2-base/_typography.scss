@@ -62,6 +62,10 @@ p {
         @include fontSet(32px, 36px);
         color: $black;
     }
+
+    @media(max-width: $max-width-4casas) {
+        margin: 0 0 1rem;
+    }
 }
 
 
@@ -107,6 +111,10 @@ p {
 
     @include when("article") {
         background-color: $article-color;
+    }
+
+    @include when("academy") {
+        background-color: $academy-color;
     }
 
     @include when("opinion") {
@@ -173,8 +181,14 @@ p {
     text-transform: uppercase;
     color: $main-color;
 
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(20px, 20px);
+        padding: 1rem 0;
+    }
+
     @include when("event") {
-        @include fontSet(43px, 43px);
+        @include fontSet(20px, 20px);
+        margin-bottom: 1rem;
     }
 }
 
