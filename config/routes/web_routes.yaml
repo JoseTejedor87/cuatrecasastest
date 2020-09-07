@@ -70,6 +70,8 @@ components:
     controller: App\Controller\Web\HomeController::components
 
 
+
+
 # KNOWLEDGE
 # ###########################################
 knowledge_index:
@@ -217,6 +219,13 @@ lawyers_detail:
         es:     /abogados/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail
+
+lawyers_vcard_download:
+    path:
+        en:   /lawyers/{id}/download/
+        es:   /abogados/{id}/descarga
+    methods:    GET
+    controller: App\Controller\Web\LawyerController::download    
 
 # Insights
 # ###########################################
