@@ -428,10 +428,11 @@
                 data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date,format: format.toString(), page :page   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
+                    $('.search__component__loader').css("display", "flex").fadeIn('fast');             
                 }
             })
             .done(function( msg ) {
+                 $('.section__title--recomended').hide();
                 $('.search__component__loader').css("display", "flex").fadeOut();
                 var url="";
                 if(msg['office']){

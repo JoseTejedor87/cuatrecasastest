@@ -72,8 +72,8 @@ class KnowledgeController extends WebController
                 if($value == "news"){
                     $query = $query->orWhere('p INSTANCE OF App\Entity\News');
                 }
-                if($value == "article"){
-                    $query = $query->orWhere('p INSTANCE OF App\Entity\Article');
+                if($value == "academy"){
+                    $query = $query->orWhere('p INSTANCE OF App\Entity\Academy');
                 }
                 if($value == "opinion"){
                 $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
@@ -81,11 +81,9 @@ class KnowledgeController extends WebController
                 if($value == "legalNovelty"){
                     $query = $query->orWhere('p INSTANCE OF App\Entity\LegalNovelty');
                 }
-                if($value == "research"){
-                $query = $query->orWhere('p INSTANCE OF App\Entity\Research');
-                }
             }
         }
+        //Sdd($query->getQuery());
         if ($format) {
             $query = $query->andWhere("p.format = :format")
                             ->setParameter('format', $format );
@@ -125,8 +123,8 @@ class KnowledgeController extends WebController
 
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
-                $value->type = 'article';
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy){
+                $value->type = 'academy';
             }
             if ($value instanceof \App\Entity\Opinion){
                 $value->type = 'opinion';

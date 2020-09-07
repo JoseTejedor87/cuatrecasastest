@@ -6,7 +6,7 @@
 parameters:
 
     # Languages & Translations
-    app.languages: [es, en, pt]     # The list of available languages
+    app.languages: [es, en]     # The list of available languages
 
     app.default_language: es        # The default language
 
@@ -14,7 +14,7 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
-    app.language_switcher: {es: es, en: en, pt: pt}
+    app.language_switcher: {es: es, en: en}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -40,9 +40,8 @@ parameters:
     app.publications_types:
         - news
         - opinion
-        - article
+        - academy
         - legalNovelty
-        - research
     app.publications_format:
         - text
         - video

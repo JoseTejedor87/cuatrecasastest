@@ -35,9 +35,8 @@ sections:
     knowledgeTypes:
       news: Noticias
       opinion: Opinion
-      article: Artículo
+      academy: Academia
       legalNovelty: Novedades legales
-      research: Investigaciones
     knowledgeFormat:
       text: Texto
       video: Video
