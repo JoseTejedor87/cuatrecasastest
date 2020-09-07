@@ -55,22 +55,46 @@ web.global = {
             prev = scrollTop;
         });
 
-        // $('#hamburgerButton').click(function(e){
-        //     e.preventDefault();
-        //     console.log($('#navDesktop #secondaryNav').attr("class"));
-        //     secondaryNav.toggleClass('stickyNav');
-        // });
+        $('#hamburgerButton').click(function(e){
+            e.preventDefault();
+            console.log($('#navDesktop #secondaryNav').attr("class"));
+            secondaryNav.toggleClass('stickyNav');
+        });
     },
 
     mobileNav: function(){
 
+        // function getViewports() {
+        //     document.getElementById("innerWidth").innerHTML =
+        //     window.innerWidth;
+        //     document.getElementById("innerHeight").innerHTML =
+        //     window.innerHeight;
+
+        //     document.getElementById("clientWidth").innerHTML =
+        //     document.documentElement.clientWidth;
+        //     document.getElementById("clientHeight").innerHTML =
+        //     document.documentElement.clientHeight;
+
+        //     var body = document.body;
+
+        //     if (document.getElementById("clientWidth").innerHTML < 1199) {
+        //         body.classList.add('mobile');
+        //         body.classList.remove('desktop');
+        //     } else if (document.getElementById("clientWidth").innerHTML > 1200) {
+        //         body.classList.add('desktop');
+        //         body.classList.remove('mobile');
+        //     }
+        // }
+
+        // window.addEventListener('resize', getViewports);
+        // window.addEventListener('orientationchange', getViewports);
+
+        // getViewports();
+
         // Reposition header
         function checkWindowSize() {
-            var width       = $(window).width();
-            var maxWidth    = 1200;
             var body        = $('body');
-
-            if (width < maxWidth) {
+            if (window.matchMedia('(max-width: 1199px)').matches) {
                 body.addClass('mobile');
                 body.removeClass('desktop');
             } else {
@@ -108,6 +132,10 @@ web.global = {
             $(this).toggleClass('button__bookmark--on');
         });
 
+        $('.no-link').click(function(e){
+            e.preventDefault();
+        });
+
         // $('.doble__arrow__accordion').click(function(){
         //     $(this).toggleClass('doble__arrow__accordion--on');
 
@@ -118,10 +146,6 @@ web.global = {
         //     }
 
         // });
-
-        $('.no-link').click(function(e){
-            e.preventDefault();
-        });
     },
 
     // BORRAR (activar en la propia página)
@@ -239,6 +263,14 @@ web.global = {
         });
     },
 
+    testimonials: function(){
+        $('.testimonials__item').hover(function(){
+            if ($(this).hasClass('selected')) return;
+            $('.selected').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    },
+
     /* BORRAR
     // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
     // VER PAGE COMPONENTES */
@@ -305,14 +337,6 @@ web.global = {
     //         }
     //     });
     // },
-
-    testimonials: function(){
-        $('.testimonials__item').hover(function(){
-            if ($(this).hasClass('selected')) return;
-            $('.selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-    },
 
 }
 
