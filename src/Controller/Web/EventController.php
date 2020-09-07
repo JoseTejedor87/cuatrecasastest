@@ -57,7 +57,7 @@ class EventController extends WebController
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
-        $query = $EventRepository->createQueryBuilder('e');
+        $query = $EventRepository->createPublishedQueryBuilder('e');
         if ($activity) {
             $query = $query->innerJoin('e.activities', 'a')
                 ->andWhere('a.id = :activity')
@@ -219,7 +219,7 @@ class EventController extends WebController
         $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
-        $query = $EventRepository->createQueryBuilder('e');
+        $query = $EventRepository->createPublishedQueryBuilder('e');
         if ($activity) {
             $query = $query->innerJoin('e.activities', 'a')
                 ->andWhere('a.id = :activity')
