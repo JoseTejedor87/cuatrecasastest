@@ -204,7 +204,8 @@ class LawyerController extends WebController
                         'FN:'.$lawyer->getFullName()."\n".
                         'ORG:Cuatrocasas'."\n".
                         'TITLE:'.$lawyer->getLawyerType()."\n".
-                        'PHOTO;VALUE=URI;TYPE=GIF:http://'.$lawyer->getPhoto()->getFile()."\n".
+                        //'PHOTO;VALUE=URI;TYPE=GIF:http://'.$lawyer->getPhoto()->getFile()."\n".
+                        'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid')."\n".
                         'TEL;TYPE=HOME,VOICE:'.$lawyer->getPhone()."\n".
                         'TEL;TYPE=FAX,VOICE:'.$lawyer->getFax()."\n";
         if ($officeData != '') {
