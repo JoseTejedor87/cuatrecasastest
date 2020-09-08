@@ -16,6 +16,18 @@
         // min-height: calc(100vh - 122px);
         min-height: 650px;
         background-color: $main-color;
+
+        @media (min-width: $screen-sm-min) {
+            min-height: auto;
+        }
+
+        @media (min-width: 1200px) {
+            min-height: calc(100vh - 110px);
+        }
+
+        @media (min-width: 1367px) {
+            min-height: 650px;
+        }
     }
 
     //

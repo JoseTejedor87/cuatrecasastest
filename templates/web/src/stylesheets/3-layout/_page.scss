@@ -42,10 +42,17 @@
             align-items: flex-end;
             padding-top: 4rem;
             padding-bottom: 2rem;
+            padding-right: 15px;
+            padding-left: 15px;
 
             //
             // Full width adjusment
-            margin: 0 auto;
+            margin-right: auto;
+            margin-left: auto;
+
+            @media (min-width: $screen-xs-min) {
+                max-width: $max-width-xs;
+            }
 
             @media (min-width: $screen-sm-min) {
                 max-width: $max-width-sm;
@@ -59,10 +66,10 @@
                 max-width: $max-width-lg;
             }
 
-            @media(max-width: $max-width-4casas) {
-                padding-right: 25px;
-                padding-left: 25px;
-            }
+            // @media(max-width: $max-width-4casas) {
+            //     padding-right: 15px;
+            //     padding-left: 15px;
+            // }
         }
 
         .info__block {

@@ -6,13 +6,11 @@
 // => Breadcrumb
 // ==========================================================================
 
-
-
 //
 // RESPONSIVE MEDIA QUERIES
 // --------------------------------------------------------------------------
 
-@media(min-width: $min-width-4casas) {
+@media(min-width: $min-menu-4casas) {
     #navDesktop {
         display: block;
         visibility: visible;
@@ -24,7 +22,7 @@
     }
 }
 
-@media(max-width: $max-width-4casas) {
+@media(max-width: $max-menu-4casas) {
     #navDesktop {
         display: none;
         visibility: hidden;
@@ -41,8 +39,8 @@
 // HEADER ADJUSTMENTS
 //
 
-$menu-desktop-height: 55px !default;
-$menu-mobile-height: 50px !default;
+$menu-desktop-height:   55px !default;
+$menu-mobile-height:    50px !default;
 
 body {
     header {

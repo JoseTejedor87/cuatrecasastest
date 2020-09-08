@@ -63,37 +63,9 @@ web.global = {
     },
 
     mobileNav: function(){
-
-        // function getViewports() {
-        //     document.getElementById("innerWidth").innerHTML =
-        //     window.innerWidth;
-        //     document.getElementById("innerHeight").innerHTML =
-        //     window.innerHeight;
-
-        //     document.getElementById("clientWidth").innerHTML =
-        //     document.documentElement.clientWidth;
-        //     document.getElementById("clientHeight").innerHTML =
-        //     document.documentElement.clientHeight;
-
-        //     var body = document.body;
-
-        //     if (document.getElementById("clientWidth").innerHTML < 1199) {
-        //         body.classList.add('mobile');
-        //         body.classList.remove('desktop');
-        //     } else if (document.getElementById("clientWidth").innerHTML > 1200) {
-        //         body.classList.add('desktop');
-        //         body.classList.remove('mobile');
-        //     }
-        // }
-
-        // window.addEventListener('resize', getViewports);
-        // window.addEventListener('orientationchange', getViewports);
-
-        // getViewports();
-
         // Reposition header
         function checkWindowSize() {
-            var body        = $('body');
+            var body = $('body');
             if (window.matchMedia('(max-width: 1199px)').matches) {
                 body.addClass('mobile');
                 body.removeClass('desktop');
