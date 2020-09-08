@@ -46,7 +46,7 @@
                             </div>
                         {% endif %}
                             <div data-vcard>
-                                <a href="#">{{ 'sections.lawyers.vcard'|trans }}</a>
+                                <a href="{{ path('lawyers_vcard_download', { 'id':lawyer.id } )}}">{{ 'sections.lawyers.vcard'|trans }}</a>
                             </div>
                             <div data-cv>
                                 <a href="#">{{ 'sections.lawyers.full_cv'|trans }}</a>

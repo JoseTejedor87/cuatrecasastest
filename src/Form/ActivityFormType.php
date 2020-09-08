@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
@@ -19,6 +20,7 @@ use App\Entity\Lawyer;
 use App\Entity\Quote;
 use App\Form\ResourceFormType;
 use App\Repository\LawyerRepository;
+
 
 abstract class ActivityFormType extends AbstractType
 {
