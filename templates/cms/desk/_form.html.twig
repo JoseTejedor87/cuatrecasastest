@@ -38,7 +38,11 @@
             </div>
             {{ form_row(form.relatedActivities) }}
             {{ form_row(form.children) }}
-            {{ form_row(form.key_contacts) }}
+            {% if isEditForm %}
+                {{ 
+                    form_row(form.key_contacts) 
+                }}
+            {% endif %}
             {{ form_row(form.quote) }}
         </div>
 
