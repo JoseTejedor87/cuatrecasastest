@@ -37,7 +37,7 @@ class NavigationService
     }
 
     public function getAlternativePath($language = null, $region = null)
-    {
+    {   
         $language = $language ?? $this->getLanguage();
         $region = $region ?? $this->getRegion();
 

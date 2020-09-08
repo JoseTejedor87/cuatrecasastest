@@ -49,7 +49,7 @@ class KnowledgeController extends WebController
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
         //dd($page);
-        $query = $publicationRepository->createQueryBuilder('p');
+        $query = $publicationRepository->createPublishedQueryBuilder('p');
         if($services){
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
@@ -67,25 +67,40 @@ class KnowledgeController extends WebController
         }
         if($type){
             $typeA = explode(",", $type);
-            
             foreach ($typeA as $key => $value) {
                 if($value == "news"){
-                    $query = $query->orWhere('p INSTANCE OF App\Entity\News');
+                    if(count($typeA)>1){
+                        $query = $query->orWhere('p INSTANCE OF App\Entity\News');
+                    }else{
+                        $query = $query->andWhere('p INSTANCE OF App\Entity\News');
+                    }
+                   
                 }
-                if($value == "article"){
-                    $query = $query->orWhere('p INSTANCE OF App\Entity\Article');
+                if($value == "academy"){
+                    if(count($typeA)>1){
+                        $query = $query->orWhere('p INSTANCE OF App\Entity\Academy');
+                    }else{
+                        $query = $query->andWhere('p INSTANCE OF App\Entity\Academy');
+                    }
+        
                 }
                 if($value == "opinion"){
-                $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+                    if(count($typeA)>1){
+                        $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+                    }else{
+                        $query = $query->andWhere('p INSTANCE OF App\Entity\Opinion');
+                    }
                 }
                 if($value == "legalNovelty"){
-                    $query = $query->orWhere('p INSTANCE OF App\Entity\LegalNovelty');
-                }
-                if($value == "research"){
-                $query = $query->orWhere('p INSTANCE OF App\Entity\Research');
+                    if(count($typeA)>1){
+                        $query = $query->orWhere('p INSTANCE OF App\Entity\LegalNovelty');
+                    }else{
+                        $query = $query->andWhere('p INSTANCE OF App\Entity\LegalNovelty');
+                    }
                 }
             }
         }
+        //dd($query->getQuery());
         if ($format) {
             $query = $query->andWhere("p.format = :format")
                             ->setParameter('format', $format );
@@ -125,8 +140,8 @@ class KnowledgeController extends WebController
 
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
-                $value->type = 'article';
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy){
+                $value->type = 'academy';
             }
             if ($value instanceof \App\Entity\Opinion){
                 $value->type = 'opinion';

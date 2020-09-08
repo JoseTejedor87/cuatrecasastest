@@ -40,9 +40,8 @@ parameters:
     app.publications_types:
         - news
         - opinion
-        - article
+        - academy
         - legalNovelty
-        - research
     app.publications_format:
         - text
         - video

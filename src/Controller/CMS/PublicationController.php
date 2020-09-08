@@ -34,8 +34,8 @@ class PublicationController extends CMSController
     {
         $type = $request->query->get('type');
         switch ($type) {
-            case 'article':
-                $Publication = new Article();
+            case 'academy':
+                $Publication = new Academy();
                 break;
             case 'opinion':
                 $Publication = new Opinion();

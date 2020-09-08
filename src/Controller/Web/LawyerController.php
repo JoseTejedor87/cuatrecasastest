@@ -19,6 +19,13 @@ use App\Repository\TrainingRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+// for download VSCARD 
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+
 class LawyerController extends WebController
 {
     protected $imagineCacheManager;
@@ -168,6 +175,7 @@ class LawyerController extends WebController
         }
     }
 
+
     protected function getPhotoPathByFilter($lawyer, $filter)
     {
         if ($photo = $lawyer->getPhoto()) {
@@ -178,4 +186,39 @@ class LawyerController extends WebController
         }
         return $photo;
     }
+
+    public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository){
+        $lawyer = $lawyerRepository->findOneBy(['id' => $request->attributes->get('id')]);
+        $officeData = '';
+        if ($lawyer->getOffice() != null){
+            $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
+            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
+        }
+
+        $filesystem = new Filesystem();
+        $dataString =   'BEGIN:VCARD'."\n".
+                        'VERSION:3.0'."\n".
+                        'N:'.$lawyer->getSurname().';'.$lawyer->getName()."\n".
+                        'FN:'.$lawyer->getFullName()."\n".
+                        'ORG:Cuatrocasas'."\n".
+                        'TITLE:'.$lawyer->getLawyerType()."\n".
+                        //'PHOTO;VALUE=URI;TYPE=GIF:http://'.$lawyer->getPhoto()->getFile()."\n".
+                        'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid')."\n".
+                        'TEL;TYPE=HOME,VOICE:'.$lawyer->getPhone()."\n".
+                        'TEL;TYPE=FAX,VOICE:'.$lawyer->getFax()."\n";
+        if ($officeData != '') {
+            $dataString .= $officeData;
+        }
+        $dataString .=  'EMAIL:'.$lawyer->getEmail()."\n".
+                        //'REV:'.$lawyer->getUpdateAt().
+                        'END:VCARD';
+        
+        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf',$dataString);
+        $file = new File('vcard_'.$lawyer->getFullName().'.vcf');
+
+        return $this->file($file);
+    }
+
 }
