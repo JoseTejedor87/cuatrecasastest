@@ -49,6 +49,11 @@ abstract class Activity extends Publishable
     private $lawyers_secondary;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Lawyer", mappedBy="specificActivities")
+     */
+    private $key_contacts;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="activities")
      */
     private $caseStudies;
@@ -478,6 +483,37 @@ abstract class Activity extends Publishable
         if ($this->awards->contains($award)) {
             $this->awards->removeElement($award);
             $award->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lawyer[]
+     */
+    public function getKeyContacts(): Collection
+    {
+        return $this->key_contacts;
+    }
+
+    public function addKeyContact(Lawyer $keyContact): self
+    {
+        if (!$this->key_contacts->contains($keyContact)) {
+            $this->key_contacts[] = $keyContact;
+            $keyContact->setSpecificActivities($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKeyContact(Lawyer $keyContact): self
+    {
+        if ($this->key_contacts->contains($keyContact)) {
+            $this->key_contacts->removeElement($keyContact);
+            // set the owning side to null (unless already changed)
+            if ($keyContact->getSpecificActivities() === $this) {
+                $keyContact->setSpecificActivities(null);
+            }
         }
 
         return $this;
