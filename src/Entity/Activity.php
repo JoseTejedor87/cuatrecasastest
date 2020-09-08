@@ -52,7 +52,7 @@ abstract class Activity extends Publishable
      * @ORM\OneToMany(targetEntity="App\Entity\Lawyer", mappedBy="specificActivities")
      */
     private $key_contacts;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="activities")
      */

@@ -70,8 +70,6 @@ components:
     controller: App\Controller\Web\HomeController::components
 
 
-
-
 # KNOWLEDGE
 # ###########################################
 knowledge_index:
