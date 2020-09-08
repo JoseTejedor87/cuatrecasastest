@@ -19,11 +19,13 @@ use App\Repository\TrainingRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+
 // for download VSCARD 
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 
 
 class LawyerController extends WebController
@@ -172,6 +174,7 @@ class LawyerController extends WebController
                 'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
             ]);
+
         }
     }
 
@@ -196,7 +199,7 @@ class LawyerController extends WebController
             $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
-
+      
         $filesystem = new Filesystem();
         $dataString =   'BEGIN:VCARD'."\n".
                         'VERSION:3.0'."\n".

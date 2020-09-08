@@ -1,3 +1,4 @@
+
 var SummernoteDemo=
     {
     init:function()
@@ -37,3 +38,4 @@ var SummernoteDemo=
     };
 
 jQuery(document).ready(function(){SummernoteDemo.init()});
+
