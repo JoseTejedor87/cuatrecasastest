@@ -115,6 +115,7 @@ abstract class Activity extends Publishable
         $this->publication = new ArrayCollection();
         $this->quote = new ArrayCollection();
         $this->awards = new ArrayCollection();
+        $this->key_contacts = new ArrayCollection();
         
     }
 
