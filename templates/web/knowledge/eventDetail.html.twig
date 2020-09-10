@@ -124,14 +124,13 @@
                                 <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
                                 <div class="txt__required__fields">* Campos requeridos</div>
 
-                                <form action="javascript:void(0);">
+                                <!-- <form action="javascript:void(0);"> -->
+                                <form action="" class="needs-validation" novalidate>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
-                                        {# <div class="valid-feedback">It's ok</div> #}
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
-                                        {# <div class="invalid-feedback">It's not ok</div> #}
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
@@ -169,8 +168,8 @@
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
                                             <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                            <!-- <div class="invalid-feedback">Campo obligatorio</div> -->
                                         </div>
-                                        <!-- <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input> -->
                                     </div>
                                     <div class="form-group">
                                         <div class="checkbox">
@@ -342,8 +341,18 @@
 <!-- Read More -->
 <script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
 <script>
-    $( document ).ready(function() {
-        web.global.sliderGeneral();
+    $(document).ready(function() {
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            // loop: true,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
 
         // EVENT BOX
         $('#eventMainInfo').hide();
@@ -354,6 +363,9 @@
             $('#eventBoxInfo').hide();
             $('#eventBoxForm').show();
             $('#eventMainInfo').show();
+            $('html, body').animate({
+                scrollTop: $('#eventBoxForm').offset().top - 130
+            }, 'slow');
         });
 
         $("#eventBoxForm .btn").click( function() {
@@ -395,6 +407,27 @@
                 .fail(function() {
                 });
         });
+
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
 
         function validation() {
 
@@ -479,13 +512,13 @@
                 $("#eTel").addClass('is-invalid');
                 isvalidate = false;
             }
-            
+
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
                 isvalidate = false;
             }
-            
+
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{

@@ -8,15 +8,16 @@
 // $screen-width: 6vw !default;
 $screen-width:     0 !default;
 
-// $max-width:     1140px !default;
-
+$max-width-xs:     540px !default;
 $max-width-sm:     720px !default;
-$max-width-md:     960px !default;
+$max-width-md:     991px !default;
 $max-width-lg:     1140px !default;
 
+$max-width-4casas:     991px !default;
+$min-width-4casas:     990px !default;
 
-$max-width-4casas:     1199px !default;
-$min-width-4casas:     1200px !default;
+$max-menu-4casas:     1199px !default;
+$min-menu-4casas:     1200px !default;
 
 
 
