@@ -15,6 +15,7 @@ use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
 use App\Entity\Activity;
 use App\Entity\Quote;
+use App\Entity\Award;
 use App\Form\ResourceFormType;
 
 abstract class ActivityFormType extends AbstractType

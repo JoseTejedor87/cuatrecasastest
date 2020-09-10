@@ -8,9 +8,9 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Publication;
-use App\Entity\Article;
 use App\Entity\Opinion;
 use App\Entity\LegalNovelty;
+use App\Entity\Academy;
 use App\Entity\News;
 use App\Form\PublicationFormType;
 use App\Repository\PublicationRepository;
@@ -25,6 +25,20 @@ class PublicationController extends CMSController
             $request->query->getInt('page', 1),
             25
         );
+        foreach ($pagination as $key => $value) {
+            if ($value instanceof \App\Entity\LegalNovelty  ){
+                $value->type = 'legalNovelty';
+            }
+            if ($value instanceof \App\Entity\Academy){
+                $value->type = 'academy';
+            }
+            if ($value instanceof \App\Entity\Opinion){
+                $value->type = 'opinion';
+            }
+            if ($value instanceof \App\Entity\News){
+                $value->type = 'news';
+            }
+        }
         return $this->render('cms/publication/index.html.twig', [
             'pagination' => $pagination,
         ]);

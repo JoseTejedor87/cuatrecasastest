@@ -210,6 +210,12 @@ entities:
       lawyer_tags: Tags de abogados
       office_tags: Tags de oficinas
       practice_tags: Tags de práctica
+      type: Tipo
+    knowledgeTypes:
+      news: Noticias
+      opinion: Opinion
+      academy: Academia
+      legalNovelty: Novedades legales
   award:
     fields:
       title: Título
@@ -220,6 +226,7 @@ entities:
       desc_award_firma: Descripción de la firma del premio
       desc_award_indiv: Descripción del premio
       activities: Actividades Relacionadas
+      awards: Premios
       tags: Tags
   case_study:
     fields:

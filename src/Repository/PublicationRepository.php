@@ -61,8 +61,8 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->getResult();
         foreach ($results as $key => $value) {
                 $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
-                $value->type = 'article';
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy || $value instanceof \App\Entity\Research){
+                $value->type = 'academy';
             }
             if ($value instanceof \App\Entity\Opinion){
                 $value->type = 'opinion';

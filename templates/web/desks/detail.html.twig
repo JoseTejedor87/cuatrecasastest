@@ -67,7 +67,7 @@
                         <div class="page__aside page__aside--nobg">
                             {% for quote in desk.quote %}
                             <blockquote class="cite__quote">
-                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <p>{{ quote.translate(app.request.getLocale()).body|raw }}</p>
                                 <cite>{{ quote.author}}, {{ quote.year}}</cite>
                             </blockquote>
                             {% endfor %}
