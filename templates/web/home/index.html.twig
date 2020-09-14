@@ -13,66 +13,8 @@
             <div class="col">
                 <div id="sliderHome" class="swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide opacity2" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
-                            <div class="home__wrapper">
-                                <div class="home__article">
-                                    <div class="home__article__type">Publicación</div>
-                                    <div class="home__article__content">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
-                                    <div class="home__article__link">
-                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__preview">
-                                <div class="home__preview__content">
-                                    <div class="preview__title">Siguiente:</div>
-                                    <div class="preview__intro">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
-                                </div>
-                                <button type="button" class="home__preview__button">
-                                    <span class="icon4-fletxa_cuatrecasas"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="swiper-slide opacity4" style="background-image: url('{{ asset('web/assets/img/andrew-buchanan-7IcnYYVgdn8-unsplash.jpg') }}')">
-                            <div class="home__wrapper">
-                                <div class="home__article">
-                                    <div class="home__article__type">Noticia</div>
-                                    <div class="home__article__content">Nos sumamos al compromiso Lisboa Capital Verde Europea 2020</div>
-                                    <div class="home__article__link">
-                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__preview">
-                                <div class="home__preview__content">
-                                    <div class="preview__title">Siguiente:</div>
-                                    <div class="preview__intro">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
-                                </div>
-                                <button type="button" class="home__preview__button">
-                                    <span class="icon4-fletxa_cuatrecasas"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="swiper-slide opacity4" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
-                            <div class="home__wrapper">
-                                <div class="home__article">
-                                    <div class="home__article__type">Publicación</div>
-                                    <div class="home__article__content">Mejoramos nuestra clasificación en los rankings de M&amp;A</div>
-                                    <div class="home__article__link">
-                                        <a href="#" class="btn btn__solid__arrow">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__preview">
-                                <div class="home__preview__content">
-                                    <div class="preview__title">Siguiente:</div>
-                                    <div class="preview__intro">Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales</div>
-                                </div>
-                                <button type="button" class="home__preview__button">
-                                    <span class="icon4-fletxa_cuatrecasas"></span>
-                                </button>
-                            </div>
-                        </div>
+                        {% include 'web/shared/banner.html.twig'  with {banner: banner, slidesOrdered:slidesOrdered } %}
+
                     </div>
                 </div>
             </div>
@@ -171,11 +113,11 @@
         spaceBetween: 0,
         loop: true,
         // grabCursor: true,
-        speed: 800,
+        speed: {{ banner.speed }},
         allowSlidePrev: false,
         allowTouchMove: false,
         autoplay: {
-            delay: 5000,
+            delay: {{ banner.delay }},
         },
         navigation: {
             nextEl: '.home__preview__button'
