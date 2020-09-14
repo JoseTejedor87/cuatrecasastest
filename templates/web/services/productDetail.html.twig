@@ -206,7 +206,7 @@
             },
             afterToggle: function(trigger, element, expanded) {
                 if(! expanded) {
-                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 200});
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
                 }
             }
         });
