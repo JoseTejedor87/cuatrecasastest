@@ -12,195 +12,228 @@
 // PROGRAMME (BORRAR !!!)
 // --------------------------------------------------------------------------
 
-// @include new("event") {
-//     @include has("programme") {
-//         @include reset-full-scren;
-//         position: relative;
+#eventList {
+    outline: 5px solid blue;
+    outline-offset: 10px;
+    margin-top: 3rem;
 
-//         &:before {
-//             @include reset-pseudo(rgba($black, 0.03));
-//         }
+    .fc-list-heading-main {
+        @include fontSet(33px, 33px);
+        font-weight: normal;
+        letter-spacing: 1.44px;
+        text-transform: uppercase;
+        padding-bottom: .6rem;
+    }
+}
 
-//         .tablesaw-stack {
-//             margin-top: 2rem;
+@include new("event") {
 
-//             th, td {
-//                 padding: 1rem;
-//                 @include fontSet(16px, 16px);
-//                 text-transform: uppercase;
-//             }
+    @include has("programme") {
+        @include reset-full-scren;
+        position: relative;
 
-//             th {
-//                 border-top: none;
-//                 border-bottom: 1px solid $black;
-//                 color: $main-color;
+        &:before {
+            @include reset-pseudo(rgba($black, 0.03));
+        }
 
-//                 &.content {
-//                     padding-right: 3rem;
-//                     padding-left: 3rem;
-//                 }
-//             }
+        // https://github.com/filamentgroup/tablesaw#getting-started
+        .tablesaw-wrapper {
+            @include tablesaw-stack($max-width-4casas);
+        }
 
-//             td {
-//                 // padding: 1rem 0;
+        .tablesaw-stack {
+            margin-top: 2rem;
 
-//                 &.time {
-//                     white-space: nowrap;
-//                     color: $main-color;
-//                 }
+            th, td {
+                padding: 1rem;
+            }
 
-//                 &.content {
-//                     padding-right: 3rem;
-//                     padding-left: 3rem;
-//                     @include fontSet(23px, 27px);
-//                     text-transform: none;
-//                     color: $black;
-//                 }
+            th {
+                border-top: none;
+                border-bottom: 1px solid $black;
+                color: $main-color;
 
-//                 &.speakers {
-//                     white-space: nowrap;
-//                     color: $main-color;
-//                 }
+                @media(max-width: $max-width-4casas) {
+                    padding: 0 0;
+                }
 
-//                 .speakers__list {
-//                     @include reset-list;
-//                     margin-left: -4px;
+                &.content {
+                    padding-right: 3rem;
+                    padding-left: 3rem;
+                }
 
-//                     li {
-//                         margin-bottom: 5px;
-//                     }
+                &:first-child {
+                    width: 20%;
+                }
+            }
 
-//                     a {
-//                         @include background-link($complementary-color, $white, $complementary-color);
-//                         margin-left: -4px;
-//                         padding: 2px 4px 0;
-//                     }
-//                 }
-//             }
-//         }
-//     }
+            td {
+                @media(max-width: $max-width-4casas) {
+                    padding: 0.1rem 0;
+                    border-top: 1px solid transparent;
+                    border-bottom: 1px solid transparent;
+                }
 
-//     @include has("wrapper") {
-//         position: relative;
-//         padding-top: 4rem;
-//         padding-bottom: 4rem;
+                &.time {
+                    @include fontSet(16px, 22px);
+                    text-transform: uppercase;
+                    white-space: nowrap;
+                    color: $main-color;
 
-//         &:before {
-//             // @include reset-pseudo(rgba($black, 0.02));
-//             @include reset-pseudo(#F7F7F7);
-//             @include reset-full-scren;
-//         }
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(12px, 12px);
+                    }
+                }
 
-//         //
-//         // EMAIL BOX
-//         //
-//         .contact {
-//             position: relative;
-//             margin-top: 4rem;
-//             padding-top: 3rem;
+                &.content {
+                    padding-right: 3rem;
+                    padding-left: 3rem;
+                    @include fontSet(23px, 27px);
+                    text-transform: none;
+                    color: $black;
 
-//             &:before {
-//                 content: '';
-//                 position: absolute;
-//                 top: 0;
-//                 left: 15px;
-//                 width: calc(100% - 30px);
-//                 height: 2px;
-//                 background-color: $complementary-color;
-//             }
-//         }
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(20px, 25px);
+                        padding-right: 0;
+                        padding-left: 0;
+                    }
+                }
 
-//         @include has("chooser") {
-//             display: flex;
-//             justify-content: flex-end;
-//             margin-bottom: 3rem;
-//         }
-//     }
+                &.speakers {
+                    @media(max-width: $max-width-4casas) {
+                        .tablesaw-cell-content {
+                            position: relative;
+                            padding-bottom: 2rem;
 
-//     @include has("list") {
+                            &:before {
+                                @include icons-4casas(auto, auto, 0, -3px);
+                                @include fontSet(18px, 30px);
+                                content: '\e90a';
+                                color: $complementary-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-//         @include has("item") {
-//             display: flex;
-//             padding-top: 1.5rem;
-//             padding-bottom: 3rem;
-//             // border-top: 1px solid rgba($black, 0.2);
-//             box-shadow: 0 -1px 0 rgba($black, 0.2);
-//             transition: box-shadow 0.2s ease-out;
+    /*
+    @include has("wrapper") {
+        position: relative;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
 
-//             @include on-event() {
-//                 // box-shadow: 0 -2px 0 $complementary-color;
-//                 box-shadow: 0 -2px 0 rgba($black, 0.6);
-//             }
-//         }
+        &:before {
+            // @include reset-pseudo(rgba($black, 0.02));
+            @include reset-pseudo(#F7F7F7);
+            @include reset-full-scren;
+        }
 
-//         @include has("details") {
-//             flex: 0 0 25%;
+        //
+        // EMAIL BOX
+        //
+        .contact {
+            position: relative;
+            margin-top: 4rem;
+            padding-top: 3rem;
 
-//             > * {
-//                 @include fontSet(16px, 20px);
-//                 text-transform: uppercase;
-//                 letter-spacing: 0.7px;
-//                 color: $main-color;
-//             }
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 15px;
+                width: calc(100% - 30px);
+                height: 2px;
+                background-color: $complementary-color;
+            }
+        }
 
-//             .event-place {
-//                 a {
-//                     @include classic-link($complementary-color, $black, $border: false);
-//                 }
-//             }
+        @include has("chooser") {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 3rem;
+        }
+    }
+    */
 
-//             .event-button {
-//                 margin-top: 1rem;
-//             }
+    @include has("list") {
 
-//             .doble__arrow__link {
-//                 @include fontSet(16px, 20px);
-//                 // text-transform: uppercase;
-//                 border: 1px solid blue;
+        @include has("item") {
+            display: flex;
+            padding-top: 1.5rem;
+            padding-bottom: 3rem;
+            // border-top: 1px solid rgba($black, 0.2);
+            box-shadow: 0 -1px 0 rgba($black, 0.2);
+            transition: box-shadow 0.2s ease-out;
 
-//                 &:before,
-//                 &:after {
-//                     top: -7px;
-//                 }
-//             }
-//         }
+            @include on-event() {
+                // box-shadow: 0 -2px 0 $complementary-color;
+                box-shadow: 0 -2px 0 rgba($black, 0.6);
+            }
+        }
 
-//         @include has("info") {
-//             flex: 0 1 auto;
+        @include has("details") {
+            flex: 0 0 25%;
 
-//             .event-intro {
-//                 a {
-//                     @include classic-link($black, $complementary-color, $border: false);
-//                     @include fontSet(32px, 36px);
-//                 }
-//             }
+            > * {
+                @include fontSet(16px, 20px);
+                text-transform: uppercase;
+                letter-spacing: 0.7px;
+                color: $main-color;
+            }
 
-//             .event-speakers {
-//                 margin-top: 1.5rem;
-//                 padding-top: 1rem;
-//                 border-top: 1px solid rgba($black, 0.2);
+            .event-place {
+                padding: 0 1rem 0 0;
+                white-space: normal;
+                color: $complementary-color;
+            }
 
-//                 .title {
-//                     @include fontSet(16px, 16px);
-//                     text-transform: uppercase;
-//                     color: $black;
-//                 }
-//             }
-//         }
-//     }
-// }
+            .event-button {
+                margin-top: 1rem;
+            }
 
+            // .doble__arrow__link {
+            //     @include fontSet(16px, 20px);
+            //     // text-transform: uppercase;
+
+            //     &:before,
+            //     &:after {
+            //         top: -7px;
+            //     }
+            // }
+        }
+
+        @include has("info") {
+            flex: 0 1 auto;
+
+            .event-intro {
+                a {
+                    @include classic-link($black, $complementary-color, $border: false);
+                    @include fontSet(32px, 36px);
+                }
+            }
+
+            .event-speakers {
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                border-top: 1px solid rgba($black, 0.2);
+
+                .title {
+                    @include fontSet(16px, 16px);
+                    text-transform: uppercase;
+                    color: $black;
+                }
+            }
+        }
+    }
+}
 
 #eventCalendar {
     .related__content li:before {
         background-color: $main-color;
     }
 }
-
-//
-// FULLCALENDAR
-// --------------------------------------------------------------------------
-
 
 
 //
@@ -679,9 +712,9 @@
             }
 
             .event-place {
-                a {
-                    @include classic-link($complementary-color, $black, $border: false);
-                }
+                padding: 0 1rem 0 0;
+                white-space: normal;
+                color: $complementary-color;
             }
 
             .event-button {

@@ -57,7 +57,7 @@ web.global = {
 
         $('#hamburgerButton').click(function(e){
             e.preventDefault();
-            console.log($('#navDesktop #secondaryNav').attr("class"));
+            // console.log($('#navDesktop #secondaryNav').attr("class"));
             secondaryNav.toggleClass('stickyNav');
         });
     },
@@ -119,27 +119,6 @@ web.global = {
 
         // });
     },
-
-    // BORRAR (activar en la propia página)
-    // showMoreLess: function(){
-    //     $('.read-more').each(function() {
-    //         if ($(this).children('p').length > 4) {
-    //             $(this).children('p:lt(3)').show();
-    //             $(this).append('<button type="button" class="doble__arrow__accordion loadMore">Ver más</button>');
-    //         }
-    //     });
-    //     $('.read-more').on("click", '.loadMore', function() {
-    //         $(this).parent('.read-more').children('p').slideDown();
-    //         $(this).removeClass('loadMore').addClass('loadLess').text('Ver menos');
-    //         $('.doble__arrow__accordion').blur();
-    //     });
-    //     $('.read-more').on("click", '.loadLess', function() {
-    //         $(this).parent('.read-more').children('p:gt(2)').slideUp();
-    //         $(this).removeClass('loadLess').addClass('loadMore').text('Ver más');
-    //         $('.doble__arrow__accordion').blur();
-    //     });
-    // },
-
 
     /* Stand by BORRAR MAYBE */
     /*
