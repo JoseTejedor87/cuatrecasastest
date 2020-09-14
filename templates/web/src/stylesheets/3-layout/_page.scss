@@ -198,13 +198,6 @@
             }
         }
 
-        #readMore {
-            > p {
-                display:none;
-            }
-        }
-
-
         //
         // Modifiers
         // [page__block--aside]
@@ -265,7 +258,8 @@
                 }
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    // @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
 
                 @media(max-width: $max-width-4casas) {
@@ -310,12 +304,8 @@
                 // }
 
                 a {
-                    // @include left-to-right-link($complementary-color, $complementary-color);
-                    // @include classic-link($complementary-color, $complementary-color);
-                    // @include border-link($complementary-color, $complementary-color);
-                    // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
-
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    // @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
             }
 
@@ -760,9 +750,7 @@
 
                 a {
                     @include left-to-right-link($complementary-color, $complementary-color);
-                    // @include classic-link($complementary-color, $complementary-color);
-                    // @include border-link($complementary-color, $complementary-color);
-                    // @include background-link($complementary-color, $main-color, rgba($complementary-color, 0.3));
+                    // @include classic-link($complementary-color, $main-color, $border: false);
                 }
             }
 
@@ -789,7 +777,7 @@
                 margin-bottom: 2.2rem;
 
                 a {
-                    @include classic-link($complementary-color, $complementary-color, $border: true);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
             }
 

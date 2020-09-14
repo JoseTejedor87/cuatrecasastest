@@ -30,6 +30,11 @@
 
             @include when("speakers") {
                 margin-top: -1.2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    margin-top: 0;
+                }
             }
 
             //
@@ -132,9 +137,21 @@
                 border-bottom: 1px solid rgba($black, 0.3);
                 transition: all 0.2s ease-out;
 
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    margin: 0 0 1.5rem 0;
+                    background: rgba(transparent, 0) !important;
+                    border-bottom: 1px solid rgba(transparent, 0);
+                }
+
                 @include on-event() {
-                    background: rgba($black, 0.03) !important;
-                    border-bottom: 1px solid rgba($complementary-color, 0.8);
+                    background: rgba(transparent, 0.03) !important;
+                    border-bottom: 1px solid rgba(transparent, 0.8);
+
+                    @media(max-width: $max-width-4casas) {
+                        background: rgba(transparent, 0) !important;
+                        border-bottom: 1px solid rgba(transparent, 0);
+                    }
                 }
             }
 
@@ -199,6 +216,12 @@
         min-height: 180px;
         padding: 1rem;
 
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            min-height: 180px;
+            padding: 1rem;
+        }
+
         @include when-inside(".lawyer__search__wrapper--list") {
             min-height: auto;
             padding-bottom: 0.6rem;
@@ -206,6 +229,11 @@
 
         @include when-inside(".lawyer__search__wrapper--speakers") {
             min-height: auto;
+
+            @media(max-width: $max-width-4casas) {
+                display: block;
+                padding: 0;
+            }
         }
 
         @include on-event() {
@@ -225,6 +253,11 @@
         font-weight: normal;
         letter-spacing: 0.7px;
         color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 16px);
+            letter-spacing: 0;
+        }
 
         @include when-inside(".lawyer__search__wrapper--grid") {
             // word-spacing: 100vw;
@@ -247,6 +280,10 @@
             margin-bottom: 0.5rem;
             @include fontSet(33px, 33px);
             color: $complementary-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(16px, 16px);
+            }
         }
     }
 
@@ -267,6 +304,11 @@
         letter-spacing: 0.5px;
         color: $main-color;
 
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
+
         @include when-inside(".lawyer__search__wrapper--grid") {
             flex: 0 1 100%;
         }
@@ -282,6 +324,11 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         color: $main-color;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
     }
 
     @include has("practice") {
@@ -303,6 +350,12 @@
             letter-spacing: 0.5px;
             color: $main-color;
 
+            @media(max-width: $max-width-4casas) {
+                margin: 4px 8px 0 0;
+                @include fontSet(12px, 12px);
+                letter-spacing: 0;
+            }
+
             @include when-inside(".lawyer__search__wrapper--list") {
                 flex: 0 0 auto;
             }
@@ -315,6 +368,11 @@
                 width: 2px;
                 height: 100%;
                 background-color: $main-color;
+
+                @media(max-width: $max-width-4casas) {
+                    width: 1px;
+                    left: -4px;
+                }
             }
 
             &:first-child {

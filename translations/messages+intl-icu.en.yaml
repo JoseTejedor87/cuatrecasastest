@@ -26,6 +26,8 @@ global:
   messages:
     page_not_found: Page not found
     alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
+    show_more: Show more
+    show_less: Show less
 
 # Sections
 # ###########################################
@@ -61,7 +63,7 @@ sections:
       managing_partner: Managing Partner
       no_position: No position
       partner: Partner
-      knowledge: Knowledge Lawyer 
+      knowledge: Knowledge Lawyer
       senior_associate: Senior Associate
       senior_partner: Senior Partner
       senior_knowledge: Senior Knowledge Lawyer

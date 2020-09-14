@@ -3,8 +3,6 @@
 {% block stylesheets %}
 <!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-<!-- Responsive Table CSS -->
-<link href="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -67,9 +65,8 @@
                                 {{ (event.phone) ? event.phone : '' }}
                             </div>
                         </div>
-                        <div id="readMore">
+                        <div class="read__more">
                             {{ event.translate(app.request.getLocale()).description|raw }}
-                        {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
                         </div>
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
@@ -231,7 +228,7 @@
             <section class="event__programme">
                 <div class="container">
                     <div class="row page__section">
-                        <div class="col">
+                        <div class="col tablesaw-wrapper">
                             <h4 class="section__title section__title--programme">Programa</h4>
                             <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                                 <thead>
@@ -245,19 +242,19 @@
                                     {% for program in event.programs %}
                                         <tr>
                                             <td class="time">
-                                            {{ (program.timeStart) }} - {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
+                                            {{ (program.timeStart) }} &mdash; {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
                                             </td>
                                             <td class="content">{{ program.translate(app.request.getLocale()).title|raw}}</td>
                                             <td class="speakers">
-                                                <ul class="speakers__list">
                                                 {% for person in program.people %}
+                                                <ul class="speakers__list">
                                                     {% if person.lawyer  %}
                                                         <li><a href="{{ path('lawyers_detail', {slug: person.lawyer.slug}) }}">{{ person.lawyer.name }} {{ person.lawyer.surname }}</a></li>
                                                     {% else %}
-                                                        <li>{{ person.name }} {{ person.surname }}</li>
+                                                        <li><span>{{ person.name }} {{ person.surname }}</span></li>
                                                     {% endif %}
-                                                {% endfor %}
                                                 </ul>
+                                                {% endfor %}
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -325,6 +322,7 @@
                     </aside>
                 </div>
             </section> -->
+
         </article>
     </main>
 
@@ -338,10 +336,11 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Read More -->
-<script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
+<!-- Responsive Table JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
-    $(document).ready(function() {
+    $(function () {
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
             spaceBetween: 25,
@@ -536,6 +535,31 @@
                 return isvalidate;
             }
         }
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                }
+            }
+        });
     });
 </script>
 {% endblock %}

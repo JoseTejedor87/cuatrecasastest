@@ -235,17 +235,34 @@
 // --------------------------------------------------------------------------
 
 .doble__arrow__accordion {
-    @include accordion-button($complementary-color);
-    @include fontSet(23px, 23px);
-    letter-spacing: 0.7px;
-    margin-top: 1rem;
+    @include accordion-button($complementary-color, $main-color);
+    // margin-top: 1rem;
 
     &.doble__arrow__accordion--on {
         &:after {
             transform: rotate(-90deg);
         }
     }
+
+    &.show__more,
+    &.show__less {
+        // background: rgb(255,255,255);
+        // background: linear-gradient(0deg, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 100%);
+    }
+
+    &.show__more {
+        &:after {
+            transform: rotate(90deg);
+        }
+    }
+
+    &.show__less {
+        &:after {
+            transform: rotate(-90deg);
+        }
+    }
 }
+
 
 //
 // SUBCATEGORIES BUTTON (ARROW SYMBOL)
