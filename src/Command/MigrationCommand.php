@@ -52,7 +52,31 @@ class MigrationCommand extends Command
             $this->Abogados($conn);
             $this->Activity($conn);
             $this->Eventos($conn,$output);
-            
+            $this->relatedActivities($conn);
+            $this->Eventos($conn,$output);
+            $this->EventosArea($conn,$output);
+            $this->EventosPonente($conn,$output);
+            $this->OficinaEventos($conn,$output);
+            $this->EventosPrograma($conn,$output);
+            $this->EventosProgramaPonente($conn,$output);
+            $this->AbogadoArea($conn,$output);
+            $this->AreasQuotes($conn,$output);
+            $this->Premios($conn,$output);
+            $this->Oficinas($conn,$output);
+            $this->OficinaDescripcion($conn,$output);
+            $this->OficinaAbogado($conn,$output);
+            $this->Noticias($conn,$output);
+            $this->NoticiasIdioma($conn,$output);
+            $this->NoticiasAbogados($conn,$output);
+            $this->NoticiasPractica($conn,$output);
+            $this->NoticiasOficina($conn,$output);
+            $this->Publicaciones($conn,$output);
+            $this->PublicacionesIdiomas($conn,$output);
+            $this->PublicacionesAbogados($conn,$output);
+            $this->PublicacionesLegislacion($conn,$output);
+            $this->PublicacionesPractica($conn,$output);
+            $this->PublicacionesOficina($conn,$output);
+
         }else{
             $output->writeln("La tabla a exportar es : ".$table); 
             switch ($table) {

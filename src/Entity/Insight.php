@@ -41,6 +41,11 @@ class Insight extends Publishable
     private $activities;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", inversedBy="insights")
+     */
+    private $publications;
+
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $showIntroBlock;
@@ -76,6 +81,7 @@ class Insight extends Publishable
         $this->relatedInsights = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
+        $this->publications = new ArrayCollection();
     }
 
     /**
@@ -254,6 +260,32 @@ class Insight extends Publishable
     public function setShowIntroBlock(bool $showIntroBlock): self
     {
         $this->showIntroBlock = $showIntroBlock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Publication[]
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications[] = $publication;
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->contains($publication)) {
+            $this->publications->removeElement($publication);
+        }
 
         return $this;
     }
