@@ -69,6 +69,13 @@ components:
     methods:    GET
     controller: App\Controller\Web\HomeController::components
 
+userSettings:
+    path:
+        en:   /user-settings
+        es:   /preferencias-usuario
+    methods:    GET
+    controller: App\Controller\Web\HomeController::userSettings
+
 
 
 
@@ -225,7 +232,7 @@ lawyers_vcard_download:
         en:   /lawyers/{id}/download/
         es:   /abogados/{id}/descarga
     methods:    GET
-    controller: App\Controller\Web\LawyerController::download    
+    controller: App\Controller\Web\LawyerController::download
 
 # Insights
 # ###########################################
