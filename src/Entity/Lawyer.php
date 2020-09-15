@@ -70,6 +70,12 @@ class Lawyer extends Publishable
      */
     private $secondaryActivities;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="key_contacts")
+     */
+    private $specificActivities;
+
     /**
      * @ORM\Column(type="json", nullable=true)
      */
@@ -449,6 +455,18 @@ class Lawyer extends Publishable
     public function setInitials(?string $initials): self
     {
         $this->initials = $initials;
+
+        return $this;
+    }
+
+    public function getSpecificActivities(): ?Activity
+    {
+        return $this->specificActivities;
+    }
+
+    public function setSpecificActivities(?Activity $specificActivities): self
+    {
+        $this->specificActivities = $specificActivities;
 
         return $this;
     }
