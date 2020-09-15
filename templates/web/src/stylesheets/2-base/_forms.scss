@@ -38,6 +38,11 @@
 }
 
 .form-group {
+
+    label a {
+        @include classic-link($complementary-color, $main-color, $border: false);
+    }
+
     .valid-feedback,
     .invalid-feedback {
         padding: 0 1rem;
@@ -49,6 +54,62 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.form-control {
+    //
+    // PLACEHOLDERS TUNNING
+    //
+
+    &::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: #808080;
+        opacity: 1;
+    }
+    &::placeholder {
+        /* Firefox */
+        color: #808080;
+        opacity: 1;
+    }
+    &::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #808080;
+        opacity: 1;
+    }
+    &:-ms-input-placeholder {
+        /* $complementary-color Explorer 10-11 */
+        color: #808080;
+        opacity: 1;
+    }
+    &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #808080;
+        opacity: 1;
+    }
+}
+
+
+fieldset {
+    margin-top: 2rem;
+
+    // &:first-child {
+    //     margin-top: 2rem;
+    // }
+
+    legend {
+        margin-bottom: 1.5rem;
+        @include fontSet(23px, 37px);
+        color: $black;
+        border-bottom: 1px solid #b0b0b0;
+    }
+}
+
+.custom-select {
+    color: $main-color;
+
+    &:invalid {
+        color: #808080;
+    }
 }
 
 
@@ -116,16 +177,6 @@
         @include fontSet(16px, 18px);
         margin-bottom: 1em;
         // color: $main-color;
-    }
-
-    .form-group {
-
-        label {
-            a {
-                // @include left-to-right-link($complementary-color, $complementary-color);
-                @include classic-link($complementary-color, $main-color, $border: false);
-            }
-        }
     }
 
 

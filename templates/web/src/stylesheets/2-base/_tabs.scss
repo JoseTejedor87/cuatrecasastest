@@ -265,6 +265,129 @@
     }
 }
 
+@include new("classictabs__component") {
+    //
+    // TABS
+    // --------------------------------------------------------------------------
+
+    @include has("tabs") {
+        // position: relative;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        transition: all 0.3s ease-in-out;
+
+        // &:after {
+        //     content: '';
+        //     position: absolute;
+        //     bottom: 0;
+        //     left: 50%;
+        //     display: block;
+        //     width: 100vw;
+        //     height: 1px;
+        //     margin-left: -50vw;
+        //     background-color: rgba($black, 0.1);
+        // }
+
+        .nav {
+            justify-content: flex-start;
+        }
+
+        .nav-tabs {
+            border-bottom: 1px solid rgba($black, 0.1);
+        }
+
+        .nav-item {
+            margin: 0 1rem 0 0;
+        }
+
+        .nav-link {
+            position: relative;
+            @include fontSet(23px, 23px);
+            color: $main-color;
+            margin: 0 0;
+            padding: 0.5rem 0;
+            border: 0 solid transparent;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            transition: color 0.2s ease-in-out;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: $complementary-color;
+                z-index: 3;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s ease-out;
+            }
+
+            @include on-event {
+                // color: $complementary-color;
+
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            &.active {
+                font-weight: bold;
+                color: $complementary-color;
+
+                @media(max-width: $max-width-4casas) {
+                    color: $black;
+                }
+
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(18px, 18px);
+                padding: 1.2rem 0 1rem 0;
+
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    //
+    // CONTENT
+    // --------------------------------------------------------------------------
+
+    @include has("content") {
+        position: relative;
+
+        &:before {
+            @include reset-pseudo($tabActive);
+            @include reset-full-scren;
+        }
+
+        @include when-inside(".sectors") {
+             &:before {
+                background-color: $white;
+            }
+        }
+
+        .page__section > .col {
+            padding: 4rem 0;
+        }
+
+        .search_box__wrapper {
+             margin-bottom: 2rem;
+        }
+    }
+}
 
 //
 // RESPONSIVE TABS
