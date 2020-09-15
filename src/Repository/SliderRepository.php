@@ -19,12 +19,15 @@ class SliderRepository extends ServiceEntityRepository
         parent::__construct($registry, Slider::class);
     }
 
-    public function getAll()
+    public function getAllByPriority($bannerID)
     {
-        return $this->createQueryBuilder('a')
-                ->orderBy('a.year',' DESC')
-                ->getQuery()
-                ->getResult();
+        return $query = $this->createQueryBuilder('s')
+            ->join('s.banners', 'b')
+            ->andWhere('b.id = :banner_id')
+            ->setParameter('banner_id', $bannerID)
+            ->orderBy('s.priority','ASC')
+            ->getQuery()
+            ->getResult();
         
     }
 

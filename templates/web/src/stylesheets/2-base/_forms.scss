@@ -195,25 +195,22 @@
 
     display: flex;
     flex-flow: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 -0.5rem;
 
     @media(max-width: $max-width-4casas) {
         flex-flow: column;
-        flex-wrap: wrap;
     }
 
     .select-hidden {
-        // position: relative;
-        // display: none;
         height: 40px;
         visibility: hidden;
     }
 
     .select {
         flex: 1 0 auto;
-        max-width: calc(25% - 1rem);
+        // max-width: 25%;
         position: relative;
         height: $select-height;
         margin: 0 0.5rem;
@@ -221,9 +218,22 @@
         color: $black;
         cursor: pointer;
 
+        @include when-inside(".lawyer") {
+            max-width: 25%;
+
+            @media(max-width: $max-menu-4casas) {
+                max-width: 24%;
+            }
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 auto;
+                max-width: 100%;
+            }
+        }
+
         @media(max-width: $max-width-4casas) {
             flex: 0 0 auto;
-            max-width: calc(100% - 1rem);
+            max-width: 100%;
         }
     }
 

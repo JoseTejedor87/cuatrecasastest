@@ -87,9 +87,11 @@
                     <section class="row page__block noborder">
                         <div class="col">
                             <div class="page__block__title page__block__title--article">
+                                123
                                 {{ insight.translate(app.request.getLocale()).summary|raw }}
                             </div>
                             <div class="page__block__content page__block__content--article">
+                                456
                                 {{ insight.translate(app.request.getLocale()).description|raw }}
                                 <button type="button" class="doble__arrow__accordion">Ver más</button>
                             </div>
@@ -262,7 +264,6 @@
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
-        // GRID
         $('.grid__masonry').masonry({
             itemSelector: '.grid__item',
             columnWidth: '.grid__sizer',
@@ -270,7 +271,6 @@
             percentPosition: true
         });
 
-        // SLIDERS
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
             spaceBetween: 25,
@@ -281,12 +281,38 @@
                 draggable: true
             }
         });
+
         var swiperCases = new Swiper ('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,
             allowTouchMove: true,
             grabCursor: true
+        });
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                }
+            }
         });
     });
 
