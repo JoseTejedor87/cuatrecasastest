@@ -23,6 +23,7 @@ use App\Entity\Practice;
 use App\Entity\Quote;
 use App\Entity\Resource;
 use App\Entity\Sector;
+use App\Entity\Insight;
 use App\Entity\Person;
 use App\Entity\Office;
 use App\Entity\Academy;
@@ -33,6 +34,9 @@ use App\Entity\News;
 use App\Entity\Publication;
 use App\Entity\Page;
 use App\Entity\Program;
+use App\Entity\Product;
+use App\Entity\Banner;
+use App\Entity\Slider;
 
 class ImportCommand extends Command
 {
@@ -98,6 +102,7 @@ class ImportCommand extends Command
             $this->Mentions();
             $this->Trainings();
             $this->Pages();
+            $this->Banner();
         } else {
             switch ($table) {
                 case "lawyer":
@@ -108,6 +113,9 @@ class ImportCommand extends Command
                     break;
                 case "activity":
                     $this->Activities();
+                    break;
+                case "ActivitiesExcels":
+                    $this->ActivitiesExcels();
                     break;
                 case "PeopleByEvent":
                     $this->PeopleByEvent();
@@ -190,6 +198,33 @@ class ImportCommand extends Command
                 case "pages":
                     $this->Pages();
                 break;
+                case "banner":
+                    $this->Banner();
+                break; 
+                case "principal":
+                    $this->Lawyers();
+                    $this->Events();
+                    $this->Activities();
+                    $this->ActivitiesExcels();
+                    $this->Quote();
+                    $this->Office();
+                    $this->awards();
+                    $this->Pages();
+                break;
+                case "relations":
+                    $this->PeopleByEvent();
+                    $this->ActivitiesByEvent();
+                    $this->EventPrograms();
+                    $this->PeopleByEventProgram();
+                    $this->OfficeByLawyer();
+                    $this->OfficeByEvents();
+                    $this->Mentions();
+                    $this->Trainings();
+                    $this->ActivityActivities();
+                    
+                break;
+
+
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -386,6 +421,65 @@ class ImportCommand extends Command
         }
     }
 
+    public function Banner(){
+
+        ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Banner ");
+        //$this->em->getConnection()->executeQuery("ALTER TABLE Banner AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Banner], RESEED, 1)");      
+
+        $this->em->getConnection()->executeQuery("DELETE FROM SliderTranslation ");
+        //$this->em->getConnection()->executeQuery("ALTER TABLE SliderTranslation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([SliderTranslation], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Slider ");
+        //  $this->em->getConnection()->executeQuery("ALTER TABLE Slider AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Slider], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM slider_banner ");
+        //$this->em->getConnection()->executeQuery("ALTER TABLE slider_banner AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([slider_banner], RESEED, 1)");
+        $data = file_get_contents("JsonExports/banner.json");
+        $items = json_decode($data, true);
+
+        foreach($items as $item){
+            $banner = new Banner();
+            $banner->setLocation($item['location']);
+            $banner->setDelay($item['delay']);
+            $banner->setSpeed($item['speed']);
+            
+            foreach($item['sliders'] as $item_slide){
+                $slide = new Slider();
+                $slide->translate('es')->setTitle($item_slide['titulo']);
+                $slide->translate('es')->setDescription($item_slide['description']);
+                $slide->translate('es')->setUrl($item_slide['url']);
+                $slide->setPriority($item_slide['priority']);
+                
+                $photo = $this->importFile('slider', $item_slide['image']);
+                if ($photo) {
+                    $resource = new Resource();
+                    $resource->setFile($photo);
+                    $resource->setFileName($photo->getFileName());
+                    $resource->setSlider($slide);
+                    $slide->setImage($resource);
+                }
+
+                $slide->mergeNewTranslations();
+                $this->em->persist($slide);
+                $this->em->flush();
+    
+                $banner->addSlider($slide);
+
+            }
+            $this->em->persist($banner);
+            $this->em->flush();
+            $this->logger->debug("Banner ".$banner->getId());           
+
+        }
+
+    }
+
     public function Lawyers()
     {
         $data = file_get_contents("JsonExports/abogados.json");
@@ -396,18 +490,18 @@ class ImportCommand extends Command
         array_map('unlink', glob($resources_path."/lawyer-*"));
 
         // Removing registers from database
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
-        //$this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
-        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
+        // // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
+        // //$this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [LawyerTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Lawyer]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
 
         $processedLawyersMap = [];
 
@@ -497,11 +591,11 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/event-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE event_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [EventTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Event]");
 
         $processedEventsMap = [];
         $processedAttachmentsMap = [];
@@ -615,15 +709,15 @@ class ImportCommand extends Command
     {
         $data = file_get_contents("JsonExports/areas_practicas.json");
         $items = json_decode($data, true);
-
-        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [ActivityTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Activity]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Activity], RESEED, 1)");
+        $oldIdsProducts = [1461,1457,1383,1391,1453,1452,1464];
+        // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [lawyer_secondary_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [ActivityTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Activity]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Activity], RESEED, 1)");
 
         $processedActivitiesMap = [];
 
@@ -648,7 +742,12 @@ class ImportCommand extends Command
                 if ($item['id_area']==1) {
                     $activity = new Practice();
                 } elseif ($item['id_area']==2) {
-                    $activity = new Sector();
+                    if(in_array($oldActivityId, $oldIdsProducts)){
+                        $activity = new Product();
+                    }else{
+                        $activity = new Sector();
+                    }
+                    
                 } elseif ($item['id_area']==3) {
                     $activity = new Desk();
                 } else {
@@ -685,6 +784,69 @@ class ImportCommand extends Command
             // Persist only the registers with at least one active language
             if (!empty($activity->getLanguages())) {
                 // Persist the instance
+                self::setRegions($activity);
+                $activity->mergeNewTranslations();
+                $this->em->persist($activity);
+                $this->em->flush();
+                $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
+            }
+        }
+    }
+    public function ActivitiesExcels()
+    {
+        $dataPracticas = file_get_contents("ExcelExports/practicas.json");
+        $itemsPracticas = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataPracticas), true );
+        $dataSectores = file_get_contents("ExcelExports/sectores.json");
+        $itemsSectores = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataSectores), true );
+        $dataProductos = file_get_contents("ExcelExports/productos.json");
+        $itemsProductos = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataProductos), true );
+        $currentLang = 'es';
+        foreach ($itemsPracticas as $key => $value) {
+            if(!isset($value['Id'])){
+                $activity = new Practice();
+                $activity->setLanguages(
+                    array_unique(
+                        array_merge($activity->getLanguages(), [$currentLang])
+                    )
+                );
+                $activity->setRegions(['spain']);
+                $activity->translate($currentLang)->setTitle($value['Landings Nueva Web']);
+                $activity->setHighlighted(0);
+                $activity->mergeNewTranslations();
+                $this->em->persist($activity);
+                $this->em->flush();
+                $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
+            }
+        }
+        foreach ($itemsSectores as $key => $value) {
+            if(!isset($value['Id'])){
+                $activity = new Sector();
+                $activity->setLanguages(
+                    array_unique(
+                        array_merge($activity->getLanguages(), [$currentLang])
+                    )
+                );
+                $activity->setRegions(['spain']);
+                $activity->setHighlighted(0);
+                $activity->translate($currentLang)->setTitle($value['Sector Nueva Web']);
+                $activity->mergeNewTranslations();
+                $this->em->persist($activity);
+                $this->em->flush();
+                $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
+            }
+       
+        }
+        foreach ($itemsProductos as $key => $value) {
+            if(!isset($value['Id'])){
+                $activity = new Product();
+                $activity->setLanguages(
+                    array_unique(
+                        array_merge($activity->getLanguages(), [$currentLang])
+                    )
+                );
+                $activity->setRegions(['spain']);
+                $activity->setHighlighted(0);
+                $activity->translate($currentLang)->setTitle($value['Producto Nueva Web']);
                 $activity->mergeNewTranslations();
                 $this->em->persist($activity);
                 $this->em->flush();
@@ -697,8 +859,8 @@ class ImportCommand extends Command
         $data = file_get_contents("JsonExports/areas_relacionades.json");
         $items = json_decode($data, true);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity_parents]");
 
         $activityRepository = $this->em->getRepository(Activity::class);
         foreach ($items as $item) {
@@ -744,9 +906,9 @@ class ImportCommand extends Command
         $data = file_get_contents("JsonExports/areasQuotes.json");
         $items = json_decode($data, true);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [QuoteTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Quote]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Quote], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [QuoteTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Quote]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Quote], RESEED, 1)");
 
         $processedQuotesMap = [];
 
@@ -804,8 +966,8 @@ class ImportCommand extends Command
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $activityRepository = $this->em->getRepository(Activity::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM lawyer_activity");
-        $this->em->getConnection()->executeQuery("DELETE FROM lawyer_secondary_activity");
+        // $this->em->getConnection()->executeQuery("DELETE FROM lawyer_activity");
+        // $this->em->getConnection()->executeQuery("DELETE FROM lawyer_secondary_activity");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: lawyer:" . $item['id_abogado'] . " activity:" . $item['id_area']);
@@ -849,7 +1011,7 @@ class ImportCommand extends Command
         $eventRepository = $this->em->getRepository(Event::class);
         $activityRepository = $this->em->getRepository(Activity::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_activity]");
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: event:" . $item['id_evento'] . " activity:" . $item['id_area']);
@@ -881,7 +1043,7 @@ class ImportCommand extends Command
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $personRepository = $this->em->getRepository(Person::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 
@@ -988,7 +1150,7 @@ class ImportCommand extends Command
         $personRepository = $this->em->getRepository(Person::class);
         $programRepository = $this->em->getRepository(Program::class);
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [program_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([person], RESEED, 1)");
 
@@ -1054,10 +1216,10 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/office-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE office_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [OfficeTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Office]");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Office], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE office_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [OfficeTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Office]");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Office], RESEED, 1)");
 
         $processedOfficeMap = [];
         $processedAttachmentsMap = [];
@@ -1216,12 +1378,12 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/award-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE award_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM [AwardTranslation]");
-        $this->em->getConnection()->executeQuery("DELETE FROM [Award]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE award_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [AwardTranslation]");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Award]");
 
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Award], RESEED, 1)");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([AwardTranslation], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Award], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([AwardTranslation], RESEED, 1)");
 
         $processedAwardsMap = [];
         $processedAttachmentsMap = [];
@@ -1590,86 +1752,7 @@ class ImportCommand extends Command
         }
     }
 
-    public function ArticlesCategory()
-    {
-        $client = HttpClient::create();
-        $categorias = ["propiedad-intelectual","competencia","deporte-entretenimiento","mercado-de-valores","laboral",""];
-        //Categorias en español
-        foreach ($categorias as $key => $categoria) {
-            for ($i = 1; $i <= 2; $i++) {
-                $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?per_page=80&page='.$i);
-                $status = $response->getStatusCode();
-                if ($status!=400) {
-                    $content = $response->toArray();
-                    foreach ($content as $key2 => $value2) {
-                        $ArticleCategory = new ArticleCategory();
-                        $ArticleCategory->setOldId($value2["id"]);
-                        $ArticleCategory->translate('es')->setTitle($value2["name"]);
-                        $ArticleCategory->translate('es')->setOldlink($value2["link"]);
-                        $ArticleCategory->setLanguages(
-                            array_unique(
-                                array_merge($ArticleCategory
-                                    ->getLanguages(), ['es'])
-                            )
-                        );
-                        $response1 =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?include='.$value2['id'].'&wpml_language=en');
-                        $content1 = $response1->toArray();
-                        if (isset($content1[0])) {
-                            $ArticleCategory->translate('en')->setTitle($content1[0]["name"]);
-                            $ArticleCategory->translate('en')->setOldlink($content1[0]["link"]);
-                            $ArticleCategory->setLanguages(
-                                array_unique(
-                                    array_merge($ArticleCategory
-                                        ->getLanguages(), ['en'])
-                                )
-                            );
-                        }
-                        self::setRegions($ArticleCategory);
-                        $ArticleCategory->mergeNewTranslations();
-                        $this->em->persist($ArticleCategory);
-                        $this->em->flush();
-                    }
-                }
-                if ($status=400) {
-                    break;
-                }
-            }
-        }
-        //Categorias en ingles
-        foreach ($categorias as $key => $categoria) {
-            for ($i = 1; $i <= 2; $i++) {
-                $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?per_page=80&lang=en&page='.$i);
-                $status = $response->getStatusCode();
-                if ($status!=400) {
-                    $content = $response->toArray();
-                    foreach ($content as $key2 => $value2) {
-                        $ArticleCategory = new ArticleCategory();
-                        $ArticleCategory->setOldId($value2["id"]);
-                        $ArticleCategory->translate('en')->setTitle($value2["name"]);
-                        $ArticleCategory->translate('en')->setOldlink($value2["link"]);
-                        $ArticleCategory->setLanguages(
-                            array_unique(
-                                array_merge($ArticleCategory
-                                    ->getLanguages(), ['en'])
-                            )
-                        );
-                        self::setRegions($ArticleCategory);
-                        $response1 =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?include='.$value2['id'].'&wpml_language=es');
-                        $content1 = $response1->toArray();
-                        if (!isset($content1[0])) {
-                            $ArticleCategory->mergeNewTranslations();
-                            self::setRegions($ArticleCategory);
-                            $this->em->persist($ArticleCategory);
-                            $this->em->flush();
-                        }
-                    }
-                }
-                if ($status=400) {
-                    break;
-                }
-            }
-        }
-    }
+    
     public function ArticlesAuthors()
     {
         $client = HttpClient::create();
@@ -1694,133 +1777,213 @@ class ImportCommand extends Command
             }
         }
     }
+    
+    public function ArticlesPostId($url)
+    {
+        if($this->url_exists($url)){
+            $texto = file_get_contents($url);
+            $porciones = explode("\n", $texto);
+            $termToSearch = '<body';
+            $matches = array_filter($porciones, function($var) use ($termToSearch) { return preg_match("/$termToSearch/i", $var); });
+            if($matches) {
+                foreach ($matches as $match) {
+                    $porcionesBody = explode(" ", $match);
+                }
+            } 
+            if(isset($porcionesBody)){
+                $termToSearchC = 'category-';
+                $matchesC = array_filter($porcionesBody, function($var) use ($termToSearchC) { return preg_match("/$termToSearchC/i", $var); });
+                $categoriaIdA = explode("-", $matchesC[4]);
+                return intval($categoriaIdA[1]);
+            }else{
+                return false;
+            }
+            
+        }else{
+            return false;
+        }
+        
+    }
+    function url_exists( $url = NULL ) {
+
+        if( empty( $url ) ){
+            return false;
+        }
+    
+        // get_headers() realiza una petición GET por defecto,
+        // cambiar el método predeterminadao a HEAD
+        // Ver http://php.net/manual/es/function.get-headers.php
+        stream_context_set_default(
+            array(
+                'http' => array(
+                    'method' => 'HEAD'
+                 )
+            )
+        );
+        $headers = @get_headers( $url );
+        sscanf( $headers[0], 'HTTP/%*d.%*d %d', $httpcode );
+    
+        // Aceptar solo respuesta 200 (Ok), 301 (redirección permanente) o 302 (redirección temporal)
+        $accepted_response = array( 200, 301, 302 );
+        if( in_array( $httpcode, $accepted_response ) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function ArticlesPost()
     {
-        $ArticleCategoryRepository = $this->em->getRepository(ArticleCategory::class);
-        $client = HttpClient::create();
-        $categorias = $ArticleCategoryRepository->findAll();
-        foreach ($categorias as $keyCategory => $categoria) {
-            $Languages = $categoria->getLanguages();
-            if ($Languages[0] == 'es') {
-                $Oldlink = $categoria->translate('es')->getOldlink();
-                $Oldlinka = explode('/', $Oldlink);
-                $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
-                for ($i = 1; $i <= 20; $i++) {
-                    $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?categories='.$categoria->getOldId().'&page='.$i);
-                    $status = $response->getStatusCode();
-                    if ($status!=400) {
-                        $content = $response->toArray();
-                        foreach ($content as $keyPost => $post) {
-                            $article = new Article();
-                            $article->setOldId($post['id']);
-                            $article->setStatus($post['status']=='publish' ? 1 : 0);
-                            $article->setPublicationDate(new \DateTime($post['date']));
-                            $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
-                            $article->translate('es')->setSummary($post['content']['rendered']);
-                            $article->translate('es')->setContent($post['excerpt']['rendered']);
-                            $article->setLanguages(
-                                array_unique(
-                                    array_merge($article
-                                    ->getLanguages(), ['es'])
-                                )
-                            );
-                            if ($post['author']) {
-                                $personRepository = $this->em->getRepository(Person::class);
-                                $personId = $this->getMappedPersonId($post['author']);
-                                if ($personId) {
-                                    $person = $personRepository->find($personId);
-                                    $article->addPerson($person);
-                                }
-                            }
-                            foreach ($post['categories'] as $keyCategory => $postCategory) {
-                                $articleCategoryId = $this->getMappedArticleCategoryId($postCategory);
-                                if ($articleCategoryId) {
-                                    $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
-                                    $article->addCategory($articleCategory);
-                                }
-                            }
-                            $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=en');
-                            $contentEn = $responseEn->toArray();
-                            if (isset($contentEn[0])) {
-                                $article->translate('en')->setTitle($contentEn[0]['title']['rendered']);
-                                $article->translate('en')->setSummary($contentEn[0]['content']['rendered']);
-                                $article->translate('en')->setContent($contentEn[0]['excerpt']['rendered']);
-                                $article->setLanguages(
-                                    array_unique(
-                                        array_merge($article
-                                        ->getLanguages(), ['en'])
-                                    )
-                                );
-                            }
-                            self::setRegions($article);
-                            $article->mergeNewTranslations();
-                            $this->em->persist($article);
-                            $this->em->flush();
-                        }
-                    }
-                    if ($status=400) {
-                        break;
-                    }
-                }
-            } else {
-                $Oldlink = $categoria->translate('en')->getOldlink();
-                $Oldlinka = explode('/', $Oldlink);
-                $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
-                for ($i = 1; $i <= 20; $i++) {
-                    $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?lang=en&categories='.$categoria->getOldId().'&page='.$i);
-                    $status = $response->getStatusCode();
-                    if ($status!=400) {
-                        $content = $response->toArray();
-                        foreach ($content as $keyPost => $post) {
-                            $article = new Article();
-                            $article->setOldId($post['id']);
-                            $article->setStatus($post['status']=='publish' ? 1 : 0);
-                            if ($post['author']) {
-                                $personRepository = $this->em->getRepository(Person::class);
-                                $personId = $this->getMappedPersonId($post['author']);
-                                if ($personId) {
-                                    $person = $personRepository->find($personId);
-                                    $article->addPerson($person);
-                                }
-                            }
+        $ActivityRepository = $this->em->getRepository(Activity::class);
+        $InsightRepository = $this->em->getRepository(Insight::class);
 
-                            $article->translate('en')->setTitle($post['title']['rendered']);
-                            $article->translate('en')->setSummary($post['content']['rendered']);
-                            $article->translate('en')->setContent($post['excerpt']['rendered']);
-                            $article->setLanguages(
-                                array_unique(
-                                    array_merge($article
-                                    ->getLanguages(), ['en'])
-                                )
-                            );
-                            foreach ($post['categories'] as $keyCategory => $postCategory) {
-                                $articleCategoryId = $this->getMappedArticleCategoryId($postCategory);
-                                if ($articleCategoryId) {
-                                    $articleCategory = $ArticleCategoryRepository->find($articleCategoryId);
-                                    $article->addCategory($articleCategory);
-                                }
-                            }
-                            $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=es');
-                            $contentEn = $responseEn->toArray();
-                            if (isset($contentEn[0])) {
-                                $article->translate('es')->setTitle($contentEn[0]['title']['rendered']);
-                                $article->translate('es')->setSummary($contentEn[0]['content']['rendered']);
-                                $article->translate('es')->setContent($contentEn[0]['excerpt']['rendered']);
+        $dataCategory = file_get_contents("ExcelExports/postActivity.json");
+        $categorias = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataCategory), true );
+        $client = HttpClient::create();
+        foreach ($categorias as $keyCategory => $categoria) {
+            if(isset($categoria['Idinsigh'])){
+                $categoriaId = $this->ArticlesPostId($categoria['oldlink']);
+                if ($categoria['locale'] == 'es') {
+                    $Oldlink = $categoria['oldlink'];
+                    $Oldlinka = explode('/', $Oldlink);
+                    $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
+                    for ($i = 1; $i <= 20; $i++) {
+                        $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?categories='.$categoriaId.'&page='.$i);
+                        $status = $response->getStatusCode();
+                        if ($status!=400) {
+                            $content = $response->toArray();
+                            foreach ($content as $keyPost => $post) {
+                                $article = new Academy();
+                                $article->setOldId($post['id']);
+                                $article->setPublicationDate(new \DateTime($post['date']));
+                                $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
+                                $article->translate('es')->setSummary($post['content']['rendered']);
+                                $article->translate('es')->setContent($post['excerpt']['rendered']);
                                 $article->setLanguages(
                                     array_unique(
                                         array_merge($article
                                         ->getLanguages(), ['es'])
                                     )
                                 );
+                                if ($post['author']) {
+                                    $personRepository = $this->em->getRepository(Person::class);
+                                    $personId = $this->getMappedPersonId($post['author']);
+                                    if ($personId) {
+                                        $person = $personRepository->find($personId);
+                                        $article->addPerson($person);
+                                    }
+                                }
+                                if(isset($categoria['IdWeb Antigua'])){
+                                    foreach (explode(".", $categoria['IdWeb Antigua']) as $keyCategory => $idActivity) {
+                                        $activityId = $this->getMappedActivityId($idActivity);
+                                        if ($activityId) {
+                                            $activity = $ActivityRepository->find($activityId);
+                                            $article->addActivity($activity);
+                                        }
+                                    }
+                                }
+                                if(isset($categoria['Idactivity'])){
+                                    $activity = $ActivityRepository->find(intval($categoria['Idactivity']));
+                                    if($activity)
+                                    $article->addActivity($activity);
+                                }
+                                if(isset($categoria['Idinsigh'])){
+                                    $Insight = $InsightRepository->find(intval($categoria['Idinsigh']));
+                                    $article->addInsight($Insight);
+                                }
+                            
+                                $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$categoriaId.'&wpml_language=en');
+                                $contentEn = $responseEn->toArray();
+                                if (isset($contentEn[0])) {
+                                    $article->translate('en')->setTitle($contentEn[0]['title']['rendered']);
+                                    $article->translate('en')->setSummary($contentEn[0]['content']['rendered']);
+                                    $article->translate('en')->setContent($contentEn[0]['excerpt']['rendered']);
+                                    $article->setLanguages(
+                                        array_unique(
+                                            array_merge($article
+                                            ->getLanguages(), ['en'])
+                                        )
+                                    );
+                                }
+                                self::setRegions($article);
+                                $article->mergeNewTranslations();
+                                $this->em->persist($article);
+                                $this->em->flush();
                             }
-                            self::setRegions($article);
-                            $article->mergeNewTranslations();
-                            $this->em->persist($article);
-                            $this->em->flush();
+                        }
+                        if ($status=400) {
+                            break;
                         }
                     }
-                    if ($status=400) {
-                        break;
+                } else {
+                    $Oldlink = $Oldlink = $categoria['oldlink'];
+                    $Oldlinka = explode('/', $Oldlink);
+                    $categoriaLink = $Oldlinka[3]!="categoria" ? $Oldlinka[3] : "";
+                    for ($i = 1; $i <= 20; $i++) {
+                        $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?lang=en&categories='.$categoriaId.'&page='.$i);
+                        $status = $response->getStatusCode();
+                        if ($status!=400) {
+                            $content = $response->toArray();
+                            foreach ($content as $keyPost => $post) {
+                                $article = new Opinion();
+                                $article->setOldId($post['id']);
+                                if ($post['author']) {
+                                    $personRepository = $this->em->getRepository(Person::class);
+                                    $personId = $this->getMappedPersonId($post['author']);
+                                    if ($personId) {
+                                        $person = $personRepository->find($personId);
+                                        $article->addPerson($person);
+                                    }
+                                }
+
+                                $article->translate('en')->setTitle($post['title']['rendered']);
+                                $article->translate('en')->setSummary($post['content']['rendered']);
+                                $article->translate('en')->setContent($post['excerpt']['rendered']);
+                                $article->setLanguages(
+                                    array_unique(
+                                        array_merge($article
+                                        ->getLanguages(), ['en'])
+                                    )
+                                );
+                                if(isset($categoria['IdWeb Antigua'])){
+                                    foreach (explode(".", $categoria['IdWeb Antigua']) as $keyCategory => $idActivity) {
+                                        $activityId = $this->getMappedActivityId($idActivity);
+                                        if ($activityId) {
+                                            $activity = $ActivityRepository->find($activityId);
+                                            $article->addActivity($activity);
+                                        }
+                                    }
+                                }
+                                if(isset($categoria['Idactivity'])){
+                                    $activity = $ActivityRepository->find(intval($categoria['Idactivity']));
+                                    if($activity)
+                                    $article->addActivity($activity);
+                                }
+                                if(isset($categoria['Idinsigh'])){
+                                    $Insight = $InsightRepository->find(intval($categoria['Idinsigh']));
+                                    $article->addInsight($Insight);
+                                }
+                                $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=es');
+                                $contentEn = $responseEn->toArray();
+                                if (isset($contentEn[0])) {
+                                    $article->translate('es')->setTitle($contentEn[0]['title']['rendered']);
+                                    $article->translate('es')->setSummary($contentEn[0]['content']['rendered']);
+                                    $article->translate('es')->setContent($contentEn[0]['excerpt']['rendered']);
+                                    $article->setLanguages(
+                                        array_unique(
+                                            array_merge($article
+                                            ->getLanguages(), ['es'])
+                                        )
+                                    );
+                                }
+                                self::setRegions($article);
+                                $article->mergeNewTranslations();
+                                $this->em->persist($article);
+                                $this->em->flush();
+                            }
+                        }
+                        if ($status=400) {
+                            break;
+                        }
                     }
                 }
             }

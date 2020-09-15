@@ -77,8 +77,6 @@ userSettings:
     controller: App\Controller\Web\HomeController::userSettings
 
 
-
-
 # KNOWLEDGE
 # ###########################################
 knowledge_index:

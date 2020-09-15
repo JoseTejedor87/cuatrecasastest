@@ -10,19 +10,36 @@ use App\Repository\EventRepository;
 use App\Repository\EventTranslationRepository;
 use App\Repository\AwardRepository;
 use App\Repository\PublicationRepository;
+use App\Repository\BannerRepository;
+use App\Repository\SliderRepository;
 use App\Controller\Web\WebController;
+
 
 class HomeController extends WebController
 {
-    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository, PublicationRepository $publicationRepository)
+    public function index(Request $request, EventTranslationRepository $EventTranslationRepository,
+     EventRepository $EventRepository, PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository)
     {
+        $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
+        //$slidesOrdered = $sliderRepository->findBy(['banners' => $bannerHome->getId()], ['priority' => 'ASC']);
+        
+
+        $slidesOrdered = $sliderRepository->getAllByPriority($bannerHome->getId());
+        // $slidesOrdered = $sliderRepository->findAll();
+
+        
+        //dd($slidesOrdered); die();        
+        //dd(($bannerHome->getSliders()[0]->getImage())->getFileName());  die();
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $relatedPublications = $publicationRepository->findByActivities('');
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
             'relatedPublications' => $relatedPublications,
+            'banner' => $bannerHome,
+            'slidesOrdered' => $slidesOrdered
         ]);
     }
+
 
     public function components(AwardRepository $awardRepository)
     {

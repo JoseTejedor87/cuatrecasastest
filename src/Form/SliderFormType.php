@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
@@ -21,8 +22,10 @@ class SliderFormType extends AbstractType
     {
         $builder
             ->add('image', ResourceFormType::class, [
+                'required' => false,
                 'label'=>'entities.slider.fields.image'
             ])
+            ->add('priority', IntegerType::class, ['label'=>'entities.slider.fields.priority'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('translations', TranslationsType::class, [
@@ -31,6 +34,7 @@ class SliderFormType extends AbstractType
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
                     'title' => ['label'=>'entities.slider.fields.title', 'required' => true, 'empty_data' => ''],
                     'description' => ['label'=>'entities.slider.fields.description', 'required' => true, 'empty_data' => ''],
+                    'url' => ['label'=>'entities.slider.fields.url', 'required' => true, 'empty_data' => ''],
                 ],
             ]);
         ;

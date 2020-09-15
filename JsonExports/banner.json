@@ -1,0 +1,30 @@
+[
+    {
+        "location":"home",
+        "delay":"5000",
+        "speed":"800",
+        "sliders":[
+            {
+                "titulo":"Publicación",
+                "description":"Responsabilidad de los médicos en prevención: últimas tendencias jurisprudenciales",
+                "url":"#",
+                "image":"web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg",
+                "priority":0
+            },
+            {
+                "titulo":"Noticia",
+                "description":"Nos sumamos al compromiso Lisboa Capital Verde Europea 2020",
+                "url":"#",
+                "image":"web/assets/img/andrew-buchanan-7IcnYYVgdn8-unsplash.jpg",
+                "priority":1
+            },
+            {
+                "titulo":"Publicación",
+                "description":"Mejoramos nuestra clasificación en los rankings de M&A",
+                "url":"#",
+                "image":"web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg",
+                "priority":2
+            }
+        ]
+    }
+]
