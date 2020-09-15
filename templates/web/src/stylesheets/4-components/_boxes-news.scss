@@ -93,6 +93,10 @@
         background-color: rgba($black, 0.05);
     }
 
+    @include when("academy") {
+        background-color: rgba($black, 0.05);
+    }
+
     @include when("event") {
         background-color: rgba($black, 0.2);
     }
@@ -248,6 +252,7 @@
 
         @include when("blockquote") {
             border-top: none;
+            background-color: $complementary-color;
 
             .cite__quote {
                 padding: 1rem;
@@ -422,6 +427,11 @@
         @include when("article") {
             color: $article-color;
             border-top-color: $article-color;
+        }
+
+        @include when("academy") {
+            color: $academy-color;
+            border-top-color: $academy-color;
         }
 
         @include when("opinion") {
@@ -909,8 +919,6 @@
                 width: auto;
                 height: 170px;
                 margin-top: 1.4rem;
-
-                border: 2px solid blue;
             }
         }
     }

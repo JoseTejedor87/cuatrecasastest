@@ -3,8 +3,6 @@
 {% block stylesheets %}
 <!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-<!-- Responsive Table CSS -->
-<link href="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -67,9 +65,8 @@
                                 {{ (event.phone) ? event.phone : '' }}
                             </div>
                         </div>
-                        <div id="readMore">
+                        <div class="read__more">
                             {{ event.translate(app.request.getLocale()).description|raw }}
-                        {# <button type="button" class="doble__arrow__accordion">Ver más</button> #}
                         </div>
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
@@ -124,14 +121,13 @@
                                 <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
                                 <div class="txt__required__fields">* Campos requeridos</div>
 
-                                <form action="javascript:void(0);">
+                                <!-- <form action="javascript:void(0);"> -->
+                                <form action="" class="needs-validation" novalidate>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
-                                        {# <div class="valid-feedback">It's ok</div> #}
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
-                                        {# <div class="invalid-feedback">It's not ok</div> #}
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
@@ -169,8 +165,8 @@
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
                                             <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                            <!-- <div class="invalid-feedback">Campo obligatorio</div> -->
                                         </div>
-                                        <!-- <input type="checkbox" class="form-control" id="accept" placeholder="" required >He leído y acepto las Condiciones de Uso y la Política de Privacidad.</input> -->
                                     </div>
                                     <div class="form-group">
                                         <div class="checkbox">
@@ -232,7 +228,7 @@
             <section class="event__programme">
                 <div class="container">
                     <div class="row page__section">
-                        <div class="col">
+                        <div class="col tablesaw-wrapper">
                             <h4 class="section__title section__title--programme">Programa</h4>
                             <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                                 <thead>
@@ -246,19 +242,19 @@
                                     {% for program in event.programs %}
                                         <tr>
                                             <td class="time">
-                                            {{ (program.timeStart) }} - {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
+                                            {{ (program.timeStart) }} &mdash; {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
                                             </td>
                                             <td class="content">{{ program.translate(app.request.getLocale()).title|raw}}</td>
                                             <td class="speakers">
-                                                <ul class="speakers__list">
                                                 {% for person in program.people %}
+                                                <ul class="speakers__list">
                                                     {% if person.lawyer  %}
                                                         <li><a href="{{ path('lawyers_detail', {slug: person.lawyer.slug}) }}">{{ person.lawyer.name }} {{ person.lawyer.surname }}</a></li>
                                                     {% else %}
-                                                        <li>{{ person.name }} {{ person.surname }}</li>
+                                                        <li><span>{{ person.name }} {{ person.surname }}</span></li>
                                                     {% endif %}
-                                                {% endfor %}
                                                 </ul>
+                                                {% endfor %}
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -326,6 +322,7 @@
                     </aside>
                 </div>
             </section> -->
+
         </article>
     </main>
 
@@ -339,11 +336,22 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Read More -->
-<script type="text/javascript" src="{{ asset('web/assets/js/readMore.js') }}"></script>
+<!-- Responsive Table JS -->
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
-    $( document ).ready(function() {
-        web.global.sliderGeneral();
+    $(function () {
+        var swiperGeneral = new Swiper ('.slider__general', {
+            slidesPerView: 3,
+            spaceBetween: 25,
+            // loop: true,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            }
+        });
 
         // EVENT BOX
         $('#eventMainInfo').hide();
@@ -354,6 +362,9 @@
             $('#eventBoxInfo').hide();
             $('#eventBoxForm').show();
             $('#eventMainInfo').show();
+            $('html, body').animate({
+                scrollTop: $('#eventBoxForm').offset().top - 130
+            }, 'slow');
         });
 
         $("#eventBoxForm .btn").click( function() {
@@ -395,6 +406,27 @@
                 .fail(function() {
                 });
         });
+
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
 
         function validation() {
 
@@ -479,13 +511,13 @@
                 $("#eTel").addClass('is-invalid');
                 isvalidate = false;
             }
-            
+
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
                 isvalidate = false;
             }
-            
+
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
@@ -503,6 +535,31 @@
                 return isvalidate;
             }
         }
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                }
+            }
+        });
     });
 </script>
 {% endblock %}

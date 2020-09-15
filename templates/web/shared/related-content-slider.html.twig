@@ -14,7 +14,7 @@
                     {% for key,publication in publications %}
                     {% if publication.translate(app.request.getLocale()).title %}
                         <div class="swiper-slide">
-                            <article class="boxnews__item boxnews__item--news">
+                            <article class="boxnews__item boxnews__item--{{ publication.type }}">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">{{ publication.type }}</div>
                                     <div class="boxnews__info">Education</div>

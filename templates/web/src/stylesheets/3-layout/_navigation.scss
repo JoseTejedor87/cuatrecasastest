@@ -6,12 +6,70 @@
 // => Breadcrumb
 // ==========================================================================
 
+//
+// RESPONSIVE MEDIA QUERIES
+// --------------------------------------------------------------------------
+
+@media(min-width: $min-menu-4casas) {
+    #navDesktop {
+        display: block;
+        visibility: visible;
+    }
+
+    #navMobileWrapper {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+@media(max-width: $max-menu-4casas) {
+    #navDesktop {
+        display: none;
+        visibility: hidden;
+    }
+
+    #navMobileWrapper {
+        display: block;
+        visibility: visible;
+    }
+}
+
+
+//
+// HEADER ADJUSTMENTS
+//
+
+$menu-desktop-height:   55px !default;
+$menu-mobile-height:    50px !default;
+
+body {
+    header {
+        position: relative;
+    }
+
+    &.desktop {
+        header {
+            margin-top: $menu-desktop-height * 2;
+            transition: margin-top 0.2s ease-out;
+
+            &.stickyNav {
+                margin-top: $menu-desktop-height + 100px;
+            }
+        }
+
+    }
+
+    &.mobile {
+        header {
+            // margin-top: 0;
+        }
+    }
+}
+
 
 //
 // STICKY MENU
 // --------------------------------------------------------------------------
-
-$menu-height: 55px !default;
 
 #navDesktop {
     position: fixed;
@@ -24,115 +82,19 @@ $menu-height: 55px !default;
     #primaryNav {
         position: relative;
         z-index: 99;
-        height: $menu-height;
+        height: $menu-desktop-height;
     }
 
     #secondaryNav {
         position: fixed;
-        top: $menu-height;
-        height: $menu-height;
+        top: $menu-desktop-height;
+        height: $menu-desktop-height;
         visibility: visible;
         opacity: 1;
         // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 
         transition: all 0.3s ease-in-out;
-
-        &.stickyNav {
-            top: 0;
-            visibility: hidden;
-            opacity: 0;
-            // height: 0;
-
-            // #contactNav {
-            //     background-color: transparent;
-            //     transition: background-color 0.2s ease-out;
-            // }
-        }
-
-        // .navbar-brand {
-        //     visibility: visible;
-        //     opacity: 1;
-        //     transition: opacity 0.2s ease-out;
-
-        //     &.stickyNav {
-        //         visibility: hidden;
-        //         opacity: 0;
-        //     }
-        // }
-    }
-
-    #userNav {
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.2s ease-out;
-
-        &.stickyNav {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-}
-
-header {
-    position: relative;
-    margin-top: $menu-height * 2;
-    transition: margin 0.2s ease-out;
-
-    &.stickyNav {
-        // margin-top: 162px;
-        margin-top: 155px;
-    }
-}
-
-
-@media(min-width: $min-width-4casas) {
-    #navDesktop {
-        // border: 10px solid blue;
-    }
-}
-
-@media(max-width: $max-width-4casas) {
-    #navDesktop {
-        display: none;
-        // border: 10px solid yellow;
-    }
-}
-
-
-//
-// MOBILE NAVIGATION
-// --------------------------------------------------------------------------
-
-
-#navMobile {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0,0,0,.2);
-    z-index: 9;
-
-    #primaryNav {
-        position: relative;
-        z-index: 99;
-        height: $menu-height;
-
-        border: 2px solid blue;
-    }
-
-    #secondaryNav {
-        position: fixed;
-        top: $menu-height;
-        height: $menu-height;
-        visibility: visible;
-        opacity: 1;
-        // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-
-        transition: all 0.3s ease-in-out;
-
-        border: 2px solid blue;
 
         &.stickyNav {
             top: 0;
@@ -152,14 +114,12 @@ header {
         }
     }
 }
-
 
 //
 // DESKTOP NAVIGATION
 // --------------------------------------------------------------------------
 
 #navDesktop {
-
     .navbar {
         padding: 0 0;
     }
@@ -199,7 +159,7 @@ header {
             padding: 0.3rem 0.6rem;
 
             &:focus {
-                box-shadow: inset 0 0 12px $complementary-color;
+                // box-shadow: inset 0 0 12px $complementary-color;
             }
         }
 
@@ -210,7 +170,6 @@ header {
             z-index: -1;
         }
     }
-
 
     //
     // Sticky menu
@@ -259,7 +218,6 @@ header {
             }
         }
     }
-
 
     //
     // Secondary options
@@ -353,13 +311,14 @@ header {
         // ON HOVER ¿?
         //
         .dropdown:hover > .dropdown-menu {
-            // display: block;
+            display: block;
         }
 
         .dropdown > .dropdown-toggle:active {
             // Without this, clicking will make it sticky
-            // pointer-events: none;
+            pointer-events: none;
         }
+        // end HOVER
 
         .dropdown-toggle {
             cursor: pointer;
@@ -369,7 +328,6 @@ header {
             }
         }
     }
-
 
     //
     // Contact, webs, city, langs
@@ -384,7 +342,7 @@ header {
             padding-bottom: 0.375rem;
 
             &:focus {
-                box-shadow: inset 0 0 12px $complementary-color;
+                // box-shadow: inset 0 0 12px $complementary-color;
             }
         }
 
@@ -676,7 +634,7 @@ header {
                             content: '\f3d1';
                             font-size: 22px;
                             font-weight: normal;
-                            color: #808080;
+                            color: $main-color;
                             transform: rotate(90deg);
                             transition: all 0.2s ease-in-out;
                     }
@@ -699,7 +657,7 @@ header {
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
-                height: $menu-height;
+                height: $menu-desktop-height;
                 padding-right: 20px;
 
                 .adapt-txt {
@@ -762,6 +720,359 @@ header {
 }
 
 
+//
+// MOBILE NAVIGATION
+// --------------------------------------------------------------------------
+
+#navMobileWrapper {
+    width: calc(100% - 50px);
+    min-height: $menu-mobile-height;
+    padding: 0 0;
+    background-color: $main-color;
+    z-index: 999;
+
+    #navMobile {
+        width: 100%;
+        background-color: $complementary-color;
+    }
+
+    .navbar-brand {
+        display: block;
+        margin-left: 50px;
+        height: 50px;
+        line-height: 2.4rem;
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.2s ease-out;
+
+        &.off {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    .navbar-brand-icon {
+        display: block;
+        margin: 4rem 1rem 1rem 1rem;
+    }
+
+    .navbar-toggler {
+        @include reset-link-button;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 0;
+        left: 0;
+        @include fontSet(34px, 34px);
+        text-shadow: none;
+        color: $complementary-color;
+        background-color: transparent;
+
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+
+        transition: all 0.2s ease-out;
+
+        &[aria-expanded="true"] {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .icon {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            line-height: 1.6;
+            color: $complementary-color;
+            transition: color 0.2s ease-out;
+        }
+
+        &.navbar-close {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            top: 0;
+            left: auto;
+            right: -50px;
+            width: 50px;
+            height: 100%;
+            background-color: $main-color;
+            opacity: 1;
+            pointer-events: none;
+
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: none;
+
+            .icon {
+                display: none;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            &[aria-expanded="true"] {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                background-color: #444141;
+
+                .icon {
+                    display: block;
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        @include on-event() {
+            .icon {
+                color: $white;
+            }
+        }
+    }
+
+    .nav-link {
+        @include fontSet(21px, 31px);
+        letter-spacing: 0.82px;
+        text-transform: uppercase;
+
+        &.dropdown-toggle:after {
+            display: inline-block;
+            margin-left: 0;
+            vertical-align: 0;
+            content: "";
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 0;
+            border-left: 0;
+        }
+    }
+
+    .nav-link-submenu,
+    .dropdown-item-submenu {
+        display: block;
+        @include fontSet(16px, 36px);
+        letter-spacing: 0.93px;
+        text-transform: uppercase;
+        color: $main-color;
+
+        @include on-event() {
+            text-decoration: none;
+            color: $complementary-color;
+        }
+    }
+
+    .dropdown-item {
+        padding: 0 0;
+        @include fontSet(16px, 36px);
+        font-weight: bold;
+        text-transform: uppercase;
+
+        @include on-event() {
+            color: inherit;
+            background-color: transparent;
+        }
+    }
+
+    .dropdown-menu {
+        width: 100vw;
+        margin: 0 0;
+        padding: 0 0;
+        color: $white;
+        background-color: transparent;
+        border: 0 solid rgba(0,0,0,0);
+        border-radius: 0;
+
+        &.collapsing {
+            display:block;
+        }
+    }
+
+    .mainNav {
+        padding: 0 0 0 1rem;
+        background-color: $main-color;
+
+        .nav-link {
+            color: $white;
+            border-top: 1px solid #6a394d;
+
+            @include on-event() {
+                color: $complementary-color;
+            }
+        }
+    }
+
+    .aboutNav {
+        padding: 0 1rem;
+        background-color: $complementary-color;
+
+        .nav-item.dropdown {
+
+            .dropdown-menu {
+
+                &:not(.collapsed) {
+                    border-bottom: 1px solid #e9575f;
+
+                    li {
+                        &:first-child {
+                            padding-top: 0.5rem;
+                        }
+
+                        &:last-child {
+                            padding-bottom: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .nav-link {
+            color: $main-color;
+            border-bottom: 1px solid #e9575f;
+
+            &[aria-expanded="true"] {
+                color: $white;
+
+                &.dropdown-toggle:after {
+                    color: $white;
+                }
+            }
+
+            &.dropdown-toggle:after {
+                @include icons-ionicons(0, 0.3rem, auto, auto);
+                @include fontSet(32px, 46px);
+                content: '\f3d1';
+                color: $main-color;
+                transform: rotate(90deg);
+                transition: all 0.2s ease-in-out;
+            }
+
+            @include on-event() {
+                color: $white;
+
+                &.dropdown-toggle:after {
+                    color: $white;
+                }
+            }
+        }
+
+        .dropdown-item {
+            color: $main-color;
+
+            @include on-event() {
+                color: $white;
+            }
+        }
+    }
+
+    .contactNav {
+        // padding: 0 1rem 1rem;
+        padding: 0 1rem 0;
+        background-color: #f3f3f3;
+
+        .dropdown-menu {
+            padding: 0 0 0 0.5rem;
+        }
+
+        .nav-item {
+            &.submenu {
+                .dropdown-menu {
+                    &:not(.collapsed) {
+                        li {
+                            &:last-child {
+                                padding-bottom: 1rem;
+                            }
+                        }
+                    }
+                }
+
+                &:last-child {
+                    padding-bottom: 1rem;
+
+                    .dropdown-menu {
+                        &:not(.collapsed) {
+                            li {
+                                &:last-child {
+                                    padding-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .nav-link {
+            color: $main-color;
+
+            &[aria-expanded="true"] {
+                &.dropdown-toggle:after {
+                    content: '\e15b';
+                }
+            }
+
+            &.dropdown-toggle:after {
+                @include icons-material(0, 0, auto, auto);
+                @include fontSet(24px, 46px);
+                content: '\e145';
+                color: $main-color;
+                transition: all 0.2s ease-out;
+            }
+
+            &:hover {
+                color: $complementary-color;
+
+                &.dropdown-toggle:after {
+                    color: $complementary-color;
+                }
+            }
+        }
+
+        .nav-link-submenu {
+            color: $main-color;
+
+            &.dropdown-toggle:after {
+                @include icons-ionicons(0, auto, auto, auto);
+                @include fontSet(20px, 32px);
+                content: '\f3d1';
+                color: $main-color;
+                border: 1px solid transparent;
+                transform: rotate(90deg);
+                transition: all 0.2s ease-in-out;
+            }
+
+            &[aria-expanded="true"] {
+                color: $complementary-color;
+
+                &.dropdown-toggle:after {
+                    color: $complementary-color;
+                }
+            }
+
+            @include on-event() {
+                color: $complementary-color;
+
+                &.dropdown-toggle:after {
+                    color: $complementary-color;
+                }
+            }
+        }
+
+        .dropdown-item {
+            color: $main-color;
+
+            @include on-event() {
+                color: $complementary-color;
+            }
+        }
+    }
+}
 
 //
 // Action links (icons)
@@ -779,9 +1090,9 @@ header {
             display: block;
             width: 34px;
             height: 34px;
+            margin-right: 2px;
             text-align: center;
             color: $white;
-            // border: 1px solid #c6c6c6;
             border-radius: 50%;
             transition: all 0.2s ease-in-out;
 

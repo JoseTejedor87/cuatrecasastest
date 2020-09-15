@@ -53,14 +53,50 @@
 
 
 //
+// VALIDATION
+// --------------------------------------------------------------------------
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    // background-image: url("../icons/icon-check-bw.svg");
+
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+    }
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    // background-image: url("../icons/icon-warning-bw.svg");
+
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+    }
+}
+
+
+.custom-select.is-valid, .was-validated .custom-select:valid {
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+    }
+}
+
+.custom-select.is-invalid, .was-validated .custom-select:invalid {
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+    }
+}
+
+
+
+//
 // EVENT FORM
 // --------------------------------------------------------------------------
 #eventBoxForm {
     .form-control,
     .custom-select {
-        height: 50px;
+        height: 52px;
         background-color: transparent;
         border: 1px solid rgba($complementary-color, 1);
+        transition:border-color .3s ease-in-out, background-color .3s ease-in-out, box-shadow .3s ease-in-out;
 
         &:focus {
             background-color: $white;
@@ -163,24 +199,42 @@
     justify-content: space-between;
     margin: 0 -0.5rem;
 
+    @media(max-width: $max-width-4casas) {
+        flex-flow: column;
+    }
+
     .select-hidden {
-        // position: relative;
-        // display: none;
         height: 40px;
         visibility: hidden;
     }
 
     .select {
-        flex: 1;
-        width: 25%;
-        // flex: 1 1 auto;
-        // flex: 1 0 auto;
+        flex: 1 0 auto;
+        // max-width: 25%;
         position: relative;
         height: $select-height;
         margin: 0 0.5rem;
         padding: 0 0;
         color: $black;
         cursor: pointer;
+
+        @include when-inside(".lawyer") {
+            max-width: 25%;
+
+            @media(max-width: $max-menu-4casas) {
+                max-width: 24%;
+            }
+
+            @media(max-width: $max-width-4casas) {
+                flex: 0 0 auto;
+                max-width: 100%;
+            }
+        }
+
+        @media(max-width: $max-width-4casas) {
+            flex: 0 0 auto;
+            max-width: 100%;
+        }
     }
 
     .select-styled {

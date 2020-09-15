@@ -33,6 +33,7 @@
                     <thead class="thead-light">
                         <tr class="row">
                             <th class="col-sm-9">{{ knp_pagination_sortable(pagination, 'entities.insight.fields.title'|trans, 'title') }}</th>
+                            
                             <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
                             <th class="col-sm-1"></th>
                         </tr>
@@ -41,6 +42,7 @@
                         {% for insight in pagination %}
                         <tr class="row">
                             <td class="col-sm-9">{{ insight.translate.title }}</td>
+                            
                             <td class="col-sm-2 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':insight.languages} %}
                                 /

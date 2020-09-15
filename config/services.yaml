@@ -6,8 +6,7 @@
 parameters:
 
     # Languages & Translations
-    # app.languages: [es, en, pt, zh, de]     # The list of available languages
-    app.languages: [es, en]
+    app.languages: [es, en]     # The list of available languages
 
     app.default_language: es        # The default language
 
@@ -41,9 +40,8 @@ parameters:
     app.publications_types:
         - news
         - opinion
-        - article
+        - academy
         - legalNovelty
-        - research
     app.publications_format:
         - text
         - video
@@ -93,13 +91,13 @@ services:
     App\Command\MigrationCommand:
         tags:
             - { name: 'console.command', command: 'app:migration' }
-            
+
 
 
     App\Security\TokenAuthenticator:
         arguments:
             $singleSignOnParameters: '%app.single_sign_on%'
-    
+
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 
@@ -113,4 +111,3 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
 
 
-    

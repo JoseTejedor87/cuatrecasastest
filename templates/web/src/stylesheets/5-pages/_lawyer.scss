@@ -30,6 +30,11 @@
 
             @include when("speakers") {
                 margin-top: -1.2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    margin-top: 0;
+                }
             }
 
             //
@@ -65,23 +70,14 @@
                 //             background-position 0.6s;
                 transition: all .4s ease-in-out;
 
-                // BORRAR
-                position: relative;
+                @media(max-width: $max-width-md) {
+                    flex: 0 1 calc(50% - 30px);
+                    width: calc(50% - 30px);
+                }
 
-                &:before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    display: none;
-                    width: 100%;
-                    height: 100%;
-
-                    opacity: 0.5;
-
-                    background: -webkit-linear-gradient(rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
-                    background: -o-linear-gradient(rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
-                    background: linear-gradient(rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
+                @media(max-width: $max-width-sm) {
+                    flex: 0 1 calc(100% - 30px);
+                    width: calc(100% - 30px);
                 }
 
                 @include on-event() {
@@ -117,6 +113,11 @@
                 border-bottom: 1px solid rgba($black, 0.3);
                 transition: all 0.2s ease-out;
 
+                @media(max-width: $max-width-sm) {
+                    flex: 0 1 calc(100% - 30px);
+                    width: calc(100% - 30px);
+                }
+
                 @include on-event() {
                     background: rgba($black, 0.03) !important;
                     border-bottom: 1px solid rgba($complementary-color, 0.8);
@@ -136,9 +137,21 @@
                 border-bottom: 1px solid rgba($black, 0.3);
                 transition: all 0.2s ease-out;
 
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                    margin: 0 0 1.5rem 0;
+                    background: rgba(transparent, 0) !important;
+                    border-bottom: 1px solid rgba(transparent, 0);
+                }
+
                 @include on-event() {
-                    background: rgba($black, 0.03) !important;
-                    border-bottom: 1px solid rgba($complementary-color, 0.8);
+                    background: rgba(transparent, 0.03) !important;
+                    border-bottom: 1px solid rgba(transparent, 0.8);
+
+                    @media(max-width: $max-width-4casas) {
+                        background: rgba(transparent, 0) !important;
+                        border-bottom: 1px solid rgba(transparent, 0);
+                    }
                 }
             }
 
@@ -163,6 +176,11 @@
                 //             background-size 0.6s,
                 //             background-position 0.6s;
                 transition: all .4s ease-in-out;
+
+                @media(max-width: $max-width-sm) {
+                    flex: 0 1 calc(100% - 30px);
+                    width: calc(100% - 30px);
+                }
 
                 @include on-event() {
                     // background-size: auto 180%;
@@ -198,8 +216,11 @@
         min-height: 180px;
         padding: 1rem;
 
-        // BORRAR
-        position: relative;
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            min-height: 180px;
+            padding: 1rem;
+        }
 
         @include when-inside(".lawyer__search__wrapper--list") {
             min-height: auto;
@@ -208,6 +229,11 @@
 
         @include when-inside(".lawyer__search__wrapper--speakers") {
             min-height: auto;
+
+            @media(max-width: $max-width-4casas) {
+                display: block;
+                padding: 0;
+            }
         }
 
         @include on-event() {
@@ -227,6 +253,11 @@
         font-weight: normal;
         letter-spacing: 0.7px;
         color: $white;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 16px);
+            letter-spacing: 0;
+        }
 
         @include when-inside(".lawyer__search__wrapper--grid") {
             // word-spacing: 100vw;
@@ -249,6 +280,10 @@
             margin-bottom: 0.5rem;
             @include fontSet(33px, 33px);
             color: $complementary-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(16px, 16px);
+            }
         }
     }
 
@@ -269,6 +304,11 @@
         letter-spacing: 0.5px;
         color: $main-color;
 
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
+
         @include when-inside(".lawyer__search__wrapper--grid") {
             flex: 0 1 100%;
         }
@@ -284,6 +324,11 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         color: $main-color;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(12px, 12px);
+            letter-spacing: 0;
+        }
     }
 
     @include has("practice") {
@@ -305,6 +350,12 @@
             letter-spacing: 0.5px;
             color: $main-color;
 
+            @media(max-width: $max-width-4casas) {
+                margin: 4px 8px 0 0;
+                @include fontSet(12px, 12px);
+                letter-spacing: 0;
+            }
+
             @include when-inside(".lawyer__search__wrapper--list") {
                 flex: 0 0 auto;
             }
@@ -317,6 +368,11 @@
                 width: 2px;
                 height: 100%;
                 background-color: $main-color;
+
+                @media(max-width: $max-width-4casas) {
+                    width: 1px;
+                    left: -4px;
+                }
             }
 
             &:first-child {
@@ -365,9 +421,20 @@
         // CONTENT BOX
         //
         > div:first-child {
+            .back__button,
+            .action__links {
+                display: flex;
+            }
+
             @media(max-width: $max-width-4casas) {
                 flex: 0 0 100%;
                 max-width: 100%;
+                order: 2;
+
+                .back__button,
+                .action__links {
+                    display: none;
+                }
             }
         }
 
@@ -377,9 +444,41 @@
         > div:last-child {
             padding: 0 0;
 
+            .back__button,
+            .action__links {
+                display: none;
+            }
+
+            .back__button {
+                top: 1rem;
+                left: 1rem;
+                @include fontSet(14px, 18px);
+                color: $white;
+
+                &:before,
+                &:after {
+                    top: -3px;
+                    @include fontSet(20px, 32px);
+                }
+
+                &:before {
+                    left: -4px;
+                }
+            }
+
+            .action__links {
+                left: 0.5rem;
+            }
+
             @media(max-width: $max-width-4casas) {
                 flex: 0 0 100%;
                 max-width: 100%;
+                order: 1;
+
+                .back__button,
+                .action__links {
+                    display: flex;
+                }
             }
         }
     }
@@ -391,9 +490,9 @@
         min-height: 24rem;
 
         @media(max-width: $max-width-4casas) {
-            padding-top: 11rem;
+            padding-top: 2rem;
             padding-right: 15px;
-            padding-bottom: 5rem;
+            padding-bottom: 3rem;
             min-height: auto;
         }
 
@@ -405,8 +504,11 @@
 
     @include has("name") {
         @include fontSet(64px, 64px);
-        line-height: 1;
         margin-bottom: 0;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(30px, 34px);
+        }
     }
 
     @include has("region") {
@@ -422,12 +524,19 @@
     @include has("position") {
         @include fontSet(64px, 64px);
         margin-bottom: 1rem;
-        line-height: 1;
         color: $complementary-color;
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(30px, 34px);
+        }
     }
 
     @include has("scope") {
         margin-bottom: 3rem;
+
+        @media(max-width: $max-width-4casas) {
+            margin-bottom: 2rem;
+        }
     }
 
     @include has("contact") {
@@ -436,6 +545,10 @@
         > * {
             @include cuatrecasas-font();
             @include fontSet(16px, 22px);
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 18px);
+            }
         }
 
         [data-address] {
@@ -467,6 +580,10 @@
         > * {
             @include cuatrecasas-font();
             @include fontSet(16px, 20px);
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 18px);
+            }
         }
 
         [data-langs] {
@@ -536,12 +653,24 @@
         width: auto;
         height: 100%;
 
+        @media(max-width: $max-width-4casas) {
+            width: 100%;
+            height: 300px;
+        }
+
         @include when("img") {
             width: 45vw;
             height: 100%;
             background-position: 100% 80%;
             background-repeat: no-repeat;
             background-size: auto auto;
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: 100%;
+                background-position: 100% -210px;
+                background-size: auto 200%;
+            }
         }
 
         /*

@@ -62,8 +62,63 @@ p {
         @include fontSet(32px, 36px);
         color: $black;
     }
+
+    @media(max-width: $max-width-4casas) {
+        margin: 0 0 1rem;
+    }
 }
 
+
+//
+// READ MORE
+// --------------------------------------------------------------------------
+
+// mask
+.read__more {
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100px;
+        opacity: 1;
+        visibility: visible;
+
+        transition: all 0.1s ease-out;
+
+        background: rgb(255,255,255);
+        background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    &.mask-off {
+        &:before {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
+// collapse box
+.read__more[data-readmore] {
+    display: inline-block;
+    width: auto;
+    overflow: hidden;
+    transition: height 0.5s;
+
+    /* Show only 4 lines in smaller screens */
+    // max-height: 6em; /* (4 * 1.5 = 6) */
+    /* Show 8 lines on larger screens */
+    // max-height: 18em;
+}
+
+// collapse button
+.read__more + [data-readmore-toggle] {
+    margin-top: 1rem;
+}
 
 
 //
@@ -107,6 +162,10 @@ p {
 
     @include when("article") {
         background-color: $article-color;
+    }
+
+    @include when("academy") {
+        background-color: $academy-color;
     }
 
     @include when("opinion") {
@@ -173,8 +232,18 @@ p {
     text-transform: uppercase;
     color: $main-color;
 
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(20px, 20px);
+        padding: 1rem 0;
+    }
+
     @include when("event") {
-        @include fontSet(43px, 43px);
+        @include fontSet(20px, 20px);
+        margin-bottom: 1rem;
+
+        @media(max-width: $max-width-4casas) {
+            margin-bottom: 0;
+        }
     }
 }
 

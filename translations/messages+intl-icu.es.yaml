@@ -26,6 +26,8 @@ global:
   messages:
     page_not_found: Página no encontrada
     alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
+    show_more: Ver más
+    show_less: Ver menos
 
 # Sections
 # ###########################################
@@ -35,9 +37,8 @@ sections:
     knowledgeTypes:
       news: Noticias
       opinion: Opinion
-      article: Artículo
+      academy: Academia
       legalNovelty: Novedades legales
-      research: Investigaciones
     knowledgeFormat:
       text: Texto
       video: Video

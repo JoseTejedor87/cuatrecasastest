@@ -54,9 +54,9 @@
                 <div class="tabs__component__content">
                     <div class="row page__section">
                         <div class="col">
-                            <ul class="buttons__list">
+                            <ul class="buttons__list__column">
                                 {% for desk in desks %}
-                                    <li class="buttons__list__item">
+                                    <li class="buttons__list__column__item">
                                         <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
                                     </li>
                                 {% endfor %}

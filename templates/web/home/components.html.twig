@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-{% include 'web/shared/career.html.twig' %}
+{% include 'web/shared/career_CMP.html.twig' %}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -388,53 +388,20 @@
         </div>
     </div>
 </div>
+
 <div class="container" style="padding:0 0 4rem">
-    <section class="row page__section search_box">
-        <div class="col search_box__wrapper">
-            <div class="search_box__name search_box__name--full">
-                <form action="" method="get">
-                    <input type="text" class="form-control" placeholder="Buscar" name="initial">
-                    <div class="input-group">
-                        <button class="search_box__button" type="submit">
-                            <span class="icon4-lupa"></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    <section id="filterWrapper" class="row">
-        <div class="col-12">
-            <!-- Accordion filters -->
-            <div id="accordionFilters">
-                <!-- Group selector -->
-                <ul id="filterTabs" class="nav nav-pills nav-fill" role="tablist">
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">Sector</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">Tipo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Fecha</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Formato</a>
-                    </li>
+    <section>
+        <article class="tabbed-content">
+            <nav class="tabs">
+                <ul>
+                    <li><a href="#tab01">Sector</a></li>
+                    <li><a href="#tab02">Tab 2</a></li>
+                    <li><a href="#tab03">Tab 3</a></li>
                 </ul>
-                <!-- Checkboxes list -->
-                <div id="filterTabsContent">
-                    <div id="collapse01" class="collapse" aria-labelledby="heading01" data-parent="#accordionFilters">
-                        <div class="filters__order">
+            </nav>
+            <section id="tab01" class="item" data-title="Tab 01">
+                <div class="item-content">
+                    <div class="filters__order">
                             <span>Ordenar por: </span>
                             <ul>
                                 <li><a class="order_abc" href="#">orden alfabético</a></li>
@@ -482,301 +449,425 @@
                         <div class="filters__apply">
                             <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                         </div>
+                </div>
+            </section>
+            <section id="tab02" class="item" data-title="Tab 02">
+                <div class="item-content">
+                    Tab 2 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+                </div>
+            </section>
+            <section id="tab03" class="item" data-title="Tab 03">
+                <div class="item-content">
+                    Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+                </div>
+            </section>
+        </article>
+    </section>
+</div>
+
+<div class="container" style="padding:0 0 4rem">
+    <section class="row page__section search_box">
+        <div class="col search_box__wrapper">
+            <div class="search_box__name search_box__name--full">
+                <form action="" method="get">
+                    <input type="text" class="form-control" placeholder="Buscar" name="initial">
+                    <div class="input-group">
+                        <button class="search_box__button" type="submit">
+                            <span class="icon4-lupa"></span>
+                        </button>
                     </div>
-                    <div id="collapse02" class="collapse" aria-labelledby="heading02" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
-                        </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-01" value=".services-01">
-                                <label class="checkbox-label" for="services-01"><span>Corporate Governance y Compliance</span></label>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="filterWrapper" class="row">
+        <div class="col-12">
+            <!-- Accordion filters -->
+            <div id="accordionFilters" class="tabbed-content">
+                <!-- Group selector -->
+                <ul id="filterTabs" class="tabs" role="">
+                    <li class="nav-item">
+                        <a href="#tab1" class="nav-link" role="">Sector</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab2" class="nav-link" role="">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab3" class="nav-link" role="">Tipo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab4" class="nav-link" role="">Región</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab5" class="nav-link" role="">Fecha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab6" class="nav-link" role="">Colección</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab7" class="nav-link" role="">Formato</a>
+                    </li>
+                </ul>
+                <!-- Checkboxes list -->
+                <div id="filterTabsContent">
+                    <div id="tab1" class="item" data-title="Tab 1">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-02" value=".services-02">
-                                <label class="checkbox-label" for="services-02"><span>Derecho contable</span></label>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-01" value=".sector-01">
+                                    <label class="checkbox-label" for="sector-01"><span>Alimentación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-02" value=".sector-02">
+                                    <label class="checkbox-label" for="sector-02"><span>Brexit</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-03" value=".sector-03">
+                                    <label class="checkbox-label" for="sector-03"><span>Canadian Desk</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-04" value=".sector-04">
+                                    <label class="checkbox-label" for="sector-04"><span>Ciberseguridad</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-05" value=".sector-05">
+                                    <label class="checkbox-label" for="sector-05"><span>Consumo y Retail</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-06" value=".sector-06">
+                                    <label class="checkbox-label" for="sector-06"><span>Deporte</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-07" value=".sector-07">
+                                    <label class="checkbox-label" for="sector-07"><span>Empresa Familiar</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-08" value=".sector-08">
+                                    <label class="checkbox-label" for="sector-08"><span>Energía y Recursos Naturales</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="sector-09" value=".sector-09">
+                                    <label class="checkbox-label" for="sector-09"><span>Farmacia y Sanitario</span></label>
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-03" value=".services-03">
-                                <label class="checkbox-label" for="services-03"><span>Derecho Laboral</span></label>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-04" value=".services-04">
-                                <label class="checkbox-label" for="services-04"><span>Financiero</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-05" value=".services-05">
-                                <label class="checkbox-label" for="services-05"><span>Fiscal</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-06" value=".services-06">
-                                <label class="checkbox-label" for="services-06"><span>Fiscalidad Contenciosa</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-07" value=".services-07">
-                                <label class="checkbox-label" for="services-07"><span>Fiscalidad Financiera</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-08" value=".services-08">
-                                <label class="checkbox-label" for="services-08"><span>Fusiones y Adquisiciones</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-09" value=".services-09">
-                                <label class="checkbox-label" for="services-09"><span>Litigación</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-10" value=".services-10">
-                                <label class="checkbox-label" for="services-10"><span>Mediación</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="services-11" value=".services-11">
-                                <label class="checkbox-label" for="services-11"><span>Mercado de valores</span></label>
-                            </div>
-                        </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
-                        </div>
-                    </div>
-                    <div id="collapse03" class="collapse" aria-labelledby="heading03" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
-                        </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="type-01" value=".type-01">
-                                <label class="checkbox-label" for="type-01"><span>Noticias</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="type-02" value=".type-02">
-                                <label class="checkbox-label" for="type-02"><span>Eventos</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="type-03" value=".type-03">
-                                <label class="checkbox-label" for="type-03"><span>Opinión</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="type-04" value=".type-04">
-                                <label class="checkbox-label" for="type-04"><span>Estudios Jurídicos</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="type-05" value=".type-05">
-                                <label class="checkbox-label" for="type-05"><span>Novedades Jurídicas</span></label>
-                            </div>
-                        </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
-                        </div>
-                    </div>
-                    <div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
-                        </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-01" value=".region-01">
-                                <label class="checkbox-label" for="region-01"><span>Barcelona</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-02" value=".region-02">
-                                <label class="checkbox-label" for="region-02"><span>Madrid</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-03" value=".region-03">
-                                <label class="checkbox-label" for="region-03"><span>Lisboa</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-04" value=".region-04">
-                                <label class="checkbox-label" for="region-04"><span>Beijing</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-05" value=".region-05">
-                                <label class="checkbox-label" for="region-05"><span>Bogotá</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-06" value=".region-06">
-                                <label class="checkbox-label" for="region-06"><span>Brussels</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-07" value=".region-07">
-                                <label class="checkbox-label" for="region-07"><span>Casablanca</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-08" value=".region-08">
-                                <label class="checkbox-label" for="region-08"><span>London</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-09" value=".region-09">
-                                <label class="checkbox-label" for="region-09"><span>Luanda</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-10" value=".region-10">
-                                <label class="checkbox-label" for="region-10"><span>Maputo</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-11" value=".region-11">
-                                <label class="checkbox-label" for="region-011"><span>Mexico City</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-12" value=".region-12">
-                                <label class="checkbox-label" for="region-12"><span>New York</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-13" value=".region-13">
-                                <label class="checkbox-label" for="region-13"><span>Sao Paulo</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="region-14" value=".region-14">
-                                <label class="checkbox-label" for="region-14"><span>Shanghai</span></label>
-                            </div>
-                        </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                         </div>
                     </div>
-                    <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
-                        </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-01" value=".date-01">
-                                <label class="checkbox-label" for="date-01"><span>2020</span></label>
+                    <div id="tab2" class="item" data-title="Tab 2">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-02" value=".date-02">
-                                <label class="checkbox-label" for="date-02"><span>2019</span></label>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-01" value=".services-01">
+                                    <label class="checkbox-label" for="services-01"><span>Corporate Governance y Compliance</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-02" value=".services-02">
+                                    <label class="checkbox-label" for="services-02"><span>Derecho contable</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-03" value=".services-03">
+                                    <label class="checkbox-label" for="services-03"><span>Derecho Laboral</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-04" value=".services-04">
+                                    <label class="checkbox-label" for="services-04"><span>Financiero</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-05" value=".services-05">
+                                    <label class="checkbox-label" for="services-05"><span>Fiscal</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-06" value=".services-06">
+                                    <label class="checkbox-label" for="services-06"><span>Fiscalidad Contenciosa</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-07" value=".services-07">
+                                    <label class="checkbox-label" for="services-07"><span>Fiscalidad Financiera</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-08" value=".services-08">
+                                    <label class="checkbox-label" for="services-08"><span>Fusiones y Adquisiciones</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-09" value=".services-09">
+                                    <label class="checkbox-label" for="services-09"><span>Litigación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-10" value=".services-10">
+                                    <label class="checkbox-label" for="services-10"><span>Mediación</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="services-11" value=".services-11">
+                                    <label class="checkbox-label" for="services-11"><span>Mercado de valores</span></label>
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-03" value=".date-03">
-                                <label class="checkbox-label" for="date-03"><span>2018</span></label>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-04" value=".date-04">
-                                <label class="checkbox-label" for="date-04"><span>2017</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-05" value=".date-05">
-                                <label class="checkbox-label" for="date-05"><span>2016</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-06" value=".date-06">
-                                <label class="checkbox-label" for="date-06"><span>2015</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-07" value=".date-07">
-                                <label class="checkbox-label" for="date-07"><span>2014</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-08" value=".date-08">
-                                <label class="checkbox-label" for="date-08"><span>2013</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-09" value=".date-09">
-                                <label class="checkbox-label" for="date-09"><span>2012</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-10" value=".date-10">
-                                <label class="checkbox-label" for="date-10"><span>2011</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="date-11" value=".date-11">
-                                <label class="checkbox-label" for="date-11"><span>2010</span></label>
-                            </div>
-                        </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                         </div>
                     </div>
-                    <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
-                        </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-01" value=".collection-01">
-                                <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
+                    <div id="tab3" class="item" data-title="Tab 3">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-02" value=".collection-02">
-                                <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="type-01" value=".type-01">
+                                    <label class="checkbox-label" for="type-01"><span>Noticias</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="type-02" value=".type-02">
+                                    <label class="checkbox-label" for="type-02"><span>Eventos</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="type-03" value=".type-03">
+                                    <label class="checkbox-label" for="type-03"><span>Opinión</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="type-04" value=".type-04">
+                                    <label class="checkbox-label" for="type-04"><span>Estudios Jurídicos</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="type-05" value=".type-05">
+                                    <label class="checkbox-label" for="type-05"><span>Novedades Jurídicas</span></label>
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-03" value=".collection-03">
-                                <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-04" value=".collection-04">
-                                <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-05" value=".collection-05">
-                                <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="collection-06" value=".collection-06">
-                                <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
-                            </div>
-                        </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                         </div>
                     </div>
-                    <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
-                        <div class="filters__order">
-                            <span>Ordenar por: </span>
-                            <ul>
-                                <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                <li><a class="order_pop" href="#">popular</a></li>
-                            </ul>
+                    <div id="tab4" class="item" data-title="Tab 4">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
+                            </div>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-01" value=".region-01">
+                                    <label class="checkbox-label" for="region-01"><span>Barcelona</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-02" value=".region-02">
+                                    <label class="checkbox-label" for="region-02"><span>Madrid</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-03" value=".region-03">
+                                    <label class="checkbox-label" for="region-03"><span>Lisboa</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-04" value=".region-04">
+                                    <label class="checkbox-label" for="region-04"><span>Beijing</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-05" value=".region-05">
+                                    <label class="checkbox-label" for="region-05"><span>Bogotá</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-06" value=".region-06">
+                                    <label class="checkbox-label" for="region-06"><span>Brussels</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-07" value=".region-07">
+                                    <label class="checkbox-label" for="region-07"><span>Casablanca</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-08" value=".region-08">
+                                    <label class="checkbox-label" for="region-08"><span>London</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-09" value=".region-09">
+                                    <label class="checkbox-label" for="region-09"><span>Luanda</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-10" value=".region-10">
+                                    <label class="checkbox-label" for="region-10"><span>Maputo</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-11" value=".region-11">
+                                    <label class="checkbox-label" for="region-011"><span>Mexico City</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-12" value=".region-12">
+                                    <label class="checkbox-label" for="region-12"><span>New York</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-13" value=".region-13">
+                                    <label class="checkbox-label" for="region-13"><span>Sao Paulo</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="region-14" value=".region-14">
+                                    <label class="checkbox-label" for="region-14"><span>Shanghai</span></label>
+                                </div>
+                            </div>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                            </div>
                         </div>
-                        <div class="chechbox__wrapper">
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-01" value=".format-01">
-                                <label class="checkbox-label" for="format-01"><span>Format 01</span></label>
+                    </div>
+                    <div id="tab5" class="item" data-title="Tab 5">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-02" value=".format-02">
-                                <label class="checkbox-label" for="format-02"><span>Format 02</span></label>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-01" value=".date-01">
+                                    <label class="checkbox-label" for="date-01"><span>2020</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-02" value=".date-02">
+                                    <label class="checkbox-label" for="date-02"><span>2019</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-03" value=".date-03">
+                                    <label class="checkbox-label" for="date-03"><span>2018</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-04" value=".date-04">
+                                    <label class="checkbox-label" for="date-04"><span>2017</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-05" value=".date-05">
+                                    <label class="checkbox-label" for="date-05"><span>2016</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-06" value=".date-06">
+                                    <label class="checkbox-label" for="date-06"><span>2015</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-07" value=".date-07">
+                                    <label class="checkbox-label" for="date-07"><span>2014</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-08" value=".date-08">
+                                    <label class="checkbox-label" for="date-08"><span>2013</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-09" value=".date-09">
+                                    <label class="checkbox-label" for="date-09"><span>2012</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-10" value=".date-10">
+                                    <label class="checkbox-label" for="date-10"><span>2011</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="date-11" value=".date-11">
+                                    <label class="checkbox-label" for="date-11"><span>2010</span></label>
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-03" value=".format-03">
-                                <label class="checkbox-label" for="format-03"><span>Format 03</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-04" value=".format-04">
-                                <label class="checkbox-label" for="format-04"><span>Format 04</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-05" value=".format-05">
-                                <label class="checkbox-label" for="format-05"><span>Format 05</span></label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="format-06" value=".format-06">
-                                <label class="checkbox-label" for="format-06"><span>Format 06</span></label>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                             </div>
                         </div>
-                        <div class="filters__apply">
-                            <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                    </div>
+                    <div id="tab6" class="item" data-title="Tab 6">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
+                            </div>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-01" value=".collection-01">
+                                    <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-02" value=".collection-02">
+                                    <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-03" value=".collection-03">
+                                    <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-04" value=".collection-04">
+                                    <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-05" value=".collection-05">
+                                    <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="collection-06" value=".collection-06">
+                                    <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
+                                </div>
+                            </div>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab7" class="item" data-title="Tab 7">
+                        <div class="item-content">
+                            <div class="filters__order">
+                                <span>Ordenar por: </span>
+                                <ul>
+                                    <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                    <li><a class="order_pop" href="#">popular</a></li>
+                                </ul>
+                            </div>
+                            <div class="chechbox__wrapper">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-01" value=".format-01">
+                                    <label class="checkbox-label" for="format-01"><span>Format 01</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-02" value=".format-02">
+                                    <label class="checkbox-label" for="format-02"><span>Format 02</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-03" value=".format-03">
+                                    <label class="checkbox-label" for="format-03"><span>Format 03</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-04" value=".format-04">
+                                    <label class="checkbox-label" for="format-04"><span>Format 04</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-05" value=".format-05">
+                                    <label class="checkbox-label" for="format-05"><span>Format 05</span></label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="format-06" value=".format-06">
+                                    <label class="checkbox-label" for="format-06"><span>Format 06</span></label>
+                                </div>
+                            </div>
+                            <div class="filters__apply">
+                                <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -877,31 +968,6 @@
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
 <script>
 $(function() {
-
-    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
-        var $el = $(this);
-        $el.toggleClass('active-dropdown');
-        var $parent = $(this).offsetParent(".dropdown-menu");
-        if (!$(this).next().hasClass('show')) {
-            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-        }
-        var $subMenu = $(this).next(".dropdown-menu");
-        $subMenu.toggleClass('show');
-
-        $(this).parent("li").toggleClass('show');
-
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-            $('.dropdown-menu .show').removeClass("show");
-            $el.removeClass('active-dropdown');
-        });
-
-        if (!$parent.parent().hasClass('navbar-nav')) {
-            $el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
-        }
-
-        return false;
-    });
-
     web.global.testimonials();
     web.global.customSelects();
 
@@ -980,6 +1046,59 @@ $(function() {
         gutter: '.grid__gutter',
         percentPosition: true
     });
+
+    // TABS TO ACCORDION
+    tabControl();
+
+    /*
+    We also apply the switch when a viewport change is detected on the fly
+    (e.g. when you resize the browser window or flip your device from
+    portrait mode to landscape). We set a timer with a small delay to run
+    it only once when the resizing ends. It's not perfect, but it's better
+    than have it running constantly during the action of resizing.
+    */
+    var resizeTimer;
+    $(window).on('resize', function(e) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            tabControl();
+        }, 250);
+    });
+
+    /*
+    The function below is responsible for switching the tabs when clicked.
+    It switches both the tabs and the accordion buttons even if
+    only the one or the other can be visible on a screen. We prefer
+    that in order to have a consistent selection in case the viewport
+    changes (e.g. when you esize the browser window or flip your
+    device from portrait mode to landscape).
+    */
+    function tabControl() {
+        var tabs = $('.tabbed-content').find('.tabs');
+        if(tabs.is(':visible')) {
+            tabs.find('a').on('click', function(event) {
+                event.preventDefault();
+                var target = $(this).attr('href'),
+                    tabs = $(this).parents('.tabs'),
+                    buttons = tabs.find('a'),
+                    item = tabs.parents('.tabbed-content').find('.item');
+                buttons.removeClass('active');
+                item.removeClass('active');
+                $(this).addClass('active');
+                $(target).addClass('active');
+            });
+        } else {
+            $('.item').on('click', function() {
+                var container = $(this).parents('.tabbed-content'),
+                    currId = $(this).attr('id'),
+                    items = container.find('.item');
+                container.find('.tabs a').removeClass('active');
+                items.removeClass('active');
+                $(this).addClass('active');
+                container.find('.tabs a[href$="#'+ currId +'"]').addClass('active');
+            });
+        }
+    }
 });
 </script>
 {% endblock %}

@@ -537,13 +537,20 @@ img {
     }
 }
 
-@mixin accordion-button($color) {
+@mixin accordion-button($color, $hover) {
     @include reset-button;
     position: relative;
     padding: 0.3rem 3rem 0.3rem 0;
+    @include fontSet(23px, 23px);
+    letter-spacing: 0.7px;
     text-decoration: none;
     color: $color;
     transition: all 0.2s ease-in-out;
+
+    @media(max-width: $max-width-4casas) {
+        padding-right: 1.5rem;
+        @include fontSet(14px, 14px);
+    }
 
     &:after {
         @include icons-4casas(0px, 4px, auto, auto);
@@ -551,12 +558,17 @@ img {
         content: '\e90a';
         transform: rotate(90deg);
         transition: transform 0.2s ease-in-out;
+
+        @media(max-width: $max-width-4casas) {
+            right: 0;
+            @include fontSet(18px, 26px);
+        }
     }
 
     @include on-event {
-        color: $color;
+        color: $hover;
         text-decoration: none;
-        box-shadow: 0 2px 0 $color;
+        // box-shadow: 0 2px 0 $color;
         overflow: hidden;
 
         &:after {

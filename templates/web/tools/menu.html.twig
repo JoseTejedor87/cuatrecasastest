@@ -1,4 +1,5 @@
 {% block menu %}
+    <!-- Desktop Nav -->
     <div id="navDesktop" class="main__nav__wrapper">
         <div class="container" id="primaryNav">
             <div class="row">
@@ -78,7 +79,7 @@
                     <div class="navbar-collapse justify-content-end">
                         <ul class="navbar-nav contact-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.cuatrecasas.com/es/contacta.html">{{ 'menu.contact'|trans }}</a>
+                                <a class="nav-link" href="#">{{ 'menu.contact'|trans }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.webs.webs'|trans }}</a>
@@ -90,7 +91,6 @@
                                     <li><button type="button" class="menu-close" aria-label="Close"></button></li>
                                 </ul>
                             </li>
-                            <!-- REGION / LANG  -->
                             <li class="nav-item">
                                 <a class="nav-link lang-region-toggle" href="#" role="button">
                                     <span class="region">{{ ('global.regions.' ~ navigation_service.getRegion())|trans }}</span>
@@ -145,4 +145,111 @@
             </div>
         </div>
     </div>
+    <!-- Mobile Nav -->
+    <nav class="navbar" id="navMobileWrapper">
+        <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
+            <img src="{{ asset('web/assets/logos/cuatrecasas_mobile.png') }}" alt="Cuatrecasas">
+        </a>
+        <button class="navbar-toggler navbar-open" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="icon ion-android-menu"></i>
+        </button>
+        <div class="navbar-collapse collapse" id="navMobile">
+            <ul class="navbar-nav mainNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('knowledge_index') }}">{{ 'menu.knowledge'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('lawyers_index') }}">{{ 'menu.lawyers'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('services_index') }}">{{ 'menu.services'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('sectors_index') }}">{{ 'menu.sectors'|trans }}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav aboutNav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownCareer" data-toggle="collapse" data-target="#dropdownCareerId" aria-haspopup="true" aria-expanded="false">{{ 'menu.career.career'|trans }}</a>
+                    <ul class="dropdown-menu collapse" aria-labelledby="dropdownCareer" id="dropdownCareerId" data-parent="#navMobile">
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.career'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.live'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.revolution'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.learn'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.international'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ 'menu.career.join'|trans }}</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownOffices" data-toggle="collapse" data-target="#dropdownOfficesId" aria-haspopup="true" aria-expanded="false">{{ 'menu.offices.offices'|trans }}</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownOffices" id="dropdownOfficesId" data-parent="#navMobile">
+                        <li><a class="dropdown-item" href="{{ path('regions_vision') }}">{{ 'menu.offices.vision'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('regions_espana') }}">{{ 'menu.offices.spain'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('regions_portugal') }}">{{ 'menu.offices.portugal'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('regions_latam') }}">{{ 'menu.offices.latam'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('regions_other_regions') }}">{{ 'menu.offices.other'|trans }}</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownFirm" data-toggle="collapse" data-target="#dropdownFirmId" aria-haspopup="true" aria-expanded="false">{{ 'menu.firm.firm'|trans }}</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownFirm" id="dropdownFirmId" data-parent="#navMobile">
+                        <li><a class="dropdown-item" href="{{ path('firm_vision') }}">{{ 'menu.firm.vision'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm_social') }}">{{ 'menu.firm.social'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm_environment') }}">{{ 'menu.firm.environment'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm_governance') }}">{{ 'menu.firm.governance'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm_innovation') }}">{{ 'menu.firm.innovation'|trans }}</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="{{ path('home') }}" class="navbar-brand-icon">
+                <img src="{{ asset('web/assets/logos/4casas_mobile.png') }}" alt="Cuatrecasas">
+            </a>
+            <ul class="navbar-nav contactNav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownInfo" data-toggle="collapse" data-target="#dropdownInfoId" aria-haspopup="true" aria-expanded="false">Info</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownInfo" id="dropdownInfoId" data-parent="#navMobile">
+                        <li><a class="dropdown-item-submenu" href="#">{{ 'menu.contact'|trans }}</a></li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link-submenu dropdown-toggle" href="#" id="dropdownWebs" data-toggle="collapse" data-target="#dropdownWebsId" aria-haspopup="true" aria-expanded="false">{{ 'menu.webs.webs'|trans }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownWebs" id="dropdownWebsId" data-parent="#dropdownInfoId">
+                                <li><a class="dropdown-item" href="https://acelera.cuatrecasas.com">{{ 'menu.webs.acelera'|trans }}</a></li>
+                                <li><a class="dropdown-item" href="https://www.cuatrecasas.com/es/firma/instituto_internacional.html">{{ 'menu.webs.rrhh'|trans }}</a></li>
+                                <li><a class="dropdown-item" href="http://www.fundacioncuatrecasas.com/">{{ 'menu.webs.fundacion'|trans }}</a></li>
+                                <li><a class="dropdown-item" href="https://apps.apple.com/es/app/cuatrecasas-actualidad-juridica/id654941019?ls=1">{{ 'menu.webs.app'|trans }}</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link-submenu dropdown-toggle" href="#" id="dropdownRegions" data-toggle="collapse" data-target="#dropdownRegionsId" aria-haspopup="true" aria-expanded="false">{{ ('global.regions.' ~ navigation_service.getRegion())|trans }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownRegions" id="dropdownRegionsId" data-parent="#dropdownInfoId">
+                                {% for region in regions %}
+                                    {% if region != navigation_service.getRegion() %}
+                                        {% set href = navigation_service.getAlternativePath(null, region) %}
+                                        {% if href %}
+                                            <li><a class="dropdown-item" href="{{ href }}">{{ ('global.regions.' ~ region)|trans }}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link-submenu dropdown-toggle" href="#" id="dropdownLangs" data-toggle="collapse" data-target="#dropdownLangsId" aria-haspopup="true" aria-expanded="false">{{ language_switcher[navigation_service.getLanguage()] }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownLangs" id="dropdownLangsId" data-parent="#dropdownInfoId">
+                                {% for language in languages %}
+                                    {% if language != navigation_service.getLanguage() %}
+                                        {% set href = navigation_service.getAlternativePath(language) %}
+                                        {% if href %}
+                                            <li><a class="dropdown-item" href="{{ href }}">{{ language_switcher[language] }}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#navMobile" aria-controls="navMobile" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="icon ion-android-close"></i>
+        </button>
+    </nav>
 {% endblock %}

@@ -33,6 +33,8 @@ use App\Entity\Opinion;
 use App\Entity\News;
 use App\Entity\Publication;
 use App\Entity\Page;
+use App\Entity\Banner;
+use App\Entity\Slider;
 
 
 class ImportCommandDev extends Command
@@ -190,6 +192,10 @@ class ImportCommandDev extends Command
                 case "pages":
                     $this->Pages();
                 break;
+
+                case "banner":
+                    $this->Banner();
+                break;                
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -383,6 +389,66 @@ class ImportCommandDev extends Command
 
     }
 
+    public function Banner(){
+
+        ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Banner ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE Banner AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Banner], RESEED, 1)");      
+
+        $this->em->getConnection()->executeQuery("DELETE FROM SliderTranslation ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE SliderTranslation AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([SliderTranslation], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Slider ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE Slider AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Slider], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM slider_banner ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE slider_banner AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([slider_banner], RESEED, 1)");
+        $data = file_get_contents("JsonExports/banner.json");
+        $items = json_decode($data, true);
+
+        foreach($items as $item){
+            $banner = new Banner();
+            $banner->setLocation($item['location']);
+            $banner->setDelay($item['delay']);
+            $banner->setSpeed($item['speed']);
+            
+            foreach($item['sliders'] as $item_slide){
+                $slide = new Slider();
+                $slide->translate('es')->setTitle($item_slide['titulo']);
+                $slide->translate('es')->setDescription($item_slide['description']);
+                $slide->translate('es')->setUrl($item_slide['url']);
+                $slide->setPriority($item_slide['priority']);
+                
+                $photo = $this->importFile('slider', $item_slide['image']);
+                if ($photo) {
+                    $resource = new Resource();
+                    $resource->setFile($photo);
+                    $resource->setFileName($photo->getFileName());
+                    $resource->setSlider($slide);
+                    $slide->setImage($resource);
+                }
+
+                $slide->mergeNewTranslations();
+                $this->em->persist($slide);
+                $this->em->flush();
+    
+                $banner->addSlider($slide);
+
+            }
+            $this->em->persist($banner);
+            $this->em->flush();
+            $this->logger->debug("Banner ".$banner->getId());           
+
+        }
+
+    }
+
+
     public function Lawyers()
     {
         $data = file_get_contents("JsonExports/abogados.json");
@@ -405,8 +471,6 @@ class ImportCommandDev extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM LawyerTranslation ");
         $this->em->getConnection()->executeQuery("DELETE FROM Lawyer ");        
         //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
-
-
 
 
 

@@ -14,7 +14,7 @@
                     {{ 'sections.publication.index.title'|trans }}
                 </h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-                    <li class="m-portlet__nav-item">
+                    <li class="m-nav__item m-portlet__nav-item">
                         <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
                             m-dropdown-toggle="hover" aria-expanded="true">
                             <a href="#"
@@ -29,7 +29,7 @@
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">                                               
                                                 <li class="m-nav__item">
-                                                    <a href="{{ path('cms_publication_new',{'type': 'article'}) }}" class="m-nav__link">
+                                                    <a href="{{ path('cms_publication_new',{'type': 'academy'}) }}" class="m-nav__link">
                                                         <span class="m-nav__link-text">
                                                             Academia
                                                         </span>
@@ -64,29 +64,12 @@
                             </div>
                         </div>
                     </li>
-                        {#                     <div class="dropdown show btn-icon-h">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							{{ 'global.actions.create'|trans }}
-						</button>
-                        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -136px, 0px);">
-                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'article'}) }}" data-toggle="m-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title">
-                                {{ 'global.actions.create'|trans }}Academy
-                            </a>
-                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'opinion'}) }}">
-                                {{ 'global.actions.create'|trans }}Opinion
-                            </a>
-                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'legalNovelty'}) }}" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Tooltip title">
-                                {{ 'global.actions.create'|trans }}LegalNovelty
-                            </a>
-                            <a class="dropdown-item" href="{{ path('cms_publication_new',{'type': 'news'}) }}" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Tooltip title">
-                                {{ 'global.actions.create'|trans }}News
-                            </a>
-                        </div>
-					</div> #}
-    {#                     <a href="{{ path('cms_publication_new',{'type': 'article'}) }}"
-                            class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
-                            <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
-                        </a> #}
+                    <li class="m-nav__separator">-</li>
+                    <li class="m-nav__item">
+                        <a href="{{ path('cms_people_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
+                            <i class="flaticon-avatar"></i> {{ 'sections.events.actions.addPerson'|trans }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -103,7 +86,8 @@
                             <th class="col-sm-5">
                                 {{ knp_pagination_sortable(pagination, 'entities.publication.fields.title'|trans, 'title') }}
                             </th>
-                            <th class="col-sm-4 text-nowrap">
+                            <th class="col-sm-2">{{ 'entities.publication.fields.type'|trans }}</th>
+                            <th class="col-sm-2 text-nowrap">
                                 {{ knp_pagination_sortable(pagination, 'entities.publication.fields.publication_date'|trans, 'publication_date') }}
                             </th>
                             <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
@@ -116,7 +100,9 @@
                             <td class="col-sm-5">
                                 {{ article.translate(app.request.getLocale()).title ?  article.translate(app.request.getLocale()).title : article.translate('en').title}}
                             </td>
-                            <td class="col-sm-4">
+                            <td class="col-sm-2">
+                                {{ article.type ? ('entities.publication.knowledgeTypes.'~article.type)|trans : ''  }}</td>
+                            <td class="col-sm-2">
                                 {{ article.publicationdate ? article.publicationdate|date('d-m-Y') : ''  }}</td>
                             <td class="col-sm-2 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':article.languages} %}

@@ -138,6 +138,26 @@ cms_sliders_delete:
     methods:    DELETE
     controller: App\Controller\CMS\SliderController::delete
 
+# Banners
+# ####################################
+
+cms_banners_index:
+    path:       /banners/
+    methods:    GET
+    controller: App\Controller\CMS\BannerController::index
+cms_banners_new:
+    path:       /banners/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\BannerController::new
+cms_banners_edit:
+    path:       /banners/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\BannerController::edit
+cms_banners_delete:
+    path:       /banners/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\BannerController::delete
+
 # INSIGHTS
 # ####################################
 cms_insights_index:

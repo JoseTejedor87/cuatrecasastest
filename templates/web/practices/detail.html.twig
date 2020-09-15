@@ -42,14 +42,18 @@
 
             <section class="row page__block--full">
                 <div class="col">
-                    {{ practice.translate(app.request.getLocale()).summary|raw }}
+                    <div class="read__more">
+                        {{ practice.translate(app.request.getLocale()).summary|raw }}
+                    </div>
                 </div>
             </section>
 
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
-                        <p>{{ practice.translate(app.request.getLocale()).description|raw }}</p>
+                        <div class="read__more">
+                            {{ practice.translate(app.request.getLocale()).description|raw }}
+                        </div>
                     </div>
 
                     <div class="page__block__aside">
@@ -67,7 +71,7 @@
                         <div class="page__aside page__aside--nobg">
                             {% for quote in practice.quote %}
                             <blockquote class="cite__quote">
-                                <p>{{ quote.translate(app.request.getLocale()).body }}</p>
+                                <p>{{ quote.translate(app.request.getLocale()).body|raw  }}</p>
                                 <cite>{{ quote.author}}, {{ quote.year}}</cite>
                             </blockquote>
                             {% endfor %}
@@ -116,14 +120,72 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script>
     $(function () {
-        web.global.sliderGeneral();
-        web.global.sliderAwards();
-        var swiperCases = new Swiper ('#sliderCases', {
+        var swiperAwards = new Swiper('#sliderAwards', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 60,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,
             allowTouchMove: true,
             grabCursor: true
+        });
+
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                }
+            }
         });
     });
 </script>

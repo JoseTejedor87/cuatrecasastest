@@ -52,7 +52,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             if ($activitiesA) {
                 $results =  $results->innerJoin('p.activities', 'a')
                 ->andWhere('a.id in (:activity)')
-                ->setParameter('activity', implode(",", $activitiesA));
+                ->setParameter('activity',  $activitiesA);
             }
             //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
             $results =  $results->orderBy('p.publication_date', 'DESC')
@@ -61,8 +61,8 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->getResult();
         foreach ($results as $key => $value) {
                 $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
-                $value->type = 'article';
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy || $value instanceof \App\Entity\Research){
+                $value->type = 'academy';
             }
             if ($value instanceof \App\Entity\Opinion){
                 $value->type = 'opinion';

@@ -56,7 +56,7 @@
                     <!-- Accordion filters -->
                     <div id="accordionFilters">
                         <!-- Group selector -->
-                        <ul id="filterTabs" class="nav nav-pills nav-fill" role="tablist">
+                        <ul id="filterTabs" role="tablist">
                             <li class="nav-item">
                                 <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">Sector</a>
                             </li>
@@ -432,6 +432,7 @@
                 }
             })
             .done(function( msg ) {
+                 $('.section__title--recomended').hide();
                 $('.search__component__loader').css("display", "flex").fadeOut();
                 var url="";
                 if(msg['office']){

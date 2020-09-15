@@ -53,6 +53,7 @@ class Resource extends Publishable
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Publication", inversedBy="attachments")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
     private $publication;
 
@@ -65,7 +66,7 @@ class Resource extends Publishable
      * @ORM\OneToOne(targetEntity="App\Entity\Activity", inversedBy="photo")
      */
     private $activity;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -234,5 +235,4 @@ class Resource extends Publishable
 
         return $this;
     }
-
 }

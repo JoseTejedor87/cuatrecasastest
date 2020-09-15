@@ -60,6 +60,12 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__foto">
+                            <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
+                            <ul class="action__links">
+                                <li><a href="#"><i class="material-icons">share</i></a></li>
+                                <li><a href="#"><i class="material-icons">print</i></a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                            </ul>
                             {#% if lawyer.photo %#}
                                 <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }#}');"></div> -->
                             {#% endif %#}
@@ -74,59 +80,59 @@
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
-                            {{ lawyer.translate(app.request.getLocale()).description|raw  }}
+                            <div class="read__more">
+                                {{ lawyer.translate(app.request.getLocale()).description|raw }}
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section class="row page__block--aside">
-                    <div class="col">
-                        <div class="page__block__content">
-                            {{ lawyer.translate(app.request.getLocale()).curriculum|raw  }}
+                    <div class="page__block__content">
+                        <div class="read__more">
+                            {{ lawyer.translate(app.request.getLocale()).curriculum|raw }}
                         </div>
+                    </div>
+                    <div class="page__block__aside">
+                        {% if lawyer.secondaryActivities|length > 0 %}
+                            <div class="page__aside">
+                                <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
+                                <ul class="page__aside__list--specialties">
+                                {% for activity in lawyer.secondaryActivities %}
+                                    <li>
+                                        <a href="{{ navigation_service.getPathByPublishable(activity)}}">
+                                            {{ activity.translate(app.request.getLocale()).title}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
 
-                        <div class="page__block__aside">
-                            {% if lawyer.secondaryActivities|length > 0 %}
-                                <div class="page__aside">
-                                    <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
-                                    <ul class="page__aside__list--specialties">
-                                    {% for activity in lawyer.secondaryActivities %}
-                                        <li>
-                                            <a href="{{ navigation_service.getPathByPublishable(activity)}}">
-                                                {{ activity.translate(app.request.getLocale()).title}}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
+                        {% if (lawyer.trainings|length > 0) or (lawyer.mentions|length > 0) %}
+                            <div class="page__aside">
+                                {% if lawyer.trainings|length > 0 %}
+                                    <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
+                                    <ul class="page__aside__list--career">
+                                        {% for training in lawyer.trainings %}
+                                            <li>
+                                                {{ training.translate(app.request.getLocale()).description | raw}}
+                                            </li>
+                                        {% endfor %}
                                     </ul>
-                                </div>
-                            {% endif %}
-
-                            {% if (lawyer.trainings|length > 0) or (lawyer.mentions|length > 0) %}
-                                <div class="page__aside">
-                                    {% if lawyer.trainings|length > 0 %}
-                                        <h3 class="page__aside__title">{{ 'sections.lawyers.training'|trans }}</h3>
-                                        <ul class="page__aside__list--career">
-                                            {% for training in lawyer.trainings %}
-                                                <li>
-                                                    {{ training.translate(app.request.getLocale()).description | raw}}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if lawyer.mentions|length > 0 %}
-                                        <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
-                                        <ul class="page__aside__list--career">
-                                            {% for mention in lawyer.mentions %}
-                                                <li>
-                                                    {{ mention.translate(app.request.getLocale()).description | raw}}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-
+                                {% endif %}
+                                {% if lawyer.mentions|length > 0 %}
+                                    <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
+                                    <ul class="page__aside__list--career">
+                                        {% for mention in lawyer.mentions %}
+                                            <li>
+                                                {{ mention.translate(app.request.getLocale()).description | raw}}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                 </section>
 
@@ -137,7 +143,7 @@
                                 <h3 class="subsection__title">{{ 'sections.lawyers.cases'|trans }}</h3>
                             </div>
                             <div class="page__block__content">
-                                <ul class="page__block__content__details">
+                                <ul class="page__block__content__details show__more">
                                     {% for case in contextualBlocks.cases %}
                                         <li>
                                             {% for activities in case.getActivities() | slice(0,1) %}
@@ -161,7 +167,7 @@
                                     <h3 class="subsection__title">{{ 'sections.lawyers.publications'|trans }}</h3>
                                 </div>
                                 <div class="page__block__content">
-                                    <ul class="page__block__content__details">
+                                    <ul class="page__block__content__details show__more">
                                     {% for publication in lawyer.person.publications %}
                                         {% set PublicationDate = publication.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                         <li>
@@ -182,7 +188,7 @@
                                     <h3 class="subsection__title">{{ 'sections.lawyers.events'|trans }}</h3>
                                 </div>
                                 <div class="page__block__content">
-                                    <ul class="page__block__content__details">
+                                    <ul class="page__block__content__details show__more">
                                         {% for event in lawyer.person.events %}
                                         {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                             {% if (event.translate(app.request.getLocale()).title) %}
@@ -207,4 +213,55 @@
 
     {% include 'web/shared/cta-footer.html.twig' %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(function () {
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                }
+            }
+        });
+
+        $('.show__more').each(function() {
+            if ($(this).children('li').length > 4) {
+                $(this).children('li:lt(3)').show();
+                $(this).children('li:gt(2)').hide();
+                $(this).append('<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>');
+            }
+        });
+        $('.show__more').on("click", '.show__more', function() {
+            $(this).parent('.show__more').children('li').slideDown();
+            $(this).removeClass('show__more').addClass('show__less').text('{{ 'global.messages.show_less'|trans }}');
+            $('.show__more .doble__arrow__accordion').blur();
+        });
+        $('.show__more').on("click", '.show__less', function() {
+            $('html, body').animate({scrollTop: $(this).parent().offset().top - 120}, {duration: 'fast'});
+            $(this).parent('.show__more').children('li:gt(2)').slideUp();
+            $(this).removeClass('show__less').addClass('show__more').text('{{ 'global.messages.show_more'|trans }}');
+            $('.show__more .doble__arrow__accordion').blur();
+        });
+    });
+</script>
 {% endblock %}

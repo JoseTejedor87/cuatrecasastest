@@ -18,6 +18,7 @@ use App\Form\Type\MetaRobotsType;
 use App\Entity\Activity;
 use App\Entity\Lawyer;
 use App\Entity\Quote;
+use App\Entity\Award;
 use App\Form\ResourceFormType;
 use App\Repository\LawyerRepository;
 

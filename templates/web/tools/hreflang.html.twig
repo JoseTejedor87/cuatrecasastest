@@ -1,7 +1,7 @@
 {% for language in languages %}
 
     {% for region in regions %}
-
+    
         {% set href = navigation_service.getAlternativePath(language, region) %}
         {% set hreflang = navigation_service.getHrefLang(language, region) %}
 

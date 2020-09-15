@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="App\Repository\PublicationRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"article" = "Article", "news" = "News","opinion" = "Opinion", "legalNovelty" = "LegalNovelty", "research" = "Research"})
+ * @ORM\DiscriminatorMap({"academy" = "Academy", "news" = "News","opinion" = "Opinion", "legalNovelty" = "LegalNovelty"})
  *
  */
 abstract class Publication extends Publishable
@@ -36,12 +36,6 @@ abstract class Publication extends Publishable
      */
     private $attachments;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ArticleCategory", inversedBy="article")
-     */
-    private $category;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="publication")
      */
@@ -62,6 +56,11 @@ abstract class Publication extends Publishable
      */
     private $publication_date;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="publications")
+     */
+    private $insights;
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -69,6 +68,7 @@ abstract class Publication extends Publishable
         $this->offices = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->people = new ArrayCollection();
+        $this->insights = new ArrayCollection();
     }
 
     public function getFeatured(): ?int
@@ -192,32 +192,6 @@ abstract class Publication extends Publishable
     }
 
     /**
-     * @return Collection|ArticleCategory[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(ArticleCategory $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(ArticleCategory $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Person[]
      */
     public function getPeople(): Collection
@@ -238,6 +212,34 @@ abstract class Publication extends Publishable
     {
         if ($this->people->contains($person)) {
             $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removePublication($this);
         }
 
         return $this;
