@@ -3,6 +3,14 @@ cms_dashboard:
     methods:    GET
     controller: App\Controller\CMS\DashboardController::index
 
+# HOME
+# ####################################
+cms_home_edit:
+    path:       /home
+    methods:    GET
+    controller: App\Controller\CMS\HomeController::edit
+
+
 # Publication
 # ####################################
 cms_publication_index:

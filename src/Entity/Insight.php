@@ -70,6 +70,12 @@ class Insight extends Publishable
      */
     private $lawyers;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="insights")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $home; 
+
     public function __construct()
     {
         $this->relatedInsightsWithMe = new ArrayCollection();
@@ -254,6 +260,18 @@ class Insight extends Publishable
     public function setShowIntroBlock(bool $showIntroBlock): self
     {
         $this->showIntroBlock = $showIntroBlock;
+
+        return $this;
+    }
+
+    public function getHome(): ?Home
+    {
+        return $this->home;
+    }
+
+    public function setHome(?Home $home): self
+    {
+        $this->home = $home;
 
         return $this;
     }
