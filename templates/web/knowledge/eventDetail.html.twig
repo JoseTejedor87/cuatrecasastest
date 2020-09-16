@@ -367,6 +367,27 @@
             }, 'slow');
         });
 
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+
         $("#eventBoxForm .btn").click( function() {
             $("#eventBoxForm .form-control").removeClass('is-valid');
             $("#eventBoxForm .form-control").removeClass('is-invalid');
@@ -406,27 +427,6 @@
                 .fail(function() {
                 });
         });
-
-        // Bootstrap form validation
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
-                        $('html, body').animate({
-                            scrollTop: $(errorElements[0]).offset().top - 120
-                        }, 'slow');
-                        $(errorElements[0]).focus();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
 
         function validation() {
 
