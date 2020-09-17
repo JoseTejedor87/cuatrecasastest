@@ -30,6 +30,10 @@ abstract class Publication extends Publishable
      */
     private $format;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    private $url_video;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="publication", cascade={"persist"}, orphanRemoval=true)
@@ -241,6 +245,18 @@ abstract class Publication extends Publishable
             $this->insights->removeElement($insight);
             $insight->removePublication($this);
         }
+
+        return $this;
+    }
+
+    public function getUrlVideo(): ?string
+    {
+        return $this->url_video;
+    }
+
+    public function setUrlVideo(?string $url_video): self
+    {
+        $this->url_video = $url_video;
 
         return $this;
     }

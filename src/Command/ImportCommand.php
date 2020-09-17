@@ -103,6 +103,7 @@ class ImportCommand extends Command
             $this->Trainings();
             $this->Pages();
             $this->Banner();
+            $this->Videos();
         } else {
             switch ($table) {
                 case "lawyer":
@@ -223,13 +224,159 @@ class ImportCommand extends Command
                     $this->ActivityActivities();
                     
                 break;
-
-
+                case "videos":
+                    $this->Videos();
+                break;
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
+
+
+
+    public function Videos()
+    {
+        $pub_videos = json_decode(
+            file_get_contents("JsonExports/Videos.json"),
+            true
+        );
+
+        $pub_video_translations = json_decode(
+            file_get_contents("JsonExports/VideosIdiomas.json"),
+            true
+        );
+
+        $videos_idiom_processed = [];
+        
+        $this->logger->debug("videosNoticias Procesando array de idiomas...");
+
+        $id_anterior = 0;
+        $arrayVideoTrans = array();
+        foreach ($pub_video_translations as $key => $item) {
+            if ( $id_anterior != $item['videos_id']){
+                $id_anterior = $item['videos_id'];
+                $arrayVideoTrans[$item['videos_id']] = array();
+            }
+            array_push($arrayVideoTrans[$item['videos_id']],$item);
+        }
+        $this->logger->debug("array de arrayVideoTrans... creado por key = id_video");
+        //print_r($arrayVideoTrans);die();
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/news-*"));
+
+        $processedPublicationMap = [];
+        $processedAttachmentsMap = [];
+
+        foreach ($pub_videos as $key => $item) {
+            $oldPublicationId = $item['id'];
+            // create a new instance and fill it
+
+            if(isset($processedPublicationMap[$oldPublicationId])){
+                $publicationRepository = $this->em->getRepository(Publication::class);
+                $publicationId = $this->getMappedPublicationId($oldPublicationId);
+                if($publicationId){
+                    $publication = $publicationRepository->find($publicationId); 
+                }
+            }else{
+                if ($item['tipo_video']!=5) {
+                    $publication = new News();
+                } elseif ($item['tipo_video']==5) {
+                    $publication = new Opinion();
+                } else {
+                    continue;
+                }
+            }
+            if($publication){
+                $publication->setOldId($oldPublicationId);
+                $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
+                $publication->setFormat('video');
+
+                $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
+                $arrayLang = [];
+                $item['visio_es'] ? array_push($arrayLang, 'es') : '';
+                $item['visio_en'] ? array_push($arrayLang, 'en') : '';
+                $item['visio_pt'] ? array_push($arrayLang, 'pt') : '';
+                $item['visio_cn'] ? array_push($arrayLang, 'zh') : '';
+                array_unique($arrayLang);
+                $publication->setLanguages($arrayLang);
+
+                foreach ($arrayVideoTrans[$item['id']] as $key => $video_lan){             
+
+                    $lang = $this->getMappedLanguageCodeById($video_lan['idiomas_id']);
+                    if (isset($video_lan['title']) && $video_lan['title'] != ''){
+                        $publication->translate($lang)->setTitle($this->convertStringUTF8($video_lan['title']));
+                        $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
+                        //$publication->setPublished(true);
+                    } else {
+                        $publication->translate($lang)->setTitle('Notitle');
+                        $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
+                        //$publication->setPublished(false);
+                    }
+                    
+                    if ($item['url_source'] != '') {
+                        $publication->setUrlVideo($item['url_source']);
+                    }
+
+                }
+    
+                if ($item['url_img']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_img']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_img']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_img']] = $resource;
+                    } else {
+                        $path = $item['url_img'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_main_photo');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_img']] = $resource;
+                        }
+                    }
+                }
+                if ($item['url_thumb']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_thumb']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']] = $resource;
+                    } else {
+                        $path = $item['url_thumb'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_thumbnail');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']] = $resource;
+                        }
+                    }
+                }
+				
+
+                $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
+
+                // Adding the current instance to the offices mapping
+                $processedPublicationMap[$oldPublicationId] = $publication;
+            }
+        }
+
+    }
+ 
+
 
     public function delTrainings()
     {
