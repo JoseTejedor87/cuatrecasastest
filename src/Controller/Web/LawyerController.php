@@ -197,7 +197,6 @@ class LawyerController extends WebController
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
-        $filesystem = new Filesystem();
         $dataString =   'BEGIN:VCARD'."\n".
                         'VERSION:3.0'."\n".
                         'N:'.$lawyer->getSurname().';'.$lawyer->getName()."\n".

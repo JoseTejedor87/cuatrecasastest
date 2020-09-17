@@ -66,10 +66,10 @@
                                 <li><a href="#"><i class="material-icons">print</i></a></li>
                                 <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                             </ul>
-                            {#% if lawyer.photo %#}
-                                <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }#}');"></div> -->
-                            {#% endif %#}
-                            <div class="lawyer__page__foto--img" style="background-image: url('{{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }}"></div>
+                            {% if lawyer.photo %}
+                                <div class="lawyer__page__foto--img" style="background-image: url('{{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }}');"></div>
+                            {% endif %}
+                            <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }#}"></div> -->
                         </div>
                     </div>
                 </div>

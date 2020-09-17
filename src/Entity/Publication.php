@@ -56,6 +56,11 @@ abstract class Publication extends Publishable
      */
     private $publication_date;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="publications")
+     */
+    private $insights;
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -63,6 +68,7 @@ abstract class Publication extends Publishable
         $this->offices = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->people = new ArrayCollection();
+        $this->insights = new ArrayCollection();
     }
 
     public function getFeatured(): ?int
@@ -206,6 +212,34 @@ abstract class Publication extends Publishable
     {
         if ($this->people->contains($person)) {
             $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removePublication($this);
         }
 
         return $this;

@@ -192,6 +192,7 @@ class ImportCommandDev extends Command
                 case "pages":
                     $this->Pages();
                 break;
+
                 case "banner":
                     $this->Banner();
                 break;                
@@ -447,6 +448,7 @@ class ImportCommandDev extends Command
 
     }
 
+
     public function Lawyers()
     {
         $data = file_get_contents("JsonExports/abogados.json");
@@ -469,6 +471,7 @@ class ImportCommandDev extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM LawyerTranslation ");
         $this->em->getConnection()->executeQuery("DELETE FROM Lawyer ");        
         //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
+
 
 
         $processedLawyersMap = [];

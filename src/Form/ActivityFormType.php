@@ -9,19 +9,26 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
 use App\Entity\Activity;
+use App\Entity\Lawyer;
 use App\Entity\Quote;
 use App\Entity\Award;
 use App\Form\ResourceFormType;
+use App\Repository\LawyerRepository;
 
 abstract class ActivityFormType extends AbstractType
 {
+    private $id_act;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->id_act = $options['data']->getId();
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
@@ -44,6 +51,24 @@ abstract class ActivityFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
+                }
+            ])
+            ->add('key_contacts', EntityType::class, [
+                'class' => Lawyer::class,
+                'label' => 'entities.case_study.fields.lawyers',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'required' => false,
+                'query_builder' => function (LawyerRepository $lr) {
+                        return $lr->createQueryBuilder('l')
+                            ->join('l.activities', 'a')
+                            ->where('a.id = :id_act')
+                            ->setParameter('id_act', $this->id_act)
+                            ->orderBy('l.name', 'ASC');
                 }
             ])
             ->add('quote', EntityType::class, [
