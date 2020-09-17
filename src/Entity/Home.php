@@ -29,7 +29,7 @@ class Home extends Publishable
      */
     private $showInsight;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="home" , cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home" , cascade={"persist"})
      */
     private $insights;  
 
@@ -46,12 +46,12 @@ class Home extends Publishable
     private $showQuoteBlock;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" , cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" , cascade={"persist"})
      */
     private $quotes;  
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home" , cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home" , cascade={"persist"})
      */
     private $brand;
 
@@ -123,14 +123,14 @@ class Home extends Publishable
     }
 
     /**
-     * @return Collection|Activity[]
+     * @return Collection|Insight[]
      */
     public function getInsights(): Collection
     {
         return $this->insights;
     }
 
-    public function addInsight(Activity $insight): self
+    public function addInsight(Insight $insight): self
     {
         if (!$this->insights->contains($insight)) {
             $this->insights[] = $insight;
@@ -140,7 +140,7 @@ class Home extends Publishable
         return $this;
     }
 
-    public function removeInsight(Activity $insight): self
+    public function removeInsight(Insight $insight): self
     {
         if ($this->insights->contains($insight)) {
             $this->insights->removeElement($insight);
@@ -213,6 +213,6 @@ class Home extends Publishable
         }
 
         return $this;
-    }  
+    }
 
 }

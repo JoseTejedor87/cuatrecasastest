@@ -5,11 +5,18 @@ cms_dashboard:
 
 # HOME
 # ####################################
-cms_home_edit:
+cms_home_index:
     path:       /home
     methods:    GET
+    controller: App\Controller\CMS\HomeController::index
+cmd_home_new:
+    path:       /home/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\HomeController::new
+cms_home_edit:
+    path:       /home/{id}/edit
+    methods:    GET|POST
     controller: App\Controller\CMS\HomeController::edit
-
 
 # Publication
 # ####################################
