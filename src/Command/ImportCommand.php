@@ -104,6 +104,9 @@ class ImportCommand extends Command
             $this->Pages();
             $this->Banner();
             $this->Videos();
+            $this->VideoPublicationsByLawyers();
+            $this->VideoPublicationsByOffices();
+            $this->VideoPublicationsByActivities();
         } else {
             switch ($table) {
                 case "lawyer":
