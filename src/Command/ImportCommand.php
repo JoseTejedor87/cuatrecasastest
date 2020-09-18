@@ -227,6 +227,15 @@ class ImportCommand extends Command
                 case "videos":
                     $this->Videos();
                 break;
+                case "video_lawyers":
+                    $this->VideoPublicationsByLawyers();
+                    break;
+                case "video_offices":
+                    $this->VideoPublicationsByOffices();
+                    break;
+                case "video_activities":
+                    $this->VideoPublicationsByActivities();
+                    break;                  
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -376,6 +385,101 @@ class ImportCommand extends Command
 
     }
  
+
+    public function VideoPublicationsByLawyers()
+    {
+        $data = file_get_contents("JsonExports/VideosAbogados.json");
+        $items = json_decode($data, true);
+        $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+        $personRepository = $this->em->getRepository(Person::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_person");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " Lawyer:" . $item['abogado_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
+            if ($publicationId && $lawyerId) {
+                $publication = $publicationRepository->find($publicationId);
+                $lawyer = $lawyerRepository->find($lawyerId);
+                $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                if(!$person){
+                    $person = new Person();
+                    $person->setOldId($lawyerId);
+                    $person->setLawyer($lawyer);
+                }
+                $publication->addPerson($person);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function VideoPublicationsByOffices()
+    {
+        $data = file_get_contents("JsonExports/VideosOficina.json");
+        $items = json_decode($data, true);
+        $officeRepository = $this->em->getRepository(Office::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_office ");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " office:" . $item['oficina_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $oficceId = $this->getMappedOfficeId($item['oficina_id']);
+            if ($publicationId && $oficceId) {
+                $publication = $publicationRepository->find($publicationId);
+                $office = $officeRepository->find($oficceId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addOffice($office);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function VideoPublicationsByActivities()
+    {
+        $data = file_get_contents("JsonExports/VideosPractica.json");
+        $items = json_decode($data, true);
+        $activityRepository = $this->em->getRepository(Activity::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_activity ");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " practica:" . $item['practica_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $practicaId = $this->getMappedActivityId($item['practica_id']);
+            if ($publicationId && $practicaId) {
+                $publication = $publicationRepository->find($publicationId);
+                $practica = $activityRepository->find($practicaId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addActivity($practica);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
 
 
     public function delTrainings()
