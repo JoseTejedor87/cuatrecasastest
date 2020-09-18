@@ -37,6 +37,7 @@ use App\Entity\Program;
 use App\Entity\Product;
 use App\Entity\Banner;
 use App\Entity\Slider;
+use App\Entity\Legislation;
 
 class ImportCommand extends Command
 {
@@ -108,7 +109,7 @@ class ImportCommand extends Command
             $this->VideoPublicationsByOffices();
             $this->VideoPublicationsByActivities();
             $this->PublicationsByLegislation();
-            
+
         } else {
             switch ($table) {
                 case "lawyer":
@@ -258,8 +259,8 @@ class ImportCommand extends Command
 
 
         $this->em->getConnection()->executeQuery("DELETE FROM Legislation ");
-        $this->em->getConnection()->executeQuery("ALTER TABLE Legislation AUTO_INCREMENT = 1");
-        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Legislation AUTO_INCREMENT = 1");
+        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Legislation, RESEED, 1)");
 
         foreach ($items as $item) {
             $leg = new Legislation();
@@ -282,7 +283,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Publicacion:" . $item['publicacion_id'] . " legislacionID:" . $item['legislacion_id']);
-            $publicationId = $this->getMappedPublicationId($item['legislacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id']);
             $legislationId = $item['legislacion_id']; // En nuestra DB siempre tendra el id original 1, 2 y3 por eso se puede asi.
             if ($publicationId && $legislationId) {
                 $publication = $publicationRepository->find($publicationId);
