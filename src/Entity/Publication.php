@@ -65,14 +65,19 @@ abstract class Publication extends Publishable
      */
     private $insights;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Legislation", cascade="persist", inversedBy="publications")
+     */
+    private $legislations;
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
         $this->activities = new ArrayCollection();
-        $this->offices = new ArrayCollection();
-        $this->category = new ArrayCollection();
         $this->people = new ArrayCollection();
+        $this->offices = new ArrayCollection();
         $this->insights = new ArrayCollection();
+        $this->legislations = new ArrayCollection();
     }
 
     public function getFeatured(): ?int
@@ -80,7 +85,7 @@ abstract class Publication extends Publishable
         return $this->featured;
     }
 
-    public function setFeatured(int $featured): self
+    public function setFeatured(?int $featured): self
     {
         $this->featured = $featured;
 
@@ -99,10 +104,33 @@ abstract class Publication extends Publishable
         return $this;
     }
 
+    public function getUrlVideo(): ?string
+    {
+        return $this->url_video;
+    }
+
+    public function setUrlVideo(?string $url_video): self
+    {
+        $this->url_video = $url_video;
+
+        return $this;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publication_date;
+    }
+
+    public function setPublicationDate(?\DateTimeInterface $publication_date): self
+    {
+        $this->publication_date = $publication_date;
+
+        return $this;
+    }
 
     /**
-        * @return Collection|Resource[]
-        */
+     * @return Collection|Resource[]
+     */
     public function getAttachments(): Collection
     {
         return $this->attachments;
@@ -158,44 +186,6 @@ abstract class Publication extends Publishable
     }
 
     /**
-     * @return Collection|Office[]
-     */
-    public function getOffices(): Collection
-    {
-        return $this->offices;
-    }
-
-    public function addOffice(Office $office): self
-    {
-        if (!$this->offices->contains($office)) {
-            $this->offices[] = $office;
-        }
-
-        return $this;
-    }
-
-    public function removeOffice(Office $office): self
-    {
-        if ($this->offices->contains($office)) {
-            $this->offices->removeElement($office);
-        }
-
-        return $this;
-    }
-
-    public function getPublicationDate(): ?\DateTimeInterface
-    {
-        return $this->publication_date;
-    }
-
-    public function setPublicationDate(\DateTimeInterface $publication_date): self
-    {
-        $this->publication_date = $publication_date;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Person[]
      */
     public function getPeople(): Collection
@@ -216,6 +206,32 @@ abstract class Publication extends Publishable
     {
         if ($this->people->contains($person)) {
             $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Office[]
+     */
+    public function getOffices(): Collection
+    {
+        return $this->offices;
+    }
+
+    public function addOffice(Office $office): self
+    {
+        if (!$this->offices->contains($office)) {
+            $this->offices[] = $office;
+        }
+
+        return $this;
+    }
+
+    public function removeOffice(Office $office): self
+    {
+        if ($this->offices->contains($office)) {
+            $this->offices->removeElement($office);
         }
 
         return $this;
@@ -249,15 +265,32 @@ abstract class Publication extends Publishable
         return $this;
     }
 
-    public function getUrlVideo(): ?string
+    /**
+     * @return Collection|Legislation[]
+     */
+    public function getLegislations(): Collection
     {
-        return $this->url_video;
+        return $this->legislations;
     }
 
-    public function setUrlVideo(?string $url_video): self
+    public function addLegislation(Legislation $legislation): self
     {
-        $this->url_video = $url_video;
+        if (!$this->legislations->contains($legislation)) {
+            $this->legislations[] = $legislation;
+        }
 
         return $this;
     }
+
+    public function removeLegislation(Legislation $legislation): self
+    {
+        if ($this->legislations->contains($legislation)) {
+            $this->legislations->removeElement($legislation);
+        }
+
+        return $this;
+    }
+
+
+    
 }

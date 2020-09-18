@@ -107,6 +107,8 @@ class ImportCommand extends Command
             $this->VideoPublicationsByLawyers();
             $this->VideoPublicationsByOffices();
             $this->VideoPublicationsByActivities();
+            $this->PublicationsByLegislation();
+            
         } else {
             switch ($table) {
                 case "lawyer":
@@ -238,7 +240,10 @@ class ImportCommand extends Command
                     break;
                 case "video_activities":
                     $this->VideoPublicationsByActivities();
-                    break;                  
+                    break;
+                case "legislation":
+                    $this->PublicationsByLegislation();
+                break;                                        
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -246,6 +251,51 @@ class ImportCommand extends Command
     }
 
 
+    public function Legislation(){
+
+        $data = file_get_contents("JsonExports/legislacion.json");
+        $items = json_decode($data, true);
+
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Legislation ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE Legislation AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
+
+        foreach ($items as $item) {
+            $leg = new Legislation();
+            $leg->setName($this->convertStringUTF8($item['nombre']));
+            $this->em->persist($leg);
+            $this->em->flush();
+        }
+
+    }
+
+    public function PublicationsByLegislation()
+    {
+        $this->Legislation();
+
+        $data = file_get_contents("JsonExports/PublicacionesLegislacion.json");
+        $items = json_decode($data, true);
+        $legislationRepository = $this->em->getRepository(Legislation::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Publicacion:" . $item['publicacion_id'] . " legislacionID:" . $item['legislacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['legislacion_id']);
+            $legislationId = $item['legislacion_id']; // En nuestra DB siempre tendra el id original 1, 2 y3 por eso se puede asi.
+            if ($publicationId && $legislationId) {
+                $publication = $publicationRepository->find($publicationId);
+                $legislation = $legislationRepository->find($legislationId);
+
+                $publication->addLegislation($legislation);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }   
 
     public function Videos()
     {
