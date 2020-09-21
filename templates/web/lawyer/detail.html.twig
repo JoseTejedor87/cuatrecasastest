@@ -48,9 +48,6 @@
                             <div data-vcard>
                                 <a href="{{ path('lawyers_vcard_download', { 'id':lawyer.id } )}}">{{ 'sections.lawyers.vcard'|trans }}</a>
                             </div>
-                            <div data-cv>
-                                <a href="#">{{ 'sections.lawyers.full_cv'|trans }}</a>
-                            </div>
                         </div>
                         <ul class="action__links">
                             <li><a href="#"><i class="material-icons">share</i></a></li>
@@ -142,7 +139,7 @@
                             <div class="page__block__title">
                                 <h3 class="subsection__title">{{ 'sections.lawyers.cases'|trans }}</h3>
                             </div>
-                            <div class="page__block__content">
+                            <div class="page__block__content page__block__content--list">
                                 <ul class="page__block__content__details show__more">
                                     {% for case in contextualBlocks.cases %}
                                         <li>
@@ -166,13 +163,13 @@
                                 <div class="page__block__title">
                                     <h3 class="subsection__title">{{ 'sections.lawyers.publications'|trans }}</h3>
                                 </div>
-                                <div class="page__block__content">
+                                <div class="page__block__content page__block__content--list">
                                     <ul class="page__block__content__details show__more">
                                     {% for publication in lawyer.person.publications %}
                                         {% set PublicationDate = publication.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                         <li>
                                             <div>{{ PublicationDate[1] }}</div>
-                                            <a href="#"> {{ publication.translate(app.request.getLocale()).title}}.</a>
+                                            <a href="#">{{ publication.translate(app.request.getLocale()).title}}</a>
                                         </li>
                                     {% endfor %}
                                     </ul>
@@ -187,14 +184,14 @@
                                 <div class="page__block__title">
                                     <h3 class="subsection__title">{{ 'sections.lawyers.events'|trans }}</h3>
                                 </div>
-                                <div class="page__block__content">
+                                <div class="page__block__content page__block__content--list">
                                     <ul class="page__block__content__details show__more">
                                         {% for event in lawyer.person.events %}
                                         {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                             {% if (event.translate(app.request.getLocale()).title) %}
                                                 <li>
                                                     <div>{{ StartDate[1] }}</div>
-                                                    <a href="#"> {{ event.translate(app.request.getLocale()).title}}.</a>
+                                                    <a href="#">{{ event.translate(app.request.getLocale()).title}}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
@@ -239,7 +236,11 @@
             },
             afterToggle: function(trigger, element, expanded) {
                 if(! expanded) {
-                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
                 }
             }
         });
@@ -257,7 +258,11 @@
             $('.show__more .doble__arrow__accordion').blur();
         });
         $('.show__more').on("click", '.show__less', function() {
-            $('html, body').animate({scrollTop: $(this).parent().offset().top - 120}, {duration: 'fast'});
+            if (window.matchMedia('(max-width: 1199px)').matches) {
+                $('html, body').animate({scrollTop: $(this).parent().offset().top - 50}, {duration: 'fast'});
+            } else {
+                $('html, body').animate({scrollTop: $(this).parent().offset().top - 120}, {duration: 'fast'});
+            }
             $(this).parent('.show__more').children('li:gt(2)').slideUp();
             $(this).removeClass('show__less').addClass('show__more').text('{{ 'global.messages.show_more'|trans }}');
             $('.show__more .doble__arrow__accordion').blur();
