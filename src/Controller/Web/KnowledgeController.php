@@ -18,6 +18,7 @@ use App\Controller\Web\WebController;
 use ORMBehaviors\Translatable\Translation;
 use Doctrine\ORM\Query\Expr\Join;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use App\Controller\Web\NavigationService;
 
 
 
@@ -30,7 +31,7 @@ class KnowledgeController extends WebController
         $this->params = $params;
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository, EventRepository $eventRepository)
+    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository, EventRepository $eventRepository, NavigationService $navigation)
     {
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
@@ -49,10 +50,10 @@ class KnowledgeController extends WebController
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
         //dd($page);
-        $query = $publicationRepository->createQueryBuilder('p');
-        $query = $query->innerJoin('p.translations', 'pt')
-                            ->andWhere("pt.title != :textSearch")
-                            ->setParameter('textSearch', '""');
+        $query = $publicationRepository->createPublishedQueryBuilder('p');
+        // $query = $query->innerJoin('p.translations', 'pt')
+        //                     ->andWhere("pt.title != :textSearch")
+        //                     ->setParameter('textSearch', '""');
         if($services){
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
@@ -163,9 +164,11 @@ class KnowledgeController extends WebController
             $publicationsA = array();
             if (isset($publications)) {
                 foreach ($publications as $key => $publication) {
-                    // $url =  $this->container->get('router')->generate('publications_detail', array('slug' => $publication->translate('es')->getSlug() ? $publication->translate('es')->getSlug() : ''));
-                    $publicationsA[$key] = array( 'title' => $publication->translate('es')->getTitle(), 'publicationType' => $publication->type, 'Slug' => $publication->translate('es')->getSlug(), 'Publication_date' => $publication->fechaPubli);
-                    $publicationsA[$key]['photo'] = $publication->photo;
+                    if($publication->translate($navigation->getLanguage())->getTitle() != ''){
+                        // $url =  $this->container->get('router')->generate('publications_detail', array('slug' => $publication->translate('es')->getSlug() ? $publication->translate('es')->getSlug() : ''));
+                        $publicationsA[$key] = array( 'title' => $publication->translate($navigation->getLanguage())->getTitle(), 'publicationType' => $publication->type, 'Slug' => $publication->translate('es')->getSlug(), 'Publication_date' => $publication->fechaPubli);
+                        $publicationsA[$key]['photo'] = $publication->photo;
+                    }
                 }
             }
             $json = array(

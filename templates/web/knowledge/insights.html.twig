@@ -505,7 +505,9 @@
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }
-                    item.find( ".boxnews__item--article" ).removeClass("boxnews__item--article");
+                    item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
+                    item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
+                    item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");
                     item.find( ".boxnews__item" ).addClass('boxnews__item--'+publication['publicationType'])
                     var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';
                     $grid.append(html);
