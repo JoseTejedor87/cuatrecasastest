@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
+
 use App\Entity\Insight;
 use App\Entity\Brand;
 use App\Entity\Quote;
@@ -71,7 +72,9 @@ class HomeFormType extends AbstractType
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('published', MetaRobotsType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots']);
+            
     }
 
     /**

@@ -104,6 +104,7 @@ abstract class Activity extends Publishable
      * @ORM\ManyToMany(targetEntity="App\Entity\Quote", inversedBy="activities")
      */
     private $quote;
+    
 
     public function __construct()
     {

@@ -1310,12 +1310,9 @@ class ImportCommandDev extends Command
         foreach ($publications as $key => $item) {
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
-            if ($item['tipo_publicacion']==2) {
-                $publication = new Article();
-            } elseif ($item['tipo_publicacion']==3) {
-                $publication = new Research();
-            } elseif ($item['tipo_publicacion']==1 || $item['tipo_publicacion']==4 || $item['tipo_publicacion']==5 || $item['tipo_publicacion']==6 || $item['tipo_publicacion']==7) {
-                $publication = new LegalNovelty();
+
+            if ($item['tipo_publicacion']==3 || $item['tipo_publicacion']==4 || $item['tipo_publicacion']==5 || $item['tipo_publicacion']==6 || $item['tipo_publicacion']==7) {
+                $publication = new Opinion();
             } else {
                 continue;
             }
@@ -1692,7 +1689,7 @@ class ImportCommandDev extends Command
                     if ($status!=400) {
                         $content = $response->toArray();
                         foreach ($content as $keyPost => $post) {
-                            $article = new Article();
+                            $article = new Opinion();
                             $article->setOldId($post['id']);
                             //$article->setStatus($post['status']=='publish' ? 1 : 0);
                             $article->setPublicationDate(new \DateTime($post['date']));
@@ -1754,7 +1751,7 @@ class ImportCommandDev extends Command
                     if ($status!=400) {
                         $content = $response->toArray();
                         foreach ($content as $keyPost => $post) {
-                            $article = new Article();
+                            $article = new Opinion();
                             $article->setOldId($post['id']);
                             //    $article->setStatus($post['status']=='publish' ? 1 : 0);
                             
@@ -2252,7 +2249,6 @@ class ImportCommandDev extends Command
                     $publication->translate($currentLang)->setTitle($title);
                     $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
                     $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-
                     $publication->setLanguages(
                         array_unique(
                             array_merge(

@@ -24,6 +24,11 @@ abstract class Publishable extends Item
      */
     private $metaRobots;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $published;
+
     public function getLanguages(): ?array
     {
         return $this->languages;
@@ -78,5 +83,17 @@ abstract class Publishable extends Item
             $this->getRegions()
         );
         return $hasLanguageEnabled && $hasRegionEnabled;
+    }
+
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($published): self
+    {
+        $this->published = $published;
+
+        return $this;
     }
 }
