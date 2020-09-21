@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Entity\Office;
 use App\Form\ResourceFormType;
@@ -43,6 +44,7 @@ class OfficeFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],

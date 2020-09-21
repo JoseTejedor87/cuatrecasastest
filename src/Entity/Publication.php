@@ -70,6 +70,12 @@ abstract class Publication extends Publishable
      */
     private $legislations;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $originalTableCode;
+    
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -287,6 +293,18 @@ abstract class Publication extends Publishable
         if ($this->legislations->contains($legislation)) {
             $this->legislations->removeElement($legislation);
         }
+
+        return $this;
+    }
+
+    public function getOriginalTableCode(): ?int
+    {
+        return $this->originalTableCode;
+    }
+
+    public function setOriginalTableCode(?int $originalTableCode): self
+    {
+        $this->originalTableCode = $originalTableCode;
 
         return $this;
     }

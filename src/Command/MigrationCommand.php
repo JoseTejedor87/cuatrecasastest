@@ -136,10 +136,19 @@ class MigrationCommand extends Command
                     $this->Publicaciones($conn,$output);
                     $this->PublicacionesIdiomas($conn,$output);
                     $this->PublicacionesAbogados($conn,$output);
+                    $this->legislacion($conn,$output);
                     $this->PublicacionesLegislacion($conn,$output);
                     $this->PublicacionesPractica($conn,$output);
                     $this->PublicacionesOficina($conn,$output);
                     break; 
+                case "videos":
+                    $this->Videos($conn,$output);
+                    $this->VideosIdiomas($conn,$output);
+                    $this->VideosAbogados($conn,$output);
+                    $this->VideosPractica($conn,$output);
+                    $this->VideosOficina($conn,$output);
+                    break; 
+
             } 
         }
         $output->writeln("Se ha conectado con el servidor");
@@ -380,6 +389,18 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
+    public function legislacion($conn,$output){
+        $query = "SELECT [id] ,[nombre]  FROM legislacion";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/legislacion.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla legislacion');
+        $this->logger->info('Se ha guardado con el nombre legislacion.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
     public function PublicacionesPractica($conn,$output){
         $query = "SELECT [publicacion_id] ,[practica_id] FROM PublicacionesPractica";  
         $stmt = $conn->prepare($query);
@@ -465,4 +486,67 @@ class MigrationCommand extends Command
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }
+
+    public function Videos($conn,$output){
+        $query = "SELECT [id] ,[videoorigen_id] ,[fecha_video]  ,[fecha_modificacion] ,[fecha_publicacion],[url_source],[url_img], [url_thumb] ,[destacada] ,[duration] ,[remote_id] ,[visio_es] ,[visio_en]  ,[visio_pt]  ,[status]  ,[tipo_video] ,[visitas] ,[visio_cn] FROM Videos";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/Videos.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla Videos');
+        $this->logger->info('Se ha guardado con el nombre Videos.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function VideosIdiomas($conn,$output){
+        $query = "SELECT [id] ,[idiomas_id] ,[videos_id] ,[title],[url_friend] ,[tags] ,[description] ,[resumen] ,[metadescription] ,[abogado_tags] ,[oficina_tags] ,[practica_tags] FROM Videoidioma";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/VideosIdiomas.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla VideosIdiomas');
+        $this->logger->info('Se ha guardado con el nombre VideosIdiomas.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function VideosAbogados($conn,$output){
+        $query = "SELECT [videos_id] ,[abogado_id] FROM VideoAbogado";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/VideosAbogados.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla VideosAbogados');
+        $this->logger->info('Se ha guardado con el nombre VideosAbogados.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function VideosPractica($conn,$output){
+        $query = "SELECT [videos_id] ,[practica_id] FROM videoPractica";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/VideosPractica.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla VideosPractica');
+        $this->logger->info('Se ha guardado con el nombre VideosPractica.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function VideosOficina($conn,$output){
+        $query = "SELECT [videos_id] ,[oficina_id]  FROM [VideoOficina]";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/VideosOficina.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla VideosOficina');
+        $this->logger->info('Se ha guardado con el nombre VideosOficina.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+
+
 }

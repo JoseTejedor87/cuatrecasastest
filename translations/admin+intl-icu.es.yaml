@@ -355,6 +355,7 @@ entities:
       metaTitle: Meta Título
       metaDescription: Meta Descripción
       metaRobots: Meta Robots
+      published: Publicado
   quote:
     fields:
       author: Autor
