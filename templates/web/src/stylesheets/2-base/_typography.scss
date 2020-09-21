@@ -13,11 +13,25 @@ body {
     @include cuatrecasas-font();
     font-size: 125%;
     line-height: 1.4;
-    color: $text-color;
+    color: $main-color;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga';
+
+    // @media only screen and (max-width: calc(400px * var(--scale-factor))
+
+    @media (-webkit-device-pixel-ratio: 1) {
+        // background: pink;
+    }
+
+    @media (-webkit-device-pixel-ratio: 1.25) {
+        background: cyan;
+    }
+
+    @media (-webkit-device-pixel-ratio: 1.5) {
+        background: yellow;
+    }
 }
 
 
@@ -31,9 +45,25 @@ $rem-base-font: 16px !default;
     font-size: $font-size;
     font-size: ($font-size / $rem-base-font) * 1rem;
 
+    @media (-webkit-device-pixel-ratio: 1.25) {
+      font-size: ($font-size / $rem-base-font) * 0.75rem;
+    }
+
+    @media (-webkit-device-pixel-ratio: 1.5) {
+      font-size: ($font-size / $rem-base-font) * 0.5rem;
+    }
+
     @if ($line-height > 0) {
         line-height: $line-height;
         line-height: ($line-height / $rem-base-font) * 1rem;
+
+        @media (-webkit-device-pixel-ratio: 1.25) {
+          line-height: ($line-height / $rem-base-font) * 0.75rem;
+        }
+
+        @media (-webkit-device-pixel-ratio: 1.5) {
+          line-height: ($line-height / $rem-base-font) * 0.5rem;
+        }
     }
 }
 
