@@ -1,0 +1,74 @@
+{% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
+{% form_theme form 'cms/form/lawyer_customizations.html.twig' %}
+
+<div class="row">
+
+    <div class="col-md-7">
+
+        <div class="row">
+            <div class="col-md-6">
+                AGREGAR O QUITAR BLOQUES 
+                <div class="m-form__section m-form__section--first">
+                    {{ form_row(form.showSearchBlock) }}
+                    {{ form_row(form.showRelatedPublicationAndEvents) }}
+                    {{ form_row(form.showInsight) }}
+                    {{ form_row(form.showCarrerBlock) }}
+                    {{ form_row(form.showQuoteBlock) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="m-form__section m-form__section">
+                    {{ form_row(form.insights) }}
+                    {{ form_row(form.quotes) }}
+                    {{ form_row(form.brand) }}
+                    
+                </div>
+            </div>
+        </div>
+{#
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-form__section m-form__section">
+                    {{ form_row(form.mentions) }}
+                    {{ form_row(form.trainings) }}
+                </div>
+            </div>
+        </div>
+#}
+
+    </div>
+
+    <div class="col-md-4 offset-md-1">
+      
+
+        <div class="m-form__section m-form__section">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.publication'|trans }}
+                </h3>
+            </div>
+
+            {{ form_row(form.languages) }}
+            {{ form_row(form.regions) }}
+        </div>
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+
+            {{ form_row(form.metaRobots) }}
+        </div>
+
+    </div>
+
+    
+
+    {{ form_rest(form) }}
+
+</div>

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
@@ -78,6 +79,7 @@ class CaseStudyFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('image', ResourceFormType::class, ['label'=>'entities.case_study.fields.image']);
     }
 

@@ -3,6 +3,21 @@ cms_dashboard:
     methods:    GET
     controller: App\Controller\CMS\DashboardController::index
 
+# HOME
+# ####################################
+cms_home_index:
+    path:       /home
+    methods:    GET
+    controller: App\Controller\CMS\HomeController::index
+cmd_home_new:
+    path:       /home/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\HomeController::new
+cms_home_edit:
+    path:       /home/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\HomeController::edit
+
 # Publication
 # ####################################
 cms_publication_index:
@@ -137,6 +152,26 @@ cms_sliders_delete:
     path:       /sliders/{id}
     methods:    DELETE
     controller: App\Controller\CMS\SliderController::delete
+
+# Banners
+# ####################################
+
+cms_banners_index:
+    path:       /banners/
+    methods:    GET
+    controller: App\Controller\CMS\BannerController::index
+cms_banners_new:
+    path:       /banners/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\BannerController::new
+cms_banners_edit:
+    path:       /banners/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\BannerController::edit
+cms_banners_delete:
+    path:       /banners/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\BannerController::delete
 
 # INSIGHTS
 # ####################################

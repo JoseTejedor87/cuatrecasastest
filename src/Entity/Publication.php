@@ -30,6 +30,10 @@ abstract class Publication extends Publishable
      */
     private $format;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    private $url_video;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="publication", cascade={"persist"}, orphanRemoval=true)
@@ -56,13 +60,30 @@ abstract class Publication extends Publishable
      */
     private $publication_date;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="publications")
+     */
+    private $insights;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Legislation", cascade="persist", inversedBy="publications")
+     */
+    private $legislations;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $originalTableCode;
+    
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
         $this->activities = new ArrayCollection();
-        $this->offices = new ArrayCollection();
-        $this->category = new ArrayCollection();
         $this->people = new ArrayCollection();
+        $this->offices = new ArrayCollection();
+        $this->insights = new ArrayCollection();
+        $this->legislations = new ArrayCollection();
     }
 
     public function getFeatured(): ?int
@@ -70,7 +91,7 @@ abstract class Publication extends Publishable
         return $this->featured;
     }
 
-    public function setFeatured(int $featured): self
+    public function setFeatured(?int $featured): self
     {
         $this->featured = $featured;
 
@@ -89,10 +110,33 @@ abstract class Publication extends Publishable
         return $this;
     }
 
+    public function getUrlVideo(): ?string
+    {
+        return $this->url_video;
+    }
+
+    public function setUrlVideo(?string $url_video): self
+    {
+        $this->url_video = $url_video;
+
+        return $this;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publication_date;
+    }
+
+    public function setPublicationDate(?\DateTimeInterface $publication_date): self
+    {
+        $this->publication_date = $publication_date;
+
+        return $this;
+    }
 
     /**
-        * @return Collection|Resource[]
-        */
+     * @return Collection|Resource[]
+     */
     public function getAttachments(): Collection
     {
         return $this->attachments;
@@ -148,6 +192,32 @@ abstract class Publication extends Publishable
     }
 
     /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Office[]
      */
     public function getOffices(): Collection
@@ -173,41 +243,72 @@ abstract class Publication extends Publishable
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTimeInterface
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
     {
-        return $this->publication_date;
+        return $this->insights;
     }
 
-    public function setPublicationDate(\DateTimeInterface $publication_date): self
+    public function addInsight(Insight $insight): self
     {
-        $this->publication_date = $publication_date;
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->addPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            $insight->removePublication($this);
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection|Person[]
+     * @return Collection|Legislation[]
      */
-    public function getPeople(): Collection
+    public function getLegislations(): Collection
     {
-        return $this->people;
+        return $this->legislations;
     }
 
-    public function addPerson(Person $person): self
+    public function addLegislation(Legislation $legislation): self
     {
-        if (!$this->people->contains($person)) {
-            $this->people[] = $person;
+        if (!$this->legislations->contains($legislation)) {
+            $this->legislations[] = $legislation;
         }
 
         return $this;
     }
 
-    public function removePerson(Person $person): self
+    public function removeLegislation(Legislation $legislation): self
     {
-        if ($this->people->contains($person)) {
-            $this->people->removeElement($person);
+        if ($this->legislations->contains($legislation)) {
+            $this->legislations->removeElement($legislation);
         }
 
         return $this;
     }
+
+    public function getOriginalTableCode(): ?int
+    {
+        return $this->originalTableCode;
+    }
+
+    public function setOriginalTableCode(?int $originalTableCode): self
+    {
+        $this->originalTableCode = $originalTableCode;
+
+        return $this;
+    }
+
+
+    
 }

@@ -79,7 +79,7 @@ class InsightFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
-
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.insight.fields.title'],

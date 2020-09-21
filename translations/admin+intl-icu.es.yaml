@@ -157,7 +157,13 @@ sections:
       title: Nuevo Slider
     edit:
       title: Editar Slider        
-
+  banners:
+      index:
+        title: Banner
+      new:
+        title: Nuevo Banner
+      edit:
+        title: Editar Banner              
 # Menu
 # ###########################################
 menu:
@@ -349,6 +355,7 @@ entities:
       metaTitle: Meta Título
       metaDescription: Meta Descripción
       metaRobots: Meta Robots
+      published: Publicado
   quote:
     fields:
       author: Autor
@@ -389,6 +396,13 @@ entities:
       description: Descripcion
       url: Url Destino
       image: Imagen
+      priority: Prioridad 
+  banner:
+    edit_slides: Listar Slides
+    fields:
+      location: Nombre de ubicacion de la Pagina 
+      slider: Slides que la componen
+
 # Custom Form Types
 
 forms:

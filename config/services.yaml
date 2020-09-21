@@ -6,7 +6,7 @@
 parameters:
 
     # Languages & Translations
-    app.languages: [es, en]     # The list of available languages
+    app.languages: [es, en, pt, ge]     # The list of available languages
 
     app.default_language: es        # The default language
 
@@ -14,7 +14,7 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
-    app.language_switcher: {es: es, en: en}
+    app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
     # The Single Sign On configuration parameters
     app.single_sign_on:
@@ -48,7 +48,9 @@ parameters:
         - podcast
         - interactive
 
+
     app.known_languages_by_lawyers: [es, en, it, pt, fr, ca, ge, ho, zh, ar, eu, ja, ga, ru]
+
 
     app.meta_robots: {"noindex": "noindex", "nofollow": "nofollow", "noindex, nofollow": "noindex, nofollow"}
 

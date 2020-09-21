@@ -35,6 +35,12 @@ class Quote extends Item
      */
     private $caseStudy;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="quotes")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $home;    
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -118,6 +124,18 @@ class Quote extends Item
             $this->caseStudy->removeElement($caseStudy);
             $caseStudy->removeQuote($this);
         }
+
+        return $this;
+    }
+
+    public function getHome(): ?Home
+    {
+        return $this->home;
+    }
+
+    public function setHome(?Home $home): self
+    {
+        $this->home = $home;
 
         return $this;
     }

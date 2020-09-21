@@ -81,6 +81,9 @@
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
+                        {% if publication.urlVideo != '' and attachmentPublished[0].fileName != '' %}
+                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished[0].fileName } %}
+                        {% endif %}
                     </div>
                 </div>
             </section>
@@ -99,6 +102,9 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Video Popup -->
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
     $(function () {
         var swiperGeneral = new Swiper ('.slider__general', {

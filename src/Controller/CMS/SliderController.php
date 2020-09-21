@@ -72,8 +72,8 @@ class SliderController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (isset($request->request->get('slider_form')['attachments'])) {
-                $attachments = $request->request->get('slider_form')['attachments'];
+            if (isset($request->request->get('slider_form')['image'])) {
+                $attachments = $request->request->get('slider_form')['image'];
                 foreach ($attachments as $key => $attachment) {
                     if (isset($attachment['file']['delete']) && $attachment['file']['delete'] == "1") {
                         $slider->removeAttachment(
@@ -91,7 +91,7 @@ class SliderController extends CMSController
         $a = $form->createView();
 
         return $this->render('cms/slider/edit.html.twig', [
-            'Slider' => $slider,
+            'slider' => $slider,
             'form' => $form->createView(),
         ]);
     }

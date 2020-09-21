@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
@@ -30,6 +31,7 @@ class PageFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('customTemplate',  TextType::class, ['label'=>'Custom-Template'])
             ->add('blocks', CollectionType::class, [
                 'label'=>'entities.page.fields.blocks',
