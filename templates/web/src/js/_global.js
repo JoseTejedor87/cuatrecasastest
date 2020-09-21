@@ -120,48 +120,6 @@ web.global = {
         // });
     },
 
-    /* Stand by BORRAR MAYBE */
-    /*
-    toggleMoreInfo: function(){
-        // Show / hide filters
-
-        // <button data-id="add_group"> Add Group </button>
-
-        $('button').on('click', function() {
-            $('#' + $(this).data('id')).slideToggle();
-        });
-
-
-        // $('.toggle-filters').click(function(e){
-        //     e.preventDefault();
-        //     $('.event-filters').slideToggle();
-        // });
-
-        // $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
-        //     e.preventDefault();
-        //     $(this).toggleClass('on');
-
-        //     var el = $(this);
-        //     el.text() == el.data("text-original")
-        //         ? el.text(el.data("text-swap"))
-        //         : el.text(el.data("text-original"));
-        // });
-    },
-
-    toggleTextButton: function(){
-        // Change text literal buttons
-        $('.toggle-filters, .button-favorite, .button-calendar').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('on');
-
-            var el = $(this);
-            el.text() == el.data("text-original")
-                ? el.text(el.data("text-swap"))
-                : el.text(el.data("text-original"));
-        });
-    },
-    */
-
     customSelects: function(){
         /*
         Custom Selects
@@ -245,7 +203,6 @@ web.global = {
         });
     },
 
-
     sliderGeneral: function(){
         var swiperGeneral = new Swiper ('.slider__general', {
             slidesPerView: 3,
@@ -269,25 +226,25 @@ web.global = {
             grabCursor: true
         });
     },
+
+    sliderAwards: function(){
+        var swiperAwards = new Swiper ('#sliderAwards', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 60,
+                },
+            }
+        });
+    }
+
     */
     // END BORRAR
-
-
-    // sliderAwards: function(){
-    //     var swiperAwards = new Swiper ('#sliderAwards', {
-    //         slidesPerView: 1,
-    //         spaceBetween: 0,
-    //         centeredSlides: true,
-    //         loop: true,
-    //         grabCursor: true,
-    //         breakpoints: {
-    //             1199: {
-    //                 slidesPerView: 3,
-    //                 spaceBetween: 60,
-    //             },
-    //         }
-    //     });
-    // },
 
 }
 

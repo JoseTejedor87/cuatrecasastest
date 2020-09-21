@@ -66,8 +66,19 @@ components:
     path:
         en:   /components
         es:   /componentes
+        pt:   /components
+        ge:   /componentes
     methods:    GET
     controller: App\Controller\Web\HomeController::components
+
+userSettings:
+    path:
+        en:   /user-settings
+        es:   /preferencias-usuario
+        pt:   /user-settings
+        ge:   /preferencias-usuario
+    methods:    GET
+    controller: App\Controller\Web\HomeController::userSettings
 
 
 # KNOWLEDGE
@@ -76,6 +87,8 @@ knowledge_index:
     path:
         en:   /knowledge
         es:   /conocimiento
+        pt:   /knowledge
+        ge:   /conocimiento
     methods:    GET
     controller: App\Controller\Web\KnowledgeController::index
 
@@ -86,6 +99,8 @@ sectors_index:
     path:
         en:   /sectors
         es:   /sectores
+        pt:   /sectors
+        ge:   /sectores
     methods:    GET
     controller: App\Controller\Web\SectorController::index
 
@@ -93,6 +108,8 @@ sectors_detail:
    path:
        en:   /sectors/{slug}
        es:   /sectores/{slug}
+       pt:   /sectors/{slug}
+       ge:   /sectores/{slug}
    methods:    GET
    controller: App\Controller\Web\SectorController::detail
 
@@ -102,6 +119,8 @@ case_studies_detail:
     path:
         en:   /cases/{slug}
         es:   /casos/{slug}
+        pt:   /cases/{slug}
+        ge:   /cases/{slug}
     methods:    GET
     controller: App\Controller\Web\CaseStudyController::detail
 
@@ -111,6 +130,8 @@ services_index:
     path:
         en:   /services
         es:   /servicios
+        pt:   /services
+        ge:   /services
     methods:    GET
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
     defaults:
@@ -123,6 +144,8 @@ practices_index:
     path:
         en:   /practice-areas
         es:   /areas-de-practica
+        pt:   /practice-areas
+        ge:   /practice-areas
     methods:    GET
     controller: App\Controller\Web\PracticeController::index
 
@@ -130,6 +153,8 @@ practices_detail:
    path:
        en:   /practice-areas/{slug}
        es:   /areas-de-practica/{slug}
+       pt:   /practice-areas/{slug}
+       ge:   /practice-areas/{slug}
    methods:    GET
    controller: App\Controller\Web\PracticeController::detail
 
@@ -139,6 +164,8 @@ desks_index:
    path:
        en:   /desks
        es:   /desks
+       pt:   /desks
+       ge:   /desks
    methods:    GET
    controller: App\Controller\Web\DeskController::index
 
@@ -146,6 +173,8 @@ desks_detail:
    path:
        en:   /desks/{slug}
        es:   /desks/{slug}
+       pt:   /desks/{slug}
+       ge:   /desks/{slug}
    methods:    GET
    controller: App\Controller\Web\DeskController::detail
 
@@ -155,6 +184,8 @@ products_index:
     path:
         en:   /other-services
         es:   /otros-servicios
+        pt:   /other-services
+        ge:   /other-services
     methods:    GET
     controller: App\Controller\Web\ProductsController::index
 
@@ -162,6 +193,8 @@ products_detail:
    path:
        en:   /other-services/{slug}
        es:   /otros-servicios/{slug}
+       pt:   /other-services/{slug}
+       ge:   /other-services/{slug}
    methods:    GET
    controller: App\Controller\Web\ProductsController::detail
 
@@ -171,6 +204,8 @@ events_directory:
    path:
        en:   /events
        es:   /eventos
+       pt:   /events
+       ge:   /events
    methods:      GET
    controller:   App\Controller\Web\EventController::index
 
@@ -178,6 +213,8 @@ events_detail:
    path:
        en:   /events/{slug}
        es:   /eventos/{slug}
+       pt:   /events/{slug}
+       ge:   /events/{slug}
    methods:    GET
    controller: App\Controller\Web\EventController::detail
 
@@ -185,6 +222,8 @@ get_events:
    path:
        en:   /get_events_ajax
        es:   /get_events_ajax
+       pt:   /get_events_ajax
+       ge:   /get_events_ajax
    methods:    GET
    controller: App\Controller\Web\EventController::ajaxActionEvent
 
@@ -192,6 +231,8 @@ set_event_contact:
    path:
        en:   /set_contact_ajax
        es:   /set_contact_ajax
+       pt:   /set_contact_ajax
+       ge:   /set_contact_ajax
    methods:    GET
    controller: App\Controller\Web\EventController::ajaxActionContact
 
@@ -199,6 +240,8 @@ get_regions:
    path:
        en:   /get_regions
        es:   /get_regions
+       pt:   /get_regions
+       ge:   /get_regions
    methods:    GET
    controller: App\Controller\Web\EventController::ajaxActionRegions
 
@@ -208,6 +251,8 @@ lawyers_index:
     path:
         en:     /lawyers
         es:     /abogados
+        pt:     /lawyers
+        ge:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::index
 
@@ -215,6 +260,8 @@ lawyers_detail:
     path:
         en:     /lawyers/{slug}
         es:     /abogados/{slug}
+        pt:     /lawyers/{slug}
+        ge:     /lawyers/{slug}
     methods:    GET
     controller: App\Controller\Web\LawyerController::detail
 
@@ -222,8 +269,10 @@ lawyers_vcard_download:
     path:
         en:   /lawyers/{id}/download/
         es:   /abogados/{id}/descarga
+        pt:   /lawyers/{id}/download/
+        ge:   /lawyers/{id}/download/
     methods:    GET
-    controller: App\Controller\Web\LawyerController::download    
+    controller: App\Controller\Web\LawyerController::download
 
 # Insights
 # ###########################################
@@ -231,6 +280,8 @@ insights_detail:
     path:
         en:     /insights/{slug}
         es:     /insights/{slug}
+        pt:     /insights/{slug}
+        ge:     /insights/{slug}
     methods:    GET
     controller: App\Controller\Web\InsightController::detail
 
@@ -240,6 +291,8 @@ offices_index:
     path:
         en:     /offices/{slug}
         es:     /oficinas/{slug}
+        pt:     /offices/{slug}
+        ge:     /offices/{slug}
     methods:    GET
     controller: App\Controller\Web\OfficeController::detail
 
@@ -247,6 +300,8 @@ offices_detail:
     path:
         en:     /offices/{slug}
         es:     /oficinas/{slug}
+        pt:     /offices/{slug}
+        ge:     /offices/{slug}
     methods:    GET
     controller: App\Controller\Web\OfficeController::detail
 
@@ -256,6 +311,8 @@ pages_detail:
     path:
         en:     /p/{slug}
         es:     /p/{slug}
+        pt:     /p/{slug}
+        ge:     /p/{slug}
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -265,6 +322,8 @@ publications_detail:
     path:
         en:   /article/{slug}
         es:   /articulo/{slug}
+        pt:   /article/{slug}
+        ge:   /article/{slug}
     methods:    GET
     controller: App\Controller\Web\PublicationController::detail
 
@@ -275,6 +334,8 @@ regions_vision:
     path:
         en:   /p/vision-general-1
         es:   /p/vision-general
+        pt:   /p/vision-general-1
+        ge:   /p/vision-general-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -282,6 +343,8 @@ regions_espana:
     path:
         en:   /p/espana-1
         es:   /p/espana
+        pt:   /p/espana-1
+        ge:   /p/espana-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -289,6 +352,8 @@ regions_portugal:
     path:
         en:   /p/portugal-1
         es:   /p/portugal
+        pt:   /p/portugal-1
+        ge:   /p/portugal-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -296,6 +361,8 @@ regions_latam:
     path:
         en:   /p/latinoamerica-1
         es:   /p/latinoamerica
+        pt:   /p/latinoamerica-1
+        ge:   /p/latinoamerica-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -303,6 +370,8 @@ regions_other_regions:
     path:
         en:   /p/other-regions-1
         es:   /p/other-regions
+        pt:   /p/other-regions-1
+        ge:   /p/other-regions-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -312,6 +381,8 @@ detail_office:
     path:
         en:   /regions/office-detail
         es:   /territorios/detalle-oficina
+        pt:   /regions/office-detail
+        ge:   /regions/office-detail
     methods:    GET
     controller: App\Controller\Web\RegionsController::detailOffice
 
@@ -319,6 +390,8 @@ detail_others:
     path:
         en:   /regions/office-others
         es:   /territorios/detalle-otros
+        pt:   /regions/office-others
+        ge:   /regions/office-others
     methods:    GET
     controller: App\Controller\Web\RegionsController::detailOthers
 
@@ -330,6 +403,8 @@ firm_vision:
     path:
         en:   /p/firm-vision-general-1
         es:   /p/firm-vision-general
+        pt:   /p/firm-vision-general-1
+        ge:   /p/firm-vision-general-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -337,12 +412,16 @@ firm_social:
     path:
         en:   /p/social-1
         es:   /p/social
+        pt:   /p/social-1
+        ge:   /p/social-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 firm_environment:
     path:
         en:   /p/medio-ambiente-1
         es:   /p/medio-ambiente
+        pt:   /p/medio-ambiente-1
+        ge:   /p/medio-ambiente-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -350,6 +429,8 @@ firm_governance:
     path:
         en:   /p/buen-gobierno-1
         es:   /p/buen-gobierno
+        pt:   /p/buen-gobierno-1
+        ge:   /p/buen-gobierno-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -357,6 +438,8 @@ firm_innovation:
     path:
         en:   /p/innovacion-1
         es:   /p/innovacion
+        pt:   /p/innovacion-1
+        ge:   /p/innovacion-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -364,6 +447,8 @@ firm_mediaCenter:
     path:
         en:   /p/centro-de-medios-1
         es:   /p/centro-de-medios
+        pt:   /p/centro-de-medios-1
+        ge:   /p/centro-de-medios-1
     methods:    GET
     controller: App\Controller\Web\PagesController::detail
 
@@ -389,6 +474,8 @@ productDetailServices:
     path:
         en:   /product-service
         es:   /producto-servicio
+        pt:   /product-service
+        ge:   /product-service
     methods:    GET
     controller: App\Controller\Web\ServicesController::productDetailServices
 
@@ -396,6 +483,8 @@ fiscal:
     path:
         en:   /fiscal
         es:   /fiscal
+        pt:   /fiscal
+        ge:   /fiscal
     methods:    GET
     controller: App\Controller\Web\ServicesController::fiscal
 
@@ -403,5 +492,7 @@ events_detail2:
    path:
        en:   /event
        es:   /evento
+       pt:   /event
+       ge:   /event
    methods:    GET
    controller: App\Controller\Web\KnowledgeController::detail2

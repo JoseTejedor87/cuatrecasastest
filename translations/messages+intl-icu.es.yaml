@@ -104,12 +104,30 @@ sections:
 # Static Sections
 # ###########################################
 static:
-    offices:
-      officeOthers: Otras regiones
-      officeList: Listado de oficinas
-      deskList: Listado de desk
-      interOrg: Organizaciones internacionales
+  offices:
+    officeOthers: Otras regiones
+    officeList: Listado de oficinas
+    deskList: Listado de desk
+    interOrg: Organizaciones internacionales
 
+# User Settings
+# ###########################################
+userForm:
+  title: Ajustes y preferencias
+  settings:
+    title: Ajustes
+    subTitleInfo: Información personal
+    subTitleCompany: Empresa
+    subTitleContact: Contacto
+  interests:
+    title: Intereses
+    tabPopular: Más populares
+    tabAreas: Áreas de práctica
+    tabSectors: Sectores
+    tabGeo: Geográficos
+  data:
+    title: Información sobre el tratamiento de sus datos personales
+  button: Guardar
 
 # Menu
 # ###########################################

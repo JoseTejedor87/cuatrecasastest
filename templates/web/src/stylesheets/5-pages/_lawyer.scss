@@ -254,13 +254,14 @@
         letter-spacing: 0.7px;
         color: $white;
 
-        @media(max-width: $max-width-4casas) {
-            @include fontSet(16px, 16px);
-            letter-spacing: 0;
-        }
-
         @include when-inside(".lawyer__search__wrapper--grid") {
             // word-spacing: 100vw;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(20px, 22px);
+                letter-spacing: 0;
+                margin-bottom: 0.3rem;
+            }
         }
 
         @include when-inside(".lawyer__search__wrapper--list") {
@@ -271,6 +272,11 @@
             @include fontSet(33px, 33px);
             letter-spacing: 0;
             color: $complementary-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(16px, 16px);
+                letter-spacing: 0;
+            }
         }
 
         @include when-inside(".lawyer__search__wrapper--speakers") {

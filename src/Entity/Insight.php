@@ -75,13 +75,91 @@ class Insight extends Publishable
      */
     private $lawyers;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="insights")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $home;
+
     public function __construct()
     {
         $this->relatedInsightsWithMe = new ArrayCollection();
         $this->relatedInsights = new ArrayCollection();
         $this->activities = new ArrayCollection();
-        $this->lawyers = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->lawyers = new ArrayCollection();
+    }
+
+    public function getHeaderType(): ?string
+    {
+        return $this->headerType;
+    }
+
+    public function setHeaderType(string $headerType): self
+    {
+        $this->headerType = $headerType;
+
+        return $this;
+    }
+
+    public function getShowIntroBlock(): ?bool
+    {
+        return $this->showIntroBlock;
+    }
+
+    public function setShowIntroBlock(bool $showIntroBlock): self
+    {
+        $this->showIntroBlock = $showIntroBlock;
+
+        return $this;
+    }
+
+    public function getShowKnowledgeBlock(): ?bool
+    {
+        return $this->showKnowledgeBlock;
+    }
+
+    public function setShowKnowledgeBlock(bool $showKnowledgeBlock): self
+    {
+        $this->showKnowledgeBlock = $showKnowledgeBlock;
+
+        return $this;
+    }
+
+    public function getShowEventsBlock(): ?bool
+    {
+        return $this->showEventsBlock;
+    }
+
+    public function setShowEventsBlock(bool $showEventsBlock): self
+    {
+        $this->showEventsBlock = $showEventsBlock;
+
+        return $this;
+    }
+
+    public function getShowLegalNoveltiesBlock(): ?bool
+    {
+        return $this->showLegalNoveltiesBlock;
+    }
+
+    public function setShowLegalNoveltiesBlock(bool $showLegalNoveltiesBlock): self
+    {
+        $this->showLegalNoveltiesBlock = $showLegalNoveltiesBlock;
+
+        return $this;
+    }
+
+    public function getShowCaseStudiesBlock(): ?bool
+    {
+        return $this->showCaseStudiesBlock;
+    }
+
+    public function setShowCaseStudiesBlock(bool $showCaseStudiesBlock): self
+    {
+        $this->showCaseStudiesBlock = $showCaseStudiesBlock;
+
+        return $this;
     }
 
     /**
@@ -165,106 +243,6 @@ class Insight extends Publishable
     }
 
     /**
-     * @return Collection|Lawyer[]
-     */
-    public function getLawyers(): Collection
-    {
-        return $this->lawyers;
-    }
-
-    public function addLawyer(Lawyer $lawyer): self
-    {
-        if (!$this->lawyers->contains($lawyer)) {
-            $this->lawyers[] = $lawyer;
-            $lawyer->addInsight($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLawyer(Lawyer $lawyer): self
-    {
-        if ($this->lawyers->contains($lawyer)) {
-            $this->lawyers->removeElement($lawyer);
-            $lawyer->removeInsight($this);
-        }
-
-        return $this;
-    }
-
-    public function getShowKnowledgeBlock(): ?bool
-    {
-        return $this->showKnowledgeBlock;
-    }
-
-    public function setShowKnowledgeBlock(bool $showKnowledgeBlock): self
-    {
-        $this->showKnowledgeBlock = $showKnowledgeBlock;
-
-        return $this;
-    }
-
-    public function getShowEventsBlock(): ?bool
-    {
-        return $this->showEventsBlock;
-    }
-
-    public function setShowEventsBlock(bool $showEventsBlock): self
-    {
-        $this->showEventsBlock = $showEventsBlock;
-
-        return $this;
-    }
-
-    public function getShowLegalNoveltiesBlock(): ?bool
-    {
-        return $this->showLegalNoveltiesBlock;
-    }
-
-    public function setShowLegalNoveltiesBlock(bool $showLegalNoveltiesBlock): self
-    {
-        $this->showLegalNoveltiesBlock = $showLegalNoveltiesBlock;
-
-        return $this;
-    }
-
-    public function getShowCaseStudiesBlock(): ?bool
-    {
-        return $this->showCaseStudiesBlock;
-    }
-
-    public function setShowCaseStudiesBlock(bool $showCaseStudiesBlock): self
-    {
-        $this->showCaseStudiesBlock = $showCaseStudiesBlock;
-
-        return $this;
-    }
-
-    public function getHeaderType(): ?string
-    {
-        return $this->headerType;
-    }
-
-    public function setHeaderType(string $headerType): self
-    {
-        $this->headerType = $headerType;
-
-        return $this;
-    }
-
-    public function getShowIntroBlock(): ?bool
-    {
-        return $this->showIntroBlock;
-    }
-
-    public function setShowIntroBlock(bool $showIntroBlock): self
-    {
-        $this->showIntroBlock = $showIntroBlock;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Publication[]
      */
     public function getPublications(): Collection
@@ -289,4 +267,44 @@ class Insight extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Lawyer[]
+     */
+    public function getLawyers(): Collection
+    {
+        return $this->lawyers;
+    }
+
+    public function addLawyer(Lawyer $lawyer): self
+    {
+        if (!$this->lawyers->contains($lawyer)) {
+            $this->lawyers[] = $lawyer;
+        }
+
+        return $this;
+    }
+
+    public function removeLawyer(Lawyer $lawyer): self
+    {
+        if ($this->lawyers->contains($lawyer)) {
+            $this->lawyers->removeElement($lawyer);
+        }
+
+        return $this;
+    }
+
+    public function getHome(): ?Home
+    {
+        return $this->home;
+    }
+
+    public function setHome(?Home $home): self
+    {
+        $this->home = $home;
+
+        return $this;
+    } 
+
+
 }

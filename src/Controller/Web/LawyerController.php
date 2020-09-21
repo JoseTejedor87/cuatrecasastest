@@ -68,6 +68,9 @@ class LawyerController extends WebController
                 $query = $query->innerJoin('l.activities', 'a')
                     ->andWhere('a.id = :activity')
                     ->setParameter('activity', $services);
+                $query = $query->innerJoin('l.secondaryActivities', 'ss')
+                    ->orWhere('ss.id = :activity')
+                    ->setParameter('activity', $services);
                 if ($url == "") {
                     $url= "?services=".$services;
                 } else {
@@ -77,6 +80,9 @@ class LawyerController extends WebController
             if ($sector) {
                 $query = $query->innerJoin('l.activities', 's')
                     ->andWhere('s.id = :sector')
+                    ->setParameter('sector', $sector);
+                $query = $query->innerJoin('l.secondaryActivities', 'ss')
+                    ->orWhere('ss.id = :sector')
                     ->setParameter('sector', $sector);
                 if ($url == "") {
                     $url= "?sector=".$sector;
