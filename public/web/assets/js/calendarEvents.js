@@ -38,7 +38,7 @@ function newCalendar(eventosjson, month , year) {
         */
 
         plugins: [ 'interaction', 'dayGrid', 'list' ],
-        defaultView: 'dayGridMonth',
+        defaultView: 'listMonth',
         themeSystem: 'standard',
         // weekNumberCalculation: 'ISO',
         defaultDate: dayCalendar,
@@ -94,7 +94,6 @@ function newCalendar(eventosjson, month , year) {
 
                     listButton.classList.add("active");
                     gridButton.classList.remove("active");
-
                 }
             },
             icon__button__grid: {
@@ -111,12 +110,16 @@ function newCalendar(eventosjson, month , year) {
             }
         },
 
+        // Header/Title to custom <DIV>?
+        // https://stackoverflow.com/questions/40048176/fullcalendar-header-title-to-custom-div
+
         header: {
             // left: 'prev,next',
-            left: 'icon__button__prev,icon__button__next',
-            center: 'title',
+            // left: 'icon__button__prev,icon__button__next',
+            left: 'icon__button__list,icon__button__grid',
+            center: 'icon__button__prev,title,icon__button__next',
             // right: 'dayGridMonth,listDay,listMonth'
-            right: 'icon__button__list,icon__button__grid'
+            right: ''
         },
 
         events: events,
@@ -183,7 +186,7 @@ function newCalendar(eventosjson, month , year) {
             // LIST VIEW (MONTH & DAY)
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
                 // DETAILS
-                info.el.firstChild.innerHTML = '<div class="event-place">'+ info.event.extendedProps.place +'</div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><a href="#" class="doble__arrow__link">'+ info.event.extendedProps.button +'</a></div>';
+                info.el.firstChild.innerHTML = '<div class="event-place"><a href="#">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><a href="#" class="doble__arrow__link">'+ info.event.extendedProps.button +'</a></div>';
 
                 // TITLE
                 info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';

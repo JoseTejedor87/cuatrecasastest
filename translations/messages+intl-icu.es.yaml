@@ -109,6 +109,10 @@ static:
     officeList: Listado de oficinas
     deskList: Listado de desk
     interOrg: Organizaciones internacionales
+  rrhh:
+    title: Instituto de Estrategia Legal en RRHH
+  cookies:
+    title: Política de cookies y tecnologías similares
 
 # User Settings
 # ###########################################

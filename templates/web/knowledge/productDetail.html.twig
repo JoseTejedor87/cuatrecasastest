@@ -191,17 +191,29 @@
 
 <script>
     $(function () {
-        web.global.sliderGeneral();
-        var swiperCases = new Swiper ('#sliderCases', {
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,
             allowTouchMove: true,
-            grabCursor: false,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
+            grabCursor: true
         });
     });
 </script>

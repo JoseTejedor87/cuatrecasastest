@@ -339,6 +339,24 @@
 
 <script>
     $(function () {
+        // SLIDER
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
         // GRID
         var masonryOptions = {
             itemSelector: '.grid__item',
@@ -348,17 +366,8 @@
         };
         var $grid = $('.grid__masonry').masonry( masonryOptions );
         $grid.masonry( masonryOptions );
-        // SLIDER
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
+
+        // FILTERS
         $(document).on('click', '.btn__viewmore', function(event){
             var page =  $(this).data("page");
             ajax(page);
@@ -381,7 +390,6 @@
                     if($(elem).attr("data-name") == value){
                         $(elem).prop( "checked", false );
                     }
-
                 });
                 ajax();
         });

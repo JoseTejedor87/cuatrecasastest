@@ -35,12 +35,12 @@
                 </div>
             </header>
 
-            <section class="tabs__component">
+            <section class="tabs__component" id="tabsToAccordion">
                 <div class="tabs__component__full">
                     <div class="tabs__component__tabs">
-                        <ul class="nav">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a href="{{ path('practices_index') }}" class="nav-link active">{{ 'sections.practices.title'|trans }}</a>
+                                <a href="{{ path('practices_index') }}" id="tab-01" data-toggle="tab" role="tab" class="nav-link active">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
@@ -53,16 +53,33 @@
                 </div>
                 <div class="tabs__component__content">
                     <div class="row page__section">
-                        <div class="col">
-                            <ul class="buttons__list__column">
-                                {% for practice in practices %}
-                                    <li class="buttons__list__column__item">
-                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(practice) }}">
-                                            {{ practice.translate(app.request.getLocale()).title }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                        <div id="content" class="col tab-content" role="tablist">
+                            <div id="panel-01" class="panel tab-pane fade show active" role="tabpanel" aria-labelledby="tab-01">
+                                <div class="panel-header" role="tab" id="heading-01">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-01" aria-expanded="true" aria-controls="collapse-01">{{ 'sections.practices.title'|trans }}</a>
+                                </div>
+                                <div id="collapse-01" class="collapse show" role="tabpanel" aria-labelledby="heading-01">
+                                    <ul class="buttons__list__column">
+                                        {% for practice in practices %}
+                                            <li class="buttons__list__column__item">
+                                                <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(practice) }}">
+                                                    {{ practice.translate(app.request.getLocale()).title }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="panel-02" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('desks_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.desks.title'|trans }}</a>
+                                </div>
+                            </div>
+                            <div id="panel-03" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('products_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.products.title'|trans }}</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,10 +97,30 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
-        web.global.sliderGeneral();
-        var swiperCases = new Swiper ('#sliderCases', {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
+        var swiperCases = new Swiper('#sliderCases', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             loop: true,

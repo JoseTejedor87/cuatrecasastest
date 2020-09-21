@@ -48,21 +48,19 @@
                         <!-- duplicate event info -->
                         <div class="boxnews__content boxnews__content--event" id="eventMainInfo" style="display:none">
                             <div class="place">
-                                <a href="#">{{ customAddress|first|raw }}</a>
-                                <br>
-                                {{ customAddress[:-1]|join(' ') }}
+                                <span>{{ customAddress|first|raw }}</span>
+                                <span>{{ customAddress[:-1]|join(' ') }}</span>
                             </div>
                             <div class="date">
                                 <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
-                                {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
-                                <br>
-                                {{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}
+                                <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
+                                <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
                                 {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                             </div>
                             <div class="author">
-                                <a href="#">{{ event.contact ? event.contact : '' }}</a>
-                                <br>
-                                {{ (event.phone) ? event.phone : '' }}
+                                <!-- 10.30 — 14.30 <br> -->
+                                <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
+                                <span>{{ (event.phone) ? event.phone : '' }}</span>
                             </div>
                         </div>
                         <div class="read__more">
@@ -89,6 +87,22 @@
                                 </li>
                                 {% endfor %}
                             </ul> -->
+
+                            <!-- <a href="" class="btn btn__solid btn__solid--icon" target="_blank" alt="">
+                                Descarga el dossier
+                                <span class="icon4-download"></span>
+                            </a>
+                            <ul class="related__services">
+                                    <li class="related__services__item">
+                                    <a href="" class="related__services__link">Medio Ambiente</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="" class="related__services__link">Público</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="" class="related__services__link">Propiedad intelectual e industrial, Medios y Protección de datos</a>
+                                </li>
+                            </ul> -->
                         </div>
                     </div>
                     <div class="page__event__aside">
@@ -98,22 +112,19 @@
                             </div>
                             <div class="boxnews__content" id="eventBoxInfo">
                                 <div class="place">
-                                    <a href="#">{{ customAddress|first|raw }}</a>
-                                    <br>
-                                    {{ customAddress[:-1]|join(' ') }}
+                                    <span>{{ customAddress|first|raw }}</span>
+                                    <span>{{ customAddress[:-1]|join(' ') }}</span>
                                 </div>
                                 <div class="date">
                                     <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
-                                    {{ fecha[0] }} {{ fecha[1:]|join(' ') }}
-                                    <br>
-                                    {{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}
+                                    <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
+                                    <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
                                     {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                                 </div>
                                 <div class="author">
                                     <!-- 10.30 — 14.30 <br> -->
-                                    <a href="#">{{ event.contact ? event.contact : '' }}</a>
-                                    <br>
-                                    {{ (event.phone) ? event.phone : '' }}
+                                    <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
+                                    <span>{{ (event.phone) ? event.phone : '' }}</span>
                                 </div>
                                 <button type="button" class="btn btn__arrow" id="botPreReg">Inscribirme</button>
                             </div>
@@ -164,7 +175,7 @@
                                     <div class="form-group mt-4">
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
-                                            <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
                                             <!-- <div class="invalid-feedback">Campo obligatorio</div> -->
                                         </div>
                                     </div>
@@ -341,15 +352,20 @@
 <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
     $(function () {
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            // loop: true,
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
             allowTouchMove: true,
             grabCursor: true,
             scrollbar: {
                 el: '.swiper-scrollbar',
                 draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
             }
         });
 
@@ -366,6 +382,27 @@
                 scrollTop: $('#eventBoxForm').offset().top - 130
             }, 'slow');
         });
+
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
 
         $("#eventBoxForm .btn").click( function() {
             $("#eventBoxForm .form-control").removeClass('is-valid');
@@ -406,27 +443,6 @@
                 .fail(function() {
                 });
         });
-
-        // Bootstrap form validation
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
-                        $('html, body').animate({
-                            scrollTop: $(errorElements[0]).offset().top - 120
-                        }, 'slow');
-                        $(errorElements[0]).focus();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
 
         function validation() {
 
@@ -556,7 +572,11 @@
             },
             afterToggle: function(trigger, element, expanded) {
                 if(! expanded) {
-                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
                 }
             }
         });

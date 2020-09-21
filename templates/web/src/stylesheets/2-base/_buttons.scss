@@ -7,6 +7,8 @@
 // --------------------------------------------------------------------------
 
 .button__wrapper {
+    text-align: center;
+
     @include when("right") {
         text-align: right;
     }
@@ -14,92 +16,98 @@
 
 .btn__solid {
     @include reset-link-button;
-    // padding: 0.8rem 6.2rem 0.8rem 1rem;
+    height: 50px;
     padding: 0.8rem 1rem;
     @include fontSet(23px, 23px);
     letter-spacing: 0.7px;
     color: $white;
     background-color: $complementary-color;
+    border: 1px solid $complementary-color;
 
-    // &:after {
-    //     @include icons-ionicons(calc(50% - 18px), auto, auto, calc(100% - 30px));
-    //     font-size: 36px;
-    //     content: '\f3d1';
-    //     color: $white;
-    //     transform: scale(1);
-    // }
+    @media(max-width: $max-width-4casas) {
+        width: 100%;
+        height: 45px;
+        // @include fontSet(18px, 18px);
+        @include fontSet(14px, 14px);
+        letter-spacing: 0;
+    }
 
     @include on-event() {
-        color: $white;
+        color: $complementary-color;
+        background-color: $white;
         text-decoration: none;
-        // box-shadow: -6px 6px 0 $main-color,
-        //             0 19px 38px rgba(0, 0, 0, 0.30),
-        //             0 15px 12px rgba(0, 0, 0, 0.22);
-
-        // box-shadow: 0 3px 18px rgba(0,0,0, 0.3);
-        box-shadow: -6px 6px 0 $main-color, 0 10px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 transparent;
     }
 
     @include when("icon") {
-        padding-right: 60px;
+        min-width: 15rem;
+        padding-right: 4rem;
+        text-align: left;
+        transition: all .15s ease-in-out;
+
+        @media(max-width: $max-width-4casas) {
+            padding: 0.9rem 4rem 0.9rem 1rem;
+        }
+
+         .material-icons,
+         .icon,
+        [class^="icon4-"], [class*=" icon4-"] {
+            position: absolute;
+
+            &:before {
+                color: $white;
+            }
+        }
+
+        .material-icons {
+            top: 6px;
+            right: 12px;
+            font-size: 34px;
+
+            @media(max-width: $max-width-4casas) {
+                top: 8px;
+                font-size: 24px;
+            }
+        }
 
         .icon {
-            position: absolute;
             top: 5px;
             right: 15px;
 
             &:before {
                 font-size: 34px;
-                color: $white;
             }
         }
 
         [class^="icon4-"], [class*=" icon4-"] {
-            position: absolute;
             top: 10px;
             right: 15px;
 
+            @media(max-width: $max-width-4casas) {
+                top: 8px;
+            }
+
             &:before {
                 font-size: 24px;
-                color: $white;
             }
         }
 
         @include on-event() {
-            box-shadow: -6px 6px 0 $main-color, 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-    }
-
-    @include when("transparent") {
-        text-transform: none;
-        color: $complementary-color;
-        background-color: transparent;
-        border: 2px solid transparent;
-        border-color: $complementary-color;
-
-        @include on-event() {
-            background-color: $complementary-color !important;
-            border-color: $complementary-color !important;
-            box-shadow: -6px 6px 0 $main-color,
-                        0 19px 38px rgba(0, 0, 0, 0.30),
-                        0 15px 12px rgba(0, 0, 0, 0.22);
-        }
-    }
-
-    @include when("bgcolor") {
-        @include on-event() {
-            background-color: $complementary-color !important;
-            border-color: $complementary-color !important;
-            box-shadow: -6px 6px 0 $white,
-                        0 19px 38px rgba(0, 0, 0, 0.30),
-                        0 15px 12px rgba(0, 0, 0, 0.22);
+            .icon,
+            [class^="icon4-"], [class*=" icon4-"] {
+                &:before {
+                    color: $complementary-color;
+                }
+            }
         }
     }
 }
 
 .btn__solid__arrow {
     @include reset-link-button;
-    padding: 1rem 4rem 1rem 1rem;
+    height: 50px;
+    // padding: 1rem 4rem 1rem 1rem;
+    padding: 0.8rem 4rem 0.8rem 1rem;
     @include fontSet(23px, 23px);
     letter-spacing: 0.7px;
     text-align: left;
@@ -109,13 +117,16 @@
     transition: all 0.3s ease-out;
 
     @media(max-width: $max-width-4casas) {
+        width: 100%;
+        height: 45px;
         @include fontSet(18px, 27px);
+        letter-spacing: 0;
         padding: 0.5rem 1rem 0.5rem 1rem;
         display: block;
     }
 
     &:after {
-        @include icons-4casas(12px, 30px, auto, auto);
+        @include icons-4casas(8px, 30px, auto, auto);
         content: '\e90a';
         font-size: 32px;
         width: 12px;
@@ -151,6 +162,7 @@
 
 .btn__naked {
     @include reset-link-button;
+    height: 50px;
     padding: 0.8rem 4rem;
     @include fontSet(23px, 23px);
     letter-spacing: 0.7px;
@@ -158,14 +170,19 @@
     background-color: transparent;
     border: 1px solid $complementary-color;
 
+    @media(max-width: $max-width-4casas) {
+        width: 100%;
+        height: 45px;
+        // @include fontSet(18px, 18px);
+        @include fontSet(14px, 14px);
+        letter-spacing: 0;
+    }
+
     @include on-event() {
         color: $white;
         background-color: $complementary-color;
         text-decoration: none;
-    }
-
-    &:focus {
-        box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+        box-shadow: 0 0 0 transparent;
     }
 
     &:disabled {
@@ -376,22 +393,14 @@
     }
 
     @media(max-width: $max-width-4casas) {
-        @include fontSet(16px, 16px);
-        padding-right: 0;
-        padding-left: 0;
-        color: $complementary-color;
-        border-bottom: 1px solid rgba($black, 0.5);
+        @include fontSet(14px, 14px);
+        padding: 1rem 1.6rem .4rem 0;
+        border-bottom: 1px solid rgba($black, 0.4);
 
         &:after {
-            display: none;
-            visibility: hidden;
-        }
-
-        @include on-event() {
-            padding-right: 0;
-            padding-left: 0;
-            color: $complementary-color;
-            border-bottom: 1px solid rgba($black, 0.5);
+            top: 14px;
+            right: -4px;
+            font-size: 18px;
         }
     }
 }
@@ -513,7 +522,8 @@
         display: block;
         min-height: 45px;
         padding: 0.5rem 4.2rem 0.5rem 1rem;
-        @include fontSet(18px, 28px);
+        // @include fontSet(18px, 28px);
+        @include fontSet(14px, 14px);
         letter-spacing: 0;
 
         @include when-inside(".buttons__list__item") {
@@ -640,6 +650,7 @@
     transition: all 0.3s ease-out;
 
     @media(max-width: $max-width-4casas) {
+        top: 1px;
         width: 30px;
         height: 30px;
     }

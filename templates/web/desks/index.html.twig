@@ -35,15 +35,15 @@
                 </div>
             </header>
 
-            <section class="tabs__component">
+            <section class="tabs__component" id="tabsToAccordion">
                 <div class="tabs__component__full">
                     <div class="tabs__component__tabs">
-                        <ul class="nav">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('desks_index') }}" class="nav-link active">{{ 'sections.desks.title'|trans }}</a>
+                                <a href="{{ path('desks_index') }}" id="tab-02" data-toggle="tab" role="tab" class="nav-link active">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('products_index') }}" class="nav-link">{{ 'sections.products.title'|trans }}</a>
@@ -53,14 +53,31 @@
                 </div>
                 <div class="tabs__component__content">
                     <div class="row page__section">
-                        <div class="col">
-                            <ul class="buttons__list__column">
-                                {% for desk in desks %}
-                                    <li class="buttons__list__column__item">
-                                        <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                        <div id="content" class="col tab-content" role="tablist">
+                            <div id="panel-01" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('practices_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.practices.title'|trans }}</a>
+                                </div>
+                            </div>
+                            <div id="panel-02" class="panel tab-pane fade show active" role="tabpanel" aria-labelledby="tab-02">
+                                <div class="panel-header" role="tab" id="heading-02">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-02" aria-expanded="true" aria-controls="collapse-02">{{ 'sections.desks.title'|trans }}</a>
+                                </div>
+                                <div id="collapse-02" class="collapse show" role="tabpanel" aria-labelledby="heading-02">
+                                    <ul class="buttons__list__column">
+                                        {% for desk in desks %}
+                                            <li class="buttons__list__column__item">
+                                                <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(desk) }}">{{ desk.translate(app.request.getLocale()).title|raw  }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="panel-03" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('products_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.products.title'|trans }}</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,9 +95,28 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
-        web.global.sliderNews();
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
     });
 </script>
 {% endblock %}

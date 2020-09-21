@@ -30,29 +30,52 @@
                 </div>
             </header>
 
-            <section class="tabs__component">
+            <section class="tabs__component" id="tabsToAccordion">
                 <div class="tabs__component__full">
                     <div class="tabs__component__tabs">
-                        <ul class="nav">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a href="{{ path('practices_index') }}" class="nav-link ">{{ 'sections.practices.title'|trans }}</a>
+                                <a href="{{ path('practices_index') }}" class="nav-link">{{ 'sections.practices.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('desks_index') }}" class="nav-link">{{ 'sections.desks.title'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('products_index') }}" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
+                                <a href="{{ path('products_index') }}" id="tab-03" data-toggle="tab" role="tab" class="nav-link active">{{ 'sections.products.title'|trans }}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="tabs__component__content">
-                    {% include 'web/services/shared/products-grid.html.twig'  %}
+                    <div class="row page__section">
+                        <div id="content" class="col tab-content" role="tablist">
+                            <div id="panel-01" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('practices_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.practices.title'|trans }}</a>
+                                </div>
+                            </div>
+                            <div id="panel-02" class="panel tab-pane" role="tabpanel">
+                                <div class="panel-header">
+                                    <a href="{{ path('desks_index') }}" class="accordion__button accordion__button--fake">{{ 'sections.desks.title'|trans }}</a>
+                                </div>
+                            </div>
+                            <div id="panel-03" class="panel tab-pane fade show active" role="tabpanel" aria-labelledby="tab-03">
+                                <div class="panel-header" role="tab" id="heading-03">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-03" aria-expanded="true" aria-controls="collapse-03">{{ 'sections.products.title'|trans }}</a>
+                                </div>
+                                <div id="collapse-03" class="collapse show" role="tabpanel" aria-labelledby="heading-03">
+                                    {% include 'web/services/shared/products-grid.html.twig'  %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                {% include 'web/services/shared/products-tools.html.twig' %}
-
             </section>
+
+            {% include 'web/services/shared/products-tools.html.twig' %}
+            {% include 'web/shared/related-content.html.twig' %}
+
+            {% include 'web/shared/insight.html.twig' %}
 
         </article>
     </main>
@@ -61,3 +84,14 @@
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
+
+{% block javascripts %}
+<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}
+

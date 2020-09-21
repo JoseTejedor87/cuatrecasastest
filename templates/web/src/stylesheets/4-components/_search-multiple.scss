@@ -83,6 +83,12 @@
         height: 1px;
         background-color: #d5d2d2;
     }
+
+    .btn {
+        @media(max-width: $max-width-4casas) {
+            width: calc(100% - 2rem);
+        }
+    }
 }
 
 #checksOutput {
@@ -227,37 +233,6 @@
             // position: absolute;
         }
     }
-
-    .collapse,
-    .collapsing {
-
-        .chechbox__wrapper {
-            padding: 2rem 4rem 1rem;
-            column-count: 3;
-            column-gap: 2rem;
-            column-fill: auto;
-
-            // display: flex;
-            // flex-flow: row;
-            // flex-wrap: wrap;
-
-            .checkbox {
-                display: inline-block;
-                width: 100%;
-                margin-top: 0.2rem;
-
-                // width: 33.3333%;
-
-                input[type="checkbox"] + .checkbox-label {
-                    margin-bottom: 1.2rem;
-
-                    span {
-                        width: 88%;
-                    }
-                }
-            }
-        }
-    }
 }
 
 #filterTabsContent {
@@ -267,50 +242,6 @@
         @include reset-pseudo(rgba($black,0.07));
         @include reset-full-scren;
         z-index: -1;
-    }
-
-    // &:after {
-    //     content: '';
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     display: block;
-    //     width: 100vw;
-    //     margin-left: -50vw;
-    //     left: 50%;
-    //     height: 1px;
-    //     background-color: #E2E0E0;
-    // }
-
-    .collapse,
-    .collapsing {
-
-        .chechbox__wrapper {
-            padding: 2rem 4rem 1rem;
-            column-count: 3;
-            column-gap: 2rem;
-            column-fill: auto;
-
-            // display: flex;
-            // flex-flow: row;
-            // flex-wrap: wrap;
-
-            .checkbox {
-                display: inline-block;
-                width: 100%;
-                margin-top: 0.2rem;
-
-                // width: 33.3333%;
-
-                input[type="checkbox"] + .checkbox-label {
-                    margin-bottom: 1.2rem;
-
-                    span {
-                        width: 88%;
-                    }
-                }
-            }
-        }
     }
 }
 
