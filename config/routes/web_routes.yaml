@@ -80,6 +80,24 @@ userSettings:
     methods:    GET
     controller: App\Controller\Web\HomeController::userSettings
 
+institutoRRHH:
+    path:
+        en:   /instituto-estrategia-legal-rrhh
+        es:   /instituto-estrategia-legal-rrhh
+        pt:   /instituto-estrategia-legal-rrhh
+        ge:   /instituto-estrategia-legal-rrhh
+    methods:    GET
+    controller: App\Controller\Web\HomeController::institutoRRHH
+
+politicaCookies:
+    path:
+        en:   /cookies-policy
+        es:   /politica-de-cookies
+        pt:   /cookies-policy
+        ge:   /cookies-policy
+    methods:    GET
+    controller: App\Controller\Web\HomeController::politicaCookies
+
 
 # KNOWLEDGE
 # ###########################################

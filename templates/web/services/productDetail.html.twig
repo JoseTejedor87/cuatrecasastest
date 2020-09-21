@@ -186,6 +186,23 @@
 {% block javascripts %}
 <script>
     $(function () {
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            allowTouchMove: true,
+            grabCursor: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            breakpoints: {
+                1199: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
+            }
+        });
+
         $('.read__more').readmore({
             moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
             lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
@@ -206,7 +223,11 @@
             },
             afterToggle: function(trigger, element, expanded) {
                 if(! expanded) {
-                    $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
                 }
             }
         });

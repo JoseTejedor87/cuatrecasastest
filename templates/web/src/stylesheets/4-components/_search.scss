@@ -95,6 +95,11 @@
     > .col {
         padding-top: 3rem;
         padding-bottom: 3rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-top: 2rem;
+            padding-bottom: 1rem;
+        }
     }
 
     @include has("wrapper") {
@@ -213,10 +218,18 @@
 
 @include new("search_alphabet") {
     margin-top: 3rem;
+
+    @media(max-width: $max-width-4casas) {
+        margin-top: 2rem;
+    }
 }
 
 @include new("search_pagination") {
     margin: 2rem 0 4rem;
+
+    @media(max-width: $max-width-4casas) {
+        margin: 1rem 0 2rem;
+    }
 }
 
 
@@ -256,7 +269,7 @@
     width: 34px;
     height: 34px;
     padding: 0 0;
-    margin: 0 1px;
+    margin: 0 2px 4px;
     @include fontSet(24px, 32px);
     text-align: center;
     color: $black;
@@ -264,8 +277,18 @@
     border: none;
     border-radius: 50%;
 
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(16px, 26px);
+        width: 25px;
+        height: 25px;
+    }
+
     @include when-inside(".search_pagination") {
         @include fontSet(24px, 36px);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 26px);
+        }
     }
 
     @include on-event() {
@@ -276,7 +299,8 @@
 
     &:focus {
         color: $white;
-        box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+        // box-shadow: 0 0 0 0.2rem rgba($complementary-color, 0.25);
+        box-shadow: 0 0 0 0 transparent;
     }
 
     &.active {

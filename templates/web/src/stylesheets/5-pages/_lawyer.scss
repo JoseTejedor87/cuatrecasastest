@@ -12,6 +12,11 @@
         > .col {
             padding-top: 2rem;
             padding-bottom: 2rem;
+
+            @media(max-width: $max-width-4casas) {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
         }
 
         .section__title {
@@ -58,8 +63,7 @@
             @include when-inside(".lawyer__search__wrapper--grid") {
                 flex: 0 1 calc(33.3333% - 30px);
                 width: calc(33.3333% - 30px);
-                margin: 0 15px;
-                margin-bottom: 30px;
+                margin: 0 15px 30px;
                 background-size: auto 350px;
                 background-position: 100% 73%;
                 background-repeat: no-repeat;
@@ -78,6 +82,7 @@
                 @media(max-width: $max-width-sm) {
                     flex: 0 1 calc(100% - 30px);
                     width: calc(100% - 30px);
+                    margin: 0 15px 15px;
                 }
 
                 @include on-event() {
@@ -199,12 +204,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 1rem;
+            }
         }
 
-            @include has("text") {}
+            @include has("text") {
+                @include fontSet(20px, 28px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(16px, 20px);
+                }
+            }
 
             @include has("chooser") {
                 display: flex;
+
+                .icon__button {
+                    width: 30px;
+                    height: 30px;
+
+                    [class*=" icon4-"]:before,
+                    [class^=icon4-]:before {
+                        font-size: 25px;
+                    }
+                }
+
+
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(16px, 20px);
+                }
             }
     }
 
@@ -218,7 +249,7 @@
 
         @media(max-width: $max-width-4casas) {
             display: block;
-            min-height: 180px;
+            min-height: 120px;
             padding: 1rem;
         }
 
@@ -258,9 +289,11 @@
             // word-spacing: 100vw;
 
             @media(max-width: $max-width-4casas) {
+                width: 100%;
+                margin-top: 0;
+                margin-bottom: 0.3rem;
                 @include fontSet(20px, 22px);
                 letter-spacing: 0;
-                margin-bottom: 0.3rem;
             }
         }
 

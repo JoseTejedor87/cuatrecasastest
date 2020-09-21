@@ -35,7 +35,7 @@ use App\Entity\Publication;
 use App\Entity\Page;
 use App\Entity\Banner;
 use App\Entity\Slider;
-
+use App\Entity\Legislation;
 
 class ImportCommandDev extends Command
 {
@@ -106,6 +106,12 @@ class ImportCommandDev extends Command
             $this->Mentions();
             $this->Trainings();
             $this->Pages();
+            $this->videosNoticias();
+            $this->VideoPublicationsByLawyers();
+            $this->VideoPublicationsByOffices();
+            $this->VideoPublicationsByActivities();
+            $this->PublicationsByLegislation();
+
         } else {
             switch ($table) {
                 case "lawyer":
@@ -196,12 +202,322 @@ class ImportCommandDev extends Command
                 case "banner":
                     $this->Banner();
                 break;                
+                case "videos":
+                    $this->videosNoticias();
+                break;
+                case "video_lawyers":
+                    $this->VideoPublicationsByLawyers();
+                    break;
+                case "video_offices":
+                    $this->VideoPublicationsByOffices();
+                    break;
+                case "video_activities":
+                    $this->VideoPublicationsByActivities();
+                    break;
+                case "legislation":
+                    $this->PublicationsByLegislation();
+                break;                                    
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
         return 0;
     }
 
+    
+    //  $data = file_get_contents("JsonExports/legislacion.json");
+
+    public function Legislation(){
+
+        $data = file_get_contents("JsonExports/legislacion.json");
+        $items = json_decode($data, true);
+
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Legislation ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE Legislation AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([TrainingTranslation], RESEED, 1)");
+
+        foreach ($items as $item) {
+            $leg = new Legislation();
+            $leg->setName($this->convertStringUTF8($item['nombre']));
+            $this->em->persist($leg);
+            $this->em->flush();
+        }
+
+    }
+
+    public function PublicationsByLegislation()
+    {
+        $this->Legislation();
+/*
+        $data_ = file_get_contents("JsonExports/legislacion.json");
+        $legislation = json_decode($data_, true);
+*/
+        $data = file_get_contents("JsonExports/PublicacionesLegislacion.json");
+        $items = json_decode($data, true);
+        $legislationRepository = $this->em->getRepository(Legislation::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_person");
+
+        //  [{"publicacion_id":"90757","legislacion_id":"2"}
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Publicacion:" . $item['publicacion_id'] . " legislacionID:" . $item['legislacion_id']);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id']);
+            $legislationId = $item['legislacion_id']; // En nuestra DB siempre tendra el id original 1, 2 y3 por eso se puede asi.
+
+            
+            if ($publicationId && $legislationId) {
+                $publication = $publicationRepository->find($publicationId);
+                $legislation = $legislationRepository->find($legislationId);
+                $this->logger->debug("SEARCHED DATA: Publicacion:" . $publication->getId() . " legislacionID:" . $legislation->getId());
+                $publication->addLegislation($legislation);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }    
+
+
+    public function videosNoticias()
+    {
+        $pub_videos = json_decode(
+            file_get_contents("JsonExports/Videos.json"),
+            true
+        );
+
+        $pub_video_translations = json_decode(
+            file_get_contents("JsonExports/VideosIdiomas.json"),
+            true
+        );
+
+        $videos_idiom_processed = [];
+        
+        $this->logger->debug("videosNoticias Procesando array de idiomas...");
+
+        $id_anterior = 0;
+        $arrayVideoTrans = array();
+        foreach ($pub_video_translations as $key => $item) {
+            if ( $id_anterior != $item['videos_id']){
+                $id_anterior = $item['videos_id'];
+                $arrayVideoTrans[$item['videos_id']] = array();
+            }
+            array_push($arrayVideoTrans[$item['videos_id']],$item);
+        }
+        $this->logger->debug("array de arrayVideoTrans... creado por key = id_video");
+        //print_r($arrayVideoTrans);die();
+
+        // Removing files from disk
+        $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
+        array_map('unlink', glob($resources_path."/news-*"));
+
+        $processedPublicationMap = [];
+        $processedAttachmentsMap = [];
+
+        foreach ($pub_videos as $key => $item) {
+            $oldPublicationId = $item['id'];
+            // create a new instance and fill it
+
+            if(isset($processedPublicationMap[$oldPublicationId])){
+                $publicationRepository = $this->em->getRepository(Publication::class);
+                $publicationId = $this->getMappedPublicationId($oldPublicationId);
+                if($publicationId){
+                    $publication = $publicationRepository->find($publicationId); 
+                }
+            }else{
+                if ($item['tipo_video']!=5) {
+                    $publication = new News();
+                } elseif ($item['tipo_video']==5) {
+                    $publication = new Opinion();
+                } else {
+                    continue;
+                }
+            }
+            if($publication){
+                $publication->setOldId($oldPublicationId);
+                $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
+                $publication->setFormat('video');
+
+                $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
+                $arrayLang = [];
+                $item['visio_es'] ? array_push($arrayLang, 'es') : '';
+                $item['visio_en'] ? array_push($arrayLang, 'en') : '';
+                $item['visio_pt'] ? array_push($arrayLang, 'pt') : '';
+                $item['visio_cn'] ? array_push($arrayLang, 'zh') : '';
+                array_unique($arrayLang);
+                $publication->setLanguages($arrayLang);
+
+                foreach ($arrayVideoTrans[$item['id']] as $key => $video_lan){             
+
+                    $lang = $this->getMappedLanguageCodeById($video_lan['idiomas_id']);
+                    if (isset($video_lan['title']) && $video_lan['title'] != ''){
+                        $publication->translate($lang)->setTitle($this->convertStringUTF8($video_lan['title']));
+                        $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
+                        //$publication->setPublished(true);
+                    } else {
+                        $publication->translate($lang)->setTitle('Notitle');
+                        $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
+                        //$publication->setPublished(false);
+                    }
+                    
+                    if ($item['url_source'] != '') {
+                        $publication->setUrlVideo($item['url_source']);
+                    }
+
+                }
+    
+                if ($item['url_img']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_img']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_img']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_img']] = $resource;
+                    } else {
+                        $path = $item['url_img'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_main_photo');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_img']] = $resource;
+                        }
+                    }
+                }
+                if ($item['url_thumb']) {
+                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_thumb']])) {
+                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']];
+                        $resource->setLanguages(['es','en','pt','zh']);
+                        $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']] = $resource;
+                    } else {
+                        $path = $item['url_thumb'];
+                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
+                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
+                        $attachment = $this->importFile('publication', $path);
+                        if ($attachment) {
+                            $resource = new Resource();
+                            $resource->setFile($attachment);
+                            $resource->setFileName($attachment->getFileName());
+                            $resource->setLanguages(['es','en','pt','zh']);
+                            $resource->setType('publication_thumbnail');
+                            $processedAttachmentsMap[$oldPublicationId][$item['url_thumb']] = $resource;
+                        }
+                    }
+                }
+				
+
+                $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
+
+                // Adding the current instance to the offices mapping
+                $processedPublicationMap[$oldPublicationId] = $publication;
+            }
+        }
+
+    }
+ 
+
+    public function VideoPublicationsByLawyers()
+    {
+        $data = file_get_contents("JsonExports/VideosAbogados.json");
+        $items = json_decode($data, true);
+        $lawyerRepository = $this->em->getRepository(Lawyer::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+        $personRepository = $this->em->getRepository(Person::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_person");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " Lawyer:" . $item['abogado_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
+            if ($publicationId && $lawyerId) {
+                $publication = $publicationRepository->find($publicationId);
+                $lawyer = $lawyerRepository->find($lawyerId);
+                $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
+                if(!$person){
+                    $person = new Person();
+                    $person->setOldId($lawyerId);
+                    $person->setLawyer($lawyer);
+                }
+                $publication->addPerson($person);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function VideoPublicationsByOffices()
+    {
+        $data = file_get_contents("JsonExports/VideosOficina.json");
+        $items = json_decode($data, true);
+        $officeRepository = $this->em->getRepository(Office::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_office ");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " office:" . $item['oficina_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $oficceId = $this->getMappedOfficeId($item['oficina_id']);
+            if ($publicationId && $oficceId) {
+                $publication = $publicationRepository->find($publicationId);
+                $office = $officeRepository->find($oficceId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addOffice($office);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    public function VideoPublicationsByActivities()
+    {
+        $data = file_get_contents("JsonExports/VideosPractica.json");
+        $items = json_decode($data, true);
+        $activityRepository = $this->em->getRepository(Activity::class);
+        $publicationRepository = $this->em->getRepository(Publication::class);
+
+        //$this->em->getConnection()->executeQuery("DELETE FROM publication_activity ");
+
+        foreach ($items as $item) {
+            $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " practica:" . $item['practica_id']);
+            $publicationId = $this->getMappedPublicationId($item['videos_id']);
+            $practicaId = $this->getMappedActivityId($item['practica_id']);
+            if ($publicationId && $practicaId) {
+                $publication = $publicationRepository->find($publicationId);
+                $practica = $activityRepository->find($practicaId);
+
+                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+                // $this->logger->debug("- Mapped office " . $office->translate("es")->getTitle());
+
+                $publication->addActivity($practica);
+                self::setRegions($publication);
+                $this->em->persist($publication);
+                $this->em->flush();
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
+
+    
     public function delTrainings(){
         $this->em->getConnection()->executeQuery("DELETE FROM Training ");
         $this->em->getConnection()->executeQuery("ALTER TABLE Training AUTO_INCREMENT = 1");
@@ -2123,15 +2439,10 @@ class ImportCommandDev extends Command
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
 				$currentLang = self::getMappedLanguageCode($item['lang']);
                 if ($currentLang && isset($item['title']) && $item['title'] != '') {
-                    $encoding = "UTF-8";
-                    $title = isset($item['title']) ? html_entity_decode($item['title']) : 'Notitle';
-                    if ( false === mb_check_encoding ( $title, $encoding ) )
-                    {
-                        $title =  utf8_decode($title);
-                    }
-                    $publication->translate($currentLang)->setTitle($title);
-                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
+
+                    $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item['title']));
+                    $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item['summary']));
+                    $publication->translate($currentLang)->setContent($this->convertStringUTF8($item['contenido']));
 
                     $publication->setLanguages(
                         array_unique(
@@ -2240,15 +2551,11 @@ class ImportCommandDev extends Command
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
                 if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
-                    $encoding = "UTF-8";
-                    $title = isset($item1['title']) ? html_entity_decode($item1['title']) : 'Notitle';
-                    if ( false === mb_check_encoding ( $title, $encoding ) )
-                    {
-                        $title =  utf8_decode($title);
-                    }
-                    $publication->translate($currentLang)->setTitle($title);
-                    $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-                    $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
+
+                    $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item['title']));
+                    $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item['summary']));
+                    $publication->translate($currentLang)->setContent($this->convertStringUTF8($item['contenido']));
+
                     $publication->setLanguages(
                         array_unique(
                             array_merge(
@@ -2600,7 +2907,129 @@ class ImportCommandDev extends Command
         return isset($map[$code]) ? $map[$code] : null;
     }
 
+    private static function convertStringUTF8($input){
 
+        //$input = str_replace("Â¢", "¢",$input);
+        $input = str_replace("Â£", "£",$input);
+        $input = str_replace("Â¥", "¥",$input);
+        //$input = str_replace("Â¨", "¨",$input);
+        $input = str_replace("Â©", "©",$input);
+        $input = str_replace("Âª", "ª",$input);
+        //$input = str_replace("Â«", "«",$input);
+        //$input = str_replace("Â", "",$input);
+        //$input = str_replace("Â­", "­",$input);
+        $input = str_replace("Â®", "®",$input);
+        //$input = str_replace("Â¯", "¯",$input);
+        //$input = str_replace("Â°", "°",$input);
+        //$input = str_replace("Â±", "±",$input);
+        $input = str_replace("Â²", "²",$input);
+        $input = str_replace("Â³", "³",$input);
+        $input = str_replace("Â´", "´",$input);
+        $input = str_replace("Âµ", "µ",$input);
+        //$input = str_replace("Â", "",$input);
+        //$input = str_replace("Â·", "·",$input);
+        //$input = str_replace("Â¸", "¸",$input);
+        //$input = str_replace("Â¹", "¹",$input);
+        $input = str_replace("Âº", "º",$input);
+        $input = str_replace("Â»", "»",$input);
+        $input = str_replace("Â¼", "¼",$input);
+        $input = str_replace("Â½", "½",$input);
+        $input = str_replace("Â¾", "¾",$input);
+        $input = str_replace("Â¿", "¿",$input);
+        $input = str_replace("Ã€", "À",$input);
+        $input = str_replace("Ã‚", "Â",$input);
+        $input = str_replace("Ãƒ", "Ã",$input);
+        $input = str_replace("Ã„", "Ä",$input);
+        $input = str_replace("Ã…", "Å",$input);
+        $input = str_replace("Ã†", "Æ",$input);
+        $input = str_replace("Ã‡", "Ç",$input);
+        $input = str_replace("Ãˆ", "È",$input);
+        $input = str_replace("Ã‰", "É",$input);
+        $input = str_replace("ÃŠ", "Ê",$input);
+        $input = str_replace("Ã‹", "Ë",$input);
+        $input = str_replace("ÃŒ", "Ì",$input);
+        $input = str_replace("Ã", "Í",$input);
+        $input = str_replace("ÃŽ", "Î",$input);
+        $input = str_replace("Ã", "Ï",$input);
+        //$input = str_replace("Ã", "Ð",$input);
+        $input = str_replace("Ã‘", "Ñ",$input);
+        $input = str_replace("Ã’", "Ò",$input);
+        $input = str_replace("Ã“", "Ó",$input);
+        $input = str_replace("Ã”", "Ô",$input);
+        $input = str_replace("Ã•", "Õ",$input);
+        $input = str_replace("Ã–", "Ö",$input);
+        //$input = str_replace("Ã—", "×",$input);
+        //$input = str_replace("Ã˜", "Ø",$input);
+        $input = str_replace("Ã™", "Ù",$input);
+        $input = str_replace("Ãš", "Ú",$input);
+        $input = str_replace("Ã›", "Û",$input);
+        $input = str_replace("Ãœ", "Ü",$input);
+        //$input = str_replace("Ã", "Ý",$input);
+        $input = str_replace("Ãž", "Þ",$input);
+        $input = str_replace("ÃŸ", "ß",$input);
+        $input = str_replace("Ã", "à",$input);
+        $input = str_replace("Ã¡", "á",$input);
+        $input = str_replace("Ã¢", "â",$input);
+        $input = str_replace("Ã£", "ã",$input);
+        $input = str_replace("Ã¤", "ä",$input);
+        //$input = str_replace("Ã¥", "å",$input);
+        //$input = str_replace("Ã¦", "æ",$input);
+        $input = str_replace("Ã§", "ç",$input);
+        $input = str_replace("Ã¨", "è",$input);
+        $input = str_replace("Ã©", "é",$input);
+        $input = str_replace("Ãª", "ê",$input);
+        $input = str_replace("Ã«", "ë",$input);
+        $input = str_replace("Ã", "ì",$input);
+        $input = str_replace("Ã­", "í",$input);
+        $input = str_replace("Ã®", "î",$input);
+        $input = str_replace("Ã¯", "ï",$input);
+        //$input = str_replace("Ã°", "ð",$input);
+        $input = str_replace("Ã±", "ñ",$input);
+        $input = str_replace("Ã²", "ò",$input);
+        $input = str_replace("Ã³", "ó",$input);
+        $input = str_replace("Ã´", "ô",$input);
+        //$input = str_replace("Ãµ", "õ",$input);
+        $input = str_replace("Ã", "ö",$input);
+        //$input = str_replace("Ã·", "÷",$input);
+        //$input = str_replace("Ã¸", "ø",$input);
+        $input = str_replace("Ã¹", "ù",$input);
+        $input = str_replace("Ãº", "ú",$input);
+        $input = str_replace("Ã»", "û",$input);
+        $input = str_replace("Ã¼", "ü",$input);
+        $input = str_replace("Ã½", "ý",$input);
+        //$input = str_replace("Ã¾", "þ",$input);
+        $input = str_replace("Ã¿", "ÿ",$input);
+
+
+
+        $input = str_replace("ã§", "ç",$input);
+        $input = str_replace("ã©", "é",$input);
+        $input = str_replace("ã©", "é",$input);
+        $input = str_replace("ã¡", "á",$input);
+        $input = str_replace("ã³", "ó",$input);
+        $input = str_replace("ã", "í",$input);
+        $input = str_replace("ãº", "ú",$input);
+        //ã
+
+        $input = str_replace("à§", "ç",$input);
+        $input = str_replace("à©", "é",$input);
+        $input = str_replace("à©", "é",$input);
+        $input = str_replace("à¡", "á",$input);
+        $input = str_replace("à³", "ó",$input);
+
+        $input = str_replace("àº", "ú",$input);
+        $input = str_replace("à¼", "ü",$input);
+        
+        
+
+     
+    
+
+        $_encoding = mb_detect_encoding($input, "UTF-8, ISO-8859-1");
+        return html_entity_decode($input, ENT_QUOTES | ENT_HTML5, $_encoding);
+
+    }
+    
 
     private static function getMappedEventTypeCode(?string $code): ?string
     {
