@@ -33,13 +33,12 @@ body {
     //     background: yellow;
     // }
 
-    @media
+     @media
             only screen and (-webkit-min-device-pixel-ratio: 1.25),
             only screen and ( min--moz-device-pixel-ratio: 1.25),
             only screen and ( -o-min-device-pixel-ratio: 1.25/1),
             only screen and ( min-device-pixel-ratio: 1.25),
-            only screen and ( min-resolution: 200dpi),
-            only screen and ( min-resolution: 1.25dppx) {
+            only screen and ( min-resolution: 200dpi) {
         background: cyan;
     }
 
@@ -49,21 +48,9 @@ body {
             only screen and (min--moz-device-pixel-ratio: 1.5),
             only screen and (-o-min-device-pixel-ratio: 3/2),
             only screen and (min-device-pixel-ratio: 1.5),
-            only screen and (min-resolution: 144dpi),
-            only screen and (min-resolution: 1.5dppx) {
+            only screen and (min-resolution: 144dpi) {
         background: yellow;
     }
-
-    @media
-            only screen and (-webkit-min-device-pixel-ratio: 2),
-            only screen and (min--moz-device-pixel-ratio: 2),
-            only screen and (-o-min-device-pixel-ratio: 2/1),
-            only screen and (min-device-pixel-ratio: 2),
-            only screen and (min-resolution: 192dpi),
-            only screen and (min-resolution: 2dppx) {
-
-    }
-
 }
 
 
@@ -77,11 +64,21 @@ $rem-base-font: 16px !default;
     font-size: $font-size;
     font-size: ($font-size / $rem-base-font) * 1rem;
 
-    @media (-webkit-device-pixel-ratio: 1.25) {
+    @media
+            only screen and (-webkit-min-device-pixel-ratio: 1.25),
+            only screen and ( min--moz-device-pixel-ratio: 1.25),
+            only screen and ( -o-min-device-pixel-ratio: 1.25/1),
+            only screen and ( min-device-pixel-ratio: 1.25),
+            only screen and ( min-resolution: 200dpi) {
       font-size: ($font-size / $rem-base-font) * 0.75rem;
     }
 
-    @media (-webkit-device-pixel-ratio: 1.5) {
+    @media
+            only screen and (-webkit-min-device-pixel-ratio: 1.5),
+            only screen and (min--moz-device-pixel-ratio: 1.5),
+            only screen and (-o-min-device-pixel-ratio: 3/2),
+            only screen and (min-device-pixel-ratio: 1.5),
+            only screen and (min-resolution: 144dpi) {
       font-size: ($font-size / $rem-base-font) * 0.5rem;
     }
 
@@ -89,11 +86,23 @@ $rem-base-font: 16px !default;
         line-height: $line-height;
         line-height: ($line-height / $rem-base-font) * 1rem;
 
-        @media (-webkit-device-pixel-ratio: 1.25) {
+        @media
+            only screen and (-webkit-min-device-pixel-ratio: 1.25),
+            only screen and ( min--moz-device-pixel-ratio: 1.25),
+            only screen and ( -o-min-device-pixel-ratio: 1.25/1),
+            only screen and ( min-device-pixel-ratio: 1.25),
+            only screen and ( min-resolution: 200dpi),
+            only screen and ( min-resolution: 1.2dppx) {
           line-height: ($line-height / $rem-base-font) * 0.75rem;
         }
 
-        @media (-webkit-device-pixel-ratio: 1.5) {
+        @media
+            only screen and (-webkit-min-device-pixel-ratio: 1.5),
+            only screen and (min--moz-device-pixel-ratio: 1.5),
+            only screen and (-o-min-device-pixel-ratio: 3/2),
+            only screen and (min-device-pixel-ratio: 1.5),
+            only screen and (min-resolution: 144dpi),
+            only screen and (min-resolution: 1.5dppx) {
           line-height: ($line-height / $rem-base-font) * 0.5rem;
         }
     }
