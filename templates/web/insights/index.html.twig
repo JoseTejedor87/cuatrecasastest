@@ -727,33 +727,17 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Checkbox Filters -->
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
-<!-- Masonry JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
-
 <script>
     $(function () {
-        // GRID
         $('.grid__masonry').masonry({
             itemSelector: '.grid__item',
             columnWidth: '.grid__sizer',
             gutter: '.grid__gutter',
             percentPosition: true
-        });
-
-        // SLIDER
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
         });
     });
 </script>
