@@ -201,7 +201,6 @@
                 }
 
                 a {
-                    // @include fancy-link($complementary-color, $complementary-color, $white);
                     @include classic-link($complementary-color, $main-color, $border: false);
                     font-weight: bold;
                 }

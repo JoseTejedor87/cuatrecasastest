@@ -95,38 +95,12 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
-
-        var swiperGeneral = new Swiper('.slider__general', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
-        var swiperCases = new Swiper('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
-        });
     });
 </script>
 {% endblock %}
