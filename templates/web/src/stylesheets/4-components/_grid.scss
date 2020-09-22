@@ -22,9 +22,10 @@
 
     // width: calc( ( 100% - #{$total_gutter_space} ) /  #{$number_of_columns} );
 
-    $gutter-size:   20px;
-    $item-width:    32.15%;
-    $item-height:   260px;
+    $gutter-size:       21px;
+    $gutter-size-sm:    18px;
+    $item-width:        32%;
+    $item-height:       260px;
 
     @include has("masonry") {
         &:after {
@@ -36,6 +37,10 @@
 
     @include has("gutter") {
         width: $gutter-size;
+
+        @media(max-width: $max-menu-4casas) {
+            width: $gutter-size-sm;
+        }
     }
 
     @include has("sizer") {
@@ -49,6 +54,10 @@
         width: $item-width;
         height: $item-height;
         margin-bottom: $gutter-size;
+
+        @media(max-width: $max-menu-4casas) {
+            margin-bottom: $gutter-size-sm;
+        }
 
         //
         // INSIDE BOXES
@@ -76,6 +85,12 @@
         // SIZES
         //
         @include when("normal") {
+
+            @media(max-width: $max-width-4casas) {
+                width: 100%;
+                height: 200px;
+            }
+
             .boxnews__copy {
                 margin-bottom: auto;
                 padding-right: 0;
@@ -88,12 +103,8 @@
 
                 @media(max-width: $max-width-4casas) {
                     @include fontSet(20px, 25px);
+                    letter-spacing: 0;
                 }
-            }
-
-            @media(max-width: $max-width-4casas) {
-                width: 100%;
-                height: 200px;
             }
         }
 
@@ -101,6 +112,11 @@
         @include when("dobleW") {
             width: calc((#{$item-width} * 2) + #{$gutter-size});
             height: calc((#{$item-height} * 2) + #{$gutter-size});
+
+            @media(max-width: $max-menu-4casas) {
+                width: calc((#{$item-width} * 2) + #{$gutter-size-sm});
+                height: calc((#{$item-height} * 2) + #{$gutter-size-sm});
+            }
 
             @media(max-width: $max-width-4casas) {
                 width: 100%;
@@ -154,6 +170,10 @@
 
         @include when("dobleH") {
             height: calc((#{$item-height} * 2) + (#{$gutter-size});
+
+            @media(max-width: $max-menu-4casas) {
+                height: calc((#{$item-height} * 2) + (#{$gutter-size-sm});
+            }
 
             @media(max-width: $max-width-4casas) {
                 width: 100%;

@@ -125,8 +125,7 @@
         @include has("name") {
             order: 2;
             margin-top: 1rem;
-            // width: 140px;
-            @include fontSet(33px, 37px);
+            @include fontSet(30px, 37px);
             font-weight: normal;
             color: $white;
             word-spacing: 100vw;
@@ -150,12 +149,12 @@
         @include has("practice") {
             @include reset-list;
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             margin: 0.2rem 0;
             overflow: hidden;
 
             @include has("item") {
-                flex: 0 0 auto;
+                flex: 0 1 auto;
                 position: relative;
                 margin: 0 16px 0 0;
                 padding: 0 0;
@@ -243,6 +242,7 @@
 
             .team__member__name {
                 width: 180px;
+                @include fontSet(30px, 37px);
             }
 
             .team__member__details {
@@ -261,6 +261,7 @@
 
             .team__member__name {
                 width: 160px;
+                @include fontSet(30px, 37px);
             }
 
             // @include on-event() {
@@ -273,9 +274,9 @@
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
             background-size: auto 120%;
             background-position: 95% 100%;
-
             .team__member__name {
                 width: 140px;
+                @include fontSet(30px, 37px);
             }
 
             // @include on-event() {
@@ -290,7 +291,18 @@
             background-position: 95% 100%;
 
             .team__member__name {
-                width: 140px;
+                // width: 140px;
+                margin-top: 0.5rem;
+                @include fontSet(27px, 30px);
+            }
+
+            .team__member__practice {
+                margin: 0.1rem 0;
+            }
+
+            .team__member__position,
+            .team__member__practice__item {
+                @include fontSet(14px, 16px);
             }
 
             // @include on-event() {
@@ -305,7 +317,17 @@
             background-position: 95% 100%;
 
             .team__member__name {
-                width: 140px;
+                margin-top: 0.5rem;
+                @include fontSet(25px, 27px);
+            }
+
+            .team__member__practice {
+                margin: 0.1rem 0;
+            }
+
+            .team__member__position,
+            .team__member__practice__item {
+                @include fontSet(14px, 16px);
             }
 
             // @include on-event() {

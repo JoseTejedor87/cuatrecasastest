@@ -123,16 +123,17 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        <div id="externalTitle"></div>
                         <div id="eventCalendar">
                         </div>
                         <div id="eventCalendarList">
                         </div>
                         <!-- Search results / no calendar -->
-                        <!-- <div id="eventList">
+                        <div id="eventList">
                             <h3 class="fc-list-heading-main">16 marzo 2020 (bloque estático)</h3>
                             <article class="event__list__item">
                                 <div class="event__list__details">
-                                    <div class="event-place">Barcelona</div>
+                                    <div class="event-place"><a href="#">Barcelona</a></div>
                                     <div class="event-date">16 febrero 2020</div>
                                     <div class="event-time">10.30 — 14.30</div>
                                     <div class="event-button">
@@ -147,7 +148,7 @@
                             </article>
                             <article class="event__list__item">
                                 <div class="event__list__details">
-                                    <div class="event-place">Bilbao</div>
+                                    <div class="event-place"><a href="#">Bilbao</a></div>
                                     <div class="event-date">26 febrero a 8 marzo 2020</div>
                                     <div class="event-time">10.30 — 14.30</div>
                                     <div class="event-button">
@@ -170,7 +171,7 @@
                             </article>
                             <article class="event__list__item">
                                 <div class="event__list__details">
-                                    <div class="event-place">Madrid</div>
+                                    <div class="event-place"><a href="#">Madrid</a></div>
                                     <div class="event-date">17 a 19 enero 2020</div>
                                     <div class="event-time">10.30 — 14.30</div>
                                     <div class="event-button">
@@ -192,7 +193,7 @@
                             </article>
                             <article class="event__list__item">
                                 <div class="event__list__details">
-                                    <div class="event-place">Lisboa</div>
+                                    <div class="event-place"><a href="#">Lisboa</a></div>
                                     <div class="event-date">10 enero 2020</div>
                                     <div class="event-time">10.30 — 14.30</div>
                                     <div class="event-button">
@@ -208,7 +209,7 @@
                             <div class="viewmore__button">
                                 <button type="button" class="btn btn__viewmore">Cargar más</button>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
            </section>
@@ -374,15 +375,20 @@
     $(function () {
         web.global.customSelects();
 
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            // loop: true,
+        var swiperGeneral = new Swiper('.slider__general', {
+            slidesPerView: 1,
+            spaceBetween: 20,
             allowTouchMove: true,
             grabCursor: true,
             scrollbar: {
                 el: '.swiper-scrollbar',
                 draggable: true
+            },
+            breakpoints: {
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
+                },
             }
         });
 

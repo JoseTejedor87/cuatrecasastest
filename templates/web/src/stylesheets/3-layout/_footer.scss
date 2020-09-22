@@ -142,7 +142,7 @@ footer {
                 }
 
                 .legal__link {
-                    @include classic-link($complementary-color, $complementary-color);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                     @include fontSet(14px, 14px);
                 }
             }
