@@ -42,8 +42,6 @@ class HomeController extends CMSController
         $home = new Home();
         $form = $this->createForm(HomeFormType::class, $home);
 
-        //dd($Home); die();
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +49,7 @@ class HomeController extends CMSController
             $entityManager->persist($home);
             $entityManager->flush();
 
-            return $this->redirectToRoute('cms_home_index');
+            return $this->redirectToRoute('cmd_home_new');
         }
 
         return $this->render('cms/home/new.html.twig', [
@@ -69,19 +67,19 @@ class HomeController extends CMSController
 
     public function edit(Request $request, Home $home): Response
     {
-         //dd($Home); die();
+         
         $form = $this->createForm(HomeFormType::class, $home);
         $form->handleRequest($request);
 
- 
+        //dd($form);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //dd($form);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('cms_home_edit', ['id'=>$home->getId()]);
         }
 
-        //dd($form); die();
+        //dd($form);
 
         return $this->render('cms/home/edit.html.twig', [
             'home' => $home,

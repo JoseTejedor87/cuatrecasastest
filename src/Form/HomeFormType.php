@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+//use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 use App\Entity\Insight;
@@ -51,7 +51,21 @@ class HomeFormType extends AbstractType
             ])
             ->add('quotes', EntityType::class, [
                 'class' => Quote::class,
-                'label' => 'entities.lawyer.fields.qoute',
+                'label' => 'entities.quoteBlock.fields.qoute',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => false,
+                'expanded' => false,
+                'choice_label' => function ($quote) {
+                    return $quote->translate('es')->getBody();
+                }
+            ])
+            ->add('brand', EntityType::class, [
+                'class' => Brand::class,
+                'label' => 'entities.quoteBlock.fields.qoute',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -59,20 +73,13 @@ class HomeFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'required' => false,
-                'choice_label' => function ($quote) {
-                    return $quote->translate('es')->getBody();
+                'choice_label' => function ($brand) {
+                    return $brand->translate('es')->getTitle();
                 }
-            ])
-            ->add('brand', CollectionType::class, [
-                'label'=>'entities.home.fields.brand',
-                'entry_type' => BrandFormType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
-            ->add('published', MetaRobotsType::class, ['label'=>'entities.publishable.fields.published'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published', 'required' => true, 'value' => true])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots']);
             
     }
