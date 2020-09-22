@@ -13,7 +13,7 @@ class Brand extends Item
     use ORMBehaviors\Translatable\Translatable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="brands")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="brand")
      * @ORM\JoinColumn(nullable=true)
      */
     private $home;
