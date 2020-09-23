@@ -160,8 +160,8 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JavaScript-->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script>
     web.global.customSelects();
     web.global.testimonials();
@@ -179,18 +179,6 @@
         },
         navigation: {
             nextEl: '.home__preview__button'
-        }
-    });
-
-    var swiperGeneral = new Swiper ('.slider__general', {
-        slidesPerView: 3,
-        spaceBetween: 25,
-        // loop: true,
-        allowTouchMove: true,
-        grabCursor: true,
-        scrollbar: {
-            el: '.swiper-scrollbar',
-            draggable: true
         }
     });
 </script>

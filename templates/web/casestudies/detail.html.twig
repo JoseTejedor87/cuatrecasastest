@@ -88,29 +88,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script>
-    $(function () {
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
-        {% if relatedCaseStudies|length > 0 %}
-            var swiperCases = new Swiper ('#sliderCases', {
-                slidesPerView: 'auto',
-                spaceBetween: 20,
-                loop: true,
-                allowTouchMove: true,
-                grabCursor: true
-            });
-        {% endif %}
-    });
-</script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 {% endblock %}

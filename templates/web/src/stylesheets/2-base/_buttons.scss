@@ -523,7 +523,7 @@
         min-height: 45px;
         padding: 0.5rem 4.2rem 0.5rem 1rem;
         // @include fontSet(18px, 28px);
-        @include fontSet(14px, 14px);
+        @include fontSet(14px, 28px);
         letter-spacing: 0;
 
         @include when-inside(".buttons__list__item") {

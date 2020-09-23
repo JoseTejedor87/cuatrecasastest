@@ -19,9 +19,6 @@
                                             <h3 class="insight__title">
                                                 {{ caseStudy.translate(app.request.getLocale()).title }}
                                             </h3>
-                                            <div class="insight__excerpt">
-                                                {{ caseStudy.translate(app.request.getLocale()).summary|raw }}
-                                            </div>
                                         </div>
                                         <div class="insight__viewmore">
                                             <a href="{{ path('case_studies_detail', {slug: caseStudy.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">{{ 'reusable_blocks.cases.link'|trans }}</a>

@@ -2,7 +2,8 @@
     {% if lawyer.photo %}
         {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
     {% else %}
-        {% set photo_path = '' %}
+        {#% set photo_path = '{{ asset('web/assets/img/FotoCV.jpg') }}' %#}
+        {% set photo_path = asset('/web/assets/img/FotoCV.jpg')|imagine_filter('lawyers_grid') %}
     {% endif %}
 {% endif %}
 

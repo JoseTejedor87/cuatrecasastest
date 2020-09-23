@@ -37,7 +37,7 @@ class KnowledgeController extends WebController
         $offices = $OfficeRepository->findAll();
         $types = $this->params->get('app.publications_types');
         $formats = $this->params->get('app.publications_format');
-        
+
         $textSearch = $request->query->get('textSearch');
         $services = $request->query->get('services');
         $sector = $request->query->get('sector');
@@ -77,7 +77,7 @@ class KnowledgeController extends WebController
                     }else{
                         $query = $query->andWhere('p INSTANCE OF App\Entity\News');
                     }
-                   
+
                 }
                 if($value == "academy"){
                     if(count($typeA)>1){
@@ -85,7 +85,7 @@ class KnowledgeController extends WebController
                     }else{
                         $query = $query->andWhere('p INSTANCE OF App\Entity\Academy');
                     }
-        
+
                 }
                 if($value == "opinion"){
                     if(count($typeA)>1){
@@ -118,14 +118,14 @@ class KnowledgeController extends WebController
                 $startdate = new \DateTime($value.'-01-01');
                 $enddate = new \DateTime($value.'-12-31');
                 $query = $query->orWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d H:i:s')."' AND  '".$enddate->format('Y-m-d H:i:s')."'")->orderBy('p.publication_date', 'DESC');;
-                
+
             }
-            
+
         }else{
             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
         //dd( $query);
-        
+
         $countPublications = count($query->getQuery()->getResult());
         $query = $query->setFirstResult($limit * ($page - 1))
                 ->setMaxResults($limit)
@@ -138,8 +138,6 @@ class KnowledgeController extends WebController
                 $pagesTotal = intval($pagesTotal + 1);
             }
         }
-                    
-
 
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
@@ -154,9 +152,8 @@ class KnowledgeController extends WebController
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
             if(!$value->photo){
-                $value->photo = 'https://via.placeholder.com/800x400';
+                $value->photo = 'https://via.placeholder.com/1600x900';
             }
-            
         }
 
         if ($request->isXMLHttpRequest()) {
@@ -189,7 +186,7 @@ class KnowledgeController extends WebController
             if ($format) {
                 $json['format'] = $format;
             }
-    
+
             return new JsonResponse($json);
         }else{
             return $this->render('web/knowledge/insights.html.twig', [
@@ -205,7 +202,7 @@ class KnowledgeController extends WebController
                 'page' => $page,
             ]);
         }
-        
+
     }
     protected function getPhotoPathByFilter($publication, $filter)
     {
@@ -218,10 +215,10 @@ class KnowledgeController extends WebController
                         $filter
                     );
                     return $photo;
-                }  
+                }
             }
         }
-        
+
     }
     public function featured()
     {

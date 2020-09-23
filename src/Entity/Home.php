@@ -12,8 +12,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Home extends Publishable
 {
-    //use ORMBehaviors\Translatable\Translatable;
-
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
@@ -29,7 +27,7 @@ class Home extends Publishable
      */
     private $showInsight;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home" , cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home" )
      */
     private $insights;  
 
@@ -41,17 +39,18 @@ class Home extends Publishable
 
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private $showQuoteBlock;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" , cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" )
      */
     private $quotes;  
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home" , cascade={"persist"})
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showQuoteBlock;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home")
      */
     private $brand;
 
@@ -214,5 +213,7 @@ class Home extends Publishable
 
         return $this;
     }
+
+ 
 
 }

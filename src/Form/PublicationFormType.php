@@ -32,6 +32,7 @@ class PublicationFormType extends AbstractType
         $builder
             //->add('status', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.status'])
             ->add('featured', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.featured'])
+            ->add('url_video', TextType::class, ['required' => false,'label'=>'entities.publication.fields.url_video'])
             ->add('publication_date', DateType::class, ['label'=>'entities.publication.fields.publication_date', 'required' => true])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
