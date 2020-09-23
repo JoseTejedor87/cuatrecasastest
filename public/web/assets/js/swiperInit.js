@@ -9,7 +9,7 @@ $(function () {
             draggable: true
         },
         breakpoints: {
-            1199: {
+            992: {
                 slidesPerView: 3,
                 spaceBetween: 25,
             },

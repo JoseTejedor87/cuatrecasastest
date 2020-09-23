@@ -56,7 +56,7 @@ abstract class Publication extends Publishable
     private $offices;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $publication_date;
 

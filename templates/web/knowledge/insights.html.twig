@@ -488,7 +488,7 @@
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
                     if(style[i] != "grid__item--normal"){
-                        item.find( ".boxnews__img" ).css("background-image", "url("+publication['photo']+")");
+                        item.find( ".boxnews__img" ).css("background-image", "url('" + publication['photo']+ "' )");
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }

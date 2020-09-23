@@ -29,13 +29,13 @@ liip_imagine:
             quality: 75
             filters:
                 scale:
-                    dim: [350, 200]
+                    dim: [900, 500]
 
         lawyers_header:
-            quality: 75
+            quality: 50
             filters:
                 scale:
-                    dim: [1280, 720]
+                    dim: [1800, 1000]
 
         practices_header:
             quality: 75

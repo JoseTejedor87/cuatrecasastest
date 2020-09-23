@@ -27,7 +27,7 @@
                                     </h5>
                                     <div class="boxnews__meta">
                                         <div class="boxnews__meta__date">{{ publication.fechaPubli }}</div>
-                                        <div class="boxnews__meta__author">{% for person in publication.people %} {{ person.lawyer.name }} {{ person.lawyer.surname }} {% endfor %}</div>
+                                        <div class="boxnews__meta__author">{% for person in publication.people %}{% if person.lawyer %}  {{ person.lawyer.name }} {{ person.lawyer.surname }}{% else %}{{ person.name }} {{ person.surname }} {% endif %} {% endfor %}</div>
                                     </div>
                                 </div>
                                 {% if publication.activities|length > 1 %}

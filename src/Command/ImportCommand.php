@@ -2340,14 +2340,14 @@ class ImportCommand extends Command
                 if ($status!=400) {
                     $content = $response->toArray();
                     if (isset($content[0])) {
-                        $photo = $this->importFile('article', $content[0]['guid']['rendered']);
+                        $photo = $this->importFile('publication', $content[0]['guid']['rendered']);
                         if ($photo) {
                             $resource = new Resource();
                             $resource->setFile($photo);
                             $resource->setPublished(1);
                             $resource->setFileName($photo->getFileName());
                             $resource->setPublication($articulo);
-                            $resource->setType('article_main_photo');
+                            $resource->setType('publication_main_photo');
                             $articulo->addAttachment($resource);
                             self::setRegions($resource);
                             self::setRegions($articulo);

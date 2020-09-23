@@ -54,6 +54,7 @@
         width: $item-width;
         height: $item-height;
         margin-bottom: $gutter-size;
+        overflow: hidden;
 
         @media(max-width: $max-menu-4casas) {
             margin-bottom: $gutter-size-sm;

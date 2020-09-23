@@ -514,3 +514,4 @@ events_detail2:
        ge:   /event
    methods:    GET
    controller: App\Controller\Web\KnowledgeController::detail2
+
