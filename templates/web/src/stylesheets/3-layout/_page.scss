@@ -258,7 +258,6 @@
                 }
 
                 a {
-                    // @include fancy-link($complementary-color, $complementary-color, $white);
                     @include classic-link($complementary-color, $main-color, $border: false);
                 }
 
@@ -317,7 +316,7 @@
                 text-align: center;
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
 
                 @media(max-width: $max-width-4casas) {
@@ -334,7 +333,7 @@
                 text-align: center;
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
 
                 @media(max-width: $max-width-4casas) {
@@ -478,7 +477,7 @@
                 }
 
                 a {
-                    @include fancy-link($complementary-color, $complementary-color, $white);
+                    @include classic-link($complementary-color, $main-color, $border: false);
                 }
             }
 
@@ -491,8 +490,7 @@
                     @include fontSet(33px, 37px);
 
                     a {
-                        @include fancy-link($complementary-color, $complementary-color, $white);
-                        // @include background-link($complementary-color, $white, $complementary-color);
+                        @include classic-link($complementary-color, $main-color, $border: false);
                     }
 
                     @media(max-width: $max-width-4casas) {

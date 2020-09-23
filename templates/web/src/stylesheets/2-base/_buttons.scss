@@ -776,9 +776,6 @@
         }
     }
 
-    //
-    // RESPONSIVE
-    // --------------------------------------------------------------------------
     @media(max-width: $max-width-4casas) {
         padding: 0 0 0 0;
         @include fontSet(24px, 32px);
@@ -819,9 +816,6 @@
         }
     }
 
-    //
-    // RESPONSIVE
-    // --------------------------------------------------------------------------
     @media(max-width: $max-width-4casas) {
         padding: 0 0 0 0;
         @include fontSet(24px, 32px);
