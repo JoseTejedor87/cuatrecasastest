@@ -45,7 +45,7 @@
                         <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
                         {# NBC Universal sancionada por la Comisión Europea con 14,3 millones de euros #}
                         <figure>
-                            <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="NBC Universal">
+                            <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="NBC Universal">
                         </figure>
                         <div class="article__details">
                             {% for attachment in attachmentPublished %}
@@ -61,7 +61,11 @@
                              {% for person in publication.people %}
                                 <li class="related__content__item">
                                     <a href="#" class="related__content__link">
+                                     {% if person.lawyer %}
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                    {% else %}
+                                        {{ person.name }} {{ person.surname }}
+                                    {% endif %}
                                     </a>
                                 </li>
                             {% endfor %}
@@ -81,8 +85,8 @@
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
-                        {% if publication.urlVideo != '' and attachmentPublished[0].fileName != '' %}
-                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished[0].fileName } %}
+                        {% if publication.urlVideo != ''  %}
+                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
                     </div>
                 </div>

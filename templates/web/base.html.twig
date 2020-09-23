@@ -1,4 +1,6 @@
 {% trans_default_domain "messages" %}
+{% include "@CHCookieConsent/cookie_consent_styling.html.twig" %}
+{{ render_esi(path('ch_cookie_consent.show', { 'locale' : 'en' })) }}
 <!DOCTYPE html>
 <html lang="es">
     <head>
