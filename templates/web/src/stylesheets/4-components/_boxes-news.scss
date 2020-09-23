@@ -646,6 +646,7 @@
                 @include fontSet(43px, 43px);
                 font-weight: normal;
                 text-transform: none;
+                margin-bottom: 2rem;
 
                 @media(max-width: $max-width-4casas) {
                     @include fontSet(20px, 20px);
@@ -910,7 +911,7 @@
             }
 
             @include when("arrow") {
-                border: 1px solid red;
+                border: 1px solid cyan;
             }
 
             @media(max-width: $max-width-4casas) {
@@ -1089,12 +1090,21 @@
                 // margin-top: auto;
                 height: 270px;
                 border: 1px solid blue;
+
+                @media(max-width: $max-width-4casas) {
+                    width: 100%;
+                    height: 120px;
+                }
             }
 
             @include when-inside(".boxnews--products") {
                 // max-height: 230px;
                 height: 270px;
                 border: 1px solid red;
+
+                @media(max-width: $max-width-4casas) {
+                    height: 120px;
+                }
             }
         }
 

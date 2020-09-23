@@ -45,7 +45,7 @@
                 <div class="col">
                     <div class="page__block__title page__block__title--article">
                         <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
-                        <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
 
                         <div class="article__details">
                             {% for attachment in attachmentPublished %}
@@ -85,7 +85,7 @@
                         {% if publication.urlVideo != ''  %}
                             {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
-
+                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
 
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
