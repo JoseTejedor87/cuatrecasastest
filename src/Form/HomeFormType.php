@@ -51,7 +51,7 @@ class HomeFormType extends AbstractType
             ])
             ->add('quotes', EntityType::class, [
                 'class' => Quote::class,
-                'label' => 'entities.quoteBlock.fields.qoute',
+                'label' => 'entities.home.fields.qoute',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -65,7 +65,7 @@ class HomeFormType extends AbstractType
             ])
             ->add('brand', EntityType::class, [
                 'class' => Brand::class,
-                'label' => 'entities.quoteBlock.fields.qoute',
+                'label' => 'entities.home.fields.brand',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true

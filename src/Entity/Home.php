@@ -27,7 +27,7 @@ class Home extends Publishable
      */
     private $showInsight;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home" )
+     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home",  cascade={"persist"} )
      */
     private $insights;  
 
@@ -39,7 +39,7 @@ class Home extends Publishable
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" )
+     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home",  cascade={"persist"} )
      */
     private $quotes;  
 
@@ -50,7 +50,7 @@ class Home extends Publishable
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home")
+     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home",  cascade={"persist"} )
      */
     private $brand;
 
@@ -59,6 +59,12 @@ class Home extends Publishable
         $this->insights = new ArrayCollection();
         $this->quotes = new ArrayCollection();
         $this->brand = new ArrayCollection();
+    }
+
+    public function addCollections($collArray, $home){
+        foreach( $collArray as $item){
+            $item->setHome($home);
+        }
     }
 
     public function getShowSearchBlock(): ?bool
@@ -152,36 +158,6 @@ class Home extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Quote[]
-     */
-    public function getQuotes(): Collection
-    {
-        return $this->quotes;
-    }
-
-    public function addQuote(Quote $quote): self
-    {
-        if (!$this->quotes->contains($quote)) {
-            $this->quotes[] = $quote;
-            $quote->setHome($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuote(Quote $quote): self
-    {
-        if ($this->quotes->contains($quote)) {
-            $this->quotes->removeElement($quote);
-            // set the owning side to null (unless already changed)
-            if ($quote->getHome() === $this) {
-                $quote->setHome(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Brand[]
@@ -208,6 +184,37 @@ class Home extends Publishable
             // set the owning side to null (unless already changed)
             if ($brand->getHome() === $this) {
                 $brand->setHome(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuotes(): Collection
+    {
+        return $this->quotes;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quotes->contains($quote)) {
+            $this->quotes[] = $quote;
+            $quote->setHome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quotes->contains($quote)) {
+            $this->quotes->removeElement($quote);
+            // set the owning side to null (unless already changed)
+            if ($quote->getHome() === $this) {
+                $quote->setHome(null);
             }
         }
 
