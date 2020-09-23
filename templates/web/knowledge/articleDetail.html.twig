@@ -45,7 +45,8 @@
                 <div class="col">
                     <div class="page__block__title page__block__title--article">
                         <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
-                        <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+                        <img src="{{ asset('web/assets/img/NBC.jpg') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}"> -->
 
                         <div class="article__details">
                             {% for attachment in attachmentPublished %}

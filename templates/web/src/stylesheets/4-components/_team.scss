@@ -28,6 +28,10 @@
     .team__member {
         // height: 22rem;
         min-height: 330px;
+
+         @media(max-width: $max-width-4casas) {
+            min-height: 180px;
+        }
     }
 
 
@@ -38,6 +42,11 @@
     @include has("wrapper") {
         display: flex;
         height: 100%;
+
+        @media(max-width: $max-width-4casas) {
+            display: block;
+            height: auto;
+        }
     }
 
     @include has("info") {
@@ -48,6 +57,12 @@
         padding: 1rem;
         background-color: $complementary-color;
 
+        @media(max-width: $max-width-4casas) {
+            flex-basis: 100%;
+            max-width: 100%;
+            margin: 0 0 1rem 0;
+        }
+
         .doble__arrow__link {
             @include fontSet(20px, 20px);
             position: absolute;
@@ -55,6 +70,10 @@
             padding: 0.3rem 2rem 0.3rem 0px;
             letter-spacing: 0.61px;
             color: $white;
+
+            @media(max-width: $max-width-4casas) {
+                display: none;
+            }
 
             &:before,
             &:after {
@@ -76,6 +95,11 @@
             text-transform: uppercase;
             color: $main-color;
             word-spacing: 100vw;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 12px);
+                word-spacing: normal;
+            }
         }
 
         @include has("intro") {
@@ -83,6 +107,11 @@
             @include fontSet(33px, 37px);
             font-weight: normal;
             color: $white;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 1rem;
+                @include fontSet(25px, 30px);
+            }
         }
     }
 
@@ -91,6 +120,12 @@
         max-width: 80%;
         display: flex;
         flex-flow: row nowrap;
+
+        @media(max-width: $max-width-4casas) {
+            flex-basis: 100%;
+            max-width: 100%;
+            display: block;
+        }
     }
 
     @include has("member") {
@@ -117,6 +152,10 @@
             margin-right: 0;
         }
 
+        @media(max-width: $max-width-4casas) {
+            margin: 0 0 1rem 0;
+        }
+
         @include has("link") {
             @include box-hidden-link;
             margin: -1rem 0 0 -1rem;
@@ -128,8 +167,12 @@
             @include fontSet(30px, 37px);
             font-weight: normal;
             color: $white;
-            word-spacing: 100vw;
+            // word-spacing: 100vw;
             overflow: hidden;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(25px, 30px);
+            }
         }
 
         @include has("details") {
@@ -144,6 +187,10 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 12px);
+            }
         }
 
         @include has("practice") {
@@ -163,6 +210,10 @@
                 text-transform: uppercase;
                 color: $main-color;
 
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(12px, 12px);
+                }
+
                 &:before {
                     content: "";
                     position: absolute;
@@ -171,6 +222,11 @@
                     width: 2px;
                     height: 100%;
                     background-color: $main-color;
+
+                    @media(max-width: $max-width-4casas) {
+                        top: -2px;
+                        width: 1px;
+                    }
                 }
 
                 &:first-child {
@@ -187,12 +243,14 @@
             @include fontSet(16px, 16px);
             font-weight: bold;
             text-transform: uppercase;
-
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-
             color: $main-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 12px);
+            }
         }
 
         @include has("place") {
@@ -203,6 +261,10 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(12px, 12px);
+            }
         }
 
         @include has("resume") {
@@ -240,13 +302,23 @@
             background-size: auto 150%;
             background-position: 100% 100%;
 
+            @media(max-width: $max-width-4casas) {
+                background-size: auto 215%;
+                background-position: 100% -140px;
+            }
+
             .team__member__name {
-                width: 180px;
+                width: 30%;
                 @include fontSet(30px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    width: 30%;
+                    @include fontSet(25px, 30px);
+                }
             }
 
             .team__member__details {
-                width: 75%;
+                // width: 75%;
             }
 
             // @include on-event() {
@@ -259,9 +331,19 @@
             background-size: auto 130%;
             background-position: 100% 100%;
 
+            @media(max-width: $max-width-4casas) {
+                background-size: auto 215%;
+                background-position: 100% -140px;
+            }
+
             .team__member__name {
-                width: 160px;
+                width: 60%;
                 @include fontSet(30px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    width: 30%;
+                    @include fontSet(25px, 30px);
+                }
             }
 
             // @include on-event() {
@@ -274,9 +356,20 @@
         &:first-child:nth-last-child(3), &:first-child:nth-last-child(3) ~ article {
             background-size: auto 120%;
             background-position: 95% 100%;
+
+            @media(max-width: $max-width-4casas) {
+                background-size: auto 215%;
+                background-position: 100% -140px;
+            }
+
             .team__member__name {
-                width: 140px;
+                width: 60%;
                 @include fontSet(30px, 37px);
+
+                @media(max-width: $max-width-4casas) {
+                    width: 30%;
+                    @include fontSet(25px, 30px);
+                }
             }
 
             // @include on-event() {
@@ -290,10 +383,20 @@
             background-size: auto 100%;
             background-position: 95% 100%;
 
+            @media(max-width: $max-width-4casas) {
+                background-size: auto 215%;
+                background-position: 100% -140px;
+            }
+
             .team__member__name {
-                // width: 140px;
+                width: 75%;
                 margin-top: 0.5rem;
                 @include fontSet(27px, 30px);
+
+                @media(max-width: $max-width-4casas) {
+                    width: 30%;
+                    @include fontSet(25px, 30px);
+                }
             }
 
             .team__member__practice {
@@ -303,6 +406,10 @@
             .team__member__position,
             .team__member__practice__item {
                 @include fontSet(14px, 16px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(12px, 12px);
+                }
             }
 
             // @include on-event() {
@@ -316,9 +423,20 @@
             background-size: auto 100%;
             background-position: 95% 100%;
 
+            @media(max-width: $max-width-4casas) {
+                background-size: auto 215%;
+                background-position: 100% -140px;
+            }
+
             .team__member__name {
+                width: 100%;
                 margin-top: 0.5rem;
-                @include fontSet(25px, 27px);
+                @include fontSet(25px, 30px);
+
+                @media(max-width: $max-width-4casas) {
+                    width: 30%;
+                    @include fontSet(25px, 30px);
+                }
             }
 
             .team__member__practice {
@@ -328,6 +446,10 @@
             .team__member__position,
             .team__member__practice__item {
                 @include fontSet(14px, 16px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(12px, 12px);
+                }
             }
 
             // @include on-event() {
