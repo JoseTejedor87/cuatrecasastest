@@ -82,21 +82,14 @@
                         </div>
                     </div>
                     <div class="page__block__content page__block__content--article">
-                        {#% if publication.urlVideo != '' and attachmentPublished[0].fileName != '' %}
-                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished[0].fileName } %}
-                        {% endif %#}
                         {% if publication.urlVideo != ''  %}
                             {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
-
-                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt="" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')"> -->
+                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
 
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
-                        {% if publication.urlVideo != ''  %}
-                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
-                        {% endif %}
                     </div>
                 </div>
             </section>
