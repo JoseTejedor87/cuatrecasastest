@@ -5,14 +5,7 @@ cms_dashboard:
 
 # HOME
 # ####################################
-cms_home_index:
-    path:       /home
-    methods:    GET
-    controller: App\Controller\CMS\HomeController::index
-cmd_home_new:
-    path:       /home/new
-    methods:    GET|POST
-    controller: App\Controller\CMS\HomeController::new
+
 cms_home_edit:
     path:       /home/{id}/edit
     methods:    GET|POST
@@ -172,6 +165,26 @@ cms_banners_delete:
     path:       /banners/{id}
     methods:    DELETE
     controller: App\Controller\CMS\BannerController::delete
+
+# Brand
+# ####################################
+
+cms_brands_index:
+    path:       /brand/
+    methods:    GET
+    controller: App\Controller\CMS\BrandController::index
+cms_brands_new:
+    path:       /brand/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\BrandController::new
+cms_brands_edit:
+    path:       /brand/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\BrandController::edit
+cms_brands_delete:
+    path:       /brand/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\BrandController::delete
 
 # INSIGHTS
 # ####################################

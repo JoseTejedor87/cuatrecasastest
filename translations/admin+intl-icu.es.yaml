@@ -163,7 +163,20 @@ sections:
       new:
         title: Nuevo Banner
       edit:
-        title: Editar Banner              
+        title: Editar Banner  
+  brands:
+      index:
+        title: Brand
+      new:
+        title: Nuevo Brand
+      edit:
+        title: Editar Brand          
+  home:
+      index:
+        title: Home New
+      edit:
+        title: Editar Home
+      
 # Menu
 # ###########################################
 menu:
@@ -402,7 +415,25 @@ entities:
     fields:
       location: Nombre de ubicacion de la Pagina 
       slider: Slides que la componen
-
+  brand:
+    fields:
+      title: Titulo
+      description: Descripcion
+      url: Url Destino
+      image: Imagen
+      priority: Prioridad       
+  home:
+    fields:
+      title: Titulo
+      description: Descripcion
+      showSearchBlock: Mostrar Bloque de Búsqueda
+      showRelatedPublicationAndEvents: Mostrar Bloque de Publicaciones
+      showInsight: Mostrar Bloque Conocimientos elegidos
+      showCarrerBlock: Mostrar Bloque Carrer
+      showQuoteBlock: Mostrar Bloque Citas
+      insight: Seleccionar Conocimientos
+      qoute: Seleccionar Citas
+      brand: Seleccionar Marcas
 # Custom Form Types
 
 forms:

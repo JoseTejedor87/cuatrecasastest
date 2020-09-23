@@ -8,7 +8,7 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BrandRepository")
  */
-class Brand extends Item
+class Brand extends Publishable
 {
     use ORMBehaviors\Translatable\Translatable;
 

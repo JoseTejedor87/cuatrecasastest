@@ -27,6 +27,7 @@ use App\Controller\CMS\CMSController;
 
 class HomeController extends CMSController
 {
+    /*
     public function index(HomeRepository $HomeRepository, PaginatorInterface $paginator, Request $request): Response
     {
 
@@ -62,6 +63,7 @@ class HomeController extends CMSController
             'form' => $form->createView(),
         ]);
     }
+    */
 
     public function show(Home $Home): Response
     {
@@ -121,6 +123,6 @@ class HomeController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('cms_home_index');
+        return $this->redirectToRoute('cms_home_edit', ['id'=>$home->getId()]);
     }
 }
