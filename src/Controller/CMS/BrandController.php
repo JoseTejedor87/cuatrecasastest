@@ -72,6 +72,7 @@ class BrandController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             if (isset($request->request->get('brand_form')['image'])) {
                 $attachments = $request->request->get('brand_form')['image'];
                 foreach ($attachments as $key => $attachment) {

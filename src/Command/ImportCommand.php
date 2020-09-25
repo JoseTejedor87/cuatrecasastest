@@ -38,6 +38,8 @@ use App\Entity\Product;
 use App\Entity\Banner;
 use App\Entity\Slider;
 use App\Entity\Legislation;
+use App\Entity\Brand;
+use App\Entity\Home;
 
 class ImportCommand extends Command
 {
@@ -51,6 +53,7 @@ class ImportCommand extends Command
     private $mappedPersonIds;
 
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
+    const LOCAL_URL = "https://srvwebext4dev.cuatrecasas.com/cuatrecasas_pre";
 
     public function __construct(ContainerInterface $container, LoggerInterface $logger)
     {
@@ -109,6 +112,7 @@ class ImportCommand extends Command
             $this->VideoPublicationsByOffices();
             $this->VideoPublicationsByActivities();
             $this->PublicationsByLegislation();
+            $this->Brand();
 
         } else {
             switch ($table) {
@@ -245,7 +249,10 @@ class ImportCommand extends Command
                     break;
                 case "legislation":
                     $this->PublicationsByLegislation();
-                break;                                        
+                break;        
+                case "brand":
+                    $this->Brand();
+                break;                                 
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -730,6 +737,54 @@ class ImportCommand extends Command
             $this->em->flush();
             $this->logger->debug("Page ".$page->getId());
         }
+    }
+
+    public function Brand(){
+
+        ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
+        
+        $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE brand_id is not null");
+        $this->em->getConnection()->executeQuery("DELETE FROM BrandTranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE BrandTranslation AUTO_INCREMENT = 1");
+             $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([BrandTranslation], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM Brand ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Brand AUTO_INCREMENT = 1");
+              $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");      
+     
+
+        $data = file_get_contents("JsonExports/brands.json");
+        $items = json_decode($data, true);
+
+        $homeRepository = $this->em->getRepository(Home::class);
+        $home = $homeRepository->findOneBy(['id' => 1]);
+        
+        foreach($items as $item){
+            $brand = new Brand();
+            
+            $brand->setHome($home);
+            $brand->translate('es')->setTitle($item['titulo']);
+            $brand->translate('es')->setDescription($item['description']);
+            $brand->translate('es')->setUrl($item['url']);
+            $brand->setPublished(true);
+            
+            $photo = $this->importFile('brand', self::LOCAL_URL.$item['image']);
+            if ($photo) {
+                $resource = new Resource();
+                $resource->setFile($photo);
+                $resource->setFileName($photo->getFileName());
+                $resource->setBrand($brand);
+                $resource->setPublished(true);
+                $brand->setImage($resource);
+            }
+
+            $brand->mergeNewTranslations();
+            $this->em->persist($brand);
+            $this->em->flush();
+            $this->logger->debug("Brand ".$brand->getId());           
+
+        }
+
     }
 
     public function Banner(){

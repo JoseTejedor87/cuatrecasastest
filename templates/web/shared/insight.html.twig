@@ -7,11 +7,19 @@
                         Insight
                     </div>
                     <div class="insight__content">
-                        <h3 class="insight__title">
-                            Women in Business
+                        <h3 class="insight__title">                            
+                            {% if insight is defined and insight.translate(app.request.getLocale()).title != '' %}
+                                <p>{{ insight.translate(app.request.getLocale()).title|raw }}</p>
+                            {% else %}
+                                Women in Business
+                            {% endif %}
                         </h3>
                         <a href="#" class="insight__link">
-                            Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+                            {% if insight is defined and insight.translate(app.request.getLocale()).description != '' %}
+                                <p>{{ insight.translate(app.request.getLocale()).description|raw }}</p>
+                            {% else %}
+                                Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+                            {% endif %}                        
                         </a>
                     </div>
                     <div class="insight__meta">

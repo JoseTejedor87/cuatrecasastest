@@ -18,6 +18,11 @@ class Brand extends Publishable
      */
     private $home;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="brand", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $image;
+
     public function getHome(): ?Home
     {
         return $this->home;
@@ -26,6 +31,24 @@ class Brand extends Publishable
     public function setHome(?Home $home): self
     {
         $this->home = $home;
+
+        return $this;
+    }
+
+    public function getImage(): ?Resource
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Resource $image): self
+    {
+        $this->image = $image;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newBrand = null === $image ? null : $this;
+        if ($image->getBrand() !== $newBrand) {
+            $image->setBrand($newBrand);
+        }
 
         return $this;
     }

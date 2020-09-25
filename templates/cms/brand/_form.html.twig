@@ -8,9 +8,24 @@
             {{ translatableField.partialTranslations(form.translations, ['title']) }}
             {{ translatableField.partialTranslations(form.translations, ['description']) }}
             {{ translatableField.partialTranslations(form.translations, ['url']) }}
-                                             
-        </div>     
+        </div>                                    
+
+
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+        <div class="m-form__section m-form__section--last">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.seo'|trans }}
+                </h3>
+            </div>
+            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
+            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}                
+        </div>
+
+        {% do form.translations.setRendered %}
     </div>
+
     <div class="col-md-4 offset-md-1">    
 
         <div class="m-form__section m-form__section">
@@ -26,21 +41,27 @@
         </div>
 
         <div class="m-form__seperator m-form__seperator--dashed"></div>
-
-        <div class="m-form__section m-form__section--last">
+        
+        <div class="m-form__section m-form__section">
             <div class="m-form__heading">
                 <h3 class="m-form__heading-title">
-                    {{ 'forms.fieldsets.seo'|trans }}
+                    {{ 'Imagen'|trans }}
                 </h3>
             </div>
-            {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
-            {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}                
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.image) }}
+                    {{ form_row(form.image.file) }}
+                </div>
+            </div>
+
+            {% do form.image.setRendered %}
         </div>
 
     </div>
 </div>
 
-{% do form.translations.setRendered %}
+
 
 
 

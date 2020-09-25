@@ -28,17 +28,19 @@
     {% if home.showRelatedPublicationAndEvents   %}
         {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
     {% endif %}
-    {% if home.showInsight   %}
-        {% include 'web/shared/insight.html.twig' %}
+    {% if home.showInsight and home.insights[0] is defined   %}
+        {% include 'web/shared/insight.html.twig'  with {insight: home.insights[0] }   %}
     {% endif %}    
-    {% if home.showQuoteBlock   %}
-        {% include 'web/shared/testimonials.html.twig' %}
+    {% if home.showQuoteBlock   and home.quotes[0] is defined   %}
+        {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes }   %}
     {% endif %}  
     {% if home.showCarrerBlock   %}
-            {% include 'web/shared/career.html.twig' %}
+        {% include 'web/shared/career.html.twig' %}
     {% endif %}      
+    {% if home.brand[0] is defined  %}
+        {% include 'web/shared/brands.html.twig' %}    
+    {% endif %}   
 
-    {% include 'web/shared/brands.html.twig' %}    
     {% include 'web/shared/cta-footer.html.twig' %} {#   Es el template de acceso al los intercambios de datos   #}
 
 {% endblock %}
