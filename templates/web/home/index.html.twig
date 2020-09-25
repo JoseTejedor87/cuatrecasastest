@@ -38,7 +38,7 @@
         {% include 'web/shared/career.html.twig' %}
     {% endif %}      
     {% if home.brand[0] is defined  %}
-        {% include 'web/shared/brands.html.twig' %}    
+        {% include 'web/shared/brands.html.twig' with { brands: home.brand } %}    
     {% endif %}   
 
     {% include 'web/shared/cta-footer.html.twig' %} {#   Es el template de acceso al los intercambios de datos   #}

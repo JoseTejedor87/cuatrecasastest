@@ -3,21 +3,21 @@
         "titulo":"acelera",
         "description":"CUATRECASAS ACELERA",
         "url":"https://acelera.cuatrecasas.com/",
-        "image":"/web/assets/logos/Cuatrecasas-Acelera_arrows.png",
+        "image":"/web/assets/logos/Cuatrecasas-acelera_arrows.png",
         "priority":0
     },
     {
         "titulo":"rrhh",
         "description":"CUATRECASAS Instituto de Estrategia Legal RRHH",
         "url":"https://www.cuatrecasas.com/es/firma/instituto_internacional.html",
-        "image":"/web/assets/logos/Cuatrecasas-RRHH_arrows.png",
+        "image":"/web/assets/logos/Cuatrecasas-rrhh_arrows.png",
         "priority":1
     },
     {
         "titulo":"fundation",
         "description":"FUNDACION CUATRECASAS",
         "url":"http://www.fundacioncuatrecasas.com/",
-        "image":"/web/assets/logos/Cuatrecasas-Fundacion_arrows.png",
+        "image":"/web/assets/logos/Cuatrecasas-fundation_arrows.png",
         "priority":2
     }
 ]
