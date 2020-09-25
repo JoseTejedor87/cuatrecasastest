@@ -8,6 +8,14 @@
 		m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{ path('cms_home_edit', { 'id': 1}) }}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-map"></i>
+					<span class="m-menu__link-text">
+						{{ 'menu.home.title'|trans }}
+					</span>
+				</a>
+			</li>		
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('cms_lawyers_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-users"></i>
 					<span class="m-menu__link-text">
