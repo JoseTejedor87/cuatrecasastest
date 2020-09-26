@@ -29,25 +29,34 @@
          
                         </div> -->
                         <ul class="related__content related__content--lawyers">
-                        {% for lawyer in insight.lawyers %}
-                            <li class="related__content__item">
-                                <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
-                                    {{ lawyer.name }}
-                                    {{ lawyer.surname }}
-                                </a>
-                            </li>
-                        {% endfor %}
+                        {% if insight is defined  %}
+                            {% for lawyer in insight.lawyers %}
+                                <li class="related__content__item">
+                                    <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
+                                        {{ lawyer.name }}
+                                        {{ lawyer.surname }}
+                                    </a>
+                                </li>
+                            {% endfor %}                                
+                        {% else %}
+                                
+                        {% endif %} 
+
                         </ul>    
 
 
                         <ul class="related__services">
-                        {% for activity in insight.activities %}
-                            <li class="related__services__item">
-                                <a href="{{ activity.translate(app.request.getLocale()).slug }}" class="related__content__link">                                    
-                                    {{ activity.translate(app.request.getLocale()).title | upper}}
-                                </a>
-                            </li>
-                        {% endfor %}
+                        {% if insight is defined  %}
+                            {% for activity in insight.activities %}
+                                <li class="related__services__item">
+                                    <a href="{{ activity.translate(app.request.getLocale()).slug }}" class="related__content__link">                                    
+                                        {{ activity.translate(app.request.getLocale()).title | upper}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                                
+                        {% endif %}                         
                         </ul>
                     </div>
                 </article>
