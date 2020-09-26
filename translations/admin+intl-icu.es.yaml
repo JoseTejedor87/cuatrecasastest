@@ -434,6 +434,7 @@ entities:
       insight: Seleccionar Conocimientos
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas
+      url: Url de acceso Opciones del Usuario
 # Custom Form Types
 
 forms:

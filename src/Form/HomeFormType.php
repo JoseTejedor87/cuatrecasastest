@@ -35,6 +35,8 @@ class HomeFormType extends AbstractType
             ->add('showInsight', CheckboxType::class, ['required' => false,'label'=>'entities.home.fields.showInsight'])
             ->add('showCarrerBlock', CheckboxType::class, ['required' => false,'label'=>'entities.home.fields.showCarrerBlock'])
             ->add('showQuoteBlock', CheckboxType::class, ['required' => false,'label'=>'entities.home.fields.showQuoteBlock'])
+            ->add('urlUserSetting', TextType::class, ['required' => false,'label'=>'entities.home.fields.url'])
+            
             ->add('insights', EntityType::class, [
                 'class' => Insight::class,
                 'label' => 'entities.home.fields.insight',

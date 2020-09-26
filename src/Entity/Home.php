@@ -12,6 +12,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Home extends Publishable
 {
+
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $urlUserSetting;
+
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
@@ -217,6 +224,18 @@ class Home extends Publishable
                 $quote->setHome(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUrlUserSetting(): ?string
+    {
+        return $this->urlUserSetting;
+    }
+
+    public function setUrlUserSetting(string $urlUserSetting): self
+    {
+        $this->urlUserSetting = $urlUserSetting;
 
         return $this;
     }
