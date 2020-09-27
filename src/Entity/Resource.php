@@ -47,6 +47,11 @@ class Resource extends Publishable
     private $award;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Brand", inversedBy="image")
+     */
+    private $brand;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Slider", inversedBy="image")
      */
     private $slider;
@@ -232,6 +237,18 @@ class Resource extends Publishable
     public function setSlider(?Slider $slider): self
     {
         $this->slider = $slider;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

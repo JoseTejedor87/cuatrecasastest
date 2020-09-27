@@ -16,14 +16,21 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 
 use App\Entity\Home;
+
+
 use App\Form\HomeFormType;
 use App\Repository\HomeRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\InsightRepository;
+use App\Repository\BrandRepository;
 use App\Controller\CMS\CMSController;
 
 class HomeController extends CMSController
 {
+    /*
     public function index(HomeRepository $HomeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+
         $result = $HomeRepository->findAll();
  
         $pagination = $paginator->paginate(
@@ -41,9 +48,6 @@ class HomeController extends CMSController
     {
         $home = new Home();
         $form = $this->createForm(HomeFormType::class, $home);
-
-        //dd($Home); die();
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +55,7 @@ class HomeController extends CMSController
             $entityManager->persist($home);
             $entityManager->flush();
 
-            return $this->redirectToRoute('cms_home_index');
+            return $this->redirectToRoute('cmd_home_new');
         }
 
         return $this->render('cms/home/new.html.twig', [
@@ -59,6 +63,7 @@ class HomeController extends CMSController
             'form' => $form->createView(),
         ]);
     }
+    */
 
     public function show(Home $Home): Response
     {
@@ -67,21 +72,42 @@ class HomeController extends CMSController
         ]);
     }
 
-    public function edit(Request $request, Home $home): Response
+    public function edit(Request $request, Home $home, QuoteRepository $quoteRepository, InsightRepository $insightRepository,
+                        BrandRepository $brandRepository ): Response
     {
-         //dd($Home); die();
         $form = $this->createForm(HomeFormType::class, $home);
         $form->handleRequest($request);
-
- 
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $quotesOriginalArray = $quoteRepository->findBy(['home' => $home->getId()]);
+            $brandOriginalArray = $brandRepository->findBy(['home' => $home->getId()]);
+            $insightOriginalArray = $insightRepository->findBy(['home' => $home->getId()]);
+
+            foreach( $quotesOriginalArray as $item){
+                $item->setHome(null);
+                $this->getDoctrine()->getManager()->persist($item);
+                $this->getDoctrine()->getManager()->flush();
+            }            
+            foreach( $brandOriginalArray as $item){
+                $item->setHome(null);
+                $this->getDoctrine()->getManager()->persist($item);
+                $this->getDoctrine()->getManager()->flush();
+            }  
+            foreach( $insightOriginalArray as $item){
+                $item->setHome(null);
+                $this->getDoctrine()->getManager()->persist($item);
+                $this->getDoctrine()->getManager()->flush();
+            }  
+            
+            $home->addCollections($home->getQuotes(), $home);
+            $home->addCollections($home->getBrand(),$home);
+            $home->addCollections($home->getInsights(),$home);
 
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('cms_home_edit', ['id'=>$home->getId()]);
         }
 
-        //dd($form); die();
 
         return $this->render('cms/home/edit.html.twig', [
             'home' => $home,
@@ -97,6 +123,6 @@ class HomeController extends CMSController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('cms_home_index');
+        return $this->redirectToRoute('cms_home_edit', ['id'=>$home->getId()]);
     }
 }

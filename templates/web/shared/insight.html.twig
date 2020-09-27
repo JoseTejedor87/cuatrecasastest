@@ -1,3 +1,5 @@
+{% set InsightLanguague = app.request.getLocale() %}
+
 <section class="insight">
     <div class="container">
         <div class="row">
@@ -7,46 +9,50 @@
                         Insight
                     </div>
                     <div class="insight__content">
-                        <h3 class="insight__title">
-                            Women in Business
+                        <h3 class="insight__title">                            
+                            {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
+                                <p>{{ insight.translate(InsightLanguague).title|raw }}</p>
+                            {% else %}
+                                Women in Business
+                            {% endif %}
                         </h3>
                         <a href="#" class="insight__link">
-                            Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+                            {% if insight is defined and insight.translate(InsightLanguague).description != '' %}
+                                <p>{{ insight.translate(InsightLanguague).description|raw }}</p>
+                            {% else %}
+                                Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+                            {% endif %}                        
                         </a>
                     </div>
                     <div class="insight__meta">
-                        <!-- <div class="insight__meta__info">
-                            <div data-author>Laura Vivas</div>
-                            <div data-reading>8' lectura</div>
-                        </div> -->
                         <ul class="related__content related__content--lawyers">
-                            <li class="related__content__item">
-                                <a href="#" class="related__content__link">
-                                    Laura Vivas
-                                </a>
-                            </li>
-                            <li class="related__content__item">
-                                <a href="#" class="related__content__link">
-                                    Anna García
-                                </a>
-                            </li>
-                        </ul>
+                            {% if insight is defined  %}
+                                {% for lawyer in insight.lawyers %}
+                                    <li class="related__content__item">
+                                        <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
+                                            {{ lawyer.name }}
+                                            {{ lawyer.surname }}
+                                        </a>
+                                    </li>
+                                {% endfor %}                                
+                            {% else %}
+                                    
+                            {% endif %} 
+                        </ul>    
+
                         <ul class="related__services">
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Civil
-                                </a>
-                            </li>
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Internacional
-                                </a>
-                            </li>
-                            <li class="related__services__item">
-                                <a href="#" class="related__services__link">
-                                    Macroeconomía
-                                </a>
-                            </li>
+                        {% if insight is defined  %}
+                            {% for activity in insight.activities %}
+                                <li class="related__services__item">
+                                {% set path_string = get_pathda(activity)|trans %}                              
+                                    <a href="{{ path(path_string, { slug: activity.translate(InsightLanguague).slug }) }}" class="related__content__link">
+                                        {{ activity.translate(InsightLanguague).title | upper}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                                
+                        {% endif %}                         
                         </ul>
                     </div>
                 </article>

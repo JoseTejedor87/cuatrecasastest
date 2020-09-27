@@ -1,19 +1,7 @@
 
-<section class="">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-xl-12">
-            {%set img = '/resources/'~imgVideo %}
-            <article class="cta__content">
-                <figure class="cta__img" style="background-image: url('{{ asset(img) }}')">
-                    <a href="{{ article.urlVideo|raw }}" data-lity class="cta__link cta__link--icon">
-                        <span class='material-icons'>play_circle_outline</span>
-                        {{ article.translate(app.request.getLocale()).title|raw }}
-                    </a>
-                </figure>
-                 </article>
-            </div>
-        </div>
-    </div>
-</section>
+<!--  <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="NBC Universal"> -->
+<figure class="video__popup" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+    <a href="{{ article.urlVideo|raw }}" data-lity class="video__popup__link">
+        <span class='material-icons'>play_circle_outline</span>
+    </a>
+</figure>

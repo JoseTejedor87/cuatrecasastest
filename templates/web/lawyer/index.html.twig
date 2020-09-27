@@ -189,28 +189,11 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script>
     $(function() {
         web.global.customSelects();
-
-        var swiperGeneral = new Swiper('.slider__general', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
 
         // RESULTS VIEWS
         $(document).on('click', '.list', function(e){

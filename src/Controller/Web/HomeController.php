@@ -12,33 +12,40 @@ use App\Repository\AwardRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\BannerRepository;
 use App\Repository\SliderRepository;
+use App\Repository\HomeRepository;
 use App\Controller\Web\WebController;
 
 
 class HomeController extends WebController
 {
-    public function index(Request $request, EventTranslationRepository $EventTranslationRepository,
-     EventRepository $EventRepository, PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository)
+    public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository,
+             PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository, HomeRepository $homeRepository )
     {
         $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
         //$slidesOrdered = $sliderRepository->findBy(['banners' => $bannerHome->getId()], ['priority' => 'ASC']);
         
-
         $slidesOrdered = $sliderRepository->getAllByPriority($bannerHome->getId());
-        // $slidesOrdered = $sliderRepository->findAll();
-
-        
-        //dd($slidesOrdered); die();        
+        $home = $homeRepository->findOneBy(['id' => 1]);
         //dd(($bannerHome->getSliders()[0]->getImage())->getFileName());  die();
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $relatedPublications = $publicationRepository->findByActivities('');
+
+
+        /*
+        foreach($home->getInsights()[0]->getActivities() as $item){
+            print_r($item->translate('es')->getTitle()); die();
+        }
+        */
+
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
             'relatedPublications' => $relatedPublications,
             'banner' => $bannerHome,
-            'slidesOrdered' => $slidesOrdered
+            'slidesOrdered' => $slidesOrdered,
+            'home' => $home
         ]);
     }
+
 
 
     public function components(AwardRepository $awardRepository)

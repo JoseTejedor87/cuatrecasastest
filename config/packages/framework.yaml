@@ -1,5 +1,6 @@
 framework:
     secret: '%env(APP_SECRET)%'
+    esi: { enabled: true }
     assets:
         version: v1.0
         base_path: '/'

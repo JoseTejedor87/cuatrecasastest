@@ -67,9 +67,19 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
                 </div>
             </section>
+            <div class="foto__mapa" id ="map">
 
-            <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-vision-general.png') }}')">
-            </section>
+                        
+            </div> 
+            {# <select id="services" class="custom__select">
+                {% for office in offices %}
+                    {% if office.city %}
+                        <option value="{{office.id}}">{{  office.city|raw  }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select> #}
+            {# <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-vision-general.png') }}')">
+            </section> #}
 
             {% include 'web/shared/offices.html.twig' %}
 
@@ -217,39 +227,135 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+ <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+    <script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&callback=initMap" async defer></script>
+	<script>
+    
+	  var beaches = {{ officesMapa|raw }};
+      var map;
+      function initMap() {
+  // Create the map with no initial style specified.
+  // It therefore has default styling.
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: {lat: 43.5293, lng: -5.6773},
+    zoom: 2.5,
+    mapTypeControl: false,
+  });
+  setMarkers(map);
+//  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+//  var markers = beaches.map(function(location, i) {
+//        return new google.maps.Marker({
+//        position: location,
+//        label: labels[i % labels.length]
+//      });
+//    });
+//    var markerCluster = new MarkerClusterer(map, markers,
+//        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    map.setOptions({ styles: styles["retro"] });
+
+
+}
+
+
+function setMarkers(map) {
+  // Adds markers to the map.
+
+  // Marker sizes are expressed as a Size of X,Y where the origin of the image
+  // (0,0) is located in the top left of the image.
+
+  // Origins, anchor positions and coordinates of the marker increase in the X
+  // direction to the right and in the Y direction down.
+  var image = {
+    url: 'https://www.cuatrecasas.com/css/images/logos/cuatrecasas_simbolo.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    //size: new google.maps.Size(20, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32)
+  };
+  // Shapes define the clickable region of the icon. The type defines an HTML
+  // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+  // The final coordinate closes the poly by connecting to the first coordinate.
+  var shape = {
+    coords: [1, 1, 1, 20, 18, 20, 18, 1],
+    type: 'poly'
+  };
+  for (var i = 0; i < beaches.length; i++) {
+    var beach = beaches[i];
+    var marker = new google.maps.Marker({
+      position: {lat: beach[1], lng: beach[2]},
+      map: map,
+      icon: image,
+      shape: shape,
+      title: beach[0],
+      zIndex: beach[3]
+    });
+  }
+}
+const styles = {
+  retro: [
+    { elementType: "labels", stylers: [{ visibility: "off" }] },
+    {
+      featureType: "administrative",
+      elementType: "geometry",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "administrative.land_parcel",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "administrative.land_parcel",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#ae9e90" }],
+    },
+    {
+      featureType: "administrative.neighborhood",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "landscape",
+      stylers: [{ color: "#46001d" }],
+    },
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#a5b076" }],
+    },
+    {
+      featureType: "road",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "water",
+      stylers: [{ color: "#d1ebff" }],
+    },
+  ],
+};
+	</script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
-
-        var swiperAwards = new Swiper ('#sliderAwards', {
-            slidesPerView: 'auto',
-            spaceBetween: 0,
-            centeredSlides: true,
-            loop: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
-        });
+         
     });
 </script>
 {% endblock %}

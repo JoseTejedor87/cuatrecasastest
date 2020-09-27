@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Insight;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 use App\Controller\Web\NavigationService;
 use App\Repository\PublishableEntityRepository;

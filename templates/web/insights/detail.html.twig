@@ -193,9 +193,8 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Masonry JS -->
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
@@ -204,31 +203,6 @@
             columnWidth: '.grid__sizer',
             gutter: '.grid__gutter',
             percentPosition: true
-        });
-
-        var swiperGeneral = new Swiper('.slider__general', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
-        var swiperCases = new Swiper('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
         });
 
         $('.read__more').readmore({

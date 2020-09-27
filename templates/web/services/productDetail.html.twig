@@ -184,25 +184,10 @@
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script>
     $(function () {
-        var swiperGeneral = new Swiper('.slider__general', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
         $('.read__more').readmore({
             moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
             lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
