@@ -18,7 +18,12 @@
                     </div>
                     <div class="team__list">
                         {% for lawyer in lawyers|slice(0, 5) %}
-                            <article class="team__member" style="background-image: url('{{ asset('web/assets/img/FLUF.jpg') }}');">
+                            <article class="team__member" 
+                                {# style="background-image: url('{{ asset('web/assets/img/FLUF.jpg') }}');"  #}
+                                style="background-image: url('{{ asset('resources/'~lawyer.photo.fileName ) }}');
+                                        background-size: 500%;
+                                ">
+
                                 <a href="{{ path('lawyers_detail', {slug: lawyer.slug}) }}" class="team__member__link">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</a>
                                 <div class="team__member__name">{{ lawyer.name|raw  }} {{ lawyer.surname|raw }}</div>
 
