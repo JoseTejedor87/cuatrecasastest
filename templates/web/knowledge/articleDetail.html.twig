@@ -60,20 +60,25 @@
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item">
-                                    <a href="#" class="related__content__link">
+                                    
                                      {% if person.lawyer %}
+                                        <a href="/abogados/{{ person.lawyer.slug  }}" class="related__content__link">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                        </a>
                                     {% else %}
+                                        <a href="#" class="related__content__link">
                                         {{ person.name }} {{ person.surname }}
+                                        </a>
                                     {% endif %}
-                                    </a>
+                                    
                                 </li>
                             {% endfor %}
                             </ul>
                             <ul class="related__content related__content--services">
                              {% for activity in publication.activities %}
+                                {% set path_string = get_pathda(activity)|trans %}                              
                                 <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
+                                    <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
                                         {{ activity.translate(app.request.getLocale()).title|raw}}
                                     </a>
                                 </li>
