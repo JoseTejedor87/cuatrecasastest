@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use App\Entity\Activity;
 use App\Entity\Award;
@@ -55,12 +56,12 @@ class ImportCommand extends Command
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
     const LOCAL_URL = "https://srvwebext4dev.cuatrecasas.com/cuatrecasas_pre";
 
-    public function __construct(ContainerInterface $container, LoggerInterface $logger)
+    public function __construct(ContainerInterface $container, LoggerInterface $logger,HttpClientInterface $client)
     {
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
-
+        $this->client = $client;
         $this->em = $this->container->get('doctrine')->getManager();
     }
 
@@ -249,10 +250,13 @@ class ImportCommand extends Command
                     break;
                 case "legislation":
                     $this->PublicationsByLegislation();
-                break;        
+                    break;        
                 case "brand":
-                    $this->Brand();
-                break;                                 
+                    $this->Brand();                              
+                    break; 
+                case "OfficeLatitudeLongitude":
+                    $this->OfficeLatitudeLongitude();
+                    break;                                      
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -743,14 +747,14 @@ class ImportCommand extends Command
 
         ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
         
-        $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE brand_id is not null");
-        $this->em->getConnection()->executeQuery("DELETE FROM BrandTranslation ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE BrandTranslation AUTO_INCREMENT = 1");
-             $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([BrandTranslation], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE brand_id is not null");
+        // $this->em->getConnection()->executeQuery("DELETE FROM BrandTranslation ");
+        // // $this->em->getConnection()->executeQuery("ALTER TABLE BrandTranslation AUTO_INCREMENT = 1");
+        //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([BrandTranslation], RESEED, 1)");
 
-        $this->em->getConnection()->executeQuery("DELETE FROM Brand ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE Brand AUTO_INCREMENT = 1");
-              $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");      
+        // $this->em->getConnection()->executeQuery("DELETE FROM Brand ");
+        // // $this->em->getConnection()->executeQuery("ALTER TABLE Brand AUTO_INCREMENT = 1");
+        //       $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");      
      
 
         $data = file_get_contents("JsonExports/brands.json");
@@ -1724,7 +1728,39 @@ class ImportCommand extends Command
             $this->logger->debug("Office ".$office->getId());
         }
     }
+    public function OfficeLatitudeLongitude()
+    {
 
+        $officeRepository = $this->em->getRepository(Office::class);
+        $offices= $officeRepository->findAll();
+        foreach ($offices as $office) {
+            if ($office->getAddress()) {
+                $response = $this->client->request(
+                    'GET',
+                    'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->getCity()).','.utf8_encode($office->getCountry())
+                );
+				if($response->getStatusCode()==200){
+					$content = $response->toArray();
+					if(isset($content['results'][0]['geometry']['location'])){
+							$office->setLat(strval($content['results'][0]['geometry']['location']['lat']));
+							$office->setLng(strval($content['results'][0]['geometry']['location']['lng'] ));
+							$this->em->persist($office);
+							$this->em->flush();	
+						}else{
+							$office->setLat(strval($content['results'][0]['geometry']['bounds']['northeast']['lat']));
+							$office->setLng(strval($content['results'][0]['geometry']['bounds']['northeast']['lng'] ));
+							$this->em->persist($office);
+							$this->em->flush();
+						}
+				}else{
+                    $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+				}
+ 
+            } else {
+                $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
+            }
+        }
+    }
     public function OfficeByLawyer()
     {
         $data = file_get_contents("JsonExports/OficinaAbogado.json");
