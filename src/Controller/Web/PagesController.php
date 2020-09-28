@@ -15,8 +15,6 @@ class PagesController extends WebController
 
     public function detail(Request $request, PageRepository $PageRepository, OfficeRepository $OfficeRepository)
     {
-        
-        
         $page = $PageRepository->getInstanceByRequest($request);
 
         $urlTemplate = 'empty';
@@ -33,7 +31,6 @@ class PagesController extends WebController
                     array_push($officeA, [ $office->getCity(),floatval($office->getLat()),floatval($office->getLng()),$office->getId()]);
                     array_push($officeATest, [ "lat" => floatval($office->getLat()),"lng" =>  floatval($office->getLng())]);
                 }
-
             }
         }
 
@@ -44,5 +41,4 @@ class PagesController extends WebController
             'controller_name' => 'PageController'
         ]);
     }
-
 }
