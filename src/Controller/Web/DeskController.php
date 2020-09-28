@@ -13,10 +13,14 @@ class DeskController extends WebController
 {
     public function index(Request $request, DeskRepository $deskRepository)
     {
+        /*
         $desks = $deskRepository->createPublishedQueryBuilder('d')
             ->andwhere('d.highlighted = true')
             ->getQuery()
             ->getResult();
+        */
+
+        $desks = $deskRepository->getDeskByName($request)->getResult();            
 
         return $this->render('web/desks/index.html.twig', [
             'desks' => $desks,
