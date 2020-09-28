@@ -1104,7 +1104,8 @@
         }
 
         .dropdown-menu {
-            padding: 0 1rem 0 0;
+            max-height: 420px;
+            padding: 1rem 1rem 1rem 0;
             margin: 0 0;
             border: 0 solid rgba(0,0,0,0);
             border-radius: 0;
@@ -1112,12 +1113,11 @@
             font-weight: 400;
             color: $complementary-color;
             background-color: rgba($white, 0.9);
-            border-top: 1rem solid rgba($white, 0.9);
-            border-bottom: 1rem solid rgba($white, 0.9);
 
             .inner {
                 background-color: transparent;
                 @include scrollbars(6px,0, $white, $complementary-color, #d5d2d2);
+
             }
         }
 
@@ -1132,7 +1132,6 @@
         .dropdown-item {
             display: block;
             width: 100%;
-            // width: calc(100% - 0.5rem);
             padding: 0.8rem 1rem;
             @include fontSet(23px, 23px);
             font-weight: 400;
@@ -1142,7 +1141,6 @@
             &:active {
                 color: $white;
                 background-color: $complementary-color;
-                // background-color: rgba($complementary-color, 0.9);
 
                 @include on-event {
                     color: $main-color;
@@ -1152,7 +1150,6 @@
             @include on-event {
                 color: $main-color;
                 background-color: rgba($black, 0.1);
-                // background-color: #d5d2d2;
             }
         }
 
@@ -1169,11 +1166,8 @@
         }
 
         .bootstrap-select .dropdown-menu {
-            li {
-                &:last-child {
-                    margin-bottom: 1rem;
-                }
 
+            li {
                 a.opt {
                     padding-left: 1rem;
                 }
