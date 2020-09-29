@@ -25,7 +25,7 @@ abstract class Publishable extends Item
     private $metaRobots;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $published;
 
