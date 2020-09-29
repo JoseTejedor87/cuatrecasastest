@@ -233,8 +233,9 @@ class LawyerController extends WebController
         $dataString .=  'EMAIL:'.$lawyer->getEmail()."\n".
                         //'REV:'.$lawyer->getUpdateAt().
                         'END:VCARD';
-        
-        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf',$dataString);
+        $string_encoded = iconv( mb_detect_encoding( $dataString ), 'Windows-1252//TRANSLIT', $dataString );
+
+        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf',$string_encoded);
         $file = new File('vcard_'.$lawyer->getFullName().'.vcf');
 
         return $this->file($file);
