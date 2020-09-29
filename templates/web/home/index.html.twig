@@ -13,7 +13,7 @@
             <div class="col">
                 <div id="sliderHome" class="swiper-container">
                     <div class="swiper-wrapper">
-                        {% include 'web/shared/banner.html.twig'  with {banner: banner, slidesOrdered:slidesOrdered } %}
+                        {% include 'web/shared/banner-home.html.twig'  with {banner: banner, slidesOrdered:slidesOrdered } %}
                     </div>
                 </div>
             </div>
@@ -24,8 +24,10 @@
         {% endif %}
     </main>
 
-    {% if home.showRelatedPublicationAndEvents %}
-        {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% if home.showRelatedPublicationAndEvents   %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'contenido destacado', publications: relatedPublications } %}
+    {% endif %}
     {% endif %}
     {% if home.showInsight and home.insights[0] is defined %}
         {% include 'web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
@@ -54,7 +56,6 @@
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
-        // grabCursor: true,
         speed: {{ banner.speed }},
         allowSlidePrev: false,
         allowTouchMove: false,

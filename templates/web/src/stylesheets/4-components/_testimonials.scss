@@ -9,6 +9,10 @@
     // height: 300px;
     background-color: #CED6D8;
 
+    @media(max-width: $max-width-4casas) {
+        padding: 2em 0;
+    }
+
     @include has("item") {
         opacity: 0.4;
         transform: scale(0.7);
