@@ -65,7 +65,9 @@ abstract class ActivityFormType extends AbstractType
                 'query_builder' => function (LawyerRepository $lr) {
                                 return $lr->createQueryBuilder('l')
                                     ->join('l.activities', 'a')
+                                    ->join('l.secondaryActivities', 'sa')
                                     ->where('a.id = :id_act')
+                                    ->orWhere('sa.id = :id_act')
                                     ->setParameter('id_act', $this->id_act)
                                     ->orderBy('l.name', 'ASC');
                         }
