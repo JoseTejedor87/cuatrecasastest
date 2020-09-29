@@ -462,9 +462,6 @@
                 // background-color: $event-box-color;
                 background-color: transparent;
 
-                // white-space: initial;
-                // overflow: initial;
-
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -473,8 +470,11 @@
 
                 transition: all 0.3s ease-out;
 
-                @media(max-width: $max-width-4casas) {
-                    // display: none;
+                .fc-event-place,
+                .fc-event-sector {
+                    @media(max-width: $max-width-4casas) {
+                        display: none;
+                    }
                 }
 
 
