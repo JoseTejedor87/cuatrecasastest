@@ -580,7 +580,7 @@ class ImportCommand extends Command
         $items = json_decode($data, true);
 
         // $this->delTrainings();
-
+        $processedTrainingsMap = [];
 
         foreach ($items as $item) {
             if ($item['formacion'] == '') {
@@ -605,7 +605,13 @@ class ImportCommand extends Command
             }
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
-            $training = new Training();
+            if(isset($processedTrainingsMap[$item['id_abogado']])){
+                $training =  $processedTrainingsMap[$item['id_abogado']];
+            }else{
+                $training = new Training();
+                $training->setLawyer($lawyer);
+            }
+            
 
             if (preg_match('/Languages/', $item['formacion'])) {
                 $matches = explode("Languages", $item['formacion']);
@@ -659,17 +665,20 @@ class ImportCommand extends Command
                 foreach ($trainingsArray as $item_training) {
                     if ($item_training != '') {
                         $training->translate($currentLang)->setDescription($item_training);
-                        $training->setLawyer($lawyer);
-                        $training->mergeNewTranslations();
-                        $this->em->persist($training);
-                        $this->em->flush();
-                        $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());
+                        $processedTrainingsMap[$item['id_abogado']] = $training;
                     }
                 }
                 $this->logger->debug("string ".$matches[0]);
                 $this->logger->debug("trainingsArray ".$json);
             }
         }
+        foreach ($processedTrainingsMap as $training) {
+            $training->mergeNewTranslations();
+            $this->em->persist($training);
+            $this->em->flush();
+            $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());
+        }
+
     }
 
     public function Mentions()
@@ -680,14 +689,14 @@ class ImportCommand extends Command
 
         // $this->delMentions();
 
-
+        $processedMentionMap = [];
         foreach ($items as $item) {
             if ($item['menciones'] == '') {
                 continue;
             }
             $currentLang = self::getMappedLanguageCode($item['lang']);
             $lawyerRepository = $this->em->getRepository(Lawyer::class);
-
+            
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             if ($lawyerId == '') {
                 $this->logger->debug("============================= SKIPPED ======================================================== ");
@@ -704,10 +713,16 @@ class ImportCommand extends Command
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
 
-            $mention = new Mention();
+            if(isset($processedMentionMap[$item['id_abogado']])){
+                $mention =  $processedMentionMap[$item['id_abogado']];
+            }else{
+                $mention = new Mention();
+                $mention->setLawyer($lawyer);
+            }
             $mention->translate($currentLang)->setDescription($item['menciones']);
-            $mention->setLawyer($lawyer);
-
+            $processedMentionMap[$item['id_abogado']]=$mention;
+        }
+        foreach ($processedMentionMap as $mention) {
             $mention->mergeNewTranslations();
             $this->em->persist($mention);
             $this->em->flush();

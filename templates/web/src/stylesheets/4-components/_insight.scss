@@ -149,6 +149,8 @@
         padding: 2rem 0;
 
         @include when-inside(".insight--carousel") {
+            height: 200px;
+            margin-bottom: 4rem;
             padding: 1rem 2rem;
         }
     }
@@ -194,7 +196,7 @@
                 // }
 
                 @media(max-width: $max-width-4casas) {
-                    min-height: 220px;
+                    min-height: auto;
                     margin-bottom: 0;
                 }
             }
@@ -246,6 +248,13 @@
 
             @media(max-width: $max-width-4casas) {
                 bottom: 9rem;
+            }
+
+            @include when-inside(".insight--carousel") {
+                @media(max-width: $max-width-4casas) {
+                    bottom: auto;
+                    top: 9rem;
+                }
             }
         }
 
