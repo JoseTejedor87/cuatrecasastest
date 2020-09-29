@@ -6,7 +6,7 @@
                     {% if tittle is defined %}
                         {{ tittle }}
                         {% else %}
-                        Contenido relacionado
+                        {{ 'global.messages.related_content'|trans }}
                     {% endif %}
                 </h4>
                 <div class="swiper-container slider__general">
@@ -51,7 +51,7 @@
                     <div class="swiper-scrollbar"></div>
                 </div>
                 <div class="viewmore__button">
-                    <button type="button" class="btn btn__viewmore">Ver más</button>
+                    <button type="button" class="btn btn__viewmore">{{ 'global.messages.show_more'|trans }}</button>
                 </div>
             </div>
         </div>

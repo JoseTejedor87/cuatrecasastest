@@ -26,7 +26,7 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
     {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'contenido destacado', publications: relatedPublications } %}
+        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
     {% endif %}
     {% endif %}
     {% if home.showInsight and home.insights[0] is defined %}
@@ -63,7 +63,7 @@
             delay: {{ banner.delay }},
         },
         navigation: {
-            nextEl: '.home__preview__button'
+            nextEl: '.preview__button'
         }
     });
 </script>

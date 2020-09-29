@@ -416,6 +416,10 @@
         column-count: 3;
     }
 
+    @include when("sectors") {
+        column-count: 3;
+    }
+
     @include has("item") {
         display: inline-block;
         width: 100%;
@@ -427,12 +431,21 @@
         @include when("3cols") {
             column-count: 2;
         }
+
+        @include when("sectors") {
+            column-count: 2;
+            padding: 1rem 0;
+        }
     }
 
     @media(max-width: $max-width-md) {
         column-count: initial;
 
         @include when("3cols") {
+            column-count: initial;
+        }
+
+        @include when("sectors") {
             column-count: initial;
         }
     }

@@ -198,6 +198,39 @@
             }
         }
 
+        .article__details {
+
+            .related__content--lawyers {
+                left: 0;
+                margin-top: 1rem;
+            }
+
+            .related__content--services {
+                left: 0;
+                margin-top: 1.5rem;
+
+                @media(max-width: $max-width-4casas) {
+                    margin-top: 0;
+                }
+            }
+
+            &.desktop {
+                display: block;
+
+                @media(max-width: $max-width-4casas) {
+                    display: none;
+                }
+            }
+
+            &.mobile {
+                display: none;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                }
+            }
+        }
+
         //
         // Modifiers
         // [page__block--aside]
@@ -242,6 +275,10 @@
                         padding-left: 1.2rem;
                         @include fontSet(23px, 27px);
                         color: $main-color;
+
+                        @media(max-width: $max-width-4casas) {
+                            @include fontSet(20px, 25px);
+                        }
 
                         &:before {
                             content: '';
@@ -628,17 +665,9 @@
                         height: 200px;
                     }
                 }
-
-                .article__details {
-                    .btn {
-                        margin-bottom: 1rem;
-                    }
-                }
-
             }
         }
     }
-
 
     //
     // DOBLE BLOCK ASIDE (list, blockquotes, etc...)

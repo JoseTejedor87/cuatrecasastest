@@ -1,4 +1,9 @@
 {% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
 
     <main role="main">
@@ -32,7 +37,7 @@
             <section class="tabs__component__content">
                 <div class="row page__section">
                     <div class="col">
-                        <ul class="buttons__list__column buttons__list__column--3cols">
+                        <ul class="buttons__list__column buttons__list__column--sectors">
                         {% for sector in sectors %}
                             <li class="buttons__list__column__item">
                                 <a class="btn__subcat" href="{{ navigation_service.getPathByPublishable(sector) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
@@ -47,8 +52,13 @@
     </main>
 
     {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'contenido destacado', publications: relatedPublications } %}
+        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
     {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 {% endblock %}

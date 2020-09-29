@@ -2,8 +2,8 @@ $(function () {
     var swiperGeneral = new Swiper('.slider__general', {
         slidesPerView: 1,
         spaceBetween: 20,
-        allowTouchMove: true,
-        grabCursor: true,
+        allowTouchMove: false,
+        grabCursor: false,
         scrollbar: {
             el: '.swiper-scrollbar',
             draggable: true
@@ -27,8 +27,8 @@ $(function () {
     var swiperAwards = new Swiper('#sliderAwards', {
         slidesPerView: 'auto',
         spaceBetween: 0,
-        centeredSlides: true,
-        loop: true,
+        centeredSlides: false,
+        loop: false,
         grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',

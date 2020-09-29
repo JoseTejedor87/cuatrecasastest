@@ -469,10 +469,12 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
 
+                cursor: pointer !important;
+
                 transition: all 0.3s ease-out;
 
                 @media(max-width: $max-width-4casas) {
-                    display: none;
+                    // display: none;
                 }
 
 

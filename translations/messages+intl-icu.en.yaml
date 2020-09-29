@@ -29,6 +29,7 @@ global:
     show_more: Show more
     show_less: Show less
     slider_next: Next
+    related_content: Related content
 
 # Sections
 # ###########################################
