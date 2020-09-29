@@ -27,7 +27,6 @@
     @media(max-width: $max-width-4casas) {
         width: 100%;
         height: 45px;
-        // @include fontSet(18px, 18px);
         @include fontSet(14px, 14px);
         letter-spacing: 0;
     }
@@ -106,7 +105,6 @@
 .btn__solid__arrow {
     @include reset-link-button;
     height: 50px;
-    // padding: 1rem 4rem 1rem 1rem;
     padding: 0.8rem 4rem 0.8rem 1rem;
     @include fontSet(23px, 26px);
     letter-spacing: 0.7px;

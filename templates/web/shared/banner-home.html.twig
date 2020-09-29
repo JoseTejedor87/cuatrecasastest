@@ -13,7 +13,7 @@
          {%  set imageFile = 'martin-adams-Y8MQEl3N3Xs-unsplash.jpg' %}
     {% endif %}
 
-    <div class="swiper-slide opacity2" style="background-image: url('{{ asset('resources/'~imageFile) }}')">
+    <div class="swiper-slide" style="background-image: url('{{ asset('resources/'~imageFile) }}')">
         <div class="home__wrapper">
             <div class="home__article">
                 <div class="home__article__type">{{ slide.translate(app.request.getLocale()).title }}</div>
