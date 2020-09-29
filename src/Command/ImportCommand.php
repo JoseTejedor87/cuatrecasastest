@@ -578,126 +578,105 @@ class ImportCommand extends Command
         $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
         $data = file_get_contents("JsonExports/abogados.json");
         $items = json_decode($data, true);
-     
-        $this->delTrainings();
 
-        $processedTrainingMap = [];
+        // $this->delTrainings();
+        $processedTrainingsMap = [];
 
-        foreach ($items as $key => $item) 
-        {
-            if($item['formacion'] == '') continue;
-            $currentLang = self::getMappedLanguageCode($item['lang']);
-            $lawyerRepository = $this->em->getRepository(Lawyer::class);
-            
-
-            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
-            if($lawyerId == '') 
-            {
-                $this->logger->debug("============================= SKIPPED ======================================================== "); 
-                $this->logger->debug("============================= No se encontro lawyer en el repo con OLD ID : ".$item['id_abogado']); 
+        foreach ($items as $item) {
+            if ($item['formacion'] == '') {
                 continue;
             }
-            $this->logger->debug("lawyerId ".$lawyerId); 
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+            $lawyerRepository = $this->em->getRepository(Lawyer::class);
+
+
+            $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
+            if ($lawyerId == '') {
+                $this->logger->debug("============================= SKIPPED ======================================================== ");
+                $this->logger->debug("============================= No se encontro lawyer en el repo con OLD ID : ".$item['id_abogado']);
+                continue;
+            }
+            $this->logger->debug("lawyerId ".$lawyerId);
             $lawyer = $lawyerRepository->find($lawyerId);
 
-            if($lawyer == '') 
-            {
-                $this->logger->debug("============================= FALLO en la busqueda No se encontro lawyer en el repo "); 
+            if ($lawyer == '') {
+                $this->logger->debug("============================= FALLO en la busqueda No se encontro lawyer en el repo ");
                 continue;
             }
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
-            //$training = new Training();
+            if(isset($processedTrainingsMap[$item['id_abogado']])){
+                $training =  $processedTrainingsMap[$item['id_abogado']];
+            }else{
+                $training = new Training();
+                $training->setLawyer($lawyer);
+            }
             
-                if(preg_match('/Languages/',$item['formacion']))
-                {
-                    $matches = explode("Languages", $item['formacion']);
-                }else{
-                    if(preg_match('/Language/',$item['formacion'])){
-                        $matches = explode("Language", $item['formacion']);
+
+            if (preg_match('/Languages/', $item['formacion'])) {
+                $matches = explode("Languages", $item['formacion']);
+            } else {
+                if (preg_match('/Language/', $item['formacion'])) {
+                    $matches = explode("Language", $item['formacion']);
+                }
+            }
+            if (preg_match('/Idiomas/', $item['formacion'])) {
+                $matches = explode("Idiomas", $item['formacion']);
+            } else {
+                if (preg_match('/Idioma/', $item['formacion'])) {
+                    $matches = explode("Idioma", $item['formacion']);
+                }
+            }
+
+            if (isset($matches)) {
+
+                //  UPDATE the  knownLanguages of Lawyer  Table
+                $delimiter = array(" y ", " e ", " and ");
+                $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
+                $arrayCharacterToQuit = [": ", ".", " ", "&nbsp;", "\\r\\n&nbsp;"];
+                $languages = str_replace($arrayCharacterToQuit, "", $languages);
+                $languageArray = explode(",", $languages);
+
+                // JUST UPDATE IF knowledge_languages is empty
+                if ($lawyer->getKnownLanguages() == '[]' || $item['lang'] == 'eng') {
+                    // Save from format ["Spanish", "English"] to ['es', 'en']
+                    $languageArrayCoded = [];
+                    foreach ($languageArray as $language) {
+                        $lan = self::getMappedLanguageParser($language);
+                        if (is_null($lan)) {
+                            continue ;
+                        }
+                        array_push($languageArrayCoded, $lan);
+                    }
+
+                    if (!empty($languageArrayCoded)) {
+                        $lawyer->setKnownLanguages($languageArrayCoded);
+                        $lawyer->mergeNewTranslations();
+                        $this->em->persist($lawyer);
+                        $this->em->flush();
                     }
                 }
-                if(preg_match('/Idiomas/',$item['formacion'])){
-                    $matches = explode("Idiomas", $item['formacion']);
-                }else{
-                    if(preg_match('/Idioma/',$item['formacion'])){
-                        $matches = explode("Idioma", $item['formacion']);
+
+                // separar los registro en diferente al </br></br>
+
+                $trainingsArray = explode("<br /><br />", str_replace(["<p>","</p>"], "", $matches[0]));
+                $json = json_encode($trainingsArray);
+
+                foreach ($trainingsArray as $item_training) {
+                    if ($item_training != '') {
+                        $training->translate($currentLang)->setDescription($item_training);
+                        $processedTrainingsMap[$item['id_abogado']] = $training;
                     }
                 }
-                if(isset($matches))
-                {
-
-                    //  UPDATE the  knownLanguages of Lawyer  Table
-                    $delimiter = array(" y ", " e ", " and ");
-                    $languages = str_replace($delimiter, " , ", strip_tags($matches[1]));
-                    $arrayCharacterToQuit = [": ", ".", " ", "&nbsp;", "\\r\\n&nbsp;"];
-                    $languages = str_replace($arrayCharacterToQuit, "", $languages);
-                    $languageArray = explode(",", $languages);
-
-                    // JUST UPDATE IF knowledge_languages is empty
-                    if ( $lawyer->getKnownLanguages() == '[]' || $item['lang'] == 'eng')
-                    {
-                        // Save from format ["Spanish", "English"] to ['es', 'en']
-                        $languageArrayCoded = [];
-                        foreach($languageArray as $language)
-                        {
-                            $lan = self::getMappedLanguageParser($language);
-                            if (is_null($lan)) continue ;
-                            array_push($languageArrayCoded,$lan);
-                        }
-
-                        if ( !empty($languageArrayCoded))
-                        {
-                            $lawyer->setKnownLanguages($languageArrayCoded);
-                            $lawyer->mergeNewTranslations();
-                            self::setRegions($lawyer);
-                            $this->em->persist($lawyer);
-                            $this->em->flush();
-                        }
-
-                    }
-                    
-                    // separar los registro en diferente al </br></br>
-
-                    $trainingsArray = explode("<br /><br />",str_replace(["<p>","</p>"], "",$matches[0]));
-                    $id_abogado_ant = 0;
-
-                    foreach($trainingsArray as $clave => $item_training)
-                    // cada vez que entra a este ciclo trata todas las diferentes menciones del mismo abogado e idioma
-                    {
-                        $id_abogado = $items[$key]['id_abogado'];
-                        if ( $key > 0) $id_abogado_ant = $items[$key-1]['id_abogado'];
-                        if ($item_training != ''){
-
-                            if ( $id_abogado != $id_abogado_ant || !isset($processedTrainingMap[$id_abogado][$clave])){ 
-                                // si el abogado es el mismo que el anterior o es el primero
-                                $training = new Training();             
-                                // echo 'creando traininga para : '.$id_abogado. "\n";                  
-                            }else {
-                                $training = $processedTrainingMap[$id_abogado][$clave];
-                            }        
-
-                            $training->translate($currentLang)->setDescription($item_training);
-                            $training->setLawyer($lawyer);
-                            // si el abogado es el mismo on se crean traings se agregan al que esta con vectores.
-                            $processedTrainingMap[$id_abogado][$clave] = $training;
-                        }
-
-
-                    }
-         
-                }
-
+                $this->logger->debug("string ".$matches[0]);
+                $this->logger->debug("trainingsArray ".$json);
+            }
         }
-
-        foreach($processedTrainingMap as $t1)
-        {
-            foreach($t1 as $training){
-                    $training->mergeNewTranslations();
-                    $this->em->persist($training);
-                    $this->em->flush();
-                    $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());
-            }                      
+        foreach ($processedTrainingsMap as $training) {
+            $training->mergeNewTranslations();
+            $this->em->persist($training);
+            $this->em->flush();
+            $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());
         }
 
     }

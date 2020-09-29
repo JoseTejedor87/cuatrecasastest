@@ -213,6 +213,7 @@ entities:
       blocks: Bloques
       relatedActivities: Actividades relacionadas
       slug: Slug
+      key_contacts: KeyContacts
   publication:
     fields:
       title: Título

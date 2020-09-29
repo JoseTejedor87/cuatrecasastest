@@ -55,7 +55,7 @@ abstract class ActivityFormType extends AbstractType
             ])
             ->add('key_contacts', EntityType::class, [
                 'class' => Lawyer::class,
-                'label' => 'entities.case_study.fields.lawyers',
+                'label' => 'entities.activity.fields.key_contacts',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
