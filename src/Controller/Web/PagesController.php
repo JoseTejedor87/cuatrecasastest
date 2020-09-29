@@ -26,6 +26,7 @@ class PagesController extends WebController
                 $officeATest = array();
                 $offices = $OfficeRepository->createQueryBuilder('o')
                 ->where("o.lat != ''")
+                ->orderBy('o.country', 'DESC')
                 ->getQuery()->getResult();
                 foreach ($offices as $key => $office) {
                     array_push($officeA, [ $office->getCity(),floatval($office->getLat()),floatval($office->getLng()),$office->getId()]);

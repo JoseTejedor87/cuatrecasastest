@@ -72,7 +72,7 @@ class Lawyer extends Publishable
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="key_contacts")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activity", mappedBy="key_contacts")
      */
     private $specificActivities;
 
@@ -125,6 +125,7 @@ class Lawyer extends Publishable
         $this->caseStudies = new ArrayCollection();
         $this->mentions = new ArrayCollection();
         $this->trainings = new ArrayCollection();
+        $this->specificActivities = new ArrayCollection();
     }
 
     public function __toString()
@@ -311,6 +312,7 @@ class Lawyer extends Publishable
         return $this;
     }
 
+
     public function getPerson(): ?Person
     {
         return $this->person;
@@ -459,17 +461,39 @@ class Lawyer extends Publishable
         return $this;
     }
 
-    public function getSpecificActivities(): ?Activity
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getSpecificActivities(): Collection
     {
         return $this->specificActivities;
     }
 
-    public function setSpecificActivities(?Activity $specificActivities): self
+    public function addSpecificActivity(Activity $specificActivity): self
     {
-        $this->specificActivities = $specificActivities;
+        if (!$this->specificActivities->contains($specificActivity)) {
+            $this->specificActivities[] = $specificActivity;
+            $specificActivity->addKeyContact($this);
+        }
 
         return $this;
     }
+
+    public function removeSpecificActivity(Activity $specificActivity): self
+    {
+        if ($this->specificActivities->contains($specificActivity)) {
+            $this->specificActivities->removeElement($specificActivity);
+            $specificActivity->removeKeyContact($this);
+        }
+
+        return $this;
+    }
+
+
+
+
+
+
 
 
 }

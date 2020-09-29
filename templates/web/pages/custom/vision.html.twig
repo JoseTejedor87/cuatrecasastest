@@ -74,7 +74,21 @@
                     <div class="col world__offices__select">
                         <!-- <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="11" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar"> -->
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
-                            <optgroup label="España">
+                            {% for key, office in offices %}
+                               
+                                    {% if key == 0  %}
+                                        <optgroup label="{{ office.country }}">
+                                    {% endif %}
+                            
+                                        <option value="">{{ office.city }}</option>
+                                {% if offices|length > key+1 %}       
+                                    {% if offices[key+1].country != office.country %}
+                                        </optgroup>
+                                        <optgroup label="{{ offices[key+1].country }}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {# <optgroup label="España">
                                 <option value="">Barcelona</option>
                                 <option value="">Bilbao</option>
                                 <option value="">Girona</option>
@@ -107,7 +121,7 @@
                             <optgroup label="Latinoamérica">
                                 <option value="">Mexico City</option>
                                 <option value="">Bogotá</option>
-                            </optgroup>
+                            </optgroup> #}
                         </select>
                     </div>
                 </div>

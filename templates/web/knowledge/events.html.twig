@@ -341,8 +341,9 @@
                     </div>
                 </div>
             </section> -->
-
-            {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
+    {% endif %}
 
         </article>
     </main>

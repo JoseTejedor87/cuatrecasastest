@@ -32,10 +32,10 @@ class PracticeController extends WebController
     {
         $awards = $awardRepository->getAll();
         $practice = $practiceRepository->getInstanceByRequest($request);
-
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$practice]
         );
+        $key_contacts = $practice->getKeyContacts();
         $relatedPublications = $publicationRepository->findByActivities([$practice]);
         $awardsFiltered = [];
         foreach ($awards as $award)
@@ -51,6 +51,7 @@ class PracticeController extends WebController
         
         return $this->render('web/practices/detail.html.twig', [
             'practice' => $practice,
+            'key_contacts' => $key_contacts,
             'relatedCaseStudies' => $relatedCaseStudies,
             'awards' => $awardsFiltered,
             'relatedPublications' => $relatedPublications
