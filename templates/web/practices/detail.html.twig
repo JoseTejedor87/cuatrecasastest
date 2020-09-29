@@ -100,13 +100,15 @@
     {% endif %}
 
     {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--complementary',publications: relatedPublications } %}
+        {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
-    {% if relatedCaseStudies|length > 0 %}
+    {% if relatedCaseStudies|length > 1 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
-    {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% if awards|length > 2 %}
+        {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}

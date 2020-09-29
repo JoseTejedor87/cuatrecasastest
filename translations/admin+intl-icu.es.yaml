@@ -152,11 +152,11 @@ sections:
         title: Editar Conocimiento
   sliders:
     index:
-      title: Slider
+      title: Slide
     new:
-      title: Nuevo Slider
+      title: Nuevo Slide
     edit:
-      title: Editar Slider        
+      title: Editar Slide        
   banners:
       index:
         title: Banner
@@ -431,7 +431,7 @@ entities:
       showInsight: Mostrar Bloque Conocimientos elegidos
       showCarrerBlock: Mostrar Bloque Carrer
       showQuoteBlock: Mostrar Bloque Citas
-      insight: Seleccionar Conocimientos
+      insight: Seleccionar Colecciones
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas
       url: Url de acceso Opciones del Usuario

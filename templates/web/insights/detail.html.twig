@@ -180,7 +180,9 @@
     {% endif %}
 
     {% if insight.showCaseStudiesBlock %}
-        {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
+        {% if relatedCaseStudies|length > 1 %}
+            {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
+        {% endif %}
     {% endif %}
 
     {% include 'web/shared/cta-footer.html.twig' %}

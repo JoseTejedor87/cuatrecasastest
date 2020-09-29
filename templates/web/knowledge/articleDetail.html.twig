@@ -103,7 +103,7 @@
     </main>
 
     {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--complementary',publications: relatedPublications } %}
+        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
     {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}

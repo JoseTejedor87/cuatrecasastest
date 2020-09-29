@@ -78,11 +78,11 @@
         {% include 'web/shared/team.html.twig' with { lawyers:casestudy.lawyers|slice(0, 5) } %}
     {% endif %}
 
-    {% if relatedCaseStudies|length > 0 %}
+    {% if relatedCaseStudies|length > 1 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
-    {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--complementary', publications: relatedPublications} %} 
+    {% include 'web/shared/related-content-slider.html.twig' with { classTittle: '--recomended', publications: relatedPublications} %} 
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}

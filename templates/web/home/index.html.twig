@@ -27,7 +27,6 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
     {% if relatedPublications|length > 0 %}
-    {{dump(relatedPublications)}}
         {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'contenido destacado', publications: relatedPublications } %}
     {% endif %}
     {% endif %}
