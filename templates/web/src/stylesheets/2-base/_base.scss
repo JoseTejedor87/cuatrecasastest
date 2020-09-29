@@ -73,30 +73,6 @@ a:link {
     z-index: 3;
 }
 
-//
-// BORRAR [page find-us]
-//
-
-.foto__mapa {
-    position: relative;
-    width: 100vw;
-    height: 720px;
-    margin-left: -50vw;
-    left: 50%;
-    background-color: #e2edf1;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: hidden;
-}
-
-@media(max-width: $max-width-4casas) {
-    .foto__mapa {
-        display: none;
-    }
-}
-
-
 
 //
 // SECTION BACKGROUND COLORS GLOBAL (from dark to light)

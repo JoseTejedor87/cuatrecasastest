@@ -35,6 +35,7 @@ class DeskController extends WebController
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$desk]
         );
+        $key_contacts = $desk->getKeyContacts();
         $relatedPublications = $publicationRepository->findByActivities([$desk]);
         $awardsFiltered = [];
         foreach ($awards as $award)
@@ -50,6 +51,7 @@ class DeskController extends WebController
 
         return $this->render('web/desks/detail.html.twig', [
             'desk' => $desk,
+            'key_contacts' => $key_contacts,
             'relatedCaseStudies' => $relatedCaseStudies,
             'awards' => $awardsFiltered,
             'relatedPublications' => $relatedPublications

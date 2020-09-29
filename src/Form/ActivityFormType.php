@@ -62,14 +62,13 @@ abstract class ActivityFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => false,
-                'required' => false,
                 'query_builder' => function (LawyerRepository $lr) {
-                        return $lr->createQueryBuilder('l')
-                            ->join('l.activities', 'a')
-                            ->where('a.id = :id_act')
-                            ->setParameter('id_act', $this->id_act)
-                            ->orderBy('l.name', 'ASC');
-                }
+                                return $lr->createQueryBuilder('l')
+                                    ->join('l.activities', 'a')
+                                    ->where('a.id = :id_act')
+                                    ->setParameter('id_act', $this->id_act)
+                                    ->orderBy('l.name', 'ASC');
+                        }
             ])
             ->add('quote', EntityType::class, [
                 'class' => Quote::class,

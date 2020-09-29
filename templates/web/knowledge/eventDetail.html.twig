@@ -337,8 +337,12 @@
         </article>
     </main>
 
+    {% if relatedEvents|length > 0 %}
     {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications }  %}
+    {% endif %}
+    {% if relatedPublications|length > 0 %}
+    {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--complementary',publications: relatedPublications }  %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 

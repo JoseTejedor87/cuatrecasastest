@@ -3,7 +3,6 @@ web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
         web.global.mobileNav();
-        web.global.loadMiscell();
     },
 
     stickyMenu: function(){

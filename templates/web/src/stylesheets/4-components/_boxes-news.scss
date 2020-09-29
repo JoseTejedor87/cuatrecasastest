@@ -621,11 +621,19 @@
             padding: 1rem 2rem 0.2rem;
             color: $complementary-color;
             border-bottom: none;
+
+            @media(max-width: $max-width-4casas) {
+                height: auto;
+            }
         }
 
         @include when-inside(".boxnews--products") {
             padding: 1rem 2rem 0 2rem;
             border-bottom: none;
+
+            @media(max-width: $max-width-4casas) {
+                height: auto;
+            }
         }
     }
 
@@ -937,7 +945,6 @@
                 @include when-inside(".boxnews--collections") {
                     width: 100%;
                     height: 120px;
-                    border: 1px solid red;
                 }
             }
         }
@@ -964,12 +971,11 @@
                 @include fontSet(40px, 44px);
 
                 @media(max-width: $max-width-4casas) {
-                    // @include fontSet(20px, 25px);
+                    @include fontSet(20px, 25px);
                 }
             }
 
             @include when-inside(".boxnews--products") {
-
                 height: 100%;
                 max-height: 160px;
                 overflow: hidden;
@@ -1089,7 +1095,6 @@
                 align-self: flex-start;
                 // margin-top: auto;
                 height: 270px;
-                border: 1px solid blue;
 
                 @media(max-width: $max-width-4casas) {
                     width: 100%;

@@ -194,7 +194,11 @@ class LawyerController extends WebController
     }
 
     public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository){
+        
         $lawyer = $lawyerRepository->findOneBy(['id' => $request->attributes->get('id')]);
+        
+        $filesystem = new Filesystem();
+
         $officeData = '';
         if ($lawyer->getOffice() != null){
             $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
@@ -203,6 +207,10 @@ class LawyerController extends WebController
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
+
+        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid')); 
+        $dataImage64 = base64_encode($img);
+        
         $dataString =   'BEGIN:VCARD'."\n".
                         'VERSION:3.0'."\n".
                         'N:'.$lawyer->getSurname().';'.$lawyer->getName()."\n".
@@ -210,9 +218,11 @@ class LawyerController extends WebController
                         'ORG:Cuatrocasas'."\n".
                         'TITLE:'.$lawyer->getLawyerType()."\n".
                         //'PHOTO;VALUE=URI;TYPE=GIF:http://'.$lawyer->getPhoto()->getFile()."\n".
-                        'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid')."\n".
+                        //'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid')."\n".
+                        'PHOTO;TYPE=JPEG;ENCODING=BASE64:'.$dataImage64."\n".
                         'TEL;TYPE=HOME,VOICE:'.$lawyer->getPhone()."\n".
                         'TEL;TYPE=FAX,VOICE:'.$lawyer->getFax()."\n";
+
         if ($officeData != '') {
             $dataString .= $officeData;
         }

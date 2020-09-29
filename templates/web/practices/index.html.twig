@@ -89,7 +89,9 @@
     </main>
 
 
-    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'contenido destacado', publications: relatedPublications } %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}

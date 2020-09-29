@@ -24,7 +24,7 @@
                                             <a href="{{ path('case_studies_detail', {slug: caseStudy.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">{{ 'reusable_blocks.cases.link'|trans }}</a>
                                         </div>
                                     </div>
-                                    <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg_slider-detail.png') }}')"></div>
+                                    <div class="insight__img" style="background-image: url('{{ asset('/resources/' ~ caseStudy.image.getFileName) }}')"></div>
                                 </article>
                             </div>
 
