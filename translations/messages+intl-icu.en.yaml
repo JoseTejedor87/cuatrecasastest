@@ -28,6 +28,7 @@ global:
     alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
     show_more: Show more
     show_less: Show less
+    slider_next: Next
 
 # Sections
 # ###########################################

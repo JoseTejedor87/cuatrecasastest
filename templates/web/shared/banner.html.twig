@@ -1,6 +1,6 @@
 {#% include 'web/shared/slider.html.twig'  with {sliders: sliders } %#}
 
- {% for key in slidesOrdered|keys %}
+{% for key in slidesOrdered|keys %}
     {%  set slide = slidesOrdered[key] %}
     {% if  slidesOrdered[key+1] is defined %}
          {%  set nextSlide = slidesOrdered[key+1] %}
@@ -12,26 +12,26 @@
          {% else %}
          {%  set imageFile = 'martin-adams-Y8MQEl3N3Xs-unsplash.jpg' %}
     {% endif %}
-    
-        <div class="swiper-slide opacity2" style="background-image: url('{{ asset('resources/'~imageFile) }}')">
-            <div class="home__wrapper">
-                <div class="home__article">
-                    <div class="home__article__type">{{ slide.translate(app.request.getLocale()).title }}</div>
-                    <div class="home__article__content">{{ slide.translate(app.request.getLocale()).description }}</div>
-                    <div class="home__article__link">
-                        <a href="{{ slide.translate(app.request.getLocale()).url }}" class="btn btn__solid__arrow">Ver más</a>
-                    </div>
+
+    <div class="swiper-slide opacity2" style="background-image: url('{{ asset('resources/'~imageFile) }}')">
+        <div class="home__wrapper">
+            <div class="home__article">
+                <div class="home__article__type">{{ slide.translate(app.request.getLocale()).title }}</div>
+                <div class="home__article__content">{{ slide.translate(app.request.getLocale()).description }}</div>
+                <div class="home__article__link">
+                    <a href="{{ slide.translate(app.request.getLocale()).url }}" class="btn btn__solid__arrow">{{ 'global.messages.show_more'|trans }}</a>
                 </div>
-            </div>
-            <div class="home__preview">
-                <div class="home__preview__content">
-                    <div class="preview__title">{{ nextSlide.translate(app.request.getLocale()).title }}:</div>
-                    <div class="preview__intro">{{ nextSlide.translate(app.request.getLocale()).description }}</div>
-                </div>
-                <button type="button" class="home__preview__button">
-                    <span class="icon4-fletxa_cuatrecasas"></span>
-                </button>
             </div>
         </div>
+        <div class="home__preview">
+            <div class="home__preview__content">
+                <div class="preview__title">{{ 'global.messages.slider_next'|trans }}</div>
+                <div class="preview__intro">{{ nextSlide.translate(app.request.getLocale()).description }}</div>
+            </div>
+            <button type="button" class="home__preview__button">
+                <span class="icon4-fletxa_cuatrecasas"></span>
+            </button>
+        </div>
+    </div>
 
-    {% endfor %}
+{% endfor %}

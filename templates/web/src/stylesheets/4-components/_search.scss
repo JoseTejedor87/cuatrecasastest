@@ -72,6 +72,10 @@
 
         .search_box__wrapper {
             margin: 2rem 0;
+
+            @media(max-width: $max-width-4casas) {
+                margin: 1rem 0;
+            }
         }
     }
 

@@ -1093,7 +1093,6 @@
 
             @include when-inside(".boxnews--collections") {
                 align-self: flex-start;
-                // margin-top: auto;
                 height: 270px;
 
                 @media(max-width: $max-width-4casas) {
@@ -1103,9 +1102,7 @@
             }
 
             @include when-inside(".boxnews--products") {
-                // max-height: 230px;
                 height: 270px;
-                border: 1px solid red;
 
                 @media(max-width: $max-width-4casas) {
                     height: 120px;
