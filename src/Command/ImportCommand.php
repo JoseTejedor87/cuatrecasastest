@@ -680,14 +680,14 @@ class ImportCommand extends Command
 
         // $this->delMentions();
 
-
+        $processedMentionMap = [];
         foreach ($items as $item) {
             if ($item['menciones'] == '') {
                 continue;
             }
             $currentLang = self::getMappedLanguageCode($item['lang']);
             $lawyerRepository = $this->em->getRepository(Lawyer::class);
-
+            
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             if ($lawyerId == '') {
                 $this->logger->debug("============================= SKIPPED ======================================================== ");
@@ -704,10 +704,16 @@ class ImportCommand extends Command
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
 
-            $mention = new Mention();
+            if(isset($processedMentionMap[$item['id_abogado']])){
+                $mention =  $processedMentionMap[$item['id_abogado']];
+            }else{
+                $mention = new Mention();
+                $mention->setLawyer($lawyer);
+            }
             $mention->translate($currentLang)->setDescription($item['menciones']);
-            $mention->setLawyer($lawyer);
-
+            $processedMentionMap[$item['id_abogado']]=$mention;
+        }
+        foreach ($processedMentionMap as $mention) {
             $mention->mergeNewTranslations();
             $this->em->persist($mention);
             $this->em->flush();

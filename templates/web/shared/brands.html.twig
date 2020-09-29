@@ -6,6 +6,12 @@
                 <a href="{{ brand.translate(app.request.getLocale()).url }}" class="brands__link brands__link--{{ brand.translate(app.request.getLocale()).title }}">
                     <img src="{{ asset('web/assets/logos/Cuatrecasas-' ~ brand.translate(app.request.getLocale()).title ~'_arrows.png') }}">
                     <img src="{{ asset('web/assets/logos/Cuatrecasas-' ~ brand.translate(app.request.getLocale()).title ~'_txt.png') }}" alt="Cuatrecasas {{ brand.translate(app.request.getLocale()).title }}">
+                    {# {% if brand.image.getFileName is defined %}
+                    <img src="{{ asset('/resources/' ~ brand.image.getFileName ) }}">
+                    {% endif %}
+                    <img 
+                        src="{{ asset('web/assets/logos/Cuatrecasas-' ~ brand.translate(app.request.getLocale()).title ~'_txt.png') }}" 
+                        alt="Cuatrecasas {{ brand.translate(app.request.getLocale()).title }}"> #}
                 </a>
             </div>
             {% endfor %}
