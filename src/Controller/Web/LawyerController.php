@@ -207,6 +207,10 @@ class LawyerController extends WebController
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
+        header('Content-Type: text/x-vcard;CHARSET=windows-1252');  
+        header('Content-Disposition: inline; filename= "'.$lawyer->getFullName().'.vcf'.'"');
+
+
 
         $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid')); 
         $dataImage64 = base64_encode($img);
