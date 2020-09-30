@@ -25,22 +25,31 @@
     </main>
 
     {% if home.showRelatedPublicationAndEvents   %}
-    {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+        {% if relatedPublications|length > 0 %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+        {% endif %}
     {% endif %}
-    {% endif %}
+    
     {% if home.showInsight and home.insights[0] is defined %}
-        {% include 'web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
+        {% if home.insights|length > 1 %}
+            {% include 'web/shared/collections.html.twig'  with {insights: home.insights } %}
+        {% elseif  home.insights|length > 0 %}
+            {% include '/web/insight.html.twig'  with {insight: home.insights[0] } %}
+        {% endif %}            
     {% endif %}
+
     {% if home.showQuoteBlock and home.quotes[0] is defined %}
         {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes } %}
     {% endif %}
+
     {% if home.showCarrerBlock %}
         {% include 'web/shared/career.html.twig' %}
     {% endif %}
+
     {% if home.brand[0] is defined %}
         {% include 'web/shared/brands.html.twig' with { brands: home.brand } %}
     {% endif %}
+
     {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
 
 {% endblock %}
