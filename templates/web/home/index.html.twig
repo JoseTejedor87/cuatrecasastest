@@ -29,13 +29,13 @@
             {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
         {% endif %}
     {% endif %}
-    
+
     {% if home.showInsight and home.insights[0] is defined %}
         {% if home.insights|length > 1 %}
             {% include 'web/shared/collections.html.twig'  with {insights: home.insights } %}
         {% elseif  home.insights|length > 0 %}
-            {% include '/web/insight.html.twig'  with {insight: home.insights[0] } %}
-        {% endif %}            
+            {% include '/web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
+        {% endif %}
     {% endif %}
 
     {% if home.showQuoteBlock and home.quotes[0] is defined %}
