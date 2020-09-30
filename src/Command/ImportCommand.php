@@ -2367,8 +2367,8 @@ class ImportCommand extends Command
                             $article->setPublished($post['status']=='publish' ? 1 : 0);
                             $article->setPublicationDate(new \DateTime($post['date']));
                             $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
-                            $article->translate('es')->setSummary($post['content']['rendered']);
-                            $article->translate('es')->setContent($post['excerpt']['rendered']);
+                            $article->translate('es')->setSummary($post['excerpt']['rendered']);
+                            $article->translate('es')->setContent($post['content']['rendered']);
                             $article->setLanguages(
                                 array_unique(
                                     array_merge($article
@@ -2412,8 +2412,8 @@ class ImportCommand extends Command
                             $contentEn = $responseEn->toArray();
                             if (isset($contentEn[0])) {
                                 $article->translate('en')->setTitle($contentEn[0]['title']['rendered']);
-                                $article->translate('en')->setSummary($contentEn[0]['content']['rendered']);
-                                $article->translate('en')->setContent($contentEn[0]['excerpt']['rendered']);
+                                $article->translate('en')->setSummary($contentEn[0]['excerpt']['rendered']);
+                                $article->translate('en')->setContent($contentEn[0]['content']['rendered']);
                                 $article->setLanguages(
                                     array_unique(
                                         array_merge($article

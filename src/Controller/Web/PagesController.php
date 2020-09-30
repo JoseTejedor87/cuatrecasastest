@@ -29,14 +29,15 @@ class PagesController extends WebController
                 ->orderBy('o.country', 'DESC')
                 ->getQuery()->getResult();
                 foreach ($offices as $key => $office) {
-                    array_push($officeA, [ $office->getCity(),floatval($office->getLat()),floatval($office->getLng()),$office->getId()]);
+                    array_push($officeA,  '<h5>'.$office->getCountry().'</h5><h6>'.$office->getCity().'<h6><p>'.$office->getAddress().'</p>');
                     array_push($officeATest, [ "lat" => floatval($office->getLat()),"lng" =>  floatval($office->getLng())]);
                 }
             }
         }
 
         return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
-            'officesMapa' => isset($officeA) ? json_encode($officeA)  : '',
+            'officesMapa' => isset($officeATest) ? json_encode($officeATest)  : '',
+            'officesMapaLabel' => isset($officeA) ? json_encode($officeA)  : '',
             'offices' => isset($offices) ? $offices  : '',
             'page' => $page,
             'controller_name' => 'PageController'
