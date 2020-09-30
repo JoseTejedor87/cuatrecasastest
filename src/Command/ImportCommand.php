@@ -256,7 +256,10 @@ class ImportCommand extends Command
                     break; 
                 case "OfficeLatitudeLongitude":
                     $this->OfficeLatitudeLongitude();
-                    break;                                      
+                    break;            
+                case "changeSummary":
+                    $this->changeSummary();
+                break;                                                
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -2248,7 +2251,49 @@ class ImportCommand extends Command
             }
         }
     }
-    
+
+
+    public function changeSummary(){
+
+        $publicationRepository = $this->em->getRepository(Publication::class);
+        $arrayPublications = $publicationRepository->findBy(['originalTableCode' => 2]);
+
+        $processedPublicationMap = [];
+        foreach($arrayPublications as $key => $pub ){
+            if ($pub->getOriginalTableCode() != 2)  continue;
+            // sale del cilco si hubiese una con el valor 2
+            
+            //print_r($pub->getLanguages()); die();
+            
+            foreach($pub->getLanguages() as $lan){
+                dd($pub->translate($lan)->getContent());
+
+
+                if( $pub->translate($lan)->getContent() != null  || $pub->translate($lan)->getSummary != null  )
+                {
+                    $this->logger->debug("getLanguages ".$lan );
+                    $real_content = $real_summary = '';
+                    $real_summary =  $pub->translate($lan)->getContent();
+                    $real_content =  $pub->translate($lan)->getSummary();
+
+                    $pub->translate($lan)->setContent($real_content);
+                    $pub->translate($lan)->setSummary($real_summary);
+                    //dd($pub);
+                }
+            }          
+            $processedPublicationMap[$pub->getId()] = $pub;
+
+        }
+
+        foreach ($processedPublicationMap as $publication) {
+            $publication->mergeNewTranslations();
+            $this->em->persist($publication);
+            $this->em->flush();
+            $this->logger->debug("publication ".$publication->getId()." ".$publication->translate('es')->getContent());
+        } 
+
+    }        
+
     public function ArticlesPostId($url)
     {
         if($this->url_exists($url)){
