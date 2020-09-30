@@ -75,20 +75,20 @@
                         <!-- <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="11" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar"> -->
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in offices %}
-                               
+
                                     {% if key == 0  %}
                                         <optgroup label="{{ office.country }}">
                                     {% endif %}
-                            
+
                                         <option value="">{{ office.city }}</option>
-                                {% if offices|length > key+1 %}       
+                                {% if offices|length > key+1 %}
                                     {% if offices[key+1].country != office.country %}
                                         </optgroup>
                                         <optgroup label="{{ offices[key+1].country }}">
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
-                
+
                         </select>
                     </div>
                 </div>
@@ -275,7 +275,7 @@
                 anchor: new google.maps.Point(0, 32)
         };
 
-       
+
          var labels = '';
          var markers = beaches.map(function(location, i) {
              return new google.maps.Marker({

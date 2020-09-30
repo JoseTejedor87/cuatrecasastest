@@ -568,7 +568,7 @@
                 @include reset-list;
 
                 > li {
-                    @include fontSet(22px, 26px);
+                    @include fontSet(23px, 27px);
                     margin-bottom: 1.5rem;
                     color: $main-color;
 
@@ -706,12 +706,19 @@
 
         @include has("title") {
             @include fontSet(23px, 23px);
-            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
             text-transform: uppercase;
             color: $main-color;
+            // border-bottom: 1px solid rgba($black, 0.2);
+            box-shadow: 0 1px 0 rgba($black, 0.2);
+
+            @include when("specialties") {
+                border-bottom: 1px solid #eaeaea;
+                box-shadow: 0 1px 0 #d7d7d7;
+            }
 
             &:not(:first-child) {
-                margin-top: 1.5rem;
+                margin-top: 2.5rem;
             }
 
             @media(max-width: $max-width-4casas) {
@@ -733,22 +740,29 @@
             @include when("specialties") {
                 @include reset-list;
 
+                > li {
+                    padding: 0.6rem 0 1.3rem;
+                    border-bottom: 1px solid #eaeaea;
+                    box-shadow: 0 1px 0 #d7d7d7;
+
+                    &:last-child {
+                        border-bottom: 1px solid transparent;
+                        box-shadow: 0 0 0 transparent;
+                    }
+                }
+
                 a {
                     display: block;
                     @include fontSet(23px, 23px);
-                    padding: 0.5rem 1.5rem 1.5rem 0;
                     color: $complementary-color;
-                    box-shadow: 0 -1px 0 rgba($black, 0.2);
-                    transition: box-shadow 0.3s ease-in-out;
+                    transition: all 0.3s ease-in-out;
 
                     @include on-event {
                         text-decoration: none;
-                        box-shadow: 0 -3px 0 $complementary-color;
                     }
 
                     @media(max-width: $max-width-4casas) {
                         @include fontSet(14px, 14px);
-                        padding: 1rem 1rem 1rem 0;
                     }
                 }
             }
@@ -759,24 +773,38 @@
                 > li {
                     display: block;
                     @include fontSet(22px, 24px);
-                    padding: 0.5rem 1.5rem 1.5rem 0;
+                    padding: 1.3rem 0 1rem 0;
                     color: $main-color;
-                    box-shadow: 0 -1px 0 rgba($black, 0.2);
-                    // transition: all 0.3s ease-in-out;
+                    box-shadow: 0 1px 0 rgba($black, 0.1);
 
                     @media(max-width: $max-width-4casas) {
-                        @include fontSet(14px, 14px);
+                        @include fontSet(14px, 16px);
                         padding: 1rem 1rem 1rem 0;
                     }
 
-                    div:first-child {
-                        font-weight: bold;
+                    &:last-child {
+                        box-shadow: 0 0 0 rgba($black, 0);
+                    }
+                }
+            }
+
+            @include when("mentions") {
+
+                > p {
+                    display: block;
+                    @include fontSet(22px, 24px);
+                    margin: 0 0;
+                    padding: 1.3rem 0 1rem 0;
+                    color: $main-color;
+                    box-shadow: 0 1px 0 rgba($black, 0.1);
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(14px, 16px);
+                        padding: 1rem 1rem 1rem 0;
                     }
 
-                    p {
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
+                    &:last-child {
+                        box-shadow: 0 0 0 rgba($black, 0);
                     }
                 }
             }
@@ -880,31 +908,35 @@
                 }
             }
 
-            // ul {
-            //     @include reset-list;
-            //     padding-bottom: 2rem;
-            //     list-style-type: none !important;
+            ul {
+                @include reset-list;
+                padding-bottom: 2rem;
+                list-style-type: none !important;
 
-            //     > li {
-            //         position: relative;
-            //         margin-bottom: 1rem;
-            //         padding-left: 1.2rem;
-            //         @include fontSet(20px, 26px);
-            //         color: $main-color;
+                > li {
+                    position: relative;
+                    margin-bottom: 1rem;
+                    padding-left: 1.2rem;
+                    @include fontSet(33px, 37px);
+                    color: $main-color;
 
-            //         &:before {
-            //             content: '';
-            //             position: absolute;
-            //             top: 8px;
-            //             left: 0;
-            //             display: inline-block;
-            //             width: 8px;
-            //             height: 8px;
-            //             border-radius: 50%;
-            //             background-color: $main-color;
-            //         }
-            //     }
-            // }
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(20px, 25px);
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 8px;
+                        left: 0;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: $main-color;
+                    }
+                }
+            }
 
             .page__event__details {
                 margin-top: 3rem;
@@ -1043,7 +1075,7 @@
     @include has("map") {
         position: relative;
         width: 100vw;
-        height: 720px;
+        height: 760px;
         margin-left: -50vw;
         left: 50%;
         background-color: #e2edf1;
@@ -1195,7 +1227,6 @@
         }
 
         .bootstrap-select .dropdown-menu {
-
             li {
                 a.opt {
                     padding-left: 1rem;
@@ -1204,6 +1235,77 @@
         }
     }
 }
+
+//
+// GOOGLE MAP MARKER
+//
+
+.gm-style .gm-style-iw-c {
+    min-width: 300px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 0;
+    border-top: 5px solid $complementary-color;
+    box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
+}
+
+.gm-style .gm-style-iw-t::after {
+    display: none !important;
+}
+
+.gm-style .gm-style-iw {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+
+    button {
+        opacity: 1 !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 0 !important;
+        background-color: $complementary-color !important;
+
+        img {
+            display: none !important;
+        }
+
+        &:before {
+            top: 0;
+            left: 0;
+            content: "\e5cd";
+            font-family: Material Icons;
+            @include fontSet(28px, 36px);
+            color: $white;
+        }
+    }
+}
+
+.gm-style .gm-style-iw-d {
+
+    div {
+
+        h5 {
+            margin-bottom: 1rem;
+            @include fontSet(33px, 33px);
+            color: $main-color;
+        }
+
+        h6 {
+            margin-bottom: 1.5rem;
+            @include fontSet(23px, 23px);
+            color: $complementary-color;
+        }
+
+        p {
+            @include fontSet(23px, 23px);
+            color: $main-color;
+        }
+    }
+}
+
+
 
 
 //
