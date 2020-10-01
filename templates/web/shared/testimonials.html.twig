@@ -1,12 +1,11 @@
 <section class="testimonials">
     <div class="container">
-        <div class="row">
+        <div class="row testimonials__wrapper">
             {% for quote in  quotes %}
             <div class="col testimonials__item">
                 <blockquote class="inline__quote">
                     <div class="inline__quote__text">{{ quote.translate(app.request.getLocale()).body }}</div>
-                    <div class="inline__quote__author">{{ quote.author }} , {{ quote.year }} </div>
-                    {# <div class="inline__quote__position">Asociado junior Laboral</div> #}
+                    <div class="inline__quote__author">{{ quote.author }} , {{ quote.year }}</div>
                 </blockquote>
             </div>
             {% endfor %}

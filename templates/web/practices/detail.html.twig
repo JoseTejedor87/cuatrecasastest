@@ -49,9 +49,10 @@
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
-                        {{ practice.translate(app.request.getLocale()).description|raw }}
+                        <div class="read__more">
+                            {{ practice.translate(app.request.getLocale()).description|raw }}
+                        </div>
                     </div>
-
                     <div class="page__block__aside">
                         {% if practice.children|length > 0 %}
                             <div class="page__aside">
@@ -116,4 +117,37 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

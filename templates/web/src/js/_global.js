@@ -172,6 +172,7 @@ web.global = {
     },
 
     testimonials: function(){
+        $('.testimonials__wrapper div:nth-child(2)').addClass('selected');
         $('.testimonials__item').hover(function(){
             if ($(this).hasClass('selected')) return;
             $('.selected').removeClass('selected');
