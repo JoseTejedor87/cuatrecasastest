@@ -1240,6 +1240,22 @@
 // GOOGLE MAP MARKER
 //
 
+.cluster {
+    outline: none !important;
+
+    @include on-event {
+        outline: none !important;
+    }
+}
+
+.gm-style .cluster {
+    outline: none !important;
+
+    @include on-event {
+        outline: none !important;
+    }
+}
+
 .gm-style .gm-style-iw-c {
     min-width: 360px !important;
     max-width: 360px !important;
@@ -1288,18 +1304,21 @@
     div {
 
         h5 {
+            @include cuatrecasas-font();
             margin-bottom: 1rem;
             @include fontSet(33px, 33px);
             color: $main-color;
         }
 
         h6 {
+            @include cuatrecasas-font();
             margin-bottom: 1.5rem;
             @include fontSet(23px, 23px);
             color: $complementary-color;
         }
 
         p {
+            @include cuatrecasas-font();
             @include fontSet(23px, 23px);
             color: $main-color;
         }
