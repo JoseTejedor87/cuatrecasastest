@@ -132,6 +132,7 @@ ul {
         height: 100px;
         opacity: 1;
         visibility: visible;
+        z-index: 1;
         transition: all 0.1s ease-out;
         background: rgb(255,255,255);
         background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);

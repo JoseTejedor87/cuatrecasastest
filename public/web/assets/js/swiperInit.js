@@ -13,8 +13,19 @@ $(function () {
                 slidesPerView: 3,
                 spaceBetween: 25,
             },
-        }
+        },
+        // on: {
+        //     resize: function () {
+        //         alert('rezize');
+        //         swiperGeneral.init();
+        //     },
+        // }
     });
+
+    // swiperGeneral.on('resize', function() {
+    //     alert('rezize3');
+    //     swiperGeneral.init();
+    // });
 
     var swiperCases = new Swiper('#sliderCases', {
         slidesPerView: 'auto',
@@ -25,9 +36,8 @@ $(function () {
     });
 
     var swiperAwards = new Swiper('#sliderAwards', {
-        slidesPerView: 'auto',
+        slidesPerView: 1,
         spaceBetween: 0,
-        centeredSlides: false,
         loop: false,
         grabCursor: true,
         scrollbar: {
@@ -41,4 +51,9 @@ $(function () {
             },
         }
     });
+
+    if($("#sliderAwards .swiper-slide").length <= 3) {
+        $("#sliderAwards .swiper-slide").addClass('destroyed');
+        swiperAwards.destroy(true, true);
+    }
 });
