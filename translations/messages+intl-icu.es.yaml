@@ -27,6 +27,8 @@ global:
     page_not_found: Página no encontrada
     alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
     show_more: Ver más
+    show_sector: Ver Sector
+    show_service: Ver Servicios
     show_less: Ver menos
     slider_next: Siguiente
     related_content: Contenido relacionado
@@ -195,9 +197,9 @@ footer:
 # ###########################################
 reusable_blocks:
     cta_footer:
-      title: Personaliza tus insights, lee solo lo que te <strong>interesa</strong>
-      intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-      button: Escoge tus intereses
+      title: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico adaptado a tus necesidades
+      intro: Suscríbete a nuestra newsletter y recibe en tu e-mail la información y contenidos que  más te interesan
+      button: Selecciona tus intereses
     team:
       title: Equipo Cuatrecasas
       link: Ver equipo
@@ -236,3 +238,63 @@ ch_cookie_consent:
   use_all_cookies: 'Permitir todas las cookies'
   show_details: 'Mostrar detalles'
   hide_details: 'Ocultar detalles'
+
+
+## BLOCQUE FIRMA
+#################################################
+firma:
+  vision:
+    header_content: 'Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente' 
+
+  overview:
+    art_1: 
+      number: '+1600'
+      title: 'Profesionales'
+      content: 'Un equipo multidisciplinar y diverso, con profesionales de 25 nacionalidades.'
+    art_2:
+      number: 14
+      title: Países
+      content: Máxima presencia en España, Portugal y Latinoamérica a través de 20 oficinas, además de otras 9 oficinas internacionales, 19 desks y un European network.
+    art_3:
+      number: 17
+      title: Especialidades
+      content: Cubrimos todas las disciplinas del derecho de empresa.
+    art_4:
+      number: 21
+      title: sectores de especialización
+      content: Nos enfocamos en los sectores de actividad de nuestros clientes.
+   
+  info_firma:
+    art_1: 
+      title: 'Servicios y Sectores de Cuatrecacsas'
+      content: 'Accede a todas nuestros servicios y sectores de especialización y conoce nuestra experiencia más destacada.'
+    art_2:
+      title: Equipo
+      content: Visita el perfil de nuestros abogados y filtra por especialidad u oficina.
+    art_3:
+      title: Territorios
+      content: Localiza nuestras oficinas, regiones de influencia, desks y política internacional.
+
+  award: 
+    head_title: Premios
+    art_1:        
+      title: 'Firma más innovadora de Europa continental'
+      date: Financial Times, 2019
+    art_2:        
+      title: 'Firma más innovadora de Europa continental'
+      date: Financial Times, 2018
+    art_3:        
+      title: 'Tercera firma internacional más popular en Latinoamérica'
+      date: The Latin American Corporate Counsel Association, 2018, 2019
+    art_4:        
+      title: 'Tercera mejor empresa para trabajar, según los estudiantes de Derecho'
+      date: Universum & People Matters, 2020
+      
+  cta_media:
+    title: Centro de medios
+    content: 'Accede a las últimas notas de prensa y a nuestro contenido institucional disponible'
+
+  memory_corp:
+    title: Memoria corporativa
+    content: Conoce la actividad más relevante de Cuatrecasas en el último año, con la mirada puesta en la gestión ética, responsable y los servicios de valor.
+    

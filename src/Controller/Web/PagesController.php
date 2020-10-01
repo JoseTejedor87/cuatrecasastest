@@ -7,15 +7,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Web\WebController;
 use App\Repository\OfficeRepository;
-
+use App\Repository\HomeRepository;
 use App\Repository\PageRepository;
 
 class PagesController extends WebController
 {
 
-    public function detail(Request $request, PageRepository $PageRepository, OfficeRepository $OfficeRepository)
+    public function detail(Request $request, PageRepository $PageRepository, OfficeRepository $OfficeRepository, HomeRepository $homeRepository)
     {
         $page = $PageRepository->getInstanceByRequest($request);
+        $home = $homeRepository->findOneBy(['id' => 1]);
 
         $urlTemplate = 'empty';
         if (null !== $page->getCustomTemplate() && $page->getCustomTemplate() != '')
@@ -40,7 +41,8 @@ class PagesController extends WebController
             'officesMapaLabel' => isset($officeA) ? json_encode($officeA)  : '',
             'offices' => isset($offices) ? $offices  : '',
             'page' => $page,
-            'controller_name' => 'PageController'
+            'controller_name' => 'PageController',
+            'home' => $home
         ]);
     }
 }

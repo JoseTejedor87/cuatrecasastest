@@ -64,23 +64,27 @@
 
             <section class="row page__block--regions">
                 <div class="col">
-                    <p>Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente </p>
+                    <p>{{ 'firma.vision.header_content' |trans}}</p>
                 </div>
             </section>
 
             {% include 'web/shared/overview.html.twig' %}
             {% include 'web/shared/info-firma.html.twig' %}
-            {% include 'web/shared/awards_CMP.html.twig' %}
-            {% include 'web/shared/cta-media_CMP.html.twig' %}
-            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-            {% include 'web/shared/cta-corporative_CMP.html.twig' %}
+            {% include 'web/shared/awards_YML.html.twig' %}
+            {% include 'web/shared/cta-media_YML.html.twig' %}
+            {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no se ha modificado este  #}
+            {% include 'web/shared/cta-corporative_YML.html.twig' %}
+
             {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/brands_CMP.html.twig' %}
+
+            {% if home.brand[0] is defined %}
+                {% include 'web/shared/brands.html.twig' with { brands: home.brand } %}
+            {% endif %}
 
         </article>
     </main>
+    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
 
-    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 
