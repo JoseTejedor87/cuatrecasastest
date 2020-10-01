@@ -2266,8 +2266,6 @@ class ImportCommand extends Command
             //print_r($pub->getLanguages()); die();
             
             foreach($pub->getLanguages() as $lan){
-                dd($pub->translate($lan)->getContent());
-
 
                 if( $pub->translate($lan)->getContent() != null  || $pub->translate($lan)->getSummary != null  )
                 {
