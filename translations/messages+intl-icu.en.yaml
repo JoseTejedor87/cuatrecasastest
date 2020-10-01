@@ -189,6 +189,7 @@ reusable_blocks:
     cases:
       title: Cases
       link: View more
+
 ##COOKIES
 ##############################################
 ch_cookie_consent:
@@ -221,4 +222,4 @@ ch_cookie_consent:
 #################################################
 firma:
     vision:
-      header_content: Cuatrecasas is a signa ... cliente 
+      header_content: Cuatrecasas is a signa ... cliente

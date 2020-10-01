@@ -68,6 +68,12 @@
         }
 
         // focus element opacity
+
+        &-prev {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
         &-active,
         &-next,
         &-next + .swiper-slide {

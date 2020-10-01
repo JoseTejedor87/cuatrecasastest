@@ -26,7 +26,7 @@
         background-color: $main-color;
         // background-attachment: fixed;
         background-attachment: scroll;
-        background-position: 50% 0;
+        background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -1240,15 +1240,7 @@
 // GOOGLE MAP MARKER
 //
 
-.cluster {
-    outline: none !important;
-
-    @include on-event {
-        outline: none !important;
-    }
-}
-
-.gm-style .cluster {
+.gm-style > .cluster {
     outline: none !important;
 
     @include on-event {

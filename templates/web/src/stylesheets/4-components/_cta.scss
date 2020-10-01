@@ -57,6 +57,7 @@
 
     @include has("img") {
         @include stretch-to-right;
+        background-position: 50% 50%;
 
         @media(max-width: $max-width-4casas) {
             width: auto;
