@@ -77,9 +77,7 @@
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
-                            <div class="read__more">
-                                {{ lawyer.translate(app.request.getLocale()).description|raw }}
-                            </div>
+                            {{ lawyer.translate(app.request.getLocale()).description|raw }}
                         </div>
                     </div>
                 </section>
@@ -93,7 +91,7 @@
                     <div class="page__block__aside">
                         {% if lawyer.secondaryActivities|length > 0 %}
                             <div class="page__aside">
-                                <h3 class="page__aside__title">{{ 'sections.lawyers.specialties'|trans }}</h3>
+                                <h3 class="page__aside__title page__aside__title--specialties">{{ 'sections.lawyers.specialties'|trans }}</h3>
                                 <ul class="page__aside__list--specialties">
                                 {% for activity in lawyer.secondaryActivities %}
                                     <li>
@@ -120,13 +118,11 @@
                                 {% endif %}
                                 {% if lawyer.mentions|length > 0 %}
                                     <h3 class="page__aside__title">{{ 'sections.lawyers.mentions'|trans }}</h3>
-                                    <ul class="page__aside__list--career">
+                                    <div class="page__aside__list--mentions">
                                         {% for mention in lawyer.mentions %}
-                                            <li>
-                                                {{ mention.translate(app.request.getLocale()).description | raw}}
-                                            </li>
+                                            {{ mention.translate(app.request.getLocale()).description | raw}}
                                         {% endfor %}
-                                    </ul>
+                                    </div>
                                 {% endif %}
                             </div>
                         {% endif %}
@@ -213,9 +209,9 @@
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
 <script>
     $(function () {
-
         $('.read__more').readmore({
             moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
             lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',

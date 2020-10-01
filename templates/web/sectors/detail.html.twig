@@ -96,12 +96,9 @@
             fixed_activity:sector.translate(app.request.getLocale()).title
         } %}
     {% endif %}
-
-    {# {% include 'web/shared/related-services.html.twig' %} #}
     {% if relatedCaseStudies|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
-
     {% if relatedCaseStudies|length > 1 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}

@@ -45,20 +45,18 @@
             <section class="row page__event">
                 <div class="col">
                     <div class="page__event__content">
-                        <!-- duplicate event info -->
+                        <!-- Duplicated Event Info -->
                         <div class="boxnews__content boxnews__content--event" id="eventMainInfo" style="display:none">
                             <div class="place">
                                 <span>{{ customAddress|first|raw }}</span>
                                 <span>{{ customAddress[:-1]|join(' ') }}</span>
                             </div>
                             <div class="date">
-                                <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
                                 <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
                                 <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
                                 {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                             </div>
                             <div class="author">
-                                <!-- 10.30 — 14.30 <br> -->
                                 <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
                                 <span>{{ (event.phone) ? event.phone : '' }}</span>
                             </div>
@@ -110,19 +108,18 @@
                             <div class="boxnews__header">
                                 <div class="boxnews__type">Evento</div>
                             </div>
+                            <!-- Event Info -->
                             <div class="boxnews__content" id="eventBoxInfo">
                                 <div class="place">
                                     <span>{{ customAddress|first|raw }}</span>
                                     <span>{{ customAddress[:-1]|join(' ') }}</span>
                                 </div>
                                 <div class="date">
-                                    <!-- 26 Febrero 2020 a 8 Marzo 2020 <br> -->
                                     <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
                                     <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
                                     {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                                 </div>
                                 <div class="author">
-                                    <!-- 10.30 — 14.30 <br> -->
                                     <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
                                     <span>{{ (event.phone) ? event.phone : '' }}</span>
                                 </div>
@@ -132,7 +129,6 @@
                                 <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
                                 <div class="txt__required__fields">* Campos requeridos</div>
 
-                                <!-- <form action="javascript:void(0);"> -->
                                 <form action="" class="needs-validation" novalidate>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
@@ -185,19 +181,6 @@
                                             <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <p>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos.</p>
-                                        <div class="radiobox">
-                                            <input type="radio" name="sucribeA" id="sucribeA" value="1">
-                                            <label class="radio-label" for="sucribeA"><span>Acepto</span></label>
-                                        </div>
-                                        <div class="radiobox">
-                                            <input type="radio" name="sucribeN" id="sucribeN" value="0">
-                                            <label class="radio-label" for="sucribeN"><span>No acepto</span></label>
-                                        </div>
-                                        <input class="form-check-input" type="radio" name="sucribeA" id="sucribeA" value="1" >Acepto</input>
-                                        <input class="form-check-input" type="radio" name="sucribeN" id="sucribeN" value="0" >No acepto</input>
-                                    </div> -->
                                     <button type="submit" class="btn btn__solid__arrow">Inscribirme</button>
                                 </form>
                             </div>
@@ -276,64 +259,6 @@
                 </div>
             </section>
 
-            <!-- <section class="row page__event__full">
-                <div class="col">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis asperiores eos totam enim molestias. Magnam minima placeat neque, quaerat esse itaque facilis labore quia, dignissimos debitis, quidem, tempora obcaecati ipsa.</p>
-                </div>
-            </section>
-
-            <section class="container">
-                <div class="row">
-                    <div class="col-md-8 article-section detail">
-                        {{ event.translate(app.request.getLocale()).description|raw  }}
-                    </div>
-                    <aside class="col-md-4 article-aside">
-                        <section class="practical-information sticky-top">
-                            <h3>Información práctica</h3>
-                            <div class="information-wrapper">
-                                <div class="date">
-                                    <strong>{{ fecha[0]  }}</strong>
-                                    {{  fecha[1:]|join(' ') }}
-                                </div>
-                                <time class="time">
-                                    {{ event.translate(app.request.getLocale()).schedule|raw  }}
-                                </time>
-                                <address class="address">
-                                    <span class="city">{{  customAddress|last }}</span>
-                                    <span class="location"> {{ customAddress[:-1]|join(' ') }}
-                                    </span>
-                                </address>
-                                <div class="contact">
-                                    <span class="name">
-                                        {{ event.contact ? event.contact : 'Marga Zaragoza' }}
-                                    </span>
-                                    <span class="tel">
-                                        {{ (event.phone) ? event.phone : '684 25 83 57' }}
-                                    </span>
-                                </div>
-                                <button class="btn btn-main hover-white btn-arrow">Inscribirme</button>
-                            </div>
-                        </section>
-                        <section class="documentation">
-                            <h3>Documentacion</h3>
-                            <ul>
-                                {% for attachment in event.attachments %}
-                                    <li><a href="#">{{ attachment.fileName|raw}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </section>
-                        <section class="related-services-detail">
-                            <h3>Servicios relacionados</h3>
-                            <ul class="d-flex flex-wrap">
-                            {% for activity in event.activities %}
-                                <li><a href="#">{{ activity.translate(app.request.getLocale()).title|raw}}</a></li>
-                            {% endfor %}
-                            </ul>
-                        </section>
-                    </aside>
-                </div>
-            </section> -->
-
         </article>
     </main>
 
@@ -351,6 +276,7 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.jquery.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
@@ -368,6 +294,35 @@
             $('html, body').animate({
                 scrollTop: $('#eventBoxForm').offset().top - 130
             }, 'slow');
+        });
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 600,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
+                }
+            }
         });
 
         // Bootstrap form validation
@@ -538,35 +493,6 @@
                 return isvalidate;
             }
         }
-
-        $('.read__more').readmore({
-            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
-            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
-            embedCSS: true,
-            collapsedHeight: 400,
-            blockProcessed: function(element, collapsable) {
-                if(! collapsable) {
-                    element.addClass('mask-off');
-                }
-            },
-            beforeToggle: function(trigger, element, expanded) {
-                if(expanded) {
-                    element.removeClass('mask-off');
-                }
-                if(! expanded) {
-                    element.addClass('mask-off');
-                }
-            },
-            afterToggle: function(trigger, element, expanded) {
-                if(! expanded) {
-                    if (window.matchMedia('(max-width: 1199px)').matches) {
-                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
-                    } else {
-                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
-                    }
-                }
-            }
-        });
     });
 </script>
 {% endblock %}
