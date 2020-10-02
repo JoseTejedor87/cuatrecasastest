@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Legislation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Legislation|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Legislation[]    findAll()
  * @method Legislation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LegislacionRepository extends ServiceEntityRepository
+class LegislationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

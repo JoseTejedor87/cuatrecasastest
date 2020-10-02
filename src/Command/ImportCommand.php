@@ -13,6 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+use App\Entity\Legislation;
 use App\Entity\Activity;
 use App\Entity\Award;
 use App\Entity\Desk;
@@ -38,7 +39,6 @@ use App\Entity\Program;
 use App\Entity\Product;
 use App\Entity\Banner;
 use App\Entity\Slider;
-use App\Entity\Legislation;
 use App\Entity\Brand;
 use App\Entity\Home;
 
@@ -288,7 +288,7 @@ class ImportCommand extends Command
 
     public function PublicationsByLegislation()
     {
-        $this->Legislation();
+        //$this->Legislation();
 
         $data = file_get_contents("JsonExports/PublicacionesLegislacion.json");
         $items = json_decode($data, true);
@@ -1388,7 +1388,6 @@ class ImportCommand extends Command
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             $activityId = $this->getMappedActivityId($item['id_area']);
             if ($lawyerId && $activityId) {
-
                 // Trying to recover objects from the mapping arrays,
                 // if items does not exists, use the ORM to load it from the database
                 $lawyer =  $lawyerRepository->find($lawyerId);
@@ -2465,9 +2464,12 @@ class ImportCommand extends Command
                                 );
                             }
                             self::setRegions($article);
-                            $article->mergeNewTranslations();
-                            $this->em->persist($article);
-                            $this->em->flush();
+                            if($article->translate('es')->getTitle() != "" || $article->translate('en')->getTitle()){
+                                $article->mergeNewTranslations();
+                                $this->em->persist($article);
+                                $this->em->flush();
+                            }
+                            
                         }
                     }
                     if ($status=400) {
@@ -2480,7 +2482,7 @@ class ImportCommand extends Command
     {
         $client = HttpClient::create();
         $ArticleRepository = $this->em->getRepository(Publication::class);
-        $articulos = $ArticleRepository->findAll();
+        $articulos = $ArticleRepository->findBy(['originalTableCode' => 2 ]);
         foreach ($articulos as $keyArticulo => $articulo) {
             $categorias = ["propiedad-intelectual","competencia","deporte-entretenimiento","mercado-de-valores","laboral",""];
             foreach ($categorias as $keycategoria => $categoria) {
