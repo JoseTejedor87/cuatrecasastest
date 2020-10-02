@@ -37,6 +37,16 @@ class HomeController extends WebController
         }
         */
 
+        // dd(get_class($home->getInsights()[0]->getActivities()[0]));
+/*
+        $strClass = get_class($home->getInsights()[0]->getActivities()[0]);
+        $arr = explode("\\",$strClass);
+        $text = end($arr);
+
+        echo $text;
+
+        die();
+        */
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
             'relatedPublications' => $relatedPublications,

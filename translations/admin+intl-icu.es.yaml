@@ -454,6 +454,11 @@ forms:
       webinar: Webinar
       breakfast: Desayuno
       institutional: Institucional
+    publicationCategoryTypes:
+      opinion: Opinion
+      news: Noticia
+      video: Video
+
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero

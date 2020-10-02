@@ -9,7 +9,7 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Entity(repositoryClass="App\Repository\BlockRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"quoteBlock" = "QuoteBlock", "eventsBlock" = "EventsBlock"})
+ * @ORM\DiscriminatorMap({"quoteBlock" = "QuoteBlock", "eventsBlock" = "EventsBlock", "publicationBlock" = "PublicationBlock"})
  *
  */
 abstract class Block extends Item

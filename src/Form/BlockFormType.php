@@ -16,9 +16,13 @@ use App\Entity\Activity;
 use App\Entity\Block;
 use App\Entity\Quote;
 use App\Entity\Event;
+use App\Entity\Publication;
 use App\Entity\QuoteBlock;
 use App\Entity\EventsBlock;
+use App\Entity\PublicationBlock;
 use App\Form\Type\EventCategoryType;
+use App\Form\Type\PublicationCategoryType;
+
 
 class BlockFormType extends AbstractType implements DataMapperInterface
 {
@@ -57,6 +61,31 @@ class BlockFormType extends AbstractType implements DataMapperInterface
                     return $quote->translate('es')->getBody();
                 }
             ])
+            // PUBLICATION BLOCK
+            // *******************************************
+            ->add('publicationType', PublicationCategoryType::class, [
+                'attr' => ['data-item-type' => 'publicationBlock'],
+                'label'=>'entities.publicationBlock.fields.publicationType',
+                'required'=>false
+            ])
+            ->add('numberOfPublication', IntegerType::class, [
+                'attr' => ['data-item-type' => 'publicationBlock'],
+                'label'=>'entities.publicationBlock.fields.numberOfPublication'
+            ])
+            ->add('publication', EntityType::class, [
+                'class' => Publication::class,
+                'label' => 'entities.publicationBlock.fields.publication',
+                'attr' => [
+                    'data-item-type' => 'publicationBlock',
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($pub) {
+                    return $pub->translate('es')->getTitle();
+                }
+            ])            
             // EVENTS BLOCK
             // *******************************************
             ->add('eventType', EventCategoryType::class, [
@@ -118,7 +147,12 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             $forms['numberOfEvents']->setData($viewData->getNumberOfEvents());
             $forms['eventType']->setData($viewData->getEventType());
             $forms['activities']->setData($viewData->getActivities());
+        } elseif ($blockType == 'publicationBlock') {
+            $forms['numberOfPublication']->setData($viewData->getNumberOfPublication());
+            $forms['publicationType']->setData($viewData->getPublicationType());
+            $forms['publication']->setData($viewData->getPublication());
         }
+        
     }
 
     public function mapFormsToData($forms, &$viewData)
@@ -137,6 +171,13 @@ class BlockFormType extends AbstractType implements DataMapperInterface
             $block->setEventType($forms['eventType']->getData());
             foreach ($forms['activities']->getData() as $activity) {
                 $block->addActivity($activity);
+            }
+        } elseif ($blockType == 'publicationBlock') {
+            $block = new PublicationBlock();
+            $block->setNumberOfPublication($forms['numberOfPublication']->getData());
+            $block->setPublicationType($forms['publicationType']->getData());
+            foreach ($forms['publication']->getData() as $pub) {
+                $block->addPublication($pub);
             }
         }
         $block->setPosition($forms['position']->getData());
