@@ -49,7 +49,11 @@ abstract class Activity extends Publishable
     private $lawyers_secondary;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Lawyer", mappedBy="specificActivities")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="specificActivities")
+     * @ORM\JoinTable(name="activity_specific_lawyer",
+     *      joinColumns = {@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="lawyer_id", referencedColumnName="id")}
+     * )
      */
     private $key_contacts;
 
@@ -501,7 +505,6 @@ abstract class Activity extends Publishable
     {
         if (!$this->key_contacts->contains($keyContact)) {
             $this->key_contacts[] = $keyContact;
-            $keyContact->setSpecificActivities($this);
         }
 
         return $this;
@@ -511,14 +514,14 @@ abstract class Activity extends Publishable
     {
         if ($this->key_contacts->contains($keyContact)) {
             $this->key_contacts->removeElement($keyContact);
-            // set the owning side to null (unless already changed)
-            if ($keyContact->getSpecificActivities() === $this) {
-                $keyContact->setSpecificActivities(null);
-            }
         }
 
         return $this;
     }
+
+
+
+
 
 
 }

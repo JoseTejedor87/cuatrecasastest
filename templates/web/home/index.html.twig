@@ -13,35 +13,44 @@
             <div class="col">
                 <div id="sliderHome" class="swiper-container">
                     <div class="swiper-wrapper">
-                        {% include 'web/shared/banner.html.twig'  with {banner: banner, slidesOrdered:slidesOrdered } %}
-
+                        {% include 'web/shared/banner-home.html.twig'  with {banner: banner, slidesOrdered:slidesOrdered } %}
                     </div>
                 </div>
             </div>
         </header>
 
-        {% if home.showSearchBlock   %}
+        {% if home.showSearchBlock %}
             {% include 'web/shared/searcherHome.html.twig' %}
         {% endif %}
     </main>
 
     {% if home.showRelatedPublicationAndEvents   %}
-        {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+        {% if relatedPublications|length > 0 %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+        {% endif %}
     {% endif %}
-    {% if home.showInsight and home.insights[0] is defined   %}
-        {% include 'web/shared/insight.html.twig'  with {insight: home.insights[0] }   %}
-    {% endif %}    
-    {% if home.showQuoteBlock   and home.quotes[0] is defined   %}
-        {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes }   %}
-    {% endif %}  
-    {% if home.showCarrerBlock   %}
-        {% include 'web/shared/career.html.twig' %}
-    {% endif %}      
-    {% if home.brand[0] is defined  %}
-        {% include 'web/shared/brands.html.twig' with { brands: home.brand } %}    
-    {% endif %}   
 
-    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos   #}
+    {% if home.showInsight and home.insights[0] is defined %}
+        {% if home.insights|length > 1 %}
+            {% include 'web/shared/collections.html.twig'  with {insights: home.insights } %}
+        {% elseif  home.insights|length > 0 %}
+            {% include '/web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
+        {% endif %}
+    {% endif %}
+
+    {% if home.showQuoteBlock and home.quotes[0] is defined %}
+        {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes } %}
+    {% endif %}
+
+    {% if home.showCarrerBlock %}
+        {% include 'web/shared/career.html.twig' %}
+    {% endif %}
+
+    {% if home.brand[0] is defined %}
+        {% include 'web/shared/brands.html.twig' with { brands: home.brand } %}
+    {% endif %}
+
+    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
 
 {% endblock %}
 
@@ -56,7 +65,6 @@
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
-        // grabCursor: true,
         speed: {{ banner.speed }},
         allowSlidePrev: false,
         allowTouchMove: false,
@@ -64,7 +72,7 @@
             delay: {{ banner.delay }},
         },
         navigation: {
-            nextEl: '.home__preview__button'
+            nextEl: '.preview__button'
         }
     });
 </script>

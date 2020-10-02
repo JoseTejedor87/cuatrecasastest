@@ -37,6 +37,25 @@ class DeskRepository extends PublishableEntityRepository implements PublishableI
         return null;
     }
 
+    public function getDeskByName(Request $request){
+        $entityManager = $this->getEntityManager();
+        
+        $region = $request->attributes->get('_region');
+        $language = $request->attributes->get('_locale');
+
+        $query = $entityManager->createQuery(
+                "SELECT d FROM App\Entity\Desk d INNER JOIN d.translations t 
+                WHERE d.regions LIKE :region AND d.languages LIKE :language AND t.locale LIKE :local
+                AND d.highlighted = true ORDER BY t.title ASC "
+        )->setParameters(array( 
+                'language' => '%'.$language.'%',
+                'region' => '%'.$region.'%',
+                'local' => '%'.$language.'%',
+        ));
+
+        return $query;
+    }
+
     // /**
     //  * @return Desk[] Returns an array of Desk objects
     //  */

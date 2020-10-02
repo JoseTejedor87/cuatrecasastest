@@ -90,9 +90,9 @@
         {% set activityTeam = sector %}
         {% include 'web/shared/team.html.twig'  %}
     {% endif %}
-
-    {# {% include 'web/shared/related-services.html.twig' %} #}
-    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
+    {% endif %}
     {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/awards.html.twig' %}
     {% include 'web/shared/insight.html.twig' %}

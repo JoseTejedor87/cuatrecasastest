@@ -96,21 +96,21 @@
         </article>
     </main>
 
-    {% if product.lawyers|length > 0 %}
+    {% if key_contacts|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
             team:product.translate(app.request.getLocale()).title,
-            lawyers:product.lawyers|slice(0, 5),
+            lawyers:key_contacts|slice(0, 5),
             fixed_activity:product.translate(app.request.getLocale()).title
         } %}
     {% endif %}
     {% if relatedPublications|length > 0 %}
-      {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+      {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
-    {% if relatedCaseStudies|length > 0 %}
+    {% if relatedCaseStudies|length > 1 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
 
-    {% if awards|length > 0 %}
+    {% if awards|length > 2 %}
         {% include 'web/shared/awards.html.twig' with { awards: awards} %}
     {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}

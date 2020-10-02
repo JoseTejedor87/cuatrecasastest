@@ -11,7 +11,7 @@
 {% block main %}
 <main role="main">
     <article class="container">
-        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/cabecera_1920x1080_04_baja.jpg') }}')">
             <div class="col">
                 <div class="info__block">
                     <h1 class="page__title">
@@ -45,14 +45,14 @@
     </div>
 </div>
 {% include 'web/shared/career_CMP.html.twig' %}
-<div class="container cmp-wrapper">
+<!-- <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
             <div class="cmp">[cmp02] Contenido destacado</div>
         </div>
     </div>
-</div>
-{% include 'web/shared/related-content.html.twig' %}
+</div> -->
+{#% include 'web/shared/related-content.html.twig' %#}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -61,14 +61,14 @@
     </div>
 </div>
 {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-<div class="container cmp-wrapper">
+<!-- <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
             <div class="cmp">[cmp26] Próximos Eventos</div>
         </div>
     </div>
-</div>
-{% include 'web/shared/events.html.twig' %}
+</div> -->
+{#% include 'web/shared/events.html.twig' %#}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -98,9 +98,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Opinion</div>
                             <div class="boxnews__info">3 Marzo 2020</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -117,9 +117,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Evento</div>
                             <div class="boxnews__info">24 Febrero 2020</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark button__bookmark--on"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -153,9 +153,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Noticia</div>
                             <div class="boxnews__info">Innovación</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -172,9 +172,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Noticia</div>
                             <div class="boxnews__info">Educación</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark button__bookmark--on"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -190,9 +190,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Artículo</div>
                             <div class="boxnews__info">New business</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -208,9 +208,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Artículo</div>
                             <div class="boxnews__info">Innovación</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -227,9 +227,9 @@
                         <div class="boxnews__header">
                             <div class="boxnews__type">Opinion</div>
                             <div class="boxnews__info">3 Marzo 2020</div>
-                            <div class="boxnews__button">
+                            <!-- <div class="boxnews__button">
                                 <button type="button" class="button__bookmark button__bookmark--on"></button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
@@ -257,7 +257,7 @@
         </div>
     </div>
 </div>
-{% include 'web/shared/insight.html.twig' %}
+{% include 'web/shared/insight_CMP.html.twig' %}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -274,6 +274,14 @@
     </div>
 </div>
 {% include 'web/shared/cases_CMP.html.twig' %}
+<div class="container cmp-wrapper">
+    <div class="row">
+        <div class="col">
+            <div class="cmp">[cmp25] Insights destacados</div>
+        </div>
+    </div>
+</div>
+{% include 'web/shared/collections_CMP.html.twig' %}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -873,14 +881,6 @@
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
-            <div class="cmp">[cmp25] Insights destacados</div>
-        </div>
-    </div>
-</div>
-{% include 'web/shared/collections_CMP.html.twig' %}
-<div class="container cmp-wrapper">
-    <div class="row">
-        <div class="col">
             <div class="cmp">[cmp07] Equipo 1</div>
         </div>
     </div>
@@ -925,7 +925,7 @@
         </div>
     </div>
 </div>
-{% include 'web/shared/testimonials.html.twig' %}
+{% include 'web/shared/testimonials_CMP.html.twig' %}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -941,7 +941,7 @@
         </div>
     </div>
 </div>
-{% include 'web/shared/brands.html.twig' %}
+{% include 'web/shared/brands_CMP.html.twig' %}
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">

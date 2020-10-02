@@ -90,7 +90,9 @@
     {% include 'web/shared/highlightContentMix.html.twig' %}
     {% include 'web/shared/team.html.twig' %}
     {% include 'web/shared/slider-cases.html.twig' %}
-    {% include 'web/shared/awards.html.twig'  with { awards: awards} %}
+    {% if awards|length > 2 %}
+         {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% endif %}
     {% include 'web/shared/related-content.html.twig' %}
     {% include 'web/shared/insights.html.twig' %}
 

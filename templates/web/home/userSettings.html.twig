@@ -1,7 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- <link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet"> -->
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -74,248 +74,76 @@
                                         <input type="text" class="form-control" id="ePostalCode" placeholder="Código postal *" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select id="eCountry" class="form-control custom-select" required>
-                                            <option value="" selected disabled>País *</option>
-                                            <option value="" >Lorem</option>
-                                            <option value="" >Ipsum</option>
-                                            <option value="" >Dolor</option>
+                                        <select name="eCountry" id="eCountry" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="País *">
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <input type="text" class="form-control" id="eTown" placeholder="Población *" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select id="eRegion" class="form-control custom-select" required>
-                                            <option value="" selected disabled>Provincia *</option>
-                                            <option value="" >Lorem</option>
-                                            <option value="" >Ipsum</option>
-                                            <option value="" >Dolor</option>
+                                        <select name="eRegion" id="eRegion" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <!-- <select class="selectpicker form-control">
-                                        <option>Mustard</option>
-                                        <option>Ketchup</option>
-                                        <option>Relish</option>
-                                    </select> -->
-                                    <select id="eLang" class="form-control custom-select" required>
-                                        <option value="" selected disabled>Idioma de las publicaciones *</option>
-                                        <option value="Lorem">Lorem</option>
-                                        <option value="Ipsum">Ipsum</option>
-                                        <option value="Dolor">Dolor</option>
+                                    <select name="eLang" id="eLang" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
                                     </select>
                                 </div>
                             </div>
                         </fieldset>
-                    </div>
-                </div>
-
-                <div class="classictabs__component">
-                    <div class="row page__block--full">
-                        <div class="col">
-                            <h4 class="section__title section__title--main">{{ 'userForm.interests.title'|trans }}</h4>
-                            <ul class="nav nav-tabs" id="theFilters" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true">{{ 'userForm.interests.tabPopular'|trans }}</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="false">{{ 'userForm.interests.tabAreas'|trans }}</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="sectors-tab" data-toggle="tab" href="#sectors" role="tab" aria-controls="sectors" aria-selected="false">{{ 'userForm.interests.tabSectors'|trans }}</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="geographic-tab" data-toggle="tab" href="#geographic" role="tab" aria-controls="geographic" aria-selected="false">{{ 'userForm.interests.tabGeo'|trans }}</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="theFiltersContent">
-                                <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
-                                    <div class="chechbox__wrapper">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-01" value=".sector-01">
-                                            <label class="checkbox-label" for="sector-01"><span>Alimentación</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-02" value=".sector-02">
-                                            <label class="checkbox-label" for="sector-02"><span>Brexit</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-03" value=".sector-03">
-                                            <label class="checkbox-label" for="sector-03"><span>Canadian Desk</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-04" value=".sector-04">
-                                            <label class="checkbox-label" for="sector-04"><span>Ciberseguridad</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-05" value=".sector-05">
-                                            <label class="checkbox-label" for="sector-05"><span>Consumo y Retail</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-06" value=".sector-06">
-                                            <label class="checkbox-label" for="sector-06"><span>Deporte</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-07" value=".sector-07">
-                                            <label class="checkbox-label" for="sector-07"><span>Empresa Familiar</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-08" value=".sector-08">
-                                            <label class="checkbox-label" for="sector-08"><span>Energía y Recursos Naturales</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="sector-09" value=".sector-09">
-                                            <label class="checkbox-label" for="sector-09"><span>Farmacia y Sanitario</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="button__wrapper">
-                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="areas" role="tabpanel" aria-labelledby="areas-tab">
-                                    <div class="chechbox__wrapper">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-01" value=".services-01">
-                                            <label class="checkbox-label" for="services-01"><span>Corporate Governance y Compliance</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-02" value=".services-02">
-                                            <label class="checkbox-label" for="services-02"><span>Derecho contable</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-03" value=".services-03">
-                                            <label class="checkbox-label" for="services-03"><span>Derecho Laboral</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-04" value=".services-04">
-                                            <label class="checkbox-label" for="services-04"><span>Financiero</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-05" value=".services-05">
-                                            <label class="checkbox-label" for="services-05"><span>Fiscal</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-06" value=".services-06">
-                                            <label class="checkbox-label" for="services-06"><span>Fiscalidad Contenciosa</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-07" value=".services-07">
-                                            <label class="checkbox-label" for="services-07"><span>Fiscalidad Financiera</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-08" value=".services-08">
-                                            <label class="checkbox-label" for="services-08"><span>Fusiones y Adquisiciones</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-09" value=".services-09">
-                                            <label class="checkbox-label" for="services-09"><span>Litigación</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-10" value=".services-10">
-                                            <label class="checkbox-label" for="services-10"><span>Mediación</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="services-11" value=".services-11">
-                                            <label class="checkbox-label" for="services-11"><span>Mercado de valores</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="button__wrapper">
-                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="sectors" role="tabpanel" aria-labelledby="sectors-tab">
-                                    <div class="chechbox__wrapper">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="type-01" value=".type-01">
-                                            <label class="checkbox-label" for="type-01"><span>Noticias</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="type-02" value=".type-02">
-                                            <label class="checkbox-label" for="type-02"><span>Eventos</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="type-03" value=".type-03">
-                                            <label class="checkbox-label" for="type-03"><span>Opinión</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="type-04" value=".type-04">
-                                            <label class="checkbox-label" for="type-04"><span>Estudios Jurídicos</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="type-05" value=".type-05">
-                                            <label class="checkbox-label" for="type-05"><span>Novedades Jurídicas</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="button__wrapper">
-                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="geographic" role="tabpanel" aria-labelledby="geographic-tab">
-                                    <div class="chechbox__wrapper">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-01" value=".region-01">
-                                            <label class="checkbox-label" for="region-01"><span>Barcelona</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-02" value=".region-02">
-                                            <label class="checkbox-label" for="region-02"><span>Madrid</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-03" value=".region-03">
-                                            <label class="checkbox-label" for="region-03"><span>Lisboa</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-04" value=".region-04">
-                                            <label class="checkbox-label" for="region-04"><span>Beijing</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-05" value=".region-05">
-                                            <label class="checkbox-label" for="region-05"><span>Bogotá</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-06" value=".region-06">
-                                            <label class="checkbox-label" for="region-06"><span>Brussels</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-07" value=".region-07">
-                                            <label class="checkbox-label" for="region-07"><span>Casablanca</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-08" value=".region-08">
-                                            <label class="checkbox-label" for="region-08"><span>London</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-09" value=".region-09">
-                                            <label class="checkbox-label" for="region-09"><span>Luanda</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-10" value=".region-10">
-                                            <label class="checkbox-label" for="region-10"><span>Maputo</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-11" value=".region-11">
-                                            <label class="checkbox-label" for="region-011"><span>Mexico City</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-12" value=".region-12">
-                                            <label class="checkbox-label" for="region-12"><span>New York</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-13" value=".region-13">
-                                            <label class="checkbox-label" for="region-13"><span>Sao Paulo</span></label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="region-14" value=".region-14">
-                                            <label class="checkbox-label" for="region-14"><span>Shanghai</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="button__wrapper">
-                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -356,11 +184,10 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- <script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script> -->
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
-        // $('.selectpicker').selectpicker();
         $('.classictabs__component .nav').responsiveTabs();
 
         // Bootstrap form validation

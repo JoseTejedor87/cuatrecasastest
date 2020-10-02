@@ -45,7 +45,8 @@ class LawyerController extends CMSController
     }
 
     private function filter(Request $request){
-        $formForFilter = $this->createFormBuilder(array())
+
+        $formForFilter = $this->createFormBuilder(array(),[ 'translation_domain' => 'admin'])
             ->setMethod('GET')
             ->add('name', TextType::class, ['required' => false, 'label' => false ])
             ->add('surname', TextType::class, ['required' => false, 'label' => false ])

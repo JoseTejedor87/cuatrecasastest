@@ -129,7 +129,7 @@
                         <div id="eventCalendarList">
                         </div>
                         <!-- Search results / no calendar -->
-                        <div id="eventList">
+                        <!-- <div id="eventList">
                             <h3 class="fc-list-heading-main">16 marzo 2020 (bloque estático)</h3>
                             <article class="event__list__item">
                                 <div class="event__list__details">
@@ -209,7 +209,7 @@
                             <div class="viewmore__button">
                                 <button type="button" class="btn btn__viewmore">Cargar más</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
            </section>
@@ -341,8 +341,9 @@
                     </div>
                 </div>
             </section> -->
-
-            {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
+    {% endif %}
 
         </article>
     </main>

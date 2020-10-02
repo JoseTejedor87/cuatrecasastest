@@ -11,12 +11,14 @@ use App\Controller\Web\WebController;
 
 class SectorController extends WebController
 {
-    public function index(Request $request, SectorRepository $sectorRepository)
+    public function index(Request $request, SectorRepository $sectorRepository, PublicationRepository $publicationRepository)
     {
         $sectors = $sectorRepository->getSectorsByName($request)->getResult();
+        $relatedPublications = $publicationRepository->findByActivities([]);
 
         return $this->render('web/sectors/index.html.twig', [
             'sectors' => $sectors,
+            'relatedPublications' => $relatedPublications
         ]);
     }
 
@@ -24,7 +26,7 @@ class SectorController extends WebController
     {
         $awards = $awardRepository->getAll();
         $sector = $sectorRepository->getInstanceByRequest($request);
-
+        $key_contacts = $sector->getKeyContacts();
         $relatedCaseStudies = $caseStudyRepository->findByActivities(
             [$sector]
         );
@@ -43,6 +45,7 @@ class SectorController extends WebController
 
         return $this->render('web/sectors/detail.html.twig', [
             'sector' => $sector,
+            'key_contacts' => $key_contacts,
             'relatedCaseStudies' => $relatedCaseStudies,
             'relatedPublications' => $relatedPublications,
             'awards' => $awardsFiltered

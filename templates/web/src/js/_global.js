@@ -3,7 +3,6 @@ web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
         web.global.mobileNav();
-        web.global.loadMiscell();
     },
 
     stickyMenu: function(){
@@ -173,6 +172,7 @@ web.global = {
     },
 
     testimonials: function(){
+        $('.testimonials__wrapper div:nth-child(2)').addClass('selected');
         $('.testimonials__item').hover(function(){
             if ($(this).hasClass('selected')) return;
             $('.selected').removeClass('selected');

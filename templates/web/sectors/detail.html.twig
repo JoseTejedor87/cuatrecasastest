@@ -89,22 +89,22 @@
 
         </article>
     </main>
-    {% if sector.lawyers|length > 0 %}
+    {% if key_contacts|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
             team:sector.translate(app.request.getLocale()).title,
-            lawyers:sector.lawyers|slice(0, 5),
+            lawyers:key_contacts|slice(0, 5),
             fixed_activity:sector.translate(app.request.getLocale()).title
         } %}
     {% endif %}
-
-    {# {% include 'web/shared/related-services.html.twig' %} #}
-    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
-
     {% if relatedCaseStudies|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
+    {% endif %}
+    {% if relatedCaseStudies|length > 1 %}
         {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
     {% endif %}
-
+    {% if awards|length > 2 %}
     {% include 'web/shared/awards.html.twig' with { awards: awards} %}
+    {% endif %}
     {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/cta-footer.html.twig' %}
 

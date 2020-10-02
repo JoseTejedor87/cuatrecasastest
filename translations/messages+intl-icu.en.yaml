@@ -28,6 +28,8 @@ global:
     alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
     show_more: Show more
     show_less: Show less
+    slider_next: Next
+    related_content: Related content
 
 # Sections
 # ###########################################
@@ -187,6 +189,7 @@ reusable_blocks:
     cases:
       title: Cases
       link: View more
+
 ##COOKIES
 ##############################################
 ch_cookie_consent:
@@ -212,3 +215,11 @@ ch_cookie_consent:
     use_all_cookies: 'Allow all cookies'
     show_details: 'Show details'
     hide_details: 'Hide details'
+
+
+
+## BLOCQUE FIRMA
+#################################################
+firma:
+    vision:
+      header_content: Cuatrecasas is a signa ... cliente

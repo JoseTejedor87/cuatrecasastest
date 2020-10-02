@@ -26,7 +26,7 @@
         background-color: $main-color;
         // background-attachment: fixed;
         background-attachment: scroll;
-        background-position: 50% 0;
+        background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -198,6 +198,39 @@
             }
         }
 
+        .article__details {
+
+            .related__content--lawyers {
+                left: 0;
+                margin-top: 1rem;
+            }
+
+            .related__content--services {
+                left: 0;
+                margin-top: 1.5rem;
+
+                @media(max-width: $max-width-4casas) {
+                    margin-top: 0;
+                }
+            }
+
+            &.desktop {
+                display: block;
+
+                @media(max-width: $max-width-4casas) {
+                    display: none;
+                }
+            }
+
+            &.mobile {
+                display: none;
+
+                @media(max-width: $max-width-4casas) {
+                    display: block;
+                }
+            }
+        }
+
         //
         // Modifiers
         // [page__block--aside]
@@ -242,6 +275,10 @@
                         padding-left: 1.2rem;
                         @include fontSet(23px, 27px);
                         color: $main-color;
+
+                        @media(max-width: $max-width-4casas) {
+                            @include fontSet(20px, 25px);
+                        }
 
                         &:before {
                             content: '';
@@ -531,7 +568,7 @@
                 @include reset-list;
 
                 > li {
-                    @include fontSet(22px, 26px);
+                    @include fontSet(23px, 27px);
                     margin-bottom: 1.5rem;
                     color: $main-color;
 
@@ -628,17 +665,9 @@
                         height: 200px;
                     }
                 }
-
-                .article__details {
-                    .btn {
-                        margin-bottom: 1rem;
-                    }
-                }
-
             }
         }
     }
-
 
     //
     // DOBLE BLOCK ASIDE (list, blockquotes, etc...)
@@ -677,12 +706,19 @@
 
         @include has("title") {
             @include fontSet(23px, 23px);
-            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
             text-transform: uppercase;
             color: $main-color;
+            // border-bottom: 1px solid rgba($black, 0.2);
+            box-shadow: 0 1px 0 rgba($black, 0.2);
+
+            @include when("specialties") {
+                border-bottom: 1px solid #eaeaea;
+                box-shadow: 0 1px 0 #d7d7d7;
+            }
 
             &:not(:first-child) {
-                margin-top: 1.5rem;
+                margin-top: 2.5rem;
             }
 
             @media(max-width: $max-width-4casas) {
@@ -704,22 +740,29 @@
             @include when("specialties") {
                 @include reset-list;
 
+                > li {
+                    padding: 0.6rem 0 1.3rem;
+                    border-bottom: 1px solid #eaeaea;
+                    box-shadow: 0 1px 0 #d7d7d7;
+
+                    &:last-child {
+                        border-bottom: 1px solid transparent;
+                        box-shadow: 0 0 0 transparent;
+                    }
+                }
+
                 a {
                     display: block;
                     @include fontSet(23px, 23px);
-                    padding: 0.5rem 1.5rem 1.5rem 0;
                     color: $complementary-color;
-                    box-shadow: 0 -1px 0 rgba($black, 0.2);
-                    transition: box-shadow 0.3s ease-in-out;
+                    transition: all 0.3s ease-in-out;
 
                     @include on-event {
                         text-decoration: none;
-                        box-shadow: 0 -3px 0 $complementary-color;
                     }
 
                     @media(max-width: $max-width-4casas) {
                         @include fontSet(14px, 14px);
-                        padding: 1rem 1rem 1rem 0;
                     }
                 }
             }
@@ -730,24 +773,38 @@
                 > li {
                     display: block;
                     @include fontSet(22px, 24px);
-                    padding: 0.5rem 1.5rem 1.5rem 0;
+                    padding: 1.3rem 0 1rem 0;
                     color: $main-color;
-                    box-shadow: 0 -1px 0 rgba($black, 0.2);
-                    // transition: all 0.3s ease-in-out;
+                    box-shadow: 0 1px 0 rgba($black, 0.1);
 
                     @media(max-width: $max-width-4casas) {
-                        @include fontSet(14px, 14px);
+                        @include fontSet(14px, 16px);
                         padding: 1rem 1rem 1rem 0;
                     }
 
-                    div:first-child {
-                        font-weight: bold;
+                    &:last-child {
+                        box-shadow: 0 0 0 rgba($black, 0);
+                    }
+                }
+            }
+
+            @include when("mentions") {
+
+                > p {
+                    display: block;
+                    @include fontSet(22px, 24px);
+                    margin: 0 0;
+                    padding: 1.3rem 0 1rem 0;
+                    color: $main-color;
+                    box-shadow: 0 1px 0 rgba($black, 0.1);
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(14px, 16px);
+                        padding: 1rem 1rem 1rem 0;
                     }
 
-                    p {
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
+                    &:last-child {
+                        box-shadow: 0 0 0 rgba($black, 0);
                     }
                 }
             }
@@ -851,31 +908,35 @@
                 }
             }
 
-            // ul {
-            //     @include reset-list;
-            //     padding-bottom: 2rem;
-            //     list-style-type: none !important;
+            ul {
+                @include reset-list;
+                padding-bottom: 2rem;
+                list-style-type: none !important;
 
-            //     > li {
-            //         position: relative;
-            //         margin-bottom: 1rem;
-            //         padding-left: 1.2rem;
-            //         @include fontSet(20px, 26px);
-            //         color: $main-color;
+                > li {
+                    position: relative;
+                    margin-bottom: 1rem;
+                    padding-left: 1.2rem;
+                    @include fontSet(33px, 37px);
+                    color: $main-color;
 
-            //         &:before {
-            //             content: '';
-            //             position: absolute;
-            //             top: 8px;
-            //             left: 0;
-            //             display: inline-block;
-            //             width: 8px;
-            //             height: 8px;
-            //             border-radius: 50%;
-            //             background-color: $main-color;
-            //         }
-            //     }
-            // }
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(20px, 25px);
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 8px;
+                        left: 0;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: $main-color;
+                    }
+                }
+            }
 
             .page__event__details {
                 margin-top: 3rem;
@@ -957,6 +1018,306 @@
 
     }
 }
+
+
+//
+// VIDEO BUTTON
+// --------------------------------------------------------------------------
+
+@include new("video__popup") {
+    @include reset-figure;
+    @include box-full-link;
+    @include cover-img();
+    height: 300px;
+    margin-bottom: 2rem;
+
+    @media(max-width: $max-width-4casas) {
+        display: none;
+        height: 200px;
+    }
+
+    @include has("link") {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        color: $complementary-color;
+
+        .material-icons {
+            font-size: 100px;
+            transform: scale(1);
+
+            @media(max-width: $max-width-4casas) {
+                 font-size: 80px;
+            }
+        }
+
+        @include on-event {
+            text-decoration: none;
+            color: $white;
+            transform: scale(1.1);
+        }
+    }
+}
+
+
+//
+// MAP
+// --------------------------------------------------------------------------
+
+@include new("world__offices") {
+
+    @media(max-width: $max-width-4casas) {
+        display: none;
+    }
+
+    @include has("map") {
+        position: relative;
+        width: 100vw;
+        height: 760px;
+        margin-left: -50vw;
+        left: 50%;
+        background-color: #e2edf1;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    @include has("wrapper") {
+        position: relative;
+    }
+
+    @include has("select") {
+        position: absolute;
+        top: -8rem;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 1;
+
+        // SELECTPICKER
+        .btn-custom {
+            padding: 0.719rem 1rem;
+            @include fontSet(23px, 23px);
+            font-weight: 400;
+            color: $complementary-color;
+            background-color: rgba($white, 0.9);
+            border: 2px solid $complementary-color;
+            border-radius: 0;
+
+            &:focus {
+                box-shadow: 0 0 0 0 rgba(255,255,255,0);
+            }
+        }
+
+        .bootstrap-select>.dropdown-toggle.bs-placeholder,
+        .bootstrap-select>.dropdown-toggle.bs-placeholder:active,
+        .bootstrap-select>.dropdown-toggle.bs-placeholder:focus,
+        .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+            @include fontSet(23px, 23px);
+            color: $complementary-color;
+        }
+
+        .bootstrap-select .dropdown-toggle:focus {
+            outline: thin dotted transparent !important;
+            outline: 0 auto -webkit-focus-ring-color!important;
+            outline-offset: 0;
+        }
+
+        .bs-searchbox {
+            padding: 0 0 1rem 1rem;
+
+            .form-control {
+                height: auto;
+                padding: 0.719rem 1rem;
+                @include fontSet(23px, 23px);
+                color: $complementary-color;
+                background-color: transparent;
+                border-color: rgba($black, 0.2);
+
+                &:focus {
+                    color: inherit;
+                    background-color: inherit;
+                    border-color: inherit;
+                }
+
+                &::-webkit-input-placeholder {
+                    color: rgba($black, 0.5);
+                    opacity: 1;
+                }
+                &::placeholder {
+                    color: rgba($black, 0.4);
+                    opacity: 1;
+                }
+                &::-moz-placeholder {
+                    color: rgba($black, 0.5);
+                    opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                    color: rgba($black, 0.5);
+                    opacity: 1;
+                }
+                &::-ms-input-placeholder {
+                    color: rgba($black, 0.5);
+                    opacity: 1;
+                }
+            }
+        }
+
+        .dropdown-menu {
+            max-height: 420px;
+            padding: 1rem 1rem 1rem 0;
+            margin: 0 0;
+            border: 0 solid rgba(0,0,0,0);
+            border-radius: 0;
+            @include fontSet(23px, 23px);
+            font-weight: 400;
+            color: $complementary-color;
+            background-color: rgba($white, 0.9);
+
+            .inner {
+                background-color: transparent;
+                @include scrollbars(6px,0, $white, $complementary-color, #d5d2d2);
+
+            }
+        }
+
+        .dropdown-header {
+            display: block;
+            padding: 0.6rem 1rem;
+            margin-bottom: 0;
+            @include fontSet(33px, 33px);
+            color: $main-color;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            @include fontSet(23px, 23px);
+            font-weight: 400;
+            color: $complementary-color;
+
+            &.active,
+            &:active {
+                color: $white;
+                background-color: $complementary-color;
+
+                @include on-event {
+                    color: $main-color;
+                }
+            }
+
+            @include on-event {
+                color: $main-color;
+                background-color: rgba($black, 0.1);
+            }
+        }
+
+        .dropdown-divider {
+            height: 0;
+            margin: 0 0;
+            overflow: hidden;
+            border-top: 0 solid transparent;
+            margin-bottom: 1.2rem;
+
+            &:first-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .bootstrap-select .dropdown-menu {
+            li {
+                a.opt {
+                    padding-left: 1rem;
+                }
+            }
+        }
+    }
+}
+
+//
+// GOOGLE MAP MARKER
+//
+
+.gm-style > .cluster {
+    outline: none !important;
+
+    @include on-event {
+        outline: none !important;
+    }
+}
+
+.gm-style .gm-style-iw-c {
+    min-width: 360px !important;
+    max-width: 360px !important;
+    padding: 20px;
+    border-radius: 0;
+    // background-color: rgba(255,255,255, 0.9);
+    border-top: 5px solid $complementary-color;
+    box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
+}
+
+.gm-style .gm-style-iw-t::after {
+    display: none !important;
+}
+
+.gm-style .gm-style-iw {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+
+    button {
+        opacity: 1 !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 0 !important;
+        background-color: $complementary-color !important;
+
+        img {
+            display: none !important;
+        }
+
+        &:before {
+            top: 0;
+            left: 0;
+            content: "\e5cd";
+            font-family: Material Icons;
+            @include fontSet(28px, 36px);
+            color: $white;
+        }
+    }
+}
+
+.gm-style .gm-style-iw-d {
+
+    div {
+
+        h5 {
+            @include cuatrecasas-font();
+            margin-bottom: 1rem;
+            @include fontSet(33px, 33px);
+            color: $main-color;
+        }
+
+        h6 {
+            @include cuatrecasas-font();
+            margin-bottom: 1.5rem;
+            @include fontSet(23px, 23px);
+            color: $complementary-color;
+        }
+
+        p {
+            @include cuatrecasas-font();
+            @include fontSet(23px, 23px);
+            color: $main-color;
+        }
+    }
+}
+
+
 
 
 //
@@ -1055,44 +1416,6 @@
             @media(max-width: $max-width-4casas) {
                 display: inline-block;
             }
-        }
-    }
-}
-
-
-@include new("video__popup") {
-    @include reset-figure;
-    @include box-full-link;
-    @include cover-img();
-    height: 300px;
-    margin-bottom: 2rem;
-
-    @media(max-width: $max-width-4casas) {
-        display: none;
-        height: 200px;
-    }
-
-    @include has("link") {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        color: $complementary-color;
-
-        .material-icons {
-            font-size: 100px;
-            transform: scale(1);
-
-            @media(max-width: $max-width-4casas) {
-                 font-size: 80px;
-            }
-        }
-
-        @include on-event {
-            text-decoration: none;
-            color: $white;
-            transform: scale(1.1);
         }
     }
 }

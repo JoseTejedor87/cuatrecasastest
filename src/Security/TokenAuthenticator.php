@@ -48,31 +48,31 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $token = $credentials['token'];
-        if ($token === null) {
-            return;
-        }
+        // $token = $credentials['token'];
+        // if ($token === null) {
+        //     return;
+        // }
         
         $client = new \SoapClient(
             $this->singleSignOnParameters['url'],
             $this->singleSignOnParameters['options']
         );
-        $response  = $client->ValidateSSO([
-            'input' => [
-                'Data'      => $token,
-                'SSOType'   =>  'SSO'
-            ]
-        ]);
+        // $response  = $client->ValidateSSO([
+        //     'input' => [
+        //         'Data'      => $token,
+        //         'SSOType'   =>  'SSO'
+        //     ]
+        // ]);
 
         //dd((array)$response->ValidateSSOResult->Data);
-        if ($response->ValidateSSOResult->Result) {
-            $data = (array)$response->ValidateSSOResult->Data;
-            return $this->em->getRepository(User::class)
-                ->findOneBy(['user_id' => $data['Iniciales']]);
-        }
+        // if ($response->ValidateSSOResult->Result) {
+        //     $data = (array)$response->ValidateSSOResult->Data;
+        //     return $this->em->getRepository(User::class)
+        //         ->findOneBy(['user_id' => $data['Iniciales']]);
+        // }
         
-        // return $this->em->getRepository(User::class)
-        //     ->findOneBy(['user_id' => 'JMM']);
+        return $this->em->getRepository(User::class)
+            ->findOneBy(['user_id' => 'JTEB']);
     }
 
     public function checkCredentials($credentials, UserInterface $user)

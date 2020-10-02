@@ -1,11 +1,15 @@
 {% extends 'web/base.html.twig' %}
 
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
 
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/1920x1080.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -73,9 +77,9 @@
             </section>
 
             {% include 'web/services/shared/products-tools.html.twig' %}
-            {% include 'web/shared/related-content.html.twig' %}
-
-            {% include 'web/shared/insight.html.twig' %}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% endif %}
 
         </article>
     </main>
@@ -86,7 +90,8 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Responsive Tabs -->
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {

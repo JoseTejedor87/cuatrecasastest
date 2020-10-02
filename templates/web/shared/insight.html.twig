@@ -6,57 +6,54 @@
             <div class="col-xl-6">
                 <article class="insight__article">
                     <div class="insight__header">
-                        Insight
+                        {{ 'sections.insights.title'|trans }}
                     </div>
                     <div class="insight__content">
-                        <h3 class="insight__title">                            
+                        <h3 class="insight__title">
                             {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
-                                <p>{{ insight.translate(InsightLanguague).title|raw }}</p>
+                                {{ insight.translate(InsightLanguague).title|raw }}
                             {% else %}
                                 Women in Business
                             {% endif %}
                         </h3>
                         <a href="#" class="insight__link">
                             {% if insight is defined and insight.translate(InsightLanguague).description != '' %}
-                                <p>{{ insight.translate(InsightLanguague).description|raw }}</p>
+                                {{ insight.translate(InsightLanguague).description|raw }}
                             {% else %}
                                 Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
-                            {% endif %}                        
+                            {% endif %}
                         </a>
                     </div>
+
+                    {% if insight is defined %}
                     <div class="insight__meta">
                         <ul class="related__content related__content--lawyers">
-                            {% if insight is defined  %}
-                                {% for lawyer in insight.lawyers %}
-                                    <li class="related__content__item">
-                                        <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
-                                            {{ lawyer.name }}
-                                            {{ lawyer.surname }}
-                                        </a>
-                                    </li>
-                                {% endfor %}                                
-                            {% else %}
-                                    
-                            {% endif %} 
-                        </ul>    
-
-                        <ul class="related__services">
-                        {% if insight is defined  %}
-                            {% for activity in insight.activities %}
-                                <li class="related__services__item">
-                                {% set path_string = get_pathda(activity)|trans %}                              
-                                    <a href="{{ path(path_string, { slug: activity.translate(InsightLanguague).slug }) }}" class="related__content__link">
-                                        {{ activity.translate(InsightLanguague).title | upper}}
+                            {% for lawyer in insight.lawyers %}
+                                <li class="related__content__item">
+                                    <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
+                                        {{ lawyer.name }}
+                                        {{ lawyer.surname }}
                                     </a>
                                 </li>
                             {% endfor %}
-                        {% else %}
-                                
-                        {% endif %}                         
+                        </ul>
+                        <ul class="related__services">
+                        {% for activity in insight.activities %}
+                            <li class="related__services__item">
+                            {% set path_string = get_pathda(activity)|trans %}
+                                <a href="{{ path(path_string, { slug: activity.translate(InsightLanguague).slug }) }}" class="related__content__link">
+                                    {{ activity.translate(InsightLanguague).title | upper}}
+                                </a>
+                            </li>
+                        {% endfor %}
                         </ul>
                     </div>
+                    {% endif %}
+
                 </article>
             </div>
+
+
             <div class="col-xl-6">
                 <a href="#" class="box__link">
                     <figure class="insight__vector" style="background-image: url('{{ asset('web/assets/vector/insight-bg.png') }}')">

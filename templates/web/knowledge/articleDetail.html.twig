@@ -46,8 +46,7 @@
                     <div class="page__block__title page__block__title--article">
                         <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
                         <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
-
-                        <div class="article__details">
+                        <div class="article__details desktop">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
                                 <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
@@ -56,11 +55,9 @@
                                 </a>
                                 {% endif %}
                             {% endfor %}
-
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item">
-                                    
                                      {% if person.lawyer %}
                                         <a href="/abogados/{{ person.lawyer.slug  }}" class="related__content__link">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
@@ -70,13 +67,12 @@
                                         {{ person.name }} {{ person.surname }}
                                         </a>
                                     {% endif %}
-                                    
                                 </li>
                             {% endfor %}
                             </ul>
                             <ul class="related__content related__content--services">
                              {% for activity in publication.activities %}
-                                {% set path_string = get_pathda(activity)|trans %}                              
+                                {% set path_string = get_pathda(activity)|trans %}
                                 <li class="related__services__item">
                                     <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
                                         {{ activity.translate(app.request.getLocale()).title|raw}}
@@ -91,9 +87,43 @@
                             {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
                         <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
-
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
+                        </div>
+                        <div class="article__details mobile">
+                            {% for attachment in attachmentPublished %}
+                                {% if attachment.type == 'article_dossier'%}
+                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    Descarga el dossier
+                                    <span class="icon4-download"></span>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                            <ul class="related__content related__content--lawyers">
+                             {% for person in publication.people %}
+                                <li class="related__content__item">
+                                     {% if person.lawyer %}
+                                        <a href="/abogados/{{ person.lawyer.slug  }}" class="related__content__link">
+                                        {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                        </a>
+                                    {% else %}
+                                        <a href="#" class="related__content__link">
+                                        {{ person.name }} {{ person.surname }}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            <ul class="related__content related__content--services">
+                             {% for activity in publication.activities %}
+                                {% set path_string = get_pathda(activity)|trans %}
+                                <li class="related__services__item">
+                                    <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -102,8 +132,8 @@
         </article>
     </main>
 
-    {% if relatedPublications %}
-        {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
     {% include 'web/shared/insight.html.twig' %}
     {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
@@ -114,6 +144,7 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>

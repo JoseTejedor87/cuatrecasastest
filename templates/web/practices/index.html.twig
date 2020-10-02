@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -89,7 +88,9 @@
     </main>
 
 
-    {% include 'web/shared/related-content-slider.html.twig' with {publications: relatedPublications } %}
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
