@@ -3,10 +3,11 @@ _web-cuatrecasas.sublime-project
 _web-cuatrecasas.sublime-workspace
 
 ###> symfony/framework-bundle ###
+/.env
+/public/web.config
 /.env.local
 /.env.local.php
 /.env.*.local
-/public/bundles/
 /node_modules/
 /var/
 /vendor/

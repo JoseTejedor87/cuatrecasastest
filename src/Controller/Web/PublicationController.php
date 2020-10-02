@@ -22,7 +22,13 @@ class PublicationController extends WebController
         $attachmentPublished = [];
         foreach($publication->getAttachments() as $attachment)
         {
-            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+            //dd($attachment);
+            if($attachment->getType() == 'publication_main_photo' ||  $attachment->getType() == 'article_main_photo'){
+
+                $publication->photo = $attachment->getFileName();
+            }
+
+                if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
                 array_push($attachmentPublished,$attachment);
         }
 

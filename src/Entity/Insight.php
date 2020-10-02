@@ -304,7 +304,7 @@ class Insight extends Publishable
         $this->home = $home;
 
         return $this;
-    } 
+    }
 
 
 }

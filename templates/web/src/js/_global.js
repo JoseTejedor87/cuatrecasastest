@@ -178,74 +178,7 @@ web.global = {
             $('.selected').removeClass('selected');
             $(this).addClass('selected');
         });
-    },
-
-    /* BORRAR
-    // ACTIVAR EN CADA PAGE >>> sliderGeneral & sliderCases
-    // VER PAGE COMPONENTES */
-    /*
-
-    sliderHome: function(){
-        var swiperHome = new Swiper ('#sliderHome', {
-            slidesPerView: 1,
-            spaceBetween: 0,
-            loop: true,
-            // grabCursor: true,
-            speed: 800,
-            allowSlidePrev: false,
-            allowTouchMove: false,
-            // autoplay: {
-            //     delay: 5000,
-            // },
-            navigation: {
-                nextEl: '.home__preview__button'
-            }
-        });
-    },
-
-    sliderGeneral: function(){
-        var swiperGeneral = new Swiper ('.slider__general', {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            // loop: true,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            }
-        });
-    },
-
-    sliderCases: function(){
-        var swiperCases = new Swiper ('#sliderCases', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: true,
-            grabCursor: true
-        });
-    },
-
-    sliderAwards: function(){
-        var swiperAwards = new Swiper ('#sliderAwards', {
-            slidesPerView: 1,
-            spaceBetween: 0,
-            centeredSlides: true,
-            loop: true,
-            grabCursor: true,
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 60,
-                },
-            }
-        });
     }
-
-    */
-    // END BORRAR
-
 }
 
 // Run the global stuff

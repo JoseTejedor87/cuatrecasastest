@@ -39,14 +39,13 @@ class Quote extends Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Home", inversedBy="quotes")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $home;    
+    private $home;
 
     public function __construct()
     {
         $this->activities = new ArrayCollection();
         $this->caseStudy = new ArrayCollection();
     }
-
 
     public function getAuthor(): ?string
     {
@@ -138,7 +137,9 @@ class Quote extends Item
         $this->home = $home;
 
         return $this;
-    }
+    }    
+
+ 
 
    
 }

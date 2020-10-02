@@ -3,8 +3,15 @@
 namespace App\Repository;
 
 use App\Entity\Home;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+//use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Home|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +19,27 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Home[]    findAll()
  * @method Home[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class HomeRepository extends ServiceEntityRepository
+// class HomeRepository extends ServiceEntityRepository
+class HomeRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
+    /*
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Home::class);
+    }
+    */
+
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
+    {
+        parent::__construct($registry, $navigation, Home::class);
+    }    
+
+    public function getInstanceByRequest(Request $request)
+    {
+        if ($slug = $request->attributes->get('id')) {
+            return $this->findOneBy(['id' => $slug]);
+        }
+        return null;
     }
 
     // /**

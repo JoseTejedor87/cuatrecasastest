@@ -4,62 +4,62 @@ gestorgetpaises:
     path:
         en:   /gestor/getpaises
         es:   /gestor/getpaises
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getPaises
 gestorgetProvincias:
     path:
         en:   /gestor/getProvincias
         es:   /gestor/getProvincias
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getProvincias
 gestorgetIdiomas:
     path:
         en:   /gestor/getIdiomas
         es:   /gestor/getIdiomas
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getIdiomas
 gestorgetAreasInteres:
     path:
         en:   /gestor/getAreasInteres
         es:   /gestor/getAreasInteres
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getAreasInteres
 gestorgetOficinas:
     path:
         en:   /gestor/getOficinas
         es:   /gestor/getOficinas
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getOficinas
 gestorgetSecretarias:
     path:
         en:   /gestor/getSecretarias
         es:   /gestor/getSecretarias
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getSecretarias
 gestorgetResponsablesMarketing:
     path:
         en:   /gestor/getResponsablesMarketing
         es:   /gestor/getResponsablesMarketing
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getResponsablesMarketing
 gestorgetSociosResponsables:
     path:
         en:   /gestor/getSociosResponsables
         es:   /gestor/getSociosResponsables
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getSociosResponsables
 gestorgetContactoWebtForm:
     path:
         en:   /gestor/getContactoWebtForm
         es:   /gestor/getContactoWebtForm
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\TestController::getContactoWebtForm
 
 # HOME
 # ###########################################
 home:
     path: /
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
 components:
@@ -68,7 +68,7 @@ components:
         es:   /componentes
         pt:   /components
         ge:   /componentes
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\HomeController::components
 
 userSettings:
@@ -77,7 +77,7 @@ userSettings:
         es:   /preferencias-usuario
         pt:   /user-settings
         ge:   /preferencias-usuario
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\HomeController::userSettings
 
 institutoRRHH:
@@ -86,7 +86,7 @@ institutoRRHH:
         es:   /instituto-estrategia-legal-rrhh
         pt:   /instituto-estrategia-legal-rrhh
         ge:   /instituto-estrategia-legal-rrhh
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\HomeController::institutoRRHH
 
 politicaCookies:
@@ -95,7 +95,7 @@ politicaCookies:
         es:   /politica-de-cookies
         pt:   /cookies-policy
         ge:   /cookies-policy
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\HomeController::politicaCookies
 
 
@@ -107,7 +107,7 @@ knowledge_index:
         es:   /conocimiento
         pt:   /knowledge
         ge:   /conocimiento
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\KnowledgeController::index
 
 
@@ -119,7 +119,7 @@ sectors_index:
         es:   /sectores
         pt:   /sectors
         ge:   /sectores
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\SectorController::index
 
 sectors_detail:
@@ -128,7 +128,7 @@ sectors_detail:
        es:   /sectores/{slug}
        pt:   /sectors/{slug}
        ge:   /sectores/{slug}
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\SectorController::detail
 
 # Case Studies
@@ -139,7 +139,7 @@ case_studies_detail:
         es:   /casos/{slug}
         pt:   /cases/{slug}
         ge:   /cases/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\CaseStudyController::detail
 
 # Services
@@ -150,7 +150,7 @@ services_index:
         es:   /servicios
         pt:   /services
         ge:   /services
-    methods:    GET
+    methods:    GET|POST
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
     defaults:
         route: practices_index
@@ -164,7 +164,7 @@ practices_index:
         es:   /areas-de-practica
         pt:   /practice-areas
         ge:   /practice-areas
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PracticeController::index
 
 practices_detail:
@@ -173,7 +173,7 @@ practices_detail:
        es:   /areas-de-practica/{slug}
        pt:   /practice-areas/{slug}
        ge:   /practice-areas/{slug}
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\PracticeController::detail
 
 # Desks
@@ -184,7 +184,7 @@ desks_index:
        es:   /desks
        pt:   /desks
        ge:   /desks
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\DeskController::index
 
 desks_detail:
@@ -193,7 +193,7 @@ desks_detail:
        es:   /desks/{slug}
        pt:   /desks/{slug}
        ge:   /desks/{slug}
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\DeskController::detail
 
 # Products
@@ -204,7 +204,7 @@ products_index:
         es:   /otros-servicios
         pt:   /other-services
         ge:   /other-services
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\ProductsController::index
 
 products_detail:
@@ -213,7 +213,7 @@ products_detail:
        es:   /otros-servicios/{slug}
        pt:   /other-services/{slug}
        ge:   /other-services/{slug}
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\ProductsController::detail
 
 # Events
@@ -233,7 +233,7 @@ events_detail:
        es:   /eventos/{slug}
        pt:   /events/{slug}
        ge:   /events/{slug}
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\EventController::detail
 
 get_events:
@@ -242,7 +242,7 @@ get_events:
        es:   /get_events_ajax
        pt:   /get_events_ajax
        ge:   /get_events_ajax
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionEvent
 
 set_event_contact:
@@ -251,7 +251,7 @@ set_event_contact:
        es:   /set_contact_ajax
        pt:   /set_contact_ajax
        ge:   /set_contact_ajax
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionContact
 
 get_regions:
@@ -260,7 +260,7 @@ get_regions:
        es:   /get_regions
        pt:   /get_regions
        ge:   /get_regions
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionRegions
 
 # Lawyers
@@ -280,7 +280,7 @@ lawyers_detail:
         es:     /abogados/{slug}
         pt:     /lawyers/{slug}
         ge:     /lawyers/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\LawyerController::detail
 
 lawyers_vcard_download:
@@ -289,7 +289,7 @@ lawyers_vcard_download:
         es:   /abogados/{id}/descarga
         pt:   /lawyers/{id}/download/
         ge:   /lawyers/{id}/download/
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\LawyerController::download
 
 # Insights
@@ -300,7 +300,7 @@ insights_detail:
         es:     /insights/{slug}
         pt:     /insights/{slug}
         ge:     /insights/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\InsightController::detail
 
 # Offices
@@ -311,7 +311,7 @@ offices_index:
         es:     /oficinas/{slug}
         pt:     /offices/{slug}
         ge:     /offices/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\OfficeController::detail
 
 offices_detail:
@@ -320,7 +320,7 @@ offices_detail:
         es:     /oficinas/{slug}
         pt:     /offices/{slug}
         ge:     /offices/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\OfficeController::detail
 
 # Pages
@@ -331,7 +331,7 @@ pages_detail:
         es:     /p/{slug}
         pt:     /p/{slug}
         ge:     /p/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 # Publication
@@ -342,7 +342,7 @@ publications_detail:
         es:   /articulo/{slug}
         pt:   /article/{slug}
         ge:   /article/{slug}
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PublicationController::detail
 
 # REGIONS
@@ -354,7 +354,7 @@ regions_vision:
         es:   /p/vision-general
         pt:   /p/vision-general-1
         ge:   /p/vision-general-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_espana:
@@ -363,7 +363,7 @@ regions_espana:
         es:   /p/espana
         pt:   /p/espana-1
         ge:   /p/espana-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_portugal:
@@ -372,7 +372,7 @@ regions_portugal:
         es:   /p/portugal
         pt:   /p/portugal-1
         ge:   /p/portugal-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_latam:
@@ -381,7 +381,7 @@ regions_latam:
         es:   /p/latinoamerica
         pt:   /p/latinoamerica-1
         ge:   /p/latinoamerica-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_other_regions:
@@ -390,7 +390,7 @@ regions_other_regions:
         es:   /p/other-regions
         pt:   /p/other-regions-1
         ge:   /p/other-regions-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 #############################################################
@@ -401,7 +401,7 @@ detail_office:
         es:   /territorios/detalle-oficina
         pt:   /regions/office-detail
         ge:   /regions/office-detail
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\RegionsController::detailOffice
 
 detail_others:
@@ -410,7 +410,7 @@ detail_others:
         es:   /territorios/detalle-otros
         pt:   /regions/office-others
         ge:   /regions/office-others
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\RegionsController::detailOthers
 
 
@@ -423,7 +423,7 @@ firm_vision:
         es:   /p/firm-vision-general
         pt:   /p/firm-vision-general-1
         ge:   /p/firm-vision-general-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_social:
@@ -432,7 +432,7 @@ firm_social:
         es:   /p/social
         pt:   /p/social-1
         ge:   /p/social-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 firm_environment:
     path:
@@ -440,7 +440,7 @@ firm_environment:
         es:   /p/medio-ambiente
         pt:   /p/medio-ambiente-1
         ge:   /p/medio-ambiente-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_governance:
@@ -449,7 +449,7 @@ firm_governance:
         es:   /p/buen-gobierno
         pt:   /p/buen-gobierno-1
         ge:   /p/buen-gobierno-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_innovation:
@@ -458,7 +458,7 @@ firm_innovation:
         es:   /p/innovacion
         pt:   /p/innovacion-1
         ge:   /p/innovacion-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_mediaCenter:
@@ -467,7 +467,7 @@ firm_mediaCenter:
         es:   /p/centro-de-medios
         pt:   /p/centro-de-medios-1
         ge:   /p/centro-de-medios-1
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 # API-PUBLICATIONS
@@ -476,14 +476,14 @@ publications-api:
     path:
         en:   /publications-api/posts
         es:   /publications-api/posts
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\APIController::posts
 
 publications-api-media:
     path:
         en:   /publications-api/media
         es:   /publications-api/media
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\APIController::media
 
 # TEMPORAL (BORRAR)
@@ -494,7 +494,7 @@ productDetailServices:
         es:   /producto-servicio
         pt:   /product-service
         ge:   /product-service
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\ServicesController::productDetailServices
 
 fiscal:
@@ -503,7 +503,7 @@ fiscal:
         es:   /fiscal
         pt:   /fiscal
         ge:   /fiscal
-    methods:    GET
+    methods:    GET|POST
     controller: App\Controller\Web\ServicesController::fiscal
 
 events_detail2:
@@ -512,5 +512,6 @@ events_detail2:
        es:   /evento
        pt:   /event
        ge:   /event
-   methods:    GET
+   methods:    GET|POST
    controller: App\Controller\Web\KnowledgeController::detail2
+

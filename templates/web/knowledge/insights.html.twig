@@ -330,33 +330,12 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<!-- Checkbox Filters -->
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
-<!-- Masonry JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
-
 <script>
     $(function () {
-        // SLIDER
-        var swiperGeneral = new Swiper('.slider__general', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            allowTouchMove: true,
-            grabCursor: true,
-            scrollbar: {
-                el: '.swiper-scrollbar',
-                draggable: true
-            },
-            breakpoints: {
-                1199: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-            }
-        });
-
         // GRID
         var masonryOptions = {
             itemSelector: '.grid__item',
@@ -509,7 +488,7 @@
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
                     if(style[i] != "grid__item--normal"){
-                        item.find( ".boxnews__img" ).css("background-image", "url("+publication['photo']+")");
+                        item.find( ".boxnews__img" ).css("background-image", "url('" + publication['photo']+ "' )");
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }

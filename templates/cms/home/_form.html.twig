@@ -15,6 +15,8 @@
                     {{ form_row(form.showInsight) }}
                     {{ form_row(form.showCarrerBlock) }}
                     {{ form_row(form.showQuoteBlock) }}
+                    {{ form_row(form._token) }}
+                    {{ form_row(form.urlUserSetting) }}
                 </div>
             </div>
             <div class="col-md-6">
@@ -26,21 +28,9 @@
                 </div>
             </div>
         </div>
-{#
-        <div class="row">
-            <div class="col-md-12">
-                <div class="m-form__section m-form__section">
-                    {{ form_row(form.mentions) }}
-                    {{ form_row(form.trainings) }}
-                </div>
-            </div>
-        </div>
-#}
-
     </div>
 
-    <div class="col-md-4 offset-md-1">
-      
+    <div class="col-md-4 offset-md-1">    
 
         <div class="m-form__section m-form__section">
             <div class="m-form__heading">
@@ -63,11 +53,11 @@
             </div>
 
             {{ form_row(form.metaRobots) }}
+              {{ form_row(form.published) }}
         </div>
 
     </div>
 
-    
 
     {{ form_rest(form) }}
 

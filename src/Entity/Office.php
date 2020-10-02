@@ -93,6 +93,17 @@ class Office extends Publishable
     private $sap;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lng;
+
+
+    /**
      * @Gedmo\Slug(fields={"city", "address"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
@@ -415,6 +426,30 @@ class Office extends Publishable
             $this->publication->removeElement($publication);
             $publication->removeOffice($this);
         }
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(string $lng): self
+    {
+        $this->lng = $lng;
 
         return $this;
     }

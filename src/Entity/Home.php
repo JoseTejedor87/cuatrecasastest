@@ -12,7 +12,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Home extends Publishable
 {
-    //use ORMBehaviors\Translatable\Translatable;
+
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $urlUserSetting;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -29,7 +34,7 @@ class Home extends Publishable
      */
     private $showInsight;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home" , cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Insight", mappedBy="home",  cascade={"persist"} )
      */
     private $insights;  
 
@@ -41,17 +46,18 @@ class Home extends Publishable
 
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private $showQuoteBlock;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home" , cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Quote", mappedBy="home",  cascade={"persist"} )
      */
     private $quotes;  
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home" , cascade={"persist"})
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showQuoteBlock;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Brand", mappedBy="home",  cascade={"persist"} )
      */
     private $brand;
 
@@ -60,6 +66,12 @@ class Home extends Publishable
         $this->insights = new ArrayCollection();
         $this->quotes = new ArrayCollection();
         $this->brand = new ArrayCollection();
+    }
+
+    public function addCollections($collArray, $home){
+        foreach( $collArray as $item){
+            $item->setHome($home);
+        }
     }
 
     public function getShowSearchBlock(): ?bool
@@ -153,36 +165,6 @@ class Home extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Quote[]
-     */
-    public function getQuotes(): Collection
-    {
-        return $this->quotes;
-    }
-
-    public function addQuote(Quote $quote): self
-    {
-        if (!$this->quotes->contains($quote)) {
-            $this->quotes[] = $quote;
-            $quote->setHome($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuote(Quote $quote): self
-    {
-        if ($this->quotes->contains($quote)) {
-            $this->quotes->removeElement($quote);
-            // set the owning side to null (unless already changed)
-            if ($quote->getHome() === $this) {
-                $quote->setHome(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Brand[]
@@ -214,5 +196,50 @@ class Home extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Quote[]
+     */
+    public function getQuotes(): Collection
+    {
+        return $this->quotes;
+    }
+
+    public function addQuote(Quote $quote): self
+    {
+        if (!$this->quotes->contains($quote)) {
+            $this->quotes[] = $quote;
+            $quote->setHome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): self
+    {
+        if ($this->quotes->contains($quote)) {
+            $this->quotes->removeElement($quote);
+            // set the owning side to null (unless already changed)
+            if ($quote->getHome() === $this) {
+                $quote->setHome(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUrlUserSetting(): ?string
+    {
+        return $this->urlUserSetting;
+    }
+
+    public function setUrlUserSetting(string $urlUserSetting): self
+    {
+        $this->urlUserSetting = $urlUserSetting;
+
+        return $this;
+    }
+
+ 
 
 }
