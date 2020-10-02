@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LegislacionRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LegislationRepository")
  */
 class Legislation extends Item
 {
