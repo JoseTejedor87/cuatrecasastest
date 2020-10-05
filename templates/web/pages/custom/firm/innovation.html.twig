@@ -62,23 +62,24 @@
                 </div>
             </section>
 
-            <section class="row page__block--regions">
+            <section class="row page__block--centered">
                 <div class="col">
-                    <p>Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente </p>
+                    <p>{{ 'firm.innovation.header_content' |trans}}</p>
                 </div>
             </section>
 
-            {% include 'web/shared/flipboxes-intro_CMP.html.twig' %}
-            {% include 'web/shared/info-title.html.twig' %}
-            {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/insight.html.twig' %}
-            {% include 'web/shared/overview-diversity.html.twig' %}
-            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-            {% include 'web/shared/info-acelera.html.twig' %}
-            {% include 'web/shared/awards_CMP.html.twig' %}
-            {% include 'web/shared/cta-corporative_CMP.html.twig' %}
-
         </article>
+
+        {% include 'web/shared/innovation-resources.html.twig' %}
+        {% include 'web/shared/info-innovation.html.twig' %}
+        {% include 'web/shared/cases-innovation.html.twig' %}
+        {% include 'web/shared/insight-innovation.html.twig' %}
+        {% include 'web/shared/overview-innovation.html.twig' %}
+        {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
+        {% include 'web/shared/info-acelera.html.twig' %}
+        {% include 'web/shared/awards_CMP.html.twig' %} {# no info #}
+        {% include 'web/shared/cta-corporative_YML.html.twig' %}
+
     </main>
 
     {% include 'web/shared/cta-footer.html.twig' %}

@@ -14,6 +14,11 @@ $(function () {
                 spaceBetween: 25,
             },
         },
+        on: {
+            init: function () {
+                /* do something */
+            },
+        }
         // on: {
         //     resize: function () {
         //         alert('rezize');

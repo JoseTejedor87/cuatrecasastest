@@ -6,12 +6,40 @@
     .team {
         padding: 4rem 0 2rem;
     }
+    .insights__header:before {
+        background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}');
+    }
 </style>
 {% endblock %}
 {% block main %}
 <main role="main">
     <article class="container">
-        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/cabecera_1920x1080_04_baja.jpg') }}')">
+        <header class="row insights__header">
+            <div class="col-md-7 insights__header__info">
+                <h1 class="page__title">Componentes</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('knowledge_index') }}">{{ 'sections.knowledge.title'|trans }}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ 'sections.insights.title'|trans }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-5 insights__header__share">
+                <ul class="action__links">
+                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/cabecera_1920x1080_04_baja.jpg') }}')">
             <div class="col">
                 <div class="info__block">
                     <h1 class="page__title">
@@ -34,7 +62,7 @@
                     <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                 </ul>
             </div>
-        </header>
+        </header> -->
     </article>
 </main>
 <div class="container cmp-wrapper">
