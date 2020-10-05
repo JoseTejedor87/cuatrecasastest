@@ -1,22 +1,4 @@
 $(function () {
-    // var swiperGeneral = new Swiper('.slider__general', {
-    //     init: false,
-    //     slidesPerView: 1,
-    //     spaceBetween: 20,
-    //     allowTouchMove: false,
-    //     grabCursor: false,
-    //     scrollbar: {
-    //         el: '.swiper-scrollbar',
-    //         draggable: true
-    //     },
-    //     breakpoints: {
-    //         992: {
-    //             slidesPerView: 3,
-    //             spaceBetween: 25,
-    //         },
-    //     }
-    // });
-
     var sliderArticles = new Swiper('#sliderArticles', {
         init: false,
         slidesPerView: 1,
