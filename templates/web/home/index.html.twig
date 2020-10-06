@@ -2,6 +2,8 @@
 
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- Video Popup -->
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -43,7 +45,7 @@
     {% endif %}
 
     {% if home.showCarrerBlock %}
-        {% include 'web/shared/career.html.twig' %}
+        {% include 'web/shared/career.html.twig' with { career: careerBlock}    %}
     {% endif %}
 
     {% if home.brand[0] is defined %}
@@ -67,6 +69,8 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
     web.global.customSelects();
     web.global.testimonials();

@@ -1,5 +1,5 @@
 
-<!--  <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="NBC Universal"> -->
+<!--  <img src="{#{ asset('/resources/' ~ article.photo)| imagine_filter('lawyers_header') }#}" alt="NBC Universal"> -->
 <figure class="video__popup" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
     <a href="{{ article.urlVideo|raw }}" data-lity class="video__popup__link">
         <span class='material-icons'>play_circle_outline</span>

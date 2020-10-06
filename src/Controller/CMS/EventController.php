@@ -46,7 +46,7 @@ class EventController extends CMSController
     }
 
     private function filter(Request $request){
-        $formForFilter = $this->createFormBuilder(array())
+        $formForFilter = $this->createFormBuilder(array(),[ 'translation_domain' => 'admin'])
             ->setMethod('GET')
             ->add('title', TextType::class, ['required' => false, 'label' => false ])
             ->add('eventType', EventCategoryType::class, ['required' => false,'label'=> false ])

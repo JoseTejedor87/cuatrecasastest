@@ -36,6 +36,8 @@ class PagesController extends WebController
             }
         }
 
+        //dd($page->getBlocks()[0]);
+
         return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
             'officesMapa' => isset($officeATest) ? json_encode($officeATest)  : '',
             'officesMapaLabel' => isset($officeA) ? json_encode($officeA)  : '',

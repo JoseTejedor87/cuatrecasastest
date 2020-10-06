@@ -176,7 +176,14 @@ sections:
         title: Home New
       edit:
         title: Editar Home
-      
+  blocks:
+      index:
+        title: Bloques generales
+      new:
+        title: Nuevo Bloque
+      edit:
+        title: Editar Bloque          
+
 # Menu
 # ###########################################
 menu:
@@ -289,7 +296,7 @@ entities:
       people: Personas
   eventsBlock:
     fields:
-      activities: Filtrar eventos etiquetados con
+      events: Selecciona el Evento
       eventType: Tipo de Evento
       numberOfEvents: Cantidad de eventos a mostrar
   insight:
@@ -356,6 +363,18 @@ entities:
     fields:
       title: Título
       blocks: Bloques
+  generalBlock:
+    fields:
+      title: Título
+      subtitle: Subtitulo ( opcional )
+      content:  Contenido ( opcional )
+      name: Nombre para Identificar ( no se muestra en el contenido )
+      blocks: Bloques de contenido a añadir
+  publicationBlock:
+    fields:
+      publicationType: Tipo de Publicación
+      numberOfPublication: Cantidad de Publicaciones
+      publication: Elegir publicacion
   practice:
     fields:
       children: Subáreas
@@ -454,6 +473,12 @@ forms:
       webinar: Webinar
       breakfast: Desayuno
       institutional: Institucional
+    publicationCategoryTypes:
+      opinion: Opinion
+      news: Noticia
+      academy: Academia
+      legalNovelty: Legal Novelty
+
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero
