@@ -25,6 +25,12 @@ abstract class Block extends Item
      */
     private $page;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\GeneralBlock", inversedBy="blocks")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $generalBlock;    
+
     abstract public function getBlockType(): ?string;
 
     public function getPosition(): ?int
@@ -47,6 +53,18 @@ abstract class Block extends Item
     public function setPage(?Page $page): self
     {
         $this->page = $page;
+        return $this;
+    }
+
+    public function getGeneralBlock(): ?GeneralBlock
+    {
+        return $this->generalBlock;
+    }
+
+    public function setGeneralBlock(?GeneralBlock $generalBlock): self
+    {
+        $this->generalBlock = $generalBlock;
+
         return $this;
     }
 }

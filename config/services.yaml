@@ -37,12 +37,14 @@ parameters:
     app.insight_header_types:
         - full_width
         - two_columns
+    
     app.publications_types:
         - news
         - opinion
         - academy
         - legalNovelty
-        - video
+
+    
     app.publications_format:
         - text
         - video

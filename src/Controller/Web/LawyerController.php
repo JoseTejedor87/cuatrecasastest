@@ -24,7 +24,7 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-
+use App\Repository\GeneralBlockRepository;
 
 class LawyerController extends WebController
 {
@@ -42,12 +42,14 @@ class LawyerController extends WebController
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
-            'contextualBlocks' => $contextualBlocks,
+            'contextualBlocks' => $contextualBlocks
         ]);
     }
 
-    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository)
+    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository,
+     PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,  GeneralBlockRepository $generalBlockRepository)
     {
+        $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
         $offices = $OfficeRepository->findAll();
@@ -177,6 +179,7 @@ class LawyerController extends WebController
                 'offices' => $offices,
                 'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
+                'career' => $blockCareer
             ]);
         }
     }

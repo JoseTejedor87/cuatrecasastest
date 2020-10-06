@@ -13,13 +13,15 @@ use App\Repository\PublicationRepository;
 use App\Repository\BannerRepository;
 use App\Repository\SliderRepository;
 use App\Repository\HomeRepository;
+use App\Repository\GeneralBlockRepository;
 use App\Controller\Web\WebController;
 
 
 class HomeController extends WebController
 {
     public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository,
-             PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository, HomeRepository $homeRepository )
+             PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository,
+              HomeRepository $homeRepository, GeneralBlockRepository $generalBlockRepository )
     {
         $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
         //$slidesOrdered = $sliderRepository->findBy(['banners' => $bannerHome->getId()], ['priority' => 'ASC']);
@@ -30,14 +32,14 @@ class HomeController extends WebController
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $relatedPublications = $publicationRepository->findByActivities('');
 
-
+        $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         /*
         foreach($home->getInsights()[0]->getActivities() as $item){
             print_r($item->translate('es')->getTitle()); die();
         }
         */
 
-        // dd(get_class($home->getInsights()[0]->getActivities()[0]));
+        //  dd($blockCareer->getBlocks()[0]);      //->getInsights()[0]->getActivities()[0]));
 /*
         $strClass = get_class($home->getInsights()[0]->getActivities()[0]);
         $arr = explode("\\",$strClass);
@@ -52,7 +54,8 @@ class HomeController extends WebController
             'relatedPublications' => $relatedPublications,
             'banner' => $bannerHome,
             'slidesOrdered' => $slidesOrdered,
-            'home' => $home
+            'home' => $home,
+            'careerBlock' => $blockCareer
         ]);
     }
 
