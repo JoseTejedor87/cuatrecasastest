@@ -247,8 +247,21 @@
 
 
 //
-// VIEW MORE ACCORDION (ARROW SYMBOL)
+// SHOW / HIDE ACCORDION (ARROW SYMBOL)
 // --------------------------------------------------------------------------
+
+#filtersButton {
+    display: none;
+
+    @media(max-width: $max-width-4casas) {
+        display: flex;
+        justify-content: center;
+    }
+
+    @include when-inside("#filterWrapper") {
+        margin-bottom: 1rem;
+    }
+}
 
 .doble__arrow__accordion {
     @include accordion-button($complementary-color, $main-color);
@@ -424,8 +437,9 @@
     position: relative;
     height: 50px;
     padding: 0 4.2rem 0 1rem;
-    @include fontSet(23px, 47px);
+    @include fontSet(23px, 50px);
     letter-spacing: 0.7px;
+    text-decoration: none;
     color: $complementary-color;
     background-color: transparent;
     outline: 1px solid $complementary-color;
@@ -485,6 +499,7 @@
     }
 
     @include on-event() {
+        text-decoration: none;
         color: $white;
         background-color: $complementary-color;
         outline: 1px solid $complementary-color;

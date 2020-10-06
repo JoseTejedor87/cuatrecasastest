@@ -1063,6 +1063,103 @@
 
 
 //
+// DOBLE HEADER & ERRORS
+// --------------------------------------------------------------------------
+
+@include new("doble__header") {
+    position: relative;
+    color: $white;
+    background-color: $main-color;
+
+    &:before {
+        @include reset-pseudo($main-color);
+        width: 100vw;
+        margin-left: -50vw;
+        z-index: -1;
+    }
+
+    &:after {
+        @include reset-pseudo($main-color);
+        width: 100vw;
+        margin-right: -50vw;
+        z-index: -1;
+    }
+
+    @include has("content") {
+        padding-top: 4rem;
+        padding-right: 6rem;
+        padding-bottom: 10rem;
+        min-height: 39rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-top: 2rem;
+            padding-right: 15px;
+            padding-bottom: 3rem;
+            min-height: auto;
+        }
+
+        @include when("error404") {
+            .page__title {
+                margin-bottom: 0;
+
+                &:first-child {
+                    color: $complementary-color;
+                }
+            }
+
+            p {
+                margin: 2rem 0 4rem;
+                @include fontSet(23px, 27px);
+                letter-spacing: 0.4px;
+                color: $white;
+
+                @media(max-width: $max-width-4casas) {
+                    margin: 1rem 0 2rem;
+                    @include fontSet(18px, 25px);
+                    letter-spacing: 0;
+                }
+            }
+
+            .btn__viewmore {
+                padding: 0 8rem 0 1rem;
+            }
+        }
+    }
+
+    @include has("foto") {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    @include has("wrapper") {
+        position: relative;
+        width: auto;
+        height: 100%;
+
+        figure {
+            @include reset-figure;
+            width: 45vw;
+            height: 100%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            width: 100vw;
+
+            figure {
+                width: 100vw;
+                height: 100%;
+                min-height: 290px;
+                background-position: 0 0;
+            }
+        }
+    }
+}
+
+
+//
 // MAP
 // --------------------------------------------------------------------------
 
@@ -1316,8 +1413,6 @@
         }
     }
 }
-
-
 
 
 //

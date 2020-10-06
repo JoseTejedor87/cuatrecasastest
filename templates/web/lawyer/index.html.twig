@@ -53,60 +53,57 @@
 
             <section class="row search_filters search_filters--lawyers">
                 <div class="col">
-                    <div class="search_selects">
-                        <select id="services" class="custom__select">
-                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_services'|trans }}</option>
-                            {% for practice in practices %}
-                                {% if practice.translate(app.request.getLocale()).title  %}
-                                    <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <select id="sector" class="custom__select">
-                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_sector'|trans }}</option>
-                            {% for sector in sectors %}
-                                {% if sector.translate(app.request.getLocale()).title  %}
-                                    <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <select id="office" class="custom__select">
-                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
-                            {% for office in offices %}
-                                {% if office.city  %}
-                                    <option value="{{office.id}}">{{ office.city  }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <select id="category" class="custom__select">
-                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_category'|trans }}</option>
-                            <option value="">Alimentación</option>
-                            <option value="">Arte</option>
-                            <option value="">Brexit</option>
-                            <option value="">Canadian Desk</option>
-                            <option value="">Ciberseguridad</option>
-                            <option value="">Consumo y Retail</option>
-                            <option value="">Deporte</option>
-                            <option value="">Empresa Familiar</option>
-                            <option value="">Energía y Recursos Naturales</option>
-                            <option value="">Farmacia y Sanitario</option>
-                        </select>
+                    <div id="filtersButton">
+                        <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
                     </div>
-                    <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
-                        <ul class="pagination">
-                        {% for letter in range('a','z') %}
-                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
-                        {% endfor %}
-                        </ul>
-                    </nav>
-                    <!-- <div class="search_tags__wrapper">
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            Competencia y Derecho de la UE
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    <div class="filtersToggle">
+                        <div class="search_selects">
+                            <select id="services" class="custom__select">
+                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_services'|trans }}</option>
+                                {% for practice in practices %}
+                                    {% if practice.translate(app.request.getLocale()).title  %}
+                                        <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select id="sector" class="custom__select">
+                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_sector'|trans }}</option>
+                                {% for sector in sectors %}
+                                    {% if sector.translate(app.request.getLocale()).title  %}
+                                        <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select id="office" class="custom__select">
+                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
+                                {% for office in offices %}
+                                    {% if office.city  %}
+                                        <option value="{{office.id}}">{{ office.city  }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select id="category" class="custom__select">
+                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_category'|trans }}</option>
+                                <option value="">Alimentación</option>
+                                <option value="">Arte</option>
+                                <option value="">Brexit</option>
+                                <option value="">Canadian Desk</option>
+                                <option value="">Ciberseguridad</option>
+                                <option value="">Consumo y Retail</option>
+                                <option value="">Deporte</option>
+                                <option value="">Empresa Familiar</option>
+                                <option value="">Energía y Recursos Naturales</option>
+                                <option value="">Farmacia y Sanitario</option>
+                            </select>
                         </div>
-                    </div> -->
+                        <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
+                            <ul class="pagination">
+                            {% for letter in range('a','z') %}
+                                <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </section>
 
