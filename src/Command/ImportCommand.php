@@ -41,6 +41,8 @@ use App\Entity\Banner;
 use App\Entity\Slider;
 use App\Entity\Brand;
 use App\Entity\Home;
+use App\Entity\Question;
+
 
 class ImportCommand extends Command
 {
@@ -115,6 +117,9 @@ class ImportCommand extends Command
             $this->PublicationsByLegislation();
             $this->Brand();
 
+            $this->EventosResponsables();
+            $this->EventosPreguntas();
+            
         } else {
             switch ($table) {
                 case "lawyer":
@@ -260,6 +265,13 @@ class ImportCommand extends Command
                 case "changeSummary":
                     $this->changeSummary();
                 break;                                                
+
+                case "eventos_preguntas":
+                    $this->EventosPreguntas();
+                break;            
+                case "eventos_responsables":
+                    $this->EventosResponsables();
+                break;            
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -285,6 +297,104 @@ class ImportCommand extends Command
         }
 
     }
+
+
+    public function EventosPreguntas()
+    {
+        $data = file_get_contents("JsonExports/eventos_preguntas.json");
+        $items = json_decode($data, true);
+        
+        //  [{"id_evento":"93022","lang":"esp","hash":"pzm8wl94hp482hlf9fv2rr85vfbs518g","titulo":"","required":"0"},
+        
+        $eventRepository = $this->em->getRepository(Event::class);
+
+        $processedQuestionMap = [];
+
+        foreach ($items as $item) {
+            if ($item['hash'] == '') {
+                continue;
+            }
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+                        
+            $eventId = $this->getMappedEventId($item['id_evento']);
+            if ($eventId == '') {
+                $this->logger->debug("============================= SKIPPED ======================================================== ");
+                continue;
+            }
+            $this->logger->debug("eventId ".$eventId);
+            $event = $eventRepository->find($eventId);
+            if ($event == '') {
+                $this->logger->debug("============================= FALLO en la busqueda No se encontro evento en el repo ");
+                continue;
+            }
+
+            if(isset($processedQuestionMap[$item['id_evento']])){
+                $question =  $processedQuestionMap[$item['id_evento']];
+            }else{
+                $question = new Question();
+                $question->setEvents($event);
+            }
+            $question->translate($currentLang)->setHash($item['hash']);
+            $processedQuestionMap[$item['id_evento']]=$question;
+        }
+        foreach ($processedQuestionMap as $question) {
+            $question->mergeNewTranslations();
+            $this->em->persist($question);
+            $this->em->flush();
+            $this->logger->debug("question ".$question->getId()." ".$question->translate($currentLang)->getHash());
+        }
+    }
+
+
+    public function EventosResponsables()
+    {
+        $data = file_get_contents("JsonExports/eventos_responsables.json");
+        $items = json_decode($data, true);
+        
+        $eventRepository = $this->em->getRepository(Event::class);
+        $personRepository = $this->em->getRepository(Person::class);
+        $getMappedEventId = [];
+
+        
+        foreach($items as $item){
+            $eventId = $this->getMappedEventId($item['id_evento']);
+
+            if ($eventId){
+                //$event = $eventRepository->findOneBy(['oldId'=>$eventId]);
+                $event = $eventRepository->find($eventId);
+
+                $person = $personRepository->findOneBy(['inicial' => $item['sap']]);
+                if($person == null) 
+                {
+                    
+                    $person = new Person();
+                    if ($item['id_responsables_tipo'] == 1) {
+                        $person->setType('socio');
+                    }elseif ($item['id_responsables_tipo'] == 2) {
+                        $person->setType('marketing');
+                    } elseif ($item['id_responsables_tipo'] == 3) {
+                        $person->setType('secretaria');
+                    }
+                    $person->setInicial(trim($item['sap']));
+                    $person->setName($this->convertStringUTF8(trim($item['nombre'])));
+                    $person->setSurname($this->convertStringUTF8(trim($item['apellidos'])));
+                    // $person->setEmail($item['email']);
+
+                    $this->em->persist($person);
+                    $this->em->flush();
+                }
+                
+                $this->logger->debug("PERSON: INITIALS:" . $item['sap'] . " evento:" . $item['id_evento']);
+                $event->addPerson($person);
+                $this->em->persist($event);
+                $this->em->flush();
+            }else{
+                $this->logger->debug("SKIPEEEDDD ==========================================  evento:" . $item['id_evento']);
+            }
+        }
+    }
+
+
 
     public function PublicationsByLegislation()
     {
