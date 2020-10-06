@@ -11,6 +11,10 @@
 
         @include when("plain") {
             margin-top: 4rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-top: 1rem;
+            }
         }
 
         @media(max-width: $max-width-4casas) {
@@ -42,6 +46,10 @@
             visibility: visible;
             transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
 
+            @media(max-width: $max-width-4casas) {
+                position: relative;
+            }
+
             h5 {
                 @include fontSet(23px, 23px);
                 text-transform: uppercase;
@@ -60,6 +68,12 @@
             background-color: $white;
             transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
 
+            @media(max-width: $max-width-4casas) {
+                opacity: 1;
+                visibility: visible;
+                margin-top: 1rem;
+            }
+
             p {
                 @include fontSet(18px, 22px);
                 color: $main-color;
@@ -68,6 +82,7 @@
 
                 @media(max-width: $max-width-4casas) {
                     @include fontSet(16px, 20px);
+                    transform: translateY(20px);
                 }
             }
         }
@@ -76,6 +91,7 @@
             display: block;
             flex: 0 1 100%;
             max-width: 100%;
+            pointer-events: none;
         }
 
         @include on-event() {

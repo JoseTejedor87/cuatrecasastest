@@ -327,7 +327,7 @@
                 }
             }
 
-            p {
+            p, li {
                 @include fontSet(33px, 37px);
 
                 @media(max-width: $max-width-4casas) {
@@ -341,14 +341,14 @@
             }
         }
 
-        @include when("regions") {
+        @include when("centered") {
             > .col {
                 display: block;
                 padding-top: 3rem;
                 padding-bottom: 3rem;
             }
 
-            p {
+            p, li {
                 @include fontSet(43px, 47px);
                 text-align: center;
 
@@ -363,7 +363,7 @@
         }
 
         @include when("component") {
-            p {
+            p, li {
                 padding-top: 2rem;
                 padding-bottom: 2rem;
                 @include fontSet(33px, 37px);
@@ -425,7 +425,7 @@
                     }
                 }
 
-                p {
+                p, li {
                     margin-right: 4rem;
                     margin-left: 4rem;
                     @include fontSet(23px, 27px);
@@ -505,7 +505,7 @@
                 border-top: 1px solid rgba($black, 0.3);
             }
 
-            p {
+            p, li {
                 color: $main-color;
                 @include fontSet(23px, 27px);
 
@@ -523,7 +523,7 @@
             //
             @include when("article") {
 
-                p {
+                p, li {
                     @include fontSet(33px, 37px);
 
                     a {
@@ -637,7 +637,7 @@
                 margin-right: 0;
             }
 
-            p {
+            p, li {
                 @include fontSet(38px, 46px);
             }
 
@@ -647,7 +647,7 @@
             //
             @include when("article") {
 
-                p {
+                p, li {
                     @include fontSet(43px, 45px);
 
                     @media(max-width: $max-width-4casas) {
@@ -856,7 +856,7 @@
                 margin-bottom: 1.4rem;
             }
 
-            p {
+            p, li {
                 @include fontSet(22px, 28px);
 
                 @include when-inside(".lawyer__page") {

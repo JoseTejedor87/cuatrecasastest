@@ -9,7 +9,7 @@
                         {{ 'global.messages.related_content'|trans }}
                     {% endif %}
                 </h4>
-                <div class="swiper-container slider__general">
+                <div id="sliderArticles" class="swiper-container slider__general">
                     <div class="swiper-wrapper">
                     {% for key,publication in publications %}
                     {% if publication.translate(app.request.getLocale()).title %}

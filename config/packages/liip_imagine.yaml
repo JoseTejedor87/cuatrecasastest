@@ -18,7 +18,6 @@ liip_imagine:
         filter_runtime_action: liip_imagine.controller:filterRuntimeActio
 
     filter_sets:
-
         desks_header:
             quality: 75
             filters:
@@ -32,7 +31,7 @@ liip_imagine:
                     dim: [900, 500]
 
         lawyers_header:
-            quality: 50
+            quality: 75
             filters:
                 scale:
                     dim: [1800, 1000]

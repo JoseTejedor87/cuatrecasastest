@@ -56,6 +56,7 @@
         margin-right: 0.5rem;
         padding: 1rem;
         background-color: $complementary-color;
+        overflow: hidden;
 
         @media(max-width: $max-width-4casas) {
             flex-basis: 100%;
@@ -94,7 +95,7 @@
             font-weight: bold;
             text-transform: uppercase;
             color: $main-color;
-            word-spacing: 100vw;
+            // word-spacing: 100vw;
 
             @media(max-width: $max-width-4casas) {
                 @include fontSet(12px, 12px);
