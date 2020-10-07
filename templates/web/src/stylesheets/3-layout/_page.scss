@@ -1021,48 +1021,6 @@
 
 
 //
-// VIDEO BUTTON
-// --------------------------------------------------------------------------
-
-@include new("video__popup") {
-    @include reset-figure;
-    @include box-full-link;
-    @include cover-img();
-    height: 300px;
-    margin-bottom: 2rem;
-
-    @media(max-width: $max-width-4casas) {
-        display: none;
-        height: 200px;
-    }
-
-    @include has("link") {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        color: $complementary-color;
-
-        .material-icons {
-            font-size: 100px;
-            transform: scale(1);
-
-            @media(max-width: $max-width-4casas) {
-                 font-size: 80px;
-            }
-        }
-
-        @include on-event {
-            text-decoration: none;
-            color: $white;
-            transform: scale(1.1);
-        }
-    }
-}
-
-
-//
 // DOBLE HEADER & ERRORS
 // --------------------------------------------------------------------------
 

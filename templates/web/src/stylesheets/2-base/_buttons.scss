@@ -297,90 +297,6 @@
 // SUBCATEGORIES BUTTON (ARROW SYMBOL)
 // --------------------------------------------------------------------------
 
-/*
-.btn__subcat {
-    flex: 1 0 auto;
-    position: relative;
-    display: block;
-    padding: 1.2rem 1.6rem .6rem 0;
-    @include fontSet(20px, 20px);
-    color: $black;
-    border-bottom: 1px solid rgba($black, 0.1);
-    overflow: hidden;
-
-    &:after,
-    &:before {
-        @include icons-4casas(12px, auto, auto, auto);
-        content: '\e90a';
-        font-size: 32px;
-        color: $complementary-color;
-        transition: all 0.2s ease-out;
-    }
-
-    &:before {
-        left: -8px;
-        opacity: 0;
-        visibility: hidden;
-        // transition: left 0.2s ease-out, opacity 0.3s ease-in-out;
-    }
-
-    &:after {
-        right: -8px;
-        opacity: 1;
-        visibility: visible;
-        // transition: right 0.2s ease-out, opacity 0.3s ease-in-out;
-    }
-
-    @include on-event() {
-        padding-right: 1rem;
-        padding-left: 2.2rem;
-        text-decoration: none;
-        color: $white;
-        background-color: $complementary-color;
-        border-bottom: 1px solid $main-color;
-
-        &:before,
-        &:after {
-            color: $white;
-        }
-
-        &:before {
-            left: 0;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        &:after {
-            right: 0;
-            opacity: 0;
-            visibility: hidden;
-        }
-    }
-
-    @media(max-width: $max-width-4casas) {
-        @include fontSet(16px, 16px);
-        padding-right: 0;
-        padding-left: 0;
-        color: $complementary-color;
-        border-bottom: 1px solid rgba($black, 0.5);
-
-        &:before,
-        &:after {
-            display: none;
-            visibility: hidden;
-        }
-
-        @include on-event() {
-            padding-right: 0;
-            padding-left: 0;
-            color: $complementary-color;
-            background-color: transparent;
-            border-bottom: 1px solid rgba($black, 0.5);
-        }
-    }
-}
-*/
-
 .btn__subcat {
     position: relative;
     display: block;
@@ -945,4 +861,51 @@
     height: 82px;
     border: 4px solid $complementary-color;
     border-radius: 50%;
+}
+
+
+//
+// VIDEO BOX (with icon centered)
+// --------------------------------------------------------------------------
+
+@include new("video__popup") {
+    @include reset-figure;
+    @include box-full-link;
+    @include cover-img();
+    // height: auto;
+    margin-bottom: 2rem;
+
+    @media(max-width: $max-width-4casas) {
+        display: none;
+        height: 200px;
+    }
+
+    @include when-inside(".boxnews__content") {
+        height: 180px;
+        margin-bottom: 0;
+    }
+
+    @include has("link") {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        color: $complementary-color;
+
+        .material-icons {
+            font-size: 100px;
+            transform: scale(1);
+
+            @media(max-width: $max-width-4casas) {
+                 font-size: 80px;
+            }
+        }
+
+        @include on-event {
+            text-decoration: none;
+            color: $white;
+            transform: scale(1.1);
+        }
+    }
 }
