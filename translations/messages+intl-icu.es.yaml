@@ -151,7 +151,7 @@ menu:
   sectors: Sectores
   career:
     career: Carrera
-    live: Vive Cuatrecasas
+    live: ¡Vive Cuatrecasas!
     revolution: Revolución
     learn: Aprende con los mejores
     international: Carrera internacional
@@ -672,4 +672,36 @@ firm:
     art_4:
       title: Tercera mejor empresa para trabajar, según los estudiantes de Derecho
       date: Universum & People Matters, 2020
+
+## BLOCK CAREER
+#################################################
+career:
+  send_cv: Enviar CV
+
+# colections
+  collections_career_home:
+    art_1:
+      title: Vive Cuatrecasas
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Revolución
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+# info boxes
+  info_join:
+    title: Únete a nosotros
+    art_1:
+      title: Graduados
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Abogados
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Profesionales de organización
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+# banners CTA
+  cta_learn:
+    title: Aprende con los mejores
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
 
