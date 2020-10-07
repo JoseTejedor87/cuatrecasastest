@@ -95,6 +95,19 @@
                                 <option value="">Energía y Recursos Naturales</option>
                                 <option value="">Farmacia y Sanitario</option>
                             </select>
+                        <select id="lawyerType" class="custom__select">
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
+                            <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
+                            <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
+                            <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option> 
+                            <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option> 
+                            <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option> 
+                            <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option> 
+                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option> 
+                            <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option> 
+                            <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option> 
+                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option> 
+                        </select>                                
                         </div>
                         <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
                             <ul class="pagination">
@@ -259,6 +272,7 @@
         services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
         sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
         office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
+        lawyerType = $("#lawyerType").val() ? $("#lawyerType").val() : "{{ app.request.get('lawyerType') }}";
         initial = initial ? initial : $("#initial").val();
         var page = page ? page : $(this).data("page");
         if(!page){
@@ -268,7 +282,7 @@
         $(".lawyer__search__item").first().hide();
         $.ajax({
             method: "GET",
-            data: { textSearch: textSearch, services: services, sector: sector, office: office,page: page,initial: initial  },
+            data: { textSearch: textSearch, services: services, sector: sector, office: office, lawyerType:lawyerType, page: page,initial: initial  },
             url: "{{ path('lawyers_index') }}",
             beforeSend: function( xhr ) {
                 $('.search_pagination').remove();
@@ -313,6 +327,13 @@
                     url= "?sector="+msg['sector'];
                 }else{
                     url= url + "&sector="+msg['sector'];
+                }
+            }
+            if(msg['lawyerType']){
+                if(url == ""){
+                    url= "?lawyerType="+msg['lawyerType'];
+                }else{
+                    url= url + "&lawyerType="+msg['lawyerType'];
                 }
             }
             if(msg['page']>1){
@@ -373,6 +394,7 @@
             $("#textSearch").val(textSearch);
             $("#services").val(services);
             $("#sector").val(sector);
+            $("#lawyerType").val(lawyerType);
             $("#office").val(office);
             $("#initial").val(initial);
         })

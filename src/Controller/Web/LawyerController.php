@@ -60,10 +60,12 @@ class LawyerController extends WebController
         $services = $request->query->get('services');
         $sector = $request->query->get('sector');
         $office = $request->query->get('office');
+        $lawyerType = $request->query->get('lawyerType');
+
 
         $relatedPublications = $publicationRepository->findByActivities('');
         $limit = 18;
-        if ($initial || $office || $sector || $services || $textSearch) {
+        if ($initial || $office || $sector || $services || $textSearch || $lawyerType) {
             $url= "";
             $query = $lawyerRepository->createPublishedQueryBuilder('l');
             if ($services) {
@@ -77,6 +79,15 @@ class LawyerController extends WebController
                     $url= "?services=".$services;
                 } else {
                     $url= $url . "&services=".$services;
+                }
+            }
+            if ($lawyerType) {
+                $query = $query->andWhere('l.lawyerType = :lawyerType')
+                    ->setParameter('lawyerType', $lawyerType);
+                if ($url == "") {
+                    $url= "?lawyerType=".$lawyerType;
+                } else {
+                    $url= $url . "&lawyerType=".$lawyerType;
                 }
             }
             if ($sector) {
