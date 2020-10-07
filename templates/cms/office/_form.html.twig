@@ -1,45 +1,68 @@
 {% trans_default_domain "admin" %}
+{% import "cms/custom/translatableField.html.twig" as translatableField %}
 
 <div class="row">
-    <div class="col-md-4">
-        {{ form_row(form.city) }}
-        {{ form_row(form.address) }}
-        {{ form_row(form.cp) }}
-        {{ form_row(form.country) }}
-        {{ form_row(form.contact) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.fax) }}
-        {{ form_row(form.phone) }}
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-4">
+                {#{ form_row(form.city) }#}
+                {{ form_row(form.address) }}
+                {{ form_row(form.cp) }}
+                {#{ form_row(form.country) }#}
+                {{ form_row(form.contact) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.fax) }}
+                {{ form_row(form.phone) }}
 
-        {{ form_row(form.img_map) }}
-        {{ form_row(form.link_google) }}
-        {{ form_row(form.status) }}
-        {{ form_row(form.place) }}
-        {{ form_row(form.geographical_area) }}
-        {{ form_row(form.sap) }}
-
-        {{ form_label(form.img_office) }}
-        <div class="vich-attachment-list">
-            <div class="vich-attachment-item col-md-12">
-                {{ form_errors(form.img_office) }}
-                {{ form_widget(form.img_office) }}
+               
+                {# {{ form_row(form.languages) }} #}
             </div>
+            <div class="col-md-8">
+                {#{ form_row(form.translations) }#}
+                {{ translatableField.partialTranslations(form.translations, ['tags']) }}
+                {{ translatableField.partialTranslations(form.translations, ['city']) }}
+                {{ translatableField.partialTranslations(form.translations, ['country']) }}
+                {{ translatableField.partialTranslations(form.translations, ['descriptions']) }}
+
+            </div>    
         </div>
-        {% do form.img_office.setRendered %}
-
+    </div>
+    <div class="col-md-4  offset-md-1">
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ 'forms.fieldsets.relations'|trans }} MAPA
+                </h3>
+            </div>
+            {{ form_row(form.img_map) }}
+            {{ form_row(form.link_google) }}
+            {{ form_row(form.status) }}
+            {{ form_row(form.place) }}
+            {{ form_row(form.geographical_area) }}
+            {{ form_row(form.sap) }}
+        </div>
         
-        {# {{ form_row(form.languages) }} #}
-    </div>
-    <div class="col-md-8">
-        {{ form_row(form.translations) }}
-    </div>
-    {# {{ form_rest(form) }} #}
-</div>
+        <div class="m-form__seperator m-form__seperator--dashed"></div>
+        
+        <div class="m-form__section m-form__section">
 
-{# {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }} #}
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    {{ form_label(form.img_office) }}
+                </h3>
+            </div>
+
+            <div class="vich-attachment-list">
+                <div class="vich-attachment-item col-md-12">
+                    {{ form_errors(form.img_office) }}
+                    {{ form_widget(form.img_office) }}
+                </div>
+            </div>
+            {% do form.img_office.setRendered %}
+        </div>
+    
+    </div>
+</div>
 
 
 

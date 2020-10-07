@@ -19,11 +19,6 @@ class Office extends Publishable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $address;
 
     /**
@@ -31,10 +26,6 @@ class Office extends Publishable
      */
     private $cp;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $country;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -104,7 +95,7 @@ class Office extends Publishable
 
 
     /**
-     * @Gedmo\Slug(fields={"city", "address"}, updatable=false)
+     * @Gedmo\Slug(fields={"address"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -135,27 +126,12 @@ class Office extends Publishable
         $this->publication = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->getCity();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
 
     public function getAddress(): ?string
     {
@@ -181,17 +157,6 @@ class Office extends Publishable
         return $this;
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
 
     public function getContact(): ?string
     {
