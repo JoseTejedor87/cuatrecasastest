@@ -434,6 +434,7 @@ firm_social:
         ge:   /p/social-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
+
 firm_environment:
     path:
         en:   /p/medio-ambiente-1
@@ -515,3 +516,58 @@ events_detail2:
    methods:    GET|POST
    controller: App\Controller\Web\KnowledgeController::detail2
 
+# CAREER
+##############################################
+career_home:
+  path:
+      en:   /career/career
+      es:   /carrera/carrera
+      pt:   /career/career
+      ge:   /career/career
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::career
+
+career_live:
+  path:
+      en:   /career/live-cuatrecasas
+      es:   /carrera/vive-cuatrecasas
+      pt:   /career/live-cuatrecasas
+      ge:   /career/live-cuatrecasas
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::live
+
+career_revolution:
+  path:
+      en:   /career/revolution
+      es:   /carrera/revolucion
+      pt:   /career/revolution
+      ge:   /career/revolution
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::revolution
+
+career_learn:
+  path:
+      en:   /career/learn-with-the-best
+      es:   /carrera/aprende-con-los-mejores
+      pt:   /career/learn-with-the-best
+      ge:   /career/learn-with-the-best
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::learn
+
+career_international:
+  path:
+      en:   /career/international-career
+      es:   /carrera/carrera-internacional
+      pt:   /career/international-career
+      ge:   /career/international-career
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::international
+
+career_join:
+  path:
+      en:   /career/join-us
+      es:   /carrera/unete-a-nosotros
+      pt:   /career/join-us
+      ge:   /career/join-us
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::join
