@@ -285,10 +285,6 @@
             }
         }
 
-
-        //
-        // PRODUCTS GRID
-        //
         @include when-inside(".boxnews--products") {
             flex: 0 1 calc(50% - 1.6rem);
             max-width: calc(50% - 1.6rem);

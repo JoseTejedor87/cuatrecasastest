@@ -92,6 +92,24 @@
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        // Load More Items
+        boxNumber = 6;
+        boxIncrement = 6;
+        boxItems = $("#loadMoreBoxes article").length;
+
+        $('#loadMoreBoxes').each(function() {
+            if ($(this).children('article').length >= 6) {
+                $(this).children('article:lt(6)').show();
+                $(this).children('article:gt(5)').hide();
+            }
+        });
+
+        $('#loadMore').click(function () {
+            boxNumber = (boxNumber+boxIncrement <= boxItems) ? boxNumber+boxIncrement : boxItems; $('#loadMoreBoxes article:lt('+boxNumber+')').show();
+            $(this).blur();
+            $(this).toggle(boxNumber < boxItems);
+        });
     });
 </script>
 {% endblock %}

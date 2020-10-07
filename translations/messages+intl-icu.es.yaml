@@ -24,12 +24,17 @@ global:
     portugal: Portugal
     global: Global
   messages:
-    page_not_found: Página no encontrada
+    error_404: Error 404
+    error_404_title: Página no encontrada
+    error_404_content: Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
+    error_404_button: Volver al inicio
     alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
+    show_filters: Ver filtros
+    load_more: Cargar más
     show_more: Ver más
+    show_less: Ver menos
     show_sector: Ver Sectores
     show_service: Ver Servicios
-    show_less: Ver menos
     slider_next: Siguiente
     related_content: Contenido relacionado
 
@@ -348,7 +353,7 @@ firm:
 
     team:
       title: Consejo de administración
-      content: Conoce a los miembros de nuestro consejo de administración
+      content: Accede al perfil de los miembros del Consejo
       link: Conoce al equipo
       lawyer_1:
         name: Alfonso Iglesia
@@ -433,7 +438,9 @@ firm:
       title: sectores de especialización
       content: Nos enfocamos en los sectores de actividad de nuestros clientes.
 
-  overview_social:
+  overview_probono:
+    title: Programa Pro Bono
+    content: La Fundación Cuatrecasas participa de forma activa con la Fundación ProBono España, ostentando la Presidencia del Comité Ejecutivo y la Vicepresidencia del Patronato.
     art_1:
       number: 2.088 h en 2018
       title: Horas Pro Bono
