@@ -116,6 +116,11 @@
     @include has("component") {
         padding-top: 4rem;
         padding-bottom: 4rem;
+
+        @media(max-width: $max-width-4casas) {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
     }
 
 
@@ -264,7 +269,7 @@
             }
 
             .page__block__content {
-                ul {
+                ul, ol {
                     @include reset-list;
                     padding-bottom: 2rem;
                     list-style-type: none !important;
@@ -505,7 +510,7 @@
                 border-top: 1px solid rgba($black, 0.3);
             }
 
-            p, li {
+            p {
                 color: $main-color;
                 @include fontSet(23px, 27px);
 
@@ -523,7 +528,37 @@
             //
             @include when("article") {
 
-                p, li {
+                 ul, ol {
+                    @include reset-list;
+                    padding-bottom: 2rem;
+                    list-style-type: none !important;
+
+                    > li {
+                        position: relative;
+                        margin-bottom: 0.6rem;
+                        padding-left: 1.2rem;
+                        @include fontSet(33px, 37px);
+                        color: $main-color;
+
+                        @media(max-width: $max-width-4casas) {
+                            @include fontSet(20px, 25px);
+                        }
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 14px;
+                            left: 0;
+                            display: inline-block;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background-color: $main-color;
+                        }
+                    }
+                }
+
+                p {
                     @include fontSet(33px, 37px);
 
                     a {
@@ -637,7 +672,7 @@
                 margin-right: 0;
             }
 
-            p, li {
+            p {
                 @include fontSet(38px, 46px);
             }
 
@@ -647,7 +682,7 @@
             //
             @include when("article") {
 
-                p, li {
+                p {
                     @include fontSet(43px, 45px);
 
                     @media(max-width: $max-width-4casas) {
@@ -908,7 +943,7 @@
                 }
             }
 
-            ul {
+            ul, ol {
                 @include reset-list;
                 padding-bottom: 2rem;
                 list-style-type: none !important;
@@ -927,7 +962,7 @@
                     &:before {
                         content: '';
                         position: absolute;
-                        top: 8px;
+                        top: 14px;
                         left: 0;
                         display: inline-block;
                         width: 8px;

@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 <style>
     .team {
         padding: 4rem 0 2rem;
@@ -42,7 +43,7 @@
             </div>
         </header> -->
 
-        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/cabecera_1920x1080_04_baja.jpg') }}')">
+        <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_04_baja.jpg')| imagine_filter('full_header') }}')">
             <div class="col">
                 <div class="info__block">
                     <h1 class="page__title">
@@ -139,7 +140,7 @@
                                     La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licenciados
                                 </a>
                             </h5>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')"></div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg')| imagine_filter('insights_grid') }}')"></div>
                         </div>
                     </article>
                 </div>
@@ -194,7 +195,7 @@
                                     Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
                                 </a>
                             </h5>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')"></div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg')| imagine_filter('insights_grid') }}')"></div>
                         </div>
                     </article>
                 </div>
@@ -249,7 +250,7 @@
                                     Cuatrecasas participa en la creación del primer hub global de legaltech en Europa
                                 </a>
                             </h5>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')"></div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg')| imagine_filter('insights_grid') }}')"></div>
                         </div>
                     </article>
                 </div>
@@ -268,7 +269,7 @@
                                     Próxima entrada en vigor del Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales
                                 </a>
                             </h5>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')"></div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg')| imagine_filter('insights_grid') }}')"></div>
                         </div>
                     </article>
                 </div>
@@ -899,6 +900,9 @@
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<!-- Video Popup -->
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <!-- Masonry JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <!-- Checkbox Filters -->

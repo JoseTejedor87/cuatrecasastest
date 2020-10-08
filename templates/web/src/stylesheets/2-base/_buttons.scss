@@ -872,17 +872,26 @@
     @include reset-figure;
     @include box-full-link;
     @include cover-img();
-    // height: auto;
-    margin-bottom: 2rem;
+    height: auto;
+    // margin-bottom: 2rem;
 
     @media(max-width: $max-width-4casas) {
-        display: none;
-        height: 200px;
+        height: 100%;
     }
 
-    @include when-inside(".boxnews__content") {
+    @include when-inside(".boxnews--career") {
         height: 180px;
         margin-bottom: 0;
+    }
+
+    @include when-inside(".boxnews--doble") {
+        height: 287px;
+        margin-top: 1rem;
+        margin-bottom: 0;
+
+        @media(max-width: $max-width-4casas) {
+            height: 170px;
+        }
     }
 
     @include has("link") {
@@ -895,7 +904,6 @@
 
         .material-icons {
             font-size: 100px;
-            transform: scale(1);
 
             @media(max-width: $max-width-4casas) {
                  font-size: 80px;
@@ -905,7 +913,6 @@
         @include on-event {
             text-decoration: none;
             color: $white;
-            transform: scale(1.1);
         }
     }
 }

@@ -1,5 +1,5 @@
 {% block menu %}
-    <!-- Desktop Nav -->
+    {# <!-- Desktop Nav --> #}
     <div id="navDesktop" class="main__nav__wrapper">
         <div class="container" id="primaryNav">
             <div class="row">
@@ -30,12 +30,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.career.career'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
-                                    <li><a href="#">{{ 'menu.career.career'|trans }}</a></li>
-                                    <li><a href="#">{{ 'menu.career.live'|trans }}</a></li>
-                                    <li><a href="#">{{ 'menu.career.revolution'|trans }}</a></li>
-                                    <li><a href="#">{{ 'menu.career.learn'|trans }}</a></li>
-                                    <li><a href="#">{{ 'menu.career.international'|trans }}</a></li>
-                                    <li><a href="#">{{ 'menu.career.join'|trans }}</a></li>
+                                    <li><a href="{{ path('career_home') }}">{{ 'menu.career.career'|trans }}</a></li>
+                                    <li><a href="{{ path('career_live') }}">{{ 'menu.career.live'|trans }}</a></li>
+                                    <li><a href="{{ path('career_revolution') }}">{{ 'menu.career.revolution'|trans }}</a></li>
+                                    <li><a href="{{ path('career_learn') }}">{{ 'menu.career.learn'|trans }}</a></li>
+                                    <li><a href="{{ path('career_international') }}">{{ 'menu.career.international'|trans }}</a></li>
+                                    <li><a href="{{ path('career_join') }}">{{ 'menu.career.join'|trans }}</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -145,7 +145,7 @@
             </div>
         </div>
     </div>
-    <!-- Mobile Nav -->
+    {# <!-- Mobile Nav --> #}
     <nav class="navbar" id="navMobileWrapper">
         <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
             <img src="{{ asset('web/assets/logos/cuatrecasas_mobile.png') }}" alt="Cuatrecasas">
@@ -172,12 +172,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownCareer" data-toggle="collapse" data-target="#dropdownCareerId" aria-haspopup="true" aria-expanded="false">{{ 'menu.career.career'|trans }}</a>
                     <ul class="dropdown-menu collapse" aria-labelledby="dropdownCareer" id="dropdownCareerId" data-parent="#navMobile">
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.career'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.live'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.revolution'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.learn'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.international'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ 'menu.career.join'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_home') }}">{{ 'menu.career.career'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_live') }}">{{ 'menu.career.live'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_revolution') }}">{{ 'menu.career.revolution'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_learn') }}">{{ 'menu.career.learn'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_international') }}">{{ 'menu.career.international'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('career_join') }}">{{ 'menu.career.join'|trans }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

@@ -169,14 +169,6 @@
             }
         }
 
-        @include when("career") {
-            margin-bottom: 4rem;
-
-            .nav {
-                justify-content: space-around;
-            }
-        }
-
         .nav-tabs {
             border-bottom: 0 solid transparent;
         }
@@ -242,6 +234,22 @@
                 &:after {
                     display: none;
                 }
+            }
+        }
+
+        @include when("career") {
+            margin-bottom: 4rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-bottom: 0;
+            }
+
+            .nav {
+                justify-content: space-around;
+            }
+
+            .nav-link {
+                margin: 0 0.5rem;
             }
         }
     }

@@ -13,7 +13,8 @@
                         </div>
                         <div class="boxnews__content">
                             <div class="boxnews__excerpt">
-                                {{ insight.translate(app.request.getLocale()).summary|raw }}
+                                {{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}
+                                {# {{ insight.translate(app.request.getLocale()).summary|raw }} #}
                             </div>
                             <div class="boxnews__action">
                                 <a href="{{ path('insights_detail', {slug: insight.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">Ver más</a>

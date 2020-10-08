@@ -43,7 +43,7 @@
                                         {% if bloque.publication[0].urlVideo != '' %}
                                             {% include 'web/shared/video-article.html.twig' with { article: bloque.publication[0] } %}
                                             {% else %}
-                                                <img src="{{ asset('web/assets/img/cabecera_1920x1080_baja.jpg') }}" alt="">
+                                                <img src="{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg')| imagine_filter('article_box') }}" alt="">
                                         {% endif %}
                                     </div>
                                 </div>
