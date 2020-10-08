@@ -40,6 +40,21 @@ class EventTranslation extends PublishableTranslation
     private $customCity;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customCountry;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customPostalcode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customProvince;
+
+    /**
      * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $customAddress;
@@ -131,6 +146,42 @@ class EventTranslation extends PublishableTranslation
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCustomCountry(): ?string
+    {
+        return $this->customCountry;
+    }
+
+    public function setCustomCountry(?string $customCountry): self
+    {
+        $this->customCountry = $customCountry;
+
+        return $this;
+    }
+
+    public function getCustomPostalcode(): ?string
+    {
+        return $this->customPostalcode;
+    }
+
+    public function setCustomPostalcode(?string $customPostalcode): self
+    {
+        $this->customPostalcode = $customPostalcode;
+
+        return $this;
+    }
+
+    public function getCustomProvince(): ?string
+    {
+        return $this->customProvince;
+    }
+
+    public function setCustomProvince(?string $customProvince): self
+    {
+        $this->customProvince = $customProvince;
 
         return $this;
     }
