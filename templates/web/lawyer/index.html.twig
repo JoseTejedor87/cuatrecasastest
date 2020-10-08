@@ -77,8 +77,8 @@
                             <select id="office" class="custom__select">
                                 <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
                                 {% for office in offices %}
-                                    {% if office.city  %}
-                                        <option value="{{office.id}}">{{ office.city  }}</option>
+                                    {% if office.translate(app.request.getLocale()).city  %}
+                                        <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>

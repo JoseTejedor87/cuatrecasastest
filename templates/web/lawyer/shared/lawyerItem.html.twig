@@ -25,11 +25,11 @@
             {% else %}
                 <li class="lawyer__practice__item lawyer__activities"></li>
             {% endif %}
-            {# <li class="lawyer__practice__item lawyer__city">{{ (lawyer.office is defined)  ? lawyer.office.city : '' }}</li>     #}
+            {# <li class="lawyer__practice__item lawyer__city">{{ (lawyer.office is defined)  ? lawyer.office.translate(app.request.getLocale()).city : '' }}</li>     #}
 
             <li class="lawyer__practice__item lawyer__city">
                 {% if lawyer.office is defined and lawyer.office != null %}
-                    {{ lawyer.office.city }}
+                    {{ lawyer.office.translate(app.request.getLocale()).city }}
                 {%  endif   %}
             </li>
         </ul>

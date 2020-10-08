@@ -75,11 +75,11 @@
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in offices %}
                                     {% if key == 0  %}
-                                        <optgroup data-tokens="ketchup mustard" label="{{ office.country }}">
+                                        <optgroup data-tokens="ketchup mustard" label="{{ office.translate(app.request.getLocale()).country }}">
                                     {% endif %}
-                                        <option value="office.city" data-tokens="ketchup mustard" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}">{{ office.city }}</option>
+                                        <option value="office.translate(app.request.getLocale()).city" data-tokens="ketchup mustard" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% if offices|length > key+1 %}
-                                    {% if offices[key+1].country != office.country %}
+                                    {% if offices[key+1].country != office.translate(app.request.getLocale()).country %}
                                         </optgroup>
                                         <optgroup label="{{ offices[key+1].country }}">
                                     {% endif %}

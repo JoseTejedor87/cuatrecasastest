@@ -207,7 +207,7 @@
                                         </div>
                                         <ul class="lawyer__practice">
                                             <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                            <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.city : '' }}</li>
+                                            <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
                                         </ul>
                                     </div>
                                 </a>
