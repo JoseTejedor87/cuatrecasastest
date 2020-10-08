@@ -3,64 +3,21 @@
 {% block main %}
 
     <main role="main">
-        <article class="container">
-            <header class="row page__header">
-                <div class="col">
-                    <div class="info__block">
-                        <h1 class="page__title">
-                            404
-                        </h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'global.messages.page_not_found'|trans }}
-                                </li>
-                            </ol>
-                        </nav>
+        <header class="container">
+            <div class="row doble__header">
+                <div class="col-md-7 doble__header__content doble__header__content--error404">
+                    <div class="page__title">{{ 'global.messages.error_404'|trans }}</div>
+                    <div class="page__title">{{ 'global.messages.error_404_title'|trans }}</div>
+                    <p>{{ 'global.messages.error_404_content'|trans }}</p>
+                    <a href="{{ path('home') }}" class="btn btn__viewmore">{{ 'global.messages.error_404_button'|trans }}</a>
+                </div>
+                <div class="col-md-5 doble__header__foto">
+                    <div class="doble__header__wrapper">
+                        <figure style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_03_baja.jpg')| imagine_filter('doble_header') }}')"></figure>
                     </div>
                 </div>
-            </header>
-
-            {% set publishable = navigation_service.getPublishable() %}
-
-            <section class="row page__block--full">
-                <div class="col">
-                    <div class="page__block__content--full">
-
-                        {% if publishable %}
-                            <h2>{{ 'global.messages.alternative_urls'|trans }}</h2>
-                            <ul>
-                            {% for language in languages %}
-                                {% for region in regions %}
-                                    {% set href = navigation_service.getAlternativePath(language, region) %}
-                                    {% if href %}
-                                    <li>
-                                        <a href="{{ href }}" />{{('global.languages.'~language)|trans}} / {{('global.regions.'~region)|trans}}</a>
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endfor %}
-                            </ul>
-                        {% else %}
-                            <h2>{{ 'global.messages.page_not_found'|trans }}</h2>
-                            <br/>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere enim quis
-                                ipsum tincidunt pretium. Sed placerat sit amet urna ut tristique. Cras pretium
-                                ipsum mauris, id consequat ex mattis in. Proin volutpat in tellus ac placerat.
-                            </p>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </section>
-
-        </article>
+            </div>
+        </header>
     </main>
-
-    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}

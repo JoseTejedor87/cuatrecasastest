@@ -26,7 +26,7 @@
         background-color: $main-color;
         // background-attachment: fixed;
         background-attachment: scroll;
-        background-position: 50% 0;
+        background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -327,7 +327,7 @@
                 }
             }
 
-            p {
+            p, li {
                 @include fontSet(33px, 37px);
 
                 @media(max-width: $max-width-4casas) {
@@ -341,14 +341,14 @@
             }
         }
 
-        @include when("regions") {
+        @include when("centered") {
             > .col {
                 display: block;
                 padding-top: 3rem;
                 padding-bottom: 3rem;
             }
 
-            p {
+            p, li {
                 @include fontSet(43px, 47px);
                 text-align: center;
 
@@ -363,7 +363,7 @@
         }
 
         @include when("component") {
-            p {
+            p, li {
                 padding-top: 2rem;
                 padding-bottom: 2rem;
                 @include fontSet(33px, 37px);
@@ -425,7 +425,7 @@
                     }
                 }
 
-                p {
+                p, li {
                     margin-right: 4rem;
                     margin-left: 4rem;
                     @include fontSet(23px, 27px);
@@ -505,7 +505,7 @@
                 border-top: 1px solid rgba($black, 0.3);
             }
 
-            p {
+            p, li {
                 color: $main-color;
                 @include fontSet(23px, 27px);
 
@@ -523,7 +523,7 @@
             //
             @include when("article") {
 
-                p {
+                p, li {
                     @include fontSet(33px, 37px);
 
                     a {
@@ -637,7 +637,7 @@
                 margin-right: 0;
             }
 
-            p {
+            p, li {
                 @include fontSet(38px, 46px);
             }
 
@@ -647,7 +647,7 @@
             //
             @include when("article") {
 
-                p {
+                p, li {
                     @include fontSet(43px, 45px);
 
                     @media(max-width: $max-width-4casas) {
@@ -856,7 +856,7 @@
                 margin-bottom: 1.4rem;
             }
 
-            p {
+            p, li {
                 @include fontSet(22px, 28px);
 
                 @include when-inside(".lawyer__page") {
@@ -1021,42 +1021,97 @@
 
 
 //
-// VIDEO BUTTON
+// DOBLE HEADER & ERRORS
 // --------------------------------------------------------------------------
 
-@include new("video__popup") {
-    @include reset-figure;
-    @include box-full-link;
-    @include cover-img();
-    height: 300px;
-    margin-bottom: 2rem;
+@include new("doble__header") {
+    position: relative;
+    color: $white;
+    background-color: $main-color;
 
-    @media(max-width: $max-width-4casas) {
-        display: none;
-        height: 200px;
+    &:before {
+        @include reset-pseudo($main-color);
+        width: 100vw;
+        margin-left: -50vw;
+        z-index: -1;
     }
 
-    @include has("link") {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        color: $complementary-color;
+    &:after {
+        @include reset-pseudo($main-color);
+        width: 100vw;
+        margin-right: -50vw;
+        z-index: -1;
+    }
 
-        .material-icons {
-            font-size: 100px;
-            transform: scale(1);
+    @include has("content") {
+        padding-top: 4rem;
+        padding-right: 6rem;
+        padding-bottom: 10rem;
+        min-height: 39rem;
 
-            @media(max-width: $max-width-4casas) {
-                 font-size: 80px;
-            }
+        @media(max-width: $max-width-4casas) {
+            padding-top: 2rem;
+            padding-right: 15px;
+            padding-bottom: 3rem;
+            min-height: auto;
         }
 
-        @include on-event {
-            text-decoration: none;
-            color: $white;
-            transform: scale(1.1);
+        @include when("error404") {
+            .page__title {
+                margin-bottom: 0;
+
+                &:first-child {
+                    color: $complementary-color;
+                }
+            }
+
+            p {
+                margin: 2rem 0 4rem;
+                @include fontSet(23px, 27px);
+                letter-spacing: 0.4px;
+                color: $white;
+
+                @media(max-width: $max-width-4casas) {
+                    margin: 1rem 0 2rem;
+                    @include fontSet(18px, 25px);
+                    letter-spacing: 0;
+                }
+            }
+
+            .btn__viewmore {
+                padding: 0 8rem 0 1rem;
+            }
+        }
+    }
+
+    @include has("foto") {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    @include has("wrapper") {
+        position: relative;
+        width: auto;
+        height: 100%;
+
+        figure {
+            @include reset-figure;
+            width: 45vw;
+            height: 100%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @media(max-width: $max-width-4casas) {
+            width: 100vw;
+
+            figure {
+                width: 100vw;
+                height: 100%;
+                min-height: 290px;
+                background-position: 0 0;
+            }
         }
     }
 }
@@ -1068,10 +1123,6 @@
 
 @include new("world__offices") {
 
-    @media(max-width: $max-width-4casas) {
-        display: none;
-    }
-
     @include has("map") {
         position: relative;
         width: 100vw;
@@ -1082,6 +1133,10 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
+
+        @media(max-width: $max-width-4casas) {
+            display: none;
+        }
     }
 
     @include has("wrapper") {
@@ -1094,6 +1149,13 @@
         display: flex;
         justify-content: flex-end;
         z-index: 1;
+
+        @media(max-width: $max-width-4casas) {
+            position: relative;
+            top: 0;
+            justify-content: flex-start;
+            margin-bottom: 2rem;
+        }
 
         // SELECTPICKER
         .btn-custom {
@@ -1108,6 +1170,10 @@
             &:focus {
                 box-shadow: 0 0 0 0 rgba(255,255,255,0);
             }
+        }
+
+        .bootstrap-select>select {
+            width: 50% !important;
         }
 
         .bootstrap-select>.dropdown-toggle.bs-placeholder,
@@ -1240,6 +1306,14 @@
 // GOOGLE MAP MARKER
 //
 
+.gm-style > .cluster {
+    outline: none !important;
+
+    @include on-event {
+        outline: none !important;
+    }
+}
+
 .gm-style .gm-style-iw-c {
     min-width: 360px !important;
     max-width: 360px !important;
@@ -1288,25 +1362,26 @@
     div {
 
         h5 {
+            @include cuatrecasas-font();
             margin-bottom: 1rem;
             @include fontSet(33px, 33px);
             color: $main-color;
         }
 
         h6 {
+            @include cuatrecasas-font();
             margin-bottom: 1.5rem;
             @include fontSet(23px, 23px);
             color: $complementary-color;
         }
 
         p {
+            @include cuatrecasas-font();
             @include fontSet(23px, 23px);
             color: $main-color;
         }
     }
 }
-
-
 
 
 //

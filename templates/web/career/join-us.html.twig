@@ -1,0 +1,88 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+
+        <div class="container">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.career.career'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.career.career'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+        </div>
+
+        <div class="container-fluid">
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs faketabs__component__tabs--career">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('career_home') }}" class="nav-link active">{{ 'menu.career.career'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('career_live') }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('career_revolution') }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('career_learn') }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('career_international') }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('career_join') }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        {% include 'web/shared/collections-career.html.twig' %}
+        {% include 'web/shared/career-career.html.twig' %}
+        {% include 'web/shared/cta-career-learn.html.twig' %}
+        {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
+        {% include 'web/shared/info-career-join.html.twig' %}
+
+    </main>
+
+    {# {% include 'web/shared/cta-footer.html.twig' %} #}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

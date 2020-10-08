@@ -26,7 +26,7 @@
                         </ul>
                         <div class="lawyer__page__contact">
                             <div data-address>
-                                {{ 'sections.lawyers.office'|trans }} {{ lawyer.office ? lawyer.office.city : '' }}
+                                {{ 'sections.lawyers.office'|trans }} {{ lawyer.office ? lawyer.office.translate(app.request.getLocale()).city : '' }}
                             </div>
                             <div data-telephone>
                                 {{ lawyer.phone }}
@@ -63,10 +63,12 @@
                                 <li><a href="#"><i class="material-icons">print</i></a></li>
                                 <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                             </ul>
-                            {% if lawyer.photo %}
+                            {#% if lawyer.photo %}
                                 <div class="lawyer__page__foto--img" style="background-image: url('{{ asset('/resources/' ~ lawyer.photo.fileName)| imagine_filter('lawyers_header') }}');"></div>
-                            {% endif %}
-                            <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }#}"></div> -->
+                            {% endif %#}
+                            <!-- <div class="lawyer__page__foto--img" style="background-image: url('{#{ asset('web/assets/img/FLUF.jpg') }#}"></div> -->
+
+                            <div class="lawyer__page__foto--img" style="background-image: url('{{ asset('/web/assets/img/FLUF.jpg')| imagine_filter('lawyers_header') }}');"></div>
                         </div>
                     </div>
                 </div>

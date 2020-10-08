@@ -28,39 +28,13 @@ class EventsBlock extends Block
     private $eventType;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activity")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event")
      */
-    private $activities;
+    private $events;
 
     public function __construct()
     {
-        $this->activities = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection|Activity[]
-     */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
-
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $activity): self
-    {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
-        }
-
-        return $this;
+        $this->events = new ArrayCollection();
     }
 
     public function getNumberOfEvents(): ?int
@@ -87,12 +61,30 @@ class EventsBlock extends Block
         return $this;
     }
 
-    public function removeActivity(Activity $activity): self
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
     {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
         }
 
         return $this;
     }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+        }
+
+        return $this;
+    }
+
 }

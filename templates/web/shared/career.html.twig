@@ -1,73 +1,100 @@
+{%  set lang = app.request.getLocale()    %}
 <section class="boxnews boxnews--career">
     <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title section__title--career">Career</h4>
+                <h4 class="section__title section__title--career">{{  career.translate(lang).title }}  </h4>
                 <div class="boxnews__list">
-                    <article class="boxnews__item boxnews__item--blockquote">
-                        <blockquote class="cite__quote">
-                            <p>Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.</p>
-                            <cite>Ignacio Buil<br>Director oficina Londres</cite>
-                        </blockquote>
-                    </article>
-                    <article class="boxnews__item boxnews__item--career">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">Career</div>
-                            <div class="boxnews__info">17 febrero 2020</div>
-                        </div>
-                        <div class="boxnews__content">
-                            <h5 class="boxnews__copy">
-                                <a href="#" class="boxnews__link">
-                                    Paula Benéitez se incorpora a Cuatrecasas en el departamento de gestión europea.
-                                </a>
-                            </h5>
-                            <div class="boxnews__photo">
-                                <img src="https://via.placeholder.com/368x207" alt="">
-                            </div>
-                        </div>
-                    </article>
-                    <article class="boxnews__item boxnews__item--event">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">Evento</div>
-                            <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
-                        </div>
-                        <div class="boxnews__content">
-                            <h5 class="boxnews__copy">
-                                <a href="#" class="boxnews__link">
-                                    Mesa redonda: información privilegiada y otra información relevante
-                                </a>
-                            </h5>
-                            <div class="boxnews__meta">
-                                <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
-                                <div class="boxnews__meta__date">26 Febrero 2020 a 8 Marzo 2020</div>
-                                <div class="boxnews__meta__time">10.30 — 14.30</div>
-                            </div>
-                        </div>
-                        <div class="boxnews__footer">
-                            <ul class="related__services">
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        MERCANTIL Y SOCIETARIO
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        ARBITRAJE
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        PENAL
-                                    </a>
-                                </li>
-                                <li class="related__services__item">
-                                    <a href="#" class="related__services__link">
-                                        LITIGACIÓN
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
+                    {% for bloque in career.getBlocks %}
+                        {%  if entity_type(bloque) == 'App\\Entity\\QuoteBlock' %}
+                            <article class="boxnews__item boxnews__item--blockquote">
+                                <blockquote class="cite__quote">
+                                    <p>{{  bloque.getQuote().translate(lang).body  }}</p>
+                                    <cite>{{  bloque.getQuote().author  }}<br>{{  bloque.getQuote().year  }}</cite>
+                                </blockquote>
+                            </article>
+                        {%  endif   %}
+
+                        {%  if entity_type(bloque) == 'App\\Entity\\PublicationBlock' %}
+                            {#{  bloque.publication[0].translate(app.request.getLocale()).title  }#}
+                            {#{  bloque.getQuote().translate(app.request.getLocale()).body  }#}
+                            <article class="boxnews__item boxnews__item--career">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">{{ 'menu.career.career'|trans }}</div>
+                                    {# <div class="boxnews__type">{{ bloque.publication[0].translate(lang).title }}</div> #}
+                                    <div class="boxnews__info">{{ bloque.publication[0].publicationDate|date("d M Y") }}</div>
+                                </div>
+                                <div class="boxnews__content">
+                                    {# Se quita para que solo este el VIDEO intencionalmente #}
+                                    {# <h5 class="boxnews__copy">
+                                        <a href="articulo/{{ bloque.publication[0].translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                            {{ bloque.publication[0].translate(app.request.getLocale()).summary|raw }}
+                                            {%  if bloque.publication[0].translate(app.request.getLocale()).summary == '' %}
+                                                {{ bloque.publication[0].translate(app.request.getLocale()).content|raw  }}
+                                            {%  endif %}
+                                        </a>
+                                    </h5> #}
+                                    <h5 class="boxnews__copy">
+                                        <a href="articulo/{{ bloque.publication[0].translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                            {{ bloque.publication[0].translate(lang).title }}
+                                        </a>
+                                    </h5>
+                                    <div class="boxnews__photo">
+                                        {% if bloque.publication[0].urlVideo != '' %}
+                                            {% include 'web/shared/video-article.html.twig' with { article: bloque.publication[0] } %}
+                                            {% else %}
+                                                <img src="{{ asset('web/assets/img/cabecera_1920x1080_baja.jpg') }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </article>
+                        {% endif %}
+
+                        {%  if entity_type(bloque) == 'App\\Entity\\EventsBlock' %}
+
+                            {%  set event = bloque.events[0]  %}
+                            {% set path_str = get_pathda(event)|trans %}
+
+                            <article class="boxnews__item boxnews__item--event">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">Evento</div>
+                                    <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <h5 class="boxnews__copy">
+                                        <a href="{{ path(path_str, { slug: event.translate(lang).slug }) }}" class="boxnews__link">
+                                            {{ event.translate(lang).title }}
+                                        </a>
+                                    </h5>
+                                    <div class="boxnews__meta">
+                                        <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
+                                        <div class="boxnews__meta__date">
+                                        {{ event.startDate|date('d M Y') }} a
+                                        {{ event.endDate|date('d M Y') }}
+                                        <!-- 6 Febrero 2020 a 8 Marzo 2020 -->
+                                        </div>
+                                        <div class="boxnews__meta__time">{{ event.startDate|date('H.i') }} — {{ event.endDate|date('H.i') }}</div>
+                                        <!-- <div class="boxnews__meta__time">10.30 — 14.30</div> -->
+                                    </div>
+                                </div>
+                                {% if event.activities|length > 1 %}
+                                <div class="boxnews__footer">
+                                    <ul class="related__services">
+                                        {% for activity in event.activities %}
+                                            <li class="related__services__item">
+                                            {% set path_string = get_pathda(activity)|trans %}
+                                                <a href="{{ path(path_string, { slug: activity.translate(lang).slug }) }}" class="related__content__link">
+                                                    {{ activity.translate(lang).title | upper}}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </article>
+
+                        {%  endif   %}
+                    {%  endfor %}
                 </div>
             </div>
         </div>

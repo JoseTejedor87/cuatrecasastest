@@ -3,6 +3,7 @@ web.global = {
     init: function(){ // Load all global functions here
         web.global.stickyMenu();
         web.global.mobileNav();
+        web.global.loadMiscell();
     },
 
     stickyMenu: function(){
@@ -98,25 +99,55 @@ web.global = {
     },
 
     loadMiscell: function(){
-        $('.button__bookmark').click(function(e){
-            e.preventDefault();
-            $(this).toggleClass('button__bookmark--on');
-        });
-
-        $('.no-link').click(function(e){
-            e.preventDefault();
-        });
-
-        // $('.doble__arrow__accordion').click(function(){
-        //     $(this).toggleClass('doble__arrow__accordion--on');
-
-        //     if ($(this).hasClass('doble__arrow__accordion--on')) {
-        //         $(this).text('Ver menos');
-        //     } else {
-        //         $(this).text('Ver más');
-        //     }
-
+        // $('.button__bookmark').click(function(e){
+        //     e.preventDefault();
+        //     $(this).toggleClass('button__bookmark--on');
         // });
+
+        // $('.no-link').click(function(e){
+        //     e.preventDefault();
+        // });
+
+        $('.doble__arrow__accordion').click(function(){
+            $(this).toggleClass('doble__arrow__accordion--on');
+
+            if ($(this).hasClass('doble__arrow__accordion--on')) {
+                // alert('on');
+            } else {
+                // alert('off');
+            }
+        });
+
+
+        // Show filters
+        showFilters();
+
+        var showFiltersTimer; // delete maybe ¿?
+        $(window).on('resize', function(e) {
+            clearTimeout(showFiltersTimer);
+            showFiltersTimer = setTimeout(function() {
+                showFilters();
+            }, 100);
+        });
+
+        function showFilters() {
+            if (window.matchMedia("(min-width: 992px)").matches) {
+                if ($(".filtersToggle").length) {
+                    $('#filtersButton').hide();
+                    $('.filtersToggle').show();
+                }
+            } else {
+                if ($(".filtersToggle").length) {
+                    $('#filtersButton').show();
+                    $('.filtersToggle').hide();
+                }
+            }
+        }
+
+        $('#filtersButton .doble__arrow__accordion').click(function(){
+            $('.filtersToggle').toggle();
+            $(this).blur();
+        });
     },
 
     customSelects: function(){

@@ -4,6 +4,10 @@
 
 @include new("home") {
 
+    // Bootstrap Resset
+    padding-right: 0;
+    padding-left: 0;
+
     $zero-size:     0;
     $small-size:    24vw;
     $big-size:      650px;

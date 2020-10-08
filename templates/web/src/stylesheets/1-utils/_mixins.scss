@@ -522,6 +522,7 @@ img {
         transition: transform 0.2s ease-in-out;
 
         @media(max-width: $max-width-4casas) {
+            top: -2px;
             right: 0;
             @include fontSet(18px, 26px);
         }

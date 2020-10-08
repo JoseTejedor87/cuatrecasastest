@@ -131,6 +131,8 @@
 
         .insight__img {
             width: 50%;
+            background-size: 300%;
+            background-position: 50% 50%;
 
              @media(max-width: $max-width-4casas) {
                 width: 100%;
@@ -287,6 +289,7 @@
 
     @include has("vector") {
         @include stretch-to-right;
+        background-position: 50% 50%;
 
         @media(max-width: $max-width-4casas) {
             width: 100vw;

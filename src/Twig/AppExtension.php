@@ -63,7 +63,9 @@ class AppExtension extends AbstractExtension
             case 'Desk':
                 return 'sectors_detail';
             case 'Product':
-                return 'products_detail';             
+                return 'products_detail';
+            case 'Event':
+                return 'events_detail';                             
             default:
                 return 'no-definido';
         }

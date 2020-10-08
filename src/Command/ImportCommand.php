@@ -13,6 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+use App\Entity\Legislation;
 use App\Entity\Activity;
 use App\Entity\Award;
 use App\Entity\Desk;
@@ -38,9 +39,10 @@ use App\Entity\Program;
 use App\Entity\Product;
 use App\Entity\Banner;
 use App\Entity\Slider;
-use App\Entity\Legislation;
 use App\Entity\Brand;
 use App\Entity\Home;
+use App\Entity\Question;
+
 
 class ImportCommand extends Command
 {
@@ -115,6 +117,9 @@ class ImportCommand extends Command
             $this->PublicationsByLegislation();
             $this->Brand();
 
+            $this->EventosResponsables();
+            $this->EventosPreguntas();
+            
         } else {
             switch ($table) {
                 case "lawyer":
@@ -260,6 +265,13 @@ class ImportCommand extends Command
                 case "changeSummary":
                     $this->changeSummary();
                 break;                                                
+
+                case "eventos_preguntas":
+                    $this->EventosPreguntas();
+                break;            
+                case "eventos_responsables":
+                    $this->EventosResponsables();
+                break;            
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -286,9 +298,107 @@ class ImportCommand extends Command
 
     }
 
+
+    public function EventosPreguntas()
+    {
+        $data = file_get_contents("JsonExports/eventos_preguntas.json");
+        $items = json_decode($data, true);
+        
+        //  [{"id_evento":"93022","lang":"esp","hash":"pzm8wl94hp482hlf9fv2rr85vfbs518g","titulo":"","required":"0"},
+        
+        $eventRepository = $this->em->getRepository(Event::class);
+
+        $processedQuestionMap = [];
+
+        foreach ($items as $item) {
+            if ($item['hash'] == '') {
+                continue;
+            }
+            $currentLang = self::getMappedLanguageCode($item['lang']);
+                        
+            $eventId = $this->getMappedEventId($item['id_evento']);
+            if ($eventId == '') {
+                $this->logger->debug("============================= SKIPPED ======================================================== ");
+                continue;
+            }
+            $this->logger->debug("eventId ".$eventId);
+            $event = $eventRepository->find($eventId);
+            if ($event == '') {
+                $this->logger->debug("============================= FALLO en la busqueda No se encontro evento en el repo ");
+                continue;
+            }
+
+            if(isset($processedQuestionMap[$item['id_evento']])){
+                $question =  $processedQuestionMap[$item['id_evento']];
+            }else{
+                $question = new Question();
+                $question->setEvents($event);
+            }
+            $question->translate($currentLang)->setHash($item['hash']);
+            $processedQuestionMap[$item['id_evento']]=$question;
+        }
+        foreach ($processedQuestionMap as $question) {
+            $question->mergeNewTranslations();
+            $this->em->persist($question);
+            $this->em->flush();
+            $this->logger->debug("question ".$question->getId()." ".$question->translate($currentLang)->getHash());
+        }
+    }
+
+
+    public function EventosResponsables()
+    {
+        $data = file_get_contents("JsonExports/eventos_responsables.json");
+        $items = json_decode($data, true);
+        
+        $eventRepository = $this->em->getRepository(Event::class);
+        $personRepository = $this->em->getRepository(Person::class);
+        $getMappedEventId = [];
+
+        
+        foreach($items as $item){
+            $eventId = $this->getMappedEventId($item['id_evento']);
+
+            if ($eventId){
+                //$event = $eventRepository->findOneBy(['oldId'=>$eventId]);
+                $event = $eventRepository->find($eventId);
+
+                $person = $personRepository->findOneBy(['inicial' => $item['sap']]);
+                if($person == null) 
+                {
+                    
+                    $person = new Person();
+                    if ($item['id_responsables_tipo'] == 1) {
+                        $person->setType('socio');
+                    }elseif ($item['id_responsables_tipo'] == 2) {
+                        $person->setType('marketing');
+                    } elseif ($item['id_responsables_tipo'] == 3) {
+                        $person->setType('secretaria');
+                    }
+                    $person->setInicial(trim($item['sap']));
+                    $person->setName($this->convertStringUTF8(trim($item['nombre'])));
+                    $person->setSurname($this->convertStringUTF8(trim($item['apellidos'])));
+                    // $person->setEmail($item['email']);
+
+                    $this->em->persist($person);
+                    $this->em->flush();
+                }
+                
+                $this->logger->debug("PERSON: INITIALS:" . $item['sap'] . " evento:" . $item['id_evento']);
+                $event->addPerson($person);
+                $this->em->persist($event);
+                $this->em->flush();
+            }else{
+                $this->logger->debug("SKIPEEEDDD ==========================================  evento:" . $item['id_evento']);
+            }
+        }
+    }
+
+
+
     public function PublicationsByLegislation()
     {
-        $this->Legislation();
+        //$this->Legislation();
 
         $data = file_get_contents("JsonExports/PublicacionesLegislacion.json");
         $items = json_decode($data, true);
@@ -1388,7 +1498,6 @@ class ImportCommand extends Command
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             $activityId = $this->getMappedActivityId($item['id_area']);
             if ($lawyerId && $activityId) {
-
                 // Trying to recover objects from the mapping arrays,
                 // if items does not exists, use the ORM to load it from the database
                 $lawyer =  $lawyerRepository->find($lawyerId);
@@ -1755,7 +1864,7 @@ class ImportCommand extends Command
             if ($office->getAddress()) {
                 $response = $this->client->request(
                     'GET',
-                    'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->getCity()).','.utf8_encode($office->getCountry())
+                    'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->translate('es')->getCity()).','.utf8_encode($office->translate('es')->getCountry())
                 );
 				if($response->getStatusCode()==200){
 					$content = $response->toArray();
@@ -2465,9 +2574,12 @@ class ImportCommand extends Command
                                 );
                             }
                             self::setRegions($article);
-                            $article->mergeNewTranslations();
-                            $this->em->persist($article);
-                            $this->em->flush();
+                            if($article->translate('es')->getTitle() != "" || $article->translate('en')->getTitle()){
+                                $article->mergeNewTranslations();
+                                $this->em->persist($article);
+                                $this->em->flush();
+                            }
+                            
                         }
                     }
                     if ($status=400) {
@@ -2480,7 +2592,7 @@ class ImportCommand extends Command
     {
         $client = HttpClient::create();
         $ArticleRepository = $this->em->getRepository(Publication::class);
-        $articulos = $ArticleRepository->findAll();
+        $articulos = $ArticleRepository->findBy(['originalTableCode' => 2 ]);
         foreach ($articulos as $keyArticulo => $articulo) {
             $categorias = ["propiedad-intelectual","competencia","deporte-entretenimiento","mercado-de-valores","laboral",""];
             foreach ($categorias as $keycategoria => $categoria) {

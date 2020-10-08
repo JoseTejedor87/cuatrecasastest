@@ -62,7 +62,7 @@ class SoapCommand extends Command
         $em = $this->container->get('doctrine');
         $this->conn = $em->getConnection();
         if($this->CrearTablas){ 
-            $this->SOAPContactsClientRepository->deleteTables();
+            //$this->SOAPContactsClientRepository->deleteTables();
             $this->SOAPContactsClientRepository->createTables();
         }else{
             $this->SOAPContactsClientRepository->truncateTables();

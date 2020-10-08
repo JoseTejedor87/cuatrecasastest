@@ -42,9 +42,9 @@
                     <tbody>
                     {% for office in offices %}
                         <tr class="row">
-                            <td class="col-sm-2">{{ office.city }}</td>
+                            <td class="col-sm-2">{{ office.translate('es').city }}</td>
                             <td class="col-sm-5">{{ office.address }}</td>
-                            <td class="col-sm-2">{{ office.country }}</td>
+                            <td class="col-sm-2">{{ office.translate('es').country }}</td>
                             <td class="col-sm-2 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':office.languages} %}
                                 /

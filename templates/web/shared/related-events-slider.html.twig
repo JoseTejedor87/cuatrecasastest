@@ -3,7 +3,7 @@
         <div class="row page__section">
             <div class="col">
                 <h4 class="section__title section__title--event">Eventos destacados</h4>
-                <div class="swiper-container slider__general">
+                <div id="sliderEvents" class="swiper-container slider__general">
                     <div class="swiper-wrapper">
                         {% for event in events %}
                         {% if   event.translate(app.request.getLocale()).title %}
