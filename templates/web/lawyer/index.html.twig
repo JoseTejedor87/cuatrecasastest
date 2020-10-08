@@ -82,32 +82,19 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            <select id="category" class="custom__select">
-                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_category'|trans }}</option>
-                                <option value="">Alimentación</option>
-                                <option value="">Arte</option>
-                                <option value="">Brexit</option>
-                                <option value="">Canadian Desk</option>
-                                <option value="">Ciberseguridad</option>
-                                <option value="">Consumo y Retail</option>
-                                <option value="">Deporte</option>
-                                <option value="">Empresa Familiar</option>
-                                <option value="">Energía y Recursos Naturales</option>
-                                <option value="">Farmacia y Sanitario</option>
+                            <select id="lawyerType" class="custom__select">
+                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
+                                <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
+                                <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
+                                <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option>
+                                <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
+                                <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
+                                <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
+                                <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
+                                <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
+                                <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
+                                <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
                             </select>
-                        <select id="lawyerType" class="custom__select">
-                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
-                            <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
-                            <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
-                            <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option>
-                            <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
-                            <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
-                            <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
-                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
-                            <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
-                            <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
-                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
-                        </select>
                         </div>
                         <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
                             <ul class="pagination">
