@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -28,7 +28,7 @@ class ProgramFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_time', DateType::class, ['label'=>'entities.programs.fields.date_time', 'required' => true])
+            ->add('date_time', DateTimeType::class, ['label'=>'entities.programs.fields.date_time', 'required' => true])
             ->add('people', EntityType::class, [
                 'class' => Person::class,
                 'label' => 'entities.programs.fields.people',
@@ -44,8 +44,15 @@ class ProgramFormType extends AbstractType
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.programs.fields.title', 'required' => true],
-                    'description' => ['label'=>'entities.programs.fields.description','required' => true, 'attr'=>['class'=>'summernote']],
+                    'title' => [
+                        'label'=>'entities.programs.fields.title', 
+                        'required' => true
+                    ],
+                    'description' => [
+                        'label'=>'entities.programs.fields.description',
+                        'required' => true, 
+                        'attr'=>['class'=>'summernote']
+                    ],
                 ],
             ]);
         ;

@@ -148,6 +148,10 @@ class MigrationCommand extends Command
                     $this->VideosPractica($conn,$output);
                     $this->VideosOficina($conn,$output);
                     break; 
+                case "RepresentantesPreguntasEventos":
+                    $this->PreguntasEventos($conn,$output);
+                    $this->RepresentantesAventos($conn,$output);
+                    break;
 
             } 
         }
@@ -544,6 +548,30 @@ class MigrationCommand extends Command
         $fs->dumpFile('JsonExports/VideosOficina.json', json_encode($results));
         $this->logger->info('Se ha guardado la tabla VideosOficina');
         $this->logger->info('Se ha guardado con el nombre VideosOficina.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function PreguntasEventos($conn,$output){
+        $query = "SELECT [id_evento] ,[lang] ,[hash] ,[titulo],[required] FROM eventos_preguntas";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/eventos_preguntas.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_preguntas');
+        $this->logger->info('Se ha guardado con el nombre eventos_preguntas.json');
+        $this->logger->info('Total de registros: '.$stmt->rowCount());
+        return 0;
+    }
+    public function RepresentantesAventos($conn,$output){
+        $query = "SELECT [id_evento] ,[id_responsables_tipo] ,[sap] ,[nombre] ,[apellidos] ,[email] ,[telefono]  FROM eventos_responsables";  
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $fs->dumpFile('JsonExports/eventos_responsables.json', json_encode($results));
+        $this->logger->info('Se ha guardado la tabla eventos_responsables');
+        $this->logger->info('Se ha guardado con el nombre eventos_responsables.json');
         $this->logger->info('Total de registros: '.$stmt->rowCount());
         return 0;
     }

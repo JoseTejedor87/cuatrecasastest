@@ -71,7 +71,7 @@ sections:
       by_office: Por oficina
       by_category: Por categoria
       by_initial: Buscar por inicial
-      by_lawyerType: Por Cargo      
+      by_lawyerType: Por Cargo
       search_results: Resultados de la búsqueda
       search_results_txt1: Mostramos
       search_results_txt2: perfiles que encajan con la búsqueda
@@ -679,6 +679,33 @@ firm:
 career:
   send_cv: Enviar CV
 
+  quote:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_2:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_3:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  learn:
+    intro: Learn lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
+    content:
+      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
+      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+
+  international:
+    intro: International lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
+    content:
+      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
+      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+
 # colections
   collections_career_home:
     art_1:
@@ -688,8 +715,16 @@ career:
       title: Revolución
       content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
+  collections_career_international:
+    art_1:
+      title: What we look for
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Our practice areas
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
 # info boxes
-  info_join:
+  info_join_us:
     title: Únete a nosotros
     art_1:
       title: Graduados
@@ -701,8 +736,104 @@ career:
       title: Profesionales de organización
       content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
+  info_live:
+    art_0:
+      title: Well Being
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Environmental
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Social
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Governance
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_revolution:
+    art_0:
+      title: Diversidad
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Environmental
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Social
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Governance
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_revolution2:
+    art_0:
+      title: Smart Working
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Tech Channel
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Premio FT
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Acelera Ventures
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_learn:
+    title: Special Programs
+    art_1:
+      title: Compendio
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Plan mentor
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Metas volantes
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_4:
+      title: PPAI
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_5:
+      title: PPA
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_international:
+    art_0:
+      title: Secondments
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: PPAI
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_join:
+    art_0:
+      title: Programas de prácticas
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, perferendis voluptatibus aut id amet.
+    art_1:
+      title: Our organization
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Nuestro proceso
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+    art_3:
+      title: FAQs
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
 # banners CTA
   cta_learn:
     title: Aprende con los mejores
     content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
 
+  cta_live:
+    title: Lorem ipsum dolor
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_school:
+    title: Escuela de derecho
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_international:
+    title: Donde estamos
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_video:
+    title: Lorem, ipsum dolor sit amet, consectetur vídeo de 10 años

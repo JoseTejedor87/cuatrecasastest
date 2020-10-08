@@ -84,6 +84,7 @@ abstract class Publication extends Publishable
         $this->offices = new ArrayCollection();
         $this->insights = new ArrayCollection();
         $this->legislations = new ArrayCollection();
+        $this->publication_date = new \DateTime();
     }
 
     public function getFeatured(): ?int

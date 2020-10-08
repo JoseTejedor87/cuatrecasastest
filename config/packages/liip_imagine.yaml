@@ -18,6 +18,7 @@ liip_imagine:
         filter_runtime_action: liip_imagine.controller:filterRuntimeActio
 
     filter_sets:
+        # HEADERS
         full_header:
             quality: 75
             filters:
@@ -30,11 +31,56 @@ liip_imagine:
                 scale:
                     dim: [1280, 720]
 
-        desks_header:
+        # desks_header:
+        #     quality: 75
+        #     filters:
+        #         scale:
+        #             dim: [1280, 720]
+
+        # practices_header:
+        #     quality: 75
+        #     filters:
+        #         scale:
+        #             dim: [1280, 720]
+
+        # sectors_header:
+        #     quality: 75
+        #     filters:
+        #         scale:
+        #             dim: [1280, 720]
+
+        # product_header:
+        #     quality: 75
+        #     filters:
+        #         scale:
+        #             dim: [1280, 720]
+
+        # product_grid:
+        #     quality: 75
+        #     filters:
+        #         scale:
+        #             dim: [350, 200]
+
+        # INSIGHTS
+        insights_grid:
             quality: 75
             filters:
                 scale:
-                    dim: [1280, 720]
+                    dim: [900, 500]
+
+        # ARTICLES
+        article_box:
+            quality: 75
+            filters:
+                scale:
+                    dim: [900, 500]
+
+        # LAWYERS
+        lawyers_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1800, 1000]
 
         lawyers_grid:
             quality: 75
@@ -42,38 +88,8 @@ liip_imagine:
                 scale:
                     dim: [900, 500]
 
-        lawyers_header:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1800, 1000]
-
         lawyers_team:
             quality: 75
             filters:
                 scale:
                     dim: [1800, 1000]
-
-        practices_header:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1280, 720]
-
-        sectors_header:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1280, 720]
-
-        prodruct_grid:
-            quality: 75
-            filters:
-                scale:
-                    dim: [350, 200]
-
-        prodruct_header:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1280, 720]

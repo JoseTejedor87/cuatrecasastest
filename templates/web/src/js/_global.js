@@ -4,6 +4,82 @@ web.global = {
         web.global.stickyMenu();
         web.global.mobileNav();
         web.global.loadMiscell();
+        web.global.zoomAjust();
+    },
+
+    zoomAjust: function(){
+        function zoomBrowser() {
+            document.body.style.zoom = "95%";
+        }
+
+        /*
+        // Set initial zoom level
+        var zoom_level=100;
+
+        // Click events
+        $('#zoom_in').click(function() { zoom_page(10, $(this)) });
+        $('#zoom_out').click(function() { zoom_page(-10, $(this)) });
+        $('#zoom_reset').click(function() { zoom_page(0, $(this)) });
+
+        function zoom_page(step, trigger) {
+            // Zoom just to steps in or out
+            if(zoom_level>=120 && step>0 || zoom_level<=80 && step<0) return;
+
+            // Set / reset zoom
+            if(step==0) zoom_level=100;
+            else zoom_level=zoom_level+step;
+
+            // Set page zoom via CSS
+            $('body').css({
+                transform: 'scale('+(zoom_level/100)+')', // set zoom
+                transformOrigin: '50% 0' // set transform scale base
+            });
+
+            // Adjust page to zoom width
+            if(zoom_level>100) $('body').css({ width: (zoom_level*1.2)+'%' });
+            else $('body').css({ width: '100%' });
+
+            // Activate / deaktivate trigger (use CSS to make them look different)
+            if(zoom_level>=120 || zoom_level<=80) trigger.addClass('disabled');
+            else trigger.parents('ul').find('.disabled').removeClass('disabled');
+            if(zoom_level!=100) $('#zoom_reset').removeClass('disabled');
+            else $('#zoom_reset').addClass('disabled');
+        }
+        */
+
+        // https://stackoverflow.com/questions/1055336/changing-the-browser-zoom-level/12603229#12603229
+        function zoomFactor() {
+            // var factor = 1.2;
+
+            // 125%
+            // var factor = 0.95;
+
+            // 150%
+            var factor = 0.90;
+
+            var all = document.getElementsByTagName("*");
+            for (var i=0, max=all.length; i < max; i++) {
+                var style = window.getComputedStyle(all[i]);
+                var fontSize = style.getPropertyValue('font-size');
+
+                if(fontSize){
+                    all[i].style.fontSize=(parseFloat(fontSize)*factor)+"px";
+                }
+                if(all[i].nodeName === "IMG"){
+                    var width=style.getPropertyValue('width');
+                    var height=style.getPropertyValue('height');
+                    all[i].style.height = (parseFloat(height)*factor)+"px";
+                    all[i].style.width = (parseFloat(width)*factor)+"px";
+                }
+            }
+        }
+
+        $(window).on('load', function(e) {
+            // alert('zoomBrowser');
+            // zoomBrowser();
+            // alert('zoomFactor');
+            // zoomFactor();
+        });
     },
 
     stickyMenu: function(){

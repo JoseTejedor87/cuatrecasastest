@@ -273,8 +273,8 @@ entities:
       description: Descripción
       schedule: Horarios
       program: Programa
-      customCity: Ciudad
-      customAddress: Dirección
+      customCity: Ciudad (Si no hay oficina)
+      customAddress: Dirección (Si no hay oficina)
       customMap: Mapa
       customSignup: Enlace inscripciones
       startDate: Inicio
@@ -282,12 +282,20 @@ entities:
       eventType: Tipo de evento
       contact: Nombre de contacto
       phone: Teléfono de contacto
+      email: Email de contacto
       capacity: Aforo
       people: Personas
       office: Oficina
       no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+      programs: Programas
+      questions: Preguntas
+      customCountry: Pais (Si no hay oficina)
+      customPostalcode: Codigo postal (Si no hay oficina)
+      customProvince: Provincia (Si no hay oficina)
+
+
   programs:
     fields:
       title: Titulo
@@ -455,6 +463,10 @@ entities:
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas
       url: Url de acceso Opciones del Usuario
+  question:
+    fields:
+      question: Pregunta
+      hash: hash
 # Custom Form Types
 
 forms:
@@ -463,6 +475,7 @@ forms:
     publication: Publicación
     appearance: Apariencia
     seo: SEO
+    WebService: Web Service GC
 
   choices:
     blockTypes:
