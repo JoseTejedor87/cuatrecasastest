@@ -19,11 +19,6 @@ class Office extends Publishable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $address;
 
     /**
@@ -31,10 +26,6 @@ class Office extends Publishable
      */
     private $cp;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $country;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -56,15 +47,7 @@ class Office extends Publishable
      */
     private $phone;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $img_map;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $link_google;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="office", cascade={"persist"}, orphanRemoval=true)
@@ -104,7 +87,7 @@ class Office extends Publishable
 
 
     /**
-     * @Gedmo\Slug(fields={"city", "address"}, updatable=false)
+     * @Gedmo\Slug(fields={"address"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -130,31 +113,8 @@ class Office extends Publishable
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
-        $this->Article = new ArrayCollection();
         $this->event = new ArrayCollection();
         $this->publication = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->getCity();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
     }
 
     public function getAddress(): ?string
@@ -177,18 +137,6 @@ class Office extends Publishable
     public function setCp(string $cp): self
     {
         $this->cp = $cp;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
@@ -241,44 +189,6 @@ class Office extends Publishable
         return $this;
     }
 
-    public function getImgMap(): ?string
-    {
-        return $this->img_map;
-    }
-
-    public function setImgMap(string $img_map): self
-    {
-        $this->img_map = $img_map;
-
-        return $this;
-    }
-
-    public function getLinkGoogle(): ?string
-    {
-        return $this->link_google;
-    }
-
-    public function setLinkGoogle(string $link_google): self
-    {
-        $this->link_google = $link_google;
-
-        return $this;
-    }
-
-    public function getImgOffice(): ?Resource
-    {
-        return $this->img_office;
-    }
-
-    public function setImgOffice(?Resource $img_office): self
-    {
-        $this->img_office = $img_office;
-        if ($img_office) {
-            $img_office->setOffice($this);
-        }
-        return $this;
-    }
-
     public function getStatus(): ?int
     {
         return $this->status;
@@ -327,9 +237,63 @@ class Office extends Publishable
         return $this;
     }
 
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?string $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImgOffice(): ?Resource
+    {
+        return $this->img_office;
+    }
+
+    public function setImgOffice(?Resource $img_office): self
+    {
+        $this->img_office = $img_office;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newOffice = null === $img_office ? null : $this;
+        if ($img_office->getOffice() !== $newOffice) {
+            $img_office->setOffice($newOffice);
+        }
+
+        return $this;
+    }
+
     /**
-    * @return Collection|Lawyer[]
-    */
+     * @return Collection|Lawyer[]
+     */
     public function getLawyer(): Collection
     {
         return $this->lawyer;
@@ -354,19 +318,6 @@ class Office extends Publishable
                 $lawyer->setOffice(null);
             }
         }
-
-        return $this;
-    }
-
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
@@ -430,29 +381,6 @@ class Office extends Publishable
         return $this;
     }
 
-    public function getLat(): ?string
-    {
-        return $this->lat;
-    }
-
-    public function setLat(string $lat): self
-    {
-        $this->lat = $lat;
-
-        return $this;
-    }
-
-    public function getLng(): ?string
-    {
-        return $this->lng;
-    }
-
-    public function setLng(string $lng): self
-    {
-        $this->lng = $lng;
-
-        return $this;
-    }
 
 
 }

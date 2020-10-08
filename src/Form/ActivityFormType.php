@@ -102,4 +102,5 @@ abstract class ActivityFormType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
+
 }

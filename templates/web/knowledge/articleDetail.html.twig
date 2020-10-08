@@ -48,7 +48,7 @@
                         <div class="article__details desktop">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
@@ -100,7 +100,7 @@
                         <div class="article__details mobile">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>

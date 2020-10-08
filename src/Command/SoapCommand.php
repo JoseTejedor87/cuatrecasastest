@@ -35,7 +35,7 @@ class SoapCommand extends Command
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
-        $this->CrearTablas = true;
+        $this->CrearTablas = false;
         $this->em = $this->container->get('doctrine')->getManager();
         $this->SOAPContactsClientRepository = $SOAPContactsClientRepository;
         $this->soap  = new SOAPContactsClientController;

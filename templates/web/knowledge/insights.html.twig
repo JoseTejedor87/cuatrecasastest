@@ -165,10 +165,10 @@
                                 </div>
                                 <div class="chechbox__wrapper">
                                     {% for office in offices %}
-                                        {% if office.city  %}
+                                        {% if office.translate(app.request.getLocale()).city  %}
                                             <div class="checkbox">
-                                                <input type="checkbox" id="region-{{office.id}}" data-name="{{ office.city }}" value="{{office.id}}">
-                                                <label class="checkbox-label" for="region-{{office.id}}"><span>{{ office.city  }}</span></label>
+                                                <input type="checkbox" id="region-{{office.id}}" data-name="{{ office.translate(app.request.getLocale()).city }}" value="{{office.id}}">
+                                                <label class="checkbox-label" for="region-{{office.id}}"><span>{{ office.translate(app.request.getLocale()).city  }}</span></label>
                                             </div>
                                         {% endif %}
                                     {% endfor %}

@@ -24,6 +24,16 @@ class Person extends Item
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $inicial;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $position;
 
     /**
@@ -193,6 +203,30 @@ class Person extends Item
             $this->programs->removeElement($program);
             $program->removePerson($this);
         }
+
+        return $this;
+    }
+
+    public function getInicial(): ?string
+    {
+        return $this->inicial;
+    }
+
+    public function setInicial(?string $inicial): self
+    {
+        $this->inicial = $inicial;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

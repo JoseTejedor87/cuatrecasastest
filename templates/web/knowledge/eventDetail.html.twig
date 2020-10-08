@@ -67,7 +67,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {#% if attachment.publish.language  == app.request.getLocale() && attachment.publish.region == app.request.getRegion() %#}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
@@ -207,7 +207,7 @@
                                         </div>
                                         <ul class="lawyer__practice">
                                             <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                            <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.city : '' }}</li>
+                                            <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
                                         </ul>
                                     </div>
                                 </a>

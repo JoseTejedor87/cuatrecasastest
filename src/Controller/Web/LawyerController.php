@@ -26,6 +26,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use App\Repository\GeneralBlockRepository;
 
+use App\Controller\Web\NavigationService;
+
 class LawyerController extends WebController
 {
     protected $imagineCacheManager;
@@ -35,7 +37,7 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
         $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
@@ -47,7 +49,8 @@ class LawyerController extends WebController
     }
 
     public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository,
-     PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,  GeneralBlockRepository $generalBlockRepository)
+     PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,
+       GeneralBlockRepository $generalBlockRepository,  NavigationService $navigation)
     {
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
@@ -154,7 +157,7 @@ class LawyerController extends WebController
                         $activities = $activities. ' ' . $activity->translate('es')->getTitle();
                     }
                     $lawyerA[$key]['activities'] = $activities;
-                    $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->getCity() : '';
+                    $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->translate($navigation->getLanguage())->getCity() : '';
                     $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid');
                 }
             }
@@ -216,8 +219,8 @@ class LawyerController extends WebController
         $officeData = '';
         if ($lawyer->getOffice() != null){
             $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
-            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
-            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 

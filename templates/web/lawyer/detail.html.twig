@@ -26,7 +26,7 @@
                         </ul>
                         <div class="lawyer__page__contact">
                             <div data-address>
-                                {{ 'sections.lawyers.office'|trans }} {{ lawyer.office ? lawyer.office.city : '' }}
+                                {{ 'sections.lawyers.office'|trans }} {{ lawyer.office ? lawyer.office.translate(app.request.getLocale()).city : '' }}
                             </div>
                             <div data-telephone>
                                 {{ lawyer.phone }}

@@ -1864,7 +1864,7 @@ class ImportCommand extends Command
             if ($office->getAddress()) {
                 $response = $this->client->request(
                     'GET',
-                    'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->getCity()).','.utf8_encode($office->getCountry())
+                    'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->translate('es')->getCity()).','.utf8_encode($office->translate('es')->getCountry())
                 );
 				if($response->getStatusCode()==200){
 					$content = $response->toArray();

@@ -40,6 +40,11 @@ class Event extends Publishable
     private $phone;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $email;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $capacity;
@@ -76,10 +81,14 @@ class Event extends Publishable
     private $office;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events")
+     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
      */
     private $programs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $questions;
 
     public function __construct()
     {
@@ -87,6 +96,10 @@ class Event extends Publishable
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->questions = new ArrayCollection();
+        $this->startDate = new \DateTime();
+        $this->endDate = new \DateTime();
+
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -309,6 +322,49 @@ class Event extends Publishable
                 $program->setEvents(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            // set the owning side to null (unless already changed)
+            if ($question->getEvents() === $this) {
+                $question->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
