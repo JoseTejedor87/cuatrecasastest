@@ -24,33 +24,30 @@ class OfficeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('city', TextType::class, ['label'=>'entities.office.fields.city'])
             ->add('address', TextType::class, ['label'=>'entities.office.fields.address'])
-            ->add('cp', IntegerType::class, ['label'=>'entities.office.fields.cp'])
-            ->add('country', TextType::class, ['label'=>'entities.office.fields.country'])
+            ->add('cp', TextType::class, ['label'=>'entities.office.fields.cp'])
             ->add('contact', TextType::class, ['label'=>'entities.office.fields.contact'])
             ->add('email', TextType::class, ['label'=>'entities.office.fields.email'])
             ->add('fax', TextType::class, ['label'=>'entities.office.fields.fax'])
             ->add('phone', TextType::class, ['label'=>'entities.office.fields.phone'])
-            ->add('img_map', TextType::class, ['label'=>'entities.office.fields.img_map'])
-            ->add('link_google', TextType::class, ['label'=>'entities.office.fields.link_google'])
-            ->add('status', TextType::class, ['label'=>'entities.office.fields.status'])
-            ->add('place', TextType::class, ['label'=>'entities.office.fields.place'])
-            ->add('geographical_area', TextType::class, ['label'=>'entities.office.fields.geographical_area'])
+            ->add('status', IntegerType::class, ['label'=>'entities.office.fields.status'])
+            ->add('place', IntegerType::class, ['label'=>'entities.office.fields.place'])
+            ->add('geographical_area', IntegerType::class, ['label'=>'entities.office.fields.geographical_area'])
             ->add('sap', TextType::class, ['label'=>'entities.office.fields.sap'])
             ->add('img_office', ResourceFormType::class, [
                 'label'=>'entities.office.fields.img_office'
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
+            ->add('slug', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.slug'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                    'descriptions' => ['label'=>'entities.office.fields.descriptions', 'attr'=>['class'=>'summernote']],
-                    'tags' => ['label'=>'entities.office.fields.tags', 'attr'=>['class'=>'summernote']],
+                    'descriptions' => ['label'=>'entities.office.fields.descriptions', 'attr'=>['class'=>'summernote'] ,'required' => true],
+                    'tags' => ['label'=>'entities.office.fields.tags', 'attr'=>['class'=>'summernote'] ,'required' => false],
                     'city' => ['label'=>'entities.office.fields.city'],
                     'country' => ['label'=>'entities.office.fields.country'],
 
