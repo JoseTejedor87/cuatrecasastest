@@ -3,8 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Office;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Office|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,39 +17,18 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Office[]    findAll()
  * @method Office[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OfficeRepository extends ServiceEntityRepository
+class OfficeRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Office::class);
+        parent::__construct($registry, $navigation,Office::class);
     }
 
-    // /**
-    //  * @return Office[] Returns an array of Office objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getInstanceByRequest(Request $request)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->findOneBy(['slug' => $slug]);
+        }
+        return null;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Office
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

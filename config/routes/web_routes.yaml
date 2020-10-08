@@ -305,15 +305,6 @@ insights_detail:
 
 # Offices
 # ###########################################
-offices_index:
-    path:
-        en:     /offices/{slug}
-        es:     /oficinas/{slug}
-        pt:     /offices/{slug}
-        ge:     /offices/{slug}
-    methods:    GET|POST
-    controller: App\Controller\Web\OfficeController::detail
-
 offices_detail:
     path:
         en:     /offices/{slug}

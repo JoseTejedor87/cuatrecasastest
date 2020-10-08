@@ -110,6 +110,11 @@ class Office extends Publishable
      */
     private $publication;
 
+    public function __toString()
+    {
+        return $this->translate('es')->getCity();
+    }
+
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();

@@ -219,8 +219,8 @@ class LawyerController extends WebController
         $officeData = '';
         if ($lawyer->getOffice() != null){
             $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
-            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
-            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
+            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
