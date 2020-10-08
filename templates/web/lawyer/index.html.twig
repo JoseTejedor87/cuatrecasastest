@@ -3,8 +3,8 @@
 {% block metaRobots %}noindex{% endblock %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -99,15 +99,15 @@
                             <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
                             <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
                             <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
-                            <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option> 
-                            <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option> 
-                            <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option> 
-                            <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option> 
-                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option> 
-                            <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option> 
-                            <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option> 
-                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option> 
-                        </select>                                
+                            <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option>
+                            <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
+                            <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
+                            <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
+                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
+                            <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
+                            <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
+                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
+                        </select>
                         </div>
                         <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
                             <ul class="pagination">
@@ -203,6 +203,8 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
     $(function() {
         web.global.customSelects();

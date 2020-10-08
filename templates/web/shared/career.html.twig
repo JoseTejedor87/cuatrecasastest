@@ -5,16 +5,14 @@
             <div class="col">
                 <h4 class="section__title section__title--career">{{  career.translate(lang).title }}  </h4>
                 <div class="boxnews__list">
-                    {% for bloque in career.getBlocks %}                        
+                    {% for bloque in career.getBlocks %}
                         {%  if entity_type(bloque) == 'App\\Entity\\QuoteBlock' %}
-                                
                             <article class="boxnews__item boxnews__item--blockquote">
                                 <blockquote class="cite__quote">
                                     <p>{{  bloque.getQuote().translate(lang).body  }}</p>
                                     <cite>{{  bloque.getQuote().author  }}<br>{{  bloque.getQuote().year  }}</cite>
                                 </blockquote>
                             </article>
-
                         {%  endif   %}
 
                         {%  if entity_type(bloque) == 'App\\Entity\\PublicationBlock' %}
@@ -22,30 +20,35 @@
                             {#{  bloque.getQuote().translate(app.request.getLocale()).body  }#}
                             <article class="boxnews__item boxnews__item--career">
                                 <div class="boxnews__header">
-                                    <div class="boxnews__type">{{ bloque.publication[0].translate(lang).title }}</div>
+                                    <div class="boxnews__type">{{ 'menu.career.career'|trans }}</div>
+                                    {# <div class="boxnews__type">{{ bloque.publication[0].translate(lang).title }}</div> #}
                                     <div class="boxnews__info">{{ bloque.publication[0].publicationDate|date("d M Y") }}</div>
                                 </div>
                                 <div class="boxnews__content">
-                                    {# Se quita para que solo este el VIDEO intencionalmente 
-                                    <h5 class="boxnews__copy">
+                                    {# Se quita para que solo este el VIDEO intencionalmente #}
+                                    {# <h5 class="boxnews__copy">
                                         <a href="articulo/{{ bloque.publication[0].translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
-                                         
                                             {{ bloque.publication[0].translate(app.request.getLocale()).summary|raw }}
                                             {%  if bloque.publication[0].translate(app.request.getLocale()).summary == '' %}
                                                 {{ bloque.publication[0].translate(app.request.getLocale()).content|raw  }}
                                             {%  endif %}
                                         </a>
+                                    </h5> #}
+                                    <h5 class="boxnews__copy">
+                                        <a href="articulo/{{ bloque.publication[0].translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
+                                            {{ bloque.publication[0].translate(lang).title }}
+                                        </a>
                                     </h5>
-                                    #}  
                                     <div class="boxnews__photo">
                                         {% if bloque.publication[0].urlVideo != '' %}
-                                            {% include 'web/shared/video.html.twig' with { article: bloque.publication[0] }    %}
+                                            {% include 'web/shared/video-article.html.twig' with { article: bloque.publication[0] } %}
+                                            {% else %}
+                                                <img src="{{ asset('web/assets/img/cabecera_1920x1080_baja.jpg') }}" alt="">
                                         {% endif %}
-                                        <!-- <img src="https://via.placeholder.com/368x207" alt=""> -->
                                     </div>
                                 </div>
-                            </article>                            
-                        {%  endif   %}  
+                            </article>
+                        {% endif %}
 
                         {%  if entity_type(bloque) == 'App\\Entity\\EventsBlock' %}
 
@@ -66,14 +69,15 @@
                                     <div class="boxnews__meta">
                                         <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
                                         <div class="boxnews__meta__date">
-                                        {{ event.startDate|date('d M Y') }} a 
+                                        {{ event.startDate|date('d M Y') }} a
                                         {{ event.endDate|date('d M Y') }}
                                         <!-- 6 Febrero 2020 a 8 Marzo 2020 -->
-                                        </div> 
+                                        </div>
                                         <div class="boxnews__meta__time">{{ event.startDate|date('H.i') }} — {{ event.endDate|date('H.i') }}</div>
                                         <!-- <div class="boxnews__meta__time">10.30 — 14.30</div> -->
                                     </div>
                                 </div>
+                                {% if event.activities|length > 1 %}
                                 <div class="boxnews__footer">
                                     <ul class="related__services">
                                         {% for activity in event.activities %}
@@ -83,16 +87,14 @@
                                                     {{ activity.translate(lang).title | upper}}
                                                 </a>
                                             </li>
-                                        {% endfor %}                        
+                                        {% endfor %}
                                     </ul>
-                                </div>  
+                                </div>
+                                {% endif %}
                             </article>
-                            
+
                         {%  endif   %}
-                                              
                     {%  endfor %}
-
-
                 </div>
             </div>
         </div>

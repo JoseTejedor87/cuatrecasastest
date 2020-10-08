@@ -169,6 +169,14 @@
             }
         }
 
+        @include when("career") {
+            margin-bottom: 4rem;
+
+            .nav {
+                justify-content: space-around;
+            }
+        }
+
         .nav-tabs {
             border-bottom: 0 solid transparent;
         }
