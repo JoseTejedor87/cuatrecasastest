@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Office;
+use App\Entity\Lawyers;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Collections\Criteria;
@@ -31,4 +32,5 @@ class OfficeRepository extends PublishableEntityRepository implements Publishabl
         }
         return null;
     }
+
 }

@@ -59,7 +59,13 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->setMaxResults(5)
                 ->getQuery()
                 ->getResult();
-        foreach ($results as $key => $value) {
+
+        return $this->setTypePublication($results);
+    }
+
+    // agrega el tipo de publicacion
+    public function setTypePublication($publications){
+        foreach ($publications as $key => $value) {
                 $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
             if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy ){
                 $value->type = 'academy';
@@ -76,8 +82,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             }
                     
         }
-        return $results;
+
+        return $publications;
     }
+
     protected function getPhotoPathByFilter($publication, $filter)
     {
         if ($photos = $publication->getAttachments()) {

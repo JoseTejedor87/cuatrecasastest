@@ -5,6 +5,7 @@
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% set lang = app.request.getLocale() %}
 {% block main %}
 
     <main role="main" class="lawyer__page">
@@ -19,19 +20,20 @@
                         </h1>
                         <div class="lawyer__page__contact">
                             <div data-address>
-                                Av. da Boavista, 3265 - 5.1<br>
-                                4100-137 Oporto
+                                {{ office.address }}<br>
+                                {{ office.cp }}
+                                {{ office.translate(lang).city }}
                             </div>
                             <div data-telephone>
-                                666 66 66 66
+                                {{ office.phone }}
                             </div>
                             <div data-email>
                                 <a href="mailto:">
-                                    office-detail@cuatrecasas.com
+                                   {{ office.email }}
                                 </a>
                             </div>
                         </div>
-                        <a href="#" class="doble__arrow__link">Ver mapa</a>
+                        <a href="{{path('regions_vision')}}" class="doble__arrow__link">Ver mapa</a>
                         <ul class="action__links">
                             <li><a href="#"><i class="material-icons">share</i></a></li>
                             <li><a href="#"><i class="material-icons">print</i></a></li>
@@ -51,22 +53,26 @@
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos minima nesciunt accusantium dolores reiciendis dolorum. Quibusdam quasi perferendis at mollitia nobis, dignissimos, officiis reiciendis, dolorum modi, ducimus dolorem esse numquam.</p>
+                            {{   office.translate(lang).descriptions |raw   }}
                         </div>
                     </div>
                 </section>
 
             </div>
 
-            {% include 'web/shared/team-five.html.twig' %}
-            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-            {% include 'web/shared/cases_CMP.html.twig' %}
-            {% include 'web/shared/cta_CMP.html.twig' %}
+            {% if office.lawyer is not empty %}
+                {% include 'web/shared/team.html.twig' with { lawyers: office.lawyer } %}
+            {% endif %}
+
+            {#% include 'web/pages/custom/office-detail_CMP.html.twig'  %#}
+
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %} 
 
         </article>
     </main>
 
-    {% include 'web/shared/cta-footer.html.twig' %}
+    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
 
 {% endblock %}
 

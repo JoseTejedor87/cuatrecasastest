@@ -94,13 +94,11 @@ class Office extends Publishable
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Lawyer", mappedBy="office", cascade={"persist"}, orphanRemoval=true)
-     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $lawyer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="office", cascade={"persist"}, orphanRemoval=true)
-     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $event;
 
@@ -110,16 +108,16 @@ class Office extends Publishable
      */
     private $publication;
 
-    public function __toString()
-    {
-        return $this->translate('es')->getCity();
-    }
-
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
         $this->event = new ArrayCollection();
         $this->publication = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->translate('es')->getCity();
     }
 
     public function getAddress(): ?string

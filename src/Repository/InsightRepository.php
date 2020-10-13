@@ -36,6 +36,17 @@ class InsightRepository extends PublishableEntityRepository implements Publishab
         return null;
     }
 
+    public function getInsightByLawyers($lawyers)
+    {
+        return $this->createPublishedQueryBuilder('i')
+            //->join('i.translations', 't')
+            ->join('i.lawyers', 'l')
+            ->andWhere('l.id IN (:ids)')
+            ->setParameter('ids', $lawyers)
+                ->getQuery()
+                ->getResult();
+    }
+
     public function getPublishedRelatedInsights($insight)
     {
         $relatedInsights = array_map(
