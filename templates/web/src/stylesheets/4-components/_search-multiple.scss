@@ -107,13 +107,14 @@
 
 #checksOutput {
     position: relative;
-    display: none;
+    // display: none;
     display: block;
     padding-top: 1rem;
 
     &:before {
         @include reset-pseudo(rgba($black,0.07));
         @include reset-full-scren;
+        box-shadow: 0 -1px 0 #d5d2d2;
         z-index: -1;
 
         @media(max-width: $max-width-4casas) {
@@ -137,8 +138,8 @@
     .checkbox-tag {
         display: flex;
         float: left;
-        margin: 0 1rem 1rem 0;
-        padding: 0 0 0 1rem;
+        margin: 0 1rem 0.6rem 0;
+        padding: 0 0 0 0.6rem;
         color: rgba($black, 0.6);
         background-color: $white;
         border: 1px solid $complementary-color;
