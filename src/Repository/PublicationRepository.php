@@ -40,8 +40,61 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         }
         return null;
     }
-    public function findByActivities($activities)
+
+    // regions array example ["spain","global"]
+    public function findByActivitiesPriorByRegions($activities, $regions = null, $maxResult= 10 )
     {
+        $activitiesA = array();
+        if($activities){
+            foreach ($activities as $key => $activity) {
+                array_push($activitiesA,$activity->getId());
+            }
+        }
+
+        $returnPublications = [];
+        foreach ($regions as $key => $reg) {
+            $results =  $this->createPublishedQueryBuilder('p');
+            if ($activitiesA) {
+                $results =  $results->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity',  $activitiesA);
+            }
+            
+            $date = new \DateTime();
+            $date->modify('-200 days'); 
+            $results->andWhere('p.regions LIKE :region')->setParameter('region', '%"'.$reg.'"%');
+            $results->andWhere('p.publication_date > :date')->setParameter('date',  $date);
+            
+            $__results =  $results->orderBy('p.publication_date', 'DESC')->setMaxResults($maxResult)->getQuery()->getResult();
+            foreach ($__results as $key => $item) {
+                $returnPublications[$item->getId()] = $item;
+            }
+        }
+        
+        ///// consulta normal 
+        $results =  $this->createPublishedQueryBuilder('p');
+        if ($activitiesA) {
+            $results =  $results->innerJoin('p.activities', 'a')
+            ->andWhere('a.id in (:activity)')
+            ->setParameter('activity',  $activitiesA);
+        }
+
+        $results =  $results->orderBy('p.publication_date', 'DESC')
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult();
+
+        // se pisan posisiones que pueden repetirse
+        foreach ($results as $key => $item) {
+            $returnPublications[$item->getId()] = $item;
+        }    
+        //  dd($returnPublications);
+        return $this->setTypePublication(array_slice($returnPublications,0,$maxResult));
+    }
+
+    public function findByActivities($activities)  // DEPRECAR por el priorizado 
+    {
+        
         $activitiesA = array();
         if($activities){
             foreach ($activities as $key => $activity) {
