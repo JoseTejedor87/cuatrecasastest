@@ -415,10 +415,13 @@ fieldset {
         cursor: pointer;
 
         @include when-inside(".lawyer") {
-            max-width: 19%;
+            // 5 items
+            // max-width: 19%;
+            max-width: 25%;
 
             @media(max-width: $max-menu-4casas) {
-                max-width: 18%;
+                // 5 items
+                max-width: 24%;
             }
 
             @media(max-width: $max-width-4casas) {
