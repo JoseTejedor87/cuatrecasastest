@@ -21,12 +21,12 @@ $checkBoxes.change( function() {
 $($checksOutput).on('click', '.checkbox-tag .close-tag', function(element){
     var value = $(this).data( "value" );
     console.log(value);
-        $checkBoxes.each(function(i, elem) {
-            if($(elem).attr("data-name") == value){
-                $(elem).prop( "checked", false );
-                checkboxReset();
-            }
-        });
+    $checkBoxes.each(function(i, elem) {
+        if($(elem).attr("data-name") == value){
+            $(elem).prop( "checked", false );
+            checkboxReset();
+        }
+    });
 });
 
 function checkboxReset() {

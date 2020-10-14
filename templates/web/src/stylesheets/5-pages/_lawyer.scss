@@ -65,14 +65,14 @@
                 width: calc(33.3333% - 30px);
                 margin: 0 15px 30px;
                 background-size: auto 350px;
-                background-position: 100% 73%;
+                background-position: 100% -110px;
                 background-repeat: no-repeat;
                 background-blend-mode: normal;
                 background-color: rgba($black, 0.5);
                 // transition: background-blend-mode 0.2s ease-out,
                 //             background-size 0.6s,
                 //             background-position 0.6s;
-                transition: all .4s ease-in-out;
+                transition: all 0.4s ease-in-out;
 
                 @media(max-width: $max-width-md) {
                     flex: 0 1 calc(50% - 30px);

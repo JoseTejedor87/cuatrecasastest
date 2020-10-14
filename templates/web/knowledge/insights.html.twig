@@ -83,13 +83,6 @@
                         <div id="filterTabsContent">
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">Sector</a>
                             <div id="collapse01" class="collapse" aria-labelledby="heading01" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                 {% for sector in sectors %}
                                     {% if sector.translate(app.request.getLocale()).title  %}
@@ -268,7 +261,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Selected tags -->
                 <div class="col-12" id="checksOutput" style="display:none">
                 </div>

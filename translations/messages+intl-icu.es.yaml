@@ -203,9 +203,9 @@ footer:
 # ###########################################
 reusable_blocks:
     cta_footer:
-      title: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico adaptado a tus necesidades
-      intro: Suscríbete a nuestra newsletter y recibe en tu e-mail la información y contenidos que  más te interesan
-      button: Selecciona tus intereses
+      title: Recibe en tu email el contenido jurídico que te interesa
+      intro: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico
+      button: Escoge tus intereses
     team:
       title: Equipo Cuatrecasas
       link: Ver equipo
@@ -353,7 +353,7 @@ firm:
 
     team:
       title: Consejo de administración
-      content: Accede al perfil de los miembros del Consejo
+      content: Conoce a los miembros de nuestro consejo de administración
       link: Conoce al equipo
       lawyer_1:
         name: Alfonso Iglesia
@@ -442,61 +442,61 @@ firm:
     title: Programa Pro Bono
     content: La Fundación Cuatrecasas participa de forma activa con la Fundación ProBono España, ostentando la Presidencia del Comité Ejecutivo y la Vicepresidencia del Patronato.
     art_1:
-      number: 2.088 h en 2018
-      title: Horas Pro Bono
-      content: La Fundación Cuatrecasas participa de forma activa con la Fundación ProBono España, ostentando la Presidencia del Comité Ejecutivo y la Vicepresidencia del Patronato.
+      number: + 2.500
+      title: Horas
+      content: En 2019 nuestros abogados han contribuido con más de 2500 horas de asesoramiento.
     art_2:
-      number: 2.576 en 2019
-      title: Horas Pro Bono
-      content: La Fundación Cuatrecasas participa de forma activa con la Fundación ProBono España, ostentando la Presidencia del Comité Ejecutivo y la Vicepresidencia del Patronato.
-    art_3:
-      number: + 60
-      title: Entidades asesoradas
-      content: Más de 60 entidades sin ánimo de lucro y del tercer sector
-    art_4:
       number: + 200
-      title: Abogados involucrados
-      content: Más de 200 abogados
+      title: Abogados
+      content: Más de 200 abogados involucrados en el asesoramiento Pro bono de máxima calidad.
+    art_3:
+      number: + 30%
+      title: Incremento
+      content: En 2019 hemos logrado incrementar un 30% el número de horas dedicadas a asesoramiento Pro Bono, respecto a 2018.
+    art_4:
+      number: + 60
+      title: Entidades
+      content: Anualmente asesoramos a más de 60 fundaciones, patronatos y entidades sociales.
 
   overview_diversity:
     title: Diversidad y género
     content: Apostamos por la diversidad cultural, sexual, generacional y de género. Defendemos la integración de personas con capacidades diferentes y buscamos prevenir cualquier manifestación de discriminación a través de mecanismos normativos y canales internos de denuncia.
     art_1:
-      number:
-      title: 18 medidas para promever el talento femenino
-      content:
+      number: Equilibrio
+      title: Equilibrio
+      content: Promovemos de forma expresa el principio de presencia equilibrada de género en los procesos de designación de cargos directivos y predirectivos
     art_2:
-      number:
-      title: Creación de un comité de igualdad con capacidad ejecutiva
-      content:
+      number: Liderazgo
+      title: Liderazgo
+      content: El 24% de cargos de responsabilidad lo desempeñan mujeres. Contamos con un plan de formación específico en competencias directivas
     art_3:
-      number:
-      title: Reducción de un 5% de cargabilidad a abogadas madres
-      content:
+      number: Conciliación
+      title: Conciliación
+      content: Apostamos por la conciliación, especialmente en asociadas con hijos reduciéndoles un 5% su objetivo de horas facturables
     art_4:
-      number:
-      title: Plan de formación en habilidades y competencias directivas
-      content:
+      number: Inclusión
+      title: Inclusión
+      content: Impulsamos de manera activa la inclusión LGTBi+ y la integración laboral de personas con capacidades distintas
 
   overview_innovation:
     title: Nuestro centro de Conocimiento e innovación
     intro: Nuestra Área de Conocimiento e Innovación ofrece actualizaciones y desarrollos legales adaptados a las necesidades de nuestros clientes.
     art_1:
       number: + 40
-      title: académicos, abogados y especialistas
-      content: académicos, abogados y especialistas
+      title: Colaboradores
+      content: Más de 40 académicos, abogados y especialistas ofrecen actualizaciones y desarrollos legales
     art_2:
-      number: + 13.056
-      title: documentos creados en 2019
-      content: documentos creados en 2019
+      number: + 180
+      title: Entregables
+      content: Anualmente preparamos y enviamos más de 180 entregables y más de 70 newsletters jurídicas
     art_3:
-      number: + 1.000
-      title: modelos y criterios jurídicos actualizados
-      content: modelos y criterios jurídicos actualizados
+      number: + 222
+      title: Abogados
+      content: Anualmente más de 200 abogados colaboran con nuestro equipo del ACI en más de 50 proyectos de innovación
     art_4:
       number: + 8.000
-      title: alertas de novedades jurídicas
-      content: alertas de novedades jurídicas
+      title: Alertas
+      content: Actualizamos más de 1000 modelos y criterios jurídicos y enviamos más de 8.000 alertas
 
 # collections
   collections_social:
@@ -506,22 +506,16 @@ firm:
     art_2:
       title: Comité de igualdad
       content: La firma trabaja con firmeza y determinación para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres. La Comisión de Igualdad ha trazado el Plan de Igualdad para este fin y para promocionar el talento femenino.
-      link: Ver iniciativas
+      link: 18 medidas
     art_3:
       title: Adhesión a Redi
       content: En julio de 2019 nos adherimos a REDI, red de profesionales y expertos en diversidad y recursos humanos interesados en promover la inclusión LGBTI en el contexto empresarial.
     art_4:
-      title: Protocolos contra el acoso sexual
-      content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos en esta materia, en línea con la mayor exigencia que Cuatrecasas ha decidido imponerse en la prevención y solución de estas conductas.
+      title: Prevención del acoso
+      content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos. Además, la firma cuenta con un canal de denuncias que permite comunicar, de manera confidencial, conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro código ético.
     art_5:
-      title: Canal de denuncias por casos de vulneración de los Derechos Humanos
-      content: La firma cuenta con una herramienta que permite comunicar, de manera confidencial y a través de un sencillo formulario, aquellas actividades y conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro Código Ético.
-    art_6:
-      title: Inclusión de personas con discapacidad
-      content: Cumplimos las obligaciones derivadas de la LGDP a través de la contratación directa (el 0,71% de la plantilla) y de medidas alternativas para su cumplimiento. Hemos apostado por la contratación de CETs durante el 2019 con una aportación de 571.169€.
-    art_7:
-      title: Certificado Plata Discert
-      content: Disponemos del certificado plata Discert como empresa responsable con la discapacidad, verificado por TÜVRheiland, en el que se certifica la accesibilidad universal de las personas con discapacidad.
+      title: Inclusión
+      content: Cumplimos las obligaciones derivadas de la LGDP a través de la contratación directa (el 0,71% de la plantilla) y de medidas alternativas para su cumplimiento. Hemos apostado por la contratación de CETs durante el 2019 con una aportación de 571.169€. Además, disponemos del certificado plata Discert como empresa responsable con la accesivilidad universal de las personas con discapacidad.
 
 # info boxes
   info_firma:
