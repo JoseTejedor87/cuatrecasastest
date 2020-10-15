@@ -278,7 +278,7 @@
 
     @include has("name") {
         order: 2;
-        width: 38%;
+        width: 60%;
         margin-top: 1rem;
         @include fontSet(23px, 27px);
         font-weight: normal;
