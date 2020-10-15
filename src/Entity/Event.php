@@ -90,6 +90,11 @@ class Event extends Publishable
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $idGestorEventos;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
@@ -365,6 +370,18 @@ class Event extends Publishable
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getIdGestorEventos(): ?int
+    {
+        return $this->idGestorEventos;
+    }
+
+    public function setIdGestorEventos(?int $idGestorEventos): self
+    {
+        $this->idGestorEventos = $idGestorEventos;
 
         return $this;
     }

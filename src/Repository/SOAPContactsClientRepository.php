@@ -203,6 +203,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
+    public function getPaises()
+    {
+        $sql = "SELECT * FROM GC_paises";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     
     public function setProvincias($data)
     {
@@ -224,6 +234,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
         
         return true;
+    }
+    public function getProvincias()
+    {
+        $sql = "SELECT * FROM GC_provincias";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
     }
     
     public function setIdiomas($data)
@@ -247,7 +267,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getIdiomas()
+    {
+        $sql = "SELECT * FROM GC_idiomas";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setAreasInteres($data)
     {
         
@@ -266,7 +295,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getAreasInteres()
+    {
+        $sql = "SELECT * FROM GC_areasInteres";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setOficinas($data)
     {
         
@@ -285,7 +323,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getOficinas()
+    {
+        $sql = "SELECT * FROM GC_areasInteres";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setSecretarias($data)
     {
         
@@ -304,7 +351,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getSecretarias()
+    {
+        $sql = "SELECT * FROM GC_secretarias";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setResponsablesMarketings($data)
     {
         
@@ -323,7 +379,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getResponsablesMarketings()
+    {
+        $sql = "SELECT * FROM GC_responsablesMarketings";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setSociosResponsables($data)
     {
         
@@ -342,5 +407,14 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getSociosResponsables()
+    {
+        $sql = "SELECT * FROM GC_sociosResponsables";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
 }

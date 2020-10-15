@@ -70,12 +70,7 @@ class HomeController extends WebController
         ]);
     }
 
-    public function userSettings()
-    {
-        return $this->render('web/home/userSettings.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
+
 
     public function institutoRRHH()
     {

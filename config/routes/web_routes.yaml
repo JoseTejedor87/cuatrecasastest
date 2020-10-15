@@ -78,7 +78,7 @@ userSettings:
         pt:   /user-settings
         ge:   /preferencias-usuario
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::userSettings
+    controller: App\Controller\Web\UserController::newUser
 
 institutoRRHH:
     path:
@@ -253,6 +253,15 @@ set_event_contact:
        ge:   /set_contact_ajax
    methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionContact
+
+set_contact_user:
+   path:
+       en:   /set_contact_ajax_WS
+       es:   /set_contact_ajax_WS
+       pt:   /set_contact_ajax_WS
+       ge:   /set_contact_ajax_WS
+   methods:    GET|POST
+   controller: App\Controller\Web\UserController::ajaxActionContact
 
 get_regions:
    path:
