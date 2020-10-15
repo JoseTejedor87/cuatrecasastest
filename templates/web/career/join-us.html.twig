@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -13,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.career.career'|trans }}
+                            {{ 'menu.career.join'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -21,7 +22,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.career.career'|trans }}
+                                    {{ 'menu.career.join'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -41,7 +42,7 @@
                     <div class="col faketabs__component__tabs faketabs__component__tabs--career">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('career_home') }}" class="nav-link active">{{ 'menu.career.career'|trans }}</a>
+                                <a href="{{ path('career_home') }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('career_live') }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
@@ -56,7 +57,7 @@
                                 <a href="{{ path('career_international') }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_join') }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
+                                <a href="{{ path('career_join') }}" class="nav-link active">{{ 'menu.career.join'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -64,25 +65,48 @@
             </section>
         </div>
 
-        {% include 'web/shared/collections-career.html.twig' %}
-        {% include 'web/shared/career-career.html.twig' %}
-        {% include 'web/shared/cta-career-learn.html.twig' %}
+        {% include 'web/shared/info-career-join-notitle.html.twig' %}
+        {% include 'web/shared/collections-international.html.twig' %}
+        {% include 'web/shared/info-join.html.twig' %}
         {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
         {% include 'web/shared/info-career-join.html.twig' %}
 
     </main>
-
-    {# {% include 'web/shared/cta-footer.html.twig' %} #}
 
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        $('.show__more').each(function() {
+            if ($(this).children('p').length > 0) {
+                $(this).children('p:lt(0)').show();
+                $(this).children('p:gt(0)').hide();
+                $(this).append('<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>');
+            }
+        });
+        $('.show__more').on("click", '.show__more', function() {
+            $(this).parent('.show__more').children('p').slideDown();
+            $(this).removeClass('show__more').addClass('show__less').text('{{ 'global.messages.show_less'|trans }}');
+            $('.show__more .doble__arrow__accordion').blur();
+        });
+        $('.show__more').on("click", '.show__less', function() {
+            if (window.matchMedia('(max-width: 1199px)').matches) {
+                $('html, body').animate({scrollTop: $(this).parent().offset().top - 50}, {duration: 'fast'});
+            } else {
+                $('html, body').animate({scrollTop: $(this).parent().offset().top - 120}, {duration: 'fast'});
+            }
+            $(this).parent('.show__more').children('p:gt(0)').slideUp();
+            $(this).removeClass('show__less').addClass('show__more').text('{{ 'global.messages.show_more'|trans }}');
+            $('.show__more .doble__arrow__accordion').blur();
+        });
     });
 </script>
 {% endblock %}

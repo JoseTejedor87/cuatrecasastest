@@ -82,7 +82,7 @@ abstract class Publishable extends Item
             $region,
             $this->getRegions()
         );
-        return $hasLanguageEnabled && $hasRegionEnabled;
+        return $hasLanguageEnabled && $hasRegionEnabled && $this->getPublished();
     }
 
     public function getPublished()

@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -13,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.career.career'|trans }}
+                            {{ 'menu.career.learn'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -21,7 +22,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.career.career'|trans }}
+                                    {{ 'menu.career.learn'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -41,7 +42,7 @@
                     <div class="col faketabs__component__tabs faketabs__component__tabs--career">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('career_home') }}" class="nav-link active">{{ 'menu.career.career'|trans }}</a>
+                                <a href="{{ path('career_home') }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('career_live') }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
@@ -50,7 +51,7 @@
                                 <a href="{{ path('career_revolution') }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_learn') }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
+                                <a href="{{ path('career_learn') }}" class="nav-link active">{{ 'menu.career.learn'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('career_international') }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
@@ -64,21 +65,35 @@
             </section>
         </div>
 
-        {% include 'web/shared/collections-career.html.twig' %}
-        {% include 'web/shared/career-career.html.twig' %}
-        {% include 'web/shared/cta-career-learn.html.twig' %}
-        {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
+        <div class="container">
+            <section class="row page__block noborder">
+                <div class="col">
+                    <div class="page__block__title page__block__title--article">
+                        <p>{{ 'career.learn.intro'|trans }}</p>
+                    </div>
+                    <div class="page__block__content page__block__content--article">
+                        <p>{{ 'career.learn.content.txt_1'|trans }}</p>
+                        <p>{{ 'career.learn.content.txt_2'|trans }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        {% include 'web/shared/cta-career-school.html.twig' %}
+        {% include 'web/shared/info-learn.html.twig' %}
+        {% include 'web/shared/awards_CMP.html.twig' %} {# no info #}
+        {% include 'web/shared/cases_YML.html.twig' %} {# no info #}
         {% include 'web/shared/info-career-join.html.twig' %}
 
     </main>
-
-    {# {% include 'web/shared/cta-footer.html.twig' %} #}
 
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
 <script>
     $(function () {
