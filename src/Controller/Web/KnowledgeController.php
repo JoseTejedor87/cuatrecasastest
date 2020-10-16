@@ -31,11 +31,12 @@ class KnowledgeController extends WebController
         $this->params = $params;
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,PracticeRepository $PracticeRepository,OfficeRepository $OfficeRepository, EventRepository $eventRepository, NavigationService $navigation)
+    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,
+    PracticeRepository $practiceRepository,OfficeRepository $officeRepository, EventRepository $eventRepository, NavigationService $navigation)
     {
-        $practices = $PracticeRepository->findAll();
+        $practices = $practiceRepository->findAll();
         $sectors = $sectorRepository->findAll();
-        $offices = $OfficeRepository->findAll();
+        $offices = $officeRepository->findAll();
         $types = $this->params->get('app.publications_types');
         $formats = $this->params->get('app.publications_format');
 
@@ -125,20 +126,50 @@ class KnowledgeController extends WebController
         }else{
             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
-        //dd( $query);
 
-        $countPublications = count($query->getQuery()->getResult());
-        $query = $query->setFirstResult($limit * ($page - 1))
-                ->setMaxResults($limit)
-                ->getQuery();
-        $publications = $query->getResult();
-        // dd($publications);
-        if ($publications) {
-            $pagesTotal = $countPublications/$limit;
+        $qPriorizada = clone $query;
+
+        // ZONE DE PRIORIZACION
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
+        $qPriorizada->join('p.offices', 'o')
+            ->andWhere('o.place = :place')
+            ->setParameter('place',  $place);
+        //---------------------
+        $dateAux = new \DateTime();
+        $dateAux->modify('-10 days');
+        $rPriorizada = $qPriorizada->andWhere('p.publication_date > :date')
+                                    ->setParameter('date',$dateAux)
+                                    ->getQuery()
+                                    ->getResult();
+     
+
+        // dd($rPriorizada);
+        // no pude verificar que trajera alguna priorizada probar con datos reales
+
+        $totalPublications = [];
+        foreach ($rPriorizada as $key => $item) {
+            $totalPublications[$item->getId()] = $item;
+        }
+
+        $results = $query->getQuery()->getResult();
+
+
+        // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+        foreach ($results as $key => $item) {
+            if (!isset($totalPublications[$item->getId()])){
+                array_push($totalPublications, $item);
+            }
+        }
+    
+        $publications = array_slice($totalPublications,($limit * ($page - 1)),$limit);
+        
+        if ($totalPublications) {
+            $pagesTotal = count($totalPublications)/$limit;
             if (is_float($pagesTotal)) {
                 $pagesTotal = intval($pagesTotal + 1);
             }
         }
+
 
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");

@@ -40,7 +40,7 @@ class PublishableEntityRepository extends ServiceEntityRepository
 
         $queryBuilder = parent::createQueryBuilder($alias, $indexBy);
         $queryBuilder
-            //->andWhere($alias.'.published = TRUE')
+            ->andWhere($alias.'.published = TRUE')
             ->andWhere($alias.'.regions LIKE :region')
             ->andWhere($alias.'.languages LIKE :language')
             ->setParameter('region', '%"'.$region.'"%')
