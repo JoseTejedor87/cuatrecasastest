@@ -8,21 +8,38 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ProductRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\AwardRepository;
+use App\Repository\InsightRepository;
 use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 
 
 class ProductsController extends WebController
 {
-    public function index(Request $request, ProductRepository $productRepository, PublicationRepository $publicationRepository)
+    public function index(Request $request, ProductRepository $productRepository, InsightRepository $insightRepository,
+     PublicationRepository $publicationRepository)
     {
         $products = $productRepository->createPublishedQueryBuilder('p')
         ->getQuery()
         ->getResult();
         $relatedPublications = $publicationRepository->findByActivities([]);
+        $insightsPrior = $insightRepository->getInsightsPriorFor(['showCaseStudiesBlock' => true]);
+        $insightsAll = $insightRepository->findBy(['showCaseStudiesBlock' => true],['id' => 'DESC'] );
+
+        $totalInsights = [];
+        foreach ($insightsPrior as $key => $item) {
+            $totalInsights[$item->getId()] = $item;
+        }
+  
+        foreach ($insightsAll as $key => $item) {
+            if (!isset($totalInsights[$item->getId()])){
+                array_push($totalInsights, $item);
+            }
+        }  
+
         return $this->render('web/products/index.html.twig', [
             'products' => $products,
-            'relatedPublications' => $relatedPublications
+            'relatedPublications' => $relatedPublications,
+            'insights' => $totalInsights,
         ]);
     }
     public function detail(Request $request, productRepository $productRepository, CaseStudyRepository $caseStudyRepository, AwardRepository $awardRepository, PublicationRepository $publicationRepository)

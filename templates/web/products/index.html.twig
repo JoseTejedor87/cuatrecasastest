@@ -83,8 +83,8 @@
 
         </article>
     </main>
-
-    {% include 'web/shared/insight.html.twig' %}
+    {% include 'web/shared/collections.html.twig' with {insights: insights} %}
+    {#% include 'web/shared/insight.html.twig' %#}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
