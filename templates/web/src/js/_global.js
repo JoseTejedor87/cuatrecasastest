@@ -9,8 +9,11 @@ web.global = {
 
     zoomAjust: function(){
         function zoomBrowser() {
-            document.body.style.zoom = "95%";
+            document.body.style.zoom = "100%";
+            alert('zoom: ' + document.body.style.zoom);
         }
+
+        // zoomBrowser();
 
         /*
         // Set initial zoom level
@@ -75,10 +78,11 @@ web.global = {
         }
 
         $(window).on('load', function(e) {
-            // alert('zoomBrowser');
             // zoomBrowser();
-            // alert('zoomFactor');
+            // alert('zoomBrowser');
+
             // zoomFactor();
+            // alert('zoomFactor');
         });
     },
 
