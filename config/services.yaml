@@ -14,6 +14,12 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
+    app.office_place:
+        spain: 1
+        portugal: 2
+        global: 3
+        latam: 4
+
     app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
     # The Single Sign On configuration parameters

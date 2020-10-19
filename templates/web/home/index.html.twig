@@ -32,10 +32,10 @@
     {% endif %}
 
     {% if home.showInsight and home.insights[0] is defined %}
-        {% if home.insights|length > 1 %}
+        {% if home.insights|length > 1 %} <!--  Template de dos columnas    -->
             {% include 'web/shared/collections.html.twig'  with {insights: home.insights } %}
         {% elseif  home.insights|length > 0 %}
-            {% include '/web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
+            {% include '/web/shared/insight.html.twig'  with {insight: home.insights|first } %}
         {% endif %}
     {% endif %}
 
