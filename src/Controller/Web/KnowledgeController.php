@@ -11,6 +11,7 @@ use App\Repository\PublicationRepository;
 use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
+use App\Repository\InsightRepository;
 use App\Repository\EventRepository;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use App\Entity\Publication;
@@ -31,12 +32,14 @@ class KnowledgeController extends WebController
         $this->params = $params;
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository,
+    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository, InsightRepository $insightRepository,
     PracticeRepository $practiceRepository,OfficeRepository $officeRepository, EventRepository $eventRepository, NavigationService $navigation)
     {
         $practices = $practiceRepository->findAll();
         $sectors = $sectorRepository->findAll();
         $offices = $officeRepository->findAll();
+        $insightsPrior = $insightRepository->getInsightsPriorFor(['showKnowledgeBlock' => true]);
+        $insightsAll = $insightRepository->findBy(['showKnowledgeBlock' => true],['id' => 'DESC'] );
         $types = $this->params->get('app.publications_types');
         $formats = $this->params->get('app.publications_format');
 
@@ -50,7 +53,11 @@ class KnowledgeController extends WebController
         $relatedEvents = $eventRepository->findByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
-        //dd($page);
+
+
+        // dd($insights);
+        
+        
         $query = $publicationRepository->createPublishedQueryBuilder('p');
         // $query = $query->innerJoin('p.translations', 'pt')
         //                     ->andWhere("pt.title != :textSearch")
@@ -150,6 +157,12 @@ class KnowledgeController extends WebController
         foreach ($rPriorizada as $key => $item) {
             $totalPublications[$item->getId()] = $item;
         }
+        $totalInsights = [];
+        foreach ($insightsPrior as $key => $item) {
+            $totalInsights[$item->getId()] = $item;
+        }
+
+
 
         $results = $query->getQuery()->getResult();
 
@@ -160,7 +173,15 @@ class KnowledgeController extends WebController
                 array_push($totalPublications, $item);
             }
         }
-    
+
+          
+        foreach ($insightsAll as $key => $item) {
+            if (!isset($totalInsights[$item->getId()])){
+                array_push($totalInsights, $item);
+            }
+        }
+        //dd($insightsPrior);
+
         $publications = array_slice($totalPublications,($limit * ($page - 1)),$limit);
         
         if ($totalPublications) {
@@ -234,6 +255,7 @@ class KnowledgeController extends WebController
                 'relatedEvents' => $relatedEvents,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
+                'insights' => $totalInsights,
             ]);
         }
 

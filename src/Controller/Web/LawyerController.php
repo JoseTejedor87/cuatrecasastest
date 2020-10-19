@@ -15,6 +15,7 @@ use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\InsightRepository;
 use App\Repository\TrainingRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -40,22 +41,24 @@ class LawyerController extends WebController
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
-        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
+        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);     
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
-            'contextualBlocks' => $contextualBlocks
+            'contextualBlocks' => $contextualBlocks,
         ]);
     }
 
     public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository,
-     PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,
+     PracticeRepository $PracticeRepository, InsightRepository $insightRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,
        GeneralBlockRepository $generalBlockRepository,  NavigationService $navigation)
     {
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
         $offices = $OfficeRepository->findAll();
+        $insightsPrior = $insightRepository->getInsightsPriorFor(['showLegalNoveltiesBlock' => true]);
+        $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true],['id' => 'DESC'] );           
 
         $initial = $request->query->get('initial');
         $page = $request->query->get('page') ?: 1;
@@ -193,7 +196,8 @@ class LawyerController extends WebController
                 'offices' => $offices,
                 'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
-                'career' => $blockCareer
+                'career' => $blockCareer,
+                'insights' => $insightsAll
             ]);
         }
     }

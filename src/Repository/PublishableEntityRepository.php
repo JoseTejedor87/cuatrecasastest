@@ -47,14 +47,25 @@ class PublishableEntityRepository extends ServiceEntityRepository
             ->setParameter('language', '%"'.$language.'"%');
         return $queryBuilder;
     }
-    
-    public function orderByDaySentences($qb, $alias,$days =30){
 
-        $date = new \DateTime();
-        $date->modify('-'.$days.' days');
-        $qb->andWhere($alias.'.publication_date > :date')->setParameter('date',  $date);
-        
-        return   $qb->orderBy($alias.'.publication_date', 'DESC');
+    public function priorBuilderClause($query, $field){
+        // ZONE DE PRIORIZACION
+        $place = $this->navigation->getParams()->get('app.office_place')[$this->navigation->getRegion()];        
+        $query->join($field, 'o')
+            ->andWhere('o.place = :place')
+            ->setParameter('place',  $place);
+        //---------------------    
+        return $query;
+    }
+
+    public function orderByDaySentences($qb, $alias,$days =30, $orderField = 'publication_date' ){
+
+        if ($orderField != 'id'){
+            $date = new \DateTime();
+            $date->modify('-'.$days.' days');
+            $qb->andWhere($alias.'.'.$orderField.' > :date')->setParameter('date',  $date);
+        }
+        return   $qb->orderBy($alias.'.'.$orderField, 'DESC');
     }
 
     public function filterByFieldsQueryBuilder($fields,$alias)
