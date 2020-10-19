@@ -59,6 +59,16 @@ class LawyerController extends WebController
         $offices = $OfficeRepository->findAll();
         $insightsPrior = $insightRepository->getInsightsPriorFor(['showLegalNoveltiesBlock' => true]);
         $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true],['id' => 'DESC'] );           
+        $totalInsights = [];
+        foreach ($insightsPrior as $key => $item) {
+            $totalInsights[$item->getId()] = $item;
+        }         
+        foreach ($insightsAll as $key => $item) {
+            if (!isset($totalInsights[$item->getId()])){
+                array_push($totalInsights, $item);
+            }
+        }
+
 
         $initial = $request->query->get('initial');
         $page = $request->query->get('page') ?: 1;
@@ -197,7 +207,7 @@ class LawyerController extends WebController
                 'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
                 'career' => $blockCareer,
-                'insights' => $insightsAll
+                'insights' => $totalInsights
             ]);
         }
     }
