@@ -48,9 +48,13 @@ class PublishableEntityRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-    public function priorBuilderClause($query, $field){
+    public function priorBuilderClause($query, $field,$forcePlace = null){
         // ZONE DE PRIORIZACION
-        $place = $this->navigation->getParams()->get('app.office_place')[$this->navigation->getRegion()];        
+        if ($forcePlace != null) {
+            $place = $forcePlace;
+        }else{
+            $place = $this->navigation->getParams()->get('app.office_place')[$this->navigation->getRegion()];        
+        }
         $query->join($field, 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place',  $place);
