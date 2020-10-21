@@ -52,7 +52,7 @@ function newCalendar(eventosjson, month , year) {
             dayGridMonth: {
                 type: 'dayGrid',
                 // buttonText: 'month grid',
-                eventLimit: 4,
+                eventLimit: 0,
                 eventLimitText: ""
             },
             listMonth: {
