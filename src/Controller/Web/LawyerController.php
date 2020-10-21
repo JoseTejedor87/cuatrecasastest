@@ -155,7 +155,35 @@ class LawyerController extends WebController
                     $url= $url . "&initial=".$initial;
                 }
             }
-            $countLawyers = count($query->getQuery()->getResult());
+            $query->orderBy('l.lawyerType, l.surname', 'DESC');
+
+            $qb = clone $query;
+            $lawyersPrior = $lawyerRepository->priorBuilderClause($qb, 'l.office')->getQuery()->getResult();
+
+            $totalLawyers = [];
+            foreach ($lawyersPrior as $key => $item) {
+                $totalLawyers[$item->getId()] = $item;
+            }
+            
+            $lawyersAll = $query->getQuery()->getResult();
+
+            foreach ($lawyersAll as $key => $item) {
+                if (!isset($totalLawyers[$item->getId()])){
+                    array_push($totalLawyers, $item);
+                }
+            }
+            
+
+            $lawyers = array_slice($totalLawyers,($limit * ($page - 1)),$limit);
+
+            if ($totalLawyers) {
+                $pagesTotal = count($totalLawyers)/$limit;
+                if (is_float($pagesTotal)) {
+                    $pagesTotal = intval($pagesTotal + 1);
+                }
+            }
+
+            /*
             $query = $query->setFirstResult($limit * ($page - 1))
                 ->setMaxResults($limit)
                 ->getQuery();
@@ -165,7 +193,8 @@ class LawyerController extends WebController
                 if (is_float($pagesTotal)) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }
-            }
+            }*/
+
         }
         if ($request->isXMLHttpRequest()) {
             $lawyerA = array();

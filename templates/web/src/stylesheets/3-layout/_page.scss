@@ -1343,13 +1343,21 @@
 }
 
 //
-// GOOGLE MAP MARKER
+// GOOGLE MAP MARKERS
 //
 
-.gm-style > .cluster {
+#map .cluster {
     outline: none !important;
 
+    div {
+        display: none !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
     @include on-event {
+        border: 0px solid transparent !important;
+        border: none !important;
         outline: none !important;
     }
 }
@@ -1357,8 +1365,8 @@
 .gm-style .gm-style-iw-c {
     min-width: 360px !important;
     max-width: 360px !important;
-    padding: 20px;
-    border-radius: 0;
+    padding: 20px !important;;
+    border-radius: 0 !important;;
     // background-color: rgba(255,255,255, 0.9);
     border-top: 5px solid $complementary-color;
     box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
