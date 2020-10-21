@@ -1438,7 +1438,7 @@
 
 .page__cookies {
 
-    p {
+    p, li {
         @include fontSet(20px, 28px);
 
         @media(max-width: $max-width-4casas) {
