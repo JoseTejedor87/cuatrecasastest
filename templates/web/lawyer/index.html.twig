@@ -83,10 +83,10 @@
                             <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
                             <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
                             <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
-                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
+                            <!--<option value="knowledge">{#{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }#}</option>-->
                             <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
                             <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
-                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
+                            <!--<option value="senior_knowledge">{#{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }#}</option>-->
                         </select>
                     </div>
                     <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
@@ -159,7 +159,9 @@
 {% if relatedPublications|length > 0 %}
 {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
 {% endif %}
+{% if insights|length > 0 %}
 {% include 'web/shared/insight.html.twig'  with {insight: insights|first}  %}
+{% endif %}
 {% endif %}
 {% include 'web/shared/career.html.twig' with { classTittle: '--main'} %}
 {% include 'web/shared/cta-footer.html.twig' %}
