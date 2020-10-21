@@ -22,7 +22,7 @@ class OfficeRepository extends PublishableEntityRepository implements Publishabl
 {
     public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, $navigation,Office::class);
+        parent::__construct($registry, $navigation, Office::class);
     }
 
     public function getInstanceByRequest(Request $request)
@@ -32,5 +32,15 @@ class OfficeRepository extends PublishableEntityRepository implements Publishabl
         }
         return null;
     }
-
+    public function getOfficesIfLawyers()
+    {
+        $offices = $this->findAll();
+        foreach ($offices as $key => $office) {
+            $lawyers = $office->getLawyer();
+            if (count($lawyers) == 0) {
+                unset($offices[$key]);
+            }
+        }
+        return $offices;
+    }
 }

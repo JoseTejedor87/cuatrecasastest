@@ -36,23 +36,37 @@ class SectorRepository extends PublishableEntityRepository implements Publishabl
         return null;
     }
 
-    public function getSectorsByName(Request $request){
+    public function getSectorsByName(Request $request)
+    {
         $entityManager = $this->getEntityManager();
-        
+
         $region = $request->attributes->get('_region');
         $language = $request->attributes->get('_locale');
 
         $query = $entityManager->createQuery(
-                "SELECT s FROM App\Entity\Sector s INNER JOIN s.translations t 
+            "SELECT s FROM App\Entity\Sector s INNER JOIN s.translations t
                 WHERE s.regions LIKE :region AND s.languages LIKE :language AND t.locale LIKE :local
                 AND s.highlighted = true ORDER BY t.title ASC "
-        )->setParameters(array( 
+        )->setParameters(array(
                 'language' => '%'.$language.'%',
                 'region' => '%'.$region.'%',
                 'local' => '%'.$language.'%',
         ));
 
         return $query;
+    }
+
+    public function getSectorsIfLawyers()
+    {
+        $sectors = $this->findAll();
+        foreach ($sectors as $key => $sector) {
+            $lawyers = $sector->getLawyers();
+            $lawyersSecondary = $sector->getLawyersSecondary();
+            if (count($lawyers) == 0 && count($lawyersSecondary) == 0) {
+                unset($sectors[$key]);
+            }
+        }
+        return $sectors;
     }
 
     // /**
