@@ -20,7 +20,7 @@ use App\Repository\TrainingRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-// for download VSCARD 
+// for download VSCARD
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -41,7 +41,7 @@ class LawyerController extends WebController
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
-        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);     
+        $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
 
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
@@ -49,22 +49,30 @@ class LawyerController extends WebController
         ]);
     }
 
-    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository,
-     PracticeRepository $PracticeRepository, InsightRepository $insightRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository,
-       GeneralBlockRepository $generalBlockRepository,  NavigationService $navigation)
-    {
+    public function index(
+        Request $request,
+        TranslatorInterface $translator,
+        LawyerRepository $lawyerRepository,
+        SectorRepository $sectorRepository,
+        PracticeRepository $PracticeRepository,
+        InsightRepository $insightRepository,
+        OfficeRepository $OfficeRepository,
+        PublicationRepository $publicationRepository,
+        GeneralBlockRepository $generalBlockRepository,
+        NavigationService $navigation
+    ) {
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
         $offices = $OfficeRepository->findAll();
         $insightsPrior = $insightRepository->getInsightsPriorFor(['showLegalNoveltiesBlock' => true]);
-        $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true],['id' => 'DESC'] );           
+        $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true], ['id' => 'DESC']);
         $totalInsights = [];
         foreach ($insightsPrior as $key => $item) {
             $totalInsights[$item->getId()] = $item;
-        }         
+        }
         foreach ($insightsAll as $key => $item) {
-            if (!isset($totalInsights[$item->getId()])){
+            if (!isset($totalInsights[$item->getId()])) {
                 array_push($totalInsights, $item);
             }
         }
@@ -219,11 +227,17 @@ class LawyerController extends WebController
             if ($services) {
                 $json['services'] = $services;
             }
+
             if ($sector) {
                 $json['sector'] = $sector;
             }
+
             return new JsonResponse($json);
         } else {
+            $sectors = $sectorRepository->getSectorsIfLawyers();
+            $offices = $OfficeRepository->getOfficesIfLawyers();
+            $practices = $PracticeRepository->getPracticesIfLawyers();
+
             return $this->render('web/lawyer/index.html.twig', [
                 'controller_name' => 'LawyerController',
                 'lawyers' => isset($lawyers) ? $lawyers : '',
@@ -253,28 +267,28 @@ class LawyerController extends WebController
         return $photo;
     }
 
-    public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository){
-        
+    public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository)
+    {
         $lawyer = $lawyerRepository->findOneBy(['id' => $request->attributes->get('id')]);
-        
+
         $filesystem = new Filesystem();
 
         $officeData = '';
-        if ($lawyer->getOffice() != null){
+        if ($lawyer->getOffice() != null) {
             $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
             $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
             $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
-        header('Content-Type: text/x-vcard;CHARSET=windows-1252');  
+        header('Content-Type: text/x-vcard;CHARSET=windows-1252');
         header('Content-Disposition: inline; filename= "'.$lawyer->getFullName().'.vcf'.'"');
 
 
 
-        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid')); 
+        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid'));
         $dataImage64 = base64_encode($img);
-        
+
         $dataString =   'BEGIN:VCARD'."\n".
                         'VERSION:3.0'."\n".
                         'N:'.$lawyer->getSurname().';'.$lawyer->getName()."\n".
@@ -293,12 +307,11 @@ class LawyerController extends WebController
         $dataString .=  'EMAIL:'.$lawyer->getEmail()."\n".
                         //'REV:'.$lawyer->getUpdateAt().
                         'END:VCARD';
-        $string_encoded = iconv( mb_detect_encoding( $dataString ), 'Windows-1252//TRANSLIT', $dataString );
+        $string_encoded = iconv(mb_detect_encoding($dataString), 'Windows-1252//TRANSLIT', $dataString);
 
-        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf',$string_encoded);
+        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf', $string_encoded);
         $file = new File('vcard_'.$lawyer->getFullName().'.vcf');
 
         return $this->file($file);
     }
-
 }
