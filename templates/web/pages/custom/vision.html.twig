@@ -75,9 +75,9 @@
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in offices %}
                                     {% if key == 0  %}
-                                        <optgroup data-tokens="ketchup mustard" label="{{ office.translate(app.request.getLocale()).country }}">
+                                        <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
                                     {% endif %}
-                                        <option value="office.translate(app.request.getLocale()).city" data-tokens="ketchup mustard" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                        <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% if offices|length > key+1 %}
                                     {% if offices[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
                                         </optgroup>
@@ -230,7 +230,7 @@
         </article>
     </main>
 
-    {% include 'web/shared/cases_CMP.html.twig' %}
+    {% include 'web/shared/cases.html.twig' %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
@@ -245,25 +245,29 @@
 <script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&callback=initMap" async defer></script>
 <script>
-
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
         $('#offices').change(function() {
-            console.log($( this ).data('lat'));
+            lat = parseFloat($('option:selected', this).attr('data-lat'));
+            lng = parseFloat($('option:selected', this).attr('data-lng'));
+            zoom = 8.2;
+            key = parseFloat($('option:selected', this).attr('data-key'));
+            initMap(key);
         });
     });
-
     var beaches = {{ officesMapa|raw }};
     var labelsA = {{ officesMapaLabel|raw }};
     var map;
     var lat = 15.356144;
     var lng = -5.2153932;
-    function initMap() {
+    var zoom = 3.2;
+
+    function initMap(key) {
         // Create the map with no initial style specified.
         // It therefore has default styling.
         map = new google.maps.Map(document.getElementById("map"), {
             center: {lat: lat, lng: lng},
-            zoom: 3.2,
+            zoom: zoom,
             mapTypeControl: false,
         });
         //setMarkers(map);
@@ -277,7 +281,6 @@
                 anchor: new google.maps.Point(0, 32)
         };
 
-
          var labels = '';
          var markers = beaches.map(function(location, i) {
              return new google.maps.Marker({
@@ -285,6 +288,8 @@
                  icon: image,
              });
          });
+        //console.log(markers);
+
         for (var i = 0; i < markers.length; i++) {
             markers[i].infowindow = new google.maps.InfoWindow({
             content: labelsA[i]
@@ -292,6 +297,7 @@
             //$('#target').on('click mouseover', function () { // Do something for both });
 
             google.maps.event.addListener(markers[i], 'click', function() {
+
             for (var i = 0; i < markers.length; i++) {
                 markers[i].infowindow.close();
             }
@@ -300,8 +306,13 @@
         }
          var markerCluster = new MarkerClusterer(map, markers,
          {imagePath: '/cuatrecasas/web/assets/img/logoMapa/m'});
-
-        map.setOptions({ styles: styles["retro"] });
+        map.setOptions({
+            styles: styles["retro"],
+            disableDefaultUI: true
+        });
+        if(key !== undefined){
+            google.maps.event.trigger( markers[key], 'click' );
+        }
     }
 
     function setMarkers(map) {
@@ -393,6 +404,5 @@
         },
       ],
     };
-
 </script>
 {% endblock %}

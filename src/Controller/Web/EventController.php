@@ -31,7 +31,7 @@ class EventController extends WebController
         $this->conn = $this->em->getConnection();
     }
 
-    public function index(Request $request, EventRepository $EventRepository, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
+    public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation,PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
     {
   
         $month = $request->query->get('month');
@@ -81,7 +81,31 @@ class EventController extends WebController
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
         ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
         ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') );
-        $events = $query->getQuery()->getResult();
+        $queryPrior = clone $query;
+
+        $eventsAll = $query->getQuery()->getResult();
+
+        // ----------------
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
+        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place',  $place);
+        // -------------------
+        $eventsPrior = $queryPrior->getQuery()->getResult();
+
+
+       // dd($eventsPrior);
+
+        $events = [];
+        foreach ($eventsPrior as $key => $item) {
+            $item->setCapacity(1);
+            $events[$item->getId()] = $item;
+        }
+  
+        foreach ($eventsAll as $key => $item) {
+            if (!isset($events[$item->getId()])){
+                $item->setCapacity(0);
+                array_push($events, $item);
+            }
+        }  
 
         // if($activity){
         //     $sql = "SELECT e FROM App:Event e inner JOIN event_activity a ON a.event_id = e.idWHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and a.activity_id=".$activity;
@@ -197,7 +221,7 @@ class EventController extends WebController
         ]);
     }
 
-    public function ajaxActionEvent(Request $request, EventRepository $EventRepository)    
+    public function ajaxActionEvent(Request $request, EventRepository $EventRepository,NavigationService $navigation)    
     {
         $month = $request->query->get('month');
         $year = $request->query->get('year');
@@ -242,8 +266,36 @@ class EventController extends WebController
         }
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
         ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
-        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') );
-        $events = $query->getQuery()->getResult();
+        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') )
+        ->orderBy('e.startDate','ASC') ;
+
+        $queryPrior = clone $query;
+
+        $eventsAll = $query->getQuery()->getResult();
+
+        // ----------------
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
+        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place',  $place);
+        // -------------------
+        $eventsPrior = $queryPrior->getQuery()->getResult();
+
+
+       // dd($eventsPrior);
+
+        $events = [];
+        foreach ($eventsPrior as $key => $item) {
+            $item->setCapacity(1);
+            $events[$item->getId()] = $item;
+        }
+  
+        foreach ($eventsAll as $key => $item) {
+            if (!isset($events[$item->getId()])){
+                $item->setCapacity(0);
+                array_push($events, $item);
+            }
+        }  
+
+
         // if($activity){
         //     $sql = "SELECT e FROM App:Event e  WHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and e.activities=".$activity;
         // }else{
@@ -266,6 +318,7 @@ class EventController extends WebController
                 }
 
                 $array = array(
+                    "priorizado" => $event->getCapacity(),
                     "title" => $event->translate('es')->getTitle(),
                     "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())),
                     "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
@@ -285,6 +338,7 @@ class EventController extends WebController
                         $speakerURL = 'abogados/'.$speaker->getLawyer()->getSlug();
                     }else{
                         $speakerName =$speaker->getName() .' '. $speaker->getSurname();
+                        $speakerURL='';
                     }
                     $speaker = array(
                         "speaker_name" => $speakerName,

@@ -4,15 +4,23 @@ namespace App\Controller\Web;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class NavigationService
 {
     protected $request;
+    private $params;
 
-    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
+    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router, ContainerBagInterface $params)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->router = $router;
+        $this->params = $params;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
     }
 
     public function getLanguage()

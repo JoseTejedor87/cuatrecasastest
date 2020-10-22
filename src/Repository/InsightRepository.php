@@ -47,6 +47,21 @@ class InsightRepository extends PublishableEntityRepository implements Publishab
                 ->getResult();
     }
 
+    public function getInsightsPriorFor($arrayCriteria){
+        $query = $this->createQueryBuilder('i')->join('i.lawyers', 'l');
+
+        $this->priorBuilderClause($query,'l.office');
+        $this->orderByDaySentences($query,'i','10', 'id');
+        
+        foreach ($arrayCriteria as $key => $value) {
+            $query->andWhere('i.'.$key.' = '.$value);
+        }
+        $query->setMaxResults(1);
+        //dd($query->getQuery()->getDQL());
+        return $query->getQuery()->getResult();      
+
+    }
+
     public function getPublishedRelatedInsights($insight)
     {
         $relatedInsights = array_map(

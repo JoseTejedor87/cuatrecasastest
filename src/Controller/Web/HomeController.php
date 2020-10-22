@@ -31,31 +31,19 @@ class HomeController extends WebController
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
 
-        // $relatedPublications = $publicationRepository->findByActivities('');
 
-        $relatedPublicationsPrior = $publicationRepository->findByActivitiesPriorByRegions('',["latam"],5);
+        $relatedPublications = $publicationRepository->findByActivities('');
 
-        // dd($relatedPublicationsPrior);
-       
+        //dd($relatedPublications);
         /*
         foreach($home->getInsights()[0]->getActivities() as $item){
             print_r($item->translate('es')->getTitle()); die();
         }
         */
-
-        //  dd($blockCareer->getBlocks()[0]);      //->getInsights()[0]->getActivities()[0]));
-/*
-        $strClass = get_class($home->getInsights()[0]->getActivities()[0]);
-        $arr = explode("\\",$strClass);
-        $text = end($arr);
-
-        echo $text;
-
-        die();
-        */
+        
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
-            'relatedPublications' => $relatedPublicationsPrior,
+            'relatedPublications' => $relatedPublications,
             'banner' => $bannerHome,
             'slidesOrdered' => $slidesOrdered,
             'home' => $home,

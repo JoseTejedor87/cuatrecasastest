@@ -129,26 +129,26 @@ userForm:
 # Menu
 # ###########################################
 menu:
-  knowledge: Knowledge
-  lawyers: Lawyers
-  services: Services
-  sectors: Sectors
+  knowledge: Conhecimento
+  lawyers: Advogados
+  services: Serviços
+  sectors: Sectores
   career:
-    career: Talent
+    career: Talento
     live: Live Cuatrecasas
     revolution: Revolution
     learn: Learn with the best
     international: International Career
     join: Join Us
   offices:
-    offices: Location
+    offices: Territórios
     vision: Overview
     spain: Spain
     portugal: Portugal
     latam: Latin America
     other: Other regions
   firm:
-    firm: Firm
+    firm: Sociedade
     vision: Overview
     social: Social
     environment: Environment

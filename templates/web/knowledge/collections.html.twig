@@ -266,49 +266,107 @@
                 </div>
             </section>
 
-            <!-- MASONRY GRID JS -->
-            <section class="row page__section page__section--fullbg">
-                <div class="col-12">
-                    <h4 class="section__title section__title--recomended">Te recomendamos</h4>
-                </div>
-                <div class="col-12">
-                    <div class="grid__masonry">
-                        <div class="grid__sizer"></div>
-                        <div class="grid__gutter"></div>
-                        {% for key,publication in publications %}
-                            {% set style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"] %}
-                            {# {% set fecha = publication.publication_date |format_datetime('long', 'none',locale='es')|split(' ') %} #}
-                            <div class="grid__item {{ style[key] }}">
-                                <article class="boxnews__item boxnews__item--{{ publication.type  }}">
-                                    <div class="boxnews__header">
-                                        <div class="boxnews__type">{{ publication.type  }}
-                                        </div>
-                                        <div class="boxnews__info">
-                                        {{ publication.fechaPubli }}
-                                        </div>
+            <!-- COLLECTIONS GRID -->
+            <section class="boxnews boxnews--products boxnews--products--three">
+                <div class="row page__section">
+                    <div class="col">
+                        <div class="boxnews__list">
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
                                     </div>
-                                    <div class="boxnews__content">
-                                        <h5 class="boxnews__copy">
-                                            <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
-                                                {{ publication.translate(app.request.getLocale()).title|raw  }}
-                                            </a>
-                                        </h5>
-                                        {% if style[key] !=  "grid__item--normal"%}
-                                        <div class="boxnews__img" style="background-image: url('{{ publication.photo  }}')"></div>
-                                        {% endif %}
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
                                     </div>
-                                </article>
-                            </div>
-                        {% endfor %}
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="viewmore__button">
+                            <button type="button" class="btn btn__viewmore">{{ 'global.messages.load_more'|trans }}</button>
+                        </div>
                     </div>
                 </div>
-                {% if page < pagesTotal %}
-                <div class="col-12">
-                    <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore" data-page="2">Cargar más</button>
-                    </div>
-                </div>
-                {% endif %}
             </section>
 
         </article>
@@ -335,19 +393,8 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
-        // GRID
-        var masonryOptions = {
-            itemSelector: '.grid__item',
-            columnWidth: '.grid__sizer',
-            gutter: '.grid__gutter',
-            percentPosition: true
-        };
-        var $grid = $('.grid__masonry').masonry( masonryOptions );
-        $grid.masonry( masonryOptions );
-
         // FILTERS
         $(document).on('click', '.btn__viewmore', function(event){
             var page =  $(this).data("page");

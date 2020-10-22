@@ -7,7 +7,7 @@ $(function () {
         grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',
-            draggable: true
+            draggable: false
         },
         breakpoints: {
             992: {
@@ -33,7 +33,7 @@ $(function () {
         grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',
-            draggable: true
+            draggable: false
         },
         breakpoints: {
             992: {
@@ -73,7 +73,7 @@ $(function () {
         grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',
-            draggable: true
+            draggable: false
         },
         breakpoints: {
             1199: {
