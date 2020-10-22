@@ -19,12 +19,15 @@ class QuestionFormType extends AbstractType
                     'question' => [
                         'label'=>'entities.question.fields.question',
                         'required'=>true,
+                        'attr' => array('class'=> 'question' ) ,
                     ],
                     'hash' => [
                         'label'=>'entities.question.fields.hash',
                         'attr' => array(
                             'readonly' => true,
+                            'class'=> 'hash'
                         ),
+                        'required'=>false,
                     ],
                 ],
             ]);

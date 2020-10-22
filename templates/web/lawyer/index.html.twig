@@ -1,385 +1,373 @@
 {% extends 'web/base.html.twig' %}
-
 {% block metaRobots %}noindex{% endblock %}
-
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
-
 {% block main %}
-
-    <main role="main" class="lawyer">
-        <article class="container">
-
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
-                <div class="col">
-                    <div class="info__block">
-                        <h1 class="page__title">
-                            {{ 'sections.lawyers.title'|trans }}
-                        </h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('lawyers_index') }}">{{ 'sections.lawyers.title'|trans }}</a>
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+<main role="main" class="lawyer">
+    <article class="container">
+        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+            <div class="col">
+                <div class="info__block">
+                    <h1 class="page__title">
+                        {{ 'sections.lawyers.title'|trans }}
+                    </h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('lawyers_index') }}">{{ 'sections.lawyers.title'|trans }}</a>
+                            </li>
+                        </ol>
+                    </nav>
                 </div>
-            </header>
-
-            <section class="row page__section search_box">
-                <div class="col search_box__wrapper">
-                    <div class="search_box__name search_box__name--full">
-                        <input type="text" id="textSearch" class="form-control" placeholder="{{ 'sections.lawyers.lawyerFilters.placeholder'|trans }}" name="initial">
-                        <input type="hidden" id="initial">
-                        <div class="input-group">
-                            <button id="searchButton" class="search_box__button" type="submit">
-                                <span class="icon4-lupa"></span>
-                            </button>
-                        </div>
+                <ul class="action__links">
+                    <li><a href="#"><i class="material-icons">share</i></a></li>
+                    <li><a href="#"><i class="material-icons">print</i></a></li>
+                    <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                </ul>
+            </div>
+        </header>
+        <section class="row page__section search_box">
+            <div class="col search_box__wrapper">
+                <div class="search_box__name search_box__name--full">
+                    <input type="text" id="textSearch" class="form-control" placeholder="{{ 'sections.lawyers.lawyerFilters.placeholder'|trans }}" name="initial">
+                    <input type="hidden" id="initial">
+                    <div class="input-group">
+                        <button id="searchButton" class="search_box__button" type="submit">
+                            <span class="icon4-lupa"></span>
+                        </button>
                     </div>
                 </div>
-            </section>
-
-            <section class="row search_filters search_filters--lawyers">
-                <div class="col">
-                    <div id="filtersButton">
-                        <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
+            </div>
+        </section>
+        <section class="row search_filters search_filters--lawyers">
+            <div class="col">
+                <div id="filtersButton">
+                    <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
+                </div>
+                <div class="filtersToggle">
+                    <div class="search_selects">
+                        <select id="services" class="custom__select">
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_services'|trans }}</option>
+                            {% for practice in practices %}
+                            {% if practice.translate(app.request.getLocale()).title %}
+                            <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <select id="sector" class="custom__select">
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_sector'|trans }}</option>
+                            {% for sector in sectors %}
+                            {% if sector.translate(app.request.getLocale()).title %}
+                            <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <select id="office" class="custom__select">
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
+                            {% for office in offices %}
+                            {% if office.translate(app.request.getLocale()).city %}
+                            <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <select id="lawyerType" class="custom__select">
+                            <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
+                            <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
+                            <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
+                            <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option>
+                            <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
+                            <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
+                            <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
+                            <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
+                            <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
+                            <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
+                            <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
+                        </select>
                     </div>
-                    <div class="filtersToggle">
-                        <div class="search_selects">
-                            <select id="services" class="custom__select">
-                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_services'|trans }}</option>
-                                {% for practice in practices %}
-                                    {% if practice.translate(app.request.getLocale()).title  %}
-                                        <option value="{{practice.id}}">{{ practice.translate(app.request.getLocale()).title|raw  }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                            <select id="sector" class="custom__select">
-                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_sector'|trans }}</option>
-                                {% for sector in sectors %}
-                                    {% if sector.translate(app.request.getLocale()).title  %}
-                                        <option value="{{sector.id}}">{{ sector.translate(app.request.getLocale()).title|raw  }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                            <select id="office" class="custom__select">
-                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_office'|trans }}</option>
-                                {% for office in offices %}
-                                    {% if office.translate(app.request.getLocale()).city  %}
-                                        <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                            <select id="lawyerType" class="custom__select">
-                                <option disabled selected>{{ 'sections.lawyers.lawyerFilters.by_lawyerType'|trans }}</option>
-                                <option value="counsel">{{ 'sections.lawyers.lawyerCategoryTypes.associate'|trans }}</option>
-                                <option value="honorary_partner">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_partner'|trans }}</option>
-                                <option value="honorary_president">{{ 'sections.lawyers.lawyerCategoryTypes.honorary_president'|trans }}</option>
-                                <option value="managing_partner">{{ 'sections.lawyers.lawyerCategoryTypes.managing_partner'|trans }}</option>
-                                <option value="no_position">{{ 'sections.lawyers.lawyerCategoryTypes.no_position'|trans }}</option>
-                                <option value="partner">{{ 'sections.lawyers.lawyerCategoryTypes.partner'|trans }}</option>
-                                <option value="knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.knowledge'|trans }}</option>
-                                <option value="senior_associate">{{ 'sections.lawyers.lawyerCategoryTypes.senior_associate'|trans }}</option>
-                                <option value="senior_partner">{{ 'sections.lawyers.lawyerCategoryTypes.senior_partner'|trans }}</option>
-                                <option value="senior_knowledge">{{ 'sections.lawyers.lawyerCategoryTypes.senior_knowledge'|trans }}</option>
-                            </select>
-                        </div>
-                        <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
-                            <ul class="pagination">
+                    <nav class="search_alphabet" aria-label="{{ 'sections.lawyers.lawyerFilters.by_initial'|trans }}">
+                        <ul class="pagination">
                             {% for letter in range('a','z') %}
-                                <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}"  data-inic="{{ letter }}">{{ letter }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ path('lawyers_index') }}?initial={{ letter }}" data-inic="{{ letter }}">{{ letter }}</a></li>
                             {% endfor %}
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </section>
-
-            <section class="row lawyer__search" style="{{ (countLawyers == '') ?  'display: none;' : '' }} ">
-                <div class="col">
-
-                    <!-- Info Results -->
-                    <h2 class="section__title">{{ 'sections.lawyers.lawyerFilters.search_results'|trans }}</h2>
-                    <div class="lawyer__search__info">
-                        <div class="lawyer__search__text">{{ 'sections.lawyers.lawyerFilters.search_results_txt1'|trans }} {{ countLawyers }} {{ 'sections.lawyers.lawyerFilters.search_results_txt2'|trans }}</div>
-                        <div class="lawyer__search__chooser">
-                            <button type="button" class="icon__button list">
-                                <span class="icon4-calendar_list"></span>
-                            </button>
-                            <button type="button" class="icon__button grid active">
-                                <span class="icon4-grid"></span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- List Results -->
-                    <div class="lawyer__search__wrapper lawyer__search__wrapper--grid" id="lawyerAjaxResults">
-                    {% if lawyers == '' %}
-                        {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
-                   {% endif %}
-                    {% for lawyer in lawyers %}
-                        {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
-                    {% endfor %}
-                    </div>
-                    {% if pagesTotal > 1 %}
-                    <!-- Pagination -->
-                    <nav class="search_pagination" aria-label="Results pagination">
-                        <ul class="pagination" id="lawyerPagination">
-                            <li class="page-item">
-                                <a class="page-link"  aria-label="Previous" href="abogados{{ url }}&page=1"  data-page="1">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            {% for i in 1..pagesTotal %}
-                            <li class="page-item">
-                                <a class="page-link {{ i==page ? ' active' : '' }}" href="abogados{{ url }}&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
-                            </li>
-                            {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" #}
-                            {% endfor %}
-
-                            <li class="page-item">
-                                <a class="page-link" href="abogados{{ url }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
                         </ul>
                     </nav>
-                    {% endif %}
-
                 </div>
-            </section>
-
-        </article>
-    </main>
-
-    {% if  countLawyers == '' %}
-    {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
-    {% endif %}
-        {% include 'web/shared/insight.html.twig' %}
-    {% endif %}
-    {% include 'web/shared/career.html.twig'  with { classTittle: '--main'} %}
-    {% include 'web/shared/cta-footer.html.twig' %}
-
-    <!-- Loader -->
-    <div class="search__component__loader" style="display:none">
-        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
-                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
-            </path>
-        </svg>
-    </div>
-
+            </div>
+            <!-- Selected tags -->
+            <div class="col-12" id="checksOutput" style="display:none">
+                <span class="checkbox-tag"><span>Corporate Governance y Compliance</span><button type="button" class="close-tag" data-value="Corporate Governance y Compliance" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>
+                <span class="checkbox-tag"><span>Opinion</span><button type="button" class="close-tag" data-value="Opinion" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>
+                <span class="checkbox-tag"><span>2020</span><button type="button" class="close-tag" data-value="2020" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>
+                <a href="#" id="deleteFilters">Limpiar filtros</a>
+            </div>
+        </section>
+        <section class="row lawyer__search" style="{{ (countLawyers == '') ?  'display: none;' : '' }} ">
+            <div class="col">
+                <!-- Info Results -->
+                <h2 class="section__title">{{ 'sections.lawyers.lawyerFilters.search_results'|trans }}</h2>
+                <div class="lawyer__search__info">
+                    <div class="lawyer__search__text">{{ 'sections.lawyers.lawyerFilters.search_results_txt1'|trans }} {{ countLawyers }} {{ 'sections.lawyers.lawyerFilters.search_results_txt2'|trans }}</div>
+                    <div class="lawyer__search__chooser">
+                        <button type="button" class="icon__button list">
+                            <span class="icon4-calendar_list"></span>
+                        </button>
+                        <button type="button" class="icon__button grid active">
+                            <span class="icon4-grid"></span>
+                        </button>
+                    </div>
+                </div>
+                <!-- List Results -->
+                <div class="lawyer__search__wrapper lawyer__search__wrapper--grid" id="lawyerAjaxResults">
+                    {% if lawyers == '' %}
+                    {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
+                    {% endif %}
+                    {% for lawyer in lawyers %}
+                    {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
+                    {% endfor %}
+                </div>
+                {% if pagesTotal > 1 %}
+                <!-- Pagination -->
+                <nav class="search_pagination" aria-label="Results pagination">
+                    <ul class="pagination" id="lawyerPagination">
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous" href="abogados{{ url }}&page=1" data-page="1">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {% for i in 1..pagesTotal %}
+                        <li class="page-item">
+                            <a class="page-link {{ i==page ? ' active' : '' }}" href="abogados{{ url }}&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
+                        </li>
+                        {# href="filter?initial={{ app.request.get('initial') }}&page={{ i }}" data-page="{{ i }}" #}
+                        {% endfor %}
+                        <li class="page-item">
+                            <a class="page-link" href="abogados{{ url }}&page={{ pagesTotal }}" data-page="{{ pagesTotal }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </section>
+    </article>
+</main>
+{% if countLawyers == '' %}
+{% if relatedPublications|length > 0 %}
+{% include 'web/shared/related-content-slider.html.twig' with { tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+{% endif %}
+{% include 'web/shared/insight.html.twig' %}
+{% endif %}
+{% include 'web/shared/career.html.twig' with { classTittle: '--main'} %}
+{% include 'web/shared/cta-footer.html.twig' %}
+<!-- Loader -->
+<div class="search__component__loader" style="display:none">
+    <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+        </path>
+    </svg>
+</div>
 {% endblock %}
-
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
-    $(function() {
-        web.global.customSelects();
+$(function() {
+    web.global.customSelects();
 
-        // RESULTS VIEWS
-        $(document).on('click', '.list', function(e){
-            e.preventDefault();
-            $('.icon__button.grid').removeClass('active');
-            $(this).addClass('active');
-            $('.search__component__loader').fadeIn('fast');
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
-            setTimeout(
-                function(){
-                    $('.search__component__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-        $(document).on('click', '.grid', function(e){
-            e.preventDefault();
-            $('.icon__button.list').removeClass('active');
-            $(this).addClass('active');
-            $('.search__component__loader').fadeIn('fast');
-            $('.lawyer__search__wrapper').addClass('loading');
-            $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
-            $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
-            setTimeout(
-                function(){
-                    $('.search__component__loader').fadeOut();
-                    $('.lawyer__search__wrapper').removeClass('loading');
-                }
-            , 600);
-        });
-        $('.search__component__loader').css("display", "flex").hide();
-
-        // SEARCH FUNCTIONS
-        $(document).on("click", "#searchButton", function(){
-            ajax();
-        });
-        $(".select-options li").on("click", function(){
-            ajax();
-        });
-        $(document).on('click', '.page-link', function(event){
-            var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
-            if(!initial){
-                $('#lawyerPagination .page-link').removeClass('active');
-                $(this).addClass('active');
-                var page = $(this).data("page");
-            }else{
-                $('.search_alphabet .page-link').removeClass('active');
-                $(this).addClass('active');
-                var page = $(this).data("page");
-
-            }
-            if(!page){
-                page=1;
-            }
-           ajax(page,initial);
-        });
+    // RESULTS VIEWS
+    $(document).on('click', '.list', function(e) {
+        e.preventDefault();
+        $('.icon__button.grid').removeClass('active');
+        $(this).addClass('active');
+        $('.search__component__loader').fadeIn('fast');
+        $('.lawyer__search__wrapper').addClass('loading');
+        $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--grid');
+        $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--list');
+        setTimeout(
+            function() {
+                $('.search__component__loader').fadeOut();
+                $('.lawyer__search__wrapper').removeClass('loading');
+            }, 600);
     });
+    $(document).on('click', '.grid', function(e) {
+        e.preventDefault();
+        $('.icon__button.list').removeClass('active');
+        $(this).addClass('active');
+        $('.search__component__loader').fadeIn('fast');
+        $('.lawyer__search__wrapper').addClass('loading');
+        $('.lawyer__search__wrapper').removeClass('lawyer__search__wrapper--list');
+        $('.lawyer__search__wrapper').addClass('lawyer__search__wrapper--grid');
+        setTimeout(
+            function() {
+                $('.search__component__loader').fadeOut();
+                $('.lawyer__search__wrapper').removeClass('loading');
+            }, 600);
+    });
+    $('.search__component__loader').css("display", "flex").hide();
 
-    function ajax(page,initial) {
-        event.preventDefault();
-        textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
-        services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
-        sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
-        office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
-        lawyerType = $("#lawyerType").val() ? $("#lawyerType").val() : "{{ app.request.get('lawyerType') }}";
-        initial = initial ? initial : $("#initial").val();
-        var page = page ? page : $(this).data("page");
-        if(!page){
-            page=1;
+    // SEARCH FUNCTIONS
+    $(document).on("click", "#searchButton", function() {
+        ajax();
+    });
+    $(".select-options li").on("click", function() {
+        ajax();
+    });
+    $(document).on('click', '.page-link', function(event) {
+        var initial = $(this).data("inic") ? $(this).data("inic") : "{{ app.request.get('initial') }}";
+        if (!initial) {
+            $('#lawyerPagination .page-link').removeClass('active');
+            $(this).addClass('active');
+            var page = $(this).data("page");
+        } else {
+            $('.search_alphabet .page-link').removeClass('active');
+            $(this).addClass('active');
+            var page = $(this).data("page");
+
         }
-        item = $(".lawyer__search__item").first().clone();
-        $(".lawyer__search__item").first().hide();
-        $.ajax({
+        if (!page) {
+            page = 1;
+        }
+        ajax(page, initial);
+    });
+});
+
+function ajax(page, initial) {
+    event.preventDefault();
+    textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
+    services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
+    sector = $("#sector").val() ? $("#sector").val() : "{{ app.request.get('sector') }}";
+    office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
+    lawyerType = $("#lawyerType").val() ? $("#lawyerType").val() : "{{ app.request.get('lawyerType') }}";
+    initial = initial ? initial : $("#initial").val();
+    var page = page ? page : $(this).data("page");
+    if (!page) {
+        page = 1;
+    }
+    item = $(".lawyer__search__item").first().clone();
+    $(".lawyer__search__item").first().hide();
+    $.ajax({
             method: "GET",
-            data: { textSearch: textSearch, services: services, sector: sector, office: office, lawyerType:lawyerType, page: page,initial: initial  },
+            data: { textSearch: textSearch, services: services, sector: sector, office: office, lawyerType: lawyerType, page: page, initial: initial },
             url: "{{ path('lawyers_index') }}",
-            beforeSend: function( xhr ) {
+            beforeSend: function(xhr) {
                 $('.search_pagination').remove();
                 $('.search__component__loader').fadeIn('fast');
             }
         })
-        .done(function( msg ) {
+        .done(function(msg) {
             $('.search__component__loader').fadeOut();
             $('#lawyerAjaxResults').empty();
 
-            var url= "";
-            if(msg['initial']){
-                if(url == ""){
-                    url= "?initial="+msg['initial'];
-                }else{
-                    url= url + "&initial="+msg['initial'];
+            var url = "";
+            if (msg['initial']) {
+                if (url == "") {
+                    url = "?initial=" + msg['initial'];
+                } else {
+                    url = url + "&initial=" + msg['initial'];
                 }
             }
-            if(msg['office']){
-                if(url == ""){
-                    url= "?office="+msg['office'];
-                }else{
-                    url= url + "&office="+msg['office'];
+            if (msg['office']) {
+                if (url == "") {
+                    url = "?office=" + msg['office'];
+                } else {
+                    url = url + "&office=" + msg['office'];
                 }
             }
-            if(msg['textSearch']){
-                if(url == ""){
-                    url= "?textSearch="+msg['textSearch'];
-                }else{
-                    url= url + "&textSearch="+msg['textSearch'];
+            if (msg['textSearch']) {
+                if (url == "") {
+                    url = "?textSearch=" + msg['textSearch'];
+                } else {
+                    url = url + "&textSearch=" + msg['textSearch'];
                 }
             }
-            if(msg['services']){
-                if(url == ""){
-                    url= "?services="+msg['services'];
-                }else{
-                    url= url + "&services="+msg['services'];
+            if (msg['services']) {
+                if (url == "") {
+                    url = "?services=" + msg['services'];
+                } else {
+                    url = url + "&services=" + msg['services'];
                 }
             }
-            if(msg['sector']){
-                if(url == ""){
-                    url= "?sector="+msg['sector'];
-                }else{
-                    url= url + "&sector="+msg['sector'];
+            if (msg['sector']) {
+                if (url == "") {
+                    url = "?sector=" + msg['sector'];
+                } else {
+                    url = url + "&sector=" + msg['sector'];
                 }
             }
-            if(msg['lawyerType']){
-                if(url == ""){
-                    url= "?lawyerType="+msg['lawyerType'];
-                }else{
-                    url= url + "&lawyerType="+msg['lawyerType'];
+            if (msg['lawyerType']) {
+                if (url == "") {
+                    url = "?lawyerType=" + msg['lawyerType'];
+                } else {
+                    url = url + "&lawyerType=" + msg['lawyerType'];
                 }
             }
-            if(msg['page']>1){
-                if(url == ""){
-                    url= "?page="+msg['page'];
-                }else{
-                    url= url + "&page="+msg['page'];
+            if (msg['page'] > 1) {
+                if (url == "") {
+                    url = "?page=" + msg['page'];
+                } else {
+                    url = url + "&page=" + msg['page'];
                 }
             }
             var html = '';
-            $('.lawyer__search__text').text('Mostramos '+msg['countLawyers']+' perfiles que encajan con la búsqueda');
-            msg['lawyers'].forEach(function(lawyer){
-                item.css('background-image', 'url("'+lawyer['photo']+'")');
-                item.find( "a" ).attr("href", lawyer['Slug']);
-                item.find( ".lawyer__name" ).text(lawyer['FullName']);
-                item.find( ".lawyer__position" ).text(lawyer['LawyerType']);
-                item.find( ".lawyer__activities" ).text(lawyer['activities']);
-                item.find( ".lawyer__city" ).text(lawyer['office']);
+            $('.lawyer__search__text').text('Mostramos ' + msg['countLawyers'] + ' perfiles que encajan con la búsqueda');
+            msg['lawyers'].forEach(function(lawyer) {
+                item.css('background-image', 'url("' + lawyer['photo'] + '")');
+                item.find("a").attr("href", lawyer['Slug']);
+                item.find(".lawyer__name").text(lawyer['FullName']);
+                item.find(".lawyer__position").text(lawyer['LawyerType']);
+                item.find(".lawyer__activities").text(lawyer['activities']);
+                item.find(".lawyer__city").text(lawyer['office']);
                 $('#lawyerAjaxResults').append(item.prop('outerHTML'));
             });
-                if(msg['pagesTotal']>1){
-                    html = html + `<nav class="search_pagination" aria-label="Results pagination">
+            if (msg['pagesTotal'] > 1) {
+                html = html + `<nav class="search_pagination" aria-label="Results pagination">
                                             <ul class="pagination" id="lawyerPagination">
                                                 <li class="page-item">
-                                                    <a class="page-link"  aria-label="Previous" href="abogados`+url+`&page=1"  data-page="1">
+                                                    <a class="page-link"  aria-label="Previous" href="abogados` + url + `&page=1"  data-page="1">
                                                         <span aria-hidden="true">&laquo;</span>
                                                         <span class="sr-only">Previous</span>
                                                     </a>
                                                 </li>`;
-                                                for (var i = 1; i <= msg['pagesTotal']; i++) {
-                                                html = html + `<li class="page-item">
+                for (var i = 1; i <= msg['pagesTotal']; i++) {
+                    html = html + `<li class="page-item">
                                                     <a class="page-link`;
-                                                if(i==1 && !msg['page']){
-                                                    html = html + ` active`;
-                                                }else{
-                                                    if(i==msg['page']){
-                                                        html = html + ` active`;
-                                                    }
-                                                }
-                                                html = html + `" href="abogados`+url+`&page=`+i+`" data-page="`+i+`">`+i+`</a>
+                    if (i == 1 && !msg['page']) {
+                        html = html + ` active`;
+                    } else {
+                        if (i == msg['page']) {
+                            html = html + ` active`;
+                        }
+                    }
+                    html = html + `" href="abogados` + url + `&page=` + i + `" data-page="` + i + `">` + i + `</a>
                                                 </li>`;
-                                                }
+                }
 
-                                                 html = html + `<li class="page-item">
-                                                    <a class="page-link" href="abogados`+url+`&page=`+ msg['pagesTotal'] + `" data-page="`+ msg['pagesTotal'] + `" aria-label="Next">
+                html = html + `<li class="page-item">
+                                                    <a class="page-link" href="abogados` + url + `&page=` + msg['pagesTotal'] + `" data-page="` + msg['pagesTotal'] + `" aria-label="Next">
                                                         <span aria-hidden="true">&raquo;</span>
                                                         <span class="sr-only">Next</span>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </nav>`;
-                }
-            html = html ;
-            $('#lawyerAjaxResults').after( html  );
+            }
+            html = html;
+            $('#lawyerAjaxResults').after(html);
             $('#lawyerAjaxResults').show();
             $('.lawyer__search').show();
-            window.history.replaceState(null, null, "abogados"+url);
+            window.history.replaceState(null, null, "abogados" + url);
             $("#textSearch").val(textSearch);
             $("#services").val(services);
             $("#sector").val(sector);
@@ -390,6 +378,6 @@
         .fail(function() {
 
         });
-    }
+}
 </script>
 {% endblock %}

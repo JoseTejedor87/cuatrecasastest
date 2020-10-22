@@ -18,7 +18,7 @@ class QuestionTranslation
     private $question;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $hash;
 
@@ -42,7 +42,12 @@ class QuestionTranslation
 
     public function setHash(string $hash): self
     {
-        //$this->hash = $hash;
+        if($this->question){
+            $this->hash = md5($this->question);
+        }else{
+            $this->hash = $hash;
+        }
+        
 
         return $this;
     }

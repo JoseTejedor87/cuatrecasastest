@@ -28,6 +28,7 @@ use App\Form\ResourceFormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Repository\PersonRepository;
 
+
 class EventFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

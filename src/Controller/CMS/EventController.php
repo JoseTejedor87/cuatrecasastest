@@ -17,6 +17,7 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 
 use App\Entity\Event;
+use App\Entity\Question;
 use App\Entity\Person;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
@@ -90,8 +91,6 @@ class EventController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            
             //Crear Evento WS
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
@@ -101,6 +100,7 @@ class EventController extends CMSController
             $res  = $client->CreateEventoForGestionEventos($eventoWS);
             $data = $res->CreateEventoForGestionEventosResult;
             $dataEventoWS = ((array)$data);
+            dd($dataEventoWS);
             if($dataEventoWS['Result'] == true){
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
@@ -347,6 +347,7 @@ class EventController extends CMSController
         ));
         $parametrosEvento[$type]['Aforo'] = $form->get('capacity')->getData();
         $parametrosEvento[$type]['Areas'] = array();
+        //dd($form->get('office')->getData()['es']->getCity());
         $parametrosEvento[$type]['Ciudad'] = $form->get('office')->getData()->getCity();
         $parametrosEvento[$type]['Contacto']['Email'] = $form->get('email')->getData();
         $parametrosEvento[$type]['Contacto']['Name'] = $form->get('contact')->getData();
@@ -377,9 +378,7 @@ class EventController extends CMSController
             }
         }
         foreach ($form->get('questions')->getData() as $key => $value) {
-            if($value->translate('es')->getHash()){
-                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'] = array( 'Action' => $new ? "INSERT" : "EDIT", 'IdEventQuestionWeb' => $value->translate('es')->getHash() ,'Question' => $value->translate('es')->getQuestion());
-            }
+                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'] = array( 'Action' => $new ? "INSERT" : "EDIT", 'IdEventQuestionWeb' => $value->translate('es')->getHash() ?  $value->translate('es')->getHash() : md5($value->translate('es')->getQuestion()) ,'Question' => $value->translate('es')->getQuestion());
         }
         if($responsablesmarketing)
         foreach ($responsablesmarketing as $key => $value) {

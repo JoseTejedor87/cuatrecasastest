@@ -34,7 +34,8 @@
                 </div>
             </header>
 
-            <form action="" id="userForm" class="needs-validation" novalidate>
+            <form action="" class="needs-validation" novalidate>
+            {# <form action="" id="userForm" name="userForm" class="needs-validation" novalidate> #}
                 <div class="row page__block--full">
                     <div class="col">
                         <h4 class="section__title section__title--main">{{ 'userForm.settings.title'|trans }}</h4>
@@ -42,16 +43,16 @@
                             <legend>{{ 'userForm.settings.subTitleInfo'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
+                                    <input type="text" class="form-control" name="eFirstName" id="eFirstName" placeholder="Nombre *" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
+                                    <input type="text" class="form-control" name="eLastName" id="eLastName" placeholder="Apellidos *" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="ePass" placeholder="Contraseña *" required>
+                                    <input type="text" class="form-control" name="eFirstName" id="etel" placeholder="Telefono *" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                    <input type="text" class="form-control" name="eEmail" id="eEmail" placeholder="Email *" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -59,10 +60,10 @@
                             <legend>{{ 'userForm.settings.subTitleCompany'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                    <input type="text" class="form-control" name="ePosition" id="ePosition" placeholder="Cargo *" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                    <input type="text" class="form-control" name="eCompany" id="eCompany" placeholder="Empresa *" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -71,77 +72,48 @@
                             <div class="row">
                                 <div class="col-lg-6 pr-0 pl-0">
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" id="ePostalCode" placeholder="Código postal *" required>
+                                        <input type="text" class="form-control" name="eadress" id="eadress" placeholder="Direccion *" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select name="eCountry" id="eCountry" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="País *">
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
+                                        <select name="eCountry" id="eCountry"  class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="País *">
+                                            {% if paises|length > 0 %}
+                                                {% for value in paises %}
+                                                    {% if value['IdPais'] %}
+                                                        <option value="{{ value['IdPais'] }}">{{ value['Nombre'] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" id="eTown" placeholder="Población *" required>
+                                        <input type="text" class="form-control" name="eTown" id="eTown" placeholder="Población *" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select name="eRegion" id="eRegion" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
+                                        <select id="eRegion" class="form-control custom-select " data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
+                                            <option value="" selected disabled>Provincia *</option>
                                         </select>
                                     </div>
+                                    {# <div class="form-group col-lg-12">
+                                        <select name="eRegion" id="eRegion" class="selectpicker"  data-width="100%" data-size="5" title="Provincia *" required>
+                                            <option value="" selected disabled>Provincia *</option>
+                                        </select>
+                                    </div> #}
                                 </div>
                                 <div class="col-lg-6">
-                                    <select name="eLang" id="eLang" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
+                                    <select name="eLang" id="eLang" class="selectpicker form-group" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
+                                           {% if idiomas|length > 0 %}
+                                                {% for value in idiomas %}
+                                                    {% if value['IdIdioma'] %}
+                                                        <option value="{{ value['IdIdioma'] }}">{{ value['Nombre'] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                     </select>
+                                     <div class="form-group">
+                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="Código postal *" required>
+                                    </div>
                                 </div>
+
                             </div>
                         </fieldset>
                     </div>
@@ -150,29 +122,31 @@
                 <div class="row page__block--privacy">
                     <div class="col-12 privacy__text">
                         <h4 class="section__title section__title--main">{{ 'userForm.data.title'|trans }}</h4>
-                        <p>Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Natus, vitae eum ex, repellendus ullam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.</p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>
+                        <b>Información sobre el tratamiento de sus datos personales</b></p>
+                        <p>
+                        <b>Responsable del tratamiento:</b> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
+                        <b>Finalidades:</b> : gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
+                        <b>Legitimación:</b> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
+                        <b>Destinatarios:</b> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
+                        <b>Derechos:</b> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a target="_blank" href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">la política de privacidad</a>.
+                        </p>
                     </div>
                     <div class="col-12 privacy__confirm">
                         <div class="form-group">
                             <div class="checkbox">
-                                <input type="checkbox" id="accept" required>
-                                <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                <input name="accept" type="checkbox" id="accept" required>
+                                <label  class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
-                                <input type="checkbox" id="subscribe">
+                                <input name="subscribe" type="checkbox" id="subscribe">
                                 <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
                             </div>
                         </div>
                         <div class="button__wrapper">
-                            <button type="submit" class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
+                            <button  class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
                         </div>
                     </div>
                 </div>
@@ -199,32 +173,39 @@
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
-
                         var errorElements = document.querySelectorAll(".form-control.is-invalid");
                         $('html, body').animate({
                             scrollTop: $(errorElements[0]).offset().top - 120
                         }, 'slow');
                         $(errorElements[0]).focus();
+                    }else{
+                        form.classList.add('was-validated');
+                        event.preventDefault();
+                       
                     }
-                    form.classList.add('was-validated');
+                   
                 }, false);
             });
         }, false);
 
-        $("#formSubmit").click( function() {
+        $("#formSubmit").click( function(e) {
+            
+            console.log("aa");
             $("#userForm .form-control").removeClass('is-valid');
             $("#userForm .form-control").removeClass('is-invalid');
             var contacto =  validation();
+            
             if(contacto){
+                e.preventDefault();
                 $.ajax({
                     method: "GET",
                     data: { contacto: JSON.stringify(contacto)  },
-                    url: "{{ path('set_event_contact') }}",
+                    url: "{{ path('set_contact_user') }}",
                     beforeSend: function( xhr ) {
                     }
                     })
                 .done(function( data ) {
-                    console.log(data);
+            
                 })
                 .fail(function() {
                 });
@@ -238,6 +219,7 @@
                     data: { idCountry: idCountry  },
                     url: "{{ path('get_regions') }}",
                     beforeSend: function( xhr ) {
+                        $('#eRegion option').remove()
                     }
                     })
                 .done(function( data ) {

@@ -28,11 +28,15 @@ class HomeController extends WebController
         
         $slidesOrdered = $sliderRepository->getAllByPriority($bannerHome->getId());
         $home = $homeRepository->findOneBy(['id' => 1]);
-        //dd(($bannerHome->getSliders()[0]->getImage())->getFileName());  die();
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
-        $relatedPublications = $publicationRepository->findByActivities('');
-
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
+
+        // $relatedPublications = $publicationRepository->findByActivities('');
+
+        $relatedPublicationsPrior = $publicationRepository->findByActivitiesPriorByRegions('',["latam"],5);
+
+        // dd($relatedPublicationsPrior);
+       
         /*
         foreach($home->getInsights()[0]->getActivities() as $item){
             print_r($item->translate('es')->getTitle()); die();
@@ -51,7 +55,7 @@ class HomeController extends WebController
         */
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
-            'relatedPublications' => $relatedPublications,
+            'relatedPublications' => $relatedPublicationsPrior,
             'banner' => $bannerHome,
             'slidesOrdered' => $slidesOrdered,
             'home' => $home,
@@ -70,12 +74,7 @@ class HomeController extends WebController
         ]);
     }
 
-    public function userSettings()
-    {
-        return $this->render('web/home/userSettings.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
+
 
     public function institutoRRHH()
     {

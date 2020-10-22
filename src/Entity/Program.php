@@ -33,6 +33,7 @@ class Program extends Item
     public function __construct()
     {
         $this->people = new ArrayCollection();
+        $this->date_time = new \DateTime();
     }
 
     public function getDateTime(): ?\DateTimeInterface

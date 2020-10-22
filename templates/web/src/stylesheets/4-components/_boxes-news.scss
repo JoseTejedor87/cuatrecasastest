@@ -300,6 +300,11 @@
                     .video__popup {
                         height: 100%;
                     }
+
+                    img {
+                        @include cover-img();
+                        height: 100%;
+                    }
                 }
             }
         }
@@ -344,6 +349,10 @@
 
                     .video__popup {
                         height: 100%;
+                    }
+
+                    img {
+                        @include cover-img();
                     }
                 }
             }
