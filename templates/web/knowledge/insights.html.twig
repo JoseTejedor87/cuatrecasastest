@@ -100,13 +100,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">Servicios</a>
                             <div id="collapse02" class="collapse" aria-labelledby="heading02" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for practice in practices %}
                                         {% if practice.translate(app.request.getLocale()).title  %}
@@ -124,13 +117,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">Tipo</a>
                             <div id="collapse03" class="collapse" aria-labelledby="heading03" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for type in types %}
                                         {% if type  %}
@@ -149,13 +135,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
                             <div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for office in offices %}
                                         {% if office.translate(app.request.getLocale()).city  %}
@@ -173,13 +152,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Fecha</a>
                             <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for i in 2010..2020 %}
                                          <div class="checkbox">
@@ -196,13 +168,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
                             <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     <div class="checkbox">
                                         <input type="checkbox" id="collection-01" value=".collection-01">
@@ -236,13 +201,6 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Formato</a>
                             <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
-                                <div class="filters__order">
-                                    <span>Ordenar por: </span>
-                                    <ul>
-                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
-                                        <li><a class="order_pop" href="#">popular</a></li>
-                                    </ul>
-                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for format in formats %}
                                         {% if format  %}
@@ -305,7 +263,7 @@
                 {% if page < pagesTotal %}
                 <div class="col-12">
                     <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore" data-page="2">Cargar más</button>
+                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">Cargar más</button>
                     </div>
                 </div>
                 {% endif %}

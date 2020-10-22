@@ -8,7 +8,7 @@ use App\Entity\Item;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="User")
+ * @ORM\Table(name="[User]")
  */
 class User extends Item implements UserInterface
 {

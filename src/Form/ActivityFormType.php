@@ -63,7 +63,6 @@ abstract class ActivityFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'query_builder' => function (LawyerRepository $lr) {
-                                if ($this->id_act != null ){
                                     return $lr->createQueryBuilder('l')
                                     ->join('l.activities', 'a')
                                     ->join('l.secondaryActivities', 'sa')
@@ -71,11 +70,6 @@ abstract class ActivityFormType extends AbstractType
                                     ->orWhere('sa.id = :id_act')
                                     ->setParameter('id_act', $this->id_act)
                                     ->orderBy('l.name', 'ASC');
-                                }else{
-                                    return $lr->createQueryBuilder('l')
-                                    ->orderBy('l.name', 'ASC');
-                                    // TODO QUITAR ESTA PARTE DEL CODIGO Y REALIZAR LA CONSULTA DEL TRUE POR AJAX ya que depende de Actividades relacionadas
-                                }
                         }
             ])
             ->add('quote', EntityType::class, [

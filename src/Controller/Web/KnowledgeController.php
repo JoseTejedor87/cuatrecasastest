@@ -185,7 +185,8 @@ class KnowledgeController extends WebController
         $publications = array_slice($totalPublications,($limit * ($page - 1)),$limit);
         
         if ($totalPublications) {
-            $pagesTotal = count($totalPublications)/$limit;
+            $countPublications = count($totalPublications);
+            $pagesTotal = $countPublications/$limit;
             if (is_float($pagesTotal)) {
                 $pagesTotal = intval($pagesTotal + 1);
             }

@@ -52,7 +52,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         if ($token === null) {
             return;
         }
-        
+
         $client = new \SoapClient(
             $this->singleSignOnParameters['url'],
             $this->singleSignOnParameters['options']
@@ -70,7 +70,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             return $this->em->getRepository(User::class)
                 ->findOneBy(['user_id' => $data['Iniciales']]);
         }
-        
+
         // return $this->em->getRepository(User::class)
         //     ->findOneBy(['user_id' => 'JTEB']);
     }
@@ -119,5 +119,4 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         return false;
     }
-
 }
