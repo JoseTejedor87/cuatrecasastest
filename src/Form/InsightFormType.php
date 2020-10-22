@@ -89,6 +89,10 @@ class InsightFormType extends AbstractType
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
                 ],
+            ])
+            ->add('photo', ResourceFormType::class, [
+                'required' => false,
+                'label'=>'entities.insight.fields.photo'
             ]);
     }
 

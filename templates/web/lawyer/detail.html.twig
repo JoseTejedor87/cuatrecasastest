@@ -8,7 +8,7 @@
             <header class="container">
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
-                        <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
+                        <button type="button" class="back__button" id="goBack">{{ 'global.goBack'|trans }}</button>
                         <h1 class="lawyer__page__name">
                             {{ lawyer.fullName }}
                         </h1>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__foto">
-                            <a href="{{ path('lawyers_index') }}" class="back__button">{{ 'global.goBack'|trans }}</a>
+                            <button type="button" class="back__button" id="goBack">{{ 'global.goBack'|trans }}</button>
                             <ul class="action__links">
                                 <li><a href="#"><i class="material-icons">share</i></a></li>
                                 <li><a href="#"><i class="material-icons">print</i></a></li>

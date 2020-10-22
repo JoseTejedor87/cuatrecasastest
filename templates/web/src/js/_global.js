@@ -13,7 +13,21 @@ web.global = {
             alert('zoom: ' + document.body.style.zoom);
         }
 
-        // zoomBrowser();
+        // https://css-tricks.com/screen-resolution-notequalto-browser-window/
+
+
+        /*
+        // Force page zoom at 100% with JS
+        // https://www.thetopsites.net/article/52862232.shtml
+        document.body.style.zoom = screen.logicalXDPI / screen.deviceXDPI;
+        document.body.style.zoom = (window.innerWidth / window.outerWidth);
+
+        // http://jsfiddle.net/5RzJ8/
+        var scale = 'scale(1)';
+        document.body.style.webkitTransform =  scale;    // Chrome, Opera, Safari
+        document.body.style.msTransform =   scale;       // IE 9
+        document.body.style.transform = scale;     // General
+        */
 
         /*
         // Set initial zoom level
@@ -187,6 +201,11 @@ web.global = {
         // $('.no-link').click(function(e){
         //     e.preventDefault();
         // });
+
+        $('#goBack').click(function(e){
+            e.preventDefault();
+            window.history.back();
+        });
 
         $('.doble__arrow__accordion').click(function(){
             $(this).toggleClass('doble__arrow__accordion--on');

@@ -100,6 +100,18 @@
             </div>
             <!-- Selected tags -->
             <div class="col-12" id="checksOutput" style="display:none">
+                <span id="checkbox-tag-practice" class="checkbox-tag" style="display:none">
+                    <span class="tag-text"></span><button type="button" class="close-tag" data-value="Practice" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                </span>
+                <span id="checkbox-tag-sector" class="checkbox-tag" style="display:none">
+                    <span class="tag-text"></span><button type="button" class="close-tag" data-value="Sector" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                </span>
+                <span id="checkbox-tag-office" class="checkbox-tag" style="display:none">
+                    <span class="tag-text"></span><button type="button" class="close-tag" data-value="Office" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                </span>
+                <span id="checkbox-tag-lawyer-type" class="checkbox-tag" style="display:none">
+                    <span class="tag-text"></span><button type="button" class="close-tag" data-value="Lawyer Type" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                </span>
             </div>
         </section>
         <section class="row lawyer__search" style="{{ (countLawyers == '') ?  'display: none;' : '' }} ">
@@ -249,6 +261,7 @@ function ajax(page, initial) {
     office = $("#office").val() ? $("#office").val() : "{{ app.request.get('office') }}";
     lawyerType = $("#lawyerType").val() ? $("#lawyerType").val() : "{{ app.request.get('lawyerType') }}";
     initial = initial ? initial : $("#initial").val();
+    tags(services, sector, office, lawyerType);
     var page = page ? page : $(this).data("page");
     if (!page) {
         page = 1;
@@ -376,6 +389,57 @@ function ajax(page, initial) {
         .fail(function() {
 
         });
+}
+
+function tags(services, sector, office, lawyerType) {
+    $("#checksOutput").css("display", "flex");
+    if(services !== '') {
+        var servicesText = $("#services option:selected" ).text();
+        $("#checkbox-tag-practice span.tag-text").text(servicesText);
+        $("#checkbox-tag-practice").css("display", "flex");
+    }
+    if(sector !== '') {
+        var sectorText = $("#sector option:selected" ).text();
+        $("#checkbox-tag-sector span.tag-text").text(sectorText);
+        $("#checkbox-tag-sector").css("display", "flex");
+    }
+    if(office !== '') {
+        var officeText = $("#office option:selected" ).text();
+        $("#checkbox-tag-office span.tag-text").text(officeText);
+        $("#checkbox-tag-office").css("display", "flex");
+    }
+    if(lawyerType !== '') {
+        var lawyerTypeText = $("#lawyerType option:selected" ).text();
+        $("#checkbox-tag-lawyer-type span.tag-text").text(lawyerTypeText);
+        $("#checkbox-tag-lawyer-type").css("display", "flex");
+    }
+
+    $("#checkbox-tag-practice .ion-android-close").click(function(){
+        $("#checkbox-tag-practice").css("display", "none");
+        $("select#services").val($("select#services option:first").val());
+        $("select#services").next(".select-styled").text($("#services option:selected" ).text());
+        ajax();
+        //alert($("#services option:selected" ).val());
+    });
+    $("#checkbox-tag-sector .ion-android-close").click(function(){
+        $("#checkbox-tag-sector").css("display", "none");
+        $("select#sector").val($("select#sector option:first").val());
+        $("select#sector").next(".select-styled").text($("#sector option:selected" ).text());
+        ajax();
+    });
+    $("#checkbox-tag-office .ion-android-close").click(function(){
+        $("#checkbox-tag-office").css("display", "none");
+        $("select#office").val($("select#office option:first").val());
+        $("select#office").next(".select-styled").text($("#office option:selected" ).text());
+        ajax();
+    });
+    $("#checkbox-tag-lawyer-type .ion-android-close").click(function(){
+        $("#checkbox-tag-lawyer-type").css("display", "none");
+        $("select#lawyerType").val($("select#lawyerType option:first").val());
+        $("select#lawyerType").next(".select-styled").text($("#lawyerType option:selected" ).text());
+        ajax();
+    });
+
 }
 </script>
 {% endblock %}

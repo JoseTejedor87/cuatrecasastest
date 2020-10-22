@@ -549,6 +549,7 @@
 // --------------------------------------------------------------------------
 
 .back__button {
+    @include reset-link-button;
     @include arrow-button-reverse($complementary-color);
     position: absolute;
     top: 2rem;
