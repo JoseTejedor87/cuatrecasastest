@@ -7,6 +7,11 @@
 
 {% set lang = app.request.getLocale() %}
 {% block main %}
+  	{% if  office.getImgOffice().getFileName() is defined %}
+         {%  set imageFile = 'resources/'~office.getImgOffice().getFileName() %}
+         {% else %}
+         {%  set imageFile = 'web/assets/img/oporto.jpg' %}
+    {% endif %}
 
     <main role="main" class="lawyer__page">
         <article>
@@ -16,7 +21,7 @@
                     <div class="col-md-7 lawyer__page__content">
                         <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
                         <h1 class="lawyer__page__region">
-                            Oporto
+                            {{ office.translate(lang).city }}
                         </h1>
                         <div class="lawyer__page__contact">
                             <div data-address>
@@ -42,7 +47,8 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
-                            <figure style="background-image: url('{{ asset('web/assets/img/oporto.jpg') }}')"></figure>
+                            <figure style="background-image: url('{{ asset(imageFile ) }}')"></figure>
+                            
                         </div>
                     </div>
                 </div>
