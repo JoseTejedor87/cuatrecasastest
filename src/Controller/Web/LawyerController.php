@@ -118,8 +118,8 @@ class LawyerController extends WebController
                 $query = $query->innerJoin('l.activities', 's')
                     ->andWhere('s.id = :sector')
                     ->setParameter('sector', $sector);
-                $query = $query->innerJoin('l.secondaryActivities', 'ss')
-                    ->orWhere('ss.id = :sector')
+                $query = $query->innerJoin('l.secondaryActivities', 'ses')
+                    ->orWhere('ses.id = :sector')
                     ->setParameter('sector', $sector);
                 if ($url == "") {
                     $url= "?sector=".$sector;
@@ -128,7 +128,7 @@ class LawyerController extends WebController
                 }
             }
             if ($office) {
-                $query = $query->innerJoin('l.office', 'o')
+                $query = $query->innerJoin('l.office', 'of')
                     ->andWhere('l.office = :city')
                     ->setParameter('city', $office);
                 if ($url == "") {
@@ -164,17 +164,17 @@ class LawyerController extends WebController
             foreach ($lawyersPrior as $key => $item) {
                 $totalLawyers[$item->getId()] = $item;
             }
-            
+
             $lawyersAll = $query->getQuery()->getResult();
 
             foreach ($lawyersAll as $key => $item) {
-                if (!isset($totalLawyers[$item->getId()])){
+                if (!isset($totalLawyers[$item->getId()])) {
                     array_push($totalLawyers, $item);
                 }
             }
-            
 
-            $lawyers = array_slice($totalLawyers,($limit * ($page - 1)),$limit);
+
+            $lawyers = array_slice($totalLawyers, ($limit * ($page - 1)), $limit);
 
             if ($totalLawyers) {
                 $countLawyers =count($totalLawyers);
@@ -196,7 +196,6 @@ class LawyerController extends WebController
                     $pagesTotal = intval($pagesTotal + 1);
                 }
             }*/
-
         }
         if ($request->isXMLHttpRequest()) {
             $lawyerA = array();

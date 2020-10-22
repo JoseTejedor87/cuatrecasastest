@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\InsightRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\EventRepository;
+use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -16,9 +17,26 @@ class InsightController extends WebController
 
     public function __construct(CacheManager $imagineCacheManager)
     {
-     
         $this->imagineCacheManager = $imagineCacheManager;
     }
+
+    public function index(AwardRepository $awardRepository, InsightRepository $insightRepository)
+    {
+        $awards = $awardRepository->getAll();
+        $insights = $insightRepository->findAll();
+
+
+
+        $test = 'testc';
+        return $this->render('web/home/components.html.twig', [
+            'controller_name' => 'InsightController',
+            'awards' => $awards,
+            'testc' => $test,
+            'insights' => $insights
+        ]);
+    }
+
+
     public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
     {
         $insight = $insightRepository->getInstanceByRequest($request);
@@ -33,20 +51,19 @@ class InsightController extends WebController
         $publications = $query->getResult();
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research){
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Article || $value instanceof \App\Entity\Research) {
                 $value->type = 'article';
             }
-            if ($value instanceof \App\Entity\Opinion){
+            if ($value instanceof \App\Entity\Opinion) {
                 $value->type = 'opinion';
             }
-            if ($value instanceof \App\Entity\News){
+            if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
-            if(!$value->photo){
+            if (!$value->photo) {
                 $value->photo = 'https://via.placeholder.com/800x400';
             }
-            
         }
         // TODO:
         // Revisar $insight y rellenar $contextualBlocks con las diferentes collecciones
@@ -72,16 +89,14 @@ class InsightController extends WebController
     {
         if ($photos = $publication->getAttachments()) {
             foreach ($photos as $key => $photo) {
-
-                if($photo->getType() == "publication_main_photo"){
+                if ($photo->getType() == "publication_main_photo") {
                     $photo = $this->imagineCacheManager->getBrowserPath(
                         '/resources/' . $photo->getFileName(),
                         $filter
                     );
                     return $photo;
-                }  
+                }
             }
         }
-        
     }
 }
