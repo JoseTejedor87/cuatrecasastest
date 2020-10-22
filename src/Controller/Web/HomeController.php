@@ -24,9 +24,28 @@ class HomeController extends WebController
               HomeRepository $homeRepository, GeneralBlockRepository $generalBlockRepository )
     {
         $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
-        //$slidesOrdered = $sliderRepository->findBy(['banners' => $bannerHome->getId()], ['priority' => 'ASC']);
         
-        $slidesOrdered = $sliderRepository->getAllByPriority($bannerHome->getId());
+        $slidesOrdered = [];
+        $slidesPrior = $sliderRepository->getAllByPriorityRegion($bannerHome->getId());
+        $slidesAll = $sliderRepository->getAllByPriority($bannerHome->getId());
+
+        // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+        foreach ($slidesPrior as $key => $item) {
+            $slidesOrdered[$item->getId()] = $item;
+        }
+        foreach ($slidesAll as $key => $item) {
+            if (!isset($slidesOrdered[$item->getId()])){
+                array_push($slidesOrdered, $item);
+            }
+        } 
+        $sliderCorrect_ID_Order = [];
+        foreach ($slidesOrdered as $value) {
+            array_push($sliderCorrect_ID_Order, $value);
+        }   
+        //dd($sliderCorrect_ID_Order);
+
+
+
         $home = $homeRepository->findOneBy(['id' => 1]);
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
@@ -45,7 +64,7 @@ class HomeController extends WebController
             'events' => $events,
             'relatedPublications' => $relatedPublications,
             'banner' => $bannerHome,
-            'slidesOrdered' => $slidesOrdered,
+            'slidesOrdered' => $sliderCorrect_ID_Order,
             'home' => $home,
             'careerBlock' => $blockCareer
         ]);

@@ -108,11 +108,17 @@ class Office extends Publishable
      */
     private $publication;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Slider", mappedBy="offices")
+    */
+    private $sliders;
+
     public function __construct()
     {
         $this->lawyer = new ArrayCollection();
         $this->event = new ArrayCollection();
         $this->publication = new ArrayCollection();
+        $this->sliders = new ArrayCollection();
     }
 
     public function __toString()
@@ -379,6 +385,34 @@ class Office extends Publishable
         if ($this->publication->contains($publication)) {
             $this->publication->removeElement($publication);
             $publication->removeOffice($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Slider[]
+     */
+    public function getSliders(): Collection
+    {
+        return $this->sliders;
+    }
+
+    public function addSlider(Slider $slider): self
+    {
+        if (!$this->sliders->contains($slider)) {
+            $this->sliders[] = $slider;
+            $slider->addOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlider(Slider $slider): self
+    {
+        if ($this->sliders->contains($slider)) {
+            $this->sliders->removeElement($slider);
+            $slider->removeOffice($this);
         }
 
         return $this;

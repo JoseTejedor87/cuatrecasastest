@@ -16,7 +16,7 @@
                                 </blockquote>
                             </article>
                         {%  endif   %}
-
+                        {%  if bloque.publication[0] is defined %}
                         {%  if entity_type(bloque) == 'App\\Entity\\PublicationBlock' %}
                             {#{  bloque.publication[0].translate(app.request.getLocale()).title  }#}
                             {#{  bloque.getQuote().translate(app.request.getLocale()).body  }#}
@@ -51,7 +51,7 @@
                                 </div>
                             </article>
                         {% endif %}
-
+                         {% endif %}
                         {%  if entity_type(bloque) == 'App\\Entity\\EventsBlock' %}
 
                             {%  set event = bloque.events[0]  %}
