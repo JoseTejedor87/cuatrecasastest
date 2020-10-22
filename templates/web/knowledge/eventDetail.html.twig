@@ -171,7 +171,7 @@
                                     <div class="form-group mt-4">
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
-                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="{{ path('politicaCookies') }}">Política de Privacidad</a></span></label>
                                             <!-- <div class="invalid-feedback">Campo obligatorio</div> -->
                                         </div>
                                     </div>
@@ -188,37 +188,38 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Speakers -->
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h2 class="subsection__title subsection__title--event">Ponentes</h2>
-                    </div>
-                    <div class="page__block__content">
-                        <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
-                            {% for speaker in event.people %}
-                                {% if speaker.lawyer is defined %}
-                                <div class="lawyer__search__item">
-                                    <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
-                                        <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
-                                        <div class="lawyer__details">
-                                            <div class="lawyer__company">
-                                                Cuatrecasas
+            {% if event.people|length > 0 and  event.people[0].type == null %}
+                <!-- Speakers -->
+                <section class="row page__block">
+                    <div class="col">
+                        <div class="page__block__title">
+                            <h2 class="subsection__title subsection__title--event">Ponentes</h2>
+                        </div>
+                        <div class="page__block__content">
+                            <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
+                                {% for speaker in event.people %}
+                                    {% if speaker.type == null %}
+                                    <div class="lawyer__search__item">
+                                        <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
+                                            <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                                            <div class="lawyer__details">
+                                                <div class="lawyer__company">
+                                                    Cuatrecasas
+                                                </div>
+                                                <ul class="lawyer__practice">
+                                                    <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
+                                                    <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
+                                                </ul>
                                             </div>
-                                            <ul class="lawyer__practice">
-                                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                                <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            {% endif %}
             {% if event.programs|length > 0   %}
             <!-- Programme -->
             <section class="event__programme">
@@ -284,7 +285,8 @@
 <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
     $(function () {
-
+        var enventIdGC =  {{ event.idGestorEventos ? event.idGestorEventos : '' }};
+        var enventId =  {{ event.id ? event.id : '' }};
         // EVENT BOX
         $('#eventMainInfo').hide();
         $('#eventBoxForm').hide();
@@ -353,17 +355,17 @@
             $("#eventBoxForm .form-control").removeClass('is-valid');
             $("#eventBoxForm .form-control").removeClass('is-invalid');
             var contacto =  validation();
+            
             if(contacto){
                 $.ajax({
                     method: "GET",
-                    data: { contacto: JSON.stringify(contacto)  },
+                    data: { contacto: JSON.stringify(contacto), enventIdGC: enventIdGC, enventId: enventId },
                     url: "{{ path('set_event_contact') }}",
                     beforeSend: function( xhr ) {
                         e.preventDefault();
                     }
                     })
                 .done(function( data ) {
-                    console.log(data);
                 })
                 .fail(function() {
                 });

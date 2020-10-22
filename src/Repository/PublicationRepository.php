@@ -41,9 +41,9 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         return null;
     }
 
-    // regions array example ["spain","global"]
-    public function findByActivitiesPriorByRegions($activities, $regions = null, $maxResult= 10 )
+    public function findByActivities($activities, $maxResult= 10 )
     {
+
         $activitiesA = array();
         if($activities){
             foreach ($activities as $key => $activity) {
@@ -52,26 +52,6 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         }
 
         $returnPublications = [];
-        foreach ($regions as $key => $reg) {
-            $results =  $this->createPublishedQueryBuilder('p');
-            if ($activitiesA) {
-                $results =  $results->innerJoin('p.activities', 'a')
-                ->andWhere('a.id in (:activity)')
-                ->setParameter('activity',  $activitiesA);
-            }
-            
-            $date = new \DateTime();
-            $date->modify('-200 days'); 
-            $results->andWhere('p.regions LIKE :region')->setParameter('region', '%"'.$reg.'"%');
-            $results->andWhere('p.publication_date > :date')->setParameter('date',  $date);
-            
-            $__results =  $results->orderBy('p.publication_date', 'DESC')->setMaxResults($maxResult)->getQuery()->getResult();
-            foreach ($__results as $key => $item) {
-                $returnPublications[$item->getId()] = $item;
-            }
-        }
-        
-        ///// consulta normal 
         $results =  $this->createPublishedQueryBuilder('p');
         if ($activitiesA) {
             $results =  $results->innerJoin('p.activities', 'a')
@@ -79,20 +59,46 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             ->setParameter('activity',  $activitiesA);
         }
 
-        $results =  $results->orderBy('p.publication_date', 'DESC')
+        // ZONE DE PRIORIZACION
+        $place = $this->getNavigation()->getParams()->get('app.office_place')[$this->getNavigation()->getRegion()];        
+        $results->join('p.offices', 'o')
+            ->andWhere('o.place = :place')
+            ->setParameter('place',  $place);
+        //---------------------
+
+        $results = $this->orderByDaySentences($results,'p','100')
             ->setMaxResults($maxResult)
             ->getQuery()
             ->getResult();
 
-        // se pisan posisiones que pueden repetirse
         foreach ($results as $key => $item) {
             $returnPublications[$item->getId()] = $item;
-        }    
-        //  dd($returnPublications);
+        }
+
+            ///// consulta por todas las regiones  
+            $results =  $this->createPublishedQueryBuilder('p');
+            if ($activitiesA) {
+                $results =  $results->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity',  $activitiesA);
+            }
+
+            $results =  $results->orderBy('p.publication_date', 'DESC')
+                ->setMaxResults($maxResult)
+                ->getQuery()
+                ->getResult();
+
+            // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+            foreach ($results as $key => $item) {
+                if (!isset($returnPublications[$item->getId()])){
+                    array_push($returnPublications, $item);
+                }
+            }
+
         return $this->setTypePublication(array_slice($returnPublications,0,$maxResult));
     }
 
-    public function findByActivities($activities)  // DEPRECAR por el priorizado 
+    public function findByActivities_ ($activities)  // DEPRECAR por el priorizado 
     {
         
         $activitiesA = array();

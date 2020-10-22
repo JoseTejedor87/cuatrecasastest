@@ -8,9 +8,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Controller\Web\NavigationService;
 use App\Entity\Publishable;
 
+
 class PublishableEntityRepository extends ServiceEntityRepository
 {
     private $navigation;
+
 
     public function __construct(ManagerRegistry $registry, NavigationService $navigation, $entityClass)
     {
@@ -38,11 +40,36 @@ class PublishableEntityRepository extends ServiceEntityRepository
 
         $queryBuilder = parent::createQueryBuilder($alias, $indexBy);
         $queryBuilder
+            ->andWhere($alias.'.published = TRUE')
             ->andWhere($alias.'.regions LIKE :region')
             ->andWhere($alias.'.languages LIKE :language')
             ->setParameter('region', '%"'.$region.'"%')
             ->setParameter('language', '%"'.$language.'"%');
         return $queryBuilder;
+    }
+
+    public function priorBuilderClause($query, $field,$forcePlace = null){
+        // ZONE DE PRIORIZACION
+        if ($forcePlace != null) {
+            $place = $forcePlace;
+        }else{
+            $place = $this->navigation->getParams()->get('app.office_place')[$this->navigation->getRegion()];        
+        }
+        $query->join($field, 'o')
+            ->andWhere('o.place = :place')
+            ->setParameter('place',  $place);
+        //---------------------    
+        return $query;
+    }
+
+    public function orderByDaySentences($qb, $alias,$days =30, $orderField = 'publication_date' ){
+
+        if ($orderField != 'id'){
+            $date = new \DateTime();
+            $date->modify('-'.$days.' days');
+            $qb->andWhere($alias.'.'.$orderField.' > :date')->setParameter('date',  $date);
+        }
+        return   $qb->orderBy($alias.'.'.$orderField, 'DESC');
     }
 
     public function filterByFieldsQueryBuilder($fields,$alias)

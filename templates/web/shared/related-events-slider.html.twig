@@ -12,7 +12,7 @@
                         {% else %}
                             {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
                         {% endif %}
-                        {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+                        {% set fecha = event.startDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">

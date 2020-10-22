@@ -38,30 +38,43 @@ class EventRepository extends PublishableEntityRepository implements Publishable
 
     public function findByActivities($activities)
     {
+        $MAXRESULT = 5;
         $activitiesA = array();
-        
         if($activities){
             foreach ($activities as $key => $activity) {
                 array_push($activitiesA,$activity->getId());
              }
         }
-        $results =  $this->createPublishedQueryBuilder('p');
-            if ($activitiesA) {
-                $results =  $results->innerJoin('p.activities', 'a')
-                ->andWhere('a.id in (:activity)')
-                ->setParameter('activity',$activitiesA);
-                
-            }
-            //$results =  $results->andWhere("p.startDate>CURRENT_TIMESTAMP()");
-            $results =  $results->orderBy('p.startDate', 'DESC')
-                ->setMaxResults(5)
-                ->getQuery()
-                ->getResult();
-             
-   
-        return $results;
+        $query =  $this->createPublishedQueryBuilder('p');
 
+        if ($activitiesA) {
+            $query->innerJoin('p.activities', 'a')
+            ->andWhere('a.id in (:activity)')
+            ->setParameter('activity',$activitiesA);
+        }
+        $query->orderBy('p.startDate', 'DESC')->setMaxResults($MAXRESULT);
+
+        $queryPrior = clone $query;
+        //$queryPrior->join('p.lawyers', 'l');
+        $this->priorBuilderClause($queryPrior, 'p.office');
+        $eventsPrior = $queryPrior->getQuery()->getResult();
+
+        $totalEvents = [];
+        foreach ($eventsPrior as $key => $item) {
+            $totalEvents[$item->getId()] = $item;
+        }
+
+        $eventsAll = $query->getQuery()->getResult();
+        // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+        foreach ($eventsAll as $key => $item) {
+            if (!isset($totalEvents[$item->getId()])){
+                array_push($totalEvents, $item);
+            }
+        }
+
+        return array_slice($totalEvents,0,$MAXRESULT);
     }
+
     public function findFilteredBy($arrayFields){
 
         // se quitan los filtros que necesitan un join de tablas 

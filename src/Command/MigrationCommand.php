@@ -322,7 +322,8 @@ class MigrationCommand extends Command
         return 0;
     }
     public function Noticias($conn,$output){
-        $query = "SELECT [id] ,[lang] ,[title] ,[summary] ,[contenido] ,[medio] ,[tipo_noticia] ,[fecha_noticia] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_pdf] ,[url_imagen] ,[url_link] ,[url_friend] ,[url_video] ,[url_podcast] ,[tags] ,[status] ,[rss] ,[facebook] ,[twitter] ,[visio_esp] ,[visio_por] ,[visio_eng] ,[destacada] ,[pub_o_new] ,[Notificado] ,[fechaNotificacion] ,[thumbnail] ,[subtipopub] ,[visio_chi] ,[is_flipping] FROM noticias";  
+        //noticias2
+        $query = "SELECT [id] ,[fecha_noticia] ,[fecha_modificacion] ,[fecha_publicacion] ,[url_imagen] ,[status] ,[destacada] ,[pub_o_new] ,[visio_es] ,[visio_pt] ,[visio_en] ,[medio_id] ,[tipo_noticia] ,[visio_cn] FROM noticias2";  
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
