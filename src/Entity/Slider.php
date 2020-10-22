@@ -32,9 +32,15 @@ class Slider extends Publishable
      */      
     private $banners;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Office", inversedBy="sliders")
+     */
+    private $offices;
+
     public function __construct()
     {
         $this->banners = new ArrayCollection();
+        $this->offices = new ArrayCollection();
     }
 
     public function getPriority(): ?int
@@ -90,6 +96,32 @@ class Slider extends Publishable
         if ($this->banners->contains($banner)) {
             $this->banners->removeElement($banner);
             $banner->removeSlider($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Office[]
+     */
+    public function getOffices(): Collection
+    {
+        return $this->offices;
+    }
+
+    public function addOffice(Office $office): self
+    {
+        if (!$this->offices->contains($office)) {
+            $this->offices[] = $office;
+        }
+
+        return $this;
+    }
+
+    public function removeOffice(Office $office): self
+    {
+        if ($this->offices->contains($office)) {
+            $this->offices->removeElement($office);
         }
 
         return $this;

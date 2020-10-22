@@ -9,9 +9,7 @@
             {{ translatableField.partialTranslations(form.translations, ['description']) }}
             {{ translatableField.partialTranslations(form.translations, ['url']) }}
             {{ form_row(form.priority) }}
-            
-
-            
+                        
             <div class="m-form__heading">
                 <h3 class="m-form__heading-title">
                     {{ 'forms.fieldsets.seo'|trans }}
@@ -22,6 +20,10 @@
         </div>     
     </div>
     <div class="col-md-4">
+        <div class="m-form__section m-form__section">
+            <h6>Las oficinas establecerán la prioridad para esa región</h6>
+            {{ form_row(form.offices) }}
+        </div>    
             {{ form_row(form.languages) }}
             {{ form_row(form.regions) }}
         <div class="m-form__section m-form__section">

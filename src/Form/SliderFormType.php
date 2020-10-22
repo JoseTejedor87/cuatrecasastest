@@ -11,8 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
+use App\Entity\Office;
 use App\Entity\Slider;
 use App\Form\ResourceFormType;
+
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 
@@ -25,6 +27,20 @@ class SliderFormType extends AbstractType
                 'required' => false,
                 'label'=>'entities.slider.fields.image'
             ])
+            ->add('offices', EntityType::class, [
+                'class' => Office::class,
+                'label' => 'entities.lawyer.fields.office',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => false,
+                'expanded' => false,
+                'choice_label' => function ($office) {
+                    return $office->translate('es')->getCity();
+                }
+            ])        
             ->add('priority', IntegerType::class, ['label'=>'entities.slider.fields.priority'])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
