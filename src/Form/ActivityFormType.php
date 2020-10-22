@@ -34,8 +34,8 @@ abstract class ActivityFormType extends AbstractType
                 'fields' => [
                     'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
                     'slug' => ['label'=>'entities.activity.fields.slug'],
-                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote']],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote']],
+                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],

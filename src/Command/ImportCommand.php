@@ -2623,16 +2623,15 @@ class ImportCommand extends Command
         // $this->em->getConnection()->executeQuery("DELETE FROM PublicationTranslation");
         // $this->em->getConnection()->executeQuery("DELETE FROM Publication WHERE type = 'news'");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
-
+        $publicationRepository = $this->em->getRepository(Publication::class);
         $processedPublicationMap = [];
         $processedAttachmentsMap = [];
 
         foreach ($publications as $key => $item) {
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
-
             if (isset($processedPublicationMap[$oldPublicationId])) {
-                $publicationRepository = $this->em->getRepository(Publication::class);
+                
                 $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
                 if ($publicationId) {
                     $publication = $publicationRepository->find($publicationId);
@@ -2653,7 +2652,6 @@ class ImportCommand extends Command
                 $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
                 $publication->setPublished(false);
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-
                 if ($item['url_imagen']) {
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
                         $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']];
@@ -2695,13 +2693,12 @@ class ImportCommand extends Command
         // Attaching translations
         foreach ($publication_translations as $index => $item1) {
             $oldPublicationId = $item1['noticias_id'];
-            $publicationRepository = $this->em->getRepository(Publication::class);
             $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
-            if ($publicationId) {
-                $publication = $publicationRepository->find($publicationId);
-            } else {
-                continue;
-            }
+                if ($publicationId) {
+                    $publication = $publicationRepository->find($publicationId);
+                } else {
+                    continue;
+                }
             // $publication = isset($processedPublicationMap[$oldPublicationId]) ? $processedPublicationMap[$oldPublicationId] :  null;
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
@@ -2750,7 +2747,6 @@ class ImportCommand extends Command
 
 
                 // Is the last item in the collection
-                if ($index+1 == count($publication_translations)) {
                     if (!empty($publication->getLanguages())) {
                         $publication->setPublished(true);
                     }else{
@@ -2760,7 +2756,7 @@ class ImportCommand extends Command
                         $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                         $this->logger->debug("Updating Publication ".$publication->getId());
                     
-                }
+                
             }
         }
     }

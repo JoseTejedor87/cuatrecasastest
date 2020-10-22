@@ -485,7 +485,7 @@
                 //$grid.masonry('reloadItems');
                 $grid.masonry('destroy');
                 msg['publications'].forEach(function(publication, i){
-                    item.find( "a" ).text(publication['title']);
+                     item.find( "a" ).text(publication['title']).attr('href', 'articulo/'+publication['Slug']);
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
                     if(style[i] != "grid__item--normal"){
