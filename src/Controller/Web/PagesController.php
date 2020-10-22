@@ -31,7 +31,7 @@ class PagesController extends WebController
                 //  ->orderBy('o.country', 'DESC')  PAra ordenarlos hay que hacerlo contra OfficeTranstable.country
                 ->getQuery()->getResult();
                 foreach ($offices as $key => $office) {
-                    array_push($officeA,  '<h5>'.$office->getCountry().'</h5><h6>'.$office->translate($navigation->getLanguage())->getCity().'</h6><p>'.$office->getAddress().'</p>');
+                    array_push($officeA,  '<h5>'.$office->translate($navigation->getLanguage())->getCountry().'</h5><h6>'.$office->translate($navigation->getLanguage())->getCity().'</h6><p>'.$office->getAddress().'</p>');
                     array_push($officeATest, [ "lat" => floatval($office->getLat()),"lng" =>  floatval($office->getLng())]);
                 }
             }

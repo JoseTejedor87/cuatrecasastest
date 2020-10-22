@@ -311,6 +311,8 @@ class EventController extends WebController
     public function ajaxActionContact(Request $request)    
     {
         $contacto = $request->query->get('contacto');
+        $enventIdGC = $request->query->get('enventIdGC');
+        $enventId = $request->query->get('enventId');
         $contactoA = json_decode($contacto, true);
         $contactoA['CreatedShortName']='';
         $contactoA['GDPR']=1;
@@ -320,7 +322,12 @@ class EventController extends WebController
         $contactoA['IdIdioma']='';
         $contactoA['IdOrigenContacto']="Evento";
         $contactoReturn = $this->soap->createContactoForGestionEventos(array('contactoGestionEventosCreateParamDto'=>($contactoA)));
-        return new JsonResponse($contactoReturn);
+        $contactoReturnA = json_decode($contactoReturn->getContent());
+        $contactoEventoA['Guid']=$contactoReturnA->Guid;
+        $contactoEventoA['IdEvento']=$enventIdGC;
+        $contactoEventoA['IdEventoWeb']=$enventId;
+        $contactoReturnEvent = $this->soap->createEventoAsistenteForGestionEventos(array('eventoAsistenteGestionEventosCreatePatamDto'=>($contactoEventoA)));
+        return new JsonResponse($contactoReturnEvent);
     }
     
     public function ajaxActionRegions(Request $request)

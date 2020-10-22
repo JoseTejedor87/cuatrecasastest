@@ -79,9 +79,9 @@
                                     {% endif %}
                                         <option value="office.translate(app.request.getLocale()).city" data-tokens="ketchup mustard" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% if offices|length > key+1 %}
-                                    {% if offices[key+1].country != office.translate(app.request.getLocale()).country %}
+                                    {% if offices[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
                                         </optgroup>
-                                        <optgroup label="{{ offices[key+1].country }}">
+                                        <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}">
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
