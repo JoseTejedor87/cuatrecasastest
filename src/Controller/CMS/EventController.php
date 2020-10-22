@@ -95,13 +95,14 @@ class EventController extends CMSController
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId);
+            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+5);
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->CreateEventoForGestionEventos($eventoWS);
             $data = $res->CreateEventoForGestionEventosResult;
             $dataEventoWS = ((array)$data);
-            dd($dataEventoWS);
             if($dataEventoWS['Result'] == true){
+            $event->setIdGestorEventos($dataEventoWS['Data']->Id);
+            $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
                 $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
@@ -347,8 +348,7 @@ class EventController extends CMSController
         ));
         $parametrosEvento[$type]['Aforo'] = $form->get('capacity')->getData();
         $parametrosEvento[$type]['Areas'] = array();
-        //dd($form->get('office')->getData()['es']->getCity());
-        $parametrosEvento[$type]['Ciudad'] = $form->get('office')->getData()->getCity();
+        $parametrosEvento[$type]['Ciudad'] = $form->get('office')->getData()->translate('es')->getCity();
         $parametrosEvento[$type]['Contacto']['Email'] = $form->get('email')->getData();
         $parametrosEvento[$type]['Contacto']['Name'] = $form->get('contact')->getData();
         $parametrosEvento[$type]['Contacto']['Phone'] = $form->get('phone')->getData();
@@ -358,10 +358,10 @@ class EventController extends CMSController
         $parametrosEvento[$type]['FechaInicio'] = $form->get('startDate')->getData()->format('Y-m-d\TH:i:s');;
         $parametrosEvento[$type]['IdEstadoWeb'] = $form->get('published')->getData() ? '2' : '1' ;
         // REVISAR
-        $parametrosEvento[$type]['IdEventoWeb'] = $new ? $oldId+1 : $oldId;
+        $parametrosEvento[$type]['IdEventoWeb'] = $new ? $oldId : $oldId;
         $parametrosEvento[$type]['IdOficina'] = $form->get('office')->getData()->getSap();
         $parametrosEvento[$type]['IdTipoWeb'] = $form->get('eventType')->getData()=='standard' ? '1' : $form->get('eventType')->getData()=='webinar' ? '2' : $form->get('eventType')->getData()=='breakfast' ? '3' : $form->get('eventType')->getData()=='institutional' ? '4' :'' ;
-        $parametrosEvento[$type]['OficinaNombre'] = $form->get('office')->getData()->getCity();
+        $parametrosEvento[$type]['OficinaNombre'] = $form->get('office')->getData()->translate('es')->getCity();
         
         if($form->get('translations')->getData()['es']->getCustomAddress()){
             $parametrosEvento[$type]['OptionalAddress']['Address'] = $form->get('translations')->getData()['es']->getCustomAddress();

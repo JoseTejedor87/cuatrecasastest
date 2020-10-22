@@ -22,7 +22,9 @@
         {% block main %}{% endblock %}
         {% include 'web/tools/footer.html.twig' %}
         {% include 'web/tools/javascripts.html.twig' %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+       
+        {% endblock %}
         {% include "@CHCookieConsent/cookie_consent_styling.html.twig" %}
         {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set', { 'locale' : app.request.locale })) }}
         {% if chcookieconsent_isCategoryAllowedByUser('analytics') == true %}

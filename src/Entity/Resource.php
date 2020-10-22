@@ -82,6 +82,11 @@ class Resource extends Publishable
      */
     private $title;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Insight", inversedBy="photo")
+     */
+    private $insight;
+
     public function __toString()
     {
         return $this->getTitle();
@@ -249,6 +254,18 @@ class Resource extends Publishable
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getInsight(): ?Insight
+    {
+        return $this->insight;
+    }
+
+    public function setInsight(?Insight $insight): self
+    {
+        $this->insight = $insight;
 
         return $this;
     }

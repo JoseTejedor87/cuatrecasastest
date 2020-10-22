@@ -96,7 +96,7 @@ class EventFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'choice_label' => function ($office) {
-                    return $office->getAddress();
+                    return $office->translate('es')->getCity();
                 }
             ])
                 

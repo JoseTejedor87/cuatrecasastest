@@ -3,7 +3,9 @@
     <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title section__title--career">{{  career.translate(lang).title }}  </h4>
+                {% if hideTitle is not defined %}
+                    <h4 class="section__title section__title--career">{{  career.translate(lang).title }}  </h4>
+                {% endif %}
                 <div class="boxnews__list">
                     {% for bloque in career.getBlocks %}
                         {%  if entity_type(bloque) == 'App\\Entity\\QuoteBlock' %}
@@ -14,7 +16,7 @@
                                 </blockquote>
                             </article>
                         {%  endif   %}
-
+                        {%  if bloque.publication[0] is defined %}
                         {%  if entity_type(bloque) == 'App\\Entity\\PublicationBlock' %}
                             {#{  bloque.publication[0].translate(app.request.getLocale()).title  }#}
                             {#{  bloque.getQuote().translate(app.request.getLocale()).body  }#}
@@ -49,10 +51,12 @@
                                 </div>
                             </article>
                         {% endif %}
-
+                         {% endif %}
                         {%  if entity_type(bloque) == 'App\\Entity\\EventsBlock' %}
 
                             {%  set event = bloque.events[0]  %}
+                            {% set fechaInicio = event.startDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
+                            {% set fechaFin = event.endDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                             {% set path_str = get_pathda(event)|trans %}
 
                             <article class="boxnews__item boxnews__item--event">
@@ -69,8 +73,9 @@
                                     <div class="boxnews__meta">
                                         <div class="boxnews__meta__place"><a href="#">Barcelona</a></div>
                                         <div class="boxnews__meta__date">
-                                        {{ event.startDate|date('d M Y') }} a
-                                        {{ event.endDate|date('d M Y') }}
+                                        {{ fechaInicio[0] }} {{ fechaInicio[1:]|join(' ') }} -
+                                        {{ fechaFin[0] }} {{ fechaFin[1:]|join(' ') }}
+
                                         <!-- 6 Febrero 2020 a 8 Marzo 2020 -->
                                         </div>
                                         <div class="boxnews__meta__time">{{ event.startDate|date('H.i') }} — {{ event.endDate|date('H.i') }}</div>

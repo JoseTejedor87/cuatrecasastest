@@ -69,7 +69,7 @@ components:
         pt:   /components
         ge:   /componentes
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::components
+    controller: App\Controller\Web\InsightController::index
 
 userSettings:
     path:
