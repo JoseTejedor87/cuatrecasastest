@@ -52,25 +52,25 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         // if ($token === null) {
         //     return;
         // }
-        
-        $client = new \SoapClient(
-            $this->singleSignOnParameters['url'],
-            $this->singleSignOnParameters['options']
-        );
-        // $response  = $client->ValidateSSO([
-        //     'input' => [
-        //         'Data'      => $token,
-        //         'SSOType'   =>  'SSO'
-        //     ]
-        // ]);
 
-        //dd((array)$response->ValidateSSOResult->Data);
-        // if ($response->ValidateSSOResult->Result) {
-        //     $data = (array)$response->ValidateSSOResult->Data;
-        //     return $this->em->getRepository(User::class)
-        //         ->findOneBy(['user_id' => $data['Iniciales']]);
-        // }
-        
+        /*  $client = new \SoapClient(
+              $this->singleSignOnParameters['url'],
+              $this->singleSignOnParameters['options']
+          );
+          // $response  = $client->ValidateSSO([
+          //     'input' => [
+          //         'Data'      => $token,
+          //         'SSOType'   =>  'SSO'
+          //     ]
+          // ]);
+
+          //dd((array)$response->ValidateSSOResult->Data);
+          // if ($response->ValidateSSOResult->Result) {
+          //     $data = (array)$response->ValidateSSOResult->Data;
+          //     return $this->em->getRepository(User::class)
+          //         ->findOneBy(['user_id' => $data['Iniciales']]);
+          // }
+          */
         return $this->em->getRepository(User::class)
             ->findOneBy(['user_id' => 'JTEB']);
     }
@@ -119,5 +119,4 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         return false;
     }
-
 }

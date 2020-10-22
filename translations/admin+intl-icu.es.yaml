@@ -113,7 +113,7 @@ sections:
       title: Editar Evento
     actions:
       addPerson: Crear Persona
-    programs: 
+    programs:
       index:
         title: Programas
       new:
@@ -156,21 +156,21 @@ sections:
     new:
       title: Nuevo Slide
     edit:
-      title: Editar Slide        
+      title: Editar Slide
   banners:
       index:
         title: Banner
       new:
         title: Nuevo Banner
       edit:
-        title: Editar Banner  
+        title: Editar Banner
   brands:
       index:
         title: Brand
       new:
         title: Nuevo Brand
       edit:
-        title: Editar Brand          
+        title: Editar Brand
   home:
       index:
         title: Home New
@@ -182,7 +182,7 @@ sections:
       new:
         title: Nuevo Bloque
       edit:
-        title: Editar Bloque          
+        title: Editar Bloque
 
 # Menu
 # ###########################################
@@ -322,6 +322,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
+      photo: Foto
   item:
     fields:
       createdAt: Fecha de creación
@@ -437,11 +438,11 @@ entities:
       description: Descripcion
       url: Url Destino
       image: Imagen
-      priority: Prioridad 
+      priority: Prioridad
   banner:
     edit_slides: Listar Slides
     fields:
-      location: Nombre de ubicacion de la Pagina 
+      location: Nombre de ubicacion de la Pagina
       slider: Slides que la componen
   brand:
     fields:
@@ -449,7 +450,7 @@ entities:
       description: Descripcion
       url: Url Destino
       image: Imagen
-      priority: Prioridad       
+      priority: Prioridad
   home:
     fields:
       title: Titulo

@@ -81,6 +81,11 @@ class Insight extends Publishable
      */
     private $home;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $photo;
+
     public function __construct()
     {
         $this->relatedInsightsWithMe = new ArrayCollection();
@@ -306,5 +311,18 @@ class Insight extends Publishable
         return $this;
     }
 
+    public function getPhoto(): ?Resource
+    {
+        return $this->photo;
+    }
 
+    public function setPhoto(?Resource $photo): self
+    {
+        $this->photo = $photo;
+        if ($photo) {
+            $photo->setInsight($this);
+        }
+
+        return $this;
+    }
 }
