@@ -910,8 +910,11 @@
             }
         }
 
-        &:hover {
+        @include on-event {
             text-decoration: none;
+        }
+
+        &:hover {
             color: $white;
         }
     }

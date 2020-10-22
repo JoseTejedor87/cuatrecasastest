@@ -2476,57 +2476,39 @@ class ImportCommand extends Command
                 }
             }
         }
-        //Categorias en ingles
-        // foreach ($categorias as $key => $categoria) {
-        //     for ($i = 1; $i <= 2; $i++) {
-        //         $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?per_page=80&lang=en&page='.$i);
-        //         $status = $response->getStatusCode();
-        //         if ($status!=400) {
-        //             $content = $response->toArray();
-        //             foreach ($content as $key2 => $value2) {
-        //                 $ArticleCategory->setOldId($value2["id"]);
-        //                 $response1 =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoria.'/wp-json/wp/v2/categories?include='.$value2['id'].'&wpml_language=es');
-        //                 $content1 = $response1->toArray();
-        //                 if (!isset($content1[0])) {
-
-        //                 }
-        //             }
-        //         }
-        //         if ($status=400) {
-        //             break;
-        //         }
-        //     }
-        // }
     }
     public function ArticlesPost($categoriaLink,$categoriaOldId,$categoriaOldlink,$categoriasjson)
     {
         $ActivityRepository = $this->em->getRepository(Activity::class);
+        $PublicationRepository = $this->em->getRepository(Publication::class);
         $InsightRepository = $this->em->getRepository(Insight::class);
         $client = HttpClient::create();
-        // $categorias = $ArticleCategoryRepository->findAll();
-        // foreach ($categorias as $keyCategory => $categoria) {
-        //     $Languages = $categoria->getLanguages();
-        //     if ($Languages[0] == 'es') {
                 for ($i = 1; $i <= 20; $i++) {
                     $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?categories='.$categoriaOldId.'&page='.$i);
                     $status = $response->getStatusCode();
                     if ($status!=400) {
                         $content = $response->toArray();
                         foreach ($content as $keyPost => $post) {
-                            $article = new Academy();
-                            $article->setOldId($post['id']);
-                            $article->setOriginalTableCode(2);
-                            $article->setPublished($post['status']=='publish' ? 1 : 0);
-                            $article->setPublicationDate(new \DateTime($post['date']));
-                            $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
-                            $article->translate('es')->setSummary($post['excerpt']['rendered']);
-                            $article->translate('es')->setContent($post['content']['rendered']);
-                            $article->setLanguages(
-                                array_unique(
-                                    array_merge($article
-                                    ->getLanguages(), ['es'])
-                                )
-                            );
+                            $publicationId = $this->getMappedPublicationId($post['id'],2);
+                            if($publicationId){
+                                $article = $PublicationRepository->find(intval($publicationId));
+                            }else{
+                                $article = new Academy();
+                                $article->setOldId($post['id']);
+                                $article->setOriginalTableCode(2);
+                                $article->setPublished($post['status']=='publish' ? 1 : 0);
+                                $article->setPublicationDate(new \DateTime($post['date']));
+                                $article->setFormat('text');
+                                $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
+                                $article->translate('es')->setSummary($post['excerpt']['rendered']);
+                                $article->translate('es')->setContent($post['content']['rendered']);
+                                $article->setLanguages(
+                                    array_unique(
+                                        array_merge($article
+                                        ->getLanguages(), ['es'])
+                                    )
+                                );
+                            }
                             if($post['author']){
                                 $personRepository = $this->em->getRepository(Person::class);
                                 $personId = $this->getMappedPersonId($post['author']);
@@ -2553,7 +2535,7 @@ class ImportCommand extends Command
                                             if($activity)
                                             $article->addActivity($activity);
                                         }
-                                        if(isset($categoriajson['Idinsigh'])){
+                                        if( $categoriajson['Idinsigh'] != -1){
                                             $Insight = $InsightRepository->find(intval($categoriajson['Idinsigh']));
                                             $article->addInsight($Insight);
                                         }
@@ -2637,9 +2619,9 @@ class ImportCommand extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/news-*"));
 
-        $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE publication_id IS NOT NULL");
-        $this->em->getConnection()->executeQuery("DELETE FROM PublicationTranslation");
-        $this->em->getConnection()->executeQuery("DELETE FROM Publication WHERE type = 'news'");
+        // $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE publication_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM PublicationTranslation");
+        // $this->em->getConnection()->executeQuery("DELETE FROM Publication WHERE type = 'news'");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
 
         $processedPublicationMap = [];
@@ -2656,9 +2638,7 @@ class ImportCommand extends Command
                     $publication = $publicationRepository->find($publicationId);
                 }
             } else {
-                if ($item['tipo_noticia']==3) {
-                    $publication = new News();
-                } elseif ($item['tipo_noticia']==4) {
+                if ($item['tipo_noticia']==3 || $item['tipo_noticia']==4 ) {
                     $publication = new News();
                 } elseif ($item['tipo_noticia']==5) {
                     $publication = new Opinion();
@@ -2669,33 +2649,10 @@ class ImportCommand extends Command
             if ($publication) {
                 $publication->setOldId($oldPublicationId);
                 $publication->setOriginalTableCode(3);
+                $publication->setFormat('text');
                 $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
                 $publication->setPublished(false);
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-                $currentLang = self::getMappedLanguageCode($item['lang']);
-                if ($currentLang && isset($item['title']) && $item['title'] != '') {
-                    // $encoding = "UTF-8";
-                    // $title = isset($item['title']) ? html_entity_decode($item['title']) : 'Notitle';
-                    // if (false === mb_check_encoding($title, $encoding)) {
-                    //     $title =  utf8_decode($title);
-                    // }
-                    // $publication->translate($currentLang)->setTitle($title);
-
-                    // $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-                    // $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-                    //NEW ENCODING PROCESS
-                    $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item['title']));
-                    $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item['summary']));
-                    $publication->translate($currentLang)->setContent($this->convertStringUTF8($item['contenido']));
-                    $publication->setLanguages(
-                        array_unique(
-                            array_merge(
-                                $publication->getLanguages(),
-                                [$currentLang]
-                            )
-                        )
-                    );
-                }
 
                 if ($item['url_imagen']) {
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
@@ -2706,7 +2663,7 @@ class ImportCommand extends Command
                         $path = $item['url_imagen'];
                         $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
                         $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                        $path = self::SOURCE_DOMAIN.'/media_repository/gabinete/'.$path;
+                        $path = self::SOURCE_DOMAIN.'/media_repository'.$path;
                         $attachment = $this->importFile('publication', $path);
                         if ($attachment) {
                             $resource = new Resource();
@@ -2719,55 +2676,7 @@ class ImportCommand extends Command
                         }
                     }
                 }
-                if ($item['thumbnail']) {
-                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['thumbnail']])) {
-                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']];
-                        $resource->setLanguages(['es','en','pt','zh']);
-                        $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
-                    } else {
-                        $path = $item['thumbnail'];
-                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                        $path = self::SOURCE_DOMAIN.'/media_repository/OutputTumbs/'.$path;
-                        $attachment = $this->importFile('publication', $path);
-                        if ($attachment) {
-                            $resource = new Resource();
-                            $resource->setFile($attachment);
-                            $resource->setPublished(true);
-                            $resource->setFileName($attachment->getFileName());
-                            $resource->setLanguages(['es','en','pt','zh']);
-                            $resource->setType('publication_thumbnail');
-                            $processedAttachmentsMap[$oldPublicationId][$item['thumbnail']] = $resource;
-                        }
-                    }
-                }
-                if ($item['url_pdf']) {
-                    if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_pdf']])) {
-                        $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']];
-                        $resource->setLanguages(
-                            array_unique(
-                                array_merge($resource->getLanguages(), [$currentLang])
-                            )
-                        );
-                        $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']] = $resource;
-                    } else {
-                        $path = $item['url_pdf'];
-                        $path = strpos($path, './') == 1 ? substr($path, 2) : $path;
-                        $path = strpos($path, '/') != 0 ? ("/".$path) : $path;
-                        $path = self::SOURCE_DOMAIN.$path;
-                        $attachment = $this->importFile('publication', $path);
-                        if ($attachment) {
-                            $resource = new Resource();
-                            $resource->setFile($attachment);
-                            $resource->setPublished(true);
-                            $resource->setFileName($attachment->getFileName());
-                            $resource->setLanguages([$currentLang]);
-                            $resource->setType('publication_dossier');
-                            $processedAttachmentsMap[$oldPublicationId][$item['url_pdf']] = $resource;
-                        }
-                    }
-                }
-
+               
                 $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                 $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
 
@@ -2797,18 +2706,10 @@ class ImportCommand extends Command
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
                 if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
-                    // $encoding = "UTF-8";
-                    // $title = isset($item1['title']) ? html_entity_decode($item1['title']) : 'Notitle';
-                    // if (false === mb_check_encoding($title, $encoding)) {
-                    //     $title =  utf8_decode($title);
-                    // }
-                    // $publication->translate($currentLang)->setTitle($title);
-                    // $publication->translate($currentLang)->setSummary($item['summary']  ? html_entity_decode($item['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
-                    // $publication->translate($currentLang)->setContent($item['contenido']  ? html_entity_decode($item['contenido'], ENT_QUOTES | ENT_HTML5, 'UTF-8') : '');
                      //NEW ENCODING PROCESS
-                     $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item['title']));
-                     $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item['summary']));
-                     $publication->translate($currentLang)->setContent($this->convertStringUTF8($item['contenido']));
+                     $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item1['title']));
+                     $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item1['summary']));
+                     $publication->translate($currentLang)->setContent($this->convertStringUTF8($item1['contenido']));
                      
 
                     $publication->setLanguages(
