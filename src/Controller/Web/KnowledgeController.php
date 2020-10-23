@@ -80,8 +80,8 @@ class KnowledgeController extends WebController
                            ->setParameter('sector', $sector);
         }
         if ($office) {
-            $query = $query->innerJoin('p.offices', 'of')
-                           ->andWhere('of.id in (:city)')
+            $query = $query->innerJoin('p.offices', 'o')
+                           ->andWhere('o.id in (:city)')
                            ->setParameter('city', $office);
         }
 
@@ -148,9 +148,14 @@ class KnowledgeController extends WebController
 
         // ZONE DE PRIORIZACION
         $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
-        $qPriorizada->join('p.offices', 'o')
+        if ($office) {
+            $qPriorizada->andWhere('o.place = :place')
+            ->setParameter('place', $place);
+        } else {
+            $qPriorizada->join('p.offices', 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place', $place);
+        }
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
