@@ -80,10 +80,11 @@ class KnowledgeController extends WebController
                            ->setParameter('sector', $sector);
         }
         if ($office) {
-            $query = $query->innerJoin('p.offices', 'o')
-                           ->andWhere('o.id in (:city)')
+            $query = $query->innerJoin('p.offices', 'of')
+                           ->andWhere('of.id in (:city)')
                            ->setParameter('city', $office);
         }
+
         if ($type) {
             $typeA = explode(",", $type);
             foreach ($typeA as $key => $value) {
@@ -128,7 +129,7 @@ class KnowledgeController extends WebController
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
         if ($collections) {
-            $query = $query->innerJoin('i.insight', 'i')
+            $query = $query->innerJoin('p.insights', 'i')
                            ->andWhere('i.id in (:collections)')
                            ->setParameter('collections', $collections);
         }
@@ -140,7 +141,7 @@ class KnowledgeController extends WebController
                 ;
             }
         } else {
-            $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
+            // $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
 
         $qPriorizada = clone $query;
@@ -153,6 +154,7 @@ class KnowledgeController extends WebController
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
+
         $rPriorizada = $qPriorizada->andWhere('p.publication_date > :date')
                                     ->setParameter('date', $dateAux)
                                     ->getQuery()
@@ -172,7 +174,6 @@ class KnowledgeController extends WebController
         }
 
         $results = $query->getQuery()->getResult();
-
 
         // se evitan  posisiones que pueden repetirse y se agrean al final el resto
         foreach ($results as $key => $item) {

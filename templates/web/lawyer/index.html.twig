@@ -3,6 +3,11 @@
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
+<style>
+    #lawyerAjaxResults .lawyer__search__item:first-child{
+        display: none;
+    }
+</style>
 {% endblock %}
 {% block main %}
 <main role="main" class="lawyer">
@@ -254,6 +259,7 @@ $(function() {
 });
 
 function ajax(page, initial) {
+
     event.preventDefault();
     textSearch = $("#textSearch").val() ? $("#textSearch").val() : "{{ app.request.get('textSearch') }}";
     services = $("#services").val() ? $("#services").val() : "{{ app.request.get('services') }}";
@@ -280,7 +286,8 @@ function ajax(page, initial) {
         .done(function(msg) {
             $('.search__component__loader').fadeOut();
             $('#lawyerAjaxResults').empty();
-
+            html = '<div class="lawyer__search__item" style=""><a href="" class="lawyer__link"><h3 class="lawyer__name"> </h3><div class="lawyer__details"><ul class="lawyer__practice"><li class="lawyer__practice__item lawyer__position"></li><li class="lawyer__practice__item lawyer__activities"></li><li class="lawyer__practice__item lawyer__city"></li></ul></div></a></div>';
+            $('#lawyerAjaxResults').append(html);
             var url = "";
             if (msg['initial']) {
                 if (url == "") {
@@ -295,6 +302,8 @@ function ajax(page, initial) {
                 } else {
                     url = url + "&office=" + msg['office'];
                 }
+            } else {
+                $("#checkbox-tag-office").css("display", "none");
             }
             if (msg['textSearch']) {
                 if (url == "") {
@@ -309,6 +318,8 @@ function ajax(page, initial) {
                 } else {
                     url = url + "&services=" + msg['services'];
                 }
+            } else {
+                $("#checkbox-tag-services").css("display", "none");
             }
             if (msg['sector']) {
                 if (url == "") {
@@ -316,6 +327,8 @@ function ajax(page, initial) {
                 } else {
                     url = url + "&sector=" + msg['sector'];
                 }
+            } else {
+                $("#checkbox-tag-sector").css("display", "none");
             }
             if (msg['lawyerType']) {
                 if (url == "") {
@@ -323,6 +336,8 @@ function ajax(page, initial) {
                 } else {
                     url = url + "&lawyerType=" + msg['lawyerType'];
                 }
+            } else {
+                $("#checkbox-tag-lawyer-type").css("display", "none");
             }
             if (msg['page'] > 1) {
                 if (url == "") {
@@ -330,6 +345,9 @@ function ajax(page, initial) {
                 } else {
                     url = url + "&page=" + msg['page'];
                 }
+            }
+            if(typeof msg['sector'] === 'undefined' && typeof msg['services'] === 'undefined' && typeof msg['office'] === 'undefined' && typeof msg['lawyerType'] === 'undefined') {
+                $("#checksOutput").css("display", "none");
             }
             var html = '';
             $('.lawyer__search__text').text('Mostramos ' + msg['countLawyers'] + ' perfiles que encajan con la búsqueda');
@@ -439,7 +457,6 @@ function tags(services, sector, office, lawyerType) {
         $("select#lawyerType").next(".select-styled").text($("#lawyerType option:selected" ).text());
         ajax();
     });
-
 }
 </script>
 {% endblock %}
