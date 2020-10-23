@@ -20,7 +20,7 @@ class OfficeTranslation extends PublishableTranslation
     private $descriptions;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $tags;
 

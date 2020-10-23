@@ -14,6 +14,12 @@ parameters:
 
     app.regions: [spain, latam, portugal, global]
 
+    app.office_place:
+        spain: 1
+        portugal: 2
+        global: 3
+        latam: 4
+
     app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
     # The Single Sign On configuration parameters
@@ -37,16 +43,19 @@ parameters:
     app.insight_header_types:
         - full_width
         - two_columns
+
     app.publications_types:
-        - news
-        - opinion
         - academy
         - legalNovelty
+        - news
+        - opinion
+
+
     app.publications_format:
+        - interactive
+        - podcast
         - text
         - video
-        - podcast
-        - interactive
 
 
     app.known_languages_by_lawyers: [es, en, it, pt, fr, ca, ge, ho, zh, ar, eu, ja, ga, ru]
@@ -63,6 +72,7 @@ parameters:
     app.block_types:
         - quoteBlock
         - eventsBlock
+        - publicationBlock
 
     app.path.uploads.resources: '/resources'
 

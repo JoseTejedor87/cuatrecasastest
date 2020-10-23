@@ -59,12 +59,15 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="search_selects">
+                                <div id="filtersButton">
+                                    <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
+                                </div>
+                                <div class="search_selects filtersToggle">
                                     <select id="place" class="custom__select">
                                         <option disabled selected>Lugar</option>
                                         {% for office in offices %}
-                                            {% if office.city  %}
-                                                <option value="{{office.id}}">{{ office.city  }}</option>
+                                            {% if office.translate(app.request.getLocale()).city  %}
+                                                <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
@@ -439,7 +442,7 @@
 
             })
             .fail(function() {
-
+                console.log(data);
             });
 
         });

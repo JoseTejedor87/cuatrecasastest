@@ -1,3 +1,4 @@
+{#% set lang = app.request.getLocale() %#}
 <section class="boxnews bg__grey__03">
     <div class="container">
         <div class="row page__section">
@@ -9,10 +10,11 @@
                         {{ 'global.messages.related_content'|trans }}
                     {% endif %}
                 </h4>
-                <div class="swiper-container slider__general">
+                <div id="sliderArticles" class="swiper-container slider__general">
                     <div class="swiper-wrapper">
                     {% for key,publication in publications %}
                     {% if publication.translate(app.request.getLocale()).title %}
+                        {% set fecha = publication.fechaPubli |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--{{ publication.type }}">
                                 <div class="boxnews__header">
@@ -26,7 +28,7 @@
                                         </a>
                                     </h5>
                                     <div class="boxnews__meta">
-                                        <div class="boxnews__meta__date">{{ publication.fechaPubli }}</div>
+                                        <div class="boxnews__meta__date">{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
                                         <div class="boxnews__meta__author">{% for person in publication.people %}{% if person.lawyer %}  {{ person.lawyer.name }} {{ person.lawyer.surname }}{% else %}{{ person.name }} {{ person.surname }} {% endif %} {% endfor %}</div>
                                     </div>
                                 </div>

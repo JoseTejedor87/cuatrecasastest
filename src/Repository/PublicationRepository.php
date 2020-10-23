@@ -40,8 +40,67 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         }
         return null;
     }
-    public function findByActivities($activities)
+
+    public function findByActivities($activities, $maxResult= 10 )
     {
+
+        $activitiesA = array();
+        if($activities){
+            foreach ($activities as $key => $activity) {
+                array_push($activitiesA,$activity->getId());
+            }
+        }
+
+        $returnPublications = [];
+        $results =  $this->createPublishedQueryBuilder('p');
+        if ($activitiesA) {
+            $results =  $results->innerJoin('p.activities', 'a')
+            ->andWhere('a.id in (:activity)')
+            ->setParameter('activity',  $activitiesA);
+        }
+
+        // ZONE DE PRIORIZACION
+        $place = $this->getNavigation()->getParams()->get('app.office_place')[$this->getNavigation()->getRegion()];        
+        $results->join('p.offices', 'o')
+            ->andWhere('o.place = :place')
+            ->setParameter('place',  $place);
+        //---------------------
+
+        $results = $this->orderByDaySentences($results,'p','100')
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult();
+
+        foreach ($results as $key => $item) {
+            $returnPublications[$item->getId()] = $item;
+        }
+
+            ///// consulta por todas las regiones  
+            $results =  $this->createPublishedQueryBuilder('p');
+            if ($activitiesA) {
+                $results =  $results->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity',  $activitiesA);
+            }
+
+            $results =  $results->orderBy('p.publication_date', 'DESC')
+                ->setMaxResults($maxResult)
+                ->getQuery()
+                ->getResult();
+
+            // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+            foreach ($results as $key => $item) {
+                if (!isset($returnPublications[$item->getId()])){
+                    array_push($returnPublications, $item);
+                }
+            }
+
+        return $this->setTypePublication(array_slice($returnPublications,0,$maxResult));
+    }
+
+    public function findByActivities_ ($activities)  // DEPRECAR por el priorizado 
+    {
+        
         $activitiesA = array();
         if($activities){
             foreach ($activities as $key => $activity) {
@@ -59,7 +118,13 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->setMaxResults(5)
                 ->getQuery()
                 ->getResult();
-        foreach ($results as $key => $value) {
+
+        return $this->setTypePublication($results);
+    }
+
+    // agrega el tipo de publicacion
+    public function setTypePublication($publications){
+        foreach ($publications as $key => $value) {
                 $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
             if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy ){
                 $value->type = 'academy';
@@ -76,8 +141,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             }
                     
         }
-        return $results;
+
+        return $publications;
     }
+
     protected function getPhotoPathByFilter($publication, $filter)
     {
         if ($photos = $publication->getAttachments()) {

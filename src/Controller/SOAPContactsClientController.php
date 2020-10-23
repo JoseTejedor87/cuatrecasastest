@@ -111,20 +111,13 @@ class SOAPContactsClientController extends AbstractController
     }
 
 
-    public function getContactoWebtForm(Request $request): Response
+    public function getContactoWebtForm($parametros): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/getContactoWebtForm?Guid=00505693770F1EDA8B93326D22524160
-
-        if(is_array($request->query->all())){
-            if($request->query->get('Guid')){
-                $Guid = $request->query->get('Guid');
-            }
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->GetContactoWebtForm( array ('filter' =>( array ( 'Guid' => $Guid))));
+            $res  = $client->GetContactoWebtForm( array ('filter' =>( array ( 'Guid' => $parametros))));
             $data = $res->GetContactoWebtFormResult;
             return new Response(json_encode($data));
-
-        }
     }
 
     public function createEventoForGestionEventos(Request $request): Response
@@ -222,21 +215,13 @@ class SOAPContactsClientController extends AbstractController
     }
     
 
-    public function createEventoAsistenteForGestionEventos(Request $request): Response
+    public function createEventoAsistenteForGestionEventos($parametros): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/createEventoAsistenteForGestionEventos?Guid=00505693770F1EDA8B93326D22524160
-
-        if(is_array($request->query->all())){
-            if($request->query->get('Guid')){
-                $Guid = $request->query->get('Guid');
-            }
-            $parametros = $this->eventoAsistente("test");
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->CreateEventoAsistenteForGestionEventos($parametros);
             $data = $res;
             return new Response(json_encode($data));
-
-        }
     }
 
 
@@ -276,21 +261,17 @@ class SOAPContactsClientController extends AbstractController
     }
 
 
-    public function addContactoWebForm(Request $request): Response
+    public function addContactoWebForm($parametros): Response
     {
         //Ejemplo http://127.0.0.1:8000/gestorcontactos/addContactoWebForm?Guid=00505693770F1EDA8B93326D22524160
 
-        if(is_array($request->query->all())){
-            if($request->query->get('Guid')){
-                $Guid = $request->query->get('Guid');
-            }
-            $parametros = $this->ContactoWeb("test");
+   
+            // $parametros = $this->ContactoWeb("test");
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->AddContactoWebForm($parametros);
             $data = $res;
             return new Response(json_encode($data));
 
-        }
     }
     
     public function EventoCreate($param)

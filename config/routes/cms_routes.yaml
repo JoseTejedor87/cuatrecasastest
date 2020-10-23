@@ -11,6 +11,25 @@ cms_home_edit:
     methods:    GET|POST
     controller: App\Controller\CMS\HomeController::edit
 
+# General Blocks
+# ####################################
+cms_blocks_index:
+    path:       /blocks
+    methods:    GET
+    controller: App\Controller\CMS\GeneralBlocksController::index
+cms_blocks_new:
+    path:       /blocks/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\GeneralBlocksController::new
+cms_blocks_edit:
+    path:       /blocks/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\GeneralBlocksController::edit
+cms_blocks_delete:
+    path:       /blocks/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\GeneralBlocksController::delete
+
 # Publication
 # ####################################
 cms_publication_index:

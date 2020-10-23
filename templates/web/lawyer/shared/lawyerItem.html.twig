@@ -1,13 +1,14 @@
 {% if lawyer %}
     {% if lawyer.photo %}
         {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
+        {# {% set photo_path = asset('/web/assets/img/FLUF.jpg')|imagine_filter('lawyers_grid') %} #}
     {% else %}
-        {#% set photo_path = '{{ asset('web/assets/img/FotoCV.jpg') }}' %#}
         {% set photo_path = asset('/web/assets/img/FotoCV.jpg')|imagine_filter('lawyers_grid') %}
     {% endif %}
 {% endif %}
 
-<div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}">
+{# <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}"> #}
+<div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');">
 <!-- <div class="lawyer__search__item" style="background-image: url('{#{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }#}"> -->
     <a href="{{ (lawyer.slug is defined) ? path('lawyers_detail', {slug:lawyer.slug}) : "" }}" class="lawyer__link">
     <h3 class="lawyer__name">{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
@@ -23,11 +24,11 @@
             {% else %}
                 <li class="lawyer__practice__item lawyer__activities"></li>
             {% endif %}
-            {# <li class="lawyer__practice__item lawyer__city">{{ (lawyer.office is defined)  ? lawyer.office.city : '' }}</li>     #}
+            {# <li class="lawyer__practice__item lawyer__city">{{ (lawyer.office is defined)  ? lawyer.office.translate(app.request.getLocale()).city : '' }}</li>     #}
 
             <li class="lawyer__practice__item lawyer__city">
                 {% if lawyer.office is defined and lawyer.office != null %}
-                    {{ lawyer.office.city }}
+                    {{ lawyer.office.translate(app.request.getLocale()).city }}
                 {%  endif   %}
             </li>
         </ul>

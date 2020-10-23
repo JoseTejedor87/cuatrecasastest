@@ -76,7 +76,8 @@ body{
 }
 
 .blocks-collection-field #lawyer_form_mentions fieldset.form-group fieldset,
-.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset {
+.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset,
+.blocks-collection-field #event_form_programs fieldset.form-group fieldset {
     padding: 0;
     border: 0;
     box-shadow: none;
@@ -84,6 +85,18 @@ body{
     margin-bottom: 0;
 }
 .blocks-collection-field #lawyer_form_mentions fieldset.form-group fieldset label,
-.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset label{
+.blocks-collection-field #lawyer_form_trainings fieldset.form-group fieldset label,
+.blocks-collection-field #event_form_programs fieldset.form-group fieldset label
+{
     display: none;
+}
+
+/* #event_form_programs fieldset.form-group:nth-child(1) legend{
+    display: block;
+}
+
+#event_form_programs fieldset:nth-child(1) legend:nth-child(1) { 0label__ } */
+#event_form_programs fieldset:nth-child(1) fieldset legend:nth-child(1) { display: block;}
+.blocks-collection-field #event_form_programs fieldset.form-group fieldset label{
+    display: block;
 }

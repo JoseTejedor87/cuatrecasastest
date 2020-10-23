@@ -36,7 +36,7 @@ class OfficeController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($office);
-            $award->mergeNewTranslations();
+            $office->mergeNewTranslations();
             $entityManager->flush();
 
             return $this->redirectToRoute('cms_offices_index');

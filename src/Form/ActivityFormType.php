@@ -34,8 +34,8 @@ abstract class ActivityFormType extends AbstractType
                 'fields' => [
                     'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
                     'slug' => ['label'=>'entities.activity.fields.slug'],
-                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote']],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote']],
+                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
@@ -63,7 +63,7 @@ abstract class ActivityFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'query_builder' => function (LawyerRepository $lr) {
-                                return $lr->createQueryBuilder('l')
+                                    return $lr->createQueryBuilder('l')
                                     ->join('l.activities', 'a')
                                     ->join('l.secondaryActivities', 'sa')
                                     ->where('a.id = :id_act')
@@ -102,4 +102,5 @@ abstract class ActivityFormType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
+
 }

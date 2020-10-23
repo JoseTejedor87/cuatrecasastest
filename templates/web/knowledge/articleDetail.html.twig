@@ -1,9 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-<!-- Video Popup -->
 <link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -17,7 +15,6 @@
                     <div class="info__block">
                         <h1 class="page__title">
                             {{ publication.translate(app.request.getLocale()).title|raw }}
-                            {# La Comisión Europea sanciona a NBC Universal por restringir las ventas a sus licencitarios #}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -44,17 +41,21 @@
             <section class="row page__block noborder">
                 <div class="col">
                     <div class="page__block__title page__block__title--article">
-                        <p>{{ publication.translate(app.request.getLocale()).title|raw }}</p>
-                        <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('lawyers_header') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <p>{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
+                        <img src="{{ asset('/resources/' ~ publication.photo)| imagine_filter('article_box') }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+
+                        {# duplicated block desktop / mobile #}
                         <div class="article__details desktop">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
                                 {% endif %}
                             {% endfor %}
+
+                            {% if publication.people|length > 0 %}
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item">
@@ -70,6 +71,9 @@
                                 </li>
                             {% endfor %}
                             </ul>
+                            {% endif %}
+
+                            {% if publication.activities|length > 0 %}
                             <ul class="related__content related__content--services">
                              {% for activity in publication.activities %}
                                 {% set path_string = get_pathda(activity)|trans %}
@@ -80,6 +84,7 @@
                                 </li>
                             {% endfor %}
                             </ul>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="page__block__content page__block__content--article">
@@ -90,15 +95,19 @@
                         <div class="read__more">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
+
+                        {# duplicated block desktop / mobile #}
                         <div class="article__details mobile">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
-                                <a href="/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
                                 {% endif %}
                             {% endfor %}
+
+                            {% if publication.people|length > 0 %}
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item">
@@ -114,6 +123,9 @@
                                 </li>
                             {% endfor %}
                             </ul>
+                            {% endif %}
+
+                            {% if publication.activities|length > 0 %}
                             <ul class="related__content related__content--services">
                              {% for activity in publication.activities %}
                                 {% set path_string = get_pathda(activity)|trans %}
@@ -124,6 +136,7 @@
                                 </li>
                             {% endfor %}
                             </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

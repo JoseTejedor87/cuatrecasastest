@@ -1,13 +1,13 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 
-    <main role="main" class="home">
+    <main role="main" class="home container-fluid">
 
         <header class="row home__header">
             <div class="col">
@@ -19,10 +19,11 @@
             </div>
         </header>
 
-        {% if home.showSearchBlock %}
-            {% include 'web/shared/searcherHome.html.twig' %}
-        {% endif %}
     </main>
+
+    {% if home.showSearchBlock %}
+        {% include 'web/shared/search-home.html.twig' %}
+    {% endif %}
 
     {% if home.showRelatedPublicationAndEvents   %}
         {% if relatedPublications|length > 0 %}
@@ -32,9 +33,10 @@
 
     {% if home.showInsight and home.insights[0] is defined %}
         {% if home.insights|length > 1 %}
+            {# Template de dos columnas #}
             {% include 'web/shared/collections.html.twig'  with {insights: home.insights } %}
         {% elseif  home.insights|length > 0 %}
-            {% include '/web/shared/insight.html.twig'  with {insight: home.insights[0] } %}
+            {% include '/web/shared/insight.html.twig'  with {insight: home.insights|first } %}
         {% endif %}
     {% endif %}
 
@@ -43,7 +45,7 @@
     {% endif %}
 
     {% if home.showCarrerBlock %}
-        {% include 'web/shared/career.html.twig' %}
+        {% include 'web/shared/career.html.twig' with { career: careerBlock} %}
     {% endif %}
 
     {% if home.brand[0] is defined %}
@@ -52,11 +54,23 @@
 
     {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
 
+    <!-- Loader -->
+    <div class="search__component__loader" style="display:none">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+            </path>
+        </svg>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
     web.global.customSelects();
     web.global.testimonials();

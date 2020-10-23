@@ -8,10 +8,11 @@ use App\Repository\CaseStudyRepository;
 use App\Repository\AwardRepository;
 use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
+use App\Repository\GeneralBlockRepository;
 
 class DeskController extends WebController
 {
-    public function index(Request $request, DeskRepository $deskRepository)
+    public function index(Request $request, DeskRepository $deskRepository, GeneralBlockRepository $generalBlockRepository)
     {
         /*
         $desks = $deskRepository->createPublishedQueryBuilder('d')
@@ -19,11 +20,13 @@ class DeskController extends WebController
             ->getQuery()
             ->getResult();
         */
-
-        $desks = $deskRepository->getDeskByName($request)->getResult();            
-
+        $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
+        $desks = $deskRepository->getDeskByName($request)->getResult();
+        $hideTitle = true;
         return $this->render('web/desks/index.html.twig', [
             'desks' => $desks,
+            'career' => $blockCareer,
+            'hideTitle' => $hideTitle
         ]);
     }
 
@@ -38,12 +41,10 @@ class DeskController extends WebController
         $key_contacts = $desk->getKeyContacts();
         $relatedPublications = $publicationRepository->findByActivities([$desk]);
         $awardsFiltered = [];
-        foreach ($awards as $award)
-        {
-            foreach($award->getActivities() as $activity){
-                if ( $activity instanceof \App\Entity\Desk)
-                {
-                    array_push($awardsFiltered,$award);
+        foreach ($awards as $award) {
+            foreach ($award->getActivities() as $activity) {
+                if ($activity instanceof \App\Entity\Desk) {
+                    array_push($awardsFiltered, $award);
                     break;
                 }
             }

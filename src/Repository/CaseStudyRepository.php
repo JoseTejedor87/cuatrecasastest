@@ -78,6 +78,45 @@ class CaseStudyRepository extends PublishableEntityRepository implements Publish
             ->getResult();
     }
 
+    public function findCasesByRegion($forcePlace){
+
+        $qb = $this->createPublishedQueryBuilder('c')->join('c.lawyers', 'l');
+        $qp = clone $qb;
+
+        if($forcePlace != null ){
+            $this->priorBuilderClause($qp,'l.office',$forcePlace);
+        }else {
+            $this->priorBuilderClause($qp,'l.office');    
+        }
+
+        $casesPrior = $qp->getQuery()->getResult();
+        $casesRest = $qb->getQuery()->getResult();
+
+        $cases = [];
+        foreach ($casesPrior as $key => $item) {
+            $cases[$item->getId()] = $item;
+        }
+  
+        foreach ($casesRest as $key => $item) {
+            if (!isset($cases[$item->getId()])){
+                array_push($cases, $item);
+            }
+        }  
+        // limit a 10 casos
+        return array_slice($cases,0,10);
+    }
+
+    public function findByLawyersId($lawyers)
+    {
+        return $query = $this->createPublishedQueryBuilder('c')
+            ->join('c.lawyers', 'l')
+            ->andWhere('l.id IN (:lawyers)')
+            ->setParameter('lawyers', $lawyers)
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return CaseStudy[] Returns an array of CaseStudy objects
     //  */

@@ -21,15 +21,13 @@ $checkBoxes.change( function() {
 $($checksOutput).on('click', '.checkbox-tag .close-tag', function(element){
     var value = $(this).data( "value" );
     console.log(value);
-        $checkBoxes.each(function(i, elem) {
-            if($(elem).attr("data-name") == value){
-                $(elem).prop( "checked", false );
-                checkboxReset();
-            }
-
-        });
+    $checkBoxes.each(function(i, elem) {
+        if($(elem).attr("data-name") == value){
+            $(elem).prop( "checked", false );
+            checkboxReset();
+        }
+    });
 });
-
 
 function checkboxReset() {
     // empty checkboxes array
@@ -64,17 +62,6 @@ function checkboxReset() {
         filterTags = filterTags + '<span class="checkbox-tag"><span>'+value.replace('.', '')+'</span><button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
     });
 
-    /*
-    inclusivesText.forEach(function(text) {
-        filterText = filterText + '<span class="checkbox-tag">'+text+'';
-    });
-
-    inclusivesFilters.forEach(function(value) {
-        filterTags = filterText + '<button type="button" class="close-tag" data-value="'+value+'" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button></span>';
-    });
-    */
-
-
     // tag cloud elements
     var showText    = filterText;
     var showTags    = filterTags;
@@ -88,28 +75,18 @@ function checkboxReset() {
     var $accordionFilters = $('#filterTabsContent .collapse');
 
     // checkboxes & tags & buttons functionality
-    if (inclusivesFilters.length == 0) {
+    if (inclusivesFilters.length <= 0) {
         $checksOutput.hide();
-        // $checksOutput.fadeOut(200);
-        // $('.apply_button').prop('disabled', true);
 
         $('.order_abc').removeClass('active');
         $('.order_pop').removeClass('active');
 
-        // close accordion? not sure...
-        // if($accordionFilters.hasClass('show')) {
-        //     $accordionFilters.collapse('hide');
-        // }
-
     } else if (inclusivesFilters.length == 1) {
         $checksOutput.show();
-        // $checksOutput.fadeIn();
-        // $('.apply_button').prop('disabled', false);
         $checksOutput.html(valueTags);
 
     } else if (inclusivesFilters.length > 1) {
         $checksOutput.show();
-        // $checksOutput.fadeIn();
         $checksOutput.html(fullTags);
     }
 
@@ -131,7 +108,6 @@ function checkboxReset() {
             checkboxReset();
         });
 
-        // close accordion? not sure...
         if($accordionFilters.hasClass('show')) {
             $accordionFilters.collapse('hide');
         }

@@ -3,7 +3,7 @@
         <div class="row page__section">
             <div class="col">
                 <h4 class="section__title section__title--event">Eventos destacados</h4>
-                <div class="swiper-container slider__general">
+                <div id="sliderEvents" class="swiper-container slider__general">
                     <div class="swiper-wrapper">
                         {% for event in events %}
                         {% if   event.translate(app.request.getLocale()).title %}
@@ -12,7 +12,7 @@
                         {% else %}
                             {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
                         {% endif %}
-                        {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+                        {% set fecha = event.startDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">

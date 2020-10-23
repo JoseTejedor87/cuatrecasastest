@@ -8,8 +8,9 @@
                         <div class="team__info__intro">Cuatrecasas cuenta con un equipo dedicado a lorem ipsum</div>
                     </div>
                     <div class="team__list">
-                        <article class="team__member" style="background-image: url('{{ asset('web/assets/img/FLUF.jpg') }}');">
+                        <article class="team__member" style="background-image: url('{{ asset('/web/assets/img/FLUF.jpg')| imagine_filter('lawyers_team') }}');">
                         <!-- <article class="team__member" style="background-image: url('https://via.placeholder.com/1600x675');"> -->
+                        <img src="{{ asset('/web/assets/img/FLUF.jpg')| imagine_filter('lawyers_team') }}" alt="Enrique Sánchez-Quiñones" class="sr-only">
                             <a href="#" class="team__member__link">Enrique Sánchez-Quiñones</a>
                             <div class="team__member__name">Enrique Sánchez-Quiñones</div>
                             <!-- <div class="team__member__details">

@@ -32,6 +32,17 @@ html {
 body {
     // Custom Scrollbars
     // @include scrollbars(15px, $main-color, $complementary-color);
+
+    // @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    //     background: yellow;
+    //     transform: scale(0.75);
+    //     transform-origin: 0 0;
+    // }
+
+    // zoom: 0.67;
+    // -moz-transform: scale(0.67);
+    // -moz-transform-origin: 0 0;
+
 }
 
 a {

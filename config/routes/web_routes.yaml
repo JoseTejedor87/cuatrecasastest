@@ -69,7 +69,7 @@ components:
         pt:   /components
         ge:   /componentes
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::components
+    controller: App\Controller\Web\InsightController::index
 
 userSettings:
     path:
@@ -78,7 +78,7 @@ userSettings:
         pt:   /user-settings
         ge:   /preferencias-usuario
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::userSettings
+    controller: App\Controller\Web\UserController::newUser
 
 institutoRRHH:
     path:
@@ -254,6 +254,15 @@ set_event_contact:
    methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionContact
 
+set_contact_user:
+   path:
+       en:   /set_contact_ajax_WS
+       es:   /set_contact_ajax_WS
+       pt:   /set_contact_ajax_WS
+       ge:   /set_contact_ajax_WS
+   methods:    GET|POST
+   controller: App\Controller\Web\UserController::ajaxActionContact
+
 get_regions:
    path:
        en:   /get_regions
@@ -305,15 +314,6 @@ insights_detail:
 
 # Offices
 # ###########################################
-offices_index:
-    path:
-        en:     /offices/{slug}
-        es:     /oficinas/{slug}
-        pt:     /offices/{slug}
-        ge:     /offices/{slug}
-    methods:    GET|POST
-    controller: App\Controller\Web\OfficeController::detail
-
 offices_detail:
     path:
         en:     /offices/{slug}
@@ -434,6 +434,7 @@ firm_social:
         ge:   /p/social-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
+
 firm_environment:
     path:
         en:   /p/medio-ambiente-1
@@ -515,3 +516,58 @@ events_detail2:
    methods:    GET|POST
    controller: App\Controller\Web\KnowledgeController::detail2
 
+# CAREER
+##############################################
+career_home:
+  path:
+      en:   /career/career
+      es:   /carrera/carrera
+      pt:   /career/career
+      ge:   /career/career
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::career
+
+career_live:
+  path:
+      en:   /career/live-cuatrecasas
+      es:   /carrera/vive-cuatrecasas
+      pt:   /career/live-cuatrecasas
+      ge:   /career/live-cuatrecasas
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::live
+
+career_revolution:
+  path:
+      en:   /career/revolution
+      es:   /carrera/revolucion
+      pt:   /career/revolution
+      ge:   /career/revolution
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::revolution
+
+career_learn:
+  path:
+      en:   /career/learn-with-the-best
+      es:   /carrera/aprende-con-los-mejores
+      pt:   /career/learn-with-the-best
+      ge:   /career/learn-with-the-best
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::learn
+
+career_international:
+  path:
+      en:   /career/international-career
+      es:   /carrera/carrera-internacional
+      pt:   /career/international-career
+      ge:   /career/international-career
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::international
+
+career_join:
+  path:
+      en:   /career/join-us
+      es:   /carrera/unete-a-nosotros
+      pt:   /career/join-us
+      ge:   /career/join-us
+  methods:    GET|POST
+  controller: App\Controller\Web\CareerController::join

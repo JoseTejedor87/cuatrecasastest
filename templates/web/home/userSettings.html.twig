@@ -34,7 +34,8 @@
                 </div>
             </header>
 
-            <form action="" id="userForm" class="needs-validation" novalidate>
+            <form action="" class="needs-validation" novalidate>
+            {# <form action="" id="userForm" name="userForm" class="needs-validation" novalidate> #}
                 <div class="row page__block--full">
                     <div class="col">
                         <h4 class="section__title section__title--main">{{ 'userForm.settings.title'|trans }}</h4>
@@ -42,16 +43,16 @@
                             <legend>{{ 'userForm.settings.subTitleInfo'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
+                                    <input type="text" class="form-control" name="eFirstName" id="eFirstName" placeholder="Nombre *" value="{{ contacto.Nombre is defined ? contacto.Nombre : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
+                                    <input type="text" class="form-control" name="eLastName" id="eLastName" placeholder="Apellidos *" value="{{ contacto.Apellidos is defined ? contacto.Apellidos : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="ePass" placeholder="Contraseña *" required>
+                                    <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="Telefono *" value="{{ contacto.Telefono is defined ? contacto.Telefono : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                    <input type="text" class="form-control" name="eEmail" id="eEmail" placeholder="Email *" value="{{ contacto.Email is defined ? contacto.Email : ''}}" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -59,10 +60,10 @@
                             <legend>{{ 'userForm.settings.subTitleCompany'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                    <input type="text" class="form-control" name="ePosition" id="ePosition" placeholder="Cargo *" value="{{ contacto.Cargo is defined ? contacto.Cargo : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                    <input type="text" class="form-control" name="eCompany" id="eCompany" placeholder="Empresa *" value="{{ contacto.Empresa is defined ? contacto.Empresa : ''}}" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -71,108 +72,114 @@
                             <div class="row">
                                 <div class="col-lg-6 pr-0 pl-0">
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" id="ePostalCode" placeholder="Código postal *" required>
+                                        <input type="text" class="form-control" name="eAddress" id="eAddress" placeholder="Direccion *" value="{{ contacto.Direccion is defined ? contacto.Direccion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select name="eCountry" id="eCountry" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="País *">
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
+                                        <select name="eCountry" id="eCountry"  class="custom-select form-control" data-style="btn-custom"   data-width="100%" data-size="5" title="País *">
+                                            {% if paises|length > 0 %}
+                                                {% for value in paises %}
+                                                    {% if value['IdPais'] %}
+                                                        <option {{ contacto.PaisId is defined ? contacto.PaisId==value['IdPais'] ? 'selected' : ''}} value="{{ value['IdPais'] }}">{{ value['Nombre'] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" id="eTown" placeholder="Población *" required>
+                                        <input type="text" class="form-control" name="eTown" id="eTown" placeholder="Población *" value="{{ contacto.Poblacion is defined ? contacto.Poblacion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select name="eRegion" id="eRegion" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
+                                        <select id="eRegion" class="form-control custom-select " data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
+                                            <option value="" selected disabled>Provincia *</option>
+                                            {% if contacto.ProvinciaId %}
+                                            {% if provincias|length > 0 %}
+                                                {% for value in provincias %}
+                                                    {% if value['IdProvincia'] %}
+                                                        <option {{ contacto.ProvinciaId is defined ? contacto.ProvinciaId==value['IdProvincia'] ? 'selected' : ''}} value="{{ value['IdProvincia'] }}">{{ value['Nombre'] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <select name="eLang" id="eLang" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                            <option>Dolor</option>
-                                            <option>Lorem</option>
-                                            <option>Ipsum</option>
-                                    </select>
+                                <div class="col-lg-6 ">
+                                    <div class=" form-group">
+                                        <select name="eLang" id="eLang" class="custom-select  form-control" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
+                                            {% if idiomas|length > 0 %}
+                                                    {% for value in idiomas %}
+                                                        {% if value['IdIdioma'] %}
+                                                            <option {{ contacto.IdiomaId is defined ? contacto.IdiomaId==value['IdIdioma'] ? 'selected' : ''}} value="{{ value['IdIdioma'] }}">{{ value['Nombre'] }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                        </select>
+                                    </div>
+                                    <div class=" form-group">
+                                            <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="Código postal *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
+                                    </div>
                                 </div>
+
                             </div>
                         </fieldset>
                     </div>
                 </div>
-
+                <div class="classictabs__component">
+                    <div class="row page__block--full">
+                        <div class="col">
+                            <h4 class="section__title section__title--main">{{ 'userForm.interests.title'|trans }}</h4>
+                            <ul class="nav nav-tabs" id="theFilters" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true">{{ 'userForm.interests.tabPopular'|trans }}</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="theFiltersContent">
+                                <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+                                    <div class="chechbox__wrapper">
+                                        {% if areasinteres|length > 0 %}
+                                            {% for value in areasinteres %}
+                                                {% if value['IdAreaInteres'] %}
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox-input" data-nombre="{{ value['Nombre'] }}"  id="sector-{{ value['IdAreaInteres'] }}" value="{{ value['IdAreaInteres'] }}">
+                                                        <label class="checkbox-label" for="sector-{{ value['IdAreaInteres'] }}"><span>{{ value['Nombre'] }}</span></label>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row page__block--privacy">
                     <div class="col-12 privacy__text">
                         <h4 class="section__title section__title--main">{{ 'userForm.data.title'|trans }}</h4>
-                        <p>Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Natus, vitae eum ex, repellendus ullam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.</p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>
+                        <b>Información sobre el tratamiento de sus datos personales</b></p>
+                        <p>
+                        <b>Responsable del tratamiento:</b> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
+                        <b>Finalidades:</b> : gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
+                        <b>Legitimación:</b> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
+                        <b>Destinatarios:</b> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
+                        <b>Derechos:</b> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a target="_blank" href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">la política de privacidad</a>.
+                        </p>
                     </div>
                     <div class="col-12 privacy__confirm">
                         <div class="form-group">
                             <div class="checkbox">
-                                <input type="checkbox" id="accept" required>
-                                <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                <input name="accept" type="checkbox" {{ contacto.GDPR is defined ? contacto.GDPR ? 'checked' : ''}} id="accept" required>
+                                <label  class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
-                                <input type="checkbox" id="subscribe">
+                                <input name="subscribe" {{ contacto.Suscripcion is defined ? contacto.Suscripcion ? 'checked' : ''}}  type="checkbox" id="subscribe">
                                 <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
                             </div>
                         </div>
                         <div class="button__wrapper">
-                            <button type="submit" class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
+                            <button type="submit"  class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
                         </div>
                     </div>
                 </div>
@@ -199,19 +206,25 @@
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
-
                         var errorElements = document.querySelectorAll(".form-control.is-invalid");
                         $('html, body').animate({
                             scrollTop: $(errorElements[0]).offset().top - 120
                         }, 'slow');
                         $(errorElements[0]).focus();
+                    }else{
+                        enviar();
+                        event.preventDefault();
+                        form.classList.add('was-validated');
                     }
-                    form.classList.add('was-validated');
+                    
                 }, false);
             });
         }, false);
 
-        $("#formSubmit").click( function() {
+        $("#formSubmit").click( function(e) {
+            
+        });
+        function enviar() {
             $("#userForm .form-control").removeClass('is-valid');
             $("#userForm .form-control").removeClass('is-invalid');
             var contacto =  validation();
@@ -219,17 +232,18 @@
                 $.ajax({
                     method: "GET",
                     data: { contacto: JSON.stringify(contacto)  },
-                    url: "{{ path('set_event_contact') }}",
+                    url: "{{ path('set_contact_user') }}",
                     beforeSend: function( xhr ) {
+                       
                     }
                     })
                 .done(function( data ) {
-                    console.log(data);
+                    return false;
                 })
                 .fail(function() {
                 });
             }
-        });
+        }
         $("#eCountry").change( function() {
             var idCountry  =  $('#eCountry').val();
             var idCountry  =  $('#eCountry').val();
@@ -238,6 +252,7 @@
                     data: { idCountry: idCountry  },
                     url: "{{ path('get_regions') }}",
                     beforeSend: function( xhr ) {
+                        $('#eRegion option').remove()
                     }
                     })
                 .done(function( data ) {
@@ -254,6 +269,16 @@
         function validation() {
             var contacto =  {};
             var isvalidate = true;
+           contacto['InteresList'] = new Array();
+            $('#popular input[type=checkbox]:checked').each(function () { 
+                var value = (this.checked ? $(this).val() : ""); 
+                var nombre = $(this).data( "nombre" );
+                var test =  new Array();
+                test[nombre] = value;
+                if(test){
+                    contacto['InteresList'][nombre] = value;
+                }
+            });
             if($("#eFirstName").val()){
                 $("#eFirstName").addClass('is-valid');
                 contacto['Nombre']= $("#eFirstName").val();
@@ -261,7 +286,6 @@
                 isvalidate = false;
                 $("#eFirstName").addClass('is-invalid');
             }
-
             if($("#eLastName").val()){
                 $("#eLastName").addClass('is-valid');
                 contacto['Apellidos']= $("#eLastName").val();
@@ -269,7 +293,13 @@
                 $("#eLastName").addClass('is-invalid');
                 isvalidate = false;
             }
-
+             if($("#ePhone").val()){
+                $("#ePhone").addClass('is-valid');
+                contacto['Telefono']= $("#ePhone").val();
+            }else{
+                $("#ePhone").addClass('is-invalid');
+                isvalidate = false;
+            }
             if($("#eEmail").val()){
                 $("#eEmail").addClass('is-valid');
                 contacto['Email']= $("#eEmail").val();
@@ -277,7 +307,6 @@
                 $("#eEmail").addClass('is-invalid');
                 isvalidate = false;
             }
-
             if($("#ePosition").val()){
                 $("#ePosition").addClass('is-valid');
                 contacto['Cargo']= $("#ePosition").val();
@@ -285,7 +314,6 @@
                 $("#ePosition").addClass('is-invalid');
                 isvalidate = false;
             }
-
             if($("#eCompany").val()){
                 $("#eCompany").addClass('is-valid');
                 contacto['Empresa']= $("#eCompany").val();
@@ -301,7 +329,6 @@
                 $("#eAddress").addClass('is-invalid');
                 isvalidate = false;
             }
-
             if($("#ePostalCode").val()){
                 $("#ePostalCode").addClass('is-valid');
                 contacto['CodigoPostal']= $("#ePostalCode").val();
@@ -312,28 +339,33 @@
 
             if($("#eCountry").val()){
                 $("#eCountry").addClass('is-valid');
-                contacto['IdPais']= $("#eCountry").val();
+                contacto['PaisId']= $("#eCountry").val();
             }else{
                 $("#eCountry").addClass('is-invalid');
                 isvalidate = false;
             }
-
             if($("#eRegion").val()){
                 $("#eRegion").addClass('is-valid');
-                contacto['IdProvincia']= $("#eRegion").val();
+                contacto['ProvinciaId']= $("#eRegion").val();
             }else{
                 $("#eRegion").addClass('is-invalid');
                 isvalidate = false;
             }
-
-            if($("#eTel").val()){
-                $("#eTel").addClass('is-valid');
-                contacto['Telefono']= $("#eTel").val();
+            if($("#eTown").val()){
+                $("#eTown").addClass('is-valid');
+                contacto['Poblacion']= $("#eTown").val();
             }else{
-                $("#eTel").addClass('is-invalid');
+                $("#eTown").addClass('is-invalid');
                 isvalidate = false;
             }
-
+            if($("#eLang").val()){
+                $("#eLang").addClass('is-valid');
+                contacto['IdiomaId']= $("#eLang").val();
+            }else{
+                $("#eLang").addClass('is-invalid');
+                isvalidate = false;
+            }
+            
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
@@ -347,10 +379,11 @@
             }
             if($("#subscribe").is(':checked')){
                 contacto['Suscripcion']= 1;
+                contacto['SuscripcionPrensa']= 1;
+                
             }else{
                 contacto['Suscripcion']= 0;
             }
-
             if(isvalidate){
                 return contacto;
             }else{

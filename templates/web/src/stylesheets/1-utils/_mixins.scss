@@ -522,6 +522,7 @@ img {
         transition: transform 0.2s ease-in-out;
 
         @media(max-width: $max-width-4casas) {
+            top: -2px;
             right: 0;
             @include fontSet(18px, 26px);
         }
@@ -584,7 +585,7 @@ img {
     width: 100%;
     height: auto;
     position: relative;
-    background-color: $white;
+    // background-color: $white;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -595,7 +596,7 @@ img {
     width: 100%;
     height: auto;
     position: relative;
-    background-color: $white;
+    // background-color: $white;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

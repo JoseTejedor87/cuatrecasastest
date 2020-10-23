@@ -1,5 +1,4 @@
-{% if caseStudies|length > 1 %}
-
+{% if (caseStudies|length > 1) %}
     <section class="insight--carousel">
         <div class="container">
             <div class="row page__section">
@@ -11,8 +10,10 @@
                         <div class="swiper-wrapper">
                             {% for caseStudy in caseStudies %}
                             {% if caseStudy %}
-                                {% if caseStudy.image %}
+                                {% if caseStudy.image  %}
                                     {% set photo_path = asset('/resources/' ~ caseStudy.image.getFileName)|imagine_filter('lawyers_grid') %}
+                                {% else  %}
+                                    {% set photo_path = asset('/web/assets/vector/Picto_03_1920x1080.png') %}
                                 {% endif %}
                             {% endif %}
                             <div class="swiper-slide">

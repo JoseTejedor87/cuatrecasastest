@@ -14,7 +14,7 @@ class ajaxGetLawersController extends WebController
     /**                                                                                   
      * @Route("/ajax", name="recherche_ajax")
      */
-    public function ajaxAction(Request $request, LawyerRepository $lawyerRepository)    
+    public function ajaxAction(Request $request, LawyerRepository $lawyerRepository,NavigationService $navigation)  
     {
         // aa;
         $initial = $request->get('initial');
@@ -55,7 +55,7 @@ class ajaxGetLawersController extends WebController
                             $activities = $activities. ' ' . $activity->translate('es')->getTitle();
                         }
                         $lawyerA[$key]['activities'] = $activities;
-                        $lawyerA[$key]['office'] = $lawyer->getOffice()->getCity();
+                        $lawyerA[$key]['office'] = $lawyer->getOffice()->translate($navigation->getLanguage())->getCity();
                     
                 }
             }

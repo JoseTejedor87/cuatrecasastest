@@ -36,6 +36,32 @@ class InsightRepository extends PublishableEntityRepository implements Publishab
         return null;
     }
 
+    public function getInsightByLawyers($lawyers)
+    {
+        return $this->createPublishedQueryBuilder('i')
+            //->join('i.translations', 't')
+            ->join('i.lawyers', 'l')
+            ->andWhere('l.id IN (:ids)')
+            ->setParameter('ids', $lawyers)
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function getInsightsPriorFor($arrayCriteria)
+    {
+        $query = $this->createQueryBuilder('i')->join('i.lawyers', 'l');
+
+        $this->priorBuilderClause($query, 'l.office');
+        $this->orderByDaySentences($query, 'i', '10', 'id');
+
+        foreach ($arrayCriteria as $key => $value) {
+            $query->andWhere('i.'.$key.' = '.$value);
+        }
+        $query->setMaxResults(1);
+        //dd($query->getQuery()->getDQL());
+        return $query->getQuery()->getResult();
+    }
+
     public function getPublishedRelatedInsights($insight)
     {
         $relatedInsights = array_map(
@@ -51,6 +77,26 @@ class InsightRepository extends PublishableEntityRepository implements Publishab
             ->setParameter('ids', $relatedInsights)
             ->getQuery()
             ->getResult();
+    }
+
+    public function getInsightsByName(Request $request)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $region = $request->attributes->get('_region');
+        $language = $request->attributes->get('_locale');
+
+        $query = $entityManager->createQuery(
+            "SELECT i FROM App\Entity\Insight i INNER JOIN i.translations t
+                WHERE i.regions LIKE :region AND i.languages LIKE :language AND t.locale LIKE :local
+                ORDER BY t.title ASC "
+        )->setParameters(array(
+                'language' => '%'.$language.'%',
+                'region' => '%'.$region.'%',
+                'local' => '%'.$language.'%',
+        ));
+
+        return $query;
     }
 
     // /**

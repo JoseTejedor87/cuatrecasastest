@@ -113,7 +113,7 @@ sections:
       title: Editar Evento
     actions:
       addPerson: Crear Persona
-    programs: 
+    programs:
       index:
         title: Programas
       new:
@@ -156,27 +156,34 @@ sections:
     new:
       title: Nuevo Slide
     edit:
-      title: Editar Slide        
+      title: Editar Slide
   banners:
       index:
         title: Banner
       new:
         title: Nuevo Banner
       edit:
-        title: Editar Banner  
+        title: Editar Banner
   brands:
       index:
         title: Brand
       new:
         title: Nuevo Brand
       edit:
-        title: Editar Brand          
+        title: Editar Brand
   home:
       index:
         title: Home New
       edit:
         title: Editar Home
-      
+  blocks:
+      index:
+        title: Bloques generales
+      new:
+        title: Nuevo Bloque
+      edit:
+        title: Editar Bloque
+
 # Menu
 # ###########################################
 menu:
@@ -266,8 +273,8 @@ entities:
       description: Descripción
       schedule: Horarios
       program: Programa
-      customCity: Ciudad
-      customAddress: Dirección
+      customCity: Ciudad (Si no hay oficina)
+      customAddress: Dirección (Si no hay oficina)
       customMap: Mapa
       customSignup: Enlace inscripciones
       startDate: Inicio
@@ -275,12 +282,20 @@ entities:
       eventType: Tipo de evento
       contact: Nombre de contacto
       phone: Teléfono de contacto
+      email: Email de contacto
       capacity: Aforo
       people: Personas
       office: Oficina
       no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
+      programs: Programas
+      questions: Preguntas
+      customCountry: Pais (Si no hay oficina)
+      customPostalcode: Codigo postal (Si no hay oficina)
+      customProvince: Provincia (Si no hay oficina)
+
+
   programs:
     fields:
       title: Titulo
@@ -289,7 +304,7 @@ entities:
       people: Personas
   eventsBlock:
     fields:
-      activities: Filtrar eventos etiquetados con
+      events: Selecciona el Evento
       eventType: Tipo de Evento
       numberOfEvents: Cantidad de eventos a mostrar
   insight:
@@ -307,6 +322,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
+      photo: Foto
   item:
     fields:
       createdAt: Fecha de creación
@@ -356,6 +372,18 @@ entities:
     fields:
       title: Título
       blocks: Bloques
+  generalBlock:
+    fields:
+      title: Título
+      subtitle: Subtitulo ( opcional )
+      content:  Contenido ( opcional )
+      name: Nombre para Identificar ( no se muestra en el contenido )
+      blocks: Bloques de contenido a añadir
+  publicationBlock:
+    fields:
+      publicationType: Tipo de Publicación
+      numberOfPublication: Cantidad de Publicaciones
+      publication: Elegir publicacion
   practice:
     fields:
       children: Subáreas
@@ -410,11 +438,11 @@ entities:
       description: Descripcion
       url: Url Destino
       image: Imagen
-      priority: Prioridad 
+      priority: Prioridad
   banner:
     edit_slides: Listar Slides
     fields:
-      location: Nombre de ubicacion de la Pagina 
+      location: Nombre de ubicacion de la Pagina
       slider: Slides que la componen
   brand:
     fields:
@@ -422,7 +450,7 @@ entities:
       description: Descripcion
       url: Url Destino
       image: Imagen
-      priority: Prioridad       
+      priority: Prioridad
   home:
     fields:
       title: Titulo
@@ -436,6 +464,10 @@ entities:
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas
       url: Url de acceso Opciones del Usuario
+  question:
+    fields:
+      question: Pregunta
+      hash: hash
 # Custom Form Types
 
 forms:
@@ -444,6 +476,7 @@ forms:
     publication: Publicación
     appearance: Apariencia
     seo: SEO
+    WebService: Web Service GC
 
   choices:
     blockTypes:
@@ -454,6 +487,12 @@ forms:
       webinar: Webinar
       breakfast: Desayuno
       institutional: Institucional
+    publicationCategoryTypes:
+      opinion: Opinion
+      news: Noticia
+      academy: Academia
+      legalNovelty: Legal Novelty
+
     lawyerCategoryTypes:
       associate: Asociado
       counsel: Consejero

@@ -25,7 +25,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
     {
         
         $query = "CREATE TABLE GC_paises (
-            id int  IDENTITY(1,1) PRIMARY KEY,
+            id int   PRIMARY KEY AUTO_INCREMENT,
             IdPais VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -33,7 +33,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_provincias (
-            id INT IDENTITY(1,1) PRIMARY KEY,
+            id INT  PRIMARY KEY AUTO_INCREMENT,
             IdPais VARCHAR(30) NOT NULL,
             IdProvincia VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
@@ -42,7 +42,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_idiomas (
-            id INT IDENTITY(1,1) PRIMARY KEY,
+            id INT  PRIMARY KEY AUTO_INCREMENT,
             IdIdioma VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -50,7 +50,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_areasInteres (
-            id INT  IDENTITY(1,1) PRIMARY KEY,
+            id INT   PRIMARY KEY AUTO_INCREMENT,
             IdAreaInteres VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -58,7 +58,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_oficinas (
-            id INT  IDENTITY(1,1) PRIMARY KEY,
+            id INT   PRIMARY KEY AUTO_INCREMENT,
             OficinaId VARCHAR(30) NOT NULL,
             Nombre VARCHAR(150) NOT NULL
             )";
@@ -66,7 +66,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_secretarias (
-            id INT  IDENTITY(1,1) PRIMARY KEY,
+            id INT   PRIMARY KEY AUTO_INCREMENT,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -78,7 +78,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_responsablesMarketings (
-            id INT  IDENTITY(1,1) PRIMARY KEY,
+            id INT  PRIMARY KEY AUTO_INCREMENT,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -90,7 +90,7 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         $stmt->execute();
 
         $query = "CREATE TABLE GC_sociosResponsables (
-            id INT IDENTITY(1,1) PRIMARY KEY,
+            id INT  PRIMARY KEY AUTO_INCREMENT,
             EmpId VARCHAR(30) NOT NULL,
             Iniciales VARCHAR(150) NOT NULL,
             Nombre VARCHAR(150) ,
@@ -203,6 +203,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
+    public function getPaises()
+    {
+        $sql = "SELECT * FROM GC_paises";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     
     public function setProvincias($data)
     {
@@ -216,11 +226,24 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
             }
             
         }
-        $query = "INSERT INTO GC_provincias (IdPais, IdProvincia , Nombre) SELECT * FROM (VALUES".$values.") a (Col1, Col2, Col3);";
+        $query = "INSERT INTO 
+        GC_provincias (IdPais, IdProvincia , Nombre)
+        VALUES
+        ".$values.";";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
         return true;
+    }
+    public function getProvincias()
+    {
+        $sql = "SELECT * FROM GC_provincias";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
     }
     
     public function setIdiomas($data)
@@ -244,7 +267,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getIdiomas()
+    {
+        $sql = "SELECT * FROM GC_idiomas";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setAreasInteres($data)
     {
         
@@ -263,7 +295,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getAreasInteres()
+    {
+        $sql = "SELECT * FROM GC_areasInteres";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setOficinas($data)
     {
         
@@ -282,7 +323,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getOficinas()
+    {
+        $sql = "SELECT * FROM GC_areasInteres";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setSecretarias($data)
     {
         
@@ -301,7 +351,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getSecretarias()
+    {
+        $sql = "SELECT * FROM GC_secretarias";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setResponsablesMarketings($data)
     {
         
@@ -320,7 +379,16 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getResponsablesMarketings()
+    {
+        $sql = "SELECT * FROM GC_responsablesMarketings";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
     public function setSociosResponsables($data)
     {
         
@@ -339,5 +407,14 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         
         return true;
     }
-
+    public function getSociosResponsables()
+    {
+        $sql = "SELECT * FROM GC_sociosResponsables";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $ValuesO =$stmt->fetchAll();    
+        
+        
+        return $ValuesO;
+    }
 }

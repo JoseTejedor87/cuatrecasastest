@@ -3,8 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\Office;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Lawyers;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Office|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,39 +18,49 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Office[]    findAll()
  * @method Office[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OfficeRepository extends ServiceEntityRepository
+class OfficeRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Office::class);
+        parent::__construct($registry, $navigation, Office::class);
     }
 
-    // /**
-    //  * @return Office[] Returns an array of Office objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getInstanceByRequest(Request $request)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->findOneBy(['slug' => $slug]);
+        }
+        return null;
     }
-    */
+    public function getOfficesIfLawyers()
+    {
+        $offices = $this->findAll();
+        foreach ($offices as $key => $office) {
+            $lawyers = $office->getLawyer();
+            if (count($lawyers) == 0) {
+                unset($offices[$key]);
+            }
+        }
+        return $offices;
+    }
 
-    /*
-    public function findOneBySomeField($value): ?Office
+    public function getOfficesByName(Request $request)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $entityManager = $this->getEntityManager();
+
+        $region = $request->attributes->get('_region');
+        $language = $request->attributes->get('_locale');
+
+        $query = $entityManager->createQuery(
+            "SELECT o FROM App\Entity\Office o INNER JOIN o.translations t
+                WHERE o.regions LIKE :region AND o.languages LIKE :language AND t.locale LIKE :local
+                ORDER BY t.city ASC "
+        )->setParameters(array(
+                'language' => '%'.$language.'%',
+                'region' => '%'.$region.'%',
+                'local' => '%'.$language.'%',
+        ));
+
+        return $query;
     }
-    */
 }

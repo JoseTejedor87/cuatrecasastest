@@ -1,0 +1,94 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% set lang = app.request.getLocale() %}
+{% block main %}
+  	{% if  office.getImgOffice().getFileName() is defined %}
+         {%  set imageFile = 'resources/'~office.getImgOffice().getFileName() %}
+         {% else %}
+         {%  set imageFile = 'web/assets/img/oporto.jpg' %}
+    {% endif %}
+
+    <main role="main" class="lawyer__page">
+        <article>
+
+            <header class="container">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
+                        <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
+                        <h1 class="lawyer__page__region">
+                            {{ office.translate(lang).city }}
+                        </h1>
+                        <div class="lawyer__page__contact">
+                            <div data-address>
+                                {{ office.address }}<br>
+                                {{ office.cp }}
+                                {{ office.translate(lang).city }}
+                            </div>
+                            <div data-telephone>
+                                {{ office.phone }}
+                            </div>
+                            <div data-email>
+                                <a href="mailto:">
+                                   {{ office.email }}
+                                </a>
+                            </div>
+                        </div>
+                        <a href="{{path('regions_vision')}}" class="doble__arrow__link">Ver mapa</a>
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__office">
+                            <figure style="background-image: url('{{ asset(imageFile ) }}')"></figure>
+                            
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            {{   office.translate(lang).descriptions |raw   }}
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            {% if office.lawyer is not empty %}
+                {% include 'web/shared/team.html.twig' with { lawyers: office.lawyer } %}
+            {% endif %}
+
+            {#% include 'web/pages/custom/office-detail_CMP.html.twig'  %#}
+
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %} 
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

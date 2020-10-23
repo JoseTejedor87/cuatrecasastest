@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -62,23 +61,24 @@
                 </div>
             </section>
 
-            <section class="row page__block--regions">
+            <section class="row page__block--centered">
                 <div class="col">
-                    <p>Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente </p>
+                    <p>{{ 'firm.social.header_content' |trans}}</p>
                 </div>
             </section>
 
-            {% include 'web/shared/overview-probono.html.twig' %}
-            {% include 'web/shared/info-6boxes.html.twig' %}
-            {% include 'web/shared/overview-diversity.html.twig' %}
-            {% include 'web/shared/collections-firm_CMP.html.twig' %}
-            {% include 'web/shared/asociaciones-firm.html.twig' %}
-            {% include 'web/shared/cta-fundation_CMP.html.twig' %}
-            {% include 'web/shared/cta-corporative_CMP.html.twig' %}
-            {% include 'web/shared/awards_CMP.html.twig' %}
-            {% include 'web/shared/related-content-slider_CMP.html.twig' %}
-
         </article>
+
+        {% include 'web/shared/overview-probono.html.twig' %}
+        {% include 'web/shared/info-social.html.twig' %}
+        {% include 'web/shared/overview-diversity.html.twig' %}
+        {% include 'web/shared/collections-firm.html.twig' %}
+        {# {% include 'web/shared/asociaciones-firm.html.twig' %} #}
+        {% include 'web/shared/cta-fundation_YML.html.twig' %}
+        {% include 'web/shared/cta-corporative_YML.html.twig' %}
+        {% include 'web/shared/awards_CMP.html.twig' %} {# no info #}
+        {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
+
     </main>
 
     {% include 'web/shared/cta-footer.html.twig' %}
@@ -92,6 +92,24 @@
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        // Load More Items
+        boxNumber = 6;
+        boxIncrement = 6;
+        boxItems = $("#loadMoreBoxes article").length;
+
+        $('#loadMoreBoxes').each(function() {
+            if ($(this).children('article').length >= 6) {
+                $(this).children('article:lt(6)').show();
+                $(this).children('article:gt(5)').hide();
+            }
+        });
+
+        $('#loadMore').click(function () {
+            boxNumber = (boxNumber+boxIncrement <= boxItems) ? boxNumber+boxIncrement : boxItems; $('#loadMoreBoxes article:lt('+boxNumber+')').show();
+            $(this).blur();
+            $(this).toggle(boxNumber < boxItems);
+        });
     });
 </script>
 {% endblock %}

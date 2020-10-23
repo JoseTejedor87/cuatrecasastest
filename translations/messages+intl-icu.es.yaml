@@ -24,12 +24,17 @@ global:
     portugal: Portugal
     global: Global
   messages:
-    page_not_found: Página no encontrada
+    error_404: Error 404
+    error_404_title: Página no encontrada
+    error_404_content: Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
+    error_404_button: Volver al inicio
     alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
+    show_filters: Ver filtros
+    load_more: Cargar más
     show_more: Ver más
-    show_sector: Ver Sector
-    show_service: Ver Servicios
     show_less: Ver menos
+    show_sector: Ver Sectores
+    show_service: Ver Servicios
     slider_next: Siguiente
     related_content: Contenido relacionado
 
@@ -66,6 +71,7 @@ sections:
       by_office: Por oficina
       by_category: Por categoria
       by_initial: Buscar por inicial
+      by_lawyerType: Por Cargo
       search_results: Resultados de la búsqueda
       search_results_txt1: Mostramos
       search_results_txt2: perfiles que encajan con la búsqueda
@@ -145,8 +151,8 @@ menu:
   services: Servicios
   sectors: Sectores
   career:
-    career: Carrera
-    live: Vive Cuatrecasas
+    career: Talento
+    live: ¡Vive Cuatrecasas!
     revolution: Revolución
     learn: Aprende con los mejores
     international: Carrera internacional
@@ -197,9 +203,9 @@ footer:
 # ###########################################
 reusable_blocks:
     cta_footer:
-      title: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico adaptado a tus necesidades
-      intro: Suscríbete a nuestra newsletter y recibe en tu e-mail la información y contenidos que  más te interesan
-      button: Selecciona tus intereses
+      title: Recibe en tu email el contenido jurídico que te interesa
+      intro: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico
+      button: Escoge tus intereses
     team:
       title: Equipo Cuatrecasas
       link: Ver equipo
@@ -208,7 +214,7 @@ reusable_blocks:
       title: Casos
       link: Ver más
 
-# Errors Messajes
+# Error Messages
 # ###########################################
 error:
   msg:
@@ -240,17 +246,185 @@ ch_cookie_consent:
   show_details: 'Mostrar detalles'
   hide_details: 'Ocultar detalles'
 
-
-## BLOCK FIRMA
+## BLOCK FIRM
 #################################################
-firma:
+firm:
   vision:
-    header_content: 'Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente'
-  overview:
+    header_content: Cuatrecasas es una firma de abogados con presencia en 14 países, con marcada implantación en España, Portugal y América Latina y experiencia en todas las áreas del derecho empresarial, con una clara especialidad sectorial y foco en el cliente.
+
+  social:
+    header_content: Favorecemos iniciativas que generen una contribución social de nuestra actividad, muy especialmente el asesoramiento jurídico pro bono. Procuramos que nuestros profesionales se involucren en iniciativas con impacto social.
+
+  environment:
+    header_content: Nuestro principal objetivo es reducir el impacto de nuestra actividad en el medioambiente, rebajando la huella de carbono. Esto implica un mejor uso de la tecnología para hacer más eficientes nuestro consumo energético y de recursos, y la puesta en marcha de políticas y programas concretos en nuestras oficinas.
+
+    resources:
+      title: Uso sostenible de los recursos
+      art_1:
+        title: Eficiencia energética
+        content: (i) Ajuste del consumo de las oficinas de Madrid y Barcelona, (ii) Certificación Leed en Madrid, Barcelona y Ciudad de México, (iii) Instalación de luces LED, (iv) Encendido y apagado de aire acondicionado y luces en edificios de las sedes principales, (v) Auditoría de cumplimiento RITE.
+      art_2:
+        title: Paper less
+        content: (i) Uso de papel sostenible, con certificado Ecolabel y PEFC, (ii) Medidas para la reducción del consumo, (iii) Actualización de equipos informáticos, (iv) Doble pantalla, (v) Sistema Follow me o mediante tarjeta, (vi) Digitalización de documentación.
+      art_3:
+        title: Uso de energías renovables
+        content: En Madrid y en Barcelona contamos con placas solares que nos ayudan a calentar el agua que usamos.  Esta conexión nos ayuda a satisfacer parte de nuestra demanda energética.
+      art_4:
+        title: Consumo de agua
+        content: (i) Instalación de difusores en el baño, (ii) Control de Legionela, (iii) Reducción de consumo de botellas de plástico (90% en Barcelona), (iv) Reciclaje de papel, cartón, vidrio, tóner, luminarias, aparatos electrónicos, contenedor higiénico, residuos biológicos del servicio médico y medicamentos, (v) Instalación de fuentes de agua en Madrid.
+      art_5:
+        title: Plástico de un solo uso
+        content: Eliminación del plástico de las oficinas con la sustitución de botellas y menaje por otros materiales reutilizables, reciclables o biodegradables.
+      art_6:
+        title: Reciclaje
+        content: Hemos impulsado una capaña para promover la Separación de los residuos según su naturaleza para favorecer su reutilización y o reciclado.
+      art_7:
+        title: Movilidad y desplazamientos
+        content: Fuimos la primera compañía adherida al carsharing corporativo de Respiro, que operará en Madrid y en Barcelona. Esta iniciativa busca minimizar el impacto ambiental de nuestros desplazamientos.
+      art_8:
+        title: Reducción de la huella de carbono
+        content: La naturaleza del negocio de Cuatrecasas tiene un impacto reducido en las emisiones de gases invernadero. Sin embargo, se están implantando medidas de movilidad sostenible y procesos más eficientes.
+      art_9:
+        title: Política de compras responsable
+        content: Priorizamos la contratación de proveedores comprometidos con aspetos medioambientales y pertenencia a índices de sostenibilidad.
+
+  governance:
+    header_content: Nos dedicamos al ejercicio de la abogacía cumpliendo siempre con la ley, las normas deontológicas y nuestro Código de Ética. Entendemos que la excelencia de nuestro asesoramiento legal es aquella que conseguimos al integrar calidad, eficiencia, honestidad y, también, nuestra contribución a la gestión responsable de las actividades de nuestros clientes.
+    values:
+      title: Valores de la firma
+      intro: Nuestros clientes y nuestros profesionales son nuestra razón de ser. Tenemos siempre en cuenta a nuestros clientes en todas las operaciones diarias mediante un Código de Ética basado en cinco pilares.
+      art_1:
+        title: EXCELENCIA
+        content: Tenemos una permanente vocación por aprender, renovarnos y adaptarnos para ofrecer el más alto estándar de calidad jurídica y generar la mejor experiencia con el cliente y con nuestros equipos.
+      art_2:
+        title: MÉRITO
+        content: Reconocemos el valor del esfuerzo individual y premiamos su contribución al conjunto.
+      art_3:
+        title: EFICIENCIA
+        content: Trabajamos de forma flexible e innovadora aprovechando todos nuestros recursos, y asegurando que todas nuestras tareas aportan valor directo al cliente y a nuestros equipos.
+      art_4:
+        title: COHESIÓN
+        content: Somos un equipo diverso que aúna el mejor talento para trabajar en torno a un proyecto común en interés del cliente; trabajamos en colaboración con generosidad y respeto.
+      art_5:
+        title: HONESTIDAD
+        content: Entregamos lo mejor de lo que somos capaces, resultado del conocimiento, de la labor de escuchar, la responsabilidad y la transparencia; rendimos cuentas de nuestra actividad.
+
+    ethics:
+      title: Ética y cumplimiento normativo
+      art_1:
+        title: Nuevo Código de Prevención del Acoso
+        content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos en esta materia, en línea con la mayor exigencia que Cuatrecasas ha decidido imponerse en la prevención y solución de estas conductas.
+      art_2:
+        title: Código de conducta para los usuarios de sistemas de información y dispositivos digitales
+        content: El Código de conducta informa a los Colaboradores de las normas de uso de los distintos sistemas de información y dispositivos digitales, con objeto de proteger y salvaguardar la seguridad de la información de la firma. Este código es aplicable tanto dentro como fuera de las instalaciones de Cuatrecasas.
+      art_3:
+        title: Código Ético y Deontológico
+        content: El cumplimiento normativo se estructura en el código de ética y deontología que es aplicable a todos los socios, abogados y colaboradores de la firma, y de todo el grupo Cuatrecasas. Accede a nuestro código ético y deontológico.
+      art_4:
+        title: Políticas de prevención del blanqueo y financiación del terrorismo
+        content: Cada tres meses todos los colaboradores de la firma deben suscribir el Código de Ética y Deontología y la política de Prevención del Blanqueo de Capitales y confirmar que conocen las políticas y conductas ahí expresados. La firma y sus abogados están sujetos a las normas deontológicas que rigen la profesión y a los canales de denuncia y queja de los colegios de abogados.
+      art_5:
+        title: Política de Seguridad de la Información
+        content: Tiene como objeto garantizar la confidencialidad, integridad, disponibilidad y privacidad de la información, así como el cumplimiento de las diferentes normas y requisitos aplicables vigentes en cada momento, manteniendo un equilibrio entre los niveles de riesgo y el uso eficiente de los recursos mediante criterios de proporcionalidad.
+      art_6:
+        title: Política de Feedback continuo
+        content: El nuevo modelo de desarrollo de los abogados apuesta por la transparencia y la corresponsabilidad a través de una herramienta de información actualizada y evaluación compartida.
+      art_7:
+        title: Rendición de cuentas
+        content: Medimos nuestro progreso y resultados en términos económicos, pero también en términos de nuestra responsabilidad corporativa. Rendimos cuentas periódicamente y mantenemos la mente abierta y el espíritu crítico para mejorar y responder a las expectativas de todos nuestros grupos de interés. Memoria 2017, Memoria 2018, Memoria 2019, Memoria 2020
+      art_8:
+        title: Política de relaciones con entidades del sector público
+        content: El objetivo de esta política es establecer las reglas y procedimientos que la firma ha definidio en las relaciones y contratación de servicios con las administraciones, empresas u otros organismos públicos, englobados en el concepto general de entidades del sector público.
+      art_9:
+        title: ISO 27001
+        content: En 2019 se ha obtenido la certificación ISO 27001, que acredita el Sistema de Gestión de Seguridad de la Información (SGSI) que Cuatrecasas tiene implementado para todos los procesos de negocio y soporte asociados al asesoramiento jurídico a clientes desarrollados en las oficinas de Cuatrecasas en España y Portugal.
+      art_10:
+        title: Canal ético
+        content: La firma cuenta con una herramienta que permite comunicar, de manera confidencial y a través de un sencillo formulario, aquellas actividades y conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro Código Ético.
+
+    people_management:
+      title: Gestión de personas
+      content: En nuestras relaciones internas respetamos nuestros códigos de conducta y de metodología como pautas de convivencia y garantía del mejor servicio a nuestros clientes. Nos preocupamos para que nuestros equipos tengan una vida saludable y plena procurando una cultura de trabajo flexible y eficiente y servicios de salud y bienestar que proporcionen el mejor servicio al cliente y equilibrio a nuestros colaboradores.
+      info:
+        pdf1: Decálogo de debres (pdf)
+        pdf2: Certificado LISMI Discert (pdf)
+        pdf3: Plan de igualdad (pdf)
+        pdf4: Prevención de riesgos, salud y bienestar (pdf)
+
+    team:
+      title: Consejo de administración
+      content: Conoce a los miembros de nuestro consejo de administración
+      link: Conoce al equipo
+      lawyer_1:
+        name: Alfonso Iglesia
+        position: Consejero
+        practice: Fusiones y Adquisiciones
+        place: Barcelona
+      lawyer_2:
+        name: Alfonso Iglesia
+        position: Consejero
+        practice: Fusiones y Adquisiciones
+        place: Barcelona
+      lawyer_3:
+        name: Alfonso Iglesia
+        position: Consejero
+        practice: Fusiones y Adquisiciones
+        place: Barcelona
+      lawyer_4:
+        name: Alfonso Iglesia
+        position: Consejero
+        practice: Fusiones y Adquisiciones
+        place: Barcelona
+      lawyer_5:
+        name: Alfonso Iglesia
+        position: Consejero
+        practice: Fusiones y Adquisiciones
+        place: Barcelona
+
+  innovation:
+    header_content: La innovación es parte de nuestro ADN. Cuatrecasas siempre ha estado a la vanguardia, aplicando los últimos procesos y recursos tecnológicos a la actividad legal, con el objetivo de aportar valor y eficiencia a nuestros clientes. Hemos hecho una apuesta decidida por la transformación digital y el fomento de la contribución de todos nuestros abogados al conocimiento colectivo.
+    media_center: Centro de medios
+    resources:
+      title: Transformación digital
+      art_1:
+        title: AI and legal prediction
+        content: Our AI platform enables us to review all types of documents in depth; discover and train a machine learning system; and efficiently organize the work for a team of lawyers.
+      art_2:
+        title: Shared Space
+        content: Nuestros clientes disponen de un espacio compartido en nuestro repositorio documental que habilita y agilizar el envío y recepción de documentación respetando los máximos estándares de seguridad.
+      art_3:
+        title: Smart working
+        content: Full capacity for flexible and remote working, with the most secure systems and ISO27001 certification.
+      art_4:
+        title: Case management
+        content: Hemos desarrollado nuestro propio sistema de gestión informática para litigios, que permite a los clientes acceso remoto 24/7 a los expedientes digitalizados de los procedimientos judiciales y arbitrales.
+      art_5:
+        title: Legal drafting tools
+        content: La automatización de nuestros documentos jurídicos nos permite ser más eficientes en el asesoramiento a nuestros clientes y garantizar un asesoramiento de la máxima calidad.
+      art_6:
+        title: Tokenitation
+        content: Pioneering initiative with blockchain-based tokens in exchange for legal services as a pilot program applied to the winning projects of the third edition of Cuatrecasas Acelera.
+      art_7:
+        title: SAP
+        content: Gracias a la tecnología SAP, conseguimos mejorar la eficiencia de nuestros procesos internos, lo que repercute positivamente en nuestros clientes.
+      art_8:
+        title: Tecnología y medio ambiente
+        content: Aprovechamos la tecnología digital para cuidar el medio ambiente y hemos implantado en algunas oficinas el programa piloto paperless – la oficina sin papel.
+    cases:
+      title: Casos destacados en materia de innocación
+      art_1:
+        title: Destacar caso de Biometric Vox
+      art_2:
+        title: Caso FT Naranjas
+      art_3:
+        title: Financiaciones innovadoras
+
+# overviews
+  overview_vision:
     art_1:
-      number: '+1600'
-      title: 'Profesionales'
-      content: 'Un equipo multidisciplinar y diverso, con profesionales de 25 nacionalidades.'
+      number: + 1600
+      title: Profesionales
+      content: Un equipo multidisciplinar y diverso, con profesionales de 25 nacionalidades.
     art_2:
       number: 14
       title: Países
@@ -260,14 +434,94 @@ firma:
       title: Especialidades
       content: Cubrimos todas las disciplinas del derecho de empresa.
     art_4:
-      number: 21
+      number: 21 *
       title: sectores de especialización
       content: Nos enfocamos en los sectores de actividad de nuestros clientes.
 
+  overview_probono:
+    title: Programa Pro Bono
+    content: La Fundación Cuatrecasas participa de forma activa con la Fundación ProBono España, ostentando la Presidencia del Comité Ejecutivo y la Vicepresidencia del Patronato.
+    art_1:
+      number: + 2.500
+      title: Horas
+      content: En 2019 nuestros abogados han contribuido con más de 2500 horas de asesoramiento.
+    art_2:
+      number: + 200
+      title: Abogados
+      content: Más de 200 abogados involucrados en el asesoramiento Pro bono de máxima calidad.
+    art_3:
+      number: + 30%
+      title: Incremento
+      content: En 2019 hemos logrado incrementar un 30% el número de horas dedicadas a asesoramiento Pro Bono, respecto a 2018.
+    art_4:
+      number: + 60
+      title: Entidades
+      content: Anualmente asesoramos a más de 60 fundaciones, patronatos y entidades sociales.
+
+  overview_diversity:
+    title: Diversidad y género
+    content: Apostamos por la diversidad cultural, sexual, generacional y de género. Defendemos la integración de personas con capacidades diferentes y buscamos prevenir cualquier manifestación de discriminación a través de mecanismos normativos y canales internos de denuncia.
+    art_1:
+      number: Equilibrio
+      title: Equilibrio
+      content: Promovemos de forma expresa el principio de presencia equilibrada de género en los procesos de designación de cargos directivos y predirectivos
+    art_2:
+      number: Liderazgo
+      title: Liderazgo
+      content: El 24% de cargos de responsabilidad lo desempeñan mujeres. Contamos con un plan de formación específico en competencias directivas
+    art_3:
+      number: Conciliación
+      title: Conciliación
+      content: Apostamos por la conciliación, especialmente en asociadas con hijos reduciéndoles un 5% su objetivo de horas facturables
+    art_4:
+      number: Inclusión
+      title: Inclusión
+      content: Impulsamos de manera activa la inclusión LGTBi+ y la integración laboral de personas con capacidades distintas
+
+  overview_innovation:
+    title: Nuestro centro de Conocimiento e innovación
+    intro: Nuestra Área de Conocimiento e Innovación ofrece actualizaciones y desarrollos legales adaptados a las necesidades de nuestros clientes.
+    art_1:
+      number: + 40
+      title: Colaboradores
+      content: Más de 40 académicos, abogados y especialistas ofrecen actualizaciones y desarrollos legales
+    art_2:
+      number: + 180
+      title: Entregables
+      content: Anualmente preparamos y enviamos más de 180 entregables y más de 70 newsletters jurídicas
+    art_3:
+      number: + 222
+      title: Abogados
+      content: Anualmente más de 200 abogados colaboran con nuestro equipo del ACI en más de 50 proyectos de innovación
+    art_4:
+      number: + 8.000
+      title: Alertas
+      content: Actualizamos más de 1000 modelos y criterios jurídicos y enviamos más de 8.000 alertas
+
+# collections
+  collections_social:
+    art_1:
+      title: Women in business
+      content: Cuatro ediciones de este evento dirigido a mujeres directivas, cuyos objetivos son la (i) presencia femenina en los puestos de dirección, (ii) liderazgo inclusivo, (iii) transformación digital y liderazgo femenino, (iv) soft Skills e inteligencia emocional.
+    art_2:
+      title: Comité de igualdad
+      content: La firma trabaja con firmeza y determinación para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres. La Comisión de Igualdad ha trazado el Plan de Igualdad para este fin y para promocionar el talento femenino.
+      link: 18 medidas
+    art_3:
+      title: Adhesión a Redi
+      content: En julio de 2019 nos adherimos a REDI, red de profesionales y expertos en diversidad y recursos humanos interesados en promover la inclusión LGBTI en el contexto empresarial.
+    art_4:
+      title: Prevención del acoso
+      content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos. Además, la firma cuenta con un canal de denuncias que permite comunicar, de manera confidencial, conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro código ético.
+    art_5:
+      title: Inclusión
+      content: Cumplimos las obligaciones derivadas de la LGDP a través de la contratación directa (el 0,71% de la plantilla) y de medidas alternativas para su cumplimiento. Hemos apostado por la contratación de CETs durante el 2019 con una aportación de 571.169€. Además, disponemos del certificado plata Discert como empresa responsable con la accesivilidad universal de las personas con discapacidad.
+
+# info boxes
   info_firma:
     art_1:
-      title: 'Servicios y Sectores de Cuatrecacsas'
-      content: 'Accede a todas nuestros servicios y sectores de especialización y conoce nuestra experiencia más destacada.'
+      title: Servicios y Sectores de Cuatrecacsas
+      content: Accede a todas nuestros servicios y sectores de especialización y conoce nuestra experiencia más destacada.
     art_2:
       title: Equipo
       content: Visita el perfil de nuestros abogados y filtra por especialidad u oficina.
@@ -275,25 +529,305 @@ firma:
       title: Territorios
       content: Localiza nuestras oficinas, regiones de influencia, desks y política internacional.
 
-  award:
-    head_title: Premios
+  info_social:
+    title: Iniciativas de acción social
     art_1:
-      title: 'Firma más innovadora de Europa continental'
-      date: Financial Times, 2019
+      title: Red Española de Pacto Mundial
+      content: Cuatrecasas se adhirió a los Diez principios de la Red Española de Pacto Mundial en 2002.
     art_2:
-      title: 'Firma más innovadora de Europa continental'
-      date: Financial Times, 2018
+      title: Forética
+      content: Cuatrecasas es socio y líder del clúster de transparencia y buen gobierno. También participa en el clúster de impacto social.
     art_3:
-      title: 'Tercera firma internacional más popular en Latinoamérica'
-      date: The Latin American Corporate Counsel Association, 2018, 2019
+      title: Fundación Seres
+      content: Socios de la Fundación, destinada a la mejora global de la realidad social.
     art_4:
-      title: 'Tercera mejor empresa para trabajar, según los estudiantes de Derecho'
-      date: Universum & People Matters, 2020
+      title: Formación
+      content: Colaboramos con programas formativos como el (i) Aula de Emprendedores Fundación Prevent y Esade, (ii) Diploma de Especialización Universitaria en Comunicación y Marketing de Acción Social de La Facultad de Comunicación y Relaciones Internacionales de Blanquerna (Universitat Ramón Llul) dirigido a profesionales de pequeñas y medianas entidades sin ánimo de lucro, y (iii) Fundación Girl Move Moçambique, apoyo a esta fundación mozambiqueña a favor de la educación de jóvenes a través de la financiación y la organización de prácticas en nuestra firma para mujeres recién licenciadas en Derecho.
+    art_5:
+      title: Cuatrecasas Sports Club
+      content: Cuatrecasas Sports Club fomenta la participación en iniciativas deportivas solidarias como la Carrera de la Mujer, la Carrera de la Cruz Roja, la Trail Antena Solidaria, la Carrera de las Empresas, Trailwalker Intermon Oxfam y Juegos Interempresas, aglutinando desde su creación en el 2017 más de 160 actividades propuestas y más de 2.300 dorsales gestionados con un total de más de 900 participantes.
+    art_6:
+      title: Rock’n’Law
+      content: Formamos parte de Rock’n’Law en Portugal (2008) y Rock and Law en España (2010). Es un festival de música solidario de captación de fondos cuya recaudación se destina íntegramente a una entidad social.
+    art_7:
+      title: Fundación Lealtad
+      content: Garantiza y supervisa la transparencia y buenas prácticas de las ONGs españolas. Asigna el sello de “ONG acreditada”.
+    art_8:
+      title: Medidas adoptadas para promover el empleo
+      content: Cuatrecasas participa en foros y ferias de empleo que organizan las universidades y otros centros de estudios, con el objetivo de acercar la práctica de un despacho de abogados a los estudiantes.
+    art_9:
+      title: Fundación Femarec
+      content: Somos secretarios del patronato. Promueve y difunde iniciativas sociales.
+    art_10:
+      title: Fundación Prodis
+      content: Promueve la inserción laboral de personas con discapacidad intelectual.
+    art_11:
+      title: Fundación Juan XXIII
+      content: Fundación dedicada a mejorar la calidad de vida de las personas adultas con discapacidad.
+    art_12:
+      title: Icaria Iniciatives socials
+      content: Promueve la educación e integración social de niños y adultos con discapacidad psíquica.
+    art_13:
+      title: Apoyodravet
+      content: Iniciativa solidaria de apoyo a los afectados por el Síndrome de Dravet.
+    art_14:
+      title: África digna
+      content: Programa de becas con la universidad de Kenia.
+    art_15:
+      title: Secondment
+      content: Secondment de dos estudiantes de derecho de la Strathmore University (Kenia) durante dos meses en el grupo de Litigación y Arbitraje (Madrid).
+    art_16:
+      title: Hora del Planeta
+      content: Una campaña mundial que empezó su andadura en 2007 en Sidney, impulsada por WWF Australia y que ahora suma a 190 países y territorios y millones de personas en todo el mundo durante un día.
+    art_17:
+      title: Donaciones
+      content: Más de 170.000 € donados a fundaciones y entidades sin ánimo de lucro.
 
+  info_governance:
+    art_1:
+      title: Gobierno corproativo y cumplimiento normativo
+      content:
+    art_2:
+      title: Memoria Corporativa
+      content:
+    art_3:
+      title: Fundación Cuatrecasas
+      content:
+
+  info_innovation:
+    title: Cultura de innovación
+    art_1:
+      title: New business models
+      content: Pioneers in finding legal solutions for new business models based on technology and digitalization, shared economy and e-commerce. Specialized teams in Fintech, E-travel, E-commerce, digital media, e-services, smart home, mobility.
+    art_2:
+      title: Disruption of traditional industries
+      content: Working with our clients in the process of digitalization and disruption of traditional business with a cross-functional approach and advice beyond legal.
+    art_3:
+      title: Involved in the startup universe
+      content: First European law firm to create a startup accelerator. Five editions later, we have worked on more than 25 projects, learned from each new challenge and adapted to new disciplines.
+    art_4:
+      title: Formación continua
+      content: Hemos dado un paso más en nuestro plan de capacitación tecnológica con los programas "Law for technology" y "Technology for law", dos programas formativos que facilitan a nuestros profesionales el uso de herramientas digitales y permiten conocer las novedades que están cambiando la abogacía de los negocios.
+
+  info_acelera:
+    art_1:
+      title: Tech Channel
+      content: Accede a las noticias, eventos y novedades jurídicas relacionadas con el mundo de la innovación legal.
+    art_2:
+      title: Technology & digital business
+      content: Descrubre nuestra práctica sectorial especializada en nuevas tecnologicas y negocios digitales.
+    art_3:
+      title: Cuatrecasas Acelera
+      content: La aceleradora especializada en legaltech más reconocida del mercado.
+
+# banners CTA
   cta_media:
     title: Centro de medios
-    content: 'Accede a las últimas notas de prensa y a nuestro contenido institucional disponible'
+    content: Accede a las últimas notas de prensa y a nuestro contenido institucional disponible.
+
+  cta_fundation:
+    title: Fundación Cuatrecasas
+    content: Las actividades de nuestra fundación forman parte de nuestra responsabilidad corporativa y se orientan a la realización del estado de derecho y la justicia.
+
+  cta_manuel_olivencia:
+    title: Manuel Olivencia
+    content: Hemos creado el Premio Manuel Olivencia al buen gobierno corporativo y una beca para apoyar la excelencia y la movilidad internacional de los estudiantes de Derecho.
+
+  cta_environment:
+    content: Declaración del presidente ejecutivo sobre la RSC de Cuatrecasas.
+    button: Acceder
 
   memory_corp:
     title: Memoria corporativa
     content: Conoce la actividad más relevante de Cuatrecasas en el último año, con la mirada puesta en la gestión ética, responsable y los servicios de valor.
+
+# Insights
+  insight_governance:
+    type: Insight
+    title: Principios de buen gobierno corporativa para empresas no cotizadas
+    content: Accede al último informe elaborado por el equipo de Buen Gobierno de la firma.
+
+  insight_innovation:
+    type: Insight
+    title: Lorem ipsum dolor
+    content: Lorem ipsum dolor sit amet consectetur adipisicing, elit.
+
+# miscell
+  award:
+    head_title: Premios
+    art_1:
+      title: Firma más innovadora de Europa continental
+      date: Financial Times, 2019
+    art_2:
+      title: Firma más innovadora de Europa continental
+      date: Financial Times, 2018
+    art_3:
+      title: Tercera firma internacional más popular en Latinoamérica
+      date: The Latin American Corporate Counsel Association, 2018, 2019
+    art_4:
+      title: Tercera mejor empresa para trabajar, según los estudiantes de Derecho
+      date: Universum & People Matters, 2020
+
+## BLOCK CAREER
+#################################################
+career:
+  send_cv: Enviar CV
+
+  quote:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_2:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_3:
+    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  learn:
+    intro: Learn lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
+    content:
+      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
+      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+
+  international:
+    intro: International lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
+    content:
+      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
+      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+
+# colections
+  collections_career_home:
+    art_1:
+      title: Vive Cuatrecasas
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Revolución
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  collections_career_international:
+    art_1:
+      title: What we look for
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Our practice areas
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+# info boxes
+  info_join_us:
+    title: Únete a nosotros
+    art_1:
+      title: Graduados
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Abogados
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Profesionales de organización
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_live:
+    art_0:
+      title: Well Being
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Environmental
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Social
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Governance
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_revolution:
+    art_0:
+      title: Diversidad
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Environmental
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Social
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Governance
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_revolution2:
+    art_0:
+      title: Smart Working
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: Tech Channel
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Premio FT
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Acelera Ventures
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_learn:
+    title: Special Programs
+    art_1:
+      title: Compendio
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Plan mentor
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_3:
+      title: Metas volantes
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_4:
+      title: PPAI
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_5:
+      title: PPA
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_international:
+    art_0:
+      title: Secondments
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+    art_1:
+      title: PPAI
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  info_join:
+    art_0:
+      title: Programas de prácticas
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, perferendis voluptatibus aut id amet.
+    art_1:
+      title: Our organization
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    art_2:
+      title: Nuestro proceso
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+    art_3:
+      title: FAQs
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
+# banners CTA
+  cta_learn:
+    title: Aprende con los mejores
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_live:
+    title: Lorem ipsum dolor
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_school:
+    title: Escuela de derecho
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_international:
+    title: Donde estamos
+    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+  cta_video:
+    title: Lorem, ipsum dolor sit amet, consectetur vídeo de 10 años

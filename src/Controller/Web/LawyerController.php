@@ -15,16 +15,19 @@ use App\Repository\SectorRepository;
 use App\Repository\PracticeRepository;
 use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
+use App\Repository\InsightRepository;
 use App\Repository\TrainingRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-// for download VSCARD 
+// for download VSCARD
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use App\Repository\GeneralBlockRepository;
 
+use App\Controller\Web\NavigationService;
 
 class LawyerController extends WebController
 {
@@ -35,7 +38,7 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository)
+    public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
         $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
@@ -46,11 +49,34 @@ class LawyerController extends WebController
         ]);
     }
 
-    public function index(Request $request,TranslatorInterface $translator, LawyerRepository $lawyerRepository, SectorRepository $sectorRepository, PracticeRepository $PracticeRepository, OfficeRepository $OfficeRepository, PublicationRepository $publicationRepository)
-    {
+    public function index(
+        Request $request,
+        TranslatorInterface $translator,
+        LawyerRepository $lawyerRepository,
+        SectorRepository $sectorRepository,
+        PracticeRepository $PracticeRepository,
+        InsightRepository $insightRepository,
+        OfficeRepository $OfficeRepository,
+        PublicationRepository $publicationRepository,
+        GeneralBlockRepository $generalBlockRepository,
+        NavigationService $navigation
+    ) {
+        $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
         $offices = $OfficeRepository->findAll();
+        $insightsPrior = $insightRepository->getInsightsPriorFor(['showLegalNoveltiesBlock' => true]);
+        $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true], ['id' => 'DESC']);
+        $totalInsights = [];
+        foreach ($insightsPrior as $key => $item) {
+            $totalInsights[$item->getId()] = $item;
+        }
+        foreach ($insightsAll as $key => $item) {
+            if (!isset($totalInsights[$item->getId()])) {
+                array_push($totalInsights, $item);
+            }
+        }
+
 
         $initial = $request->query->get('initial');
         $page = $request->query->get('page') ?: 1;
@@ -58,10 +84,12 @@ class LawyerController extends WebController
         $services = $request->query->get('services');
         $sector = $request->query->get('sector');
         $office = $request->query->get('office');
+        $lawyerType = $request->query->get('lawyerType');
+
 
         $relatedPublications = $publicationRepository->findByActivities('');
         $limit = 18;
-        if ($initial || $office || $sector || $services || $textSearch) {
+        if ($initial || $office || $sector || $services || $textSearch || $lawyerType) {
             $url= "";
             $query = $lawyerRepository->createPublishedQueryBuilder('l');
             if ($services) {
@@ -77,12 +105,21 @@ class LawyerController extends WebController
                     $url= $url . "&services=".$services;
                 }
             }
+            if ($lawyerType) {
+                $query = $query->andWhere('l.lawyerType = :lawyerType')
+                    ->setParameter('lawyerType', $lawyerType);
+                if ($url == "") {
+                    $url= "?lawyerType=".$lawyerType;
+                } else {
+                    $url= $url . "&lawyerType=".$lawyerType;
+                }
+            }
             if ($sector) {
                 $query = $query->innerJoin('l.activities', 's')
                     ->andWhere('s.id = :sector')
                     ->setParameter('sector', $sector);
-                $query = $query->innerJoin('l.secondaryActivities', 'ss')
-                    ->orWhere('ss.id = :sector')
+                $query = $query->innerJoin('l.secondaryActivities', 'ses')
+                    ->orWhere('ses.id = :sector')
                     ->setParameter('sector', $sector);
                 if ($url == "") {
                     $url= "?sector=".$sector;
@@ -91,7 +128,7 @@ class LawyerController extends WebController
                 }
             }
             if ($office) {
-                $query = $query->innerJoin('l.office', 'o')
+                $query = $query->innerJoin('l.office', 'of')
                     ->andWhere('l.office = :city')
                     ->setParameter('city', $office);
                 if ($url == "") {
@@ -118,7 +155,37 @@ class LawyerController extends WebController
                     $url= $url . "&initial=".$initial;
                 }
             }
-            $countLawyers = count($query->getQuery()->getResult());
+            $query->orderBy('l.lawyerType, l.surname', 'DESC');
+
+            $qb = clone $query;
+            $lawyersPrior = $lawyerRepository->priorBuilderClause($qb, 'l.office')->getQuery()->getResult();
+
+            $totalLawyers = [];
+            foreach ($lawyersPrior as $key => $item) {
+                $totalLawyers[$item->getId()] = $item;
+            }
+
+            $lawyersAll = $query->getQuery()->getResult();
+
+            foreach ($lawyersAll as $key => $item) {
+                if (!isset($totalLawyers[$item->getId()])) {
+                    array_push($totalLawyers, $item);
+                }
+            }
+
+
+            $lawyers = array_slice($totalLawyers, ($limit * ($page - 1)), $limit);
+
+            if ($totalLawyers) {
+                $countLawyers =count($totalLawyers);
+                $pagesTotal = $countLawyers/$limit;
+                
+                if (is_float($pagesTotal)) {
+                    $pagesTotal = intval($pagesTotal + 1);
+                }
+            }
+
+            /*
             $query = $query->setFirstResult($limit * ($page - 1))
                 ->setMaxResults($limit)
                 ->getQuery();
@@ -128,7 +195,7 @@ class LawyerController extends WebController
                 if (is_float($pagesTotal)) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }
-            }
+            }*/
         }
         if ($request->isXMLHttpRequest()) {
             $lawyerA = array();
@@ -141,7 +208,7 @@ class LawyerController extends WebController
                         $activities = $activities. ' ' . $activity->translate('es')->getTitle();
                     }
                     $lawyerA[$key]['activities'] = $activities;
-                    $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->getCity() : '';
+                    $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->translate($navigation->getLanguage())->getCity() : '';
                     $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid');
                 }
             }
@@ -161,11 +228,17 @@ class LawyerController extends WebController
             if ($services) {
                 $json['services'] = $services;
             }
+
             if ($sector) {
                 $json['sector'] = $sector;
             }
+
             return new JsonResponse($json);
         } else {
+            $sectors = $sectorRepository->getSectorsIfLawyers();
+            $offices = $OfficeRepository->getOfficesIfLawyers();
+            $practices = $PracticeRepository->getPracticesIfLawyers();
+
             return $this->render('web/lawyer/index.html.twig', [
                 'controller_name' => 'LawyerController',
                 'lawyers' => isset($lawyers) ? $lawyers : '',
@@ -177,6 +250,8 @@ class LawyerController extends WebController
                 'offices' => $offices,
                 'relatedPublications' => $relatedPublications,
                 'url' => isset($url) ? $url : '',
+                'career' => $blockCareer,
+                'insights' => $totalInsights
             ]);
         }
     }
@@ -193,28 +268,28 @@ class LawyerController extends WebController
         return $photo;
     }
 
-    public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository){
-        
+    public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository)
+    {
         $lawyer = $lawyerRepository->findOneBy(['id' => $request->attributes->get('id')]);
-        
+
         $filesystem = new Filesystem();
 
         $officeData = '';
-        if ($lawyer->getOffice() != null){
+        if ($lawyer->getOffice() != null) {
             $office = $officeRepository->findOneBy(['id' => $lawyer->getOffice()->getId()]);
-            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
-            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->getCity().';'.$office->getCp().';'.$office->getCountry()."\n";
+            $officeData .= 'ADR;TYPE=WORK,PREF:;;'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
+            $officeData .= 'LABEL;TYPE=WORK,PREF:'.$office->getAddress().';'.$office->translate($navigation->getLanguage())->getCity().';'.$office->getCp().';'.$office->translate($navigation->getLanguage())->getCountry()."\n";
             $officeData .= 'TEL;TYPE=WORK,VOICE:'.$office->getPhone()."\n";
         }
 
-        header('Content-Type: text/x-vcard;CHARSET=windows-1252');  
+        header('Content-Type: text/x-vcard;CHARSET=windows-1252');
         header('Content-Disposition: inline; filename= "'.$lawyer->getFullName().'.vcf'.'"');
 
 
 
-        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid')); 
+        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid'));
         $dataImage64 = base64_encode($img);
-        
+
         $dataString =   'BEGIN:VCARD'."\n".
                         'VERSION:3.0'."\n".
                         'N:'.$lawyer->getSurname().';'.$lawyer->getName()."\n".
@@ -233,12 +308,11 @@ class LawyerController extends WebController
         $dataString .=  'EMAIL:'.$lawyer->getEmail()."\n".
                         //'REV:'.$lawyer->getUpdateAt().
                         'END:VCARD';
-        $string_encoded = iconv( mb_detect_encoding( $dataString ), 'Windows-1252//TRANSLIT', $dataString );
+        $string_encoded = iconv(mb_detect_encoding($dataString), 'Windows-1252//TRANSLIT', $dataString);
 
-        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf',$string_encoded);
+        $filesystem->dumpFile('vcard_'.$lawyer->getFullName().'.vcf', $string_encoded);
         $file = new File('vcard_'.$lawyer->getFullName().'.vcf');
 
         return $this->file($file);
     }
-
 }
