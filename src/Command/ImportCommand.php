@@ -218,29 +218,7 @@ class ImportCommand extends Command
                 case "banner":
                     $this->Banner();
                 break; 
-                case "principal":
-                    $this->Lawyers();
-                    $this->Events();
-                    $this->Activities();
-                    $this->ActivitiesExcels();
-                    $this->Quote();
-                    $this->Office();
-                    $this->awards();
-                    $this->Pages();
-                    $this->Banner();
-                break;
-                case "relations":
-                    $this->PeopleByEvent();
-                    $this->ActivitiesByEvent();
-                    $this->EventPrograms();
-                    $this->PeopleByEventProgram();
-                    $this->OfficeByLawyer();
-                    $this->OfficeByEvents();
-                    $this->Mentions();
-                    $this->Trainings();
-                    $this->ActivityActivities();
-                    
-                break;
+
                 case "videos":
                     $this->Videos();
                 break;
@@ -271,7 +249,47 @@ class ImportCommand extends Command
                 break;            
                 case "eventos_responsables":
                     $this->EventosResponsables();
-                break;            
+                break;  
+                case "principal":
+                    $this->Lawyers();
+                    $this->Events();
+                    $this->Activities();
+                    $this->ActivitiesExcels();
+                    $this->Quote();
+                    $this->Office();
+                    $this->awards();
+                    $this->Pages();
+                    $this->Banner();
+                    $this->Videos();
+                    $this->News();
+                    $this->Publications();
+                break;
+                case "relations":
+                    $this->ArticlesAuthors();
+                    $this->ArticlesCategory();
+                    $this->PeopleByEvent();
+                    $this->ActivitiesByEvent();
+                    $this->EventPrograms();
+                    $this->PeopleByEventProgram();
+                    $this->OfficeByLawyer();
+                    $this->OfficeByEvents();
+                    $this->Mentions();
+                    $this->Trainings();
+                    $this->ActivityActivities();
+                    $this->OfficeLatitudeLongitude();
+                    $this->VideoPublicationsByLawyers();
+                    $this->VideoPublicationsByOffices();
+                    $this->PublicationsByLegislation();
+                    $this->EventosPreguntas();
+                    $this->EventosResponsables();
+                    $this->NewsByLawyers();
+                    $this->NewsByOffices();
+                    $this->NewsByActivities();
+                    $this->ArticlesPostFiles();
+                    $this->PublicationsByLawyers();
+                    $this->PublicationsByOffices();
+                    $this->PublicationsByActivities();
+                break;          
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));

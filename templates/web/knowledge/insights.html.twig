@@ -334,6 +334,7 @@
         function ajax(page) {
             var sectors = new Array();
             var services = new Array();
+            var collections = new Array();
             var type = new Array();
             var region = new Array();
             var date = new Array();
@@ -348,6 +349,9 @@
                 }
                 if(result[0] == "services"){
                     services.push($(this).val());
+                }
+                if(result[0] == "collections"){
+                    collections.push($(this).val());
                 }
                 if(result[0] == "type"){
                     type.push($(this).val());
@@ -371,7 +375,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date,format: format.toString(), page :page   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date, collections: collections.toString(),format: format.toString(), page :page   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -400,6 +404,13 @@
                         url= "?services="+msg['services'];
                     }else{
                         url= url + "&services="+msg['services'];
+                    }
+                }
+                if(msg['collections']){
+                    if(url == ""){
+                        url= "?collections="+msg['collections'];
+                    }else{
+                        url= url + "&collections="+msg['collections'];
                     }
                 }
                 if(msg['sector']){
