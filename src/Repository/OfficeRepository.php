@@ -43,4 +43,24 @@ class OfficeRepository extends PublishableEntityRepository implements Publishabl
         }
         return $offices;
     }
+
+    public function getOfficesByName(Request $request)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $region = $request->attributes->get('_region');
+        $language = $request->attributes->get('_locale');
+
+        $query = $entityManager->createQuery(
+            "SELECT o FROM App\Entity\Office o INNER JOIN o.translations t
+                WHERE o.regions LIKE :region AND o.languages LIKE :language AND t.locale LIKE :local
+                ORDER BY t.city ASC "
+        )->setParameters(array(
+                'language' => '%'.$language.'%',
+                'region' => '%'.$region.'%',
+                'local' => '%'.$language.'%',
+        ));
+
+        return $query;
+    }
 }
