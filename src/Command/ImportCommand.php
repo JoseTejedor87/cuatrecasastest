@@ -218,29 +218,7 @@ class ImportCommand extends Command
                 case "banner":
                     $this->Banner();
                 break; 
-                case "principal":
-                    $this->Lawyers();
-                    $this->Events();
-                    $this->Activities();
-                    $this->ActivitiesExcels();
-                    $this->Quote();
-                    $this->Office();
-                    $this->awards();
-                    $this->Pages();
-                    $this->Banner();
-                break;
-                case "relations":
-                    $this->PeopleByEvent();
-                    $this->ActivitiesByEvent();
-                    $this->EventPrograms();
-                    $this->PeopleByEventProgram();
-                    $this->OfficeByLawyer();
-                    $this->OfficeByEvents();
-                    $this->Mentions();
-                    $this->Trainings();
-                    $this->ActivityActivities();
-                    
-                break;
+
                 case "videos":
                     $this->Videos();
                 break;
@@ -271,7 +249,47 @@ class ImportCommand extends Command
                 break;            
                 case "eventos_responsables":
                     $this->EventosResponsables();
-                break;            
+                break;  
+                case "principal":
+                    $this->Lawyers();
+                    $this->Events();
+                    $this->Activities();
+                    $this->ActivitiesExcels();
+                    $this->Quote();
+                    $this->Office();
+                    $this->awards();
+                    $this->Pages();
+                    $this->Banner();
+                    $this->Videos();
+                    $this->News();
+                    $this->Publications();
+                break;
+                case "relations":
+                    $this->ArticlesAuthors();
+                    $this->ArticlesCategory();
+                    $this->PeopleByEvent();
+                    $this->ActivitiesByEvent();
+                    $this->EventPrograms();
+                    $this->PeopleByEventProgram();
+                    $this->OfficeByLawyer();
+                    $this->OfficeByEvents();
+                    $this->Mentions();
+                    $this->Trainings();
+                    $this->ActivityActivities();
+                    $this->OfficeLatitudeLongitude();
+                    $this->VideoPublicationsByLawyers();
+                    $this->VideoPublicationsByOffices();
+                    $this->PublicationsByLegislation();
+                    $this->EventosPreguntas();
+                    $this->EventosResponsables();
+                    $this->NewsByLawyers();
+                    $this->NewsByOffices();
+                    $this->NewsByActivities();
+                    $this->ArticlesPostFiles();
+                    $this->PublicationsByLawyers();
+                    $this->PublicationsByOffices();
+                    $this->PublicationsByActivities();
+                break;          
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -2623,16 +2641,15 @@ class ImportCommand extends Command
         // $this->em->getConnection()->executeQuery("DELETE FROM PublicationTranslation");
         // $this->em->getConnection()->executeQuery("DELETE FROM Publication WHERE type = 'news'");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
-
+        $publicationRepository = $this->em->getRepository(Publication::class);
         $processedPublicationMap = [];
         $processedAttachmentsMap = [];
 
         foreach ($publications as $key => $item) {
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
-
             if (isset($processedPublicationMap[$oldPublicationId])) {
-                $publicationRepository = $this->em->getRepository(Publication::class);
+                
                 $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
                 if ($publicationId) {
                     $publication = $publicationRepository->find($publicationId);
@@ -2653,7 +2670,6 @@ class ImportCommand extends Command
                 $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
                 $publication->setPublished(false);
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
-
                 if ($item['url_imagen']) {
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_imagen']])) {
                         $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_imagen']];
@@ -2695,13 +2711,12 @@ class ImportCommand extends Command
         // Attaching translations
         foreach ($publication_translations as $index => $item1) {
             $oldPublicationId = $item1['noticias_id'];
-            $publicationRepository = $this->em->getRepository(Publication::class);
             $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
-            if ($publicationId) {
-                $publication = $publicationRepository->find($publicationId);
-            } else {
-                continue;
-            }
+                if ($publicationId) {
+                    $publication = $publicationRepository->find($publicationId);
+                } else {
+                    continue;
+                }
             // $publication = isset($processedPublicationMap[$oldPublicationId]) ? $processedPublicationMap[$oldPublicationId] :  null;
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
@@ -2750,7 +2765,6 @@ class ImportCommand extends Command
 
 
                 // Is the last item in the collection
-                if ($index+1 == count($publication_translations)) {
                     if (!empty($publication->getLanguages())) {
                         $publication->setPublished(true);
                     }else{
@@ -2760,7 +2774,7 @@ class ImportCommand extends Command
                         $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                         $this->logger->debug("Updating Publication ".$publication->getId());
                     
-                }
+                
             }
         }
     }

@@ -177,7 +177,9 @@ class LawyerController extends WebController
             $lawyers = array_slice($totalLawyers, ($limit * ($page - 1)), $limit);
 
             if ($totalLawyers) {
-                $pagesTotal = count($totalLawyers)/$limit;
+                $countLawyers =count($totalLawyers);
+                $pagesTotal = $countLawyers/$limit;
+                
                 if (is_float($pagesTotal)) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }

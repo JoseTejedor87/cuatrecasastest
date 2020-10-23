@@ -168,30 +168,12 @@
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
                             <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
+                                    {% for insight in insights %}
                                     <div class="checkbox">
-                                        <input type="checkbox" id="collection-01" value=".collection-01">
-                                        <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
+                                        <input type="checkbox" id="collection-{{ insight.id }}" value="{{ insight.id }}">
+                                        <label class="checkbox-label" for="collection-{{ insight.id }}"><span>{{ insight.translate(app.request.getLocale()).title|raw  }}</span></label>
                                     </div>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="collection-02" value=".collection-02">
-                                        <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="collection-03" value=".collection-03">
-                                        <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="collection-04" value=".collection-04">
-                                        <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="collection-05" value=".collection-05">
-                                        <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="collection-06" data-name="" value=".collection-06">
-                                        <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                                 <div class="filters__apply">
                                     <button type="button" class="btn btn__naked apply_button">Aplicar</button>
@@ -333,6 +315,7 @@
         function ajax(page) {
             var sectors = new Array();
             var services = new Array();
+            var collections = new Array();
             var type = new Array();
             var region = new Array();
             var date = new Array();
@@ -347,6 +330,9 @@
                 }
                 if(result[0] == "services"){
                     services.push($(this).val());
+                }
+                if(result[0] == "collections"){
+                    collections.push($(this).val());
                 }
                 if(result[0] == "type"){
                     type.push($(this).val());
@@ -370,7 +356,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date,format: format.toString(), page :page   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date, collections: collections.toString(),format: format.toString(), page :page   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -399,6 +385,13 @@
                         url= "?services="+msg['services'];
                     }else{
                         url= url + "&services="+msg['services'];
+                    }
+                }
+                if(msg['collections']){
+                    if(url == ""){
+                        url= "?collections="+msg['collections'];
+                    }else{
+                        url= url + "&collections="+msg['collections'];
                     }
                 }
                 if(msg['sector']){
@@ -442,7 +435,7 @@
                 //$grid.masonry('reloadItems');
                 $grid.masonry('destroy');
                 msg['publications'].forEach(function(publication, i){
-                    item.find( "a" ).text(publication['title']);
+                     item.find( "a" ).text(publication['title']).attr('href', 'articulo/'+publication['Slug']);
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
                     if(style[i] != "grid__item--normal"){
@@ -450,6 +443,8 @@
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }
+                       
+                    
                     item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
                     item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
                     item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");
@@ -457,6 +452,8 @@
                     var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';
                     $grid.append(html);
                 });
+                $( ".grid__item--normal" ).find(".boxnews__img").hide();
+                //item.find( ".boxnews__img" ).hide();
                 $grid.masonry( masonryOptions );
                 //
                 $('.btn__viewmore').data("page",parseInt(msg['page'])+1);

@@ -18,8 +18,7 @@
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--{{ publication.type }}">
                                 <div class="boxnews__header">
-                                    <div class="boxnews__type">{{ publication.type }}</div>
-                                    <div class="boxnews__info">Education</div>
+                                    <div class="boxnews__type">{{ ('sections.knowledge.knowledgeTypes.'~publication.type) |trans }}</div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">
