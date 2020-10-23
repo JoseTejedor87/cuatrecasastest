@@ -21,25 +21,31 @@ use Doctrine\ORM\Query\Expr\Join;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use App\Controller\Web\NavigationService;
 
-
-
 class KnowledgeController extends WebController
 {
     protected $imagineCacheManager;
 
-    public function __construct(ContainerBagInterface $params,CacheManager $imagineCacheManager)
+    public function __construct(ContainerBagInterface $params, CacheManager $imagineCacheManager)
     {
         $this->params = $params;
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    public function index(Request $request, PublicationRepository $publicationRepository,SectorRepository $sectorRepository, InsightRepository $insightRepository,
-    PracticeRepository $practiceRepository,OfficeRepository $officeRepository, EventRepository $eventRepository, NavigationService $navigation)
-    {
-        $practices = $practiceRepository->findAll();
-        $sectors = $sectorRepository->findAll();
-        $offices = $officeRepository->findAll();
-        $insightsPrior = $insightRepository->getInsightsPriorFor(['showKnowledgeBlock' => true]);
-        $insightsAll = $insightRepository->findBy(['showKnowledgeBlock' => true],['id' => 'DESC'] );
+    public function index(
+        Request $request,
+        PublicationRepository $publicationRepository,
+        SectorRepository $sectorRepository,
+        InsightRepository $insightRepository,
+        PracticeRepository $practiceRepository,
+        OfficeRepository $officeRepository,
+        EventRepository $eventRepository,
+        NavigationService $navigation
+    ) {
+        $practices = $practiceRepository->getPracticeByName($request)->getResult();
+        $sectors = $sectorRepository->getSectorsByName($request)->getResult();
+        $offices = $officeRepository->getOfficesByName($request)->getResult();
+        $insightsPrior = $insightRepository->getInsightsByName($request)->getResult();
+
+        $insightsAll = $insightRepository->findBy(['showKnowledgeBlock' => true], ['id' => 'DESC']);
         $types = $this->params->get('app.publications_types');
         $formats = $this->params->get('app.publications_format');
 
@@ -56,57 +62,55 @@ class KnowledgeController extends WebController
 
 
         // dd($insights);
-        
-        
+
+
         $query = $publicationRepository->createPublishedQueryBuilder('p');
         // $query = $query->innerJoin('p.translations', 'pt')
         //                     ->andWhere("pt.title != :textSearch")
         //                     ->setParameter('textSearch', '""');
-        if($services){
+        if ($services) {
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
                            ->setParameter('activity', $services);
         }
-        if($sector){
+        if ($sector) {
             $query = $query->innerJoin('p.activities', 's')
                            ->andWhere('s.id in (:sector)')
                            ->setParameter('sector', $sector);
         }
-        if($office){
+        if ($office) {
             $query = $query->innerJoin('p.offices', 'o')
                            ->andWhere('o.id in (:city)')
                            ->setParameter('city', $office);
         }
-        if($type){
+        if ($type) {
             $typeA = explode(",", $type);
             foreach ($typeA as $key => $value) {
-                if($value == "news"){
-                    if(count($typeA)>1){
+                if ($value == "news") {
+                    if (count($typeA)>1) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\News');
-                    }else{
+                    } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\News');
                     }
-
                 }
-                if($value == "academy"){
-                    if(count($typeA)>1){
+                if ($value == "academy") {
+                    if (count($typeA)>1) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\Academy');
-                    }else{
+                    } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\Academy');
                     }
-
                 }
-                if($value == "opinion"){
-                    if(count($typeA)>1){
+                if ($value == "opinion") {
+                    if (count($typeA)>1) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
-                    }else{
+                    } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\Opinion');
                     }
                 }
-                if($value == "legalNovelty"){
-                    if(count($typeA)>1){
+                if ($value == "legalNovelty") {
+                    if (count($typeA)>1) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\LegalNovelty');
-                    }else{
+                    } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\LegalNovelty');
                     }
                 }
@@ -115,40 +119,39 @@ class KnowledgeController extends WebController
         //dd($query->getQuery());
         if ($format) {
             $query = $query->andWhere("p.format = :format")
-                            ->setParameter('format', $format );
+                            ->setParameter('format', $format);
         }
         if ($textSearch) {
             $query = $query->innerJoin('p.publicationTranslation', 'pt', Join::ON, 'pt.translatable_id = p.id')
                             ->andWhere("pt.title LIKE :textSearch")
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
-        if($date){
+        if ($date) {
             foreach ($date as $key => $value) {
                 $startdate = new \DateTime($value.'-01-01');
                 $enddate = new \DateTime($value.'-12-31');
-                $query = $query->orWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d H:i:s')."' AND  '".$enddate->format('Y-m-d H:i:s')."'")->orderBy('p.publication_date', 'DESC');;
-
+                $query = $query->orWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d H:i:s')."' AND  '".$enddate->format('Y-m-d H:i:s')."'")->orderBy('p.publication_date', 'DESC');
+                ;
             }
-
-        }else{
+        } else {
             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
 
         $qPriorizada = clone $query;
 
         // ZONE DE PRIORIZACION
-        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
         $qPriorizada->join('p.offices', 'o')
             ->andWhere('o.place = :place')
-            ->setParameter('place',  $place);
+            ->setParameter('place', $place);
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
         $rPriorizada = $qPriorizada->andWhere('p.publication_date > :date')
-                                    ->setParameter('date',$dateAux)
+                                    ->setParameter('date', $dateAux)
                                     ->getQuery()
                                     ->getResult();
-     
+
 
         // dd($rPriorizada);
         // no pude verificar que trajera alguna priorizada probar con datos reales
@@ -162,28 +165,26 @@ class KnowledgeController extends WebController
             $totalInsights[$item->getId()] = $item;
         }
 
-
-
         $results = $query->getQuery()->getResult();
 
 
         // se evitan  posisiones que pueden repetirse y se agrean al final el resto
         foreach ($results as $key => $item) {
-            if (!isset($totalPublications[$item->getId()])){
+            if (!isset($totalPublications[$item->getId()])) {
                 array_push($totalPublications, $item);
             }
         }
 
-          
+
         foreach ($insightsAll as $key => $item) {
-            if (!isset($totalInsights[$item->getId()])){
+            if (!isset($totalInsights[$item->getId()])) {
                 array_push($totalInsights, $item);
             }
         }
         //dd($insightsPrior);
 
-        $publications = array_slice($totalPublications,($limit * ($page - 1)),$limit);
-        
+        $publications = array_slice($totalPublications, ($limit * ($page - 1)), $limit);
+
         if ($totalPublications) {
             $pagesTotal = count($totalPublications)/$limit;
             if (is_float($pagesTotal)) {
@@ -194,17 +195,17 @@ class KnowledgeController extends WebController
 
         foreach ($publications as $key => $value) {
             $value->fechaPubli = $value->getPublicationDate()->format("j F Y");
-            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy){
+            if ($value instanceof \App\Entity\LegalNovelty || $value instanceof \App\Entity\Academy) {
                 $value->type = 'academy';
             }
-            if ($value instanceof \App\Entity\Opinion){
+            if ($value instanceof \App\Entity\Opinion) {
                 $value->type = 'opinion';
             }
-            if ($value instanceof \App\Entity\News){
+            if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
-            if(!$value->photo){
+            if (!$value->photo) {
                 $value->photo = 'https://via.placeholder.com/1600x900';
             }
         }
@@ -213,7 +214,7 @@ class KnowledgeController extends WebController
             $publicationsA = array();
             if (isset($publications)) {
                 foreach ($publications as $key => $publication) {
-                    if($publication->translate($navigation->getLanguage())->getTitle() != ''){
+                    if ($publication->translate($navigation->getLanguage())->getTitle() != '') {
                         // $url =  $this->container->get('router')->generate('publications_detail', array('slug' => $publication->translate('es')->getSlug() ? $publication->translate('es')->getSlug() : ''));
                         $publicationsA[$key] = array( 'title' => $publication->translate($navigation->getLanguage())->getTitle(), 'publicationType' => $publication->type, 'Slug' => $publication->translate('es')->getSlug(), 'Publication_date' => $publication->fechaPubli);
                         $publicationsA[$key]['photo'] = $publication->photo;
@@ -243,7 +244,7 @@ class KnowledgeController extends WebController
             }
 
             return new JsonResponse($json);
-        }else{
+        } else {
             return $this->render('web/knowledge/insights.html.twig', [
                 'controller_name' => 'KnowledgeController',
                 'sectors' => $sectors,
@@ -258,14 +259,12 @@ class KnowledgeController extends WebController
                 'insights' => $totalInsights,
             ]);
         }
-
     }
     protected function getPhotoPathByFilter($publication, $filter)
     {
         if ($photos = $publication->getAttachments()) {
             foreach ($photos as $key => $photo) {
-
-                if($photo->getType() == "publication_main_photo" || $photo->getType() == "article_main_photo"){
+                if ($photo->getType() == "publication_main_photo" || $photo->getType() == "article_main_photo") {
                     $photo = $this->imagineCacheManager->getBrowserPath(
                         '/resources/' . $photo->getFileName(),
                         $filter
@@ -274,7 +273,6 @@ class KnowledgeController extends WebController
                 }
             }
         }
-
     }
     public function featured()
     {
@@ -298,8 +296,4 @@ class KnowledgeController extends WebController
             'controller_name' => 'KnowledgeController',
         ]);
     }
-
-
-
-
 }
