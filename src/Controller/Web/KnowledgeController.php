@@ -141,7 +141,7 @@ class KnowledgeController extends WebController
                 ;
             }
         } else {
-            // $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
+             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
 
         $qPriorizada = clone $query;
@@ -219,7 +219,7 @@ class KnowledgeController extends WebController
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
             if (!$value->photo) {
-                $value->photo = 'https://via.placeholder.com/1600x900';
+                $value->photo = '/cuatrecasas/web/assets/img/360x460_generica_news.jpg';
             }
         }
 
