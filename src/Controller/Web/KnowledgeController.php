@@ -56,6 +56,7 @@ class KnowledgeController extends WebController
         $type = $request->query->get('type');
         $date = $request->query->get('date');
         $format = $request->query->get('format');
+        $collections = $request->query->get('collections');
         $relatedEvents = $eventRepository->findByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
@@ -126,6 +127,11 @@ class KnowledgeController extends WebController
                             ->andWhere("pt.title LIKE :textSearch")
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
+        if ($collections) {
+            $query = $query->innerJoin('i.insight', 'i')
+                           ->andWhere('i.id in (:collections)')
+                           ->setParameter('collections', $collections);
+        }
         if ($date) {
             foreach ($date as $key => $value) {
                 $startdate = new \DateTime($value.'-01-01');
@@ -186,7 +192,8 @@ class KnowledgeController extends WebController
         $publications = array_slice($totalPublications, ($limit * ($page - 1)), $limit);
 
         if ($totalPublications) {
-            $pagesTotal = count($totalPublications)/$limit;
+            $countPublications = count($totalPublications);
+            $pagesTotal = $countPublications/$limit;
             if (is_float($pagesTotal)) {
                 $pagesTotal = intval($pagesTotal + 1);
             }
@@ -235,6 +242,9 @@ class KnowledgeController extends WebController
             }
             if ($sector) {
                 $json['sector'] = $sector;
+            }
+            if ($collections) {
+                $json['collections'] = $collections;
             }
             if ($type) {
                 $json['type'] = $type;
