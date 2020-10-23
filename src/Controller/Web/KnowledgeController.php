@@ -80,8 +80,8 @@ class KnowledgeController extends WebController
                            ->setParameter('sector', $sector);
         }
         if ($office) {
-            $query = $query->innerJoin('p.offices', 'of')
-                           ->andWhere('of.id in (:city)')
+            $query = $query->innerJoin('p.offices', 'o')
+                           ->andWhere('o.id in (:city)')
                            ->setParameter('city', $office);
         }
 
@@ -141,16 +141,21 @@ class KnowledgeController extends WebController
                 ;
             }
         } else {
-            // $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
+             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
 
         $qPriorizada = clone $query;
 
         // ZONE DE PRIORIZACION
         $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
-        $qPriorizada->join('p.offices', 'o')
+        if ($office) {
+            $qPriorizada->andWhere('o.place = :place')
+            ->setParameter('place', $place);
+        } else {
+            $qPriorizada->join('p.offices', 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place', $place);
+        }
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
@@ -214,7 +219,7 @@ class KnowledgeController extends WebController
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
             if (!$value->photo) {
-                $value->photo = 'https://via.placeholder.com/1600x900';
+                $value->photo = '/cuatrecasas/web/assets/img/360x460_generica_news.jpg';
             }
         }
 
