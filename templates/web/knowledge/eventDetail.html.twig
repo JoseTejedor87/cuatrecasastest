@@ -285,7 +285,7 @@
 <script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
 <script>
     $(function () {
-        var enventIdGC =  {{ event.idGestorEventos ? event.idGestorEventos : '' }};
+        var enventIdGC =  {{ event.idGestorEventos ? event.idGestorEventos : 0 }};
         var enventId =  {{ event.id ? event.id : '' }};
         // EVENT BOX
         $('#eventMainInfo').hide();

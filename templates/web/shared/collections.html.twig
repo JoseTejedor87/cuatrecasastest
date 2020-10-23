@@ -13,7 +13,8 @@
                         </div>
                         <div class="boxnews__content">
                             <div class="boxnews__excerpt">
-                                {{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}
+                                {# si el bloque de texto viene del CMS no hace falta poner el tag <p></p>, en caso contrario hay que ponerlo #}
+                                <p>{{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}</p>
                                 {# {{ insight.translate(app.request.getLocale()).summary|raw }} #}
                             </div>
                             <div class="boxnews__action">

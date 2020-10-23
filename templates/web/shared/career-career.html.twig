@@ -2,23 +2,34 @@
     <div class="container">
         <div class="row page__section">
             <div class="col">
-                <h4 class="section__title section__title--career">Career</h4>
+                <h4 class="section__title section__title--career">{{ 'career.international_career.title'|trans}}</h4>
                 <div class="boxnews__list">
-                    <article class="boxnews__item boxnews__item--blockquote">
+                    {# <article class="boxnews__item boxnews__item--blockquote">
                         <blockquote class="cite__quote">
-                            <p>Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.</p>
-                            <cite>Ignacio Buil<br>Director oficina Londres</cite>
+                            <p>{{ 'career.international_career.block_1.content'|trans }}</p>
                         </blockquote>
-                    </article>
+                    </article> #}
                     <article class="boxnews__item boxnews__item--career">
                         <div class="boxnews__header">
-                            <div class="boxnews__type">Career</div>
-                            <div class="boxnews__info">17 febrero 2020</div>
+                            <div class="boxnews__type">Lorem ipsum</div>
                         </div>
                         <div class="boxnews__content">
                             <h5 class="boxnews__copy">
                                 <a href="#" class="boxnews__link">
-                                    Paula Benéitez se incorpora a Cuatrecasas en el departamento de gestión europea.
+                                    {{ 'career.international_career.block_1.content'|trans }}
+                                </a>
+                            </h5>
+                        </div>
+                    </article>
+                    <article class="boxnews__item boxnews__item--career">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Lorem</div>
+                            <div class="boxnews__info">17 lorem 2020</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <h5 class="boxnews__copy">
+                                <a href="#" class="boxnews__link">
+                                    {{ 'career.international_career.block_2.content'|trans }}
                                 </a>
                             </h5>
                             <div class="boxnews__photo">
@@ -30,7 +41,13 @@
                             </div>
                         </div>
                     </article>
-                    <article class="boxnews__item boxnews__item--event">
+                    <article class="boxnews__item boxnews__item--blockquote">
+                        <blockquote class="cite__quote">
+                            <p>{{ 'career.international_career.quote.title'|trans }}</p>
+                            <cite>{{ 'career.international_career.quote.author'|trans }}<br>{{ 'career.international_career.quote.position'|trans }}</cite>
+                        </blockquote>
+                    </article>
+                    {# <article class="boxnews__item boxnews__item--event">
                         <div class="boxnews__header">
                             <div class="boxnews__type">Evento</div>
                             <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
@@ -71,7 +88,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </article>
+                    </article> #}
                 </div>
             </div>
         </div>

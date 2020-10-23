@@ -521,7 +521,7 @@ events_detail2:
 career_home:
   path:
       en:   /career/career
-      es:   /carrera/carrera
+      es:   /talento/talento
       pt:   /career/career
       ge:   /career/career
   methods:    GET|POST
@@ -530,7 +530,7 @@ career_home:
 career_live:
   path:
       en:   /career/live-cuatrecasas
-      es:   /carrera/vive-cuatrecasas
+      es:   /talento/vive-cuatrecasas
       pt:   /career/live-cuatrecasas
       ge:   /career/live-cuatrecasas
   methods:    GET|POST
@@ -539,7 +539,7 @@ career_live:
 career_revolution:
   path:
       en:   /career/revolution
-      es:   /carrera/revolucion
+      es:   /talento/revolucion
       pt:   /career/revolution
       ge:   /career/revolution
   methods:    GET|POST
@@ -548,7 +548,7 @@ career_revolution:
 career_learn:
   path:
       en:   /career/learn-with-the-best
-      es:   /carrera/aprende-con-los-mejores
+      es:   /talento/aprende-con-los-mejores
       pt:   /career/learn-with-the-best
       ge:   /career/learn-with-the-best
   methods:    GET|POST
@@ -557,7 +557,7 @@ career_learn:
 career_international:
   path:
       en:   /career/international-career
-      es:   /carrera/carrera-internacional
+      es:   /talento/carrera-internacional
       pt:   /career/international-career
       ge:   /career/international-career
   methods:    GET|POST
@@ -566,7 +566,7 @@ career_international:
 career_join:
   path:
       en:   /career/join-us
-      es:   /carrera/unete-a-nosotros
+      es:   /talento/unete-a-nosotros
       pt:   /career/join-us
       ge:   /career/join-us
   methods:    GET|POST

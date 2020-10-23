@@ -114,6 +114,10 @@
 
         @include when-inside(".insight--carousel") {
             min-height: 490px;
+
+            @media(max-width: $max-width-4casas) {
+                min-height: auto;
+            }
         }
 
         @media(max-width: $max-width-4casas) {
