@@ -444,6 +444,8 @@
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }
+                       
+                    
                     item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
                     item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
                     item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");
@@ -451,6 +453,8 @@
                     var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';
                     $grid.append(html);
                 });
+                $( ".grid__item--normal" ).find(".boxnews__img").hide();
+                //item.find( ".boxnews__img" ).hide();
                 $grid.masonry( masonryOptions );
                 //
                 $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
