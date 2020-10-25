@@ -303,6 +303,15 @@ lawyers_vcard_download:
 
 # Insights
 # ###########################################
+insights_index:
+    path:
+        en:   /insights
+        es:   /insights
+        pt:   /insights
+        ge:   /insights
+    methods:    GET|POST
+    controller: App\Controller\Web\InsightController::index
+
 insights_detail:
     path:
         en:     /insights/{slug}

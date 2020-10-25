@@ -84,7 +84,6 @@ class KnowledgeController extends WebController
                            ->andWhere('o.id in (:city)')
                            ->setParameter('city', $office);
         }
-
         if ($type) {
             $typeA = explode(",", $type);
             foreach ($typeA as $key => $value) {
@@ -129,7 +128,7 @@ class KnowledgeController extends WebController
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
         if ($collections) {
-            $query = $query->innerJoin('p.insights', 'i')
+            $query = $query->innerJoin('i.insight', 'i')
                            ->andWhere('i.id in (:collections)')
                            ->setParameter('collections', $collections);
         }
@@ -141,25 +140,19 @@ class KnowledgeController extends WebController
                 ;
             }
         } else {
-             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
+            $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
 
         $qPriorizada = clone $query;
 
         // ZONE DE PRIORIZACION
         $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
-        if ($office) {
-            $qPriorizada->andWhere('o.place = :place')
-            ->setParameter('place', $place);
-        } else {
-            $qPriorizada->join('p.offices', 'o')
+        $qPriorizada->join('p.offices', 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place', $place);
-        }
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
-
         $rPriorizada = $qPriorizada->andWhere('p.publication_date > :date')
                                     ->setParameter('date', $dateAux)
                                     ->getQuery()
@@ -179,6 +172,7 @@ class KnowledgeController extends WebController
         }
 
         $results = $query->getQuery()->getResult();
+
 
         // se evitan  posisiones que pueden repetirse y se agrean al final el resto
         foreach ($results as $key => $item) {
@@ -219,7 +213,7 @@ class KnowledgeController extends WebController
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
             if (!$value->photo) {
-                $value->photo = '/cuatrecasas/web/assets/img/360x460_generica_news.jpg';
+                $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
             }
         }
 

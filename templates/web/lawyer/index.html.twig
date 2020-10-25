@@ -405,7 +405,7 @@ function ajax(page, initial) {
             $("#initial").val(initial);
         })
         .fail(function() {
-
+            $('.search__component__loader').fadeOut();
         });
 }
 
