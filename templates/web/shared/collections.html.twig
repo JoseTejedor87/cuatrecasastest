@@ -4,9 +4,8 @@
             <div class="col">
                 <h4 class="section__title section__title--insight">Colecciones</h4>
                 <div class="boxnews__list">
-
-                    {% for insight in insights %}
-
+                    {% for key,insight in insights %}
+                    {% if key <= 2 %}
                     <article class="boxnews__item">
                         <div class="boxnews__header">
                             <div class="boxnews__type">{{ insight.translate(app.request.getLocale()).title }}</div>
@@ -23,13 +22,13 @@
                             <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}')"></div>
                         </div>
                     </article>
-
+                    {% endif %}
                     {% endfor %}
 
                 </div>
                 <div class="viewmore__button">
                     <!-- <button type="button" class="btn btn__viewmore">Ver más colecciones</button> -->
-                    <a href="#" class="btn btn__viewmore">Ver más colecciones</a>
+                    <a href="{{ path('insights_index') }}" class="btn btn__viewmore">Ver más colecciones</a>
                 </div>
             </div>
         </div>
