@@ -17,6 +17,7 @@ use App\Repository\GeneralBlockRepository;
 use App\Controller\Web\WebController;
 use App\Repository\SOAPContactsClientRepository;
 use App\Controller\SOAPContactsClientController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class UserController extends WebController
