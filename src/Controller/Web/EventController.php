@@ -157,7 +157,7 @@ class EventController extends WebController
                 array_push($eventsCalendar,$array);
             }
         }
-        return $this->render('web/knowledge/events.html.twig', [
+        return $this->render('web/events/index.html.twig', [
             'controller_name' => 'KnowledgeController',
             'eventsCalendar' => json_encode($eventsCalendar),
             'events' => $events,
@@ -200,7 +200,7 @@ class EventController extends WebController
                 array_push($attachmentPublished,$attachment);
         }
 
-        return $this->render('web/knowledge/eventDetail.html.twig', [
+        return $this->render('web/knowledge/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
             'paises' => $paises,
