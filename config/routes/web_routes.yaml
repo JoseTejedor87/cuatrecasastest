@@ -58,7 +58,10 @@ gestorgetContactoWebtForm:
 # HOME
 # ###########################################
 home:
-    path: /
+    path: 
+        en:   /
+        es:   /
+        pt:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
@@ -106,7 +109,6 @@ knowledge_index:
         en:   /knowledge
         es:   /conocimiento
         pt:   /knowledge
-        ge:   /conocimiento
     methods:    GET|POST
     controller: App\Controller\Web\KnowledgeController::index
 
@@ -118,7 +120,6 @@ sectors_index:
         en:   /sectors
         es:   /sectores
         pt:   /sectors
-        ge:   /sectores
     methods:    GET|POST
     controller: App\Controller\Web\SectorController::index
 
@@ -149,7 +150,6 @@ services_index:
         en:   /services
         es:   /servicios
         pt:   /services
-        ge:   /services
     methods:    GET|POST
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
     defaults:
@@ -163,7 +163,6 @@ practices_index:
         en:   /practice-areas
         es:   /areas-de-practica
         pt:   /practice-areas
-        ge:   /practice-areas
     methods:    GET|POST
     controller: App\Controller\Web\PracticeController::index
 
@@ -183,7 +182,6 @@ desks_index:
        en:   /desks
        es:   /desks
        pt:   /desks
-       ge:   /desks
    methods:    GET|POST
    controller: App\Controller\Web\DeskController::index
 
@@ -203,7 +201,6 @@ products_index:
         en:   /other-services
         es:   /otros-servicios
         pt:   /other-services
-        ge:   /other-services
     methods:    GET|POST
     controller: App\Controller\Web\ProductsController::index
 
@@ -223,7 +220,6 @@ events_directory:
        en:   /events
        es:   /eventos
        pt:   /events
-       ge:   /events
    methods:      GET
    controller:   App\Controller\Web\EventController::index
 
@@ -279,7 +275,6 @@ lawyers_index:
         en:     /lawyers
         es:     /abogados
         pt:     /lawyers
-        ge:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::index
 
@@ -303,6 +298,14 @@ lawyers_vcard_download:
 
 # Insights
 # ###########################################
+insights_index:
+    path:
+        en:   /insights
+        es:   /insights
+        pt:   /insights
+    methods:    GET|POST
+    controller: App\Controller\Web\InsightController::index
+
 insights_detail:
     path:
         en:     /insights/{slug}

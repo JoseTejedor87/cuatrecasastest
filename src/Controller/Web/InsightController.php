@@ -20,18 +20,20 @@ class InsightController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    public function index(AwardRepository $awardRepository, InsightRepository $insightRepository)
+    public function index(AwardRepository $awardRepository, InsightRepository $insightRepository, EventRepository $eventRepository, PublicationRepository $publicationRepository)
     {
         $awards = $awardRepository->getAll();
         $insights = $insightRepository->findAll();
-
-
+        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedPublications = $publicationRepository->findByActivities('');
 
         $test = 'testc';
-        return $this->render('web/home/components.html.twig', [
+        return $this->render('web/insights/collections.html.twig', [
             'controller_name' => 'InsightController',
             'awards' => $awards,
             'testc' => $test,
+            'relatedEvents' => $relatedEvents,
+            'relatedPublications' => $relatedPublications,
             'insights' => $insights
         ]);
     }

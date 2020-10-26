@@ -36,8 +36,13 @@ class HomeRepository extends PublishableEntityRepository implements PublishableI
 
     public function getInstanceByRequest(Request $request)
     {
-        if ($slug = $request->attributes->get('id')) {
-            return $this->findOneBy(['id' => $slug]);
+
+        if ($id = $request->attributes->get('id')) {
+            return $this->createPublishedQueryBuilder('h')
+                    ->andWhere('h.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                   ->getOneOrNullResult();
         }
         return null;
     }
