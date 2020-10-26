@@ -39,6 +39,12 @@
                 <div class="row page__block--full">
                     <div class="col">
                         <h4 class="section__title section__title--main">{{ 'userForm.settings.title'|trans }}</h4>
+                        <div class="alert alert-success" style="display:none" role="alert">
+                            Formulario enviado
+                        </div>
+                        <div class="alert alert-danger" style="display:none" role="alert">
+                            Error en el envio del formulario, inténtelo más tarde
+                        </div>
                         <fieldset>
                             <legend>{{ 'userForm.settings.subTitleInfo'|trans }}</legend>
                             <div class="row">
@@ -91,7 +97,7 @@
                                     <div class="form-group col-lg-12">
                                         <select id="eRegion" class="form-control custom-select " data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
                                             <option value="" selected disabled>Provincia *</option>
-                                            {% if contacto.ProvinciaId %}
+                                            {% if contacto.ProvinciaId is defined %}
                                             {% if provincias|length > 0 %}
                                                 {% for value in provincias %}
                                                     {% if value['IdProvincia'] %}
@@ -187,7 +193,15 @@
 
         </article>
     </main>
-
+<!-- Loader -->
+<div class="search__component__loader" style="display:none">
+    <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+        </path>
+    </svg>
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -221,12 +235,11 @@
             });
         }, false);
 
-        $("#formSubmit").click( function(e) {
-            
-        });
+      
         function enviar() {
             $("#userForm .form-control").removeClass('is-valid');
             $("#userForm .form-control").removeClass('is-invalid');
+             $('.search__component__loader').fadeIn('fast');
             var contacto =  validation();
             if(contacto){
                 $.ajax({
@@ -234,13 +247,17 @@
                     data: { contacto: JSON.stringify(contacto)  },
                     url: "{{ path('set_contact_user') }}",
                     beforeSend: function( xhr ) {
-                       
+                      
                     }
                     })
                 .done(function( data ) {
+                    $('.search__component__loader').fadeOut();
+                    $('.alert-success').show();
                     return false;
                 })
                 .fail(function() {
+                    $('.alert-danger').show();
+                    $('.search__component__loader').fadeOut();
                 });
             }
         }
