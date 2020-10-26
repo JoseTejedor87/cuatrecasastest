@@ -17,6 +17,7 @@ use App\Entity\Office;
 use App\Form\ResourceFormType;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
+use App\Form\Type\OfficePlaceType;
 use App\Form\Type\MetaRobotsType;
 
 class OfficeFormType extends AbstractType
@@ -31,7 +32,8 @@ class OfficeFormType extends AbstractType
             ->add('fax', TextType::class, ['label'=>'entities.office.fields.fax'])
             ->add('phone', TextType::class, ['label'=>'entities.office.fields.phone'])
             ->add('status', IntegerType::class, ['label'=>'entities.office.fields.status'])
-            ->add('place', IntegerType::class, ['label'=>'entities.office.fields.place'])
+            ->add('place', OfficePlaceType::class, ['label'=>'entities.office.fields.place'])
+           // ->add('place', IntegerType::class, ['label'=>'entities.office.fields.place'])
             ->add('geographical_area', IntegerType::class, ['label'=>'entities.office.fields.geographical_area'])
             ->add('sap', TextType::class, ['label'=>'entities.office.fields.sap'])
             ->add('img_office', ResourceFormType::class, [
