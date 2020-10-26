@@ -179,7 +179,7 @@ class LawyerController extends WebController
             if ($totalLawyers) {
                 $countLawyers =count($totalLawyers);
                 $pagesTotal = $countLawyers/$limit;
-                
+
                 if (is_float($pagesTotal)) {
                     $pagesTotal = intval($pagesTotal + 1);
                 }
@@ -231,6 +231,10 @@ class LawyerController extends WebController
 
             if ($sector) {
                 $json['sector'] = $sector;
+            }
+
+            if ($lawyerType) {
+                $json['lawyerType'] = $lawyerType;
             }
 
             return new JsonResponse($json);

@@ -1,6 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
+<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -50,7 +51,7 @@
             </section>
 
             <!-- FILTERS -->
-            <section id="filterWrapper" class="row">
+            {# <section id="filterWrapper" class="row">
                 <div class="col-12">
                     <div id="filtersButton">
                         <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
@@ -99,6 +100,13 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">Servicios</a>
                             <div id="collapse02" class="collapse" aria-labelledby="heading02" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for practice in practices %}
                                         {% if practice.translate(app.request.getLocale()).title  %}
@@ -116,6 +124,13 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">Tipo</a>
                             <div id="collapse03" class="collapse" aria-labelledby="heading03" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for type in types %}
                                         {% if type  %}
@@ -134,6 +149,13 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
                             <div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for office in offices %}
                                         {% if office.translate(app.request.getLocale()).city  %}
@@ -151,6 +173,13 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Fecha</a>
                             <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for i in 2010..2020 %}
                                          <div class="checkbox">
@@ -167,13 +196,38 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
                             <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
-                                    {% for insight in insights %}
                                     <div class="checkbox">
-                                        <input type="checkbox" id="collection-{{ insight.id }}" data-name="{{ insight.translate(app.request.getLocale()).title }}" value="{{ insight.id }}">
-                                        <label class="checkbox-label" for="collection-{{ insight.id }}"><span>{{ insight.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                        <input type="checkbox" id="collection-01" value=".collection-01">
+                                        <label class="checkbox-label" for="collection-01"><span>Collection 01</span></label>
                                     </div>
-                                    {% endfor %}
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-02" value=".collection-02">
+                                        <label class="checkbox-label" for="collection-02"><span>Collection 02</span></label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-03" value=".collection-03">
+                                        <label class="checkbox-label" for="collection-03"><span>Collection 03</span></label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-04" value=".collection-04">
+                                        <label class="checkbox-label" for="collection-04"><span>Collection 04</span></label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-05" value=".collection-05">
+                                        <label class="checkbox-label" for="collection-05"><span>Collection 05</span></label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-06" data-name="" value=".collection-06">
+                                        <label class="checkbox-label" for="collection-06"><span>Collection 06</span></label>
+                                    </div>
                                 </div>
                                 <div class="filters__apply">
                                     <button type="button" class="btn btn__naked apply_button">Aplicar</button>
@@ -182,6 +236,13 @@
 
                             <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Formato</a>
                             <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
+                                <div class="filters__order">
+                                    <span>Ordenar por: </span>
+                                    <ul>
+                                        <li><a class="order_abc" href="#">orden alfabético</a></li>
+                                        <li><a class="order_pop" href="#">popular</a></li>
+                                    </ul>
+                                </div>
                                 <div class="chechbox__wrapper">
                                     {% for format in formats %}
                                         {% if format  %}
@@ -203,58 +264,133 @@
                 <!-- Selected tags -->
                 <div class="col-12" id="checksOutput" style="display:none">
                 </div>
-            </section>
+            </section> #}
 
-            <!-- MASONRY GRID JS -->
-            <section class="row page__section page__section--fullbg">
-                <div class="col-12">
-                    <h4 class="section__title section__title--recomended">Te recomendamos</h4>
-                </div>
-                <div class="col-12">
-                    <div class="grid__masonry">
-                        <div class="grid__sizer"></div>
-                        <div class="grid__gutter"></div>
-                        {% for key,publication in publications %}
-                            {% set style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"] %}
-                            {# {% set fecha = publication.publication_date |format_datetime('long', 'none',locale='es')|split(' ') %} #}
-                            <div class="grid__item {{ style[key] }}">
-                                <article class="boxnews__item boxnews__item--{{ publication.type  }}">
-                                    <div class="boxnews__header">
-                                        <div class="boxnews__type">{{ publication.type  }}
-                                        </div>
-                                        <div class="boxnews__info">
-                                        {{ publication.fechaPubli }}
-                                        </div>
+            <!-- COLLECTIONS GRID -->
+            <section class="boxnews boxnews--products boxnews--products--three">
+                <div class="row page__section">
+                    <div class="col">
+                        <div class="boxnews__list">
+                         {% for key,insight in insights %}
+                         <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="{{ path('insights_detail', {slug: insight.translate(app.request.getLocale()).slug}) }}" class="">{{ insight.translate(app.request.getLocale()).title }}</a>
                                     </div>
-                                    <div class="boxnews__content">
-                                        <h5 class="boxnews__copy">
-                                            <a href="articulo/{{ publication.translate(app.request.getLocale()).slug|raw  }}" class="boxnews__link">
-                                                {{ publication.translate(app.request.getLocale()).title|raw  }}
-                                            </a>
-                                        </h5>
-                                        {% if style[key] !=  "grid__item--normal"%}
-                                        <div class="boxnews__img" style="background-image: url('{{ publication.photo  }}')"></div>
-                                        {% endif %}
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        {{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}
                                     </div>
-                                </article>
-                            </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>            
                         {% endfor %}
+                            {# <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article>
+                            <article class="boxnews__item">
+                                <div class="boxnews__header">
+                                    <div class="boxnews__type">
+                                        <a href="#" class="">Lorem, ipsum dolor sit amet</a>
+                                    </div>
+                                </div>
+                                <div class="boxnews__content">
+                                    <div class="boxnews__excerpt">
+                                        Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Eaque, consectetur quae pariatur quam eum non necessitatibus architecto, distinctio fuga cum tempore perferendis, autem nesciunt animi magnam! Rerum et numquam ea.
+                                    </div>
+                                    <a href="#">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                    </a>
+                                </div>
+                            </article> #}
+                        </div>
+                        <div class="viewmore__button">
+                            <button type="button" class="btn btn__viewmore">{{ 'global.messages.load_more'|trans }}</button>
+                        </div>
                     </div>
                 </div>
-                {% if page < pagesTotal %}
-                <div class="col-12">
-                    <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">Cargar más</button>
-                    </div>
-                </div>
-                {% endif %}
             </section>
 
         </article>
     </main>
 
     {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications} %}
     {% include 'web/shared/collections.html.twig' with {insights: insights} %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
@@ -274,19 +410,8 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
-        // GRID
-        var masonryOptions = {
-            itemSelector: '.grid__item',
-            columnWidth: '.grid__sizer',
-            gutter: '.grid__gutter',
-            percentPosition: true
-        };
-        var $grid = $('.grid__masonry').masonry( masonryOptions );
-        $grid.masonry( masonryOptions );
-
         // FILTERS
         $(document).on('click', '.btn__viewmore', function(event){
             var page =  $(this).data("page");
@@ -315,7 +440,6 @@
         function ajax(page) {
             var sectors = new Array();
             var services = new Array();
-            var collections = new Array();
             var type = new Array();
             var region = new Array();
             var date = new Array();
@@ -330,9 +454,6 @@
                 }
                 if(result[0] == "services"){
                     services.push($(this).val());
-                }
-                if(result[0] == "collection"){
-                    collections.push($(this).val());
                 }
                 if(result[0] == "type"){
                     type.push($(this).val());
@@ -356,7 +477,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date, collections: collections.toString(),format: format.toString(), page :page   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date,format: format.toString(), page :page   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -385,13 +506,6 @@
                         url= "?services="+msg['services'];
                     }else{
                         url= url + "&services="+msg['services'];
-                    }
-                }
-                if(msg['collections']){
-                    if(url == ""){
-                        url= "?collections="+msg['collections'];
-                    }else{
-                        url= url + "&collections="+msg['collections'];
                     }
                 }
                 if(msg['sector']){
@@ -435,7 +549,7 @@
                 //$grid.masonry('reloadItems');
                 $grid.masonry('destroy');
                 msg['publications'].forEach(function(publication, i){
-                     item.find( "a" ).text(publication['title']).attr('href', 'articulo/'+publication['Slug']);
+                    item.find( "a" ).text(publication['title']);
                     item.find( ".boxnews__info" ).text(publication['Publication_date']);
                     item.find( ".boxnews__type" ).text(publication['publicationType']);
                     if(style[i] != "grid__item--normal"){
@@ -443,8 +557,6 @@
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }
-                       
-                    
                     item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
                     item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
                     item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");
@@ -452,8 +564,6 @@
                     var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';
                     $grid.append(html);
                 });
-                $( ".grid__item--normal" ).find(".boxnews__img").hide();
-                //item.find( ".boxnews__img" ).hide();
                 $grid.masonry( masonryOptions );
                 //
                 $('.btn__viewmore').data("page",parseInt(msg['page'])+1);

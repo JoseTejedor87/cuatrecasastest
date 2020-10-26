@@ -16,12 +16,13 @@ use App\Repository\HomeRepository;
 use App\Repository\GeneralBlockRepository;
 use App\Controller\Web\WebController;
 
+use App\Controller\Web\NavigationService;
 
 class HomeController extends WebController
 {
     public function index(Request $request, EventTranslationRepository $EventTranslationRepository, EventRepository $EventRepository,
              PublicationRepository $publicationRepository, BannerRepository $bannerRepository, SliderRepository $sliderRepository,
-              HomeRepository $homeRepository, GeneralBlockRepository $generalBlockRepository )
+              HomeRepository $homeRepository, GeneralBlockRepository $generalBlockRepository, NavigationService $navigation )
     {
         $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
         
@@ -44,9 +45,11 @@ class HomeController extends WebController
         }   
         //dd($sliderCorrect_ID_Order);
 
+        $request->attributes->set('id', 1);
+        $home = $homeRepository->getInstanceByRequest($request);
 
 
-        $home = $homeRepository->findOneBy(['id' => 1]);
+
         $events = $EventRepository->findBy([], ['startDate' => 'DESC'], 5);
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
 

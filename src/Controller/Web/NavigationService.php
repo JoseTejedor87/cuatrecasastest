@@ -131,6 +131,7 @@ class NavigationService
                 || $publishable instanceof \App\Entity\Event
                 || $publishable instanceof \App\Entity\Insight
                 || $publishable instanceof \App\Entity\Page
+                || $publishable instanceof \App\Entity\Home
                 || $publishable instanceof \App\Entity\Practice
                 || $publishable instanceof \App\Entity\Product
                 || $publishable instanceof \App\Entity\Sector) {
@@ -181,6 +182,9 @@ class NavigationService
             } elseif ($publishable instanceof \App\Entity\Office) {
                 $pathName = 'offices_detail';
                 $params['slug'] = $publishable->getSlug();
+            } elseif ($publishable instanceof \App\Entity\Home) {
+                $pathName = '';
+                $params['slug'] = $publishable->translate($language)->getSlug();                
             } elseif ($publishable instanceof \App\Entity\Page) {
                 $pathName = 'pages_detail';
                 $params['slug'] = $publishable->translate($language)->getSlug();
