@@ -510,6 +510,11 @@
             border-top-color: $opinion-color;
         }
 
+        @include when("legalNovelty") {
+            color: $legalNovelty-color;
+            border-top-color: $legalNovelty-color;
+        }
+
         @include when("event") {
             color: $event-color;
             border-top-color: $event-color;

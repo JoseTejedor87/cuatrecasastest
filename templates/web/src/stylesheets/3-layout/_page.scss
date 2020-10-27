@@ -1431,6 +1431,18 @@
     }
 }
 
+.gm-style .gm-style-cc span,
+.gm-style .gm-style-cc a,
+.gm-style .gm-style-mtc div {
+    font-size: 0px;
+    box-sizing: border-box;
+    // display: none !important;
+}
+
+.gm-style .gmnoprint > div {
+    display: none !important;
+}
+
 
 //
 // COOKIES

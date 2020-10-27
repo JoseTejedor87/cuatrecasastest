@@ -22,6 +22,11 @@ global:
     latam: Latinoamérica
     portugal: Portugal
     global: Global
+  places:
+    1: España
+    2: Portugal
+    3: Global
+    4: Latinoamérica
 
   messages:
     noRecordsFound: No se han encontrado registros

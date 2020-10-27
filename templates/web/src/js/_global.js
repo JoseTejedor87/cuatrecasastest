@@ -1,10 +1,28 @@
 // Global
 web.global = {
-    init: function(){ // Load all global functions here
+    init: function(){
         web.global.stickyMenu();
         web.global.mobileNav();
+        web.global.hoverMenu();
         web.global.loadMiscell();
         web.global.zoomAjust();
+    },
+
+    hoverMenu: function(){
+        $('#aboutNav .navbar-nav .dropdown').hover(function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn();
+            }, function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
+        });
+
+        // menu interactios (hover versus click)
+        // $('#about-nav .dropdown-menu')
+        //     .bind('mouseover', function(event) {
+        //         $(this).prev('.nav-link').addClass('active');
+        //     })
+        //     .bind('mouseleave', function(event) {
+        //         $(this).prev('.nav-link').removeClass('active');
+        // });
     },
 
     zoomAjust: function(){
@@ -101,15 +119,6 @@ web.global = {
     },
 
     stickyMenu: function(){
-         // menu interactios (hover versus click)
-        $('#about-nav .dropdown-menu')
-            .bind('mouseover', function(event) {
-                $(this).prev('.nav-link').addClass('active');
-            })
-            .bind('mouseleave', function(event) {
-                $(this).prev('.nav-link').removeClass('active');
-        });
-
         $('.lang-region-menu').hide();
 
         // region / lang switch
@@ -177,13 +186,13 @@ web.global = {
             checkWindowSize();
         });
 
-        // Mobile Nav - Hide logo
+        // Mobile Nav -> Hide logo
         $('#navMobileWrapper .navbar-toggler.navbar-open').click(function(e){
             e.preventDefault();
             $('#navMobileWrapper .navbar-brand').addClass('off');
         });
 
-        // Mobile Nav - Close all submenus & show logo
+        // Mobile Nav -> Close all submenus & show logo
         $('#navMobileWrapper .navbar-toggler.navbar-close').click(function(e){
             e.preventDefault();
             $('#navMobileWrapper .navbar-brand').removeClass('off');
@@ -311,5 +320,4 @@ web.global = {
     }
 }
 
-// Run the global stuff
 web.global.init();
