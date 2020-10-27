@@ -137,10 +137,10 @@
                 <!-- List Results -->
                 <div class="lawyer__search__wrapper lawyer__search__wrapper--grid" id="lawyerAjaxResults">
                     {% if lawyers == '' %}
-                    {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: [] } %}
+                    {% include '/web/lawyer/lawyerItem.html.twig' with { lawyer: [] } %}
                     {% endif %}
                     {% for lawyer in lawyers %}
-                    {% include '/web/lawyer/shared/lawyerItem.html.twig' with { lawyer: lawyer } %}
+                    {% include '/web/lawyer/lawyerItem.html.twig' with { lawyer: lawyer } %}
                     {% endfor %}
                 </div>
                 {% if pagesTotal > 1 %}

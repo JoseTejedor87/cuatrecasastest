@@ -255,7 +255,7 @@ class KnowledgeController extends WebController
 
             return new JsonResponse($json);
         } else {
-            return $this->render('web/knowledge/insights.html.twig', [
+            return $this->render('web/knowledge/index.html.twig', [
                 'controller_name' => 'KnowledgeController',
                 'sectors' => $sectors,
                 'practices' => $practices,
@@ -284,26 +284,5 @@ class KnowledgeController extends WebController
             }
         }
     }
-    public function featured()
-    {
-        return $this->render('web/knowledge/featured.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
 
-
-    public function productDetailKnowledge()
-    {
-        return $this->render('web/knowledge/productDetail.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
-
-    // TEMPORAL >>> BORRAR
-    public function filter()
-    {
-        return $this->render('web/knowledge/filter.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
 }
