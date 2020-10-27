@@ -27,7 +27,7 @@ class CaseStudyFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.case_study.fields.title', 'required'=>true],
+                    'title' => ['label'=>'entities.case_study.fields.title', 'required'=>true, 'empty_data' => ' '],
                     'slug' => ['label'=>'entities.case_study.fields.slug', 'required'=>false],
                     'summary' => ['label'=>'entities.case_study.fields.summary', 'attr'=>['class'=>'summernote']],
                     'description' => ['label'=>'entities.case_study.fields.description', 'attr'=>['class'=>'summernote']],

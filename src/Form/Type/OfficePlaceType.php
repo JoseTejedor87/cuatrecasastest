@@ -7,10 +7,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
-class LanguageType extends AbstractType
+class OfficePlaceType extends AbstractType
 {
     private $params;
-    const TRANSLATION_PREFIX = 'global.languages';
+    const TRANSLATION_PREFIX = 'global.places';
 
     public function __construct(ContainerBagInterface $params)
     {
@@ -19,10 +19,11 @@ class LanguageType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $labels = self::TRANSLATION_PREFIX;
         $resolver->setDefaults([
             'expanded' => true,
-            'multiple' => true,
-            'choices' => $this->params->get('app.languages'),
+            'multiple' => false,
+            'choices' => $this->params->get('app.office_place'),
             'choice_label' => function ($choice, $key, $value) {
                 return self::TRANSLATION_PREFIX . ".$value";
             },
