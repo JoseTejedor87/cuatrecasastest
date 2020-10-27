@@ -141,6 +141,7 @@ body {
     // Main options
     //
     #mainNav {
+        height: 55px;
         background-color: $main-color;
 
         .navbar-collapse {
@@ -339,6 +340,7 @@ body {
     // Contact, webs, city, langs
     //
     #contactNav {
+        height: 55px;
         background-color: $white;
 
         .navbar-brand {
