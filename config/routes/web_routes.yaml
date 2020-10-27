@@ -396,25 +396,7 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-#############################################################
 
-detail_office:
-    path:
-        en:   /regions/office-detail
-        es:   /territorios/detalle-oficina
-        pt:   /regions/office-detail
-        ge:   /regions/office-detail
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOffice
-
-detail_others:
-    path:
-        en:   /regions/office-others
-        es:   /territorios/detalle-otros
-        pt:   /regions/office-others
-        ge:   /regions/office-others
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOthers
 
 
 # FIRM

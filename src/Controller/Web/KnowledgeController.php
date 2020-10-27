@@ -184,10 +184,15 @@ class KnowledgeController extends WebController
 
         foreach ($insightsAll as $key => $item) {
             if (!isset($totalInsights[$item->getId()])) {
-                array_push($totalInsights, $item);
+                array_push($totalInsights, $item);  
             }
         }
-        //dd($insightsPrior);
+        //dd($totalInsights);
+        $insightsOrderToSend = [];
+        foreach ($totalInsights as $key => $value) {
+            array_push($insightsOrderToSend,$value);
+        }
+
 
         $publications = array_slice($totalPublications, ($limit * ($page - 1)), $limit);
 
@@ -266,7 +271,7 @@ class KnowledgeController extends WebController
                 'relatedEvents' => $relatedEvents,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
-                'insights' => $totalInsights,
+                'insights' => $insightsOrderToSend,
             ]);
         }
     }
