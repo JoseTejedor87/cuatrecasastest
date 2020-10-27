@@ -79,7 +79,7 @@
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <select id="month" class="custom__select">
+                                    <select id="month" class="custom__select" >
                                         <option disabled selected>Mes</option>
                                         <option value="1">Enero</option>
                                         <option value="2">Febrero</option>
@@ -131,219 +131,13 @@
                         </div>
                         <div id="eventCalendarList">
                         </div>
-                        <!-- Search results / no calendar -->
-                        <!-- <div id="eventList">
-                            <h3 class="fc-list-heading-main">16 marzo 2020 (bloque estático)</h3>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Barcelona</a></div>
-                                    <div class="event-date">16 febrero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Bilbao</a></div>
-                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
-                                            <li><a href="#">Elvira Azaola</a></li>
-                                            <li><span>Ignacio Javier Irigoyen</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Madrid</a></div>
-                                    <div class="event-date">17 a 19 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Albert Garrofé</a></li>
-                                            <li><a href="#">Sonia Velasco</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Lisboa</a></div>
-                                    <div class="event-date">10 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <div class="viewmore__button">
-                                <button type="button" class="btn btn__viewmore">Cargar más</button>
-                            </div>
-                        </div> -->
+                        
                     </div>
                 </div>
            </section>
 
-            <!-- Event list -->
-            <!-- <section class="event__wrapper">
-                <div class="row">
-                    <div class="col">
-                        <h4 class="section__title section__title--events">Listado eventos</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="event__wrapper__chooser">
-                            <button type="button" id="viewEventList" class="icon__button list active">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Calendar List">
-                            </button>
-                            <button type="button" id="viewEventCalendar" class="icon__button grid">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Office/Calender_03.png') }}" alt="Calendar Grid">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="eventCalendar" style="display:none"></div>
-                        <div id="eventList">
-                            <h2 class="fc-list-heading-main">4 de mayo de 2020</h2>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Barcelona</a></div>
-                                    <div class="event-date">16 febrero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Bilbao</a></div>
-                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
-                                            <li><a href="#">Elvira Azaola</a></li>
-                                            <li><span>Ignacio Javier Irigoyen</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Madrid</a></div>
-                                    <div class="event-date">17 a 19 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Albert Garrofé</a></li>
-                                            <li><a href="#">Sonia Velasco</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Lisboa</a></div>
-                                    <div class="event-date">10 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <div class="viewmore__button">
-                                <button type="button" class="btn btn__viewmore">Cargar más</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row contact">
-                    <div class="col-4">
-                        <p class="emphasis">
-                            Recibe en tu correo el calendario de <strong>Eventos</strong>
-                        </p>
-                    </div>
-                    <div class="col-8">
-                        <form action="" method="" class="email-subscribe">
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group flex-group">
-                                <div class="checkbox">
-                                    <input id="data-privacy" name="data-privacy" type="checkbox">
-                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
-                                </div>
-                                <button type="submit" class="doble__arrow__link">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section> -->
+
+  
     {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
     {% endif %}
@@ -372,80 +166,17 @@
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
+
 <script>
-    $(function () {
-        web.global.customSelects();
-        // EVENTS
-        var year = {{ (year) ? year : "" }};
-        var month = {{ (month) ? month : "" }};
-        newCalendar( {{ eventsCalendar |raw }},month,year);
-        $(document).on("click", ".fc-icon__button__prev-button .fc-icon-chevron-left", function(){
-            month = parseInt(month)-1;
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
+web.global.customSelects();
+// EVENTS
+var year = {{ (year) ? year : "" }};
+var month = {{ (month) ? month : "" }};
+newCalendar( {{ eventsCalendar |raw }},month,year);
 
-            })
-            .fail(function() {
-
-            });
-
-        });
-        $(document).on("click", ".fc-icon__button__next-button .fc-icon-chevron-right", function(){
-            month = parseInt(month)+1;
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
-
-            })
-            .fail(function() {
-
-            });
-
-        });
-        $(document).on("click", ".search_box__button", function(){
-            month = $("#month").val();
-            year = $("#year").val();
-            activity = $("#expertise").val();
-            office = $("#place").val();
-            title = $("#title").val();
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month, year: year, title: title, activity: activity, office: office  },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
-
-            })
-            .fail(function() {
-                console.log(data);
-            });
-
-        });
-    });
+var getEventUrl = "{{ path('get_events') }}";
 </script>
+
+<script type="text/javascript" src="{{ asset('web/assets/js/events.js') }}"></script>
+
 {% endblock %}
