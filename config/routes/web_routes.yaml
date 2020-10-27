@@ -58,13 +58,14 @@ gestorgetContactoWebtForm:
 # HOME
 # ###########################################
 home:
-    path: 
+    path:
         en:   /
         es:   /
         pt:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
+# NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
 components:
     path:
         en:   /components
@@ -72,7 +73,7 @@ components:
         pt:   /components
         ge:   /componentes
     methods:    GET|POST
-    controller: App\Controller\Web\InsightController::index
+    controller: App\Controller\Web\HomeController::components
 
 userSettings:
     path:

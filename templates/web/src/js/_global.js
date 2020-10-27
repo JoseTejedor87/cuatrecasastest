@@ -15,14 +15,16 @@ web.global = {
             $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
         });
 
-        // menu interactios (hover versus click)
-        // $('#about-nav .dropdown-menu')
-        //     .bind('mouseover', function(event) {
-        //         $(this).prev('.nav-link').addClass('active');
-        //     })
-        //     .bind('mouseleave', function(event) {
-        //         $(this).prev('.nav-link').removeClass('active');
-        // });
+        // menu interactios (hover versus click) -> not in use because of the delay
+        /*
+        $('#about-nav .dropdown-menu')
+            .bind('mouseover', function(event) {
+                $(this).prev('.nav-link').addClass('active');
+            })
+            .bind('mouseleave', function(event) {
+                $(this).prev('.nav-link').removeClass('active');
+        });
+        */
     },
 
     zoomAjust: function(){
@@ -30,6 +32,14 @@ web.global = {
             document.body.style.zoom = "100%";
             alert('zoom: ' + document.body.style.zoom);
         }
+
+        $(window).on('load', function(e) {
+            // zoomBrowser();
+            // alert('zoomBrowser');
+
+            // zoomFactor();
+            // alert('zoomFactor');
+        });
 
         // https://css-tricks.com/screen-resolution-notequalto-browser-window/
 
@@ -47,9 +57,11 @@ web.global = {
         document.body.style.transform = scale;     // General
         */
 
+        // imitate browser zoom with JavaScript
+        // https://stackoverrun.com/es/q/2766261
         /*
         // Set initial zoom level
-        var zoom_level=100;
+        var zoom_level = 100;
 
         // Click events
         $('#zoom_in').click(function() { zoom_page(10, $(this)) });
@@ -83,6 +95,7 @@ web.global = {
         */
 
         // https://stackoverflow.com/questions/1055336/changing-the-browser-zoom-level/12603229#12603229
+        /*
         function zoomFactor() {
             // var factor = 1.2;
 
@@ -108,14 +121,7 @@ web.global = {
                 }
             }
         }
-
-        $(window).on('load', function(e) {
-            // zoomBrowser();
-            // alert('zoomBrowser');
-
-            // zoomFactor();
-            // alert('zoomFactor');
-        });
+        */
     },
 
     stickyMenu: function(){
@@ -198,36 +204,15 @@ web.global = {
             $('#navMobileWrapper .navbar-brand').removeClass('off');
             $("#navMobile .collapse").collapse("hide");
         });
-
     },
 
     loadMiscell: function(){
-        // $('.button__bookmark').click(function(e){
-        //     e.preventDefault();
-        //     $(this).toggleClass('button__bookmark--on');
-        // });
-
-        // $('.no-link').click(function(e){
-        //     e.preventDefault();
-        // });
-
         $('#goBack').click(function(e){
             e.preventDefault();
             window.history.back();
         });
 
-        $('.doble__arrow__accordion').click(function(){
-            $(this).toggleClass('doble__arrow__accordion--on');
-
-            if ($(this).hasClass('doble__arrow__accordion--on')) {
-                // alert('on');
-            } else {
-                // alert('off');
-            }
-        });
-
-
-        // Show filters
+        // Show filters -> just for mobile
         showFilters();
 
         var showFiltersTimer; // delete maybe ¿?
@@ -256,6 +241,27 @@ web.global = {
             $('.filtersToggle').toggle();
             $(this).blur();
         });
+
+        // no implementado por el momento
+        /*
+        $('.button__bookmark').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('button__bookmark--on');
+        });
+        */
+
+        // integrado en cada página por tema de traducciones
+        /*
+        $('.doble__arrow__accordion').click(function(){
+            $(this).toggleClass('doble__arrow__accordion--on');
+
+            if ($(this).hasClass('doble__arrow__accordion--on')) {
+                // alert('on');
+            } else {
+                // alert('off');
+            }
+        });
+        */
     },
 
     customSelects: function(){
