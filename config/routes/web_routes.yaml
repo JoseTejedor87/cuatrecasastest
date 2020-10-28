@@ -351,49 +351,49 @@ publications_detail:
 
 # REGIONS
 # ###########################################
-# estas urls estan fijas para poder acceder desde el menu de navgacion luego se deberia reemplazar por la dinamica de manera exclusiva
+# estas urls estan fijas para poder acceder desde el menu de navegacion luego se deberia reemplazar por la dinamica de manera exclusiva
 regions_vision:
     path:
-        en:   /p/vision-general-1
-        es:   /p/vision-general
-        pt:   /p/vision-general-1
-        ge:   /p/vision-general-1
+        en:   /location/vision-general-1
+        es:   /territorios/vision-general
+        pt:   /location/vision-general-1
+        ge:   /location/vision-general-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_espana:
     path:
-        en:   /p/espana-1
-        es:   /p/espana
-        pt:   /p/espana-1
-        ge:   /p/espana-1
+        en:   /location/espana-1
+        es:   /territorios/espana
+        pt:   /location/espana-1
+        ge:   /location/espana-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_portugal:
     path:
-        en:   /p/portugal-1
-        es:   /p/portugal
-        pt:   /p/portugal-1
-        ge:   /p/portugal-1
+        en:   /location/portugal-1
+        es:   /territorios/portugal
+        pt:   /location/portugal-1
+        ge:   /location/portugal-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_latam:
     path:
-        en:   /p/latinoamerica-1
-        es:   /p/latinoamerica
-        pt:   /p/latinoamerica-1
-        ge:   /p/latinoamerica-1
+        en:   /location/latinoamerica-1
+        es:   /territorios/latinoamerica
+        pt:   /location/latinoamerica-1
+        ge:   /location/latinoamerica-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 regions_other_regions:
     path:
-        en:   /p/other-regions-1
-        es:   /p/other-regions
-        pt:   /p/other-regions-1
-        ge:   /p/other-regions-1
+        en:   /location/other-regions-1
+        es:   /territorios/other-regions
+        pt:   /location/other-regions-1
+        ge:   /location/other-regions-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
@@ -401,19 +401,19 @@ regions_other_regions:
 
 detail_office:
     path:
-        en:   /regions/office-detail
+        en:   /location/office-detail
         es:   /territorios/detalle-oficina
-        pt:   /regions/office-detail
-        ge:   /regions/office-detail
+        pt:   /location/office-detail
+        ge:   /location/office-detail
     methods:    GET|POST
     controller: App\Controller\Web\RegionsController::detailOffice
 
 detail_others:
     path:
-        en:   /regions/office-others
+        en:   /location/office-others
         es:   /territorios/detalle-otros
-        pt:   /regions/office-others
-        ge:   /regions/office-others
+        pt:   /location/office-others
+        ge:   /location/office-others
     methods:    GET|POST
     controller: App\Controller\Web\RegionsController::detailOthers
 
@@ -423,55 +423,55 @@ detail_others:
 
 firm_vision:
     path:
-        en:   /p/firm-vision-general-1
-        es:   /p/firm-vision-general
-        pt:   /p/firm-vision-general-1
-        ge:   /p/firm-vision-general-1
+        en:   /firm/vision-general-1
+        es:   /la-firma/vision-general
+        pt:   /firm/vision-general-1
+        ge:   /firm/vision-general-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_social:
     path:
-        en:   /p/social-1
-        es:   /p/social
-        pt:   /p/social-1
-        ge:   /p/social-1
+        en:   /firm/social-1
+        es:   /la-firma/social
+        pt:   /firm/social-1
+        ge:   /firm/social-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_environment:
     path:
-        en:   /p/medio-ambiente-1
-        es:   /p/medio-ambiente
-        pt:   /p/medio-ambiente-1
-        ge:   /p/medio-ambiente-1
+        en:   /firm/medio-ambiente-1
+        es:   /la-firma/medio-ambiente
+        pt:   /firm/medio-ambiente-1
+        ge:   /firm/medio-ambiente-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_governance:
     path:
-        en:   /p/buen-gobierno-1
-        es:   /p/buen-gobierno
-        pt:   /p/buen-gobierno-1
-        ge:   /p/buen-gobierno-1
+        en:   /firm/buen-gobierno-1
+        es:   /la-firma/buen-gobierno
+        pt:   /firm/buen-gobierno-1
+        ge:   /firm/buen-gobierno-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_innovation:
     path:
-        en:   /p/innovacion-1
-        es:   /p/innovacion
-        pt:   /p/innovacion-1
-        ge:   /p/innovacion-1
+        en:   /firm/innovacion-1
+        es:   /la-firma/innovacion
+        pt:   /firm/innovacion-1
+        ge:   /firm/innovacion-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
 firm_mediaCenter:
     path:
-        en:   /p/centro-de-medios-1
-        es:   /p/centro-de-medios
-        pt:   /p/centro-de-medios-1
-        ge:   /p/centro-de-medios-1
+        en:   /firm/centro-de-medios-1
+        es:   /la-firma/centro-de-medios
+        pt:   /firm/centro-de-medios-1
+        ge:   /firm/centro-de-medios-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 

@@ -89,7 +89,7 @@
                     </div>
                     <div class="page__block__content page__block__content--article">
                         {% if publication.urlVideo != ''  %}
-                            {% include 'web/shared/video.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
+                            {% include 'web/shared/video-article.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
                         <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
                         <div class="read__more">
