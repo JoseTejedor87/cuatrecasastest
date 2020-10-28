@@ -397,25 +397,7 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-#############################################################
 
-detail_office:
-    path:
-        en:   /regions/office-detail
-        es:   /territorios/detalle-oficina
-        pt:   /regions/office-detail
-        ge:   /regions/office-detail
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOffice
-
-detail_others:
-    path:
-        en:   /regions/office-others
-        es:   /territorios/detalle-otros
-        pt:   /regions/office-others
-        ge:   /regions/office-others
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOthers
 
 
 # FIRM
@@ -490,35 +472,6 @@ publications-api-media:
         es:   /publications-api/media
     methods:    GET|POST
     controller: App\Controller\APIController::media
-
-# TEMPORAL (BORRAR)
-##############################################
-productDetailServices:
-    path:
-        en:   /product-service
-        es:   /producto-servicio
-        pt:   /product-service
-        ge:   /product-service
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::productDetailServices
-
-fiscal:
-    path:
-        en:   /fiscal
-        es:   /fiscal
-        pt:   /fiscal
-        ge:   /fiscal
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::fiscal
-
-events_detail2:
-   path:
-       en:   /event
-       es:   /evento
-       pt:   /event
-       ge:   /event
-   methods:    GET|POST
-   controller: App\Controller\Web\KnowledgeController::detail2
 
 # CAREER
 ##############################################
