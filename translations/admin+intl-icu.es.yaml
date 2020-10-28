@@ -235,6 +235,8 @@ entities:
       activities: Sectores / Servicios / Desks
       offices: Oficinas
       people: Abogados
+      insights: Colecciones
+      legislations: Legislacion
       summary: Resumen
       content: Contenido
       caption: Subtitulo
@@ -268,6 +270,7 @@ entities:
       image: Imagen
       events: Eventos
       lawyers: Abogados
+      insights: Colecciones
       articles: Artículos
       activities: Sectores / Servicios / Desks
       relatedCaseStudies: Casos relacionados
@@ -291,6 +294,7 @@ entities:
       capacity: Aforo
       people: Personas
       office: Oficina
+      insights: Colecciones
       no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks

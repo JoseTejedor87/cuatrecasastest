@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
+use App\Entity\Legislation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -60,6 +62,34 @@ class PublicationFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($office) {
                     return $office->translate('es')->getCity();
+                }
+            ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.publication.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($insight) {
+                    return $insight->translate('es')->getTitle();
+                }
+            ])
+            ->add('legislations', EntityType::class, [
+                'class' => Legislation::class,
+                'label' => 'entities.publication.fields.legislations',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($legislations) {
+                    return $legislations->getName();
                 }
             ])
             ->add('people', EntityType::class, [

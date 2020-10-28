@@ -36,7 +36,7 @@
                         {% for sector in sectors %}
                             {% if sector.translate(app.request.getLocale()).title and sector.highlighted == 1 %}
                             <li class="buttons__list__column__item">
-                                <a class="btn__subcat" href="{{ relative_path('/'~app.request.getLocale()~'/activity/sectorDetail/')}}{{ (sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' ) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
+                                <a class="btn__subcat" href="{{ path('sectors_detail', {slug:sector.translate(app.request.getLocale()).slug ? sector.translate(app.request.getLocale()).slug : '' }) }}">{{ sector.translate(app.request.getLocale()).title|raw  }}</a>
                             </li>
                             {% endif %}
                         {% endfor %}

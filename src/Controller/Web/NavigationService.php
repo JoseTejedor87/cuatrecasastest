@@ -163,7 +163,7 @@ class NavigationService
         if (($publishable instanceof \App\Entity\Publishable) && $publishable->isPublished($language, $region)) {
             if ($publishable instanceof \App\Entity\Publication) {
                 $pathName = 'publications_detail';
-                $params['slug'] = $publishable->translate($language)->getSlug();
+                $params['slug'] = $publishable->translate($language)->getSlug() != null ? $publishable->translate($language)->getSlug() : '';
             } elseif ($publishable instanceof \App\Entity\CaseStudy) {
                 $pathName = 'case_studies_detail';
                 $params['slug'] = $publishable->translate($language)->getSlug();

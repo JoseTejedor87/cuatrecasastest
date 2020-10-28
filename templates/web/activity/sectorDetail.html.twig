@@ -22,7 +22,7 @@
                                     <a href="#">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ relative_path('/es/activity/sectorsHome')}}">Sectores</a></a>
+                                    <a href="{{ path('sectors_index') }}">Sectores</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ sector.translate(app.request.getLocale()).title|raw }}

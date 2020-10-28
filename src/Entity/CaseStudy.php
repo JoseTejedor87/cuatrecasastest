@@ -34,12 +34,18 @@ class CaseStudy extends Publishable
      */
     private $quote;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", inversedBy="caseStudies")
+     */
+    private $insights;
+
 
     public function __construct()
     {
         $this->lawyers = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->quote = new ArrayCollection();
+        $this->insights = new ArrayCollection();
     }
 
     /**
@@ -135,6 +141,32 @@ class CaseStudy extends Publishable
     {
         if ($this->quote->contains($quote)) {
             $this->quote->removeElement($quote);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
         }
 
         return $this;
