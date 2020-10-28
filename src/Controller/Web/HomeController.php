@@ -25,7 +25,7 @@ class HomeController extends WebController
               HomeRepository $homeRepository, GeneralBlockRepository $generalBlockRepository, NavigationService $navigation )
     {
         $bannerHome = $bannerRepository->findOneBy(['location' => 'home']);
-        
+
         $slidesOrdered = [];
         $slidesPrior = $sliderRepository->getAllByPriorityRegion($bannerHome->getId());
         $slidesAll = $sliderRepository->getAllByPriority($bannerHome->getId());
@@ -38,11 +38,11 @@ class HomeController extends WebController
             if (!isset($slidesOrdered[$item->getId()])){
                 array_push($slidesOrdered, $item);
             }
-        } 
+        }
         $sliderCorrect_ID_Order = [];
         foreach ($slidesOrdered as $value) {
             array_push($sliderCorrect_ID_Order, $value);
-        }   
+        }
         //dd($sliderCorrect_ID_Order);
 
         $request->attributes->set('id', 1);
@@ -62,7 +62,7 @@ class HomeController extends WebController
             print_r($item->translate('es')->getTitle()); die();
         }
         */
-        
+
         return $this->render('web/home/index.html.twig', [
             'events' => $events,
             'relatedPublications' => $relatedPublications,
@@ -74,17 +74,13 @@ class HomeController extends WebController
     }
 
 
-
-    public function components(AwardRepository $awardRepository)
+    // NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
+    public function components()
     {
-        $awards = $awardRepository->getAll();
         return $this->render('web/home/components.html.twig', [
-            'controller_name' => 'HomeController',
-            'awards' => $awards
+            'controller_name' => 'HomeController'
         ]);
     }
-
-
 
     public function institutoRRHH()
     {

@@ -58,13 +58,14 @@ gestorgetContactoWebtForm:
 # HOME
 # ###########################################
 home:
-    path: 
+    path:
         en:   /
         es:   /
         pt:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
+# NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
 components:
     path:
         en:   /components
@@ -72,7 +73,7 @@ components:
         pt:   /components
         ge:   /componentes
     methods:    GET|POST
-    controller: App\Controller\Web\InsightController::index
+    controller: App\Controller\Web\HomeController::components
 
 userSettings:
     path:
@@ -396,7 +397,25 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
+#############################################################
 
+detail_office:
+    path:
+        en:   /regions/office-detail
+        es:   /territorios/detalle-oficina
+        pt:   /regions/office-detail
+        ge:   /regions/office-detail
+    methods:    GET|POST
+    controller: App\Controller\Web\RegionsController::detailOffice
+
+detail_others:
+    path:
+        en:   /regions/office-others
+        es:   /territorios/detalle-otros
+        pt:   /regions/office-others
+        ge:   /regions/office-others
+    methods:    GET|POST
+    controller: App\Controller\Web\RegionsController::detailOthers
 
 
 # FIRM
@@ -471,6 +490,35 @@ publications-api-media:
         es:   /publications-api/media
     methods:    GET|POST
     controller: App\Controller\APIController::media
+
+# TEMPORAL (BORRAR)
+##############################################
+productDetailServices:
+    path:
+        en:   /product-service
+        es:   /producto-servicio
+        pt:   /product-service
+        ge:   /product-service
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::productDetailServices
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+        pt:   /fiscal
+        ge:   /fiscal
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::fiscal
+
+events_detail2:
+   path:
+       en:   /event
+       es:   /evento
+       pt:   /event
+       ge:   /event
+   methods:    GET|POST
+   controller: App\Controller\Web\KnowledgeController::detail2
 
 # CAREER
 ##############################################
