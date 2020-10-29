@@ -15,12 +15,12 @@
     {"titulo":"Medio Ambiente","custom_template":"firm/environment","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Buen Gobierno","custom_template":"firm/governance","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"innovación","custom_template":"firm/innovation","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
-    {"titulo":"Centro de medios","custom_template":"firm/media-center","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
-    {"titulo":"Talento","custom_template":"talent/talent","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
-    {"titulo":"Live","custom_template":"talent/live-cuatrecasas","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
+    {"titulo":"Media Center","custom_template":"firm/media-center","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
+    {"titulo":"Talent","custom_template":"talent/talent","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
+    {"titulo":"Live","custom_template":"talent/live","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Revolution","custom_template":"talent/revolution","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Learn","custom_template":"talent/learn","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"International","custom_template":"talent/international","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
-    {"titulo":"Join","custom_template":"talent/join-us","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]}    
+    {"titulo":"Join","custom_template":"talent/join","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]}    
 
 ]

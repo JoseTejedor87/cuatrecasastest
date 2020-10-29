@@ -427,25 +427,6 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-# OFFICES
-detail_office:
-    path:
-        en:   /location/office-detail
-        es:   /territorios/detalle-oficina
-        pt:   /location/office-detail
-        ge:   /location/office-detail
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOffice
-
-detail_others:
-    path:
-        en:   /location/office-others
-        es:   /territorios/detalle-otros
-        pt:   /location/office-others
-        ge:   /location/office-others
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOthers
-
 # FIRM
 # ###########################################
 firm_vision:
@@ -502,62 +483,16 @@ firm_mediaCenter:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-# CAREER
-# Temporal, hasta reubicar estas páginas
+# PAGES  TALENT ( EX CAREER )
 ##############################################
-career_home:
-  path:
-      en:   /career/career
-      es:   /talento/talento
-      pt:   /career/career
-      ge:   /career/career
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::career
-
-career_live:
-  path:
-      en:   /career/live-cuatrecasas
-      es:   /talento/vive-cuatrecasas
-      pt:   /career/live-cuatrecasas
-      ge:   /career/live-cuatrecasas
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::live
-
-career_revolution:
-  path:
-      en:   /career/revolution
-      es:   /talento/revolucion
-      pt:   /career/revolution
-      ge:   /career/revolution
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::revolution
-
-career_learn:
-  path:
-      en:   /career/learn-with-the-best
-      es:   /talento/aprende-con-los-mejores
-      pt:   /career/learn-with-the-best
-      ge:   /career/learn-with-the-best
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::learn
-
-career_international:
-  path:
-      en:   /career/international-career
-      es:   /talento/carrera-internacional
-      pt:   /career/international-career
-      ge:   /career/international-career
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::international
-
-career_join:
-  path:
-      en:   /career/join-us
-      es:   /talento/unete-a-nosotros
-      pt:   /career/join-us
-      ge:   /career/join-us
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::join
+talent:
+    path:
+        en:   /talent/{slug}
+        es:   /talent/{slug}
+        pt:   /talent/{slug}
+        ge:   /talent/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\PagesController::detail
 
 # BRANDS
 # Temporal, mantener hasta nueva fase del proyecto
