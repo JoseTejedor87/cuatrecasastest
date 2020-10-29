@@ -96,15 +96,6 @@ home:
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
-# NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
-components:
-    path:
-        en:   /components
-        es:   /componentes
-        pt:   /components
-        ge:   /componentes
-    methods:    GET|POST
-    controller: App\Controller\Web\HomeController::components
 
 # USER
 # ###########################################
