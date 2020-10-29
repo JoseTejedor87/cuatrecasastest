@@ -34,6 +34,8 @@ class PracticeController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($request->request->get('practice_form'));
+            die();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($practice);
             $practice->mergeNewTranslations();
@@ -59,14 +61,20 @@ class PracticeController extends CMSController
     {
         $form = $this->createForm(PracticeFormType::class, $practice);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($request->request->get('practice_form')['languages'] as $language) {
+                if ($request->request->get('practice_form')['translations'][$language]['title'] == '') {
+                    var_dump('ERROR');
+                    die();
+                }
+            }
             if (isset($request->request->get('practice_form')['photo'])) {
                 $photo = $request->request->get('practice_form')['photo'];
                 if (isset($photo['file']['delete']) && $photo['file']['delete'] == "1") {
                     $practice->setPhoto(null);
                 }
             }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('cms_practices_edit', ['id'=>$practice->getId()]);

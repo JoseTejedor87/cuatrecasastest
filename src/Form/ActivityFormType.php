@@ -32,10 +32,10 @@ abstract class ActivityFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
+                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true, 'empty_data' => ' '],
                     'slug' => ['label'=>'entities.activity.fields.slug'],
                     'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false, 'empty_data' => ''],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
@@ -63,14 +63,14 @@ abstract class ActivityFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'query_builder' => function (LawyerRepository $lr) {
-                                    return $lr->createQueryBuilder('l')
+                    return $lr->createQueryBuilder('l')
                                     ->join('l.activities', 'a')
                                     ->join('l.secondaryActivities', 'sa')
                                     ->where('a.id = :id_act')
                                     ->orWhere('sa.id = :id_act')
                                     ->setParameter('id_act', $this->id_act)
                                     ->orderBy('l.name', 'ASC');
-                        }
+                }
             ])
             ->add('quote', EntityType::class, [
                 'class' => Quote::class,
@@ -102,5 +102,4 @@ abstract class ActivityFormType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
-
 }

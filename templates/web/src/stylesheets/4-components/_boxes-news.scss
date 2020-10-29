@@ -510,6 +510,11 @@
             border-top-color: $opinion-color;
         }
 
+        @include when("legalNovelty") {
+            color: $legalNovelty-color;
+            border-top-color: $legalNovelty-color;
+        }
+
         @include when("event") {
             color: $event-color;
             border-top-color: $event-color;
@@ -1069,7 +1074,11 @@
                 max-height: 106px;
                 margin-bottom: 2rem;
                 overflow: hidden;
-                padding: 0 1rem 1rem 1rem;
+                padding: 0 2rem 1rem 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    padding: 0 1rem 1rem 1rem;
+                }
 
                 > * {
                     @include fontSet(22px, 26px);
@@ -1081,7 +1090,11 @@
             }
 
             @include when-inside(".boxnews--collections") {
-                padding: 0 1rem 1rem 1rem;
+                padding: 0 2rem 1rem 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    padding: 0 1rem 1rem 1rem;
+                }
 
                 > * {
                     @include fontSet(33px, 37px);

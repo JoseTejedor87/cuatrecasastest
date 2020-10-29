@@ -124,7 +124,7 @@ class EventController extends CMSController
                     $person->setSurname($value['Apellidos']);
                     $person->setInicial($value['Iniciales']);
                     $person->setType('secretaria');
-    
+
                 }
                 $event->addPerson($person);
             }

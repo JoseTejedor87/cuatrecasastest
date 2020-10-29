@@ -1,0 +1,196 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<!-- FullCalendar CSS -->
+<link href="{{ asset('web/vendor/fullcalendar/core/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/fullcalendar/list/main.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            Próximos eventos
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Conocimiento</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Eventos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <ul class="action__links">
+                        <li><a href="#"><i class="material-icons">share</i></a></li>
+                        <li><a href="#"><i class="material-icons">print</i></a></li>
+                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="search__component--global">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <form>
+                                <div class="search_box__wrapper">
+                                    <div class="search_box__name search_box__name--full">
+                                        <form >
+                                            <input type="text" class="form-control" placeholder="Buscar" id="title">
+                                            <div class="input-group">
+                                                <button class="search_box__button" type="button">
+                                                    <span class="icon4-lupa"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="filtersButton">
+                                    <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
+                                </div>
+                                <div class="search_selects filtersToggle">
+                                    <select id="office" class="custom__select">
+                                        <option disabled selected>Lugar</option>
+                                        {% for office in offices %}
+                                            {% if office.translate(app.request.getLocale()).city  %}
+                                                <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <select id="activity" class="custom__select">
+                                        <option disabled selected>Expertise</option>
+                                        {% for activity in activities %}
+                                            {% if activity.translate(app.request.getLocale()).title  %}
+                                                <option value="{{activity.id}}">{{ activity.translate(app.request.getLocale()).title|raw  }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <select id="month" class="custom__select" >
+                                        <option value="{{ "now"|date("m") }}" selected >{{ 'global.calendar.month' | trans }}</option>
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                    {% set actualYear =  "now"|date("Y") %}
+                                    <select id="year" class="custom__select">
+                                        <option value="{{ actualYear }}" selected>{{ 'global.calendar.year' | trans }}</option>
+                                        {% for i in 0..10 %}
+                                            <option value="{{ actualYear-i }}">{{ actualYear-i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Selected tags -->
+                    <p></p>
+                    <div class="col-12" id="checksOutput" style="display:none">
+                        <span id="checkbox-tag-title" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="title" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-office" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="office" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-activity" class="checkbox-tag" style="display:none"> 
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="activity" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-month" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="month" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-year" class="checkbox-tag" style="display:none;">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="year" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                    </div>
+
+                </div>
+
+
+
+            </section>
+
+            {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
+
+            <!-- Calendar -->
+            <section class="event__wrapper">
+                <div class="row" id="gridFocus">
+                    <div class="col">
+                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="externalTitle"></div>
+                        <div id="eventCalendar">
+                        </div>
+                        <div id="eventCalendarList">
+                        </div>
+                        
+                    </div>
+                </div>
+           </section>
+  
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
+            {% endif %}
+        </article>
+    </main>
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+    <!-- Loader -->
+    <div class="search__component__loader" style="display:none">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+            </path>
+        </svg>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
+<script>
+web.global.customSelects();
+// EVENTS
+
+var year = (year) ? year : {{  "now"|date("Y") }};
+var month = (month) ? month : {{ "now"|date("m")  }};
+
+newCalendar( {{ eventsCalendar |raw }},month,year);
+var getEventUrl = "{{ path('get_events') }}";
+
+</script>
+
+<script type="text/javascript" src="{{ asset('web/assets/js/events.js') }}"></script>
+
+{% endblock %}

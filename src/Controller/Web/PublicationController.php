@@ -33,7 +33,7 @@ class PublicationController extends WebController
         }
 
 
-        return $this->render('web/knowledge/articleDetail.html.twig', [
+        return $this->render('web/publication/detail.html.twig', [
             'publication' => $publication,
             'caseStudiesRelated'  => $caseStudiesRelated,
             'attachmentPublished' => $attachmentPublished,

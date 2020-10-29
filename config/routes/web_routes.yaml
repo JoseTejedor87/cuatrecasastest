@@ -58,14 +58,14 @@ gestorgetContactoWebtForm:
 # HOME
 # ###########################################
 home:
-    path: 
+    path:
         en:   /
         es:   /
         pt:   /
-        ge:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
+# NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
 components:
     path:
         en:   /components
@@ -73,7 +73,7 @@ components:
         pt:   /components
         ge:   /componentes
     methods:    GET|POST
-    controller: App\Controller\Web\InsightController::index
+    controller: App\Controller\Web\HomeController::components
 
 userSettings:
     path:
@@ -110,7 +110,6 @@ knowledge_index:
         en:   /knowledge
         es:   /conocimiento
         pt:   /knowledge
-        ge:   /conocimiento
     methods:    GET|POST
     controller: App\Controller\Web\KnowledgeController::index
 
@@ -122,7 +121,6 @@ sectors_index:
         en:   /sectors
         es:   /sectores
         pt:   /sectors
-        ge:   /sectores
     methods:    GET|POST
     controller: App\Controller\Web\SectorController::index
 
@@ -153,7 +151,6 @@ services_index:
         en:   /services
         es:   /servicios
         pt:   /services
-        ge:   /services
     methods:    GET|POST
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
     defaults:
@@ -167,7 +164,6 @@ practices_index:
         en:   /practice-areas
         es:   /areas-de-practica
         pt:   /practice-areas
-        ge:   /practice-areas
     methods:    GET|POST
     controller: App\Controller\Web\PracticeController::index
 
@@ -187,7 +183,6 @@ desks_index:
        en:   /desks
        es:   /desks
        pt:   /desks
-       ge:   /desks
    methods:    GET|POST
    controller: App\Controller\Web\DeskController::index
 
@@ -207,7 +202,6 @@ products_index:
         en:   /other-services
         es:   /otros-servicios
         pt:   /other-services
-        ge:   /other-services
     methods:    GET|POST
     controller: App\Controller\Web\ProductsController::index
 
@@ -227,7 +221,6 @@ events_directory:
        en:   /events
        es:   /eventos
        pt:   /events
-       ge:   /events
    methods:      GET
    controller:   App\Controller\Web\EventController::index
 
@@ -283,7 +276,6 @@ lawyers_index:
         en:     /lawyers
         es:     /abogados
         pt:     /lawyers
-        ge:     /lawyers
     methods:      GET
     controller:   App\Controller\Web\LawyerController::index
 
@@ -312,7 +304,6 @@ insights_index:
         en:   /insights
         es:   /insights
         pt:   /insights
-        ge:   /insights
     methods:    GET|POST
     controller: App\Controller\Web\InsightController::index
 
@@ -406,25 +397,7 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-#############################################################
 
-detail_office:
-    path:
-        en:   /regions/office-detail
-        es:   /territorios/detalle-oficina
-        pt:   /regions/office-detail
-        ge:   /regions/office-detail
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOffice
-
-detail_others:
-    path:
-        en:   /regions/office-others
-        es:   /territorios/detalle-otros
-        pt:   /regions/office-others
-        ge:   /regions/office-others
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOthers
 
 
 # FIRM
@@ -499,35 +472,6 @@ publications-api-media:
         es:   /publications-api/media
     methods:    GET|POST
     controller: App\Controller\APIController::media
-
-# TEMPORAL (BORRAR)
-##############################################
-productDetailServices:
-    path:
-        en:   /product-service
-        es:   /producto-servicio
-        pt:   /product-service
-        ge:   /product-service
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::productDetailServices
-
-fiscal:
-    path:
-        en:   /fiscal
-        es:   /fiscal
-        pt:   /fiscal
-        ge:   /fiscal
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::fiscal
-
-events_detail2:
-   path:
-       en:   /event
-       es:   /evento
-       pt:   /event
-       ge:   /event
-   methods:    GET|POST
-   controller: App\Controller\Web\KnowledgeController::detail2
 
 # CAREER
 ##############################################

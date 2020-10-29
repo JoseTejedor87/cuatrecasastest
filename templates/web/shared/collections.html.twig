@@ -5,7 +5,7 @@
                 <h4 class="section__title section__title--insight">Colecciones</h4>
                 <div class="boxnews__list">
                     {% for key,insight in insights %}
-                    {% if key <= 2 %}
+                    {% if key < 2 %}
                     <article class="boxnews__item">
                         <div class="boxnews__header">
                             <div class="boxnews__type">{{ insight.translate(app.request.getLocale()).title }}</div>

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +28,7 @@ class CaseStudyFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.case_study.fields.title', 'required'=>true],
+                    'title' => ['label'=>'entities.case_study.fields.title', 'required'=>true, 'empty_data' => ' '],
                     'slug' => ['label'=>'entities.case_study.fields.slug', 'required'=>false],
                     'summary' => ['label'=>'entities.case_study.fields.summary', 'attr'=>['class'=>'summernote']],
                     'description' => ['label'=>'entities.case_study.fields.description', 'attr'=>['class'=>'summernote']],
@@ -74,6 +75,19 @@ class CaseStudyFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($quote) {
                     return $quote->translate('es')->getBody();
+                }
+            ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.case_study.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($insights) {
+                    return $insights->translate('es')->getTitle();
                 }
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])

@@ -10,13 +10,34 @@
     .insights__header:before {
         background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}');
     }
+
+    /* START ZOOM BROWSER */
+    .info-box {
+        padding: 4rem 0;
+        text-align: center;
+    }
+    .pixel-ratio {
+        position: relative;
+        float:  right;
+        margin: auto;
+        text-align: right;
+        font-weight: bold;
+    }
+    .zoom-browser {
+        position: relative;
+        float:  left;
+        margin: auto;
+        text-align: left;
+        font-weight: bold;
+    }
+
+
 </style>
 {% endblock %}
 
 {% block main %}
 <main role="main">
     <article class="container">
-
         <!-- <header class="row insights__header">
             <div class="col-md-7 insights__header__info">
                 <h1 class="page__title">Componentes</h1>
@@ -42,7 +63,6 @@
                 </ul>
             </div>
         </header> -->
-
         <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_04_baja.jpg')| imagine_filter('full_header') }}')">
             <div class="col">
                 <div class="info__block">
@@ -69,6 +89,24 @@
         </header>
     </article>
 </main>
+
+
+
+
+<div class="container cmp-wrapper">
+    <div class="row">
+        <div class="col info-box">
+            {# <p>This example demonstrates the effect of zooming the page in and out (or moving it to a screen with a different scaling factor) on the value of the property <code>Window.devicePixelRatio</code>. Try it and watch what happens!</p> #}
+            <div class="pixel-ratio"></div>
+            <div class="zoom-browser"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <div class="container cmp-wrapper">
     <div class="row">
         <div class="col">
@@ -916,6 +954,48 @@
 <!-- Checkbox Filters -->
 <script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
 <script>
+
+    // START ZOOM BROWSER
+    // Monitoring screen resolution or zoom level changes
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio
+
+    let zoomBox = document.querySelector(".zoom-browser");
+    let pixelRatioBox = document.querySelector(".pixel-ratio");
+
+    let mqString = `(resolution: ${window.devicePixelRatio}dppx)`;
+
+    const updatePixelRatio = () => {
+        // let zoom = Math.round(window.devicePixelRatio * 100);
+        // let zoom = window.outerWidth / window.document.documentElement.clientWidth;
+        // let zoom = window.visualViewport.scale;
+        // let zoomString = Math.round(window.devicePixelRatio * 100);
+
+        // alert('availWidth:' + window.screen.availWidth);
+        // alert('availHeight:' + window.screen.availHeight);
+        // 1094x575
+
+        // alert('width:' + window.screen.width);
+        // alert('height:' + window.screen.height);
+        // 1094x615
+
+        let pr = window.devicePixelRatio;
+        let prString = (pr * 100).toFixed(0);
+        pixelRatioBox.innerText = `Pixel ratio: ${prString}% (${pr.toFixed(2)})`;
+
+        // if (window.screen.width == 1094 & window.screen.height == 615 & window.devicePixelRatio == 1.25) {
+        if (window.screen.width == 1280 & window.screen.height == 720 & window.devicePixelRatio == 1.5) {
+            document.body.setAttribute("id", "zoomBrowser");
+            zoomBox.innerText = `Zoom browser: 67%`;
+        } else {
+            document.body.removeAttribute("id");
+            zoomBox.innerText = `Zoom browser: 100%`;
+        }
+    }
+    updatePixelRatio();
+    matchMedia(mqString).addListener(updatePixelRatio);
+    // END ZOOM BROWSER
+
+
     $(function() {
         web.global.testimonials();
         web.global.customSelects();

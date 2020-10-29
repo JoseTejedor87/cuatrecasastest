@@ -68,7 +68,7 @@
                                     <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-03" aria-expanded="true" aria-controls="collapse-03">{{ 'sections.products.title'|trans }}</a>
                                 </div>
                                 <div id="collapse-03" class="collapse show" role="tabpanel" aria-labelledby="heading-03">
-                                    {% include 'web/services/shared/products-grid.html.twig'  %}
+                                    {% include 'web/products/products-grid.html.twig'  %}
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                 </div>
             </section>
 
-            {% include 'web/services/shared/products-tools.html.twig' %}
+            {% include 'web/products/products-tools_CMP.html.twig' %}
             {% if relatedPublications|length > 0 %}
                 {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
             {% endif %}

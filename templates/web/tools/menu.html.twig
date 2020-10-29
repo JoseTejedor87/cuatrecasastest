@@ -28,7 +28,8 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.career.career'|trans }}</a>
+                                {# <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.career.career'|trans }}</a> #}
+                                <a class="nav-link dropdown-toggle" href="{{ path('career_home') }}" role="button">{{ 'menu.career.career'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
                                     <li><a href="{{ path('career_home') }}">{{ 'menu.career.career'|trans }}</a></li>
                                     <li><a href="{{ path('career_live') }}">{{ 'menu.career.live'|trans }}</a></li>
@@ -39,7 +40,8 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.offices.offices'|trans }}</a>
+                                {# <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.offices.offices'|trans }}</a> #}
+                                <a class="nav-link dropdown-toggle" href="{{ path('regions_vision') }}" role="button">{{ 'menu.offices.offices'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
                                     <li><a href="{{ path('regions_vision') }}">{{ 'menu.offices.vision'|trans }}</a></li>
                                     <li><a href="{{ path('regions_espana') }}">{{ 'menu.offices.spain'|trans }}</a></li>
@@ -49,7 +51,8 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.firm.firm'|trans }}</a>
+                                {# <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.firm.firm'|trans }}</a> #}
+                                <a class="nav-link dropdown-toggle" href="{{ path('firm_vision') }}" role="button">{{ 'menu.firm.firm'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
                                     <li><a href="{{ path('firm_vision') }}">{{ 'menu.firm.vision'|trans }}</a></li>
                                     <li><a href="{{ path('firm_social') }}">{{ 'menu.firm.social'|trans }}</a></li>

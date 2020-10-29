@@ -39,9 +39,17 @@ body {
     //     transform-origin: 0 0;
     // }
 
+
     // zoom: 0.67;
     // -moz-transform: scale(0.67);
     // -moz-transform-origin: 0 0;
+
+    &#zoomBrowser {
+        background-color: cyan;
+        zoom: 0.67;
+        -moz-transform: scale(0.67);
+        -moz-transform-origin: 50% 0;
+    }
 
 }
 
@@ -63,8 +71,6 @@ a:focus {
 a:link {
     -webkit-tap-highlight-color: rgba(255,255,255,0);
 }
-
-
 
 
 //
