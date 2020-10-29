@@ -35,7 +35,11 @@
                                 <a class="nav-link dropdown-toggle" href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" role="button">{{ 'menu.career.career'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
                                     <li><a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a></li>
-
+                                    <li><a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}">{{ 'menu.career.live'|trans }}</a></li>
+                                    <li><a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}">{{ 'menu.career.revolution'|trans }}</a></li>
+                                    <li><a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}">{{ 'menu.career.learn'|trans }}</a></li>
+                                    <li><a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}">{{ 'menu.career.international'|trans }}</a></li>
+                                    <li><a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}">{{ 'menu.career.join'|trans }}</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -174,7 +178,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownCareer" data-toggle="collapse" data-target="#dropdownCareerId" aria-haspopup="true" aria-expanded="false">{{ 'menu.career.career'|trans }}</a>
                     <ul class="dropdown-menu collapse" aria-labelledby="dropdownCareer" id="dropdownCareerId" data-parent="#navMobile">
-
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'live'~slug_ext }) }}">{{ 'menu.career.live'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}">{{ 'menu.career.revolution'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}">{{ 'menu.career.learn'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'international'~slug_ext }) }}">{{ 'menu.career.international'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('talent',{ slug: 'join'~slug_ext }) }}">{{ 'menu.career.join'|trans }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
