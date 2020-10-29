@@ -55,6 +55,37 @@ gestorgetContactoWebtForm:
     methods:    GET|POST
     controller: App\Controller\TestController::getContactoWebtForm
 
+# TEMPORAL (BORRAR)
+##############################################
+productDetailServices:
+    path:
+        en:   /product-service
+        es:   /producto-servicio
+        pt:   /product-service
+        ge:   /product-service
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::productDetailServices
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+        pt:   /fiscal
+        ge:   /fiscal
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::fiscal
+
+events_detail2:
+   path:
+       en:   /event
+       es:   /evento
+       pt:   /event
+       ge:   /event
+   methods:    GET|POST
+   controller: App\Controller\Web\KnowledgeController::detail2
+
+
+
 # HOME
 # ###########################################
 home:
@@ -65,16 +96,8 @@ home:
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
-# NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
-components:
-    path:
-        en:   /components
-        es:   /componentes
-        pt:   /components
-        ge:   /componentes
-    methods:    GET|POST
-    controller: App\Controller\Web\HomeController::components
-
+# USER
+# ###########################################
 userSettings:
     path:
         en:   /user-settings
@@ -84,15 +107,8 @@ userSettings:
     methods:    GET|POST
     controller: App\Controller\Web\UserController::newUser
 
-institutoRRHH:
-    path:
-        en:   /instituto-estrategia-legal-rrhh
-        es:   /instituto-estrategia-legal-rrhh
-        pt:   /instituto-estrategia-legal-rrhh
-        ge:   /instituto-estrategia-legal-rrhh
-    methods:    GET|POST
-    controller: App\Controller\Web\HomeController::institutoRRHH
-
+# PRIVACY
+# ###########################################
 politicaCookies:
     path:
         en:   /cookies-policy
@@ -100,8 +116,7 @@ politicaCookies:
         pt:   /cookies-policy
         ge:   /cookies-policy
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::politicaCookies
-
+    controller: App\Controller\Web\PrivacyController::politicaCookies
 
 # KNOWLEDGE
 # ###########################################
@@ -113,8 +128,7 @@ knowledge_index:
     methods:    GET|POST
     controller: App\Controller\Web\KnowledgeController::index
 
-
-# Sectors
+# SECTORS
 # ###########################################
 sectors_index:
     path:
@@ -133,7 +147,7 @@ sectors_detail:
    methods:    GET|POST
    controller: App\Controller\Web\SectorController::detail
 
-# Case Studies
+# CASES
 # ###########################################
 case_studies_detail:
     path:
@@ -144,7 +158,7 @@ case_studies_detail:
     methods:    GET|POST
     controller: App\Controller\Web\CaseStudyController::detail
 
-# Services
+# SERVICES
 # ###########################################
 services_index:
     path:
@@ -157,7 +171,7 @@ services_index:
         route: practices_index
         keepQueryParams: true
 
-# Practices
+# PRACTICES
 # ###########################################
 practices_index:
     path:
@@ -176,7 +190,7 @@ practices_detail:
    methods:    GET|POST
    controller: App\Controller\Web\PracticeController::detail
 
-# Desks
+# DESKS
 # ###########################################
 desks_index:
    path:
@@ -195,7 +209,7 @@ desks_detail:
    methods:    GET|POST
    controller: App\Controller\Web\DeskController::detail
 
-# Products
+# PRODUCTS
 # ###########################################
 products_index:
     path:
@@ -214,7 +228,7 @@ products_detail:
    methods:    GET|POST
    controller: App\Controller\Web\ProductsController::detail
 
-# Events
+# EVENTS
 # ###########################################
 events_directory:
    path:
@@ -269,7 +283,7 @@ get_regions:
    methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionRegions
 
-# Lawyers
+# LAWYERS
 # ###########################################
 lawyers_index:
     path:
@@ -297,7 +311,7 @@ lawyers_vcard_download:
     methods:    GET|POST
     controller: App\Controller\Web\LawyerController::download
 
-# Insights
+# INSIGHTS
 # ###########################################
 insights_index:
     path:
@@ -316,7 +330,7 @@ insights_detail:
     methods:    GET|POST
     controller: App\Controller\Web\InsightController::detail
 
-# Offices
+# OFFICES
 # ###########################################
 offices_detail:
     path:
@@ -327,7 +341,7 @@ offices_detail:
     methods:    GET|POST
     controller: App\Controller\Web\OfficeController::detail
 
-# Pages
+# PAGES
 # ###########################################
 pages_detail:
     path:
@@ -338,7 +352,7 @@ pages_detail:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-# Publication
+# PUBLICATIONS
 # ###########################################
 publications_detail:
     path:
@@ -348,6 +362,22 @@ publications_detail:
         ge:   /article/{slug}
     methods:    GET|POST
     controller: App\Controller\Web\PublicationController::detail
+
+# API-PUBLICATIONS
+##############################################
+publications-api:
+    path:
+        en:   /publications-api/posts
+        es:   /publications-api/posts
+    methods:    GET|POST
+    controller: App\Controller\APIController::posts
+
+publications-api-media:
+    path:
+        en:   /publications-api/media
+        es:   /publications-api/media
+    methods:    GET|POST
+    controller: App\Controller\APIController::media
 
 # REGIONS
 # ###########################################
@@ -397,8 +427,7 @@ regions_other_regions:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-#############################################################
-
+# OFFICES
 detail_office:
     path:
         en:   /location/office-detail
@@ -417,10 +446,8 @@ detail_others:
     methods:    GET|POST
     controller: App\Controller\Web\RegionsController::detailOthers
 
-
 # FIRM
 # ###########################################
-
 firm_vision:
     path:
         en:   /firm/vision-general-1
@@ -474,51 +501,6 @@ firm_mediaCenter:
         ge:   /firm/centro-de-medios-1
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
-
-# API-PUBLICATIONS
-##############################################
-publications-api:
-    path:
-        en:   /publications-api/posts
-        es:   /publications-api/posts
-    methods:    GET|POST
-    controller: App\Controller\APIController::posts
-
-publications-api-media:
-    path:
-        en:   /publications-api/media
-        es:   /publications-api/media
-    methods:    GET|POST
-    controller: App\Controller\APIController::media
-
-# TEMPORAL (BORRAR)
-##############################################
-productDetailServices:
-    path:
-        en:   /product-service
-        es:   /producto-servicio
-        pt:   /product-service
-        ge:   /product-service
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::productDetailServices
-
-fiscal:
-    path:
-        en:   /fiscal
-        es:   /fiscal
-        pt:   /fiscal
-        ge:   /fiscal
-    methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::fiscal
-
-events_detail2:
-   path:
-       en:   /event
-       es:   /evento
-       pt:   /event
-       ge:   /event
-   methods:    GET|POST
-   controller: App\Controller\Web\KnowledgeController::detail2
 
 # CAREER
 ##############################################
@@ -575,3 +557,28 @@ career_join:
       ge:   /career/join-us
   methods:    GET|POST
   controller: App\Controller\Web\CareerController::join
+
+
+# COMPONENTES
+# No tocar, es una maqueta de referencia que no necesita programación
+# ###########################################
+components:
+    path:
+        en:   /components
+        es:   /componentes
+        pt:   /components
+        ge:   /componentes
+    methods:    GET|POST
+    controller: App\Controller\Web\ComponentsController::index
+
+# BRANDS
+# Temporal, mantener hasta nueva fase del proyecto
+# ###########################################
+institutoRRHH:
+    path:
+        en:   /instituto-estrategia-legal-rrhh
+        es:   /instituto-estrategia-legal-rrhh
+        pt:   /instituto-estrategia-legal-rrhh
+        ge:   /instituto-estrategia-legal-rrhh
+    methods:    GET|POST
+    controller: App\Controller\Web\BrandsController::institutoRRHH

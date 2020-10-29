@@ -24,12 +24,12 @@ class UserController extends WebController
 {
     private $soap;
 
-
     public function __construct()
     {
         $this->soap  = new SOAPContactsClientController;
-        
+
     }
+
     public function newUser(Request $request,SOAPContactsClientRepository $SOAPContactsClientRepository)
     {
         $paises = $SOAPContactsClientRepository->getPaises();
@@ -43,7 +43,7 @@ class UserController extends WebController
         }
 
 
-        return $this->render('web/home/userSettings.html.twig', [
+        return $this->render('web/user/userSettings.html.twig', [
             'paises' => $paises,
             'provincias' => $provincias,
             'idiomas' => $idiomas,
@@ -52,7 +52,8 @@ class UserController extends WebController
             'controller_name' => 'NewUser'
         ]);
     }
-    public function ajaxActionContact(Request $request)    
+
+    public function ajaxActionContact(Request $request)
     {
         $fecha = new \DateTime();
         $contacto = $request->query->get('contacto');
@@ -71,6 +72,4 @@ class UserController extends WebController
         $contactoReturn = $this->soap->addContactoWebForm(array('contactoWebDto'=>($contactoA)));
         return new JsonResponse($contactoReturn);
     }
-
-   
 }
