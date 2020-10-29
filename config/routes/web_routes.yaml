@@ -58,7 +58,11 @@ gestorgetContactoWebtForm:
 # HOME
 # ###########################################
 home:
-    path: /
+    path: 
+        en:   /
+        es:   /
+        pt:   /
+        ge:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
