@@ -503,6 +503,7 @@ firm_mediaCenter:
     controller: App\Controller\Web\PagesController::detail
 
 # CAREER
+# Temporal, hasta reubicar estas páginas
 ##############################################
 career_home:
   path:
@@ -558,6 +559,17 @@ career_join:
   methods:    GET|POST
   controller: App\Controller\Web\CareerController::join
 
+# BRANDS
+# Temporal, mantener hasta nueva fase del proyecto
+# ###########################################
+institutoRRHH:
+    path:
+        en:   /instituto-estrategia-legal-rrhh
+        es:   /instituto-estrategia-legal-rrhh
+        pt:   /instituto-estrategia-legal-rrhh
+        ge:   /instituto-estrategia-legal-rrhh
+    methods:    GET|POST
+    controller: App\Controller\Web\BrandsController::institutoRRHH
 
 # COMPONENTES
 # No tocar, es una maqueta de referencia que no necesita programación
@@ -570,15 +582,3 @@ components:
         ge:   /componentes
     methods:    GET|POST
     controller: App\Controller\Web\ComponentsController::index
-
-# BRANDS
-# Temporal, mantener hasta nueva fase del proyecto
-# ###########################################
-institutoRRHH:
-    path:
-        en:   /instituto-estrategia-legal-rrhh
-        es:   /instituto-estrategia-legal-rrhh
-        pt:   /instituto-estrategia-legal-rrhh
-        ge:   /instituto-estrategia-legal-rrhh
-    methods:    GET|POST
-    controller: App\Controller\Web\BrandsController::institutoRRHH
