@@ -20,8 +20,7 @@ class PagesController extends WebController
         $page = $PageRepository->getInstanceByRequest($request);
         $home = $homeRepository->findOneBy(['id' => 1]);
         
-        
-        if ($page->getCustomTemplate() == 'others'){
+        if ($page->getCustomTemplate() == 'location/others'){
             $place = $navigation->getParams()->get('app.office_place')['global'];
         }else{
             $place = $navigation->getParams()->get('app.office_place')[$page->getCustomTemplate()] ?? null ;
@@ -32,7 +31,7 @@ class PagesController extends WebController
         $urlTemplate = 'empty';
         if (null !== $page->getCustomTemplate() && $page->getCustomTemplate() != '') {
             $urlTemplate = 'custom/'.$page->getCustomTemplate();
-            if ($page->getCustomTemplate() =="vision") {
+            if ($page->getCustomTemplate() =="location/vision") {
                 $officeA = array();
                 $officeATest = array();
                 $offices = $OfficeRepository->createQueryBuilder('o')

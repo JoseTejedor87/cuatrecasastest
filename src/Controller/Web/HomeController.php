@@ -15,7 +15,6 @@ use App\Repository\SliderRepository;
 use App\Repository\HomeRepository;
 use App\Repository\GeneralBlockRepository;
 use App\Controller\Web\WebController;
-
 use App\Controller\Web\NavigationService;
 
 class HomeController extends WebController
