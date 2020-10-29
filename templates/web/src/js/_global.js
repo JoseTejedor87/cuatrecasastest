@@ -5,7 +5,7 @@ web.global = {
         web.global.mobileNav();
         web.global.hoverMenu();
         web.global.loadMiscell();
-        web.global.zoomAjust();
+        // web.global.zoomAjust();
     },
 
     hoverMenu: function(){
@@ -28,18 +28,158 @@ web.global = {
     },
 
     zoomAjust: function(){
+
+        // https://developer.mozilla.org/es/docs/Web/API/Window/devicePixelRatio
+        // value = window.devicePixelRatio;
+
+        // https://developer.mozilla.org/es/docs/Web/API/Window/matchMedia
+        // https://www.sitepoint.com/javascript-media-queries/
+        // https://css-tricks.com/working-with-javascript-media-queries/
+
+        // if (window.matchMedia("(min-width: 400px)").matches) {
+        //    La pantalla tiene al menos 400 píxeles de ancho
+        // } else {
+        //   /* La pantalla tiene menos de 400 píxeles de ancho */
+        // }
+
         function zoomBrowser() {
-            document.body.style.zoom = "100%";
-            alert('zoom: ' + document.body.style.zoom);
+            // document.body.style.zoom = "67%";
+            // alert('zoom: ' + document.body.style.zoom);
+            // alert('devicePixelRatio: ' + window.devicePixelRatio);
+
+            // Monitoring screen resolution or zoom level changes
+            // https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio
+
+            // if (window.devicePixelRatio = 1) {
+            //     alert('devicePixelRatio: 1');
+            // } else if (window.devicePixelRatio = 1.25) {
+            //     alert('devicePixelRatio: 1.25');
+            // }
+
+
+            // https://stackoverflow.com/questions/28905420/window-devicepixelratio-change-listener
+
+            // window.matchMedia('screen and (min-resolution: 1dppx)').addListener(function(e) {
+            //     if (e.matches) {
+            //         /* devicePixelRatio >= 2 */
+            //         alert('devicePixelRatio >= 1.5');
+            //     } else {
+            //         /* devicePixelRatio < 2 */
+            //         alert('devicePixelRatio < 1.5');
+            //         alert('devicePixelRatio: ' + window.devicePixelRatio);
+            //     }
+            // });
+
+            //
+            // https://www.sitepoint.com/javascript-media-queries/
+            //
+            // 01
+            /*
+            const mq = window.matchMedia( "(min-width: 500px)" );
+
+            if (mq.matches) {
+                // window width is at least 500px
+            } else {
+                // window width is less than 500px
+            }
+
+            // 02
+            // media query event handler
+            if (matchMedia) {
+                const mq = window.matchMedia("(min-width: 500px)");
+                mq.addListener(WidthChange);
+                WidthChange(mq);
+            }
+
+            // media query change
+            function WidthChange(mq) {
+                if (mq.matches) {
+                    // window width is at least 500px
+                } else {
+                    // window width is less than 500px
+                }
+            }
+            */
+
+
+            //
+            // https://css-tricks.com/working-with-javascript-media-queries/
+            //
+            /*
+            // 01
+            // Create a media condition that targets viewports at least 768px wide
+            const mediaQuery = window.matchMedia('(min-width: 768px)')
+
+            // Check if the media query is true
+            if (mediaQuery.matches) {
+              // Then trigger an alert
+              alert('Media Query Matched!')
+            }
+
+            // 02
+            // Create a condition that targets viewports at least 768px wide
+            const mediaQuery = window.matchMedia('(min-width: 768px)')
+
+            function handleTabletChange(e) {
+              // Check if the media query is true
+              if (e.matches) {
+                // Then log the following message to the console
+                console.log('Media Query Matched!')
+              }
+            }
+
+            // Register event listener
+            mediaQuery.addListener(handleTabletChange)
+
+            // Initial check
+            handleTabletChange(mediaQuery)
+            */
         }
 
-        $(window).on('load', function(e) {
-            // zoomBrowser();
-            // alert('zoomBrowser');
 
-            // zoomFactor();
-            // alert('zoomFactor');
-        });
+        // $(window).on('load', function(e) {
+        //     // zoomBrowser();
+        //     // getDevicePixelRatio();
+        // });
+
+        // zoomBrowser();
+
+        // https://stackoverflow.com/questions/16541676/what-are-best-practices-for-detecting-pixel-ratio-density
+        /*
+        function getDevicePixelRatio() {
+            var mediaQuery;
+            var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+            if (window.devicePixelRatio !== undefined && !is_firefox) {
+                return window.devicePixelRatio;
+            } else if (window.matchMedia) {
+                mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
+                  (min--moz-device-pixel-ratio: 1.5),\
+                  (-o-min-device-pixel-ratio: 3/2),\
+                  (min-resolution: 1.5dppx)";
+                if (window.matchMedia(mediaQuery).matches) {
+                    return 1.5;
+                }
+                mediaQuery = "(-webkit-min-device-pixel-ratio: 2),\
+                  (min--moz-device-pixel-ratio: 2),\
+                  (-o-min-device-pixel-ratio: 2/1),\
+                  (min-resolution: 2dppx)";
+                if (window.matchMedia(mediaQuery).matches) {
+                    return 2;
+                }
+                mediaQuery = "(-webkit-min-device-pixel-ratio: 0.75),\
+                  (min--moz-device-pixel-ratio: 0.75),\
+                  (-o-min-device-pixel-ratio: 3/4),\
+                  (min-resolution: 0.75dppx)";
+                if (window.matchMedia(mediaQuery).matches) {
+                    return 0.7;
+                }
+            } else {
+                return 1;
+            }
+        }
+        */
+
+
 
         // https://css-tricks.com/screen-resolution-notequalto-browser-window/
 

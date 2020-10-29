@@ -61,7 +61,7 @@ abstract class Publication extends Publishable
     private $publication_date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", mappedBy="publications")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", inversedBy="publications")
      */
     private $insights;
 
