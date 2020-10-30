@@ -1,6 +1,9 @@
 # Global
 # ###########################################
 global:
+  calendar:
+    month: Mes 
+    year: Año
   home: Inicio
   goBack: Volver
   languages:

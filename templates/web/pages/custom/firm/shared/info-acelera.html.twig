@@ -10,7 +10,7 @@
                                 <p>{{ 'firm.info_acelera.art_1.content'|trans}}</p>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="{{ path('firm_mediaCenter') }}" class="doble__arrow__link">{{ 'firm.innovation.media_center'|trans}}</a>
+                                <a href="{{ path('firm',{ slug: 'media-center'~slug_ext }) }}" class="doble__arrow__link">{{ 'firm.innovation.media_center'|trans}}</a>
                             </div>
                             {# <div class="boxnews__photo">
                                 <img src="{{ asset('web/assets/vector/F00_firma.png') }}" alt="">
@@ -24,7 +24,7 @@
                                 <p>{{ 'firm.info_acelera.art_2.content'|trans}}</p>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="{{ path('firm_mediaCenter') }}" class="doble__arrow__link">{{ 'firm.innovation.media_center'|trans}}</a>
+                                <a href="{{ path('firm',{ slug: 'media-center'~slug_ext }) }}" class="doble__arrow__link">{{ 'firm.innovation.media_center'|trans}}</a>
                             </div>
                             {# <div class="boxnews__photo">
                                 <img src="{{ asset('web/assets/img/F00_firma-shadows.jpg') }}" alt="">

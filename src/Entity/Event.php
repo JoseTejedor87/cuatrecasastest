@@ -81,6 +81,11 @@ class Event extends Publishable
     private $office;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", inversedBy="events")
+     */
+    private $insights;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
      */
     private $programs;
@@ -101,6 +106,7 @@ class Event extends Publishable
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->insights = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
@@ -325,6 +331,37 @@ class Event extends Publishable
             // set the owning side to null (unless already changed)
             if ($program->getEvents() === $this) {
                 $program->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            // set the owning side to null (unless already changed)
+            if ($insight->getEvents() === $this) {
+                $insight->setEvents(null);
             }
         }
 

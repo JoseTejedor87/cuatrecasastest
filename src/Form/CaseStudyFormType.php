@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -74,6 +75,19 @@ class CaseStudyFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($quote) {
                     return $quote->translate('es')->getBody();
+                }
+            ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.case_study.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($insights) {
+                    return $insights->translate('es')->getTitle();
                 }
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])

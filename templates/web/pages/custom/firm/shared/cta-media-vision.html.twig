@@ -5,7 +5,7 @@
                 <article class="cta__content">
                     <h3 class="cta__title">{{ 'firm.cta_media.title'| trans }}</h3>
                     <p class="cta__excerpt">{{ 'firm.cta_media.content'| trans }}</p>
-                    <a href="{{ path('firm_mediaCenter') }}" class="btn btn__solid__arrow">{{  'global.messages.show_more'|trans  }}</a>
+                    <a href="{{ path('firm',{ slug: 'media-center'~slug_ext }) }}" class="btn btn__solid__arrow">{{  'global.messages.show_more'|trans  }}</a>
                 </article>
             </div>
             <div class="col-xl-6">

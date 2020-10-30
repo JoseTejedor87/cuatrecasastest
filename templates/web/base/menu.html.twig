@@ -1,7 +1,4 @@
 {% block menu %}
-    {# <!-- Desktop Nav --> #}
-
-    {% set slug_ext =  '' %}
 
     <div id="navDesktop" class="main__nav__wrapper">
         <div class="container" id="primaryNav">
@@ -10,6 +7,7 @@
                     <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
                         <img src="{{ asset('web/assets/logos/4casas.png') }}" alt="Cuatrecasas">
                     </a>
+                    
                     <div class="navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item">
@@ -44,24 +42,24 @@
                             </li>
                             <li class="nav-item dropdown">
                                 {# <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.offices.offices'|trans }}</a> #}
-                                <a class="nav-link dropdown-toggle" href="{{ path('regions_vision') }}" role="button">{{ 'menu.offices.offices'|trans }}</a>
+                                <a class="nav-link dropdown-toggle" href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}" role="button">{{ 'menu.offices.offices'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
-                                    <li><a href="{{ path('regions_vision') }}">{{ 'menu.offices.vision'|trans }}</a></li>
-                                    <li><a href="{{ path('regions_espana') }}">{{ 'menu.offices.spain'|trans }}</a></li>
-                                    <li><a href="{{ path('regions_portugal') }}">{{ 'menu.offices.portugal'|trans }}</a></li>
-                                    <li><a href="{{ path('regions_latam') }}">{{ 'menu.offices.latam'|trans }}</a></li>
-                                    <li><a href="{{ path('regions_other_regions') }}">{{ 'menu.offices.other'|trans }}</a></li>
+                                    <li><a href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}">{{ 'menu.offices.vision'|trans }}</a></li>
+                                    <li><a href="{{ path('location',{slug: 'espana'~slug_ext }) }}">{{ 'menu.offices.spain'|trans }}</a></li>
+                                    <li><a href="{{ path('location',{slug: 'portugal'~slug_ext }) }}">{{ 'menu.offices.portugal'|trans }}</a></li>
+                                    <li><a href="{{ path('location',{slug: 'latam'~slug_ext }) }}">{{ 'menu.offices.latam'|trans }}</a></li>
+                                    <li><a href="{{ path('location',{slug: 'other-regions'~slug_ext }) }}">{{ 'menu.offices.other'|trans }}</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 {# <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.firm.firm'|trans }}</a> #}
-                                <a class="nav-link dropdown-toggle" href="{{ path('firm_vision') }}" role="button">{{ 'menu.firm.firm'|trans }}</a>
+                                <a class="nav-link dropdown-toggle" href="{{ path('firm',{slug: 'firm-vision'~slug_ext }) }}" role="button">{{ 'menu.firm.firm'|trans }}</a>
                                 <ul class="dropdown-menu dropdown-menu--inline">
-                                    <li><a href="{{ path('firm_vision') }}">{{ 'menu.firm.vision'|trans }}</a></li>
-                                    <li><a href="{{ path('firm_social') }}">{{ 'menu.firm.social'|trans }}</a></li>
-                                    <li><a href="{{ path('firm_environment') }}">{{ 'menu.firm.environment'|trans }}</a></li>
-                                    <li><a href="{{ path('firm_governance') }}">{{ 'menu.firm.governance'|trans }}</a></li>
-                                    <li><a href="{{ path('firm_innovation') }}">{{ 'menu.firm.innovation'|trans }}</a></li>
+                                    <li><a href="{{ path('firm',{slug: 'firm-vision'~slug_ext }) }}">{{ 'menu.firm.vision'|trans }}</a></li>
+                                    <li><a href="{{ path('firm',{slug: 'social'~slug_ext }) }}">{{ 'menu.firm.social'|trans }}</a></li>
+                                    <li><a href="{{ path('firm',{slug: 'environment'~slug_ext }) }}">{{ 'menu.firm.environment'|trans }}</a></li>
+                                    <li><a href="{{ path('firm',{slug: 'governance'~slug_ext }) }}">{{ 'menu.firm.governance'|trans }}</a></li>
+                                    <li><a href="{{ path('firm',{slug: 'innovation'~slug_ext }) }}">{{ 'menu.firm.innovation'|trans }}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -189,21 +187,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownOffices" data-toggle="collapse" data-target="#dropdownOfficesId" aria-haspopup="true" aria-expanded="false">{{ 'menu.offices.offices'|trans }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownOffices" id="dropdownOfficesId" data-parent="#navMobile">
-                        <li><a class="dropdown-item" href="{{ path('regions_vision') }}">{{ 'menu.offices.vision'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('regions_espana') }}">{{ 'menu.offices.spain'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('regions_portugal') }}">{{ 'menu.offices.portugal'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('regions_latam') }}">{{ 'menu.offices.latam'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('regions_other_regions') }}">{{ 'menu.offices.other'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}">{{ 'menu.offices.vision'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('location',{slug: 'espana'~slug_ext }) }}">{{ 'menu.offices.spain'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('location',{slug: 'portugal'~slug_ext }) }}">{{ 'menu.offices.portugal'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('location',{slug: 'latam'~slug_ext }) }}">{{ 'menu.offices.latam'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('location',{slug: 'other-regions'~slug_ext }) }}">{{ 'menu.offices.other'|trans }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownFirm" data-toggle="collapse" data-target="#dropdownFirmId" aria-haspopup="true" aria-expanded="false">{{ 'menu.firm.firm'|trans }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownFirm" id="dropdownFirmId" data-parent="#navMobile">
-                        <li><a class="dropdown-item" href="{{ path('firm_vision') }}">{{ 'menu.firm.vision'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('firm_social') }}">{{ 'menu.firm.social'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('firm_environment') }}">{{ 'menu.firm.environment'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('firm_governance') }}">{{ 'menu.firm.governance'|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('firm_innovation') }}">{{ 'menu.firm.innovation'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm',{slug: 'firm-vision'~slug_ext }) }}">{{ 'menu.firm.vision'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm',{slug: 'social'~slug_ext }) }}">{{ 'menu.firm.social'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm',{slug: 'environment'~slug_ext }) }}">{{ 'menu.firm.environment'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm',{slug: 'governance'~slug_ext }) }}">{{ 'menu.firm.governance'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('firm',{slug: 'innovation'~slug_ext }) }}">{{ 'menu.firm.innovation'|trans }}</a></li>
                     </ul>
                 </li>
             </ul>
