@@ -70,13 +70,16 @@
                                 <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Fecha</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Legislación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Fecha</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Formato</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Colección</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">Formato</a>
                             </li>
                         </ul>
                         <div id="filterTabsContent">
@@ -149,8 +152,27 @@
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Fecha</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Legislacion</a>
                             <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+
+                                    {% for legislation in legislations %}
+                                        {% if legislation.name %}
+
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="legislation-{{legislation.id}}" data-name="{{ legislation.name }}" value="{{ legislation.id }}">
+                                                <label class="checkbox-label" for="legislation-{{legislation.id}}"><span>{{ legislation.name }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Fecha</a>
+                            <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for i in 2010..2020 %}
                                          <div class="checkbox">
@@ -165,8 +187,8 @@
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Colección</a>
-                            <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Colección</a>
+                            <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for insight in insights %}
                                     <div class="checkbox">
@@ -180,8 +202,8 @@
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Formato</a>
-                            <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">Formato</a>
+                            <div id="collapse08" class="collapse" aria-labelledby="heading08" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for format in formats %}
                                         {% if format  %}
@@ -197,6 +219,7 @@
                                     <button type="button" class="btn btn__naked apply_button">Aplicar</button>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -318,6 +341,7 @@
             var collections = new Array();
             var type = new Array();
             var region = new Array();
+            var legislation = new Array();
             var date = new Array();
             var format = new Array();
             var page = page ? page : $(this).data("page");
@@ -340,6 +364,9 @@
                 if(result[0] == "region"){
                     region.push($(this).val());
                 }
+                if(result[0] == "legislation"){
+                    legislation.push($(this).val());
+                }
                 if(result[0] == "date"){
                     date.push($(this).val());
                 }
@@ -356,14 +383,15 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(),date: date, collections: collections.toString(),format: format.toString(), page :page   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date, collections: collections.toString(),format: format.toString(), page :page   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
                 }
             })
             .done(function( msg ) {
-                 $('.section__title--recomended').hide();
+                console.log(msg);
+                 // $('.section__title--recomended').hide();
                 $('.search__component__loader').css("display", "flex").fadeOut();
                 var url="";
                 if(msg['office']){
@@ -371,6 +399,13 @@
                         url= "?office="+msg['office'];
                     }else{
                         url= url + "&office="+msg['office'];
+                    }
+                }
+                if(msg['legislation']){
+                    if(url == ""){
+                        url= "?legislation="+msg['legislation'];
+                    }else{
+                        url= url + "&legislation="+msg['legislation'];
                     }
                 }
                 if(msg['textSearch']){
