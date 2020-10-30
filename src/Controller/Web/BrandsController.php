@@ -11,7 +11,6 @@ use App\Controller\Web\NavigationService;
 
 class BrandsController extends WebController
 {
-
     public function institutoRRHH()
     {
         return $this->render('web/brands/institutoRRHH.html.twig', [
