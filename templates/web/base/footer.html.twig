@@ -12,17 +12,37 @@
                     <div class="info__copyright">{{ 'footer.copyright'|trans }}</div>
                     <ul class="info__legal">
                         <li class="legal__item">
-                            <a href="{{ path('politicaCookies') }}" class="legal__link" rel="nofollow">
+                            <a href="{{ path('siteMap') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.site_map'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('webUse') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.web_use'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('privacyPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.privacy'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('cookiesPolicy') }}" class="legal__link" rel="nofollow">
                                 {{ 'footer.privacy.cookies'|trans }}
                             </a>
                         </li>
                         <li class="legal__item">
-                            <a href="#" class="legal__link" rel="nofollow">
-                                {{ 'footer.privacy.terms'|trans }}
+                            <a href="{{ path('securityPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.security'|trans }}
                             </a>
                         </li>
                         <li class="legal__item">
-                            <a href="#" class="legal__link" rel="nofollow">
+                            <a href="https://www.cuatrecasas.com/esp/esp/rss.html" class="legal__link" rel="nofollow" target="_blank">
+                                {{ 'footer.privacy.rss'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('contactUs') }}" class="legal__link" rel="nofollow">
                                 {{ 'footer.privacy.contact'|trans }}
                             </a>
                         </li>

@@ -101,23 +101,67 @@ home:
 # ###########################################
 userSettings:
     path:
-        en:   /user-settings
+        en:   /siteMap
         es:   /preferencias-usuario
         pt:   /user-settings
         ge:   /preferencias-usuario
     methods:    GET|POST
-    controller: App\Controller\Web\UserController::newUser
+    controller: App\Controller\Web\UserController::siteMap
 
 # PRIVACY
 # ###########################################
-politicaCookies:
+siteMap:
+    path:
+        en:   /site-map
+        es:   /mapa-web
+        pt:   /site-map
+        ge:   /site-map
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::siteMap
+
+webUse:
+    path:
+        en:   /terms-of-use
+        es:   /condiciones-de-uso
+        pt:   /terms-of-use
+        ge:   /terms-of-use
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::webUse
+
+privacyPolicy:
+    path:
+        en:   /privacy-policy
+        es:   /politica-de-privacidad
+        pt:   /privacy-policy
+        ge:   /privacy-policy
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::privacyPolicy
+
+cookiesPolicy:
     path:
         en:   /cookies-policy
         es:   /politica-de-cookies
         pt:   /cookies-policy
         ge:   /cookies-policy
     methods:    GET|POST
-    controller: App\Controller\Web\PrivacyController::politicaCookies
+    controller: App\Controller\Web\PrivacyController::cookiesPolicy
+
+securityPolicy:
+    path:
+        en:   /information-security-policy
+        es:   /politica-seguridad-informacion
+        pt:   /information-security-policy
+        ge:   /information-security-policy
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::securityPolicy
+
+contactUs:
+    path:
+        en:   /contact-us
+        es:   /contacta
+        ge:   /contact-us
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::contactUs
 
 # KNOWLEDGE
 # ###########################################
