@@ -71,30 +71,4 @@ class HomeController extends WebController
             'careerBlock' => $blockCareer
         ]);
     }
-<<<<<<< HEAD
-=======
-
-
-    // NO TOCAR PLIS, ES UNA MAQUETA NECESARIA DE FRONT QUE NO NECESITA PROGRAMACION
-    public function components()
-    {
-        return $this->render('web/home/components.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
-
-    public function institutoRRHH()
-    {
-        return $this->render('web/home/institutoRRHH.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
-
-    public function politicaCookies()
-    {
-        return $this->render('web/home/politicaCookies.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
->>>>>>> 21045137d3b215e954bd6748154f30628a05d649
 }
