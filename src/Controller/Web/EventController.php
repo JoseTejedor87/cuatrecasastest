@@ -200,7 +200,7 @@ class EventController extends WebController
                 array_push($attachmentPublished,$attachment);
         }
 
-        return $this->render('web/knowledge/detail.html.twig', [
+        return $this->render('web/events/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
             'paises' => $paises,

@@ -104,8 +104,6 @@ static:
     interOrg: International organitations
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
-  cookies:
-    title: Política de cookies y tecnologías similares
 
 # User Settings
 # ###########################################
@@ -178,9 +176,13 @@ footer:
   intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
   copyright: © 2020 Cuatrecasas. All right reserved.
   privacy:
-    cookies: Privacy & Cookies
-    terms: Terms of Use
-    contact: Contac Us
+    site_map: Site map
+    web_use: Terms of Use
+    privacy: Privacy Policy
+    cookies: Cookies Policy
+    security: Information Security Policy
+    rss: RSS
+    contact: Contact us
 
 # Reusable Blocks
 # ###########################################

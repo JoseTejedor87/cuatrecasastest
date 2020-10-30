@@ -1,0 +1,71 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="lawyer__page">
+        <article>
+
+            <header class="container">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
+                        <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
+                        <h1 class="lawyer__page__region">
+                            Oriente Medio
+                        </h1>
+                        <ul class="action__links">
+                            <li><a href="#"><i class="material-icons">share</i></a></li>
+                            <li><a href="#"><i class="material-icons">print</i></a></li>
+                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__office">
+                            <figure style="background-image: url('{{ asset('web/assets/img/oporto.jpg') }}')"></figure>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+
+                <section class="row page__block noborder">
+                    <div class="col">
+                        <div class="page__block__title page__block__title--article">
+                            <p>Contamos con un grupo de profesionales de diferentes áreas con una amplia experiencia en el asesoramiento a empresas y fondos canadienses con intereses en Europa y Ameríca latina</p>
+                        </div>
+                        <div class="page__block__content page__block__content--article">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
+                            <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            {% include 'web/shared/team-five-offices.html.twig' %}
+            {% include 'web/shared/related-content-slider-offices.html.twig' %}
+            {% include 'web/shared/cases-offices.html.twig' %}
+            {% include 'web/shared/cta-offices.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}
