@@ -98,12 +98,12 @@ home:
 # ###########################################
 userSettings:
     path:
-        en:   /siteMap
+        en:   /user-settings
         es:   /preferencias-usuario
         pt:   /user-settings
-        ge:   /preferencias-usuario
+        ge:   /user-settings
     methods:    GET|POST
-    controller: App\Controller\Web\UserController::siteMap
+    controller: App\Controller\Web\UserController::newUser
 
 # PRIVACY
 # ###########################################
