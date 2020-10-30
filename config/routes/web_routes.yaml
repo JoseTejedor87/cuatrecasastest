@@ -84,7 +84,6 @@ events_detail2:
    methods:    GET|POST
    controller: App\Controller\Web\KnowledgeController::detail2
 
-
 # HOME
 # ###########################################
 home:
@@ -95,10 +94,6 @@ home:
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 21045137d3b215e954bd6748154f30628a05d649
 # USER
 # ###########################################
 userSettings:
