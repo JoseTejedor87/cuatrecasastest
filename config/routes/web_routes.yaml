@@ -380,107 +380,27 @@ publications-api-media:
     methods:    GET|POST
     controller: App\Controller\APIController::media
 
-# REGIONS
+# PAGES REGIONS
 # ###########################################
-# estas urls estan fijas para poder acceder desde el menu de navegacion luego se deberia reemplazar por la dinamica de manera exclusiva
-regions_vision:
+
+location:
     path:
-        en:   /location/vision-general-1
-        es:   /territorios/vision-general
-        pt:   /location/vision-general-1
-        ge:   /location/vision-general-1
+        en:   /location/{slug}
+        es:   /location/{slug}
+        pt:   /location/{slug}
+        ge:   /location/{slug}
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-regions_espana:
-    path:
-        en:   /location/espana-1
-        es:   /territorios/espana
-        pt:   /location/espana-1
-        ge:   /location/espana-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_portugal:
-    path:
-        en:   /location/portugal-1
-        es:   /territorios/portugal
-        pt:   /location/portugal-1
-        ge:   /location/portugal-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_latam:
-    path:
-        en:   /location/latinoamerica-1
-        es:   /territorios/latinoamerica
-        pt:   /location/latinoamerica-1
-        ge:   /location/latinoamerica-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_other_regions:
-    path:
-        en:   /location/other-regions-1
-        es:   /territorios/other-regions
-        pt:   /location/other-regions-1
-        ge:   /location/other-regions-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-# FIRM
+# PAGES FIRM
 # ###########################################
-firm_vision:
-    path:
-        en:   /firm/vision-general-1
-        es:   /la-firma/vision-general
-        pt:   /firm/vision-general-1
-        ge:   /firm/vision-general-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
 
-firm_social:
+firm:
     path:
-        en:   /firm/social-1
-        es:   /la-firma/social
-        pt:   /firm/social-1
-        ge:   /firm/social-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_environment:
-    path:
-        en:   /firm/medio-ambiente-1
-        es:   /la-firma/medio-ambiente
-        pt:   /firm/medio-ambiente-1
-        ge:   /firm/medio-ambiente-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_governance:
-    path:
-        en:   /firm/buen-gobierno-1
-        es:   /la-firma/buen-gobierno
-        pt:   /firm/buen-gobierno-1
-        ge:   /firm/buen-gobierno-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_innovation:
-    path:
-        en:   /firm/innovacion-1
-        es:   /la-firma/innovacion
-        pt:   /firm/innovacion-1
-        ge:   /firm/innovacion-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_mediaCenter:
-    path:
-        en:   /firm/centro-de-medios-1
-        es:   /la-firma/centro-de-medios
-        pt:   /firm/centro-de-medios-1
-        ge:   /firm/centro-de-medios-1
+        es:   /firm/{slug}
+        en:   /firm/{slug}
+        pt:   /firm/{slug}
+        ge:   /firm/{slug}
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
@@ -488,8 +408,8 @@ firm_mediaCenter:
 ##############################################
 talent:
     path:
-        en:   /talent/{slug}
         es:   /talent/{slug}
+        en:   /talent/{slug}
         pt:   /talent/{slug}
         ge:   /talent/{slug}
     methods:    GET|POST
