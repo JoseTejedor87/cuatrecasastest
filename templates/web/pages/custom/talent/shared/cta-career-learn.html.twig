@@ -3,13 +3,9 @@
         <div class="row">
             <div class="col-xl-6">
                 <article class="cta__content">
-                    <h3 class="cta__title">
-                        Carrera internacional
-                    </h3>
-                    <p class="cta__excerpt">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    </p>
-                    <a href="#" class="btn btn__solid__arrow">Ver más</a>
+                    <h3 class="cta__title">{{ 'career.cta_learn.title'| trans }}</h3>
+                    <p class="cta__excerpt">{{ 'career.cta_learn.content'| trans }}</p>
+                    <a href="{{ path('talent',{ slug: 'learn' }) }}" class="btn btn__solid__arrow">{{  'global.messages.show_more'|trans  }}</a>
                 </article>
             </div>
             <div class="col-xl-6">

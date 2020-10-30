@@ -1,5 +1,5 @@
 {% extends 'web/base.html.twig' %}
-
+    {% set slug_ext =  '' %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.career.revolution'|trans }}
+                            {{ 'menu.career.career'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -22,7 +22,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.career.revolution'|trans }}
+                                    {{ 'menu.career.career'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -42,22 +42,22 @@
                     <div class="col faketabs__component__tabs faketabs__component__tabs--career">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('career_home') }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" class="nav-link active">{{ 'menu.career.career'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_live') }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_revolution') }}" class="nav-link active">{{ 'menu.career.revolution'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_learn') }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_international') }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_join') }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -65,10 +65,11 @@
             </section>
         </div>
 
-        {% include 'web/career/shared/info-revolution.html.twig' %}
-        {% include 'web/career/shared/cases-revolution.html.twig' %} {# no info #}
-        {% include 'web/career/shared/info-revolution2.html.twig' %}
-        {% include 'web/career/shared/info-career-join.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/collections-career.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/career-career.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/cta-career-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/related-content-slider_Career.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/info-career-join.html.twig' %}
 
     </main>
 
@@ -83,29 +84,6 @@
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
-
-        $('.show__more').each(function() {
-            if ($(this).children('p').length > 0) {
-                $(this).children('p:lt(0)').show();
-                $(this).children('p:gt(0)').hide();
-                $(this).append('<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>');
-            }
-        });
-        $('.show__more').on("click", '.show__more', function() {
-            $(this).parent('.show__more').children('p').slideDown();
-            $(this).removeClass('show__more').addClass('show__less').text('{{ 'global.messages.show_less'|trans }}');
-            $('.show__more .doble__arrow__accordion').blur();
-        });
-        $('.show__more').on("click", '.show__less', function() {
-            if (window.matchMedia('(max-width: 1199px)').matches) {
-                $('html, body').animate({scrollTop: $(this).parent().offset().top - 50}, {duration: 'fast'});
-            } else {
-                $('html, body').animate({scrollTop: $(this).parent().offset().top - 120}, {duration: 'fast'});
-            }
-            $(this).parent('.show__more').children('p:gt(0)').slideUp();
-            $(this).removeClass('show__less').addClass('show__more').text('{{ 'global.messages.show_more'|trans }}');
-            $('.show__more .doble__arrow__accordion').blur();
-        });
     });
 </script>
 {% endblock %}

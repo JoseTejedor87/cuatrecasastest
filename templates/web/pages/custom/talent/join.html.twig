@@ -42,22 +42,22 @@
                     <div class="col faketabs__component__tabs faketabs__component__tabs--career">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('career_home') }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_live') }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_revolution') }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_learn') }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_international') }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('career_join') }}" class="nav-link active">{{ 'menu.career.join'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="nav-link active">{{ 'menu.career.join'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -65,10 +65,10 @@
             </section>
         </div>
 
-        {% include 'web/career/shared/info-career-join-notitle.html.twig' %}
-        {% include 'web/career/shared/collections-international.html.twig' %}
-        {% include 'web/career/shared/info-join.html.twig' %}
-        {% include 'web/career/shared/related-content-slider_Join.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/info-career-join-notitle.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/collections-international.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/info-join.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/related-content-slider_Join.html.twig' %}
         {# {% include 'web/career/shared/info-career-join.html.twig' %} #}
 
     </main>
