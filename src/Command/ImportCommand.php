@@ -865,11 +865,11 @@ class ImportCommand extends Command
     {
         $this->em->getConnection()->executeQuery("DELETE FROM Page ");
         // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
 
         $this->em->getConnection()->executeQuery("DELETE FROM PageTranslation ");
         // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
-        $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
         $data = file_get_contents("JsonExports/pages.json");
         $items = json_decode($data, true);
 
