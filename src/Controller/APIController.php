@@ -17,12 +17,18 @@ class APIController extends AbstractFOSRestController
 {
     public function posts(Request $request, publicationRepository $publicationRepository, NavigationService $NavigationService)
     {
+        $id_insight = $request->query->get('id_insight');
         $query = $publicationRepository->createQueryBuilder('p');
         /////////////////////////////////////////
         //Ahora mismo estamos buscando por NEWS Y OPINION, pero cuando importemos los post tenemos que cambiarlo 
         /////////////////////////////////// 
-        $query = $query->orWhere('p INSTANCE OF App\Entity\News');
-        $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+        // $query = $query->orWhere('p INSTANCE OF App\Entity\News');
+        // $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+        if($id_insight){
+            $query = $query->innerJoin('p.insights', 'i')
+            ->andWhere('i.id in (:insights)')
+            ->setParameter('insights', $id_insight);
+        }
         $query = $query->getQuery();
         $publications = $query->getResult();
         $posts = array();
@@ -37,10 +43,12 @@ class APIController extends AbstractFOSRestController
             "content"   => "",
             "excerpt"   => "",
             "author"    => "",
-            "featured_media"    => ""
+            "featured_media"    => "",
+            "categories"    => ""
         ];
         foreach ($publications as $key => $Opinion) {
             $authors = array();
+            $categories = array();
             $attachments = array();
             $json['id'] = $Opinion->getId();
             $json['date'] = $Opinion->getCreatedAt()->format('Y-m-d\TH:i:s.uP');
@@ -55,6 +63,11 @@ class APIController extends AbstractFOSRestController
                    array_push($authors,$people->getId());
                 }
             }
+            if($Opinion->getActivities()){
+                foreach ($Opinion->getActivities() as $key1 => $activity) {
+                   array_push($categories,$activity->getId());
+                }
+            }
             if($Opinion->getAttachments()){
                 foreach ($Opinion->getAttachments() as $key1 => $attachment) {
                    array_push($attachments,$attachment->getId());
@@ -62,18 +75,25 @@ class APIController extends AbstractFOSRestController
             }
             $json['author'] =implode(",", $authors); 
             $json['featured_media'] = implode(",", $attachments); 
+            $json['categories'] =implode(",", $categories);
             array_push($posts,$json);
         }
         return new JsonResponse($posts);
     }
     public function media(Request $request, publicationRepository $publicationRepository, NavigationService $NavigationService)
     {
+        $id_insight = $request->query->get('id_insight');
         $query = $publicationRepository->createQueryBuilder('p');
         /////////////////////////////////////////
         //Ahora mismo estamos buscando por NEWS Y OPINION, pero cuando importemos los post tenemos que cambiarlo 
         /////////////////////////////////// 
-        $query = $query->orWhere('p INSTANCE OF App\Entity\News');
-        $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+        // $query = $query->orWhere('p INSTANCE OF App\Entity\News');
+        // $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
+        if($id_insight){
+            $query = $query->innerJoin('p.insights', 'i')
+            ->andWhere('i.id in (:insights)')
+            ->setParameter('insights', $id_insight);
+        }
         $query = $query->getQuery();
         $publications = $query->getResult();
         $attachmentA = array();
@@ -106,7 +126,6 @@ class APIController extends AbstractFOSRestController
                 }
             }
         }
-        dd($attachmentA);
         return new JsonResponse($attachmentA);
     }
 }
