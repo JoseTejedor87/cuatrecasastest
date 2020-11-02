@@ -10,16 +10,17 @@ use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\HomeRepository;
 use App\Repository\PageRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\NavigationService;
 
 class PagesController extends WebController
 {
     public function detail(Request $request, PageRepository $PageRepository, CaseStudyRepository $caseStudyRepository,OfficeRepository $OfficeRepository,
-     HomeRepository $homeRepository, NavigationService $navigation)
+     HomeRepository $homeRepository, NavigationService $navigation, PublicationRepository $publicationRepository)
     {
         $page = $PageRepository->getInstanceByRequest($request);
         $home = $homeRepository->findOneBy(['id' => 1]);
-        
+        $relatedPublications = $publicationRepository->findByActivities('');
         if ($page->getCustomTemplate() == 'location/others'){
             $place = $navigation->getParams()->get('app.office_place')['global'];
         }else{
@@ -44,7 +45,17 @@ class PagesController extends WebController
                 }
             }
         }
-
+        $Publicaciones = $page->getPublication()->toArray();
+        $Publicaciones = array_reverse($Publicaciones);
+        foreach ($Publicaciones as $key => $Publication) {
+            foreach ($relatedPublications as $key1 => $relatedPublication) {
+                if($Publication->getId() == $relatedPublication->getId()){
+                     unset($relatedPublications[$key1]);
+                } 
+            }
+            array_unshift( $relatedPublications ,  $Publication);
+        }
+        $relatedPublications = array_values($relatedPublications);
         //dd($page->getBlocks()[0]);
 
         return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
@@ -55,6 +66,7 @@ class PagesController extends WebController
             'controller_name' => 'PageController',
             'home' => $home,
             'caseStudies' => $cases,
+            'relatedPublications' => $relatedPublications,
         ]);
     }
 }
