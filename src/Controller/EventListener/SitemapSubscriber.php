@@ -2,9 +2,19 @@
 
 namespace App\Controller\EventListener;
 
+use App\Repository\OfficeRepository;
+use App\Repository\ActivityRepository;
+use App\Repository\CaseStudyRepository;
+use App\Repository\InsightRepository;
+use App\Repository\PageRepository;
+use App\Repository\PublicationRepository;
+
+
+
 use App\Repository\EventRepository;
 use App\Repository\LawyerRepository;
 use App\Repository\DeskRepository;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
@@ -37,7 +47,13 @@ class SitemapSubscriber implements EventSubscriberInterface
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
         LawyerRepository $lawyerRepository,
-        DeskRepository $deskRepository
+        DeskRepository $deskRepository,
+        OfficeRepository $officeRepository,
+        ActivityRepository $activityRepository,
+        CaseStudyRepository $caseStudyRepository,
+        InsightRepository $insightRepository,
+        PageRepository $pageRepository,
+        PublicationRepository $publicationRepository
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->entityManager = $entityManager;
@@ -45,6 +61,13 @@ class SitemapSubscriber implements EventSubscriberInterface
         $this->lawyerRepository = $lawyerRepository;
         $this->NavigationService = $NavigationService;
         $this->deskRepository = $deskRepository;
+
+        $this->officeRepository = $officeRepository;
+        $this->activityRepository = $activityRepository;
+        $this->caseStudyRepository = $caseStudyRepository;
+        $this->insightRepository = $insightRepository;
+        $this->pageRepository = $pageRepository;
+        $this->publicationRepository = $publicationRepository;
     }
 
     /**
@@ -76,33 +99,49 @@ class SitemapSubscriber implements EventSubscriberInterface
         $events = $this->eventRepository->findAll();
         $lawyers = $this->lawyerRepository->findAll();
         $desks = $this->deskRepository->findAll();
-
-
-
-
+        $offices = $this->officeRepository->findAll();
+        $activities = $this->activityRepository->findAll();
+        $caseStudies = $this->caseStudyRepository->findAll();
+        $insights = $this->insightRepository->findAll();
+        $pages = $this->pageRepository->findAll();
+        $publications = $this->publicationRepository->findAll();
 
         // Events
-        foreach ($events as $event) {
-            if ($event->translate($language)->getSlug() !== "" && $event->translate($language)->getSlug() !== null) {
-                if (!empty($event->getRegions())) {
-                    foreach ($event->getRegions() as $region) {
-                        $url = $this->NavigationService->getPathByPublishable($event, $language, $region);
-                        if ($url !== null) {
-                            $urls->addUrl(
-                                new UrlConcrete($url),
-                                $language
-                            );
-                        }
-                    }
-                }
-            }
-        }
+        $this->generateSlugTranslated($events, $language, $urls);
+        var_dump("Events");
         // Lawyers
-        foreach ($lawyers as $lawyer) {
-            if ($lawyer->getSlug() !== "" && $lawyer->getSlug() !== null) {
-                if (!empty($lawyer->getRegions())) {
-                    foreach ($lawyer->getRegions() as $region) {
-                        $url = $this->NavigationService->getPathByPublishable($lawyer, $language, $region);
+        $this->generateSlug($lawyers, $language, $urls);
+        var_dump("Lawyers");
+        // Desks
+        $this->generateSlugTranslated($desks, $language, $urls);
+        var_dump("Desks");
+        // Offices
+        $this->generateSlug($offices, $language, $urls);
+        var_dump("Offices");
+        // Activities
+        $this->generateSlugTranslated($activities, $language, $urls);
+        var_dump("Activities");
+        // Case Studies
+        $this->generateSlugTranslated($caseStudies, $language, $urls);
+        var_dump("Studies");
+        // Insights
+        $this->generateSlugTranslated($insights, $language, $urls);
+        var_dump("Insights");
+        // Pages
+        $this->generateSlugTranslated($pages, $language, $urls);
+        var_dump("Pages");
+        // Publications
+        $this->generateSlugTranslated($publications, $language, $urls);
+        var_dump("Publications");
+    }
+
+    public function generateSlugTranslated($entities, $language, $urls)
+    {
+        foreach ($entities as $entity) {
+            if ($entity->translate($language)->getSlug() !== "" && $entity->translate($language)->getSlug() !== null) {
+                if (!empty($entity->getRegions())) {
+                    foreach ($entity->getRegions() as $region) {
+                        $url = $this->NavigationService->getPathByPublishable($entity, $language, $region);
                         if ($url !== null) {
                             $urls->addUrl(
                                 new UrlConcrete($url),
@@ -113,12 +152,14 @@ class SitemapSubscriber implements EventSubscriberInterface
                 }
             }
         }
-        // Desks
-        foreach ($desks as $desk) {
-            if ($desk->translate($language)->getSlug() !== "" && $desk->translate($language)->getSlug() !== null) {
-                if (!empty($desk->getRegions())) {
-                    foreach ($desk->getRegions() as $region) {
-                        $url = $this->NavigationService->getPathByPublishable($desk, $language, $region);
+    }
+    public function generateSlug($entities, $language, $urls)
+    {
+        foreach ($entities as $entity) {
+            if ($entity->getSlug() !== "" && $entity->getSlug() !== null) {
+                if (!empty($entity->getRegions())) {
+                    foreach ($entity->getRegions() as $region) {
+                        $url = $this->NavigationService->getPathByPublishable($entity, $language, $region);
                         if ($url !== null) {
                             $urls->addUrl(
                                 new UrlConcrete($url),
