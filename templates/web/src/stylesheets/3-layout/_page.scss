@@ -1458,8 +1458,6 @@
         }
     }
 
-
-
     // CSS Responsive Table
     // https://codepen.io/geoffyuen/pen/FCBEg
 
@@ -1542,4 +1540,89 @@
             }
         }
     }
+}
+
+.page__privacy {
+
+    h2 {
+        padding-bottom: 2rem;
+    }
+
+    p, li {
+        @include fontSet(20px, 28px);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 20px);
+        }
+    }
+
+    ul {
+        @include reset-list;
+
+        @media(max-width: $max-width-4casas) {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        ul {
+            margin-left: 3rem;
+            margin-bottom: 3rem;
+
+            @media(max-width: $max-width-4casas) {
+                margin-left: 0;
+                margin-bottom: 2rem;
+            }
+
+            li {
+                list-style-type: lower-alpha;
+            }
+        }
+    }
+}
+
+.page__security {
+
+    h2 {
+        padding-bottom: 2rem;
+    }
+
+    p {
+        @include fontSet(20px, 28px);
+
+        @media(max-width: $max-width-4casas) {
+            @include fontSet(16px, 20px);
+        }
+    }
+
+    ul {
+        @include reset-list;
+        margin-bottom: 2rem;
+
+        > li {
+            @include fontSet(20px, 28px);
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 1.6rem;
+            color: $main-color;
+
+            @media(max-width: $max-width-4casas) {
+                @include fontSet(16px, 20px);
+            }
+
+            &:before {
+                @include icons-4casas(5px, auto, auto, 0);
+                position: absolute;
+                display: inline-block;
+                content: '\e90a';
+                font-size: 16px;
+                color: $complementary-color;
+
+                @media(max-width: $max-width-4casas) {
+                    top: 0;
+                }
+            }
+        }
+    }
+
+
 }
