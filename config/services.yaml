@@ -17,8 +17,8 @@ parameters:
     app.office_place:
         spain: 1
         portugal: 2
-        global: 3
         latam: 4
+        global: 3
 
     app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
@@ -74,8 +74,10 @@ parameters:
         - eventsBlock
         - publicationBlock
 
+    app.social.key: '%env(string:ADTHIS_ID)%'
+    
     app.path.uploads.resources: '/resources'
-
+   
 services:
     # default configuration for services in *this* file
     _defaults:
