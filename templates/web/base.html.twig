@@ -13,15 +13,16 @@
         <title>{% block title %}{{ navigation_service.getPageTitleByPublishable() }}{% endblock %}</title>
         <meta name="robots" content="{% block metaRobots %}{{ navigation_service.getMetaRobotsByPublishable() }}{% endblock %}" />
         <meta name="description" content="{% block metaDescription %}{{ navigation_service.getMetaDescriptionByPublishable() }}{% endblock %}" />
-        {% include 'web/tools/hreflang.html.twig' %}
-        {% include 'web/tools/stylesheets.html.twig' %}
+        {% include 'web/base/hreflang.html.twig' %}
+        {% include 'web/base/stylesheets.html.twig' %}
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
-        {% include 'web/tools/menu.html.twig' %}
+        {% set array = { 'es':'','en':'-1','pt':'-2','ge':'-3' } %}
+        {% set slug_ext = array[app.request.getLocale()]        %} {# Slug temporal para pages diferentes idiomas  borrar al hacer la navegacion administrable #}
+        {% include 'web/base/menu.html.twig' %}
         {% block main %}{% endblock %}
-        {% include 'web/tools/footer.html.twig' %}
-        {% include 'web/tools/javascripts.html.twig' %}
+        {% include 'web/base/footer.html.twig' %}
+        {% include 'web/base/javascripts.html.twig' %}
         {% block javascripts %}
         {% endblock %}
         {% include "@CHCookieConsent/cookie_consent_styling.html.twig" %}

@@ -28,7 +28,7 @@ class InsightController extends WebController
         $relatedPublications = $publicationRepository->findByActivities('');
 
         $test = 'testc';
-        return $this->render('web/insights/collections.html.twig', [
+        return $this->render('web/insights/index.html.twig', [
             'controller_name' => 'InsightController',
             'awards' => $awards,
             'testc' => $test,

@@ -1,0 +1,16 @@
+
+# API-PUBLICATIONS
+##############################################
+publications-api:
+    path:
+        en:   /publications-api/posts
+        es:   /publications-api/posts
+    methods:    GET|POST
+    controller: App\Controller\APIController::posts
+
+publications-api-media:
+    path:
+        en:   /publications-api/media
+        es:   /publications-api/media
+    methods:    GET|POST
+    controller: App\Controller\APIController::media

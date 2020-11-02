@@ -184,10 +184,15 @@ class KnowledgeController extends WebController
 
         foreach ($insightsAll as $key => $item) {
             if (!isset($totalInsights[$item->getId()])) {
-                array_push($totalInsights, $item);
+                array_push($totalInsights, $item);  
             }
         }
-        //dd($insightsPrior);
+        //dd($totalInsights);
+        $insightsOrderToSend = [];
+        foreach ($totalInsights as $key => $value) {
+            array_push($insightsOrderToSend,$value);
+        }
+
 
         $publications = array_slice($totalPublications, ($limit * ($page - 1)), $limit);
 
@@ -255,7 +260,7 @@ class KnowledgeController extends WebController
 
             return new JsonResponse($json);
         } else {
-            return $this->render('web/knowledge/insights.html.twig', [
+            return $this->render('web/knowledge/index.html.twig', [
                 'controller_name' => 'KnowledgeController',
                 'sectors' => $sectors,
                 'practices' => $practices,
@@ -266,7 +271,7 @@ class KnowledgeController extends WebController
                 'relatedEvents' => $relatedEvents,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
-                'insights' => $totalInsights,
+                'insights' => $insightsOrderToSend,
             ]);
         }
     }
@@ -284,26 +289,5 @@ class KnowledgeController extends WebController
             }
         }
     }
-    public function featured()
-    {
-        return $this->render('web/knowledge/featured.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
 
-
-    public function productDetailKnowledge()
-    {
-        return $this->render('web/knowledge/productDetail.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
-
-    // TEMPORAL >>> BORRAR
-    public function filter()
-    {
-        return $this->render('web/knowledge/filter.html.twig', [
-            'controller_name' => 'KnowledgeController',
-        ]);
-    }
 }

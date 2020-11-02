@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,6 +66,19 @@ class EventFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
+                }
+            ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.event.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'choice_label' => function ($insight) {
+                    return $insight->translate('es')->getTitle();
                 }
             ])
             ->add('people', EntityType::class, [

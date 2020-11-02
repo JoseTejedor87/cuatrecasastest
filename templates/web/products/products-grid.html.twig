@@ -1,0 +1,44 @@
+<div class="boxnews boxnews--products">
+    <div class="row">
+        <div class="col">
+            <div class="boxnews__list">
+                {% for key, product in products %}
+                {% if product %}
+                    {% if product.photo %}
+                        {#% set photo_path = asset('/resources/' ~ product.photo.fileName)|imagine_filter('product_grid') %#}
+                    {% else %}
+                        {% set photo_path = '' %}
+                    {% endif %}
+                {% endif %}
+                <article class="boxnews__item">
+                    <div class="boxnews__header">
+                        <div class="boxnews__type">
+                            <a href="{{ navigation_service.getPathByPublishable(product) }}" class="">{{ product.translate(app.request.getLocale()).title|raw  }}</a>
+                        </div>
+                    </div>
+                    <div class="boxnews__content">
+                        <div class="boxnews__excerpt">
+                            {{ product.translate(app.request.getLocale()).summary|raw  }}
+                        </div>
+                        <a href="{{ navigation_service.getPathByPublishable(product) }}">
+                            <!-- <div class="boxnews__img" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}')"></div> -->
+
+                            {# <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_02_1920x1080.png') }}')"></div> #}
+
+                            {% if key is odd  %}
+                                <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_01_1920x1080.png') }}')"></div>
+                            {% else %}
+                                <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_02_1920x1080.png') }}')"></div>
+                            {% endif %}
+
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            <div class="viewmore__button">
+                <button type="button" class="btn btn__viewmore">Cargar más</button>
+            </div>
+        </div>
+    </div>
+</div>

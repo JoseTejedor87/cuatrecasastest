@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
+use App\Entity\Legislation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -9,7 +11,7 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -20,6 +22,7 @@ use App\Entity\Publication;
 use App\Entity\Activity;
 use App\Entity\Office;
 use App\Entity\Person;
+use App\Entity\Page;
 use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 use App\Form\Type\MetaRobotsType;
@@ -33,7 +36,7 @@ class PublicationFormType extends AbstractType
             //->add('status', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.status'])
             ->add('featured', IntegerType::class, ['required' => true,'label'=>'entities.publication.fields.featured'])
             ->add('url_video', TextType::class, ['required' => false,'label'=>'entities.publication.fields.url_video'])
-            ->add('publication_date', DateType::class, ['label'=>'entities.publication.fields.publication_date', 'required' => true])
+            ->add('publication_date', DateTimeType::class, ['label'=>'entities.publication.fields.publication_date', 'required' => true])
             ->add('activities', EntityType::class, [
                 'class' => Activity::class,
                 'label' => 'entities.publication.fields.activities',
@@ -62,6 +65,34 @@ class PublicationFormType extends AbstractType
                     return $office->translate('es')->getCity();
                 }
             ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.publication.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($insight) {
+                    return $insight->translate('es')->getTitle();
+                }
+            ])
+            ->add('legislations', EntityType::class, [
+                'class' => Legislation::class,
+                'label' => 'entities.publication.fields.legislations',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($legislations) {
+                    return $legislations->getName();
+                }
+            ])
             ->add('people', EntityType::class, [
                 'class' => Person::class,
                 'label' => 'entities.publication.fields.people',
@@ -74,6 +105,20 @@ class PublicationFormType extends AbstractType
                 'expanded' => false,
                 'choice_label' => function ($person) {
                     return $person->getFullName();
+                }
+            ])
+            ->add('pages', EntityType::class, [
+                'class' => Page::class,
+                'label' => 'entities.publication.fields.pages',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'choice_label' => function ($page) {
+                    return $page->translate('es')->getTitle();
                 }
             ])
             ->add('attachments', CollectionType::class, [

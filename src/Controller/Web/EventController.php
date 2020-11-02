@@ -37,7 +37,7 @@ class EventController extends WebController
         $month = $request->query->get('month');
         $year = $request->query->get('year');
         $activity = $request->query->get('activity');
-        $office = $request->query->get('office');
+        $office_id = $request->query->get('office');
         $relatedEvents = $EventRepository->findByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
         $activities = $ActivityRepository->findAll();
@@ -68,14 +68,14 @@ class EventController extends WebController
                 $url= $url . "&activity=".$activity;
             }
         }
-        if ($office) {
-            $query = $query->innerJoin('e.office', 'o')
-                ->andWhere('e.office = :city')
-                ->setParameter('city', $office);
+        if ($office_id) {
+            $query = $query->innerJoin('e.office', 'o_tbl')
+                ->andWhere('o_tbl.id = :office_id')
+                ->setParameter('office_id', $office_id);
             if ($url == "") {
-                $url= "?office=".$office;
+                $url= "?office=".$office_id;
             } else {
-                $url= $url . "&office=".$office;
+                $url= $url . "&office=".$office_id;
             }
         }
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
@@ -200,24 +200,12 @@ class EventController extends WebController
                 array_push($attachmentPublished,$attachment);
         }
 
-        return $this->render('web/knowledge/detail.html.twig', [
+        return $this->render('web/events/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
             'paises' => $paises,
             'relatedEvents' =>$relatedEvents,
             'relatedPublications' => $relatedPublications
-        ]);
-    }
-
-    public function detail2(Request $request, EventRepository $EventRepository)
-    {
-        // setlocale(LC_ALL,"es_ES");
-        // $EventTranslation = $EventTranslationRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
-        // $event = $EventRepository->findOneBy(['id' => $EventTranslation->getTranslatable()->getId()]);
-        //$event = $EventRepository->getInstanceByRequest($request);
-        // $this->isThisLocale($request, $request->attributes->get('idioma'));
-        return $this->render('web/knowledge/eventDetail2.html.twig', [
-
         ]);
     }
 
@@ -227,7 +215,7 @@ class EventController extends WebController
         $year = $request->query->get('year');
         $title = $request->query->get('title');
         $activity = $request->query->get('activity');
-        $office = $request->query->get('office');
+        $office_id = $request->query->get('office');
 
         if( !$month ||  !$year){
             $fechaHoy = new \DateTime();
@@ -254,16 +242,29 @@ class EventController extends WebController
                 $url= $url . "&activity=".$activity;
             }
         }
-        if ($office) {
-            $query = $query->innerJoin('e.office', 'o')
-                ->andWhere('e.office = :city')
-                ->setParameter('city', $office);
+
+        if ($title) {
+            $query = $query->innerJoin('e.translations', 't')
+                            ->andWhere('t.title LIKE :title')
+                            ->setParameter('title', '%'.$title.'%');   
             if ($url == "") {
-                $url= "?office=".$office;
+                $url= "?title=".$title;
             } else {
-                $url= $url . "&office=".$office;
+                $url= $url . "&title=".$title;
             }
         }
+        
+        if ($office_id) {
+            $query = $query->innerJoin('e.office', 'o_tbl')
+                ->andWhere('o_tbl.id = :office_id')
+                ->setParameter('office_id', $office_id);
+            if ($url == "") {
+                $url= "?office=".$office_id;
+            } else {
+                $url= $url . "&office=".$office_id;
+            }
+        }
+
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
         ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
         ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') )
