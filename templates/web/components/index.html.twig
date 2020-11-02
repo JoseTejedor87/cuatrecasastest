@@ -1052,7 +1052,8 @@
         pixelRatioBox.innerText = `Pixel ratio: ${prString}% (${pr.toFixed(2)})`;
 
         // if (window.screen.width == 1094 & window.screen.height == 615 & window.devicePixelRatio == 1.25) {
-        if ( window.devicePixelRatio == 1.5) {
+        // if (window.screen.width == 1280 & window.screen.height == 720 & window.devicePixelRatio == 1.5) {
+        if (window.devicePixelRatio == 1.5) {
             document.body.setAttribute("id", "zoomBrowser");
             zoomBox.innerText = `Zoom browser: 67%`;
         } else {
