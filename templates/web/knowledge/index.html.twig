@@ -244,7 +244,7 @@
                 {% if page < pagesTotal %}
                 <div class="col-12">
                     <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">Cargar más</button>
+                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">{{ 'global.messages.load_more'|trans }}</button>
                     </div>
                 </div>
                 {% endif %}
@@ -443,8 +443,8 @@
                     }else{
                         item.find( ".boxnews__img" ).hide();
                     }
-                       
-                    
+
+
                     item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
                     item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
                     item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");

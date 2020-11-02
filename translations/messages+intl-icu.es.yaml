@@ -38,6 +38,11 @@ global:
     show_less: Ver menos
     show_sector: Ver Sectores
     show_service: Ver Servicios
+    view_more_cases: Ver más casos
+    view_more_publications: Ver más publicaciones
+    view_more_collections: Ver más colecciones
+    view_more_events: Ver más eventos
+    view_all_events: Ver todos los eventos
     slider_next: Siguiente
     related_content: Contenido relacionado
 
