@@ -48,7 +48,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        /*    $token = $credentials['token'];
+            $token = $credentials['token'];
             if ($token === null) {
                 return;
             }
@@ -69,10 +69,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
                 $data = (array)$response->ValidateSSOResult->Data;
                 return $this->em->getRepository(User::class)
                     ->findOneBy(['user_id' => $data['Iniciales']]);
-            }*/
+            }
 
-        return $this->em->getRepository(User::class)
-             ->findOneBy(['user_id' => 'JTEB']);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
