@@ -42,7 +42,6 @@ class LawyerController extends WebController
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
         $contextualBlocks['cases']  = $caseStudyRepository->findByLawyer($lawyer);
-
         return $this->render('web/lawyer/detail.html.twig', [
             'lawyer' => $lawyer,
             'contextualBlocks' => $contextualBlocks,
