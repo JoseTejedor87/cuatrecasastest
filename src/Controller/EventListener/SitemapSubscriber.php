@@ -4,9 +4,7 @@ namespace App\Controller\EventListener;
 
 use App\Repository\OfficeRepository;
 use App\Repository\ActivityRepository;
-use App\Repository\BrandRepository;
 use App\Repository\CaseStudyRepository;
-use App\Repository\GeneralBlockRepository;
 use App\Repository\InsightRepository;
 use App\Repository\PageRepository;
 use App\Repository\PublicationRepository;
@@ -53,7 +51,6 @@ class SitemapSubscriber implements EventSubscriberInterface
         OfficeRepository $officeRepository,
         ActivityRepository $activityRepository,
         CaseStudyRepository $caseStudyRepository,
-        GeneralBlockRepository $generalBlockRepository,
         InsightRepository $insightRepository,
         PageRepository $pageRepository,
         PublicationRepository $publicationRepository
@@ -68,7 +65,6 @@ class SitemapSubscriber implements EventSubscriberInterface
         $this->officeRepository = $officeRepository;
         $this->activityRepository = $activityRepository;
         $this->caseStudyRepository = $caseStudyRepository;
-        $this->generalBlockRepository = $generalBlockRepository;
         $this->insightRepository = $insightRepository;
         $this->pageRepository = $pageRepository;
         $this->publicationRepository = $publicationRepository;
@@ -106,7 +102,6 @@ class SitemapSubscriber implements EventSubscriberInterface
         $offices = $this->officeRepository->findAll();
         $activities = $this->activityRepository->findAll();
         $caseStudies = $this->caseStudyRepository->findAll();
-        $generalBlocks = $this->generalBlockRepository->findAll();
         $insights = $this->insightRepository->findAll();
         $pages = $this->pageRepository->findAll();
         $publications = $this->publicationRepository->findAll();
@@ -129,9 +124,6 @@ class SitemapSubscriber implements EventSubscriberInterface
         // Case Studies
         $this->generateSlugTranslated($caseStudies, $language, $urls);
         var_dump("Studies");
-        // General Blocks
-        $this->generateSlugTranslated($generalBlocks, $language, $urls);
-        var_dump("Blocks");
         // Insights
         $this->generateSlugTranslated($insights, $language, $urls);
         var_dump("Insights");
