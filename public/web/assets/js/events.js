@@ -1,6 +1,3 @@
-
-
-
 function changeMonth(month){
     $.ajax({
         method: "GET",
@@ -37,7 +34,7 @@ function searchEvents(){
         $('#checksOutput').fadeOut();
     }
 
-    $('.boxnews.bg__grey__01').fadeOut(); 
+    $('.boxnews.bg__grey__01').fadeOut();
     month = $("#month").val();
     year = $("#year").val();
     activity = $("#activity").val();
@@ -64,11 +61,11 @@ function searchEvents(){
         console.log({ month: month, year: year, title: title, activity: activity, office: office  });
 
     });
-}    
+}
 
 
 // document.getElementById('#month').addEventListener("change", searchEvents());
-/// AQUI 
+/// AQUI
 
 $(".select-options li").on("click", function() {
     searchEvents();
@@ -108,12 +105,12 @@ function showTag(name,text){
 
 function tags(data) {
     $("#checksOutput").css("display", "flex");
-    
+
     originalMonth = $("select#month option:first").val();
     originalYear = $("select#year option:first").val();
 
     // console.log(data);
-    
+
     if (data.month !== originalMonth ){
         text = $('#month option[value="'+data.month+'"]').html();
         showTag('month',text);
