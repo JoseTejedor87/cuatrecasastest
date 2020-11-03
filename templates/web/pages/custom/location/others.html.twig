@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -65,7 +64,7 @@
             </section>
 
             {% include 'web/pages/custom/location/shared/worldwide.html.twig' %}
-            {# {% include 'web/pages/custom/location/shared/related-content-others.html.twig' %} NO ENTIENDO COMO HAY DOS SLIDER DE CONTENIDO #} 
+            {# {% include 'web/pages/custom/location/shared/related-content-others.html.twig' %} NO ENTIENDO COMO HAY DOS SLIDER DE CONTENIDO #}
             {# {% include 'web/pages/custom/location/shared/related-content-slider-others.html.twig' %} #}
             {% if relatedPublications|length > 0 %}
                 {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
