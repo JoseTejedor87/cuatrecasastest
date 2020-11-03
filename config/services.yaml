@@ -74,7 +74,7 @@ parameters:
         - eventsBlock
         - publicationBlock
 
-    app.social.key: '%env(string:ADTHIS_ID)%'
+    # app.social.key: '%env(string:ADTHIS_ID)% 
     
     app.path.uploads.resources: '/resources'
    

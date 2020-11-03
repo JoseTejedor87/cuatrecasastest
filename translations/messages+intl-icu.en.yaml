@@ -2,7 +2,7 @@
 # ###########################################
 global:
   calendar:
-    month: Month 
+    month: Month
     year: Year
   home: Home
   goBack: Back
@@ -38,6 +38,11 @@ global:
     show_less: Show less
     show_sector: View Sectors
     show_service: View Services
+    view_more_cases: View more cases
+    view_more_publications: View more publications
+    view_more_collections: View more collections
+    view_more_events: View more events
+    view_all_events: View all events
     slider_next: Next
     related_content: Related content
 

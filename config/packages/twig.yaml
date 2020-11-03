@@ -14,4 +14,4 @@ twig:
         block_types: '%app.block_types%'
         language_switcher: '%app.language_switcher%'
         navigation_service: '@App\Controller\Web\NavigationService'
-        social_key: '%app.social.key%'
+        # social_key: '%app.social.key%'
