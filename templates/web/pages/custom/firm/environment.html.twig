@@ -30,11 +30,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -43,19 +39,19 @@
                     <div class="col faketabs__component__tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a href="{{ path('firm_vision') }}" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
+                                <a href="{{ path('firm',{slug: 'firm-vision'~slug_ext }) }}" class="nav-link">{{ 'menu.firm.vision'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('firm_social') }}" class="nav-link">{{ 'menu.firm.social'|trans }}</a>
+                                <a href="{{ path('firm',{slug: 'social'~slug_ext }) }}" class="nav-link">{{ 'menu.firm.social'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('firm_environment') }}" class="nav-link active">{{ 'menu.firm.environment'|trans }}</a>
+                                <a href="{{ path('firm',{slug: 'environment'~slug_ext }) }}" class="nav-link active">{{ 'menu.firm.environment'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('firm_governance') }}" class="nav-link">{{ 'menu.firm.governance'|trans }}</a>
+                                <a href="{{ path('firm',{slug: 'governance'~slug_ext }) }}" class="nav-link">{{ 'menu.firm.governance'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('firm_innovation') }}" class="nav-link">{{ 'menu.firm.innovation'|trans }}</a>
+                                <a href="{{ path('firm',{slug: 'innovation'~slug_ext }) }}" class="nav-link">{{ 'menu.firm.innovation'|trans }}</a>
                             </li>
                         </ul>
                     </div>
@@ -70,11 +66,15 @@
 
         </article>
 
-        {% include 'web/shared/cta-video-enviroment.html.twig' %}
-        {% include 'web/shared/environment-resources.html.twig' %}
-        {% include 'web/shared/cta-corporative_YML.html.twig' %}
-        {% include 'web/shared/awards_CMP.html.twig' %} {# no info #}
-        {% include 'web/shared/related-content-slider_YML.html.twig' %} {# no info #}
+        {% include 'web/pages/custom/firm/shared/cta-video-enviroment.html.twig' %}
+        {% include 'web/pages/custom/firm/shared/environment-resources.html.twig' %}
+        {% include 'web/pages/custom/firm/shared/cta-corporative-environment.html.twig' %}
+        {% include 'web/pages/custom/firm/shared/awards-environment.html.twig' %} {# no info #}
+        {# {% include 'web/pages/custom/firm/shared/related-content-slider-environment.html.twig' %} no info #}
+        {% if relatedPublications|length > 0 %}
+            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '----insight',publications: relatedPublications }  %}
+        {% endif %}
+
 
     </main>
 
@@ -84,8 +84,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>

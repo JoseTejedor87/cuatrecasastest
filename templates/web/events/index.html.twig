@@ -34,11 +34,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -63,7 +59,7 @@
                                     <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
                                 </div>
                                 <div class="search_selects filtersToggle">
-                                    <select id="place" class="custom__select">
+                                    <select id="office" class="custom__select">
                                         <option disabled selected>Lugar</option>
                                         {% for office in offices %}
                                             {% if office.translate(app.request.getLocale()).city  %}
@@ -71,7 +67,7 @@
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <select id="expertise" class="custom__select">
+                                    <select id="activity" class="custom__select">
                                         <option disabled selected>Expertise</option>
                                         {% for activity in activities %}
                                             {% if activity.translate(app.request.getLocale()).title  %}
@@ -80,7 +76,7 @@
                                         {% endfor %}
                                     </select>
                                     <select id="month" class="custom__select" >
-                                        <option disabled selected>Mes</option>
+                                        <option value="{{ "now"|date("m") }}" selected >{{ 'global.calendar.month' | trans }}</option>
                                         <option value="1">Enero</option>
                                         <option value="2">Febrero</option>
                                         <option value="3">Marzo</option>
@@ -94,25 +90,41 @@
                                         <option value="11">Noviembre</option>
                                         <option value="12">Diciembre</option>
                                     </select>
+                                    {% set actualYear =  "now"|date("Y") %}
                                     <select id="year" class="custom__select">
-                                        <option disabled selected>Año</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2014">2014</option>
-                                        <option value="2013">2013</option>
-                                        <option value="2012">2012</option>
-                                        <option value="2011">2011</option>
-                                        <option value="2010">2010</option>
+                                        <option value="{{ actualYear }}" selected>{{ 'global.calendar.year' | trans }}</option>
+                                        {% for i in 0..10 %}
+                                            <option value="{{ actualYear-i }}">{{ actualYear-i }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <!-- Selected tags -->
+                    <p></p>
+                    <div class="col-12" id="checksOutput" style="display:none">
+                        <span id="checkbox-tag-title" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="title" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-office" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="office" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-activity" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="activity" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-month" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="month" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-year" class="checkbox-tag" style="display:none;">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="year" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                    </div>
+
                 </div>
+
+
+
             </section>
 
             {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
@@ -131,17 +143,14 @@
                         </div>
                         <div id="eventCalendarList">
                         </div>
-                        
+
                     </div>
                 </div>
            </section>
 
-
-  
-    {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
-    {% endif %}
-
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
+            {% endif %}
         </article>
     </main>
     {% include 'web/shared/cta-footer.html.twig' %}
@@ -159,22 +168,23 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/moment/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
-
 <script>
 web.global.customSelects();
 // EVENTS
-var year = {{ (year) ? year : "" }};
-var month = {{ (month) ? month : "" }};
-newCalendar( {{ eventsCalendar |raw }},month,year);
 
+var year = (year) ? year : {{  "now"|date("Y") }};
+var month = (month) ? month : {{ "now"|date("m")  }};
+
+newCalendar( {{ eventsCalendar |raw }},month,year);
 var getEventUrl = "{{ path('get_events') }}";
+
 </script>
 
 <script type="text/javascript" src="{{ asset('web/assets/js/events.js') }}"></script>

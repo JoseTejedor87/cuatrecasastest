@@ -8,7 +8,6 @@
 {% block main %}
 
     <main role="main" class="home container-fluid">
-
         <header class="row home__header">
             <div class="col">
                 <div id="sliderHome" class="swiper-container">
@@ -18,7 +17,6 @@
                 </div>
             </div>
         </header>
-
     </main>
 
     {% if home.showSearchBlock %}
@@ -27,7 +25,7 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.outstanding_content'|trans, publications: relatedPublications } %}
         {% endif %}
     {% endif %}
 
@@ -68,7 +66,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>

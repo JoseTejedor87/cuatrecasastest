@@ -1,0 +1,153 @@
+{% extends 'web/base.html.twig' %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">{{ 'footer.privacy.cookies'|trans }}</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'footer.privacy.cookies'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+            <div class="row page__block--full page__cookies">
+                <div class="col">
+                    {{ 'privacy.cookies' | trans | raw }}
+                </div>
+                {# <div class="col">
+                    <p>Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
+                    <ul>
+                        <li>La fecha y hora de la última vez que el Usuario visitó el Sitio Web;</li>
+                        <li>El diseño de contenidos que el Usuario escogió en su primera visita al Sitio Web;</li>
+                        <li>Elementos de seguridad que interviene en el control de acceso a las áreas restringidas. El Usuario tiene la opción de impedir la generación de cookies, mediante la selección de la correspondiente opción en su programa Navegador.</li>
+                    </ul>
+                    <p>Las Cookies permiten al Sitio Web, entre otras cosas, almacenar y retener información sobre los hábitos de navegación de los Usuarios o de sus dispositivos y, dependiendo de la información en ellos contenida y del uso que estén haciendo de los dispositivos, pueden ser utilizadas para reconocer al Usuario.</p>
+                    <p>El Sitio Web utiliza cookies de terceros. En concreto, utiliza las siguientes cookies de terceros:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</td>
+                                <th>Origen</td>
+                                <th>Finalidad</td>
+                                <th>Duración</td>
+                                <th>Más información...</td>
+                            </tr>
+                        <thead>
+                        <tbody>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>_ga</span>
+                                    <span>_gid</span>
+                                    <span>_gat</span>
+                                </td>
+                                <td data-th="Origen">Google Analytics</td>
+                                <td data-th="Finalidad">Destinadas al análisis de la web, por ejemplo cuántas páginas ha visitado un usuario o el tiempo de sesión</td>
+                                <td data-th="Duración">
+                                    <span>_ga: 2 años</span>
+                                    <span>_gid: 1 día</span>
+                                    <span>_gat: 10 minutos</span>
+                                </td>
+                                <td data-th="Más información...">https://developers.google.com/analytics/devguides/collection/gajs/cookie-usage</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>PREF</span>
+                                    <span>VISITOR_INFO1_LIVE</span>
+                                    <span>YSC</span>
+                                </td>
+                                <td data-th="Origen">Youtube</td>
+                                <td data-th="Finalidad">Se utilizan para la reproducción de vídeos a través de la web, por ejemplo, para guardar las preferencias</td>
+                                <td data-th="Duración">
+                                    <span>PREF: 10 años</span>
+                                    <span>VISITOR_INFO1_LIVE: 8 meses</span>
+                                    <span>YSC: sesión</span>
+                                </td>
+                                <td data-th="Más información...">https://policies.google.com/technologies/types</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>__atuvc</span>
+                                    <span>_atuvs</span>
+                                    <span>uid</span>
+                                </td>
+                                <td data-th="Origen">Addthis</td>
+                                <td data-th="Finalidad">Las utiliza el <em>plugin</em> Addthis para compartir contenidos en redes sociales, asegurando por ejemplo que el contador de <em>shares</em> esté actualizado</td>
+                                <td data-th="Duración">2 años</td>
+                                <td data-th="Más información...">http://www.addthis.com/privacy</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>guest_id</span>
+                                </td>
+                                <td data-th="Origen">Twitter</td>
+                                <td data-th="Finalidad">La genera Twitter para el visor de tweets que muestra la web para identificar al usuario</td>
+                                <td data-th="Duración">2 años</td>
+                                <td data-th="Más información...">https://help.twitter.com/es/rules-and-policies/twitter-cookies</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>hjIncludedInSample</span>
+                                </td>
+                                <td data-th="Origen">Hotjar</td>
+                                <td data-th="Finalidad">Destinada para conocer que secciones son las más utilizadas de nuestra web</td>
+                                <td data-th="Duración">Fin de sesión de navegación</td>
+                                <td data-th="Más información...">https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookies</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>PHPSESSID</span>
+                                </td>
+                                <td data-th="Origen">Cuatrecasas</td>
+                                <td data-th="Finalidad">La utiliza el propio lenguaje de programación de la web para almacenar un identificador de sesión</td>
+                                <td data-th="Duración">Fin de sesión de navegación</td>
+                                <td data-th="Más información...">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>acgroupswithpersist</span>
+                                    <span>acopendivids</span>
+                                </td>
+                                <td data-th="Origen">Cuatrecasas</td>
+                                <td data-th="Finalidad">Destinadas a recordar la posición de los menús desplegables al navegar</td>
+                                <td data-th="Duración">Fin de sesión de navegación</td>
+                                <td data-th="Más información...">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Nombre">
+                                    <span>cuatrecasasAcceptCookie</span>
+                                </td>
+                                <td data-th="Origen">Cuatrecasas</td>
+                                <td data-th="Finalidad">Destinada a identificar si se ha aceptado la política de cookies para mostrar o no el mensaje informativo</td>
+                                <td data-th="Duración">14 días</td>
+                                <td data-th="Más información...">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Administración de las cookies y de las tecnologías similares:</p>
+                    <p>Los Usuarios pueden configurar la instalación de las Cookies durante el proceso de configuración dl Sitio Web y son conscientes de que deshabilitar las cookies y la tecnología similar puede afectar el uso normal de la misma y los servicios proporcionados.</p>
+                    <p>Para deshabilitar las cookies, los Usuarios deberán seguir las instrucciones de cada navegador. Por ejemplo:</p>
+                    <ul>
+                        <li>Con Internet Explorer: Ver -&gt; Opciones de Internet -&gt; Opcions avanzadas (también disponible en el siguiente enlace: <a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies">https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies</a>).</li>
+                        <li>Con Firefox: Preferencias -&gt; Privacidad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias">https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias</a>).</li>
+                        <li>Con Google Chrome: Herramientas -&gt; Opciones (Preferencias en Mac) -&gt; Avanzadas -&gt; Privacidad -&gt; Configuración de Contenido (también disponible en el siguiente enlace: <a href="https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es">https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es</a>).</li>
+                        <li>Con Safari: Menú -&gt; Privacidad -&gt; Seguridad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES">https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES</a>).</li>
+                    </ul>
+                </div> #}
+            </div>
+        </article>
+    </main>
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

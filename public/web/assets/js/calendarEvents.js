@@ -3,7 +3,7 @@ function newCalendar(eventosjson, month , year) {
     var calendarEl = document.getElementById('eventCalendar');
     var date = new Date();
     var day = date.getDate();
-
+    //console.log(month);
     if(month && month < 10){
         month = `0${month}`;
     }
@@ -16,7 +16,7 @@ function newCalendar(eventosjson, month , year) {
             }
             if(month){
                 var dayCalendar = date.getFullYear() + '-' +  month + '-01';
-                console.log("entro month");
+                // console.log("entro month");
             }
 
         }else{
@@ -26,9 +26,8 @@ function newCalendar(eventosjson, month , year) {
             }
             var dayCalendar = date.getFullYear() + '-' +  month + '-01';
         }
-
-        console.log(month);
     }
+    // console.log(dayCalendar);
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
         /*

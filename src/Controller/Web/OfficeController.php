@@ -50,7 +50,7 @@ class OfficeController extends WebController
 
         $relatedEvents = $office->getEvent();
 
-        return $this->render('web/shared/office-detail.html.twig', [
+        return $this->render('web/office/office-detail.html.twig', [
             'office' => $office,
             'relatedPublications' => $relatedPublications,
             // 'relatedEvents' => $relatedEvents, // no se estan usando Consultar si se debe agregar como contenido relacionado tambien

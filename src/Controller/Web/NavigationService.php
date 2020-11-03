@@ -45,7 +45,7 @@ class NavigationService
     }
 
     public function getAlternativePath($language = null, $region = null)
-    {   
+    {
         $language = $language ?? $this->getLanguage();
         $region = $region ?? $this->getRegion();
 
@@ -98,18 +98,43 @@ class NavigationService
     public function getMetaDescriptionByPublishable($publishable = null)
     {
         $publishable = $publishable ?? $this->getPublishable();
+
         $language = $this->getLanguage();
         $metaDescription = "";
+        $description = "";
         if ($publishable) {
             $metaDescription = $publishable->translate($language)->getMetaDescription();
+            if ($metaDescription != '') {
+                return $metaDescription;
+            } else {
+                if ($publishable instanceof \App\Entity\Article
+                    || $publishable instanceof \App\Entity\CaseStudy
+                    || $publishable instanceof \App\Entity\Desk
+                    || $publishable instanceof \App\Entity\Insight
+                    || $publishable instanceof \App\Entity\Practice
+                    || $publishable instanceof \App\Entity\Product
+                    || $publishable instanceof \App\Entity\Sector) {
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getSummary() !== null ) ? $publishable->translate($language)->getSummary() : ''));
+                    $pos = strpos($description, '.');
+                    $description = substr($description, 0, $pos+1);
+                } elseif ($publishable instanceof \App\Entity\Lawyer
+                || $publishable instanceof \App\Entity\Event) {
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescription() !== null  ) ? $publishable->translate($language)->getDescription() : ''));
+                    $pos = strpos($description, '.');
+                    $description = substr($description, 0, $pos+1);
+                }elseif ($publishable instanceof \App\Entity\Office) {
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescriptions() !== null  ) ? $publishable->translate($language)->getDescriptions() : ''));
+                    $pos = strpos($description, '.');
+                    $description = substr($description, 0, $pos+1);
+                }
+            }
         }
-        return $metaDescription;
+        return $description;
     }
 
     public function getPageTitleByPublishable($publishable = null)
     {
         $publishable = $publishable ?? $this->getPublishable();
-
         // Default title
         $title = "Cuatrecasas";
 
@@ -136,10 +161,16 @@ class NavigationService
                 || $publishable instanceof \App\Entity\Product
                 || $publishable instanceof \App\Entity\Sector) {
                 $title = $publishable->translate($language)->getTitle();
+                $uri = $_SERVER['REQUEST_URI'];
+                $path = array_reverse(explode('/', $uri));
+                $title = $title . " / " . str_replace("-", " ", ucfirst($path[1])) . " - Cuatrecasas";
             } elseif ($publishable instanceof \App\Entity\Lawyer
                     || $publishable instanceof \App\Entity\Office
                     || $publishable instanceof \App\Entity\Resource) {
                 $title = $publishable->__toString();
+                $uri = $_SERVER['REQUEST_URI'];
+                $path = array_reverse(explode('/', $uri));
+                $title = $title . " / " . str_replace("-", " ", ucfirst($path[1])) . " - Cuatrecasas";
             }
         }
         return $title;
@@ -184,7 +215,7 @@ class NavigationService
                 $params['slug'] = $publishable->getSlug();
             } elseif ($publishable instanceof \App\Entity\Home) {
                 $pathName = '';
-                $params['slug'] = $publishable->translate($language)->getSlug();                
+                $params['slug'] = $publishable->translate($language)->getSlug();
             } elseif ($publishable instanceof \App\Entity\Page) {
                 $pathName = 'pages_detail';
                 $params['slug'] = $publishable->translate($language)->getSlug();

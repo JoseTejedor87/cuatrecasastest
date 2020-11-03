@@ -243,6 +243,8 @@ entities:
       people: Abogados
       insights: Colecciones
       legislations: Legislacion
+      pages: Páginas
+      url_video: Url Video
       summary: Resumen
       content: Contenido
       caption: Subtitulo

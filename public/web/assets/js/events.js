@@ -1,6 +1,3 @@
-
-
-
 function changeMonth(month){
     $.ajax({
         method: "GET",
@@ -33,15 +30,22 @@ $(document).on("click", ".fc-icon__button__next-button .fc-icon-chevron-right", 
 });
 
 function searchEvents(){
+    if($('.flag-show')[0] === undefined){
+        $('#checksOutput').fadeOut();
+    }
+
+    $('.boxnews.bg__grey__01').fadeOut();
     month = $("#month").val();
     year = $("#year").val();
-    activity = $("#expertise").val();
-    office = $("#place").val();
+    activity = $("#activity").val();
+    office = $("#office").val();
     title = $("#title").val();
+    data = { month: month, year: year, title: title, activity: activity, office: office  };
+    tags(data);
     $.ajax({
         method: "GET",
         url: getEventUrl,
-        data: { month: month, year: year, title: title, activity: activity, office: office  },
+        data: data,
         beforeSend: function( xhr ) {
             $('.search__component__loader').css("display", "flex").fadeIn('fast');
         }
@@ -57,33 +61,79 @@ function searchEvents(){
         console.log({ month: month, year: year, title: title, activity: activity, office: office  });
 
     });
-}    
+}
 
 
-document.getElementById('#month').addEventListener("change", searchEvents());
-/// AQUI 
+// document.getElementById('#month').addEventListener("change", searchEvents());
+/// AQUI
 
-$(document).on("click", ".search_box__button",function (){
-    $('.boxnews.bg__grey__01').fadeOut(); 
+$(".select-options li").on("click", function() {
     searchEvents();
 });
 
-function tags(office) {
+
+$(document).on("click", ".search_box__button",function (){
+    searchEvents();
+});
+
+
+$(document).on("click", ".ion-android-close",function (){
+    $(this).each(function(ind,el){
+        $(el.parentElement.parentElement).css("display", "none");
+        let value  = el.parentElement.dataset.value;
+        let select = "select#"+value;
+        if (value === 'title'){
+            $('#title').val('');
+
+        }else{
+         // console.log(select);
+        $(select).val($(select+" option:first").val());
+        $(select).next(".select-styled").text($("#"+value+" option:selected" ).text());
+        }
+        $("#checkbox-tag-"+value).removeClass("flag-show");
+    });
+
+    searchEvents();
+});
+
+
+function showTag(name,text){
+    $("#checkbox-tag-"+name+" span.tag-text").text(text);
+    $("#checkbox-tag-"+name).css("display", "flex");
+    $("#checkbox-tag-"+name).addClass("flag-show");
+}
+
+function tags(data) {
     $("#checksOutput").css("display", "flex");
 
-    if(office !== '') {
-        var officeText = $("#place option:selected" ).text();
-        $("#checkbox-tag-place span.tag-text").text(officeText);
-        $("#checkbox-tag-place").css("display", "flex");
+    originalMonth = $("select#month option:first").val();
+    originalYear = $("select#year option:first").val();
+
+    // console.log(data);
+
+    if (data.month !== originalMonth ){
+        text = $('#month option[value="'+data.month+'"]').html();
+        showTag('month',text);
     }
 
+    if (data.year !== originalYear){
+        text = $('#year option[value="'+data.year+'"]').html();
+        showTag('year',text);
+    }
 
-    $("#checkbox-tag-practice .ion-android-close").click(function(){
-        $("#checkbox-tag-practice").css("display", "none");
-        $("select#place").val($("select#place option:first").val());
-        $("select#place").next(".select-styled").text($("#place option:selected" ).text());
-        ajax();
-        alert($("#place option:selected" ).val());
-    });
+    if (data.office !== null ){
+        text = $('#office option[value="'+data.office+'"]').html();
+        showTag('office',text);
+    }
+
+    if (data.activity !== null ){
+        text = $('#activity option[value="'+data.activity+'"]').html();
+        showTag('activity',text);
+    }
+
+    if (data.title !== ''){
+        text = $('#title').val();
+        showTag('title',text);
+    }
 
 }

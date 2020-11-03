@@ -1,0 +1,74 @@
+<section class="boxnews boxnews--collections">
+    <div class="container">
+        <div class="row page__section">
+            <div class="col">
+                <h4 class="section__title section__title--insight">Colecciones</h4>
+                <div class="boxnews__list">
+                    <article class="boxnews__item">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Lorem ipsum dolor</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <div class="boxnews__excerpt">
+                                {% set summary = "The educational prerequisites for becoming a lawyer vary greatly from country to country. In some countries, law is taught by a faculty of law, which is a department of a university's general undergraduate college." %}
+                                <p>{{ summary|length > 120 ? summary|slice(0, 120) ~ '...' : summary }}</p>
+                            </div>
+                            <div class="boxnews__action">
+                                <a href="#" class="doble__arrow__link">Ver más</a>
+                            </div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_02_1920x1080.png') }}')"></div>
+                        </div>
+                    </article>
+                    <article class="boxnews__item">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Excepteur sint occaecat</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <div class="boxnews__excerpt">
+                                {% set summary = "In many civil law countries, prosecutors are trained and employed as part of the judiciary; they are law-trained jurists, but may not necessarily be lawyers in the sense that the word is used in the common law world." %}
+                                <p>{{ summary|length > 120 ? summary|slice(0, 120) ~ '...' : summary }}</p>
+                            </div>
+                            <div class="boxnews__action">
+                                <a href="#" class="doble__arrow__link">Ver más</a>
+                            </div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_01_1920x1080.png') }}')"></div>
+                        </div>
+                    </article>
+                    <article class="boxnews__item">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Lorem ipsum dolor</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <div class="boxnews__excerpt">
+                                {% set summary = "The educational prerequisites for becoming a lawyer vary greatly from country to country. In some countries, law is taught by a faculty of law, which is a department of a university's general undergraduate college." %}
+                                <p>{{ summary|length > 120 ? summary|slice(0, 120) ~ '...' : summary }}</p>
+                            </div>
+                            <div class="boxnews__action">
+                                <a href="#" class="doble__arrow__link">Ver más</a>
+                            </div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_02_1920x1080.png') }}')"></div>
+                        </div>
+                    </article>
+                    <article class="boxnews__item">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Excepteur sint occaecat</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <div class="boxnews__excerpt">
+                                {% set summary = "In many civil law countries, prosecutors are trained and employed as part of the judiciary; they are law-trained jurists, but may not necessarily be lawyers in the sense that the word is used in the common law world." %}
+                                <p>{{ summary|length > 120 ? summary|slice(0, 120) ~ '...' : summary }}</p>
+                            </div>
+                            <div class="boxnews__action">
+                                <a href="#" class="doble__arrow__link">Ver más</a>
+                            </div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_01_1920x1080.png') }}')"></div>
+                        </div>
+                    </article>
+                </div>
+                <div class="viewmore__button">
+                    <button type="button" class="btn btn__viewmore btn__viewmore--plus">{{ 'global.messages.show_more'|trans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

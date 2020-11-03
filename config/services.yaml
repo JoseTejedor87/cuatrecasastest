@@ -17,8 +17,8 @@ parameters:
     app.office_place:
         spain: 1
         portugal: 2
-        global: 3
         latam: 4
+        global: 3
 
     app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
@@ -74,7 +74,13 @@ parameters:
         - eventsBlock
         - publicationBlock
 
+    # app.social.key: '%env(string:ADTHIS_ID)% 
+    
     app.path.uploads.resources: '/resources'
+   
+
+    router.request_context.host:   127.0.0.1:8000
+    router.request_context.scheme: https
 
 services:
     # default configuration for services in *this* file
@@ -110,6 +116,13 @@ services:
 
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+
+    app.sitemap.post_subscriber:
+        class: App\Controller\EventListener\SitemapSubscriber
+        arguments:
+            - "@router"
+        tags:
+            - { name: "kernel.subscriber", priority: 100 }
 
 # KnpLab Paginator
 knp_paginator:

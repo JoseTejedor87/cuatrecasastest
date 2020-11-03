@@ -1,0 +1,112 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.offices.latam'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.offices.latam'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'espana'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.spain'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'portugal'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.portugal'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'latam'~slug_ext }) }}" class="nav-link active">{{ 'menu.offices.latam'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'other-regions'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block noborder">
+                <div class="col">
+                    <div class="page__block__title page__block__title--article">
+                        <p>Contamos con un grupo de profesionales de diferentes áreas con una amplia experiencia en el asesoramiento a empresas y fondos canadienses con intereses en Europa y Ameríca latina</p>
+                    </div>
+                    <div class="page__block__content page__block__content--article">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.</p>
+                        <p>Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                            <optgroup label="Latinoamérica">
+                                <option value="">Mexico City</option>
+                                <option value="">Bogotá</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/pages/custom/location/shared/awards-latam.html.twig' %}
+            {% include 'web/pages/custom/location/shared/cases-latam.html.twig' %}
+            {# {% include 'web/pages/custom/location/shared/related-content-slider-latam.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
+            {% include 'web/pages/custom/location/shared/info-latam.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

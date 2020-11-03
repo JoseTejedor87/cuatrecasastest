@@ -390,4 +390,14 @@ class Insight extends Publishable
 
         return $this;
     }
+
+    public function removeCaseStudy(CaseStudy $caseStudy): self
+    {
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+            $caseStudy->removeInsight($this);
+        }
+
+        return $this;
+    }
 }

@@ -1,0 +1,106 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.offices.portugal'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.offices.portugal'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'espana'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.spain'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'portugal'~slug_ext }) }}" class="nav-link active">{{ 'menu.offices.portugal'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'latam'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.latam'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'other_regions'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block--centered">
+                <div class="col">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                </div>
+            </section>
+
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                            <optgroup label="Portugal">
+                                <option value="">Lisboa</option>
+                                <option value="">Oporto</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/pages/custom/location/shared/awards-portugal.html.twig' %}
+            {% include 'web/pages/custom/location/shared/cases-portugal.html.twig' %}
+            {# {% include 'web/pages/custom/location/shared/related-content-slider-portugal.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
+            {% include 'web/pages/custom/location/shared/info-portugal.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

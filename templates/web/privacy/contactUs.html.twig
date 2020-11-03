@@ -1,0 +1,34 @@
+{% extends 'web/base.html.twig' %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">{{ 'footer.privacy.contact'|trans }}</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'footer.privacy.contact'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+            <div class="row page__block--full page__security">
+                <div class="col">
+                    {{ 'privacy.contact_us' | trans | raw }}
+                </div>
+            </div>
+        </article>
+    </main>
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

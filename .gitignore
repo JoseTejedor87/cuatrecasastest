@@ -27,3 +27,7 @@ _web-cuatrecasas.sublime-workspace
 
 /config/packages/doctrine.yaml
 .php-version
+.env
+public/web.config
+src/Security/TokenAuthenticator.php
+composer.lock

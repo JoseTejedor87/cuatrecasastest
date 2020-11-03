@@ -35,6 +35,11 @@ global:
     show_less: Show less
     show_sector: View Sectors
     show_service: View Services
+    view_more_cases: View more cases
+    view_more_publications: View more publications
+    view_more_collections: View more collections
+    view_more_events: View more events
+    view_all_events: View all events
     slider_next: Next
     related_content: Related content
 
@@ -104,8 +109,6 @@ static:
     interOrg: International organitations
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
-  cookies:
-    title: Política de cookies y tecnologías similares
 
 # User Settings
 # ###########################################
@@ -178,9 +181,13 @@ footer:
   intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
   copyright: © 2020 Cuatrecasas. All right reserved.
   privacy:
-    cookies: Privacy & Cookies
-    terms: Terms of Use
-    contact: Contac Us
+    site_map: Site map
+    web_use: Terms of Use
+    privacy: Privacy policy
+    cookies: Cookies Policy
+    security: Information security policy
+    rss: RSS
+    contact: Contact us
 
 # Reusable Blocks
 # ###########################################
@@ -808,3 +815,217 @@ career:
 
   cta_video:
     title: Lorem, ipsum dolor sit amet, consectetur vídeo de 10 años
+
+# PRIVACY
+# ###########################################
+privacy:
+  terms:
+    <ul>
+        <li>
+            <p><strong>1. INTRODUCCIÓN</strong><br><br>Cuatrecasas, Gonçalves Pereira, S.L.P. es una compañía mercantil de nacionalidad española domiciliada en Diagonal, 191 - 08018 Barcelona, con C.I.F. /V.A.T. ESB59942110 e inscrita en el Registro Mercantil de Barcelona al Tomo 40.693, folio 168, hoja número B-23.850.<br><br>La firma de abogados está formada por diversas sociedades en los diferentes países donde tiene sus sedes, con domicilio en Diagonal 191, Barcelona, España y en Praça Marquês de Pombal 2 (1, 8º), Lisboa, Portugal, así como en sus oficinas en los restantes países (<a href="http://www.cuatrecasas.com/">www.cuatrecasas.com</a>) (en adelante será referidas conjuntamente como “Cuatrecasas”).<br><br>Cuatrecasas es la titular de todos los derechos de propiedad intelectual o de cualquier otro tipo sobre el sitio web (en adelante, “Sitio Web”) y las aplicaciones (en adelante, “Aplicaciones”) de Cuatrecasas, cuyo acceso y uso por los usuarios (en adelante, “Usuario” o “Usuarios”) está sujeto a las presentes condiciones de uso (en adelante, “Condiciones de Uso”) y serán complementadas con cualesquiera otros textos legales que regulen cualquier funcionalidad, servicio, proceso, aplicación, plataforma o medios necesarios para el uso del Sitio Web o las Aplicaciones o conectados a los mismos.<br><br>Le rogamos que lea las Condiciones de Uso atentamente. El hecho de acceder al Sitio Web y/o a las Aplicaciones y utilizar los materiales contenidos en ellas implica que usted ha leído y acepta, sin reserva alguna, las presentes Condiciones de Uso. En caso de no estar de acuerdo con todo o parte de estas Condiciones de Uso, el Usuario debe abstenerse de utilizar el Sitio Web y/o las Aplicaciones.</p>
+        </li>
+        <li>
+            <p><strong>2. OBJETO</strong><br><br>El Sitio Web y las Aplicaciones contienen material preparado por Cuatrecasas con fines únicamente informativos. El usuario debe tener en cuenta que tal material pudiera no reflejar el estado legislativo o jurisprudencial más reciente sobre las cuestiones analizadas. Asimismo, Cuatrecasas se reserva el derecho a modificar, ampliar o reducir el material ofrecido a través del Sitio Web y de las Aplicaciones en cualquier momento, poniéndolo en conocimiento de los Usuarios.<br><br>El material contenido en el Sitio Web y/o en las Aplicaciones no puede servir, en ningún caso, de sustitutivo del asesoramiento legal o de otra naturaleza. El acceso a este material no pretende constituir ni implica relación alguna entre abogado y cliente, ni cualquier otro tipo de relación de confianza o profesional entre Cuatrecasas y el Usuario del Sitio Web y/o de las Aplicaciones. Por ello, el Usuario no debe actuar sobre la base de la información contenida en las mismas, sin recurrir previamente al correspondiente asesoramiento profesional. Asimismo, el Usuario no debe enviar a Cuatrecasas ningún tipo de información confidencial sin haberlo consultado previamente con alguno de nuestros abogados y haber recibido autorización para remitir dicha información.<br><br>En este sentido, y sin perjuicio de los expuesto en los párrafos anteriores, Cuatrecasas otorga una licencia no exclusiva, no sub-licenciable, ni transferible a los Usuarios para utilizar el Sitio Web, las Aplicaciones y sus respectivas funcionalidades, el contenido y otras funciones disponibles en las mismas, que estarán sujetas al resto de términos incluidos en las presentes Condiciones de Uso, así como a cualesquiera otros términos de uso y a la normativa aplicable.</p>
+        </li>
+        <li>
+            <p><strong>3. COMPROMISOS DE LOS USUARIOS</strong><br><br>Con carácter general, el Usuario se obliga al cumplimiento de las presentes Condiciones de Uso, así como a cumplir las especiales advertencias o instrucciones de uso contenidas en las mismas y obrar siempre conforme a la Ley en vigor, la moral, las buenas costumbres y a las exigencias de la buena fe y el orden público establecido, empleando la diligencia debida, y absteniéndose de utilizar el Sitio Web y/o las Aplicaciones de cualquier forma que pueda impedir, dañar o deteriorar el normal funcionamiento del mismo, los bienes o derechos de Cuatrecasas, el resto de Usuarios o, en general, de cualquier tercero.<br>Concretamente, y sin que ello implique restricción alguna al apartado anterior, el Usuario se obliga a:</p>
+            <ul>
+              <li>
+                <p>Facilitar información veraz sobre los datos solicitados en los formularios facilitados por Cuatrecasas para el acceso a ciertos contenidos o servicios ofrecidos a través del Sitio Web y/o las Aplicaciones y a mantenerlos actualizados. Cuatrecasas se reserva la facultad, sin perjuicio de otras medidas legales a su disposición, de retirar, denegar o suspender el acceso al Sitio Web y/o las Aplicaciones en caso de que los datos proporcionados sean o puedan ser falsos, inexactos o engañosos. En cualquier caso, el Usuario será plenamente responsable de aquellos datos o contenidos que transmita o comunique a Cuatrecasas. En este sentido, el Usuario asume la responsabilidad por los daños y perjuicios que pudieran derivarse de un uso indebido de los mismos.</p>
+              </li>
+              <li>
+                <p>No introducir, almacenar o difundir mediante el Sitio Web y/o las Aplicaciones ningún programa, datos, virus, código, o cualquier otro dispositivo electrónico o físico que sea susceptible de causar daños en el mismo, en cualquiera de los servicios, o en cualquiera de los equipos, sistemas o redes de Cuatrecasas, de cualquier otro Usuario, o, en general, de cualquier tercero.</p>
+              </li>
+              <li>
+                <p>No alterar, copiar, descargarse, modificar, descompilar, desensamblar, realizar ingeniería inversa, otorgar licencias, arrendar, vender o imitar el Sitio Web y/o las Aplicaciones, sus contenidos o su software de base.</p>
+              </li>
+              <li>
+                <p>No introducir, almacenar o difundir mediante las Aplicaciones cualquier contenido que infrinja derechos de propiedad industrial y/o intelectual o secretos empresariales de terceros, ni en general ningún contenido del cual no ostentara, de conformidad con la ley, el derecho a ponerlo a disposición de tercero.</p>
+              </li>
+          </ul>
+        </li>
+        <li>
+            <p><strong>4. RESPONSABILIDADES Y GARANTIAS</strong><br><br>Cuatrecasas no se hace responsable de los perjuicios que se pudieran derivar de interferencias, omisiones, interrupciones, virus informáticos, averías y/o desconexiones en el funcionamiento operativo del sistema electrónico o en los aparatos y equipos informáticos de los Usuarios, motivadas por causas ajenas a Cuatrecasas, que impidan o retrasen la navegación por el Sitio Web y/o las Aplicaciones, ni de los retrasos o bloqueos en el uso causados por deficiencias o sobrecargas de Internet o en otros sistemas electrónicos, ni de la imposibilidad de dar el servicio o permitir el acceso por causas no imputables a Cuatrecasas, debidas al Usuario, a terceros, o a supuestos de fuerza mayor.<br><br>No obstante, Cuatrecasas declara que ha adoptado y adoptará, en su caso, todas las medidas necesarias dentro de sus posibilidades y del estado de la tecnología, para garantizar el correcto funcionamiento del Sitio Web y/o las Aplicaciones y evitar la existencia y transmisión de virus y demás componentes dañinos a los Usuarios.<br><br>Cuatrecasas se reserva el derecho a interrumpir el acceso al Sitio Web y/o las Aplicaciones en cualquier momento y sin previo aviso, ya sea por motivos técnicos, de seguridad, control, mantenimiento, por fallos de suministro eléctrico o por cualquier otra causa. Cuatrecasas no controla, con carácter general, la utilización que los Usuarios hacen del Sitio Web y/o las Aplicaciones.<br><br>Cuatrecasas no se hace responsable por la utilización que el Usuario realice del contenido del Sitio Web y/o las Aplicaciones que pueda suponer una violación de cualquier tipo de norma, nacional o internacional, de los derechos de propiedad intelectual o industrial o de cualesquiera otros derechos de terceros.<br><br>Cuatrecasas no se responsabiliza de los errores u omisiones de los que pudiera adolecer el contenido de las mismas u otros a los que se pueda acceder a través de ellas. Cuatrecasas tampoco podrá ser considerada responsable de cualesquiera daños derivados de la utilización del Sitio Web y/o las Aplicaciones, ni por cualquier actuación realizada sobre la base de la información que en ellas se facilita.<br><br>Cuatrecasas no garantiza la ausencia de virus u otros elementos lesivos que pudieran causar daños o alteraciones en el sistema informático, en los documentos electrónicos o en los ficheros del usuario del sitio web y/o de las Aplicaciones. En consecuencia, Cuatrecasas no responde por los daños y perjuicios que tales elementos pudieran ocasionar al usuario o a terceros.</p>
+        </li>
+        <li>
+            <p><strong>5. PROPIEDAD INTELECTUAL E INDUSTRIAL</strong><br><br>Todos los derechos de Propiedad Intelectual e Industrial, así como toda la información contenida en el Sitio Web y en las Aplicaciones (incluida su información, textos, datos, imágenes, gráficos, diseños, código fuente, software, marcas, estructuras de navegación, bases de datos, etc. y cualquier otro contenido que en la misma aparezca) son propiedad exclusiva de Cuatrecasas.<br><br>Cuatrecasas otorga una licencia no exclusiva, no sub-licenciable, ni transferible a los Usuarios para utilizar el Sitio Web y las Aplicaciones en su versión actual, que estará sujeta al resto de los términos incluidos en las presentes Condiciones de Uso, así como a cualesquiera otros términos de uso y legislación aplicables. El Usuario queda, únicamente, autorizado para visualizar y obtener una copia privada temporal de los contenidos para su exclusivo uso personal y privado en sus sistemas informáticos (software y hardware) pero no autoriza que sean posteriormente cedidos a terceros. Con las salvedades anteriores, el Usuario no podrá modificar ni reproducir, ni en parte ni en su totalidad, esta información, sin el consentimiento expreso y por escrito de Cuatrecasas.<br><br>Mediante estas Condiciones de Uso no se cede ningún derecho de propiedad intelectual o industrial, tales como derechos de autor, marcas, diseños u otros derechos, sobre las Aplicaciones ni sobre ninguno de sus elementos integrantes, excepto por la licencia de uso limitada que se concede a los Usuarios para utilizar las Aplicaciones en los términos aquí previstos.<br><br>En este sentido, queda expresamente prohibido al Usuario la reproducción, transmisión, transformación, distribución, comunicación pública, puesta a disposición, extracción, reutilización, explotación o la utilización de cualquier naturaleza, por cualquier medio o procedimiento, de cualquiera de ellos, salvo en los casos que esté legalmente permitido o sea autorizado de forma expresa y por escrito por Cuatrecasas.<br><br>Los Usuarios conceden a Cuatrecasas un derecho de uso no exclusivo, ilimitado, integro, transferible, gratuito y susceptible de sublicencia, sobre los datos que no sean de carácter personal o aquellos datos cuya referencia personal haya sido suprimida (datos anonimizados).</p>
+        </li>
+        <li>
+            <p><strong>6. PROTECCIÓN DE DATOS</strong><br><br>Cuatrecasas protegerá los datos personales de los Usuarios y los utilizará solo en la medida en que lo permita la ley o siempre que los Usuarios hayan dado su consentimiento. Los Usuarios pueden encontrar más información al respecto en la <a href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">Política de Privacidad</a>.</p>
+        </li>
+        <li>
+            <p><strong>7. ENLACES DE TERCEROS</strong><br><br>Las presentes Condiciones de Uso se refieren únicamente al Sitio Web y las Aplicaciones y contenidos de Cuatrecasas, y no se aplica a enlaces, páginas web y/o aplicaciones de terceros accesibles a través del mismo o, en general, cualquier otro servicio proporcionado por terceros. Cuatrecasas no puede controlar la información, contenidos, productos o servicios facilitados por terceros que tengan establecidos enlaces con destino al Sitio Web y/o las Aplicaciones y el acceso a las mismas a través del Sitio Web y/o las Aplicaciones tampoco implica que Cuatrecasas recomiende o apruebe su contenido.<br><br>En consecuencia, Cuatrecasas no asume ningún tipo de responsabilidad que pueda derivarse de los mismos. En caso de acceder a otras redes o recursos informáticos, el Usuario acepta someterse a lo dispuesto en las correspondientes políticas de uso y privacidad.<br><br>Cuatrecasas ofrece al Usuario dichos enlaces e información y/o servicios únicamente para la comodidad del Usuario, siendo responsabilidad del mismo leer y aceptar los términos de uso y políticas de privacidad publicados en dichos sitios web o aplicaciones vinculadas. Su inclusión en el Sitio Web no implica la aprobación de la página web enlazada por parte de Cuatrecasas.<br><br>En todo caso, Cuatrecasas manifiesta que procederá a la retirada inmediata de cualquier enlace cuando los contenidos hacia los que redirige puedan contravenir la legislación nacional o internacional, la moral o el orden público.</p>
+        </li>
+        <li>
+            <p><strong>8. MODIFICACIONES DE LAS CONDICIONES DE USO</strong><br><br>Cuatrecasas se reserva el derecho de modificar o actualizar las presentes Condiciones de Uso en cualquier momento, así como cualquier tipo de información que pudiera aparecer en el Sitio Web y/o las Aplicaciones.</p>
+        </li>
+        <li>
+            <p><strong>9. MODOS DE COMUNICACIÓN</strong><br><br>A los efectos de las presentes Condiciones de Uso y para cualquier comunicación que sea precisa entre el Usuario y Cuatrecasas, éstos deberán dirigirse a <a href="mailto:comunicacion@cuatrecasas.com">comunicacion@cuatrecasas.com</a>.</p>
+        </li>
+        <li>
+            <p><strong>10. NOTIFICACIÓN DE INCIDENCIAS Y POSIBLES INFRACCIONES</strong><br><br>Cuatrecasas respeta los derechos de terceros y la legislación aplicable. El Usuario del Sitio Web y las Aplicaciones está obligado a hacer lo mismo.En caso de encontrar incidencias técnicas en el funcionamiento del Sitio Web o las Aplicaciones o si en alguna de las diferentes secciones encontrara errores, inexactitudes o contenidos contrarios a la legislación, puede ponerse en contacto con <a href="mailto:barcelona@cuatrecasas.com">barcelona@cuatrecasas.com</a> o <a href="mailto:madrid@cuatrecasas.com">madrid@cuatrecasas.com</a>.</p>
+        </li>
+        <li>
+            <p><strong>11. INDEPENDENCIA E INTEGRACIÓN DE LAS CLÁUSULAS</strong><br><br>La ilicitud, invalidez o ineficacia de cualquiera de las cláusulas de las presentes Condiciones de Uso no afectará a la eficacia del resto, siempre que los derechos y obligaciones de las partes derivadas de las Condiciones de Uso no se vieran afectados de forma esencial. Se entiende por esencial cualquier situación que lesione gravemente los intereses de cualquiera de las partes, o que recaiga sobre el objeto mismo las presentes Condiciones de Uso. Dichas cláusulas deberán reemplazarse o integrarse con otras que, siendo conformes a la ley, respondan a la finalidad de las sustituidas. Las partes renuncian a cualquier reclamación por daños y perjuicios que pudiera pedirse por esta circunstancia.</p>
+        </li>
+        <li>
+            <p><strong>12. LEGISLACIÓN Y JURISDICCIÓN COMPETENTE</strong><br><br>El acceso al Sitio Web y a las Aplicaciones implica la aceptación por el Usuario de lo dispuesto en las presentes Condiciones de Uso. Si no está usted de acuerdo con estas Condiciones de Uso, por favor, absténgase de visitar o utilizar el Sitio Web y las Aplicaciones. Cualquier controversia relativa a los mismos se regirá por la legislación común española, renunciando expresamente las partes al fuero que les corresponda, y sometiéndose a los Juzgados y Tribunales de la ciudad de Barcelona (España).</p>
+           <p>&copy; Cuatrecasas, Gonçalves Pereira, S.L.P. 2018. Prohibida la reproducción total o parcial. Todos los derechos reservados.</p>
+        </li>
+    </ul>
+  privacy:
+    <h2>Política de privacidad del sitio Web y aplicaciones de Cuatrecasas</h2>
+    <p>Al utilizar el presente Sitio Web, las Aplicaciones, y/o al comunicarse electrónicamente con Cuatrecasas, se recogen y tratan los datos personales de cada Usuario, el tratamiento de los cuales se rige por la presente política de privacidad (<strong>“Política de Privacidad”</strong>). Todos los términos que constan escritos en mayúsculas en esta Política de Privacidad tendrán el significado que se establece en las Condiciones de Uso (que pueden consultarse en este <a href="#">enlace</a>), salvo que estén expresamente definidos en la presente Política de Privacidad.</p>
+    <p>El responsable del tratamiento de los datos personales que el Usuario facilite al acceder y utilizar el Sitio Web y las Aplicaciones como con posterioridad es Cuatrecasas, con domicilio social a estos efectos en Diagonal, 191, 08018, Barcelona (España). El Usuario puede contactar con el delegado de protección de datos de Cuatrecasas en la siguiente dirección de email: <a href="mailto:data.protection.officer@cuatrecasas.com">data.protection.officer@cuatrecasas.com</a>.</p>
+    <p>El tipo de datos personales que recogemos y tratamos de los Usuarios en el Sitio Web y las Aplicaciones se corresponden a datos personales de suscriptores a nuestras newsletters, invitaciones a eventos y otras actividades o publicaciones, en los términos especificados en las Condiciones de Uso.</p>
+    <p>Los datos personales de los Usuarios se recogerán y tratarán con la finalidad de gestionar la relación con Cuatrecasas, para utilizar su información como punto de contacto de la antedicha sociedad y para el envío recurrente de información jurídica o de eventos de divulgación y enseñanza en el ámbito de las actividades profesionales promovidas por Cuatrecasas. Asimismo, sus datos personales se recogerán y trataran para responder a las consultas o cuestiones que pueda remitir a través del Sitio Web o Aplicaciones.</p>
+    <p>La legitimación para el tratamiento es el interés legítimo de Cuatrecasas en mantener la relación existente con el Usuario y, en su caso, su consentimiento. Por tanto, Cuatrecasas recogerá y tratará sus datos mientras la relación siga vigente y, en su caso, el Usuario no revoque el consentimiento que ha prestado al tratamiento de sus datos. En todo caso, cuando los datos personales no sean necesarios para el fin para el que fueron recabados y mientras no se proceda a la cancelación definitiva de los mismos, se conservarán de forma bloqueada.</p>
+    <p>En el caso de que los Usuarios nos proporcionen datos de carácter personal de terceras personas, el Usuario nos garantiza que les ha informado con carácter previo a su inclusión, de los extremos contenidos en la presente Política de Privacidad, respondiendo personalmente frente a Cuatrecasas de cuantos daños y perjuicios puedan derivarse en caso de contravención.</p>
+    <p>Cuatrecasas no comunicará dichos datos a terceros, salvo cuando sea estrictamente necesario para gestionar y mantener la relación con Cuatrecasas o previa autorización por su parte En particular, sólo tendrán acceso a los datos personales aquellos terceros con los que Cuatrecasas esté contractual o legalmente obligado a facilitarlos.</p>
+    <p>Asimismo, como despacho de abogados con presencia internacional, Cuatrecasas podrá comunicar los datos de los Usuarios a las compañías de su grupo de empresas que se detallan en la web <a href="https://www.cuatrecasas.com/">www.cuatrecasas.com</a>, para las mismas finalidades antes indicadas.</p>
+    <p>En cualquier caso, sus datos serán tratados con un nivel de protección de acuerdo a las normas aplicables sobre Protección de Datos y no se someterán a decisiones automatizadas.</p>
+    <p>Le informamos de que los Usuarios tienen derecho a ejercitar en todo momento, en los términos establecidos por la legislación vigente, sus derechos de acceso, rectificación o supresión de datos, solicitar que se limite el tratamiento, oponerse al mismo, solicitar la portabilidad de sus datos, así como revocar el consentimiento prestado, dirigiéndose por escrito a la dirección Av. Diagonal 191, 08018, Barcelona (España), o la dirección de correo electrónico <a href="mailto:data.protection.officer@cuatrecasas.com">data.protection.officer@cuatrecasas.com</a>, indicando claramente el derecho que desea ejercitar y acompañando su Documento Nacional de Identidad o documento identificativo similar que acredite su identidad. Asimismo, podrá presentar una reclamación ante la Agencia Española de Protección de Datos.</p>
+    <p>El Usuario se compromete a notificar cualquier cambio o modificación de los datos personales que haya facilitado. Cualquier pérdida o daño causado al Sitio Web o a las Aplicaciones, a Cuatrecasas, o a cualquier tercero mediante la comunicación de información errónea, inexacta o incompleta será responsabilidad única y exclusiva del Usuario.</p>
+    <p>© Cuatrecasas, Gonçalves Pereira, S.L.P. 2020. Prohibida la reproducción total o parcial. Todos los derechos reservados.</p>
+  cookies:
+    <p>Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
+    <ul>
+        <li>La fecha y hora de la última vez que el Usuario visitó el Sitio Web;</li>
+        <li>El diseño de contenidos que el Usuario escogió en su primera visita al Sitio Web;</li>
+        <li>Elementos de seguridad que interviene en el control de acceso a las áreas restringidas. El Usuario tiene la opción de impedir la generación de cookies, mediante la selección de la correspondiente opción en su programa Navegador.</li>
+    </ul>
+    <p>Las Cookies permiten al Sitio Web, entre otras cosas, almacenar y retener información sobre los hábitos de navegación de los Usuarios o de sus dispositivos y, dependiendo de la información en ellos contenida y del uso que estén haciendo de los dispositivos, pueden ser utilizadas para reconocer al Usuario.</p>
+    <p>El Sitio Web utiliza cookies de terceros. En concreto, utiliza las siguientes cookies de terceros:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</td>
+                <th>Origen</td>
+                <th>Finalidad</td>
+                <th>Duración</td>
+                <th>Más información...</td>
+            </tr>
+        <thead>
+        <tbody>
+            <tr>
+                <td data-th="Nombre">
+                    <span>_ga</span>
+                    <span>_gid</span>
+                    <span>_gat</span>
+                </td>
+                <td data-th="Origen">Google Analytics</td>
+                <td data-th="Finalidad">Destinadas al análisis de la web, por ejemplo cuántas páginas ha visitado un usuario o el tiempo de sesión</td>
+                <td data-th="Duración">
+                    <span>_ga: 2 años</span>
+                    <span>_gid: 1 día</span>
+                    <span>_gat: 10 minutos</span>
+                </td>
+                <td data-th="Más información...">https://developers.google.com/analytics/devguides/collection/gajs/cookie-usage</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>PREF</span>
+                    <span>VISITOR_INFO1_LIVE</span>
+                    <span>YSC</span>
+                </td>
+                <td data-th="Origen">Youtube</td>
+                <td data-th="Finalidad">Se utilizan para la reproducción de vídeos a través de la web, por ejemplo, para guardar las preferencias</td>
+                <td data-th="Duración">
+                    <span>PREF: 10 años</span>
+                    <span>VISITOR_INFO1_LIVE: 8 meses</span>
+                    <span>YSC: sesión</span>
+                </td>
+                <td data-th="Más información...">https://policies.google.com/technologies/types</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>__atuvc</span>
+                    <span>_atuvs</span>
+                    <span>uid</span>
+                </td>
+                <td data-th="Origen">Addthis</td>
+                <td data-th="Finalidad">Las utiliza el <em>plugin</em> Addthis para compartir contenidos en redes sociales, asegurando por ejemplo que el contador de <em>shares</em> esté actualizado</td>
+                <td data-th="Duración">2 años</td>
+                <td data-th="Más información...">http://www.addthis.com/privacy</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>guest_id</span>
+                </td>
+                <td data-th="Origen">Twitter</td>
+                <td data-th="Finalidad">La genera Twitter para el visor de tweets que muestra la web para identificar al usuario</td>
+                <td data-th="Duración">2 años</td>
+                <td data-th="Más información...">https://help.twitter.com/es/rules-and-policies/twitter-cookies</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>hjIncludedInSample</span>
+                </td>
+                <td data-th="Origen">Hotjar</td>
+                <td data-th="Finalidad">Destinada para conocer que secciones son las más utilizadas de nuestra web</td>
+                <td data-th="Duración">Fin de sesión de navegación</td>
+                <td data-th="Más información...">https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookies</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>PHPSESSID</span>
+                </td>
+                <td data-th="Origen">Cuatrecasas</td>
+                <td data-th="Finalidad">La utiliza el propio lenguaje de programación de la web para almacenar un identificador de sesión</td>
+                <td data-th="Duración">Fin de sesión de navegación</td>
+                <td data-th="Más información...">&nbsp;</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>acgroupswithpersist</span>
+                    <span>acopendivids</span>
+                </td>
+                <td data-th="Origen">Cuatrecasas</td>
+                <td data-th="Finalidad">Destinadas a recordar la posición de los menús desplegables al navegar</td>
+                <td data-th="Duración">Fin de sesión de navegación</td>
+                <td data-th="Más información...">&nbsp;</td>
+            </tr>
+            <tr>
+                <td data-th="Nombre">
+                    <span>cuatrecasasAcceptCookie</span>
+                </td>
+                <td data-th="Origen">Cuatrecasas</td>
+                <td data-th="Finalidad">Destinada a identificar si se ha aceptado la política de cookies para mostrar o no el mensaje informativo</td>
+                <td data-th="Duración">14 días</td>
+                <td data-th="Más información...">&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Administración de las cookies y de las tecnologías similares:</p>
+    <p>Los Usuarios pueden configurar la instalación de las Cookies durante el proceso de configuración dl Sitio Web y son conscientes de que deshabilitar las cookies y la tecnología similar puede afectar el uso normal de la misma y los servicios proporcionados.</p>
+    <p>Para deshabilitar las cookies, los Usuarios deberán seguir las instrucciones de cada navegador. Por ejemplo:</p>
+    <ul>
+        <li>Con Internet Explorer: Ver -&gt; Opciones de Internet -&gt; Opcions avanzadas (también disponible en el siguiente enlace: <a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies">https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies</a>).</li>
+        <li>Con Firefox: Preferencias -&gt; Privacidad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias">https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias</a>).</li>
+        <li>Con Google Chrome: Herramientas -&gt; Opciones (Preferencias en Mac) -&gt; Avanzadas -&gt; Privacidad -&gt; Configuración de Contenido (también disponible en el siguiente enlace: <a href="https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es">https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es</a>).</li>
+        <li>Con Safari: Menú -&gt; Privacidad -&gt; Seguridad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES">https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES</a>).</li>
+    </ul>
+  security:
+    <h2>Política de seguridad de la información de Cuatrecasas</h2>
+    <p>Cuatrecasas considera que la información, en especial la relativa a clientes, y los distintos sistemas asociados son activos críticos que deben ser protegidos adecuadamente para asegurar el correcto funcionamiento de la empresa.</p>
+    <p>Esta política de seguridad tiene como objetivo garantizar la confidencialidad, integridad, disponibilidad y privacidad de la información, así como el cumplimiento de las diferentes normas y requisitos aplicables vigentes en cada momento, manteniendo un equilibrio entre los niveles de riesgo y el uso eficiente de los recursos mediante criterios de proporcionalidad. De hecho, proporciona un marco de referencia para el establecimiento de los objetivos de seguridad de la información.</p>
+    <p>La política es de aplicación a todos los empleados, directivos, socios y administradores de Cuatrecasas, incluyendo las siguientes sociedades participadas sobre las que se tiene un control efectivo: CUATRECASAS GONÇALVES PEREIRA SLP, CUATRECASAS GONÇALVES PEREIRA & ASSOCIADOS SPRL y CUATRECASAS GONÇALVES PEREIRA PROPIEDAD INDUSTRIAL. En aquellas sociedades participadas sobre las que no tenga control efectivo, Cuatrecasas promoverá principios y directrices coherentes con los establecidos en esta política.</p>
+    <p>Para poder desarrollar el compromiso expreso de la organización en la mejora continua del sistema de gestión, la Dirección establece los siguientes principios de gestión de seguridad de la información:</p>
+    <ul>
+      <li>Garantizar que los Sistemas de Información de Cuatrecasas posean el adecuado nivel de seguridad y resiliencia que proponga el Comité de Seguridad de la Información de la Firma.</li>
+      <li>Sensibilizar a todos los colaboradores acerca de los riesgos de seguridad y garantizar que disponen de la formación y capacidades tecnológicas necesarias para proteger la seguridad de los sistemas de información de la Firma.</li>
+      <li>Dotar a la firma de procedimientos y herramientas de análisis, prevención, detección, respuesta y recuperación, que permitan adaptarse con agilidad a los cambios del entorno tecnológico y a las nuevas amenazas.</li>
+      <li>Colaborar con los organismos y agencias gubernamentales relevantes para la mejora de la seguridad de la Firma y el cumplimiento de la legislación vigente.</li>
+      <li>Precisar un conjunto de funciones y responsabilidades en materia de seguridad, claramente definidas y asignadas en el organigrama corporativo</li>
+      <li>Diligencia por parte de todos los empleados y colaboradores en la comunicación de posibles incidentes de seguridad.</li>
+      <li>Respaldar un proceso de revisión y actualización continua del modelo de gestión de la seguridad para adecuarlo en todo momento a las amenazas que vayan surgiendo y puedan afectar a la Firma.</li>
+    </ul>
+    <p>Esta política fue aprobada por el Consejo de Administración de Cuatrecasas a fecha 30/05/2019.</p>
+    <p>Si necesita cualquier información adicional sobre nuestra política de seguridad de la información o tiene alguna sugerencia al respecto puede enviar un mensaje de correo electrónico a la siguiente dirección: <a href="mailto:informationsecurity@cuatrecasas.com">informationsecurity@cuatrecasas.com</a>.</p>
+  contact_us:
+    <p>Para ponerse en contacto con nosotros, por favor envíe un correo electrónico a:</p>
+    <ul>
+        <li><a href="mailto:barcelona@cuatrecasas.com">barcelona@cuatrecasas.com</a></li>
+        <li><a href="mailto:madrid@cuatrecasas.com">madrid@cuatrecasas.com</a></li>
+    </ul>
+    <p>Indicando su nombre, dirección de correo electrónico, empresa y el motivo de su consulta y nos pondremos en contacto con usted</p>

@@ -18,6 +18,7 @@ class Page extends Publishable
     public function __construct()
     {
         $this->blocks = new ArrayCollection();
+        $this->publication = new ArrayCollection();
     }
 
     /**
@@ -30,6 +31,12 @@ class Page extends Publishable
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $blocks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="pages")
+     * @ORM\OrderBy({"publication_date" = "DESC"})
+     */
+    private $publication;
 
     /**
      * @return Collection|Block[]
@@ -68,6 +75,34 @@ class Page extends Publishable
     public function setCustomTemplate(string $customTemplate): self
     {
         $this->customTemplate = $customTemplate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Publication[]
+     */
+    public function getPublication(): Collection
+    {
+        return $this->publication;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publication->contains($publication)) {
+            $this->publication[] = $publication;
+            $publication->addPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publication->contains($publication)) {
+            $this->publication->removeElement($publication);
+            $publication->removePage($this);
+        }
 
         return $this;
     }

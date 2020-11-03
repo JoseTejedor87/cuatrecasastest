@@ -7,9 +7,16 @@ web:
     defaults:
         _locale:    '%app.default_language%'
         _region:    spain
+    
 
 cms:
     resource:       routes/cms_routes.yaml
     prefix:         /cms
+    defaults:
+        _locale:    es
+
+api:
+    resource:       routes/api_routes.yaml
+    prefix:         /api
     defaults:
         _locale:    es

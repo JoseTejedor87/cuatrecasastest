@@ -66,6 +66,11 @@ abstract class Publication extends Publishable
     private $insights;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Page", inversedBy="publications")
+     */
+    private $pages;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Legislation", cascade="persist", inversedBy="publications")
      */
     private $legislations;
@@ -85,6 +90,7 @@ abstract class Publication extends Publishable
         $this->insights = new ArrayCollection();
         $this->legislations = new ArrayCollection();
         $this->publication_date = new \DateTime();
+        $this->pages = new ArrayCollection();
     }
 
     public function getFeatured(): ?int
@@ -306,6 +312,32 @@ abstract class Publication extends Publishable
     public function setOriginalTableCode(?int $originalTableCode): self
     {
         $this->originalTableCode = $originalTableCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Page[]
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    public function addPage(Page $page): self
+    {
+        if (!$this->pages->contains($page)) {
+            $this->pages[] = $page;
+        }
+
+        return $this;
+    }
+
+    public function removePage(Page $page): self
+    {
+        if ($this->pages->contains($page)) {
+            $this->pages->removeElement($page);
+        }
 
         return $this;
     }

@@ -1,0 +1,545 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'userForm.title'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'userForm.title'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <form action="" id="userForm" class="needs-validation" novalidate>
+                <div class="row page__block--full">
+                    <div class="col">
+                        <h4 class="section__title section__title--main">{{ 'userForm.settings.title'|trans }}</h4>
+                        <fieldset>
+                            <legend>{{ 'userForm.settings.subTitleInfo'|trans }}</legend>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="etel" placeholder="Telefono *" required>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>{{ 'userForm.settings.subTitleCompany'|trans }}</legend>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>{{ 'userForm.settings.subTitleContact'|trans }}</legend>
+                            <div class="row">
+                                <div class="col-lg-6 pr-0 pl-0">
+                                    <div class="form-group col-lg-12">
+                                        <input type="text" class="form-control" id="ePostalCode" placeholder="Código postal *" required>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <select name="eCountry" id="eCountry" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="País *">
+                                            {% for pais in paises %}
+                                                <option>Lorem</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <input type="text" class="form-control" id="eTown" placeholder="Población *" required>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <select name="eRegion" id="eRegion" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select name="eLang" id="eLang" class="selectpicker" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                            <option>Dolor</option>
+                                            <option>Lorem</option>
+                                            <option>Ipsum</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="classictabs__component">
+                    <div class="row page__block--full">
+                        <div class="col">
+                            <h4 class="section__title section__title--main">{{ 'userForm.interests.title'|trans }}</h4>
+                            <ul class="nav nav-tabs" id="theFilters" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true">{{ 'userForm.interests.tabPopular'|trans }}</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="false">{{ 'userForm.interests.tabAreas'|trans }}</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="sectors-tab" data-toggle="tab" href="#sectors" role="tab" aria-controls="sectors" aria-selected="false">{{ 'userForm.interests.tabSectors'|trans }}</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="geographic-tab" data-toggle="tab" href="#geographic" role="tab" aria-controls="geographic" aria-selected="false">{{ 'userForm.interests.tabGeo'|trans }}</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="theFiltersContent">
+                                <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+                                    <div class="chechbox__wrapper">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-01" value=".sector-01">
+                                            <label class="checkbox-label" for="sector-01"><span>Alimentación</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-02" value=".sector-02">
+                                            <label class="checkbox-label" for="sector-02"><span>Brexit</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-03" value=".sector-03">
+                                            <label class="checkbox-label" for="sector-03"><span>Canadian Desk</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-04" value=".sector-04">
+                                            <label class="checkbox-label" for="sector-04"><span>Ciberseguridad</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-05" value=".sector-05">
+                                            <label class="checkbox-label" for="sector-05"><span>Consumo y Retail</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-06" value=".sector-06">
+                                            <label class="checkbox-label" for="sector-06"><span>Deporte</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-07" value=".sector-07">
+                                            <label class="checkbox-label" for="sector-07"><span>Empresa Familiar</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-08" value=".sector-08">
+                                            <label class="checkbox-label" for="sector-08"><span>Energía y Recursos Naturales</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-09" value=".sector-09">
+                                            <label class="checkbox-label" for="sector-09"><span>Farmacia y Sanitario</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="button__wrapper">
+                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="areas" role="tabpanel" aria-labelledby="areas-tab">
+                                    <div class="chechbox__wrapper">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-01" value=".services-01">
+                                            <label class="checkbox-label" for="services-01"><span>Corporate Governance y Compliance</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-02" value=".services-02">
+                                            <label class="checkbox-label" for="services-02"><span>Derecho contable</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-03" value=".services-03">
+                                            <label class="checkbox-label" for="services-03"><span>Derecho Laboral</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-04" value=".services-04">
+                                            <label class="checkbox-label" for="services-04"><span>Financiero</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-05" value=".services-05">
+                                            <label class="checkbox-label" for="services-05"><span>Fiscal</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-06" value=".services-06">
+                                            <label class="checkbox-label" for="services-06"><span>Fiscalidad Contenciosa</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-07" value=".services-07">
+                                            <label class="checkbox-label" for="services-07"><span>Fiscalidad Financiera</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-08" value=".services-08">
+                                            <label class="checkbox-label" for="services-08"><span>Fusiones y Adquisiciones</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-09" value=".services-09">
+                                            <label class="checkbox-label" for="services-09"><span>Litigación</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-10" value=".services-10">
+                                            <label class="checkbox-label" for="services-10"><span>Mediación</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="services-11" value=".services-11">
+                                            <label class="checkbox-label" for="services-11"><span>Mercado de valores</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="button__wrapper">
+                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="sectors" role="tabpanel" aria-labelledby="sectors-tab">
+                                    <div class="chechbox__wrapper">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="type-01" value=".type-01">
+                                            <label class="checkbox-label" for="type-01"><span>Noticias</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="type-02" value=".type-02">
+                                            <label class="checkbox-label" for="type-02"><span>Eventos</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="type-03" value=".type-03">
+                                            <label class="checkbox-label" for="type-03"><span>Opinión</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="type-04" value=".type-04">
+                                            <label class="checkbox-label" for="type-04"><span>Estudios Jurídicos</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="type-05" value=".type-05">
+                                            <label class="checkbox-label" for="type-05"><span>Novedades Jurídicas</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="button__wrapper">
+                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="geographic" role="tabpanel" aria-labelledby="geographic-tab">
+                                    <div class="chechbox__wrapper">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-01" value=".region-01">
+                                            <label class="checkbox-label" for="region-01"><span>Barcelona</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-02" value=".region-02">
+                                            <label class="checkbox-label" for="region-02"><span>Madrid</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-03" value=".region-03">
+                                            <label class="checkbox-label" for="region-03"><span>Lisboa</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-04" value=".region-04">
+                                            <label class="checkbox-label" for="region-04"><span>Beijing</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-05" value=".region-05">
+                                            <label class="checkbox-label" for="region-05"><span>Bogotá</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-06" value=".region-06">
+                                            <label class="checkbox-label" for="region-06"><span>Brussels</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-07" value=".region-07">
+                                            <label class="checkbox-label" for="region-07"><span>Casablanca</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-08" value=".region-08">
+                                            <label class="checkbox-label" for="region-08"><span>London</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-09" value=".region-09">
+                                            <label class="checkbox-label" for="region-09"><span>Luanda</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-10" value=".region-10">
+                                            <label class="checkbox-label" for="region-10"><span>Maputo</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-11" value=".region-11">
+                                            <label class="checkbox-label" for="region-011"><span>Mexico City</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-12" value=".region-12">
+                                            <label class="checkbox-label" for="region-12"><span>New York</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-13" value=".region-13">
+                                            <label class="checkbox-label" for="region-13"><span>Sao Paulo</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="region-14" value=".region-14">
+                                            <label class="checkbox-label" for="region-14"><span>Shanghai</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="button__wrapper">
+                                        <button type="button" class="btn btn__solid btn__solid--icon">{{ 'userForm.button'|trans }} <span class="material-icons">save</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row page__block--privacy">
+                    <div class="col-12 privacy__text">
+                        <h4 class="section__title section__title--main">{{ 'userForm.data.title'|trans }}</h4>
+                        <p>Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Natus, vitae eum ex, repellendus ullam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.</p>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    <div class="col-12 privacy__confirm">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="accept" required>
+                                <label class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="subscribe">
+                                <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
+                            </div>
+                        </div>
+                        <div class="button__wrapper">
+                            <button type="submit" class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </article>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.classictabs__component .nav').responsiveTabs();
+
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+
+        $("#formSubmit").click( function() {
+            $("#userForm .form-control").removeClass('is-valid');
+            $("#userForm .form-control").removeClass('is-invalid');
+            var contacto =  validation();
+            if(contacto){
+                $.ajax({
+                    method: "GET",
+                    data: { contacto: JSON.stringify(contacto)  },
+                    url: "{{ path('set_event_contact') }}",
+                    beforeSend: function( xhr ) {
+                    }
+                    })
+                .done(function( data ) {
+                    console.log(data);
+                })
+                .fail(function() {
+                });
+            }
+        });
+        $("#eCountry").change( function() {
+            var idCountry  =  $('#eCountry').val();
+            var idCountry  =  $('#eCountry').val();
+             $.ajax({
+                    method: "GET",
+                    data: { idCountry: idCountry  },
+                    url: "{{ path('get_regions') }}",
+                    beforeSend: function( xhr ) {
+                    }
+                    })
+                .done(function( data ) {
+                    var html = '';
+                    data.forEach(function(region){
+                        html = html + `<option value="`+region['IdProvincia']+`">`+region['Nombre']+`</option>`;
+                    })
+                    $('#eRegion').append( html  );
+                })
+                .fail(function() {
+                });
+        });
+
+        function validation() {
+            var contacto =  {};
+            var isvalidate = true;
+            if($("#eFirstName").val()){
+                $("#eFirstName").addClass('is-valid');
+                contacto['Nombre']= $("#eFirstName").val();
+            }else{
+                isvalidate = false;
+                $("#eFirstName").addClass('is-invalid');
+            }
+
+            if($("#eLastName").val()){
+                $("#eLastName").addClass('is-valid');
+                contacto['Apellidos']= $("#eLastName").val();
+            }else{
+                $("#eLastName").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eEmail").val()){
+                $("#eEmail").addClass('is-valid');
+                contacto['Email']= $("#eEmail").val();
+            }else{
+                $("#eEmail").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#ePosition").val()){
+                $("#ePosition").addClass('is-valid');
+                contacto['Cargo']= $("#ePosition").val();
+            }else{
+                $("#ePosition").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eCompany").val()){
+                $("#eCompany").addClass('is-valid');
+                contacto['Empresa']= $("#eCompany").val();
+            }else{
+                $("#eCompany").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eAddress").val()){
+                $("#eAddress").addClass('is-valid');
+                contacto['Direccion']= $("#eAddress").val();
+            }else{
+                $("#eAddress").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#ePostalCode").val()){
+                $("#ePostalCode").addClass('is-valid');
+                contacto['CodigoPostal']= $("#ePostalCode").val();
+            }else{
+                $("#ePostalCode").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eCountry").val()){
+                $("#eCountry").addClass('is-valid');
+                contacto['IdPais']= $("#eCountry").val();
+            }else{
+                $("#eCountry").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eRegion").val()){
+                $("#eRegion").addClass('is-valid');
+                contacto['IdProvincia']= $("#eRegion").val();
+            }else{
+                $("#eRegion").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eTel").val()){
+                $("#eTel").addClass('is-valid');
+                contacto['Telefono']= $("#eTel").val();
+            }else{
+                $("#eTel").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#accept").is(':checked')){
+                contacto['GDPR']= 1;
+            }else{
+                isvalidate = false;
+            }
+
+            if($("#accept").is(':checked')){
+                contacto['GDPR']= 1;
+            }else{
+                isvalidate = false;
+            }
+            if($("#subscribe").is(':checked')){
+                contacto['Suscripcion']= 1;
+            }else{
+                contacto['Suscripcion']= 0;
+            }
+
+            if(isvalidate){
+                return contacto;
+            }else{
+                return isvalidate;
+            }
+        }
+    });
+</script>
+{% endblock %}
