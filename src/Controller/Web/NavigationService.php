@@ -114,13 +114,16 @@ class NavigationService
                     || $publishable instanceof \App\Entity\Practice
                     || $publishable instanceof \App\Entity\Product
                     || $publishable instanceof \App\Entity\Sector) {
-                    $description = strip_tags(html_entity_decode($publishable->translate($language)->getSummary()));
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getSummary() !== null ) ? $publishable->translate($language)->getSummary() : ''));
                     $pos = strpos($description, '.');
                     $description = substr($description, 0, $pos+1);
                 } elseif ($publishable instanceof \App\Entity\Lawyer
-                || $publishable instanceof \App\Entity\Office
                 || $publishable instanceof \App\Entity\Event) {
-                    $description = strip_tags(html_entity_decode($publishable->translate($language)->getDescription()));
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescription() !== null  ) ? $publishable->translate($language)->getDescription() : ''));
+                    $pos = strpos($description, '.');
+                    $description = substr($description, 0, $pos+1);
+                }elseif ($publishable instanceof \App\Entity\Office) {
+                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescriptions() !== null  ) ? $publishable->translate($language)->getDescriptions() : ''));
                     $pos = strpos($description, '.');
                     $description = substr($description, 0, $pos+1);
                 }
