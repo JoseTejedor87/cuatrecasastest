@@ -45,7 +45,7 @@ global:
     view_all_events: View all events
     slider_next: Next
     related_content: Related content
-
+    outstanding_content: OutStanding Content
 # Sections
 # ###########################################
 sections:
