@@ -1099,5 +1099,10 @@ privacy:
     </ul>
     <p>Esta política fue aprobada por el Consejo de Administración de Cuatrecasas a fecha 30/05/2019.</p>
     <p>Si necesita cualquier información adicional sobre nuestra política de seguridad de la información o tiene alguna sugerencia al respecto puede enviar un mensaje de correo electrónico a la siguiente dirección: <a href="mailto:informationsecurity@cuatrecasas.com">informationsecurity@cuatrecasas.com</a>.</p>
-  contact:
-    <p>Para ponerse en contacto con nosotros, por favor envíe un correo electrónico a: <br><br><a href="mailto:barcelona@cuatrecasas.com">barcelona@cuatrecasas.com</a><br><br><a href="mailto:madrid@cuatrecasas.com">madrid@cuatrecasas.com</a><br><br>Indicando su nombre, dirección de correo electrónico, empresa y el motivo de su consulta y nos pondremos en contacto con usted.</p>
+  contact_us:
+    <p>Para ponerse en contacto con nosotros, por favor envíe un correo electrónico a:</p>
+    <ul>
+        <li><a href="mailto:barcelona@cuatrecasas.com">barcelona@cuatrecasas.com</a></li>
+        <li><a href="mailto:madrid@cuatrecasas.com">madrid@cuatrecasas.com</a></li>
+    </ul>
+    <p>Indicando su nombre, dirección de correo electrónico, empresa y el motivo de su consulta y nos pondremos en contacto con usted</p>
