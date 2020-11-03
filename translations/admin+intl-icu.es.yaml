@@ -60,6 +60,11 @@ sections:
       title: Nuevo Desk
     edit:
       title: Editar Desk
+  region:
+    index:
+      title: Región
+    new:
+      title: Nueva región
   insights:
     index:
       title: Colecciones
@@ -219,6 +224,7 @@ entities:
       title: Título
       summary: Resumen
       description: Descripción
+
       image: Imagen
       highlighted: Menú
       experience: Experiencia
@@ -262,6 +268,12 @@ entities:
       activities: Actividades Relacionadas
       awards: Premios
       tags: Tags
+  region:
+    fields:
+      office: Oficina
+      Title: Titulo
+      principal: Principal
+      photo: Imagen región
   case_study:
     fields:
       title: Título

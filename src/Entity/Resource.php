@@ -73,6 +73,11 @@ class Resource extends Publishable
     private $activity;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Region", inversedBy="photo")
+     */
+    private $region;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
@@ -193,6 +198,18 @@ class Resource extends Publishable
     public function setAward(?Award $award): self
     {
         $this->award = $award;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
