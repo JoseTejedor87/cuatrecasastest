@@ -34,6 +34,10 @@ class EventFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+    // IMPORTANTE CAMPOS OBLIGATORIOS PASADOS POR CLIENTE
+    // Campos obligatorios: solo deben ser obligatorios los siguientes campos: "Fecha Inicio", "Fecha Final", "Hora Inicio", "Hora Final" y "Título del evento"  , id_evento_web, idTIpoWeb, tiponombre, urlics(Hay que implementarlo), urlweb
+    // Null: aforo, areas, ciudad, contacto, id estado web si publicado o no publicado, id_oficina, oficina nombre, optional adress, Ponentes externos, ponentes internos, preguntas eventos, responsables marketing, secretarias , socios , urlimagenemail
+    //URLWEB: Solo slug, tiene q estar la url completa
         $builder
             ->add('startDate', DateTimeType::class, ['label'=>'entities.event.fields.startDate', 'required' => true])
             ->add('endDate', DateTimeType::class, ['label'=>'entities.event.fields.endDate', 'required' => true])
@@ -63,6 +67,7 @@ class EventFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
@@ -76,6 +81,7 @@ class EventFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($insight) {
                     return $insight->translate('es')->getTitle();
@@ -89,6 +95,7 @@ class EventFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'query_builder' => function (PersonRepository $pr) {
                     return $pr->createQueryBuilder('p')
@@ -107,6 +114,7 @@ class EventFormType extends AbstractType
                 'required' => false,
                 'placeholder' => 'entities.event.fields.no-office',
                 'empty_data' => null,
+                'required' => false,
                 'multiple' => false,
                 'expanded' => false,
                 'choice_label' => function ($office) {
@@ -123,6 +131,7 @@ class EventFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getResponsablesMarketing($options['entityManager']),
                 'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'marketing')
             ])
@@ -135,6 +144,7 @@ class EventFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getSecretarias($options['entityManager']),
                 'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'secretaria')
             ])
@@ -147,6 +157,7 @@ class EventFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getSociosResponsables($options['entityManager']),
                 'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'socio')
             ])
@@ -155,6 +166,7 @@ class EventFormType extends AbstractType
                 'entry_type' => ProgramFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'required' => false,
                 'by_reference' => false,
             ])
             ->add('questions', CollectionType::class, [
@@ -162,14 +174,14 @@ class EventFormType extends AbstractType
                 'entry_type' => QuestionFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'required' => false,
                 'by_reference' => false,
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => ['label'=>'entities.event.fields.title', 'required' => true],
                     'description' => ['label'=>'entities.event.fields.description', 'attr'=>['class'=>'summernote']],
-                    'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
-                    // 'program' => ['label'=>'entities.event.fields.program', 'attr'=>['class'=>'summernote']],
+                    // 'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'customCity' => ['label'=>'entities.event.fields.customCity'],
                     'customCountry' => ['label'=>'entities.event.fields.customCountry'],
                     'customPostalcode' => ['label'=>'entities.event.fields.customPostalcode'],

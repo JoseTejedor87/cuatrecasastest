@@ -45,7 +45,31 @@ global:
     view_all_events: Ver todos los eventos
     slider_next: Siguiente
     related_content: Contenido relacionado
-
+##COOKIES
+##############################################
+ch_cookie_consent:
+  title: ''
+  intro: 'Utilizamos cookies propias y tecnologías analíticas de terceros para identificar sus hábitos de navegación y poder ofrecer nuestros contenidos en función de sus intereses, mejorando al mismo tiempo su seguridad. Para obtener más información, seleccione "más información" para acceder a nuestra política de cookies para habilitar o deshabilitar las cookies en cualquier momento.'
+  read_more: 'Más información'
+  analytics:
+    title: '¿Quieres cookies analíticas?'
+    description: ''
+  tracking:
+    title: '¿Quieres cookies de seguimiento?'
+    description: ''
+  marketing:
+    title: '¿Quieres anuncios personalizados?'
+    description: ''
+  social_media:
+    title: '¿Quieres cookies de redes sociales?'
+    description: ''
+  no: 'No'
+  yes: 'Si'
+  save: 'Guardar'
+  use_only_functional_cookies: 'Utilice solo cookies funcionales'
+  use_all_cookies: 'Permitir todas las cookies'
+  show_details: 'Mostrar detalles'
+  hide_details: 'Ocultar detalles'
 # Sections
 # ###########################################
 sections:
@@ -230,31 +254,7 @@ error:
   msg:
     fail_route: This link is not available in the requested language / region, please try the links below
 
-##COOKIES
-##############################################
-ch_cookie_consent:
-  title: ''
-  intro: 'Utilizamos cookies propias y tecnologías analíticas de terceros para identificar sus hábitos de navegación y poder ofrecer nuestros contenidos en función de sus intereses, mejorando al mismo tiempo su seguridad. Para obtener más información, seleccione "más información" para acceder a nuestra política de cookies para habilitar o deshabilitar las cookies en cualquier momento.'
-  read_more: 'Más información'
-  analytics:
-    title: '¿Quieres cookies analíticas?'
-    description: ''
-  tracking:
-    title: '¿Quieres cookies de seguimiento?'
-    description: ''
-  marketing:
-    title: '¿Quieres anuncios personalizados?'
-    description: ''
-  social_media:
-    title: '¿Quieres cookies de redes sociales?'
-    description: ''
-  no: 'No'
-  yes: 'Si'
-  save: 'Guardar'
-  use_only_functional_cookies: 'Utilice solo cookies funcionales'
-  use_all_cookies: 'Permitir todas las cookies'
-  show_details: 'Mostrar detalles'
-  hide_details: 'Ocultar detalles'
+
 
 ## BLOCK FIRM
 #################################################
