@@ -2,7 +2,7 @@
 # ###########################################
 global:
   calendar:
-    month: Month 
+    month: Month
     year: Year
   home: Home
   goBack: Back
@@ -38,6 +38,11 @@ global:
     show_less: Show less
     show_sector: View Sectors
     show_service: View Services
+    view_more_cases: View more cases
+    view_more_publications: View more publications
+    view_more_collections: View more collections
+    view_more_events: View more events
+    view_all_events: View all events
     slider_next: Next
     related_content: Related content
 
@@ -107,8 +112,6 @@ static:
     interOrg: International organitations
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
-  cookies:
-    title: Política de cookies y tecnologías similares
 
 # User Settings
 # ###########################################
@@ -181,9 +184,13 @@ footer:
   intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
   copyright: © 2020 Cuatrecasas. All right reserved.
   privacy:
-    cookies: Privacy & Cookies
-    terms: Terms of Use
-    contact: Contac Us
+    site_map: Site map
+    web_use: Terms of Use
+    privacy: Privacy Policy
+    cookies: Cookies Policy
+    security: Information Security Policy
+    rss: RSS
+    contact: Contact us
 
 # Reusable Blocks
 # ###########################################

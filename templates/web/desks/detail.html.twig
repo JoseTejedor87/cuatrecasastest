@@ -32,11 +32,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -115,5 +111,5 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 {% endblock %}

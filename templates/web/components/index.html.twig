@@ -31,7 +31,6 @@
         font-weight: bold;
     }
 
-
 </style>
 {% endblock %}
 
@@ -57,7 +56,6 @@
             </div>
             <div class="col-md-5 insights__header__share">
                 <ul class="action__links">
-                    <li><a href="#"><i class="material-icons">share</i></a></li>
                     <li><a href="#"><i class="material-icons">print</i></a></li>
                     <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
                 </ul>
@@ -80,11 +78,42 @@
                         </ol>
                     </nav>
                 </div>
-                <ul class="action__links">
+                {# <ul class="action__links">
                     <li><a href="#"><i class="material-icons">share</i></a></li>
                     <li><a href="#"><i class="material-icons">print</i></a></li>
                     <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                </ul>
+                </ul> #}
+                {# <ul class="action__links">
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-share-alt"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.cuatrecasas.com%2F" target="_blank" rel="noopener">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/intent/tweet/?text=&url=https%3A%2F%2Fwww.cuatrecasas.com%2F" target="_blank" rel="noopener">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:?subject=&amp;body=https%3A%2F%2Fwww.cuatrecasas.com%2F" target="_self" rel="noopener">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.cuatrecasas.com%2F&amp;title=&amp;summary=&amp;source=https%3A%2F%2Fwww.cuatrecasas.com%2F" target="_blank" rel="noopener">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li><a href="javascript:window.print()">
+                        <i class="material-icons">print</i></a>
+                    </li>
+                </ul> #}
+                {% include 'web/base/social-share.html.twig' %}
             </div>
         </header>
     </article>
@@ -315,7 +344,7 @@
         </div>
         <div class="col-12">
             <div class="viewmore__button">
-                <button type="button" class="btn btn__viewmore btn__viewmore--plus">Cargar más</button>
+                <button type="button" class="btn btn__viewmore btn__viewmore--plus">{{ 'global.messages.load_more'|trans }}</button>
             </div>
         </div>
     </div>
@@ -945,14 +974,14 @@
 {% block javascripts %}
 <!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <!-- Video Popup -->
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <!-- Masonry JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <!-- Checkbox Filters -->
-<script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.min.js') }}"></script>
 <script>
 
     // START ZOOM BROWSER
@@ -983,7 +1012,8 @@
         pixelRatioBox.innerText = `Pixel ratio: ${prString}% (${pr.toFixed(2)})`;
 
         // if (window.screen.width == 1094 & window.screen.height == 615 & window.devicePixelRatio == 1.25) {
-        if (window.screen.width == 1280 & window.screen.height == 720 & window.devicePixelRatio == 1.5) {
+        // if (window.screen.width == 1280 & window.screen.height == 720 & window.devicePixelRatio == 1.5) {
+        if (window.devicePixelRatio == 1.5) {
             document.body.setAttribute("id", "zoomBrowser");
             zoomBox.innerText = `Zoom browser: 67%`;
         } else {

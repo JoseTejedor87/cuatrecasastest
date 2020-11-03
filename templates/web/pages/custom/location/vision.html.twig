@@ -30,11 +30,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -238,8 +234,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <!-- Google Map -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

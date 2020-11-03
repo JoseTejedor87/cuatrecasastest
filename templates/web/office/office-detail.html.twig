@@ -37,12 +37,8 @@
                                 </a>
                             </div>
                         </div>
-                        <a href="{{path('regions_vision')}}" class="doble__arrow__link">Ver mapa</a>
-                        <ul class="action__links">
-                            <li><a href="#"><i class="material-icons">share</i></a></li>
-                            <li><a href="#"><i class="material-icons">print</i></a></li>
-                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                        </ul>
+                        <a href="{{ office.getLinkExternalMap }}" target="_blank" class="doble__arrow__link">Ver mapa</a>
+                        {% include 'web/base/social-share.html.twig' %}
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
@@ -58,7 +54,7 @@
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
-                            {{   office.translate(lang).descriptions |raw   }}
+                            {{   office.translate(lang).description |raw   }}
                         </div>
                     </div>
                 </section>
@@ -82,8 +78,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

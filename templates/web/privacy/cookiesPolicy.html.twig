@@ -4,35 +4,29 @@
 
     <main role="main">
         <article class="container">
-
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
-                        <h1 class="page__title">
-                            {{ 'static.cookies.title'|trans }}
-                        </h1>
+                        <h1 class="page__title">{{ 'footer.privacy.cookies'|trans }}</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'static.cookies.title'|trans }}
+                                    {{ 'footer.privacy.cookies'|trans }}
                                 </li>
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
-
             <div class="row page__block--full page__cookies">
                 <div class="col">
-
+                    {{ 'privacy.cookies' | trans | raw }}
+                </div>
+                {# <div class="col">
                     <p>Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
                     <ul>
                         <li>La fecha y hora de la última vez que el Usuario visitó el Sitio Web;</li>
@@ -40,9 +34,7 @@
                         <li>Elementos de seguridad que interviene en el control de acceso a las áreas restringidas. El Usuario tiene la opción de impedir la generación de cookies, mediante la selección de la correspondiente opción en su programa Navegador.</li>
                     </ul>
                     <p>Las Cookies permiten al Sitio Web, entre otras cosas, almacenar y retener información sobre los hábitos de navegación de los Usuarios o de sus dispositivos y, dependiendo de la información en ellos contenida y del uso que estén haciendo de los dispositivos, pueden ser utilizadas para reconocer al Usuario.</p>
-
                     <p>El Sitio Web utiliza cookies de terceros. En concreto, utiliza las siguientes cookies de terceros:</p>
-
                     <table>
                         <thead>
                             <tr>
@@ -143,7 +135,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                     <p>Administración de las cookies y de las tecnologías similares:</p>
                     <p>Los Usuarios pueden configurar la instalación de las Cookies durante el proceso de configuración dl Sitio Web y son conscientes de que deshabilitar las cookies y la tecnología similar puede afectar el uso normal de la misma y los servicios proporcionados.</p>
                     <p>Para deshabilitar las cookies, los Usuarios deberán seguir las instrucciones de cada navegador. Por ejemplo:</p>
@@ -153,10 +144,7 @@
                         <li>Con Google Chrome: Herramientas -&gt; Opciones (Preferencias en Mac) -&gt; Avanzadas -&gt; Privacidad -&gt; Configuración de Contenido (también disponible en el siguiente enlace: <a href="https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es">https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es</a>).</li>
                         <li>Con Safari: Menú -&gt; Privacidad -&gt; Seguridad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES">https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES</a>).</li>
                     </ul>
-
-
-
-                </div>
+                </div> #}
             </div>
         </article>
     </main>

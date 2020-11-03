@@ -8,28 +8,53 @@
                 </div>
             </div>
             <div class="row footer__links">
-                <div class="col-6 footer__links--legal">
+                <div class="col-9 footer__links--legal">
                     <div class="info__copyright">{{ 'footer.copyright'|trans }}</div>
                     <ul class="info__legal">
                         <li class="legal__item">
-                            <a href="{{ path('politicaCookies') }}" class="legal__link" rel="nofollow">
+                            <a href="{{ path('siteMap') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.site_map'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('webUse') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.web_use'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('privacyPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.privacy'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('cookiesPolicy') }}" class="legal__link" rel="nofollow">
                                 {{ 'footer.privacy.cookies'|trans }}
                             </a>
                         </li>
                         <li class="legal__item">
-                            <a href="#" class="legal__link" rel="nofollow">
-                                {{ 'footer.privacy.terms'|trans }}
+                            <a href="{{ path('securityPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.security'|trans }}
                             </a>
                         </li>
                         <li class="legal__item">
-                            <a href="#" class="legal__link" rel="nofollow">
+                            <a href="https://www.cuatrecasas.com/esp/esp/rss.html" class="legal__link" rel="nofollow" target="_blank">
+                                {{ 'footer.privacy.rss'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('contactUs') }}" class="legal__link" rel="nofollow">
                                 {{ 'footer.privacy.contact'|trans }}
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-6 footer__links--social">
+                <div class="col-3 footer__links--social">
                     <ul class="social__media">
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
                                 <i class="fab fa-twitter"></i>
@@ -37,7 +62,7 @@
                         </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
-                                <i class="fab fa-instagram"></i>
+                                <i class="fab fa-linkedin-in"></i>
                             </a>
                         </li>
                         <li class="social__item">
@@ -47,12 +72,12 @@
                         </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
-                                <i class="fab fa-youtube"></i>
+                                <i class="fab fa-instagram"></i>
                             </a>
                         </li>
                         <li class="social__item">
                             <a href="#" class="social__link">
-                                <i class="fab fa-linkedin-in"></i>
+                                <i class="fab fa-flickr"></i>
                             </a>
                         </li>
                     </ul>

@@ -34,11 +34,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -114,7 +110,7 @@
                         <span id="checkbox-tag-office" class="checkbox-tag" style="display:none">
                             <span class="tag-text"></span><button type="button" class="close-tag" data-value="office" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
                         </span>
-                        <span id="checkbox-tag-activity" class="checkbox-tag" style="display:none"> 
+                        <span id="checkbox-tag-activity" class="checkbox-tag" style="display:none">
                             <span class="tag-text"></span><button type="button" class="close-tag" data-value="activity" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
                         </span>
                         <span id="checkbox-tag-month" class="checkbox-tag" style="display:none">
@@ -147,11 +143,11 @@
                         </div>
                         <div id="eventCalendarList">
                         </div>
-                        
+
                     </div>
                 </div>
            </section>
-  
+
             {% if relatedPublications|length > 0 %}
                 {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
             {% endif %}
@@ -172,7 +168,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>

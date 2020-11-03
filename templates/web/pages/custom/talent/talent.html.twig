@@ -26,11 +26,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
         </div>
@@ -67,7 +63,10 @@
         {% include 'web/pages/custom/talent/shared/collections-career.html.twig' %}
         {% include 'web/pages/custom/talent/shared/career-career.html.twig' %}
         {% include 'web/pages/custom/talent/shared/cta-career-learn.html.twig' %}
-        {% include 'web/pages/custom/talent/shared/related-content-slider_Career.html.twig' %}
+        {# {% include 'web/pages/custom/talent/shared/related-content-slider_Career.html.twig' %} #}
+        {% if relatedPublications|length > 0 %}
+            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+        {% endif %}
         {% include 'web/pages/custom/talent/shared/info-career-join.html.twig' %}
 
     </main>
@@ -76,10 +75,10 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

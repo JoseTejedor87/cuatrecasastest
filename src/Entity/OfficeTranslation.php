@@ -17,7 +17,7 @@ class OfficeTranslation extends PublishableTranslation
     /**
      * @ORM\Column(type="text")
      */
-    private $descriptions;
+    private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -37,18 +37,6 @@ class OfficeTranslation extends PublishableTranslation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDescriptions(): ?string
-    {
-        return $this->descriptions;
-    }
-
-    public function setDescriptions(string $descriptions): self
-    {
-        $this->descriptions = $descriptions;
-
-        return $this;
     }
 
     public function getTags(): ?string
@@ -83,6 +71,18 @@ class OfficeTranslation extends PublishableTranslation
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

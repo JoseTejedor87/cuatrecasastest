@@ -26,10 +26,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
+                    {% include 'web/base/social-share.html.twig' %}i></a></li>
                     </ul>
                 </div>
             </header>
@@ -206,7 +203,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script>
     $(function () {
         $('.classictabs__component .nav').responsiveTabs();
@@ -230,12 +227,12 @@
                         event.preventDefault();
                         form.classList.add('was-validated');
                     }
-                    
+
                 }, false);
             });
         }, false);
 
-      
+
         function enviar() {
             $("#userForm .form-control").removeClass('is-valid');
             $("#userForm .form-control").removeClass('is-invalid');
@@ -247,7 +244,7 @@
                     data: { contacto: JSON.stringify(contacto)  },
                     url: "{{ path('set_contact_user') }}",
                     beforeSend: function( xhr ) {
-                      
+
                     }
                     })
                 .done(function( data ) {
@@ -287,8 +284,8 @@
             var contacto =  {};
             var isvalidate = true;
            contacto['InteresList'] = new Array();
-            $('#popular input[type=checkbox]:checked').each(function () { 
-                var value = (this.checked ? $(this).val() : ""); 
+            $('#popular input[type=checkbox]:checked').each(function () {
+                var value = (this.checked ? $(this).val() : "");
                 var nombre = $(this).data( "nombre" );
                 var test =  new Array();
                 test[nombre] = value;
@@ -382,7 +379,7 @@
                 $("#eLang").addClass('is-invalid');
                 isvalidate = false;
             }
-            
+
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
@@ -397,7 +394,7 @@
             if($("#subscribe").is(':checked')){
                 contacto['Suscripcion']= 1;
                 contacto['SuscripcionPrensa']= 1;
-                
+
             }else{
                 contacto['Suscripcion']= 0;
             }
