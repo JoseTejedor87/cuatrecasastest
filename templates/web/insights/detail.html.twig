@@ -1,11 +1,10 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-<style type="text/css">
+<style>
     .insights__header:before {
-        background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}');
+        background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_header') }}');
     }
 </style>
 {% endblock %}
@@ -38,7 +37,7 @@
                 </div>
             </header>
         {% elseif insight.headerType == 'full_width' %}
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>

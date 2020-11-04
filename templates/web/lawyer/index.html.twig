@@ -1,18 +1,23 @@
 {% extends 'web/base.html.twig' %}
+
 {% block metaRobots %}noindex{% endblock %}
+
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
 <style>
-    #lawyerAjaxResults .lawyer__search__item:first-child{
+    #lawyerAjaxResults .lawyer__search__item:first-child {
         display: none;
     }
 </style>
 {% endblock %}
+
 {% block main %}
+
 <main role="main" class="lawyer">
     <article class="container">
-        <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/martin-adams-Y8MQEl3N3Xs-unsplash.jpg') }}')">
+
+        <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
             <div class="col">
                 <div class="info__block">
                     <h1 class="page__title">
@@ -32,6 +37,7 @@
                 {% include 'web/base/social-share.html.twig' %}
             </div>
         </header>
+
         <section class="row page__section search_box">
             <div class="col search_box__wrapper">
                 <div class="search_box__name search_box__name--full">
@@ -45,6 +51,7 @@
                 </div>
             </div>
         </section>
+
         <section class="row search_filters search_filters--lawyers">
             <div class="col">
                 <div id="filtersButton">
@@ -115,9 +122,10 @@
                 </span>
             </div>
         </section>
+
         <section class="row lawyer__search" style="{{ (countLawyers == '') ?  'display: none;' : '' }} ">
             <div class="col">
-                <!-- Info Results -->
+                {# Info Results #}
                 <h2 class="section__title">{{ 'sections.lawyers.lawyerFilters.search_results'|trans }}</h2>
                 <div class="lawyer__search__info">
                     <div class="lawyer__search__text">{{ 'sections.lawyers.lawyerFilters.search_results_txt1'|trans }} {{ countLawyers }} {{ 'sections.lawyers.lawyerFilters.search_results_txt2'|trans }}</div>
@@ -130,7 +138,7 @@
                         </button>
                     </div>
                 </div>
-                <!-- List Results -->
+                {# List Results #}
                 <div class="lawyer__search__wrapper lawyer__search__wrapper--grid" id="lawyerAjaxResults">
                     {% if lawyers == '' %}
                     {% include '/web/lawyer/lawyerItem.html.twig' with { lawyer: [] } %}
@@ -139,8 +147,8 @@
                     {% include '/web/lawyer/lawyerItem.html.twig' with { lawyer: lawyer } %}
                     {% endfor %}
                 </div>
+                {# Pagination #}
                 {% if pagesTotal > 1 %}
-                <!-- Pagination -->
                 <nav class="search_pagination" aria-label="Results pagination">
                     <ul class="pagination" id="lawyerPagination">
                         <li class="page-item">
@@ -166,8 +174,10 @@
                 {% endif %}
             </div>
         </section>
+
     </article>
 </main>
+
 {% if countLawyers == '' %}
 {% if relatedPublications|length > 0 %}
 {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
@@ -178,7 +188,7 @@
 {% endif %}
 {% include 'web/shared/career.html.twig' with { classTittle: '--main'} %}
 {% include 'web/shared/cta-footer.html.twig' %}
-<!-- Loader -->
+{# Loader #}
 <div class="search__component__loader" style="display:none">
     <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">

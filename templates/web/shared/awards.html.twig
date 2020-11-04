@@ -9,7 +9,7 @@
                             {% for award in awards %}
                             {% if award %}
                                 {% if award.image %}
-                                    {% set photo_path = asset('/resources/' ~ award.image.getFileName)|imagine_filter('lawyers_grid') %}
+                                    {% set photo_path = asset('/resources/' ~ award.image.getFileName) | imagine_filter('logo_awards') %}
                                 {% endif %}
                             {% endif %}
                             <div class="swiper-slide">

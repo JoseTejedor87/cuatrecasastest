@@ -60,7 +60,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         }
 
         // ZONE DE PRIORIZACION
-        $place = $this->getNavigation()->getParams()->get('app.office_place')[$this->getNavigation()->getRegion()];        
+        $place = $this->getNavigation()->getParams()->get('app.office_place')[$this->getNavigation()->getRegion()];
         $results->join('p.offices', 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place',  $place);
@@ -75,7 +75,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             $returnPublications[$item->getId()] = $item;
         }
 
-            ///// consulta por todas las regiones  
+            ///// consulta por todas las regiones
             $results =  $this->createPublishedQueryBuilder('p');
             if ($activitiesA) {
                 $results =  $results->innerJoin('p.activities', 'a')
@@ -98,9 +98,9 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
         return $this->setTypePublication(array_slice($returnPublications,0,$maxResult));
     }
 
-    public function findByActivities_ ($activities)  // DEPRECAR por el priorizado 
+    public function findByActivities_ ($activities)  // DEPRECAR por el priorizado
     {
-        
+
         $activitiesA = array();
         if($activities){
             foreach ($activities as $key => $activity) {
@@ -135,11 +135,12 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             if ($value instanceof \App\Entity\News){
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'article_box');
             if(!$value->photo){
-                $value->photo = 'https://via.placeholder.com/800x400';
+                $value->photo = 'web/assets/img/cabecera_1920x1080_baja.jpg';
+                // $value->photo = 'https://via.placeholder.com/800x400';
             }
-                    
+
         }
 
         return $publications;
@@ -156,10 +157,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                         $filter
                     );
                     return $photo;
-                }  
+                }
             }
         }
-        
+
     }
     // /**
     //  * @return Publication[] Returns an array of Publication objects

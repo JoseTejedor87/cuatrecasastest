@@ -6,11 +6,10 @@
 
 {% set lang = app.request.getLocale() %}
 {% block main %}
-
-    {% if  office.getImgOffice().getFileName() is defined %}
+  	{% if  office.getImgOffice().getFileName() is defined %}
          {%  set imageFile = 'resources/'~office.getImgOffice().getFileName() %}
          {% else %}
-         {%  set imageFile = '/web/assets/img/cabecera_1920x1080_05_baja.jpg' %}
+         {%  set imageFile = 'web/assets/img/oporto.jpg' %}
     {% endif %}
 
     <main role="main" class="lawyer__page">
@@ -43,8 +42,8 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
-                            <figure style="background-image: url('{{ asset(imageFile ) | imagine_filter('doble_header') }}')"></figure>
-                            <img src="{{ asset(imageFile ) | imagine_filter('doble_header') }}" alt="" class="sr-only">
+                            <figure style="background-image: url('{{ asset(imageFile ) }}')"></figure>
+                            <img src="{{ asset(imageFile ) }}" alt="" class="sr-only">
                         </div>
                     </div>
                 </div>
@@ -55,7 +54,7 @@
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
-                            {{ office.translate(lang).description | raw }}
+                            {{   office.translate(lang).description |raw   }}
                         </div>
                     </div>
                 </section>
@@ -65,6 +64,7 @@
             {% if office.lawyer is not empty %}
                 {% include 'web/shared/team.html.twig' with { lawyers: office.lawyer } %}
             {% endif %}
+
 
             {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
             {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %}

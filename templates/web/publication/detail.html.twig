@@ -8,9 +8,9 @@
 {% block main %}
 
     <main role="main">
-        <article class="container"  itemscope itemtype="http://schema.org/Article">
+        <article class="container" itemscope itemtype="http://schema.org/Article">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title"  itemprop="name">
@@ -39,7 +39,7 @@
                     <div class="page__block__title page__block__title--article" itemprop="articleBody" >
                         <span style="display:none;" itemprop="datePublished">{{ publication.getPublicationDate |date("Y-m-d\\TH:i:s") }}</span>
                         <p itemprop="about">{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
-                        <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo )| imagine_filter('article_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo ) | imagine_filter('article_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
 
                         {# duplicated block desktop / mobile #}
                         <div class="article__details desktop" >
