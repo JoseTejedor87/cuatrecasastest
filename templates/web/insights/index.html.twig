@@ -385,7 +385,7 @@
     </main>
 
     {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications} %}
+    {% include 'web/shared/related-content-slider.html.twig'  with { title:'global.messages.outstanding_content'|trans, publications: relatedPublications} %}
     {% include 'web/shared/collections.html.twig' with {insights: insights} %}
     {% include 'web/shared/cta-footer.html.twig' %}
     {# Loader #}
