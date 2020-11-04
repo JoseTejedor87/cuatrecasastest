@@ -1,5 +1,6 @@
 # Global
 # ###########################################
+probando: Please read our %link_start%privacy policy%link_end%
 global:
   calendar:
     month: Mes
@@ -46,6 +47,11 @@ global:
     slider_next: Siguiente
     related_content: Contenido relacionado
     outstanding_content: Contenido Destacado
+  forms:
+    save: Guardar
+    inscription: Inscribirme
+    mandatory_field: Campo obligatorio
+
 ##COOKIES
 ##############################################
 ch_cookie_consent:
@@ -71,6 +77,7 @@ ch_cookie_consent:
   use_all_cookies: 'Permitir todas las cookies'
   show_details: 'Mostrar detalles'
   hide_details: 'Ocultar detalles'
+
 # Sections
 # ###########################################
 sections:
@@ -173,6 +180,7 @@ userForm:
     tabGeo: Geográficos
   data:
     title: Información sobre el tratamiento de sus datos personales
+    content: Información sobre el tratamiento de sus datos personales
   button: Guardar
 
 # Menu
