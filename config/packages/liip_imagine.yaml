@@ -42,19 +42,19 @@ liip_imagine:
             quality: 100
             filters:
                 scale:
-                    dim: [1280, 720]
+                    dim: [1920, 1080]
 
         picto_grid:
             quality: 100
             filters:
                 scale:
-                    dim: [900, 500]
+                    dim: [1920, 1080]
 
         picto_cases:
             quality: 100
             filters:
                 scale:
-                    dim: [900, 500]
+                    dim: [1920, 1080]
 
         # Mejor hacer un solo filtro global para todos los tipos de cabeceras, en caso necesario se dan de alta el resto
         # desks_header:
