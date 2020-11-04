@@ -75,12 +75,8 @@ parameters:
         - publicationBlock
 
     app.social.key: '%env(string:ADTHIS_ID)%'
-    
-    app.path.uploads.resources: '/resources'
-   
 
-    router.request_context.host:   127.0.0.1:8000
-    router.request_context.scheme: https
+    app.path.uploads.resources: '/resources'
 
 services:
     # default configuration for services in *this* file

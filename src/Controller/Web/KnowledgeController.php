@@ -70,46 +70,49 @@ class KnowledgeController extends WebController
         //                     ->andWhere("pt.title != :textSearch")
         //                     ->setParameter('textSearch', '""');
         if ($services) {
+            $servicesA = explode(",", $services);
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
-                           ->setParameter('activity', $services);
+                           ->setParameter('activity', array_values($servicesA));
         }
         if ($sector) {
+            $sectorA = explode(",", $sector);
             $query = $query->innerJoin('p.activities', 's')
                            ->andWhere('s.id in (:sector)')
-                           ->setParameter('sector', $sector);
+                           ->setParameter('sector', array_values($sectorA));
         }
         if ($office) {
+            $officeA = explode(",", $office);
             $query = $query->innerJoin('p.offices', 'o')
                            ->andWhere('o.id in (:city)')
-                           ->setParameter('city', $office);
+                           ->setParameter('city', array_values($officeA));
         }
         if ($type) {
             $typeA = explode(",", $type);
             foreach ($typeA as $key => $value) {
                 if ($value == "news") {
-                    if (count($typeA)>1) {
+                    if (count($typeA)>1 && $key > 0) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\News');
                     } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\News');
                     }
                 }
                 if ($value == "academy") {
-                    if (count($typeA)>1) {
+                    if (count($typeA)>1 && $key > 0) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\Academy');
                     } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\Academy');
                     }
                 }
                 if ($value == "opinion") {
-                    if (count($typeA)>1) {
+                    if (count($typeA)>1 && $key > 0) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\Opinion');
                     } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\Opinion');
                     }
                 }
                 if ($value == "legalNovelty") {
-                    if (count($typeA)>1) {
+                    if (count($typeA)>1 && $key > 0) {
                         $query = $query->orWhere('p INSTANCE OF App\Entity\LegalNovelty');
                     } else {
                         $query = $query->andWhere('p INSTANCE OF App\Entity\LegalNovelty');
@@ -128,7 +131,7 @@ class KnowledgeController extends WebController
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
         if ($collections) {
-            $query = $query->innerJoin('i.insight', 'i')
+            $query = $query->innerJoin('p.insights', 'i')
                            ->andWhere('i.id in (:collections)')
                            ->setParameter('collections', $collections);
         }
@@ -147,9 +150,15 @@ class KnowledgeController extends WebController
 
         // ZONE DE PRIORIZACION
         $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
-        $qPriorizada->join('p.offices', 'o')
+        if ($office) {
+            $qPriorizada->andWhere('o.place = :place')
+            ->setParameter('place', $place);
+        } else {
+            $qPriorizada->join('p.offices', 'o')
             ->andWhere('o.place = :place')
             ->setParameter('place', $place);
+        }
+
         //---------------------
         $dateAux = new \DateTime();
         $dateAux->modify('-10 days');
@@ -184,13 +193,13 @@ class KnowledgeController extends WebController
 
         foreach ($insightsAll as $key => $item) {
             if (!isset($totalInsights[$item->getId()])) {
-                array_push($totalInsights, $item);  
+                array_push($totalInsights, $item);
             }
         }
         //dd($totalInsights);
         $insightsOrderToSend = [];
         foreach ($totalInsights as $key => $value) {
-            array_push($insightsOrderToSend,$value);
+            array_push($insightsOrderToSend, $value);
         }
 
 
@@ -233,6 +242,7 @@ class KnowledgeController extends WebController
                     }
                 }
             }
+
             $json = array(
                 'publications' => $publicationsA,'countPublications' => isset($countPublications) ? $countPublications : 0,'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0 ,'page' => isset($page) ? $page : 0
             );
@@ -257,7 +267,6 @@ class KnowledgeController extends WebController
             if ($format) {
                 $json['format'] = $format;
             }
-
             return new JsonResponse($json);
         } else {
             return $this->render('web/knowledge/index.html.twig', [
@@ -289,5 +298,4 @@ class KnowledgeController extends WebController
             }
         }
     }
-
 }
