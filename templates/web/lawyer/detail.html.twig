@@ -60,7 +60,7 @@
                             {% include 'web/base/social-share.html.twig' %}
                             {% if lawyer.photo %}
                                 <div class="lawyer__page__foto--img"  itemprop="image" style="background-image: url('{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}');">
-                                    <img src="{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}" alt="" class="sr-only">
+                                    <img src="{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}" alt="{{ lawyer.slug }}" class="sr-only">
                                 </div>
                             {% endif %}
                         </div>

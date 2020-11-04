@@ -88,7 +88,7 @@
                         {% if publication.urlVideo != ''  %}
                             {% include 'web/shared/video-article.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
-                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
+                        <!-- <img src="{#{ asset('web/assets/img/la-firma.jpg') }#}" > -->
                         <div class="read__more" itemprop="description">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
