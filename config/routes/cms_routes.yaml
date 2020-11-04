@@ -125,6 +125,25 @@ cms_events_delete:
     methods:    DELETE
     controller: App\Controller\CMS\EventController::delete
 
+# REGION
+# ####################################
+cms_region_index:
+    path:       /region
+    methods:    GET
+    controller: App\Controller\CMS\RegionController::index
+cms_region_new:
+    path:       /region/new
+    methods:    GET|POST
+    controller: App\Controller\CMS\RegionController::new
+cms_region_edit:
+    path:       /region/{id}/edit
+    methods:    GET|POST
+    controller: App\Controller\CMS\RegionController::edit
+cms_region_delete:
+    path:       /region/{id}
+    methods:    DELETE
+    controller: App\Controller\CMS\RegionController::delete
+
 # EVENTS-PROGRAMS
 # ####################################
 

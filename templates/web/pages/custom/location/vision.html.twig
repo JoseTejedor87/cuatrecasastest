@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -60,7 +60,7 @@
 
             <section class="row page__block--centered">
                 <div class="col">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                    <p>{{ 'static.offices.vision_intro'|trans }}</p>
                 </div>
             </section>
 
@@ -70,14 +70,14 @@
                     <div class="col world__offices__select">
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in offices %}
-                                    {% if key == 0  %}
-                                        <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
-                                    {% endif %}
+                                {% if key == 0  %}
+                                    <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                {% endif %}
                                         <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% if offices|length > key+1 %}
                                     {% if offices[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
-                                        </optgroup>
-                                        <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}">
+                                    </optgroup>
+                                    <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}"></optgroup>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

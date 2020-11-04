@@ -6,9 +6,9 @@
                     {% for insight in insights %}
                         {% if insight %}
                             {% if insight.photo %}
-                                {% set photo_path = asset('/resources/' ~ insight.photo.fileName)|imagine_filter('insights_grid') %}
+                                {% set photo_path = asset('/resources/' ~ insight.photo.fileName) | imagine_filter('picto_grid') %}
                             {% else %}
-                                {% set photo_path = asset('web/assets/vector/Picto_03_1920x1080.png')|imagine_filter('insights_grid') %}
+                                {% set photo_path = asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') %}
                             {% endif %}
                         {% endif %}
                         <article class="boxnews__item">
@@ -22,7 +22,7 @@
                                     {{ insight.translate(app.request.getLocale()).summary|raw }}
                                 </div>
                                 <a href="#">
-                                    <div class="boxnews__img" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');">
+                                    <div class="boxnews__img" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');"></div>
                                 </a>
                             </div>
                         </article>

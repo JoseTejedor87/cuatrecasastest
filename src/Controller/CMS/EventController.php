@@ -283,7 +283,7 @@ class EventController extends CMSController
             
             if($responsablesmarketing){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_responsablesmarketings where Iniciales in (". implode(",", $responsablesmarketing) .")";
+                $sql = "SELECT * FROM GC_responsablesMarketings where Iniciales in (". implode(",", $responsablesmarketing) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $responsablesmarketingA =$stmt->fetchAll();
@@ -298,7 +298,7 @@ class EventController extends CMSController
             }
             if($secretarias){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_secretarias where Iniciales in (". implode(",", $secretarias) .")";
+                $sql = "SELECT * FROM GC_secretarias where Iniciales in (". implode(",", $secretarias) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $secretariasA =$stmt->fetchAll();
@@ -313,7 +313,7 @@ class EventController extends CMSController
             }
             if($sociosresponsables){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_sociosresponsables where Iniciales in (". implode(",", $sociosresponsables) .")";
+                $sql = "SELECT * FROM GC_sociosResponsables where Iniciales in (". implode(",", $sociosresponsables) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $sociosresponsablesA =$stmt->fetchAll();

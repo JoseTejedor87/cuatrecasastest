@@ -1,8 +1,8 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -70,7 +70,18 @@
                 </div>
             </section>
 
-            <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-latam.png') }}')">
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                            <optgroup label="Latinoamérica">
+                                <option value="">Mexico City</option>
+                                <option value="">Bogotá</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
             </section>
 
             {% include 'web/pages/custom/location/shared/awards-latam.html.twig' %}
@@ -92,6 +103,7 @@
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

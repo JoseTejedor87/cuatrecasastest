@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -10,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -279,7 +278,7 @@
                                         {{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}
                                     </div>
                                     <a href="#">
-                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid')}}')"></div>
                                     </a>
                                 </div>
                             </article>
@@ -386,11 +385,10 @@
     </main>
 
     {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig'  with {publications: relatedPublications} %}
+    {% include 'web/shared/related-content-slider.html.twig'  with { title:'global.messages.outstanding_content'|trans, publications: relatedPublications} %}
     {% include 'web/shared/collections.html.twig' with {insights: insights} %}
     {% include 'web/shared/cta-footer.html.twig' %}
-
-    <!-- Loader -->
+    {# Loader #}
     <div class="search__component__loader" style="display:none">
         <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
