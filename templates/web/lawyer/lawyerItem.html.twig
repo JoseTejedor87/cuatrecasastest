@@ -9,7 +9,7 @@
 
 <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');" itemscope itemtype="https://schema.org/Person">
     <a href="{{ (lawyer.slug is defined) ? path('lawyers_detail', {slug:lawyer.slug}) : "" }}" class="lawyer__link">
-    <img src="{{ (photo_path is defined) ? photo_path : ""}}" alt="" class="sr-only">
+    <img src="{{ (photo_path is defined) ? photo_path : ""}}" alt="{{ lawyer.slug }}" class="sr-only">
 
     <h3 class="lawyer__name" itemprop="name" >{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
     <div class="lawyer__details">
