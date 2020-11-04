@@ -66,11 +66,13 @@ class Event extends Publishable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $activities;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="event", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $attachments;
 
@@ -82,16 +84,19 @@ class Event extends Publishable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Insight", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $insights;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $programs;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $questions;
 

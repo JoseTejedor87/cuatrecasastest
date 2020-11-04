@@ -19,19 +19,13 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
             <div class="row page__block--full page__cookies">
-
                 <div class="col">
                     {{ 'privacy.cookies' | trans | raw }}
                 </div>
-
                 {# <div class="col">
                     <p>Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
                     <ul>

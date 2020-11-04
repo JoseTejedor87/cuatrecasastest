@@ -26,6 +26,11 @@ class Office extends Publishable
      */
     private $cp;
 
+    /**
+     * @ORM\Column(type="string", length=1024)
+     */
+    private $link_external_map;
+
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -414,6 +419,18 @@ class Office extends Publishable
             $this->sliders->removeElement($slider);
             $slider->removeOffice($this);
         }
+
+        return $this;
+    }
+
+    public function getLinkExternalMap(): ?string
+    {
+        return $this->link_external_map;
+    }
+
+    public function setLinkExternalMap(string $link_external_map): self
+    {
+        $this->link_external_map = $link_external_map;
 
         return $this;
     }

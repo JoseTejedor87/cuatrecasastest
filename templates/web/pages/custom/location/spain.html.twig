@@ -1,8 +1,8 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -30,11 +30,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -68,18 +64,37 @@
                 </div>
             </section>
 
-            <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-spain.png') }}')">
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                            <optgroup label="España">
+                                <option value="">Barcelona</option>
+                                <option value="">Bilbao</option>
+                                <option value="">Girona</option>
+                                <option value="">Lleida</option>
+                                <option value="">Palma de Mallorca</option>
+                                <option value="">San Sebastián</option>
+                                <option value="">Madrid</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
             </section>
 
             {% include 'web/pages/custom/location/shared/awards-spain.html.twig' %}
-            
+
             {#% include 'web/pages/custom/location/shared/cases-spain.html.twig' %#}
             {% include '/web/shared-cmp/cases_CMP.html.twig' %}
-            
-            
+
+
             {#% include 'web/pages/custom/location/shared/related-content-slider-spain.html.twig' %#}
-            {% include 'web/shared-cmp/related-content-slider_CMP.html.twig' %}
-            
+            {# {% include 'web/shared-cmp/related-content-slider_CMP.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
+
             {% include 'web/pages/custom/location/shared/info-spain.html.twig' %}
 
         </article>
@@ -91,8 +106,9 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

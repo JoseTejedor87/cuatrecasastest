@@ -3,9 +3,16 @@
 <html lang="es">
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link href="https://www.cuatrecasas.com/favicon.ico" rel="shortcut icon" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('web/assets/favicon/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('web/assets/favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('web/assets/favicon/android-chrome-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('web/assets/favicon/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ asset('web/assets/favicon/site.webmanifest') }}">
+        <link rel="mask-icon" href="{{ asset('web/assets/favicon/safari-pinned-tab.svg') }}" color="#46001d">
+        <meta name="msapplication-TileColor" content="#46001d">
+        <meta name="theme-color" content="#ffffff">
         {% set canonical = app.request.attributes.get('_route') ? url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) : '' %}
         {% if canonical %}
             <link rel="canonical" href="{{ canonical }}" />
@@ -18,7 +25,7 @@
         {% block stylesheets %}{% endblock %}
     </head>
         {% set array = { 'es':'','en':'-1','pt':'-2','ge':'-3' } %}
-        {% set slug_ext = array[app.request.getLocale()]        %} {# Slug temporal para pages diferentes idiomas  borrar al hacer la navegacion administrable #}
+        {% set slug_ext = array[app.request.getLocale()] %} {# Slug temporal para pages diferentes idiomas  borrar al hacer la navegacion administrable #}
         {% include 'web/base/menu.html.twig' %}
         {% block main %}{% endblock %}
         {% include 'web/base/footer.html.twig' %}
@@ -31,7 +38,5 @@
         {% endif %}
         {% if chcookieconsent_isCookieConsentSavedByUser() == true %}
         {% endif %}
-
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ social_key }}"></script>
     </body>
 </html>

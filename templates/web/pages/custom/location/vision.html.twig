@@ -30,11 +30,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -74,14 +70,14 @@
                     <div class="col world__offices__select">
                         <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in offices %}
-                                    {% if key == 0  %}
-                                        <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
-                                    {% endif %}
+                                {% if key == 0  %}
+                                    <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                {% endif %}
                                         <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% if offices|length > key+1 %}
                                     {% if offices[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
-                                        </optgroup>
-                                        <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}">
+                                    </optgroup>
+                                    <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}"></optgroup>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -238,8 +234,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <!-- Google Map -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

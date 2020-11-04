@@ -33,7 +33,7 @@ class OfficeFormType extends AbstractType
             ->add('phone', TextType::class, ['label'=>'entities.office.fields.phone'])
             ->add('status', IntegerType::class, ['label'=>'entities.office.fields.status'])
             ->add('place', OfficePlaceType::class, ['label'=>'entities.office.fields.place'])
-           // ->add('place', IntegerType::class, ['label'=>'entities.office.fields.place'])
+            ->add('link_external_map', TextType::class, ['label'=>'entities.office.fields.link_google'])
             ->add('geographical_area', IntegerType::class, ['label'=>'entities.office.fields.geographical_area'])
             ->add('sap', TextType::class, ['label'=>'entities.office.fields.sap'])
             ->add('img_office', ResourceFormType::class, [
@@ -48,7 +48,7 @@ class OfficeFormType extends AbstractType
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                    'descriptions' => ['label'=>'entities.office.fields.descriptions', 'attr'=>['class'=>'summernote'] ,'required' => true],
+                    'description' => ['label'=>'entities.office.fields.descriptions', 'attr'=>['class'=>'summernote'] ,'required' => true],
                     'tags' => ['label'=>'entities.office.fields.tags', 'attr'=>['class'=>'summernote'] ,'required' => false],
                     'city' => ['label'=>'entities.office.fields.city'],
                     'country' => ['label'=>'entities.office.fields.country'],

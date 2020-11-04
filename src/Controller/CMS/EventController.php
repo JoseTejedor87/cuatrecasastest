@@ -95,14 +95,12 @@ class EventController extends CMSController
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+5);
+            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+1);
             $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
             $res  = $client->CreateEventoForGestionEventos($eventoWS);
             $data = $res->CreateEventoForGestionEventosResult;
             $dataEventoWS = ((array)$data);
-            if($dataEventoWS['Result'] == true){
-            $event->setIdGestorEventos($dataEventoWS['Data']->Id);
-            $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+            if($responsablesmarketing)
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
                 $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
@@ -115,6 +113,7 @@ class EventController extends CMSController
                 }
                 $event->addPerson($person);
             }
+            if($secretarias)
             foreach ($secretarias as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
                 $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
@@ -128,6 +127,7 @@ class EventController extends CMSController
                 }
                 $event->addPerson($person);
             }
+            if($sociosresponsables)
             foreach ($sociosresponsables as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
                 $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
@@ -140,12 +140,18 @@ class EventController extends CMSController
                 }
                 $event->addPerson($person);
             }
+            if($dataEventoWS['Result'] == true){
+                $event->setIdGestorEventos($dataEventoWS['Data']->Id);
+                $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+            }
                 $entityManager->persist($event);
                 $event->mergeNewTranslations();
                 $entityManager->flush();
+            if($dataEventoWS['Result'] == true){
                 return $this->redirectToRoute('cms_events_index');
+            }else{
+                return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId(), 'error'=>true]);
             }
-
         }
 
         return $this->render('cms/event/new.html.twig', [
@@ -272,7 +278,7 @@ class EventController extends CMSController
             
             if($responsablesmarketing){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_responsablesmarketings where Iniciales in (". implode(",", $responsablesmarketing) .")";
+                $sql = "SELECT * FROM GC_responsablesMarketings where Iniciales in (". implode(",", $responsablesmarketing) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $responsablesmarketingA =$stmt->fetchAll();
@@ -287,7 +293,7 @@ class EventController extends CMSController
             }
             if($secretarias){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_secretarias where Iniciales in (". implode(",", $secretarias) .")";
+                $sql = "SELECT * FROM GC_secretarias where Iniciales in (". implode(",", $secretarias) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $secretariasA =$stmt->fetchAll();
@@ -302,7 +308,7 @@ class EventController extends CMSController
             }
             if($sociosresponsables){
                 $conn = $entityManager->getConnection();
-                $sql = "SELECT * FROM gc_sociosresponsables where Iniciales in (". implode(",", $sociosresponsables) .")";
+                $sql = "SELECT * FROM GC_sociosResponsables where Iniciales in (". implode(",", $sociosresponsables) .")";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $sociosresponsablesA =$stmt->fetchAll();
@@ -318,7 +324,7 @@ class EventController extends CMSController
         }
         $parametrosEvento = array( $type=>( 
             array ( 
-                'Aforo' => 6 ,
+                'Aforo' => 0 ,
                 'Areas' =>  array (),
                 'Ciudad' => "" ,
                 'Contacto' =>  array (),
@@ -346,12 +352,12 @@ class EventController extends CMSController
                     
             )
         ));
-        $parametrosEvento[$type]['Aforo'] = $form->get('capacity')->getData();
+        $parametrosEvento[$type]['Aforo'] = $form->get('capacity')->getData() ? $form->get('capacity')->getData() : 0;
         $parametrosEvento[$type]['Areas'] = array();
-        $parametrosEvento[$type]['Ciudad'] = $form->get('office')->getData()->translate('es')->getCity();
-        $parametrosEvento[$type]['Contacto']['Email'] = $form->get('email')->getData();
-        $parametrosEvento[$type]['Contacto']['Name'] = $form->get('contact')->getData();
-        $parametrosEvento[$type]['Contacto']['Phone'] = $form->get('phone')->getData();
+        $parametrosEvento[$type]['Ciudad'] = $form->get('office')->getData() ? $form->get('office')->getData()->translate('es')->getCity() : '';
+        $parametrosEvento[$type]['Contacto']['Email'] = $form->get('email')->getData() ? $form->get('email')->getData() : '';
+        $parametrosEvento[$type]['Contacto']['Name'] = $form->get('contact')->getData() ? $form->get('contact')->getData() : '';
+        $parametrosEvento[$type]['Contacto']['Phone'] = $form->get('phone')->getData() ? $form->get('phone')->getData() : '';
         $parametrosEvento[$type]['CreatedShortName'] ='EXT4';
         $parametrosEvento[$type]['EstadoNombre'] = $form->get('published')->getData() ? 'activo' : 'inactivo' ;
         $parametrosEvento[$type]['FechaFin'] = $form->get('endDate')->getData()->format('Y-m-d\TH:i:s');;
@@ -359,27 +365,32 @@ class EventController extends CMSController
         $parametrosEvento[$type]['IdEstadoWeb'] = $form->get('published')->getData() ? '2' : '1' ;
         // REVISAR
         $parametrosEvento[$type]['IdEventoWeb'] = $new ? $oldId : $oldId;
-        $parametrosEvento[$type]['IdOficina'] = $form->get('office')->getData()->getSap();
+        $parametrosEvento[$type]['IdOficina'] = $form->get('office')->getData() ? $form->get('office')->getData()->getSap() : '';
         $parametrosEvento[$type]['IdTipoWeb'] = $form->get('eventType')->getData()=='standard' ? '1' : $form->get('eventType')->getData()=='webinar' ? '2' : $form->get('eventType')->getData()=='breakfast' ? '3' : $form->get('eventType')->getData()=='institutional' ? '4' :'' ;
-        $parametrosEvento[$type]['OficinaNombre'] = $form->get('office')->getData()->translate('es')->getCity();
+        $parametrosEvento[$type]['OficinaNombre'] = $form->get('office')->getData() ?$form->get('office')->getData()->translate('es')->getCity() : '';
         
         if($form->get('translations')->getData()['es']->getCustomAddress()){
-            $parametrosEvento[$type]['OptionalAddress']['Address'] = $form->get('translations')->getData()['es']->getCustomAddress();
-            $parametrosEvento[$type]['OptionalAddress']['City'] = $form->get('translations')->getData()['es']->getCustomCity();
-            $parametrosEvento[$type]['OptionalAddress']['Country'] = $form->get('translations')->getData()['es']->getCustomCountry();
-            $parametrosEvento[$type]['OptionalAddress']['PostalCode'] = $form->get('translations')->getData()['es']->getCustomPostalcode();
-            $parametrosEvento[$type]['OptionalAddress']['Province'] = $form->get('translations')->getData()['es']->getCustomProvince();
+            $parametrosEvento[$type]['OptionalAddress']['Address'] = $form->get('translations')->getData()['es']->getCustomAddress() ? $form->get('translations')->getData()['es']->getCustomAddress() : '';
+            $parametrosEvento[$type]['OptionalAddress']['City'] = $form->get('translations')->getData()['es']->getCustomCity() ? $form->get('translations')->getData()['es']->getCustomCity() : '';
+            $parametrosEvento[$type]['OptionalAddress']['Country'] = $form->get('translations')->getData()['es']->getCustomCountry() ? $form->get('translations')->getData()['es']->getCustomCountry() : '';
+            $parametrosEvento[$type]['OptionalAddress']['PostalCode'] = $form->get('translations')->getData()['es']->getCustomPostalcode() ? $form->get('translations')->getData()['es']->getCustomPostalcode() : '';
+            $parametrosEvento[$type]['OptionalAddress']['Province'] = $form->get('translations')->getData()['es']->getCustomProvince() ? $form->get('translations')->getData()['es']->getCustomProvince() : '';
         }
-        foreach ($form->get('people')->getData() as $key => $value) {
-            if($value->getLawyer()){
-                $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array( 'Apellidos' => $value->getSurname(), 'Iniciales' => $value->getInicial() ,'Nombre' => $value->getName());
-            }else{
-                $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array('Apellidos' => $value->getSurname(),'Nombre' => $value->getName());
+        if($form->get('people')->getData()){
+            foreach ($form->get('people')->getData() as $key => $value) {
+                if($value->getLawyer()){
+                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array( 'Apellidos' => $value->getSurname(), 'Iniciales' => $value->getInicial() ,'Nombre' => $value->getName());
+                }else{
+                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array('Apellidos' => $value->getSurname(),'Nombre' => $value->getName());
+                }
             }
         }
-        foreach ($form->get('questions')->getData() as $key => $value) {
+        if($form->get('questions')->getData()){
+            foreach ($form->get('questions')->getData() as $key => $value) {
                 $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'] = array( 'Action' => $new ? "INSERT" : "EDIT", 'IdEventQuestionWeb' => $value->translate('es')->getHash() ?  $value->translate('es')->getHash() : md5($value->translate('es')->getQuestion()) ,'Question' => $value->translate('es')->getQuestion());
         }
+        }
+        
         if($responsablesmarketing)
         foreach ($responsablesmarketing as $key => $value) {
                 $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'] = array( 'Apellidos' => $value['Apellidos'], 'Iniciales' => $value['Iniciales'] ,'Nombre' => $value['Nombre']);
@@ -396,7 +407,7 @@ class EventController extends CMSController
         $parametrosEvento[$type]['Titulo'] = $form->get('translations')->getData()['es']->getTitle();
         $parametrosEvento[$type]['UrlIcs'] = "";
         $parametrosEvento[$type]['UrlImagenEmail'] = "";
-        $parametrosEvento[$type]['UrlWeb'] = $form->get('translations')->getData()['es']->getSlug() ? $form->get('translations')->getData()['es']->getSlug() : ' ';
+        $parametrosEvento[$type]['UrlWeb'] = $form->get('translations')->getData()['es']->getSlug() ?  $this->container->get('router')->generate('events_detail', array('slug' => $form->get('translations')->getData()['es']->getSlug())) : ' ';
         
        
         return $parametrosEvento;

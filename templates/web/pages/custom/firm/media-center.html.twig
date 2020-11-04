@@ -16,11 +16,7 @@
                         <h1 class="lawyer__page__region">
                             Centro de medios
                         </h1>
-                        <ul class="action__links">
-                            <li><a href="#"><i class="material-icons">share</i></a></li>
-                            <li><a href="#"><i class="material-icons">print</i></a></li>
-                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                        </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
@@ -152,7 +148,7 @@
                     </div>
                     <div class="col-12">
                         <div class="viewmore__button">
-                            <button type="button" class="btn btn__viewmore">Cargar más</button>
+                            <button type="button" class="btn btn__viewmore">{{ 'global.messages.load_more'|trans }}</button>
                         </div>
                     </div>
                 </section>
@@ -160,7 +156,10 @@
 
             {% include 'web/pages/custom/firm/shared/info-mediakit.html.twig' %}
             {% include 'web/pages/custom/firm/shared/info-media-center.html.twig' %}
-            {% include 'web/pages/custom/firm/shared/related-content-slider-mediakit.html.twig' %}
+            {# {% include 'web/pages/custom/firm/shared/related-content-slider-mediakit.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
 
         </article>
     </main>
@@ -171,7 +170,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {

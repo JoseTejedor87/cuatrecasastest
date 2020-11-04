@@ -19,14 +19,10 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
-            <div class="row page__block--full page__cookies">
+            <div class="row page__block--full page__privacy">
                 <div class="col">
                     {{ 'privacy.privacy' | trans | raw }}
                 </div>

@@ -8,13 +8,13 @@
 {% endif %}
 
 {# <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}"> #}
-<div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');">
+<div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');" itemscope itemtype="https://schema.org/Person">
 <!-- <div class="lawyer__search__item" style="background-image: url('{#{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }#}"> -->
     <a href="{{ (lawyer.slug is defined) ? path('lawyers_detail', {slug:lawyer.slug}) : "" }}" class="lawyer__link">
-    <h3 class="lawyer__name">{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
+    <h3 class="lawyer__name" itemprop="name" >{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
     <div class="lawyer__details">
         <ul class="lawyer__practice">
-            <li class="lawyer__practice__item lawyer__position">{{ (lawyer.lawyerType is defined) ? ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans : "" }}</li>
+            <li class="lawyer__practice__item lawyer__position" itemprop="jobTitle">{{ (lawyer.lawyerType is defined) ? ('sections.lawyers.lawyerCategoryTypes.' ~ lawyer.lawyerType) | trans : "" }}</li>
             {% if lawyer %}
             {% if lawyer.activities %}
                 {% for activity in lawyer.activities %}

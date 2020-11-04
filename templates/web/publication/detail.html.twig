@@ -8,12 +8,12 @@
 {% block main %}
 
     <main role="main">
-        <article class="container">
+        <article class="container"  itemscope itemtype="http://schema.org/Article">
 
             <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/andrej-lisakov-7G8ARu_DJTc-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
-                        <h1 class="page__title">
+                        <h1 class="page__title"  itemprop="name">
                             {{ publication.translate(app.request.getLocale()).title|raw }}
                         </h1>
                         <nav aria-label="breadcrumb">
@@ -30,22 +30,19 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
-            <section class="row page__block noborder">
+            <section class="row page__block noborder" >
                 <div class="col">
-                    <div class="page__block__title page__block__title--article">
-                        <p>{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
+                    <div class="page__block__title page__block__title--article" itemprop="articleBody" >
+                        <span style="display:none;" itemprop="datePublished">{{ publication.getPublicationDate |date("Y-m-d\\TH:i:s") }}</span>
+                        <p itemprop="about">{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
                         <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo )| imagine_filter('article_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
 
                         {# duplicated block desktop / mobile #}
-                        <div class="article__details desktop">
+                        <div class="article__details desktop" >
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'article_dossier'%}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
@@ -58,13 +55,13 @@
                             {% if publication.people|length > 0 %}
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
-                                <li class="related__content__item">
+                                <li class="related__content__item" itemscope itemtype="https://schema.org/Person" >
                                      {% if person.lawyer %}
-                                        <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}" class="related__content__link">
+                                        <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}"  class="related__content__link" itemprop="author" itemprop="name">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
                                         </a>
                                     {% else %}
-                                        <a href="#" class="related__content__link">
+                                        <a href="#" class="related__content__link"  itemprop="author" itemprop="name">
                                         {{ person.name }} {{ person.surname }}
                                         </a>
                                     {% endif %}
@@ -77,7 +74,7 @@
                             <ul class="related__content related__content--services">
                              {% for activity in publication.activities %}
                                 {% set path_string = get_pathda(activity)|trans %}
-                                <li class="related__services__item">
+                                <li class="related__services__item"  itemprop="keywords" >
                                     <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
                                         {{ activity.translate(app.request.getLocale()).title|raw}}
                                     </a>
@@ -92,7 +89,7 @@
                             {% include 'web/shared/video-article.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
                         <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
-                        <div class="read__more">
+                        <div class="read__more" itemprop="description">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
 
@@ -112,7 +109,7 @@
                              {% for person in publication.people %}
                                 <li class="related__content__item">
                                      {% if person.lawyer %}
-                                        <a href="{{ path('layers_detail', {slug:person.lawyer.slug}) }}" class="related__content__link">
+                                        <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}" class="related__content__link">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
                                         </a>
                                     {% else %}
@@ -156,7 +153,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>

@@ -26,11 +26,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -244,7 +240,7 @@
                 {% if page < pagesTotal %}
                 <div class="col-12">
                     <div class="viewmore__button">
-                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">Cargar más</button>
+                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">{{ 'global.messages.load_more'|trans }}</button>
                     </div>
                 </div>
                 {% endif %}
@@ -254,7 +250,7 @@
     </main>
 
     {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig' %}
+    {% include 'web/shared/related-content-slider.html.twig' with {title:'global.messages.outstanding_content'|trans} %}
     {% include 'web/shared/collections.html.twig' with {insights: insights} %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
@@ -272,8 +268,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/checkboxFilters.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {

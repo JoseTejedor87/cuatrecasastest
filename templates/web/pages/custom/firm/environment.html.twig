@@ -30,11 +30,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -74,7 +70,11 @@
         {% include 'web/pages/custom/firm/shared/environment-resources.html.twig' %}
         {% include 'web/pages/custom/firm/shared/cta-corporative-environment.html.twig' %}
         {% include 'web/pages/custom/firm/shared/awards-environment.html.twig' %} {# no info #}
-        {% include 'web/pages/custom/firm/shared/related-content-slider-environment.html.twig' %} {# no info #}
+        {# {% include 'web/pages/custom/firm/shared/related-content-slider-environment.html.twig' %} no info #}
+        {% if relatedPublications|length > 0 %}
+            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '----insight',publications: relatedPublications }  %}
+        {% endif %}
+
 
     </main>
 
@@ -84,8 +84,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>
