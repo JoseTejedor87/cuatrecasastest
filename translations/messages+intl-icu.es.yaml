@@ -46,7 +46,8 @@ global:
     view_all_events: Ver todos los eventos
     slider_next: Siguiente
     related_content: Contenido relacionado
-    outstanding_content: Contenido Destacado
+    featured_content: Contenido Destacado
+    news_content: Actualidad
   forms:
     save: Guardar
     inscription: Inscribirme
@@ -193,7 +194,7 @@ menu:
   career:
     career: Talento
     live: ¡Vive Cuatrecasas!
-    revolution: Revolución
+    revolution: rEvolution
     learn: Aprende con los mejores
     international: Carrera internacional
     join: Únete a nosotros
@@ -527,13 +528,17 @@ firm:
       title: Comité de igualdad
       content: La firma trabaja con firmeza y determinación para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres. La Comisión de Igualdad ha trazado el Plan de Igualdad para este fin y para promocionar el talento femenino.
       link: 18 medidas
-    art_3:
+
+# asociations
+  asociations_social:
+    title: Asociaciones
+    art_1:
       title: Adhesión a Redi
       content: En julio de 2019 nos adherimos a REDI, red de profesionales y expertos en diversidad y recursos humanos interesados en promover la inclusión LGBTI en el contexto empresarial.
-    art_4:
+    art_2:
       title: Prevención del acoso
       content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos. Además, la firma cuenta con un canal de denuncias que permite comunicar, de manera confidencial, conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro código ético.
-    art_5:
+    art_3:
       title: Inclusión
       content: Cumplimos las obligaciones derivadas de la LGDP a través de la contratación directa (el 0,71% de la plantilla) y de medidas alternativas para su cumplimiento. Hemos apostado por la contratación de CETs durante el 2019 con una aportación de 571.169€. Además, disponemos del certificado plata Discert como empresa responsable con la accesivilidad universal de las personas con discapacidad.
 
@@ -750,9 +755,6 @@ career:
         title: Pendiente MKT
 
     intro: Cuatrecasas es tu mejor escuela. Aquí podrás formarte, potenciar tu desarrollo y superarte continuamente. Por ello te pediremos que seas dinámico y aproveches todos los medios que el despacho pone a tu disposición.
-    content:
-      txt_1: 01 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
-      txt_2: 02 Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
 
   international:
     cases:

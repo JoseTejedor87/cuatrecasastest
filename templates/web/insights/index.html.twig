@@ -278,7 +278,7 @@
                                         {{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}
                                     </div>
                                     <a href="#">
-                                        <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid')}}')"></div>
+                                        <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                                     </a>
                                 </div>
                             </article>
@@ -385,7 +385,7 @@
     </main>
 
     {% include 'web/shared/related-events-slider.html.twig'  with {events: relatedEvents } %}
-    {% include 'web/shared/related-content-slider.html.twig'  with { title:'global.messages.outstanding_content'|trans, publications: relatedPublications} %}
+    {% include 'web/shared/related-content-slider.html.twig'  with { title:'global.messages.featured_content'|trans, publications: relatedPublications} %}
     {% include 'web/shared/collections.html.twig' with {insights: insights} %}
     {% include 'web/shared/cta-footer.html.twig' %}
     {# Loader #}
