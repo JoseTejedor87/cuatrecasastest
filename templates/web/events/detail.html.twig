@@ -28,10 +28,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">Inicio</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('events_directory') }}">Eventos</a>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'sections.events.title' | trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -40,7 +40,7 @@
                 </div>
             </header>
 
-            <!-- Details -->
+            {# Details #}
             <section class="row page__event">
                 <div class="col">
                     <div class="page__event__content" itemscope itemtype="http://schema.org/Event">
@@ -69,18 +69,17 @@
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'article_dossier' %}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    Descarga el dossier
+                                    {{ 'sections.events.dossier'|trans }}
                                     <span class="icon4-download"></span>
                                 </a>
                                 {% endif %}
                             {% endfor %}
-
                         </div>
                     </div>
                     <div class="page__event__aside">
                         <article class="boxnews__item boxnews__item--event sticky-top">
                             <div class="boxnews__header">
-                                <div class="boxnews__type">Evento</div>
+                                <div class="boxnews__type">{{ 'sections.events.event'|trans }}</div>
                             </div>
                             {# Event Info #}
                             <div class="boxnews__content" id="eventBoxInfo">
@@ -167,7 +166,7 @@
             <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
-                        <h2 class="subsection__title subsection__title--event">Ponentes</h2>
+                        <h2 class="subsection__title subsection__title--event">{{ 'sections.events.speakers'|trans }}</h2>
                     </div>
                     <div class="page__block__content">
                         <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
@@ -178,7 +177,7 @@
                                         <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
                                         <div class="lawyer__details">
                                             <div class="lawyer__company">
-                                                Cuatrecasas
+                                                {{ 'sections.events.company'|trans }}
                                             </div>
                                             <ul class="lawyer__practice">
                                                 <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
@@ -200,13 +199,13 @@
                 <div class="container">
                     <div class="row page__section">
                         <div class="col tablesaw-wrapper">
-                            <h4 class="section__title section__title--programme">Programa</h4>
+                            <h4 class="section__title section__title--programme">{{ 'sections.events.programme.title'|trans }}</h4>
                             <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                                 <thead>
                                     <tr>
-                                        <th class="time" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Hora</th>
-                                        <th class="content" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Título</th>
-                                        <th class="speaker" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Ponente</th>
+                                        <th class="time" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.time'|trans }}</th>
+                                        <th class="content" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.about'|trans }}</th>
+                                        <th class="speaker" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.speaker'|trans }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -68,7 +68,7 @@
                 <div class="world__offices__map" id="map"></div>
                 <div class="row world__offices__wrapper">
                     <div class="col world__offices__select">
-                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="{{ 'global.forms.search'|trans }}">
                             {% for key, office in offices %}
                                 {% if key == 0  %}
                                     <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
