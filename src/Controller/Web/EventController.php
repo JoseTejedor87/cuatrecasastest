@@ -127,7 +127,7 @@ class EventController extends WebController
                 $item->setCapacity(0);
                 array_push($events, $item);
             }
-        }  
+        }
 
         // if($activity){
         //     $sql = "SELECT e FROM App:Event e inner JOIN event_activity a ON a.event_id = e.idWHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and a.activity_id=".$activity;
@@ -226,6 +226,10 @@ class EventController extends WebController
         }
         $headerImage = $this->getPhotoPathByFilter($event, 'full_header',$navigation);
         
+
+
+
+
         return $this->render('web/events/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,

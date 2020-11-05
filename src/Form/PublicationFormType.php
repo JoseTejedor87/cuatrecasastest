@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Insight;
 use App\Entity\Legislation;
+use App\Repository\OfficeRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,9 +62,15 @@ class PublicationFormType extends AbstractType
                 'multiple' => true,
                 'required' => true,
                 'expanded' => false,
-                'choice_label' => function ($office) {
-                    return $office->translate('es')->getCity();
+                'query_builder' => function (OfficeRepository $or){
+                    return $or->createQueryBuilder('o')
+                        ->join('o.translations', 'to')
+                        ->andWhere('to.city is not null')
+                        ->orderBy('to.city', 'ASC');
                 }
+//                'choice_label' => function ($office) {
+//                    return $office->translate('es')->getCity();
+//                }
             ])
             ->add('insights', EntityType::class, [
                 'class' => Insight::class,

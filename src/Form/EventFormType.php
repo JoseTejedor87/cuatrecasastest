@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Insight;
+use App\Entity\OfficeTranslation;
+use App\Repository\OfficeRepository;
+use App\Repository\OfficeTranslationRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -111,15 +114,24 @@ class EventFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
-                'required' => false,
                 'placeholder' => 'entities.event.fields.no-office',
                 'empty_data' => null,
                 'required' => false,
                 'multiple' => false,
                 'expanded' => false,
-                'choice_label' => function ($office) {
-                    return $office->translate('es')->getCity();
+                'query_builder' => function (OfficeRepository $or){
+                    return $or->createQueryBuilder('o')
+                        ->join('o.translations', 'to')
+                        ->andWhere('to.city is not null')
+                        ->orderBy('to.city', 'ASC');
                 }
+//                'choice_label' =>
+//                    function ($office) {
+//                    if ($office->translate('es')){
+//                        return $office->translate('es')->getCity() ;
+//                    }
+//
+//                }
             ])
                 
             ->add('responsablesmarketing', ChoiceType::class, [
@@ -258,5 +270,6 @@ class EventFormType extends AbstractType
         }
         return $ValuesA;
     }
-    
+
+
 }

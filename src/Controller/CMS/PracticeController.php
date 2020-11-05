@@ -34,8 +34,8 @@ class PracticeController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($request->request->get('practice_form'));
-            die();
+//            var_dump($request->request->get('practice_form'));
+//            die();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($practice);
             $practice->mergeNewTranslations();
@@ -64,8 +64,7 @@ class PracticeController extends CMSController
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($request->request->get('practice_form')['languages'] as $language) {
                 if ($request->request->get('practice_form')['translations'][$language]['title'] == '') {
-                    var_dump('ERROR');
-                    die();
+
                 }
             }
             if (isset($request->request->get('practice_form')['photo'])) {

@@ -37,7 +37,7 @@ class PracticeFormType extends ActivityFormType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'data_class' => Practice::class,
-            'required' => false
+            'required' => true
         ]);
     }
 }

@@ -1,25 +1,23 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
+<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 {% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
 {% if  event.getOffice() %}
+    {% set linkExternal = event.getOffice().getLinkExternalMap()  %}
     {% set customAddress = event.getOffice().getAddress()| replace({"<BR>":"<br>"}) |split('<br>') %}
 {% else %}
     {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
 {% endif %}
 
-{% if  headerImage == '' %}
-    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
-{% endif %}
-
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -44,7 +42,7 @@
             <section class="row page__event">
                 <div class="col">
                     <div class="page__event__content" itemscope itemtype="http://schema.org/Event">
-                        {# Duplicated Event Info #}
+                        <!-- Duplicated Event Info -->
                         <div class="boxnews__content boxnews__content--event" id="eventMainInfo" style="display:none">
                             <div class="place" itemprop="location">
                                 <span>{{ customAddress|first|raw }}</span>
@@ -67,14 +65,41 @@
                         </div>
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
-                                {% if attachment.type  == 'publication_dossier' %}
+                                {#% if attachment.publish.language  == app.request.getLocale() && attachment.publish.region == app.request.getRegion() %#}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
-                                {% endif %}
+                                {#% endif %#}
                             {% endfor %}
+                            <!-- <div class="page__event__info">
+                                <div data-author>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
+                            </div>
+                            <ul class="related__services">
+                                {% for activity in event.activities %}
+                                <li class="related__services__item">
+                                    <a href="{{ path('practices_detail', {slug: activity.translate(app.request.getLocale()).slug}) }}" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul> -->
 
+                            <!-- <a href="" class="btn btn__solid btn__solid--icon" target="_blank" alt="">
+                                Descarga el dossier
+                                <span class="icon4-download"></span>
+                            </a>
+                            <ul class="related__services">
+                                    <li class="related__services__item">
+                                    <a href="" class="related__services__link">Medio Ambiente</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="" class="related__services__link">Público</a>
+                                </li>
+                                <li class="related__services__item">
+                                    <a href="" class="related__services__link">Propiedad intelectual e industrial, Medios y Protección de datos</a>
+                                </li>
+                            </ul> -->
                         </div>
                     </div>
                     <div class="page__event__aside">
@@ -82,12 +107,13 @@
                             <div class="boxnews__header">
                                 <div class="boxnews__type">Evento</div>
                             </div>
-                            {# Event Info #}
+                            <!-- Event Info -->
+
                             <div class="boxnews__content" id="eventBoxInfo">
-                                <div class="place">
+                                <a class="place" target="_blank" href=" {{ linkExternal is defined ? linkExternal : '' }} ">
                                     <span>{{ customAddress|first|raw }}</span>
                                     <span>{{ customAddress[:-1]|join(' ') }}</span>
-                                </div>
+                                </a>
                                 <div class="date">
                                     <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
                                     <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
@@ -145,17 +171,17 @@
                                     <div class="form-group mt-4">
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
-                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="{{ path('webUse') }}">Condiciones de Uso</a> y la <a href="{{ path('privacyPolicy') }}">Política de Privacidad</a></span></label>
-                                            <div class="invalid-feedback">{{ 'global.forms.mandatory_field' | trans }}</div>
+                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="{#{ path('politicaCookies') }#}">Política de Privacidad</a></span></label>
+                                            <!-- <div class="invalid-feedback">Campo obligatorio</div> -->
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="checkbox">
-                                            <input type="checkbox" id="subscribe" required>
+                                            <input type="checkbox" id="subscribe">
                                             <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn__solid__arrow">{{ 'global.forms.inscription' | trans }}</button>
+                                    <button type="submit" class="btn btn__solid__arrow">Inscribirme</button>
                                 </form>
                             </div>
                         </article>
@@ -163,39 +189,39 @@
                 </div>
             </section>
             {% if event.people|length > 0 and  event.people[0].type == null %}
-            {# Speakers #}
-            <section class="row page__block">
-                <div class="col">
-                    <div class="page__block__title">
-                        <h2 class="subsection__title subsection__title--event">Ponentes</h2>
-                    </div>
-                    <div class="page__block__content">
-                        <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
-                            {% for speaker in event.people %}
-                                {% if speaker.type == null %}
-                                <div class="lawyer__search__item">
-                                    <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
-                                        <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
-                                        <div class="lawyer__details">
-                                            <div class="lawyer__company">
-                                                Cuatrecasas
+                <!-- Speakers -->
+                <section class="row page__block">
+                    <div class="col">
+                        <div class="page__block__title">
+                            <h2 class="subsection__title subsection__title--event">Ponentes</h2>
+                        </div>
+                        <div class="page__block__content">
+                            <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
+                                {% for speaker in event.people %}
+                                    {% if speaker.type == null %}
+                                    <div class="lawyer__search__item">
+                                        <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
+                                            <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                                            <div class="lawyer__details">
+                                                <div class="lawyer__company">
+                                                    Cuatrecasas
+                                                </div>
+                                                <ul class="lawyer__practice">
+                                                    <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
+                                                    <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
+                                                </ul>
                                             </div>
-                                            <ul class="lawyer__practice">
-                                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
-                                                <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
             {% endif %}
             {% if event.programs|length > 0   %}
-            {# Programme #}
+            <!-- Programme -->
             <section class="event__programme">
                 <div class="container">
                     <div class="row page__section">
