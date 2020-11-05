@@ -27,13 +27,21 @@ global:
     portugal: Portugal
     global: Global
   messages:
-    error_404: Error 404
-    error_404_title: Página no encontrada
-    error_404_content: Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
-    error_404_button: Volver al inicio
+    error_generic: ENG Error genérico
+    error_generic_title: ENG Error genérico título
+    error_generic_content: ENG Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
+    error_generic_button: ENG Error genérico button
+    error_404: ENG Error 404
+    error_404_title: ENG Página no encontrada
+    error_404_content: ENG Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
+    error_404_button: ENG Volver al inicio
+    error_500: ENG Error 500
+    error_500_title: ENG Error 500 title
+    error_500_content: ENG Lorem, ipsum dolor, sit amet consectetur adipisicing elit. Ex impedit, hic ab, voluptatibus eum fugit repellat earum magni quaerat odio modi. Dolores quia iusto et natus aspernatur itaque, ducimus repellendum.
+    error_500_button: ENG ERror 500 button
     alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
     show_filters: Show filters
-    apply_button: Aplicar
+    apply_button: Apply
     load_more: Load more
     show_more: Show more
     show_less: Show less
@@ -46,40 +54,42 @@ global:
     view_all_events: View all events
     slider_next: Next
     related_content: Related content
-    featured_content: Contenido Destacado
-    news_content: Actualidad
-    our_recomendation: Te recomendamos
-    empty_results: No se han encontrado resultados para la búsqueda realizada
+    featured_content: Contenido Destacado ENG
+    news_content: Actualidad ENG
+    our_recomendation: Te recomendamos ENG
+    empty_results: No se han encontrado resultados para la búsqueda realizada ENG
   forms:
-    save: Guardar
-    inscription: Inscribirme
-    mandatory_field: Campo obligatorio
+    search: Search
+    save: Save
+    inscription: Inscribirme ENG
+    mandatory_field: Campo obligatorio ENG
+
 
 ##COOKIES
 ##############################################
 ch_cookie_consent:
-  title: ''
-  intro: 'Utilizamos cookies propias y tecnologías analíticas de terceros para identificar sus hábitos de navegación y poder ofrecer nuestros contenidos en función de sus intereses, mejorando al mismo tiempo su seguridad. Para obtener más información, seleccione "más información" para acceder a nuestra política de cookies para habilitar o deshabilitar las cookies en cualquier momento.'
-  read_more: 'Más información'
-  analytics:
-    title: '¿Quieres cookies analíticas?'
-    description: ''
-  tracking:
-    title: '¿Quieres cookies de seguimiento?'
-    description: ''
-  marketing:
-    title: '¿Quieres anuncios personalizados?'
-    description: ''
-  social_media:
-    title: '¿Quieres cookies de redes sociales?'
-    description: ''
-  no: 'No'
-  yes: 'Si'
-  save: 'Guardar'
-  use_only_functional_cookies: 'Utilice solo cookies funcionales'
-  use_all_cookies: 'Permitir todas las cookies'
-  show_details: 'Mostrar detalles'
-  hide_details: 'Ocultar detalles'
+    title: ''
+    intro: 'We use our own cookies and third-party analytics technologies to identify your browsing habits and be able to offer our contents based on your interests, while improving your security. For more information, select "more information" to access our Cookies policy to enable or disable cookies at any time.'
+    read_more: 'More information'
+    analytics:
+        title: 'Do you want analytical cookies?'
+        description: ''
+    tracking:
+        title: 'Do you want tracking cookies?'
+        description: ''
+    marketing:
+        title: 'Do you want personalised ads?'
+        description: ''
+    social_media:
+        title: 'Do you want social media cookies?'
+        description: ''
+    no: 'No'
+    yes: 'Yes'
+    save: 'Save'
+    use_only_functional_cookies: 'Only use functional cookies'
+    use_all_cookies: 'Allow all cookies'
+    show_details: 'Show details'
+    hide_details: 'Hide details'
 
 # Sections
 # ###########################################
@@ -145,28 +155,35 @@ static:
     officeList: Offices list
     deskList: Desk list
     interOrg: International organitations
-    vision_intro: “A través de una red de 20 oficinas, cubrimos España, Portugal y Latinoamérica. Tenemos oficinas de representación en UK, US, Asia y Africa y, mediante nuestra alianza europea con firmas líderes en Alemania, Francia e Italia, contamos con más de 2.000 abogados y 28 oficinas en Europa continental.”
+    vision_intro: ENG A través de una red de 20 oficinas, cubrimos España, Portugal y Latinoamérica. Tenemos oficinas de representación en UK, US, Asia y Africa y, mediante nuestra alianza europea con firmas líderes en Alemania, Francia e Italia, contamos con más de 2.000 abogados y 28 oficinas en Europa continental.
   rrhh:
-    title: Instituto de Estrategia Legal en RRHH
+    title: ENG Instituto de Estrategia Legal en RRHH
+    content: <p>ENG En la actualidad existe una carencia en España de foros de innovación estratégica en recursos humanos, en especial en aquellas materias sociolaborales que van a marcar el desarrollo futuro de las empresas en un contexto de innovación y globalización constantes.</p>
+            <p>Por esta razón se ha creado el Instituto Cuatrecasas de Estrategia Legal en RRHH.</p>
+            <p>Se constituye, así, un foro de innovación legal que contribuya a la toma de decisiones en el medio y largo plazo por parte de las empresas de mayor importancia a nivel español e internacional, así como por otros operadores del mercado de trabajo, ofreciéndoles la posibilidad de colaborar estrechamente con ellas en la identificación de respuestas estratégicas legales adecuadas, desde una perspectiva práctica de las relaciones laborales y teniendo muy presente el contexto de globalización.</p>
+            <p>El Instituto cuenta con un Consejo Asesor, integrado por un selecto grupo de Senior Managers de recursos humanos y Directores de Departamentos legales, o profesionales de nivel similar, de grandes empresas, de reconocido prestigio y con larga trayectoria en las distintas vertientes de este área, cuyo papel esencial se desarrolla al nivel más elevado de elaboración y operatividad estratégica.</p>
+            <p>El Instituto se caracteriza por facilitar un ámbito proactivo de búsqueda de innovación en la ordenación de lo que se considera que es, y será, un elemento diferencial en la competitividad de las empresas:&nbsp;su capital humano.</p>
+            <p>Es también un punto de encuentro con otros operadores en recursos humanos que, de forma directa e indirecta, condicionan la toma de decisiones en este campo, a saber, y entre otros, con los máximos responsables de las Administraciones Públicas en sus distintos ámbitos (General, Autonómica o Institucional), responsables de Grupos Políticos que deseen desarrollar visiones estratégicas en el área sociolaboral, representantes sindicales de primer nivel y con otras instituciones y creadores de opinión en los medios de comunicación sociales.</p>
+            <p>El Instituto está presidido por Salvador del Rey Guanter, Socio del Área Laboral de Cuatrecasas y Catedrático de Derecho del Trabajo y de la Seguridad Social. Su Director es Guillermo Tena, Consejero de Cuatrecasas.</p>
 
 # User Settings
 # ###########################################
 userForm:
-  title: Ajustes y preferencias
+  title: ENG Ajustes y preferencias
   settings:
-    title: Ajustes
-    subTitleInfo: Información personal
-    subTitleCompany: Empresa
-    subTitleContact: Contacto
+    title: ENG Ajustes
+    subTitleInfo: ENG Información personal
+    subTitleCompany: ENG Empresa
+    subTitleContact: ENG Contacto
   interests:
-    title: Intereses
-    tabPopular: Más populares
-    tabAreas: Áreas de práctica
-    tabSectors: Sectores
-    tabGeo: Geográficos
+    title: ENG Intereses
+    tabPopular: ENG Más populares
+    tabAreas: ENG Áreas de práctica
+    tabSectors: ENG Sectores
+    tabGeo: ENG Geográficos
   data:
-    title: Información sobre el tratamiento de sus datos personales
-  button: Guardar
+    title: ENG Información sobre el tratamiento de sus datos personales
+  button: ENG Guardar
 
 # Menu
 # ###########################################
@@ -201,11 +218,11 @@ menu:
     responsability: Responsability and Compliance
   contact: Contact
   webs:
-    webs: Webs
-    acelera: Cuatrecasas Acelera
-    rrhh: Instituto RRHH
-    fundacion: La Fundación
-    app: App Corporativa
+    webs: ENG Webs
+    acelera: ENG Cuatrecasas Acelera
+    rrhh: ENG Instituto RRHH
+    fundacion: ENG La Fundación
+    app: ENG App Corporativa
   reg_lang: Adapt the site to have a personalized experience
 
   desks: Desks
@@ -217,7 +234,7 @@ menu:
 # Footer
 # ###########################################
 footer:
-  intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+  intro: ENG Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
   copyright: © 2020 Cuatrecasas. All right reserved.
   privacy:
     site_map: Site map
@@ -242,32 +259,6 @@ reusable_blocks:
     cases:
       title: Cases
       link: View more
-
-##COOKIES
-##############################################
-ch_cookie_consent:
-    title: ''
-    intro: 'We use our own cookies and third-party analytics technologies to identify your browsing habits and be able to offer our contents based on your interests, while improving your security. For more information, select "more information" to access our Cookies policy to enable or disable cookies at any time.'
-    read_more: 'More information'
-    analytics:
-        title: 'Do you want analytical cookies?'
-        description: ''
-    tracking:
-        title: 'Do you want tracking cookies?'
-        description: ''
-    marketing:
-        title: 'Do you want personalised ads?'
-        description: ''
-    social_media:
-        title: 'Do you want social media cookies?'
-        description: ''
-    no: 'No'
-    yes: 'Yes'
-    save: 'Save'
-    use_only_functional_cookies: 'Only use functional cookies'
-    use_all_cookies: 'Allow all cookies'
-    show_details: 'Show details'
-    hide_details: 'Hide details'
 
 ## BLOCK FIRM
 #################################################
@@ -913,7 +904,7 @@ privacy:
   terms:
     <ul>
         <li>
-            <p><strong>1. INTRODUCCIÓN</strong><br><br>Cuatrecasas, Gonçalves Pereira, S.L.P. es una compañía mercantil de nacionalidad española domiciliada en Diagonal, 191 - 08018 Barcelona, con C.I.F. /V.A.T. ESB59942110 e inscrita en el Registro Mercantil de Barcelona al Tomo 40.693, folio 168, hoja número B-23.850.<br><br>La firma de abogados está formada por diversas sociedades en los diferentes países donde tiene sus sedes, con domicilio en Diagonal 191, Barcelona, España y en Praça Marquês de Pombal 2 (1, 8º), Lisboa, Portugal, así como en sus oficinas en los restantes países (<a href="http://www.cuatrecasas.com/">www.cuatrecasas.com</a>) (en adelante será referidas conjuntamente como “Cuatrecasas”).<br><br>Cuatrecasas es la titular de todos los derechos de propiedad intelectual o de cualquier otro tipo sobre el sitio web (en adelante, “Sitio Web”) y las aplicaciones (en adelante, “Aplicaciones”) de Cuatrecasas, cuyo acceso y uso por los usuarios (en adelante, “Usuario” o “Usuarios”) está sujeto a las presentes condiciones de uso (en adelante, “Condiciones de Uso”) y serán complementadas con cualesquiera otros textos legales que regulen cualquier funcionalidad, servicio, proceso, aplicación, plataforma o medios necesarios para el uso del Sitio Web o las Aplicaciones o conectados a los mismos.<br><br>Le rogamos que lea las Condiciones de Uso atentamente. El hecho de acceder al Sitio Web y/o a las Aplicaciones y utilizar los materiales contenidos en ellas implica que usted ha leído y acepta, sin reserva alguna, las presentes Condiciones de Uso. En caso de no estar de acuerdo con todo o parte de estas Condiciones de Uso, el Usuario debe abstenerse de utilizar el Sitio Web y/o las Aplicaciones.</p>
+            <p>ENG <strong>1. INTRODUCCIÓN</strong><br><br>Cuatrecasas, Gonçalves Pereira, S.L.P. es una compañía mercantil de nacionalidad española domiciliada en Diagonal, 191 - 08018 Barcelona, con C.I.F. /V.A.T. ESB59942110 e inscrita en el Registro Mercantil de Barcelona al Tomo 40.693, folio 168, hoja número B-23.850.<br><br>La firma de abogados está formada por diversas sociedades en los diferentes países donde tiene sus sedes, con domicilio en Diagonal 191, Barcelona, España y en Praça Marquês de Pombal 2 (1, 8º), Lisboa, Portugal, así como en sus oficinas en los restantes países (<a href="http://www.cuatrecasas.com/">www.cuatrecasas.com</a>) (en adelante será referidas conjuntamente como “Cuatrecasas”).<br><br>Cuatrecasas es la titular de todos los derechos de propiedad intelectual o de cualquier otro tipo sobre el sitio web (en adelante, “Sitio Web”) y las aplicaciones (en adelante, “Aplicaciones”) de Cuatrecasas, cuyo acceso y uso por los usuarios (en adelante, “Usuario” o “Usuarios”) está sujeto a las presentes condiciones de uso (en adelante, “Condiciones de Uso”) y serán complementadas con cualesquiera otros textos legales que regulen cualquier funcionalidad, servicio, proceso, aplicación, plataforma o medios necesarios para el uso del Sitio Web o las Aplicaciones o conectados a los mismos.<br><br>Le rogamos que lea las Condiciones de Uso atentamente. El hecho de acceder al Sitio Web y/o a las Aplicaciones y utilizar los materiales contenidos en ellas implica que usted ha leído y acepta, sin reserva alguna, las presentes Condiciones de Uso. En caso de no estar de acuerdo con todo o parte de estas Condiciones de Uso, el Usuario debe abstenerse de utilizar el Sitio Web y/o las Aplicaciones.</p>
         </li>
         <li>
             <p><strong>2. OBJETO</strong><br><br>El Sitio Web y las Aplicaciones contienen material preparado por Cuatrecasas con fines únicamente informativos. El usuario debe tener en cuenta que tal material pudiera no reflejar el estado legislativo o jurisprudencial más reciente sobre las cuestiones analizadas. Asimismo, Cuatrecasas se reserva el derecho a modificar, ampliar o reducir el material ofrecido a través del Sitio Web y de las Aplicaciones en cualquier momento, poniéndolo en conocimiento de los Usuarios.<br><br>El material contenido en el Sitio Web y/o en las Aplicaciones no puede servir, en ningún caso, de sustitutivo del asesoramiento legal o de otra naturaleza. El acceso a este material no pretende constituir ni implica relación alguna entre abogado y cliente, ni cualquier otro tipo de relación de confianza o profesional entre Cuatrecasas y el Usuario del Sitio Web y/o de las Aplicaciones. Por ello, el Usuario no debe actuar sobre la base de la información contenida en las mismas, sin recurrir previamente al correspondiente asesoramiento profesional. Asimismo, el Usuario no debe enviar a Cuatrecasas ningún tipo de información confidencial sin haberlo consultado previamente con alguno de nuestros abogados y haber recibido autorización para remitir dicha información.<br><br>En este sentido, y sin perjuicio de los expuesto en los párrafos anteriores, Cuatrecasas otorga una licencia no exclusiva, no sub-licenciable, ni transferible a los Usuarios para utilizar el Sitio Web, las Aplicaciones y sus respectivas funcionalidades, el contenido y otras funciones disponibles en las mismas, que estarán sujetas al resto de términos incluidos en las presentes Condiciones de Uso, así como a cualesquiera otros términos de uso y a la normativa aplicable.</p>
@@ -965,9 +956,9 @@ privacy:
         </li>
     </ul>
   privacy:
-    <h2>Política de privacidad del sitio Web y aplicaciones de Cuatrecasas</h2>
+    <h2>ENG Política de privacidad del sitio Web y aplicaciones de Cuatrecasas</h2>
     <p>Al utilizar el presente Sitio Web, las Aplicaciones, y/o al comunicarse electrónicamente con Cuatrecasas, se recogen y tratan los datos personales de cada Usuario, el tratamiento de los cuales se rige por la presente política de privacidad (<strong>“Política de Privacidad”</strong>). Todos los términos que constan escritos en mayúsculas en esta Política de Privacidad tendrán el significado que se establece en las Condiciones de Uso (que pueden consultarse en este <a href="#">enlace</a>), salvo que estén expresamente definidos en la presente Política de Privacidad.</p>
-    <p>El responsable del tratamiento de los datos personales que el Usuario facilite al acceder y utilizar el Sitio Web y las Aplicaciones como con posterioridad es Cuatrecasas, con domicilio social a estos efectos en Diagonal, 191, 08018, Barcelona (España). El Usuario puede contactar con el delegado de protección de datos de Cuatrecasas en la siguiente dirección de email: <a href="mailto:data.protection.officer@cuatrecasas.com">data.protection.officer@cuatrecasas.com</a>.</p>
+    <p>El responsable del tratamiento de los datos personales que el Usuario facilite al acceder y utilizar el Sitio Web y las Aplicaciones como con posterioridad es Cuatrecasas, con domicilio social a estos efectos en Diagonal, 191, 08018, Barcelona (España). El Usuario puede contactar con el delegado de protección de datos de Cuatrecasas en la siguiente dirección de email:&nbsp;<a href="mailto:data.protection.officer@cuatrecasas.com">data.protection.officer@cuatrecasas.com</a>.</p>
     <p>El tipo de datos personales que recogemos y tratamos de los Usuarios en el Sitio Web y las Aplicaciones se corresponden a datos personales de suscriptores a nuestras newsletters, invitaciones a eventos y otras actividades o publicaciones, en los términos especificados en las Condiciones de Uso.</p>
     <p>Los datos personales de los Usuarios se recogerán y tratarán con la finalidad de gestionar la relación con Cuatrecasas, para utilizar su información como punto de contacto de la antedicha sociedad y para el envío recurrente de información jurídica o de eventos de divulgación y enseñanza en el ámbito de las actividades profesionales promovidas por Cuatrecasas. Asimismo, sus datos personales se recogerán y trataran para responder a las consultas o cuestiones que pueda remitir a través del Sitio Web o Aplicaciones.</p>
     <p>La legitimación para el tratamiento es el interés legítimo de Cuatrecasas en mantener la relación existente con el Usuario y, en su caso, su consentimiento. Por tanto, Cuatrecasas recogerá y tratará sus datos mientras la relación siga vigente y, en su caso, el Usuario no revoque el consentimiento que ha prestado al tratamiento de sus datos. En todo caso, cuando los datos personales no sean necesarios para el fin para el que fueron recabados y mientras no se proceda a la cancelación definitiva de los mismos, se conservarán de forma bloqueada.</p>
@@ -979,7 +970,7 @@ privacy:
     <p>El Usuario se compromete a notificar cualquier cambio o modificación de los datos personales que haya facilitado. Cualquier pérdida o daño causado al Sitio Web o a las Aplicaciones, a Cuatrecasas, o a cualquier tercero mediante la comunicación de información errónea, inexacta o incompleta será responsabilidad única y exclusiva del Usuario.</p>
     <p>© Cuatrecasas, Gonçalves Pereira, S.L.P. 2020. Prohibida la reproducción total o parcial. Todos los derechos reservados.</p>
   cookies:
-    <p>Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
+    <p>ENG Se informa al Usuario de que este Sitio Web utiliza cookies y tecnologías similares. Las cookies son pequeños ficheros de datos que se colocan en el dispositivo del Usuario y que permiten el almacenamiento de información relacionada con la navegación realizada. En particular, las cookies permiten a este Sitio Web conocer, entre otra, la siguiente información:</p>
     <ul>
         <li>La fecha y hora de la última vez que el Usuario visitó el Sitio Web;</li>
         <li>El diseño de contenidos que el Usuario escogió en su primera visita al Sitio Web;</li>
@@ -1007,9 +998,9 @@ privacy:
                 <td data-th="Origen">Google Analytics</td>
                 <td data-th="Finalidad">Destinadas al análisis de la web, por ejemplo cuántas páginas ha visitado un usuario o el tiempo de sesión</td>
                 <td data-th="Duración">
-                    <span>_ga: 2 años</span>
-                    <span>_gid: 1 día</span>
-                    <span>_gat: 10 minutos</span>
+                    <span>_ga:&nbsp;2 años</span>
+                    <span>_gid:&nbsp;1 día</span>
+                    <span>_gat:&nbsp;10 minutos</span>
                 </td>
                 <td data-th="Más información...">https://developers.google.com/analytics/devguides/collection/gajs/cookie-usage</td>
             </tr>
@@ -1022,9 +1013,9 @@ privacy:
                 <td data-th="Origen">Youtube</td>
                 <td data-th="Finalidad">Se utilizan para la reproducción de vídeos a través de la web, por ejemplo, para guardar las preferencias</td>
                 <td data-th="Duración">
-                    <span>PREF: 10 años</span>
-                    <span>VISITOR_INFO1_LIVE: 8 meses</span>
-                    <span>YSC: sesión</span>
+                    <span>PREF:&nbsp;10 años</span>
+                    <span>VISITOR_INFO1_LIVE:&nbsp;8 meses</span>
+                    <span>YSC:&nbsp;sesión</span>
                 </td>
                 <td data-th="Más información...">https://policies.google.com/technologies/types</td>
             </tr>
@@ -1091,16 +1082,16 @@ privacy:
     <p>Los Usuarios pueden configurar la instalación de las Cookies durante el proceso de configuración dl Sitio Web y son conscientes de que deshabilitar las cookies y la tecnología similar puede afectar el uso normal de la misma y los servicios proporcionados.</p>
     <p>Para deshabilitar las cookies, los Usuarios deberán seguir las instrucciones de cada navegador. Por ejemplo:</p>
     <ul>
-        <li>Con Internet Explorer: Ver -&gt; Opciones de Internet -&gt; Opcions avanzadas (también disponible en el siguiente enlace: <a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies">https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies</a>).</li>
-        <li>Con Firefox: Preferencias -&gt; Privacidad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias">https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias</a>).</li>
-        <li>Con Google Chrome: Herramientas -&gt; Opciones (Preferencias en Mac) -&gt; Avanzadas -&gt; Privacidad -&gt; Configuración de Contenido (también disponible en el siguiente enlace: <a href="https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es">https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es</a>).</li>
-        <li>Con Safari: Menú -&gt; Privacidad -&gt; Seguridad -&gt; Mostrar cookies (también disponible en el siguiente enlace: <a href="https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES">https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES</a>).</li>
+        <li>Con Internet Explorer:&nbsp;Ver -&gt; Opciones de Internet -&gt; Opcions avanzadas (también disponible en el siguiente enlace:&nbsp;<a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies">https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies</a>).</li>
+        <li>Con Firefox:&nbsp;Preferencias -&gt; Privacidad -&gt; Mostrar cookies (también disponible en el siguiente enlace:&nbsp;<a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias">https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias</a>).</li>
+        <li>Con Google Chrome:&nbsp;Herramientas -&gt; Opciones (Preferencias en Mac) -&gt; Avanzadas -&gt; Privacidad -&gt; Configuración de Contenido (también disponible en el siguiente enlace:&nbsp;<a href="https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es">https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&amp;hl=es</a>).</li>
+        <li>Con Safari:&nbsp;Menú -&gt; Privacidad -&gt; Seguridad -&gt; Mostrar cookies (también disponible en el siguiente enlace:&nbsp;<a href="https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES">https://support.apple.com/kb/PH21416?locale=es_ES&amp;viewlocale=es_ES</a>).</li>
     </ul>
   security:
     <h2>Política de seguridad de la información de Cuatrecasas</h2>
     <p>Cuatrecasas considera que la información, en especial la relativa a clientes, y los distintos sistemas asociados son activos críticos que deben ser protegidos adecuadamente para asegurar el correcto funcionamiento de la empresa.</p>
     <p>Esta política de seguridad tiene como objetivo garantizar la confidencialidad, integridad, disponibilidad y privacidad de la información, así como el cumplimiento de las diferentes normas y requisitos aplicables vigentes en cada momento, manteniendo un equilibrio entre los niveles de riesgo y el uso eficiente de los recursos mediante criterios de proporcionalidad. De hecho, proporciona un marco de referencia para el establecimiento de los objetivos de seguridad de la información.</p>
-    <p>La política es de aplicación a todos los empleados, directivos, socios y administradores de Cuatrecasas, incluyendo las siguientes sociedades participadas sobre las que se tiene un control efectivo: CUATRECASAS GONÇALVES PEREIRA SLP, CUATRECASAS GONÇALVES PEREIRA & ASSOCIADOS SPRL y CUATRECASAS GONÇALVES PEREIRA PROPIEDAD INDUSTRIAL. En aquellas sociedades participadas sobre las que no tenga control efectivo, Cuatrecasas promoverá principios y directrices coherentes con los establecidos en esta política.</p>
+    <p>La política es de aplicación a todos los empleados, directivos, socios y administradores de Cuatrecasas, incluyendo las siguientes sociedades participadas sobre las que se tiene un control efectivo:&nbsp;CUATRECASAS GONÇALVES PEREIRA SLP, CUATRECASAS GONÇALVES PEREIRA & ASSOCIADOS SPRL y CUATRECASAS GONÇALVES PEREIRA PROPIEDAD INDUSTRIAL. En aquellas sociedades participadas sobre las que no tenga control efectivo, Cuatrecasas promoverá principios y directrices coherentes con los establecidos en esta política.</p>
     <p>Para poder desarrollar el compromiso expreso de la organización en la mejora continua del sistema de gestión, la Dirección establece los siguientes principios de gestión de seguridad de la información:</p>
     <ul>
       <li>Garantizar que los Sistemas de Información de Cuatrecasas posean el adecuado nivel de seguridad y resiliencia que proponga el Comité de Seguridad de la Información de la Firma.</li>
@@ -1112,7 +1103,7 @@ privacy:
       <li>Respaldar un proceso de revisión y actualización continua del modelo de gestión de la seguridad para adecuarlo en todo momento a las amenazas que vayan surgiendo y puedan afectar a la Firma.</li>
     </ul>
     <p>Esta política fue aprobada por el Consejo de Administración de Cuatrecasas a fecha 30/05/2019.</p>
-    <p>Si necesita cualquier información adicional sobre nuestra política de seguridad de la información o tiene alguna sugerencia al respecto puede enviar un mensaje de correo electrónico a la siguiente dirección: <a href="mailto:informationsecurity@cuatrecasas.com">informationsecurity@cuatrecasas.com</a>.</p>
+    <p>Si necesita cualquier información adicional sobre nuestra política de seguridad de la información o tiene alguna sugerencia al respecto puede enviar un mensaje de correo electrónico a la siguiente dirección:&nbsp;<a href="mailto:informationsecurity@cuatrecasas.com">informationsecurity@cuatrecasas.com</a>.</p>
   contact_us:
     <p>Para ponerse en contacto con nosotros, por favor envíe un correo electrónico a:</p>
     <ul>
