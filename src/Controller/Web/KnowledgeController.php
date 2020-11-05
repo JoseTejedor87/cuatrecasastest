@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Repository\LegislationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,12 +38,17 @@ class KnowledgeController extends WebController
         InsightRepository $insightRepository,
         PracticeRepository $practiceRepository,
         OfficeRepository $officeRepository,
+        LegislationRepository $legislationRepository,
         EventRepository $eventRepository,
         NavigationService $navigation
     ) {
         $practices = $practiceRepository->getPracticeByName($request)->getResult();
         $sectors = $sectorRepository->getSectorsByName($request)->getResult();
         $offices = $officeRepository->getOfficesByName($request)->getResult();
+        $legislations = $legislationRepository->findBy(
+            array(),
+            array('name' => 'desc')
+        );
         $insightsPrior = $insightRepository->getInsightsByName($request)->getResult();
 
         $insightsAll = $insightRepository->findBy(['showKnowledgeBlock' => true], ['id' => 'DESC']);
@@ -53,6 +59,7 @@ class KnowledgeController extends WebController
         $services = $request->query->get('services');
         $sector = $request->query->get('sector');
         $office = $request->query->get('office');
+        $legislation = $request->query->get('legislation');
         $type = $request->query->get('type');
         $date = $request->query->get('date');
         $format = $request->query->get('format');
@@ -131,9 +138,16 @@ class KnowledgeController extends WebController
                             ->setParameter('textSearch', '%'.$textSearch .'%');
         }
         if ($collections) {
+            $collectionsA = explode(",", $collections);
             $query = $query->innerJoin('p.insights', 'i')
                            ->andWhere('i.id in (:collections)')
-                           ->setParameter('collections', $collections);
+                           ->setParameter('collections', array_values($collectionsA));
+        }
+        if ($legislation) {
+            $legislationA = explode(",", $legislation);
+            $query = $query->innerJoin('p.legislations', 'l')
+                ->andWhere('l.id in (:legislation)')
+                ->setParameter('legislation', array_values($legislationA));
         }
         if ($date) {
             foreach ($date as $key => $value) {
@@ -230,7 +244,7 @@ class KnowledgeController extends WebController
                 $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
             }
         }
-
+        //dd($publications);
         if ($request->isXMLHttpRequest()) {
             $publicationsA = array();
             if (isset($publications)) {
@@ -242,7 +256,7 @@ class KnowledgeController extends WebController
                     }
                 }
             }
-
+            //dd($publicationsA);
             $json = array(
                 'publications' => $publicationsA,'countPublications' => isset($countPublications) ? $countPublications : 0,'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0 ,'page' => isset($page) ? $page : 0
             );
@@ -261,12 +275,19 @@ class KnowledgeController extends WebController
             if ($collections) {
                 $json['collections'] = $collections;
             }
+            if ($legislation) {
+                $json['legislations'] = $legislation;
+            }
             if ($type) {
                 $json['type'] = $type;
             }
             if ($format) {
                 $json['format'] = $format;
             }
+            if (empty($json['publications'])) {
+                $json['error'] = "empty";
+            }
+
             return new JsonResponse($json);
         } else {
             return $this->render('web/knowledge/index.html.twig', [
@@ -278,6 +299,7 @@ class KnowledgeController extends WebController
                 'formats' => $formats,
                 'publications' => $publications,
                 'relatedEvents' => $relatedEvents,
+                'legislations' => $legislations,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
                 'insights' => $insightsOrderToSend,

@@ -78,9 +78,6 @@ parameters:
 
     app.path.uploads.resources: '/resources'
 
-
-    app.path.uploads.resources: '/resources'
-
 services:
     # default configuration for services in *this* file
     _defaults:
