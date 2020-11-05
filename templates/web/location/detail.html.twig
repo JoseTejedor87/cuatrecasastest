@@ -1,0 +1,275 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/estamos-en.jpg') }}'){% endif %} ">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ regiond.translate(app.request.getLocale()).title }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ regiond.translate(app.request.getLocale()).title }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('location') }}" class="nav-link">{{ 'menu.offices.vision'|trans }}</a>
+                            </li>
+                            {% for key, region in regiones %}
+                                    {% if region.principal == 1  %}
+                                        <li class="nav-item">
+                                            <a href="{{ path('location_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link {{ region.id ==  regiond.id ? 'active' : '' }}">{{ region.translate(app.request.getLocale()).title }}</a>
+                                        </li>
+                                    {% endif %}
+                            {% endfor %}
+                            <li class="nav-item">
+                                <a href="{{ path('location_other') }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block--centered">
+                <div class="col">
+                    <p>{{ regiond.translate(app.request.getLocale()).summary |raw }}</p>
+                </div>
+            </section>
+
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                            {% for key, office in officesLat %}
+                                {% if key == 0  %}
+                                    <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                {% endif %}
+                                        <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                {% if officesLat|length > key+1 %}
+                                    {% if officesLat[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
+                                    </optgroup>
+                                    <optgroup label="{{ officesLat[key+1].translate(app.request.getLocale()).country }}"></optgroup>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/pages/custom/location/shared/awards-spain.html.twig' %}
+            {#% include 'web/pages/custom/location/shared/cases-spain.html.twig' %#}
+            {% include '/web/shared-cmp/cases_CMP.html.twig' %}
+            {#% include 'web/pages/custom/location/shared/related-content-slider-spain.html.twig' %#}
+            {# {% include 'web/shared-cmp/related-content-slider_CMP.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
+            {% include 'web/pages/custom/location/shared/info-spain.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&callback=initMap" async defer></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+        $('#offices').change(function() {
+            lat = parseFloat($('option:selected', this).attr('data-lat'));
+            lng = parseFloat($('option:selected', this).attr('data-lng'));
+            zoom = 8.2;
+            key = parseFloat($('option:selected', this).attr('data-key'));
+            initMap(key);
+        });
+    });
+    var beaches = {{ officesMapa|raw }};
+    var labelsA = {{ officesMapaLabel|raw }};
+    var map;
+    var lat = {{ centerMap.lat }};
+    var lng = {{ centerMap.lng }};
+    var zoom = {{ centerMap.zoom }};
+
+    function initMap(key) {
+        // Create the map with no initial style specified.
+        // It therefore has default styling.
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: {lat: lat, lng: lng},
+            zoom: zoom,
+            mapTypeControl: false,
+        });
+        //setMarkers(map);
+        var image = {
+        url: 'https://www.cuatrecasas.com/css/images/logos/cuatrecasas_simbolo.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32)
+        };
+
+         var labels = '';
+         var markers = beaches.map(function(location, i) {
+             return new google.maps.Marker({
+                 position: location,
+                 icon: image,
+             });
+         });
+        //console.log(markers);
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].infowindow = new google.maps.InfoWindow({
+            content: labelsA[i]
+            });
+            //$('#target').on('click mouseover', function () { // Do something for both });
+
+            google.maps.event.addListener(markers[i], 'click', function() {
+
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].infowindow.close();
+            }
+            this.infowindow.open(map, this);
+            });
+        }
+         var markerCluster = new MarkerClusterer(map, markers,
+         {imagePath: '/cuatrecasas/web/assets/img/logoMapa/m'});
+        map.setOptions({
+            styles: styles["retro"],
+            disableDefaultUI: true
+        });
+        if(key !== undefined){
+            google.maps.event.trigger( markers[key], 'click' );
+        }
+    }
+
+    function setMarkers(map) {
+      // Adds markers to the map.
+
+      // Marker sizes are expressed as a Size of X,Y where the origin of the image
+      // (0,0) is located in the top left of the image.
+
+      // Origins, anchor positions and coordinates of the marker increase in the X
+      // direction to the right and in the Y direction down.
+      var image = {
+        url: 'https://www.cuatrecasas.com/css/images/logos/cuatrecasas_simbolo.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        //size: new google.maps.Size(20, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+      };
+      // Shapes define the clickable region of the icon. The type defines an HTML
+      // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+      // The final coordinate closes the poly by connecting to the first coordinate.
+      var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+      };
+      for (var i = 0; i < beaches.length; i++) {
+        var beach = beaches[i];
+        var marker = new google.maps.Marker({
+          position: {lat: beach[1], lng: beach[2]},
+          map: map,
+          icon: image,
+          shape: shape,
+          title: beach[0],
+          zIndex: beach[3]
+        });
+      }
+    }
+    const styles = {
+      retro: [
+        { elementType: "labels", stylers: [{ visibility: "off" }] },
+        {
+          featureType: "administrative",
+          elementType: "geometry",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "administrative.land_parcel",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "administrative.land_parcel",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#ae9e90" }],
+        },
+        {
+          featureType: "administrative.neighborhood",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "landscape",
+          stylers: [{ color: "#46001d" }],
+        },
+        {
+          featureType: "poi",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "geometry.fill",
+          stylers: [{ color: "#a5b076" }],
+        },
+        {
+          featureType: "road",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "road",
+          elementType: "labels.icon",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "transit",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "water",
+          stylers: [{ color: "#d1ebff" }],
+        },
+      ],
+    };
+</script>
+{% endblock %}
+
+
