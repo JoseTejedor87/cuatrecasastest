@@ -30,7 +30,7 @@ class PublicationController extends WebController
         if ($photos = $publication->getAttachments()) {
             foreach ($photos as $key => $photo) {
                 if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
-                    if ($photo->getType() == "publication_main_photo" || $photo->getType() == "article_main_photo") {
+                    if ($photo->getType() == "publication_main_photo") {
                         $photo = $this->imagineCacheManager->getBrowserPath(
                             '/resources/' . $photo->getFileName(),
                             $filter
@@ -54,7 +54,7 @@ class PublicationController extends WebController
         foreach($publication->getAttachments() as $attachment)
         {
             //dd($attachment);
-            if($attachment->getType() == 'publication_main_photo' ||  $attachment->getType() == 'article_main_photo'){
+            if($attachment->getType() == 'publication_main_photo'){
 
                 $publication->photo = $attachment->getFileName();
             }

@@ -229,8 +229,8 @@
                                             </a>
                                         </h5>
                                         {% if style[key] !=  "grid__item--normal"%}
-                                        <div class="boxnews__img" style="background-image: url('{{ asset(publication.photo) | imagine_filter('article_box') }}')">
-                                            <img src="{{ asset(publication.photo) | imagine_filter('article_box') }}" alt=" {{ publication.translate(app.request.getLocale()).title|raw  }}" class="sr-only">
+                                        <div class="boxnews__img" style="background-image: url('{{ asset(publication.photo) | imagine_filter('publication_box') }}')">
+                                            <img src="{{ asset(publication.photo) | imagine_filter('publication_box') }}" alt=" {{ publication.translate(app.request.getLocale()).title|raw  }}" class="sr-only">
                                         </div>
                                         {% endif %}
                                     </div>

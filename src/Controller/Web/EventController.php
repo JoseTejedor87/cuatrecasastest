@@ -40,7 +40,7 @@ class EventController extends WebController
         if ($photos = $publication->getAttachments()) {
             foreach ($photos as $key => $photo) {
                 if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
-                    if ($photo->getType() == "publication_main_photo" || $photo->getType() == "article_main_photo") {
+                    if ($photo->getType() == "publication_main_photo" ) {
                         $photo = $this->imagineCacheManager->getBrowserPath(
                             '/resources/' . $photo->getFileName(),
                             $filter

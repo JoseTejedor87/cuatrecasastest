@@ -33,9 +33,9 @@ class ResourceFormType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'Thumbnail' => 'article_thumbnail',
-                    'Dossier' => 'article_dossier',
-                    'Foto Principal' => 'article_main_photo'
+                    'Thumbnail' => 'publication_thumbnail',
+                    'Dossier' => 'publication_dossier',
+                    'Foto Principal' => 'publication_main_photo'
                 ],
                 'required' => false,
             ])
