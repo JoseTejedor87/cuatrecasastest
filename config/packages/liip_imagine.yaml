@@ -71,7 +71,7 @@ liip_imagine:
                     dim: [1040, 585]
 
         # ARTICLES
-        article_box:
+        publication_box:
             quality: 75
             filters:
                 scale:
