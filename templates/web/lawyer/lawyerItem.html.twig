@@ -1,16 +1,16 @@
 {% if lawyer %}
     {% if lawyer.photo %}
-        {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName)|imagine_filter('lawyers_grid') %}
+        {% set photo_path = asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_grid') %}
         {# {% set photo_path = asset('/web/assets/img/FLUF.jpg')|imagine_filter('lawyers_grid') %} #}
     {% else %}
-        {% set photo_path = asset('/web/assets/img/FotoCV.jpg')|imagine_filter('lawyers_grid') %}
+        {% set photo_path = asset('/web/assets/img/FotoCV.jpg') | imagine_filter('lawyers_grid') %}
     {% endif %}
 {% endif %}
 
-{# <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');{{ (lawyer=="") ?  'display: none;' : '' }}"> #}
 <div class="lawyer__search__item" style="background-image: url('{{ (photo_path is defined) ? photo_path : ""}}');" itemscope itemtype="https://schema.org/Person">
-<!-- <div class="lawyer__search__item" style="background-image: url('{#{ asset('web/assets/img/ABAE_RGB_MODIF2_Q55.jpg') }#}"> -->
     <a href="{{ (lawyer.slug is defined) ? path('lawyers_detail', {slug:lawyer.slug}) : "" }}" class="lawyer__link">
+    <img src="{{ (photo_path is defined) ? photo_path : ""}}" alt="{{ lawyer.slug }}" class="sr-only">
+
     <h3 class="lawyer__name" itemprop="name" >{{ (lawyer.name is defined) ? lawyer.name|raw : ''  }} {{ (lawyer.surname is defined) ? lawyer.surname|raw : ''  }}</h3>
     <div class="lawyer__details">
         <ul class="lawyer__practice">

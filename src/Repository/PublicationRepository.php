@@ -134,9 +134,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'article_box');
             if (!$value->photo) {
-                $value->photo = 'https://via.placeholder.com/800x400';
+                $value->photo = 'web/assets/img/cabecera_1920x1080_baja.jpg';
+                // $value->photo = 'https://via.placeholder.com/800x400';
             }
         }
 

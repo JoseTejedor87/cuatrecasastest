@@ -19,6 +19,12 @@ liip_imagine:
 
     filter_sets:
         # HEADERS
+        home_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
+
         full_header:
             quality: 75
             filters:
@@ -31,6 +37,26 @@ liip_imagine:
                 scale:
                     dim: [1280, 720]
 
+        # VECTORS
+        picto_header:
+            quality: 100
+            filters:
+                scale:
+                    dim: [1920, 1080]
+
+        picto_grid:
+            quality: 100
+            filters:
+                scale:
+                    dim: [1920, 1080]
+
+        picto_cases:
+            quality: 100
+            filters:
+                scale:
+                    dim: [1920, 1080]
+
+        # Mejor hacer un solo filtro global para todos los tipos de cabeceras, en caso necesario se dan de alta el resto
         # desks_header:
         #     quality: 75
         #     filters:
@@ -75,6 +101,12 @@ liip_imagine:
                 scale:
                     dim: [900, 500]
 
+        generic_foto:
+            quality: 75
+            filters:
+                scale:
+                    dim: [460, 360]
+
         # LAWYERS
         lawyers_header:
             quality: 75
@@ -93,3 +125,22 @@ liip_imagine:
             filters:
                 scale:
                     dim: [1800, 1000]
+
+        # LOGOS
+        logo_awards:
+            quality: 100
+            # filters:
+            #     scale:
+            #         dim: [1800, 1000]
+
+        logo_brands:
+            quality: 100
+            # filters:
+            #     scale:
+            #         dim: [1800, 1000]
+
+        logo_boxes:
+            quality: 100
+            # filters:
+            #     scale:
+            #         dim: [1800, 1000]

@@ -16,21 +16,43 @@ use App\Controller\Web\NavigationService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use App\Repository\OfficeRepository;
 use App\Repository\ActivityRepository;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+
 
 class EventController extends WebController
 {
     private $soap;
     private $em;
     private $conn;
+    protected $imagineCacheManager;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, CacheManager $imagineCacheManager)
     {
         $this->soap  = new SOAPContactsClientController;
         $this->container = $container;
         $this->em = $this->container->get('doctrine')->getManager();
         $this->conn = $this->em->getConnection();
+        $this->imagineCacheManager = $imagineCacheManager;
+    }
+    
+    protected function getPhotoPathByFilter($publication, $filter,$navigation)
+    {
+        if ($photos = $publication->getAttachments()) {
+            foreach ($photos as $key => $photo) {
+                if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
+                    if ($photo->getType() == "publication_main_photo" || $photo->getType() == "article_main_photo") {
+                        $photo = $this->imagineCacheManager->getBrowserPath(
+                            '/resources/' . $photo->getFileName(),
+                            $filter
+                        );
+                        return $photo;
+                    }
+                }
+            }
+        }
     }
 
+    
     public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation,PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
     {
   
@@ -194,18 +216,23 @@ class EventController extends WebController
         // dd($event);
        
         $attachmentPublished = [];
+        $headerImage = '';
         foreach($event->getAttachments() as $attachment)
         {
-            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion())){       
                 array_push($attachmentPublished,$attachment);
+            }
+            
         }
-
+        $headerImage = $this->getPhotoPathByFilter($event, 'full_header',$navigation);
+        
         return $this->render('web/events/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
             'paises' => $paises,
             'relatedEvents' =>$relatedEvents,
-            'relatedPublications' => $relatedPublications
+            'relatedPublications' => $relatedPublications,
+            'headerImage' => $headerImage
         ]);
     }
 

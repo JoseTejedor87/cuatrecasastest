@@ -1,5 +1,6 @@
 # Global
 # ###########################################
+probando: Please read our %link_start%privacy policy%link_end%
 global:
   calendar:
     month: Mes
@@ -47,6 +48,11 @@ global:
     related_content: Contenido relacionado
     outstanding_content: Contenido Destacado
     empty_results: No se han encontrado resultados para la búsqueda realizada
+  forms:
+    save: Guardar
+    inscription: Inscribirme
+    mandatory_field: Campo obligatorio
+
 ##COOKIES
 ##############################################
 ch_cookie_consent:
@@ -72,6 +78,7 @@ ch_cookie_consent:
   use_all_cookies: 'Permitir todas las cookies'
   show_details: 'Mostrar detalles'
   hide_details: 'Ocultar detalles'
+
 # Sections
 # ###########################################
 sections:
@@ -153,6 +160,7 @@ static:
     officeList: Listado de oficinas
     deskList: Listado de desk
     interOrg: Organizaciones internacionales
+    vision_intro: A través de una red de 20 oficinas, cubrimos España, Portugal y Latinoamérica. Tenemos oficinas de representación en UK, US, Asia y Africa y, mediante nuestra alianza europea con firmas líderes en Alemania, Francia e Italia, contamos con más de 2.000 abogados y 28 oficinas en Europa continental.
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
 
@@ -173,6 +181,7 @@ userForm:
     tabGeo: Geográficos
   data:
     title: Información sobre el tratamiento de sus datos personales
+    content: Información sobre el tratamiento de sus datos personales
   button: Guardar
 
 # Menu
