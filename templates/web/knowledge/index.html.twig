@@ -1,5 +1,8 @@
 {% extends 'web/base.html.twig' %}
-
+{% block link %}
+<link id="relprev" rel="prev" href="{{app.request.uri}}" />
+<link id="relnext" rel="next" href="{{app.request.uri~'?page=1'}}" />
+{% endblock %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
@@ -33,14 +36,12 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                        <form action="" method="get">
                             <input type="text" class="form-control" placeholder="Buscar" name="initial">
                             <div class="input-group">
-                                <button class="search_box__button" type="submit">
+                                <button class="search_box__button apply_button">
                                     <span class="icon4-lupa"></span>
                                 </button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </section>
@@ -297,6 +298,7 @@
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
+        
         // GRID
         var masonryOptions = {
             itemSelector: '.grid__item',
@@ -343,7 +345,12 @@
             var format = new Array();
             var page = page ? page : $(this).data("page");
             var item = "";
+            var initial = "";
             var style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"];
+            if($("input[name=initial]").val() !== ""){
+                initial = $("input[name=initial]").val();
+
+            }
             $("input:checkbox:checked").each(function() {
                 var result = $(this)[0].id.split('-');
                 if(result[0] == "sector"){
@@ -380,7 +387,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date, collections: collections.toString(),format: format.toString(), page :page   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date, collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -460,6 +467,13 @@
                             url= url + "&format="+msg['format'];
                         }
                     }
+                    if(msg['initial']){
+                        if(url == ""){
+                            url= "?initial="+msg['initial'];
+                        }else{
+                            url= url + "&initial="+msg['initial'];
+                        }
+                    }
                     if(msg['page']>1){
                         if(url == ""){
                             url= "?page="+msg['page'];
@@ -496,8 +510,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    console.log(parseInt(msg['page']));
-                    console.log(parseInt(msg['pagesTotal']));
+                    $('#relprev').attr('href', $('#relnext').attr('href'));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

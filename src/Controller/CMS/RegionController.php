@@ -21,7 +21,6 @@ class RegionController extends CMSController
             25
         );
         return $this->render('cms/region/index.html.twig', [
-            'region' => $regionRepository->findAll(),
             'pagination' => $pagination
         ]);
     }
@@ -33,6 +32,7 @@ class RegionController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($region);
             $region->mergeNewTranslations();

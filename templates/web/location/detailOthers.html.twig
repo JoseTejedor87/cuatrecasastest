@@ -1,0 +1,80 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<!-- Slider CSS -->
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main" class="lawyer__page">
+        <article>
+
+            <header class="container">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
+                        <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
+                        <h1 class="lawyer__page__region">
+                            {{ regiond.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        {% include 'web/base/social-share.html.twig' %}
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__office">
+                            <figure style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/oporto.jpg') }}'){% endif %}"></figure>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+
+                <section class="row page__block noborder">
+                    <div class="col">
+                        <div class="page__block__title page__block__title--article">
+                            <p>{{ regiond.translate(app.request.getLocale()).summary|raw }}</p>
+                        </div>
+                        <div class="page__block__content page__block__content--article">
+                            {{ regiond.translate(app.request.getLocale()).content|raw }}
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            {% if key_contacts|length > 0 %}
+                {% include 'web/shared/team.html.twig' with {
+                    lawyers:key_contacts|slice(0, 5)
+                } %}
+            {% endif %}
+            {# {% include 'web/shared/team-five-offices.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
+            {# {% include 'web/shared/related-content-slider-offices.html.twig' %} #}
+            {% if relatedCaseStudies|length > 1 %}
+                {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
+            {% endif %}
+             {# {% include 'web/shared-cmp/cases_CMP.html.twig' %} #}
+            {# {% include 'web/shared/cases-offices.html.twig' %} #}
+            {# {% include 'web/shared/cta-offices.html.twig' %} #}
+            {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %} 
+            {# cta_discover
+            call to action #}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

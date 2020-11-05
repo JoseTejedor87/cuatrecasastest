@@ -30,21 +30,7 @@ class PagesController extends WebController
         $cases = $caseStudyRepository->findCasesByRegion($place);
         
         $urlTemplate = 'empty';
-        if (null !== $page->getCustomTemplate() && $page->getCustomTemplate() != '') {
-            $urlTemplate = 'custom/'.$page->getCustomTemplate();
-            if ($page->getCustomTemplate() =="location/vision") {
-                $officeA = array();
-                $officeATest = array();
-                $offices = $OfficeRepository->createQueryBuilder('o')
-                ->where("o.lat != ''")
-                //  ->orderBy('o.country', 'DESC')  PAra ordenarlos hay que hacerlo contra OfficeTranstable.country
-                ->getQuery()->getResult();
-                foreach ($offices as $key => $office) {
-                    array_push($officeA, '<h5 id="'.$office->getId().'">'.$office->translate($navigation->getLanguage())->getCountry().'</h5><h6>'.$office->translate($navigation->getLanguage())->getCity().'</h6><p>'.$office->getAddress().'</p>');
-                    array_push($officeATest, [ "lat" => floatval($office->getLat()),"lng" =>  floatval($office->getLng())]);
-                }
-            }
-        }
+
         $Publicaciones = $page->getPublication()->toArray();
         $Publicaciones = array_reverse($Publicaciones);
         foreach ($Publicaciones as $key => $Publication) {

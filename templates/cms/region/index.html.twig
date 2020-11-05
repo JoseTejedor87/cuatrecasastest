@@ -32,21 +32,21 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr class="row">
-                            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'entities.region.fields.title'|trans, 'title') }}</th>
-                            <th class="col-sm-2">{{ 'global.labels.publication'|trans }}</th>
-                            <th class="col-sm-1"></th>
+                            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'entities.region.fields.title'|trans, 'title') }}</th>
+                            <th class="col-sm-5">{{ 'global.labels.publication'|trans }}</th>
+                            <th class="col-sm-2"></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for region in regions %}
+                     {% for region in pagination %}
                         <tr class="row">
-                            <td class="col-sm-2">{{ region.translate('es').title is defined ? region.translate('es').title : '' }}</td>
-                            <td class="col-sm-2 text-nowrap">
+                            <td class="col-sm-5">{{ region.translate('es').title is defined ? region.translate('es').title : '' }}</td>
+                            <td class="col-sm-5 text-nowrap">
                                 {% include 'cms/tools/languageStatus.html.twig' with {'values':region.languages} %}
                                 /
                                 {% include 'cms/tools/regionStatus.html.twig' with {'values':region.regions} %}
                             </td>
-                            <td class="col-sm-1 text-right">
+                            <td class="col-sm-2 text-right">
                                 <a class="btn btn-primary btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill" href="{{ path('cms_region_edit', {'id': region.id}) }}">
                                     <i class="fa fa-edit"></i>
                                 </a>

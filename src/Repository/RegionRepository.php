@@ -1,13 +1,15 @@
 <?php
 
-
 namespace App\Repository;
-
-
 
 use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
+
+use App\Controller\Web\NavigationService;
+use App\Repository\PublishableEntityRepository;
+use App\Repository\PublishableInterfaceRepository;
 
 /**
  * @method Region|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,10 +17,25 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Region[]    findAll()
  * @method Region[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RegionRepository extends ServiceEntityRepository
+class RegionRepository extends PublishableEntityRepository implements PublishableInterfaceRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, NavigationService $navigation)
     {
-        parent::__construct($registry, Region::class);
+        parent::__construct($registry, $navigation, Region::class);
     }
+
+    public function getInstanceByRequest(Request $request)
+    {
+        if ($slug = $request->attributes->get('slug')) {
+            return $this->createQueryBuilder('p')
+                ->join('p.translations', 't')
+                ->where('t.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+        return null;
+    }
+
+
 }

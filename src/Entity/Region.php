@@ -35,13 +35,11 @@ class Region extends Publishable
      */
     private $photo;
 
-
     public function __construct()
     {
         $this->office = new ArrayCollection();
         $this->award = new ArrayCollection();
     }
-
 
     public function getPrincipal(): ?bool
     {
@@ -51,6 +49,57 @@ class Region extends Publishable
     public function setPrincipal(bool $principal): self
     {
         $this->principal = $principal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Office[]
+     */
+    public function getOffice(): Collection
+    {
+        return $this->office;
+    }
+
+    public function addOffice(Office $office): self
+    {
+        if (!$this->office->contains($office)) {
+            $this->office[] = $office;
+        }
+
+        return $this;
+    }
+
+    public function removeOffice(Office $office): self
+    {
+        $this->office->removeElement($office);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Award[]
+     */
+    public function getAward(): Collection
+    {
+        return $this->award;
+    }
+
+    public function addAward(Award $award): self
+    {
+        if (!$this->award->contains($award)) {
+            $this->award[] = $award;
+            $award->addRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAward(Award $award): self
+    {
+        if ($this->award->removeElement($award)) {
+            $award->removeRegion($this);
+        }
 
         return $this;
     }
@@ -73,56 +122,5 @@ class Region extends Publishable
         return $this;
     }
 
-    /**
-     * @return Collection|Award[]
-     */
-    public function getAward(): Collection
-    {
-        return $this->award;
-    }
-
-    public function addAward(Award $award): self
-    {
-        if (!$this->award->contains($award)) {
-            $this->award[] = $award;
-        }
-
-        return $this;
-    }
-
-    public function removeAward(Award $award): self
-    {
-        if ($this->award->contains($award)) {
-            $this->award->removeElement($award);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Office[]
-     */
-    public function getOffice(): Collection
-    {
-        return $this->office;
-    }
-
-    public function addOffice(Office $office): self
-    {
-        if (!$this->offices->contains($office)) {
-            $this->offices[] = $office;
-        }
-
-        return $this;
-    }
-
-    public function removeOffice(Office $office): self
-    {
-        if ($this->offices->contains($office)) {
-            $this->offices->removeElement($office);
-        }
-
-        return $this;
-    }
 
 }

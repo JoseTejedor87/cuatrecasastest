@@ -64,6 +64,7 @@ class KnowledgeController extends WebController
         $date = $request->query->get('date');
         $format = $request->query->get('format');
         $collections = $request->query->get('collections');
+        $initial = $request->query->get('initial');
         $relatedEvents = $eventRepository->findByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
@@ -132,10 +133,10 @@ class KnowledgeController extends WebController
             $query = $query->andWhere("p.format = :format")
                             ->setParameter('format', $format);
         }
-        if ($textSearch) {
-            $query = $query->innerJoin('p.publicationTranslation', 'pt', Join::ON, 'pt.translatable_id = p.id')
-                            ->andWhere("pt.title LIKE :textSearch")
-                            ->setParameter('textSearch', '%'.$textSearch .'%');
+        if ($initial) {
+            $query = $query->join('p.translations', 't')
+                ->andWhere('t.title LIKE :titulo')
+                ->setParameter('titulo', '%'.$initial.'%');
         }
         if ($collections) {
             $collectionsA = explode(",", $collections);
@@ -284,6 +285,9 @@ class KnowledgeController extends WebController
             if ($format) {
                 $json['format'] = $format;
             }
+            if ($initial) {
+                $json['initial'] = $initial;
+            }
             if (empty($json['publications'])) {
                 $json['error'] = "empty";
             }
@@ -302,7 +306,7 @@ class KnowledgeController extends WebController
                 'legislations' => $legislations,
                 'pagesTotal' => isset($pagesTotal) ? $pagesTotal : 0,
                 'page' => $page,
-                'insights' => $insightsOrderToSend,
+                'insights' => $insightsOrderToSend
             ]);
         }
     }
