@@ -119,12 +119,9 @@ class NavigationService
                     $pos = strpos($description, '.');
                     $description = substr($description, 0, $pos+1);
                 } elseif ($publishable instanceof \App\Entity\Lawyer
-                || $publishable instanceof \App\Entity\Event) {
+                || $publishable instanceof \App\Entity\Event
+                || $publishable instanceof \App\Entity\Office) {
                     $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescription() !== null  ) ? $publishable->translate($language)->getDescription() : ''));
-                    $pos = strpos($description, '.');
-                    $description = substr($description, 0, $pos+1);
-                }elseif ($publishable instanceof \App\Entity\Office) {
-                    $description = strip_tags(html_entity_decode(($publishable->translate($language)->getDescriptions() !== null  ) ? $publishable->translate($language)->getDescriptions() : ''));
                     $pos = strpos($description, '.');
                     $description = substr($description, 0, $pos+1);
                 }

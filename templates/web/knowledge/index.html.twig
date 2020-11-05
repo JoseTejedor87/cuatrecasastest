@@ -1,5 +1,8 @@
 {% extends 'web/base.html.twig' %}
-
+{% block link %}
+<link id="relprev" rel="prev" href="{{app.request.uri}}" />
+<link id="relnext" rel="next" href="{{app.request.uri~'?page=1'}}" />
+{% endblock %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
@@ -295,6 +298,7 @@
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
+        
         // GRID
         var masonryOptions = {
             itemSelector: '.grid__item',
@@ -506,8 +510,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    console.log(parseInt(msg['page']));
-                    console.log(parseInt(msg['pagesTotal']));
+                    $('#relprev').attr('href', $('#relnext').attr('href'));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

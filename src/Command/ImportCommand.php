@@ -215,6 +215,9 @@ class ImportCommand extends Command
                 case "pages":
                     $this->Pages();
                 break;
+                case "regions":
+                    $this->Regions();
+                break;
                 case "banner":
                     $this->Banner();
                 break; 
@@ -886,6 +889,36 @@ class ImportCommand extends Command
             $this->em->persist($page);
             $this->em->flush();
             $this->logger->debug("Page ".$page->getId());
+        }
+    }
+
+    public function Regions()
+    {
+        $this->em->getConnection()->executeQuery("DELETE FROM region ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM regiontranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        $data = file_get_contents("JsonExports/regions.json");
+        $items = json_decode($data, true);
+
+        foreach ($items as $item) {
+            $Region = new Region();
+            $Region->setLanguages($item['lenguaje']);
+            $Region->setPrincipal($item['principal'] ? $item['principal'] : 0);
+            self::setRegions($Region);
+            foreach ($item['lenguaje'] as $currentLang) {
+                $Region->translate($currentLang)->setTitle($item['titulo']);
+                $Region->translate($currentLang)->setSummary($item['summary']);
+                $Region->translate($currentLang)->setContent($item['content']);
+            }
+            $Region->setPublished(true);
+            $Region->mergeNewTranslations();
+            $this->em->persist($Region);
+            $this->em->flush();
+            $this->logger->debug("Region ".$Region->getId());
         }
     }
 
