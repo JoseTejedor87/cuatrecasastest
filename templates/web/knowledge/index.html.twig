@@ -45,7 +45,7 @@
                 </div>
             </section>
 
-            <!-- FILTERS -->
+            {# FILTERS #}
             <section id="filterWrapper" class="row">
                 <div class="col-12">
                     <div id="filtersButton">
@@ -54,32 +54,32 @@
                     <div id="accordionFilters" class="filtersToggle">
                         <ul id="filterTabs" role="tablist">
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">Sector</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">{{ 'sections.knowledge.knowledgeFilters.sector'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">Servicios</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">{{ 'sections.knowledge.knowledgeFilters.servicios'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">Tipo</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">{{ 'sections.knowledge.knowledgeFilters.tipo'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">{{ 'sections.knowledge.knowledgeFilters.region'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Legislación</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">{{ 'sections.knowledge.knowledgeFilters.legislacion'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Fecha</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">{{ 'sections.knowledge.knowledgeFilters.fecha'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Colección</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">{{ 'sections.knowledge.knowledgeFilters.coleccion'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">Formato</a>
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">{{ 'sections.knowledge.knowledgeFilters.formato'|trans }}</a>
                             </li>
                         </ul>
                         <div id="filterTabsContent">
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">Sector</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">{{ 'sections.knowledge.knowledgeFilters.sector'|trans }}</a>
                             <div id="collapse01" class="collapse" aria-labelledby="heading01" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                 {% for sector in sectors %}
@@ -92,11 +92,11 @@
                                 {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">Servicios</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">{{ 'sections.knowledge.knowledgeFilters.servicios'|trans }}</a>
                             <div id="collapse02" class="collapse" aria-labelledby="heading02" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for practice in practices %}
@@ -109,11 +109,11 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">Tipo</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">{{ 'sections.knowledge.knowledgeFilters.tipo'|trans }}</a>
                             <div id="collapse03" class="collapse" aria-labelledby="heading03" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for type in types %}
@@ -127,11 +127,11 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">Región</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">{{ 'sections.knowledge.knowledgeFilters.region'|trans }}</a>
                             <div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for office in offices %}
@@ -144,17 +144,15 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">Legislacion</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">{{ 'sections.knowledge.knowledgeFilters.legislacion'|trans }}</a>
                             <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
-
                                     {% for legislation in legislations %}
                                         {% if legislation.name %}
-
                                             <div class="checkbox">
                                                 <input type="checkbox" id="legislation-{{legislation.id}}" data-name="{{ legislation.name }}" value="{{ legislation.id }}">
                                                 <label class="checkbox-label" for="legislation-{{legislation.id}}"><span>{{ legislation.name }}</span></label>
@@ -163,11 +161,11 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">Fecha</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">{{ 'sections.knowledge.knowledgeFilters.fecha'|trans }}</a>
                             <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for i in 2010..2020 %}
@@ -175,15 +173,14 @@
                                             <input type="checkbox" id="date-{{ i }}" data-name="{{ i }}" value="{{ i }}">
                                             <label class="checkbox-label" for="date-{{ i }}"><span>{{ i }}</span></label>
                                         </div>
-
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">Colección</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">{{ 'sections.knowledge.knowledgeFilters.coleccion'|trans }}</a>
                             <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for insight in insights %}
@@ -194,11 +191,11 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
-                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">Formato</a>
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">{{ 'sections.knowledge.knowledgeFilters.formato'|trans }}</a>
                             <div id="collapse08" class="collapse" aria-labelledby="heading08" data-parent="#accordionFilters">
                                 <div class="chechbox__wrapper">
                                     {% for format in formats %}
@@ -212,25 +209,25 @@
                                     {% endfor %}
                                 </div>
                                 <div class="filters__apply">
-                                    <button type="button" class="btn btn__naked apply_button">Aplicar</button>
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <!-- Selected tags -->
+                {# Selected tags #}
                 <div class="col-12" id="checksOutput" style="display:none">
                 </div>
             </section>
 
-            <!-- MASONRY GRID JS -->
-            <div id="empty_message" style="display: none">
+            {# RESULTS MASONRY GRID JS #}
+            <div id="empty_message" class="page__section--fullbg" style="display:none">
                 <p>{{ 'global.messages.empty_results'|trans }}</p>
             </div>
             <section id="knowledge_content" class="row page__section page__section--fullbg">
                 <div class="col-12">
-                    <h4 class="section__title section__title--recomended">Te recomendamos</h4>
+                    <h4 class="section__title section__title--recomended">{{ 'global.messages.our_recomendation'|trans }}</h4>
                 </div>
                 <div class="col-12">
                     <div class="grid__masonry">
@@ -393,7 +390,7 @@
                 if(msg['error'] == 'empty') {
                     $('.search__component__loader').css("display", "flex").fadeOut();
                     $('#knowledge_content').css("display", "none");
-                    $('#empty_message').css("display", "flex");
+                    $('#empty_message').css("display", "block");
                 } else {
                     // $('.section__title--recomended').hide();
                     $('.search__component__loader').css("display", "flex").fadeOut();

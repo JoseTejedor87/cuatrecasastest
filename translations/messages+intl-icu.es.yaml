@@ -34,6 +34,7 @@ global:
     error_404_button: Volver al inicio
     alternative_urls: Este enlace no se encuentra disponible en el lenguaje/region solicitado, intente con los enlaces a continuación
     show_filters: Ver filtros
+    apply_button: Aplicar
     load_more: Cargar más
     show_more: Ver más
     show_less: Ver menos
@@ -48,6 +49,7 @@ global:
     related_content: Contenido relacionado
     featured_content: Contenido Destacado
     news_content: Actualidad
+    our_recomendation: Te recomendamos
     empty_results: No se han encontrado resultados para la búsqueda realizada
   forms:
     save: Guardar
@@ -95,6 +97,15 @@ sections:
       video: Video
       podcast: Podcast
       interactive: Interactivo
+    knowledgeFilters:
+      sector: Sector
+      servicios: Servicios
+      tipo: Tipo
+      region: Región
+      legislacion: Legislación
+      fecha: Fecha
+      coleccion: Colección
+      formato: Formato
   lawyers:
     title: Abogados
     office: CUATRECASAS
