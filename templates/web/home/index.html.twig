@@ -25,7 +25,7 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.outstanding_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
         {% endif %}
     {% endif %}
 

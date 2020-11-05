@@ -37,6 +37,13 @@ liip_imagine:
                 scale:
                     dim: [1280, 720]
 
+        # CALL TO ACTION
+        call_to_action:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1280, 720]
+
         # VECTORS
         picto_header:
             quality: 100
@@ -55,6 +62,46 @@ liip_imagine:
             filters:
                 scale:
                     dim: [1920, 1080]
+
+        # INSIGHTS
+        insights_grid:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1040, 585]
+
+        # ARTICLES
+        article_box:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1040, 585]
+
+        generic_foto:
+            quality: 75
+            filters:
+                scale:
+                    dim: [460, 360]
+
+        # LAWYERS
+        lawyers_header:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1800, 1000]
+
+        lawyers_grid:
+            quality: 75
+            filters:
+                scale:
+                    dim: [900, 500]
+
+        lawyers_team:
+            quality: 75
+            filters:
+                scale:
+                    dim: [1800, 1000]
+
 
         # Mejor hacer un solo filtro global para todos los tipos de cabeceras, en caso necesario se dan de alta el resto
         # desks_header:
@@ -86,61 +133,3 @@ liip_imagine:
         #     filters:
         #         scale:
         #             dim: [350, 200]
-
-        # INSIGHTS
-        insights_grid:
-            quality: 75
-            filters:
-                scale:
-                    dim: [900, 500]
-
-        # ARTICLES
-        article_box:
-            quality: 75
-            filters:
-                scale:
-                    dim: [900, 500]
-
-        generic_foto:
-            quality: 75
-            filters:
-                scale:
-                    dim: [460, 360]
-
-        # LAWYERS
-        lawyers_header:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1800, 1000]
-
-        lawyers_grid:
-            quality: 75
-            filters:
-                scale:
-                    dim: [900, 500]
-
-        lawyers_team:
-            quality: 75
-            filters:
-                scale:
-                    dim: [1800, 1000]
-
-        # LOGOS
-        logo_awards:
-            quality: 100
-            # filters:
-            #     scale:
-            #         dim: [1800, 1000]
-
-        logo_brands:
-            quality: 100
-            # filters:
-            #     scale:
-            #         dim: [1800, 1000]
-
-        logo_boxes:
-            quality: 100
-            # filters:
-            #     scale:
-            #         dim: [1800, 1000]
