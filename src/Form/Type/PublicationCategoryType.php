@@ -20,7 +20,6 @@ class PublicationCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'label' => 'sections.publication.index.type',
             'choices' => $this->params->get('app.publications_types'),
             'choice_label' => function ($choice, $key, $value) {
                 return self::TRANSLATION_PREFIX . ".$value";
