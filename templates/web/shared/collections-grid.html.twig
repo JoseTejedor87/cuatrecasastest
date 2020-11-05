@@ -8,7 +8,7 @@
                             {% if insight.photo %}
                                 {% set photo_path = asset('/resources/' ~ insight.photo.fileName) | imagine_filter('picto_grid') %}
                             {% else %}
-                                {% set photo_path = asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') %}
+                                {% set photo_path = asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') %}
                             {% endif %}
                         {% endif %}
                         <article class="boxnews__item">
