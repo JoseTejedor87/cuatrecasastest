@@ -9,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -69,7 +69,7 @@
         {% include 'web/pages/custom/firm/shared/info-social.html.twig' %}
         {% include 'web/pages/custom/firm/shared/overview-diversity.html.twig' %}
         {% include 'web/pages/custom/firm/shared/collections-firm.html.twig' %}
-        {# {% include 'web/pages/custom/firm/shared/asociaciones-firm.html.twig' %} #}
+        {% include 'web/pages/custom/firm/shared/asociaciones-firm.html.twig' %}
         {% include 'web/pages/custom/firm/shared/cta-fundation-social.html.twig' %}
         {% include 'web/pages/custom/firm/shared/cta-corporative-social.html.twig' %}
         {% include 'web/pages/custom/firm/shared/awards-social.html.twig' %} {# no info #}

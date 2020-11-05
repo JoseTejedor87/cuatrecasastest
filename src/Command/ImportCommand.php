@@ -1010,7 +1010,7 @@ class ImportCommand extends Command
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
         // // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
-        // //$this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        // //$this->em->getConnection()->executeQuery("DELETE FROM [publication_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");

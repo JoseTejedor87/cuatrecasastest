@@ -12,8 +12,10 @@
         "knplabs/doctrine-behaviors": "^1.6",
         "knplabs/knp-menu-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^5.0",
+        "kphoen/sitemap-bundle": "^2.0",
         "liip/imagine-bundle": "^2.3",
         "nelmio/cors-bundle": "^2.1",
+        "presta/sitemap-bundle": "^2.3",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
@@ -33,7 +35,8 @@
         "symfony/validator": "4.4.*",
         "symfony/yaml": "4.4.*",
         "twig/intl-extra": "^3.0",
-        "vich/uploader-bundle": "^1.13"
+        "vich/uploader-bundle": "^1.13",
+        "connectholland/cookie-consent-bundle": "0.9.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

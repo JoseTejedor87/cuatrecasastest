@@ -19,7 +19,7 @@
                                         <a href="#" class="doble__arrow__link">{{ 'reusable_blocks.cases.link'|trans }}</a>
                                     </div>
                                 </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                <div class="insight__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                             </article>
                         </div>
                         <div class="swiper-slide">
@@ -34,14 +34,14 @@
                                         <a href="#" class="doble__arrow__link">{{ 'reusable_blocks.cases.link'|trans }}</a>
                                     </div>
                                 </div>
-                                <div class="insight__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')"></div>
+                                <div class="insight__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                             </article>
                         </div>
                     </div>
                 </div>
-                <div class="viewmore__button">
+                {# <div class="viewmore__button">
                     <button type="button" class="btn btn__viewmore">Ver más casos</button>
-                </div>
+                </div> #}
             </div>
         </div>
     </div>

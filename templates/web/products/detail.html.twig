@@ -1,16 +1,15 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 {% if product %}
     {% if product.photo %}
-        {% set photo_path = asset('/resources/' ~ product.photo.fileName)|imagine_filter('prodruct_grid') %}
+        {% set photo_path = asset('/resources/' ~ product.photo.fileName) |imagine_filter('full_header') %}
     {% else %}
-        {% set photo_path = '' %}
+        {% set photo_path = asset('/web/assets/img/cabecera_1920x1080_baja.jpg') |imagine_filter('full_header') %}
     {% endif %}
 {% endif %}
     <main role="main" class="lawyer">

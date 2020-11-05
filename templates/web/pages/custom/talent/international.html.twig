@@ -10,7 +10,7 @@
     <main role="main">
 
         <div class="container">
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -80,7 +80,7 @@
         {% include 'web/pages/custom/talent/shared/cta-international.html.twig' %}
         {# {% include 'web/pages/custom/talent/shared/related-content-slider_Career.html.twig' %} #}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.news_content'|trans,classTittle: '--recomended',publications: relatedPublications }  %}
         {% endif %}
         {% include 'web/pages/custom/talent/shared/info-career-join.html.twig' %}
 

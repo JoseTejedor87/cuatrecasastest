@@ -778,7 +778,7 @@ class ImportCommandDev extends Command
         //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
         // $this->em->getConnection()->executeQuery("DELETE FROM Office ");
         $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE lawyer_id IS NOT NULL");
-        //      $this->em->getConnection()->executeQuery("DELETE FROM article_person ");
+        //      $this->em->getConnection()->executeQuery("DELETE FROM publication_person ");
         $this->em->getConnection()->executeQuery("DELETE FROM event_person ");
         $this->em->getConnection()->executeQuery("DELETE FROM Person ");
         //      $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");
@@ -1615,7 +1615,7 @@ class ImportCommandDev extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/publication-*"));
 
-        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE article_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE publication_id IS NOT NULL");
         // $this->em->getConnection()->executeQuery("DELETE FROM [ArticleTranslation]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Article]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");
@@ -2145,7 +2145,7 @@ class ImportCommandDev extends Command
                             $resource->setFile($photo);
                             $resource->setFileName($photo->getFileName());
                             $resource->setArticle($articulo);
-                            $resource->setType('article_main_photo');
+                            $resource->setType('publication_main_photo');
                             $articulo->addAttachment($resource);
                             self::setRegions($articulo);
                             $this->em->persist($articulo);
@@ -2182,7 +2182,7 @@ class ImportCommandDev extends Command
         $resources_path = $this->container->getParameter('kernel.project_dir').'/public'.$this->container->getParameter('app.path.uploads.resources');
         array_map('unlink', glob($resources_path."/news-*"));
 
-        // $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE article_id IS NOT NULL");
+        // $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE publication_id IS NOT NULL");
         // $this->em->getConnection()->executeQuery("DELETE FROM ArticleTranslation ");
         // $this->em->getConnection()->executeQuery("DELETE FROM Article ");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Article], RESEED, 1)");

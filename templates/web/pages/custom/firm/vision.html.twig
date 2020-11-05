@@ -9,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -69,9 +69,8 @@
         {% include 'web/pages/custom/firm/shared/info-firma.html.twig' %}
         {% include 'web/pages/custom/firm/shared/awards-vision.html.twig' %}
         {% include 'web/pages/custom/firm/shared/cta-media-vision.html.twig' %}
-        {# {% include 'web/pages/custom/firm/shared/related-content-slider-vision.html.twig' %} no info #}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--insight',publications: relatedPublications }  %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.featured_content'|trans,classTittle: '--insight',publications: relatedPublications }  %}
         {% endif %}
         {% include 'web/pages/custom/firm/shared/cta-corporative-vision.html.twig' %}
         {% include 'web/pages/custom/firm/shared/cases-vision.html.twig' %} {# no info #}

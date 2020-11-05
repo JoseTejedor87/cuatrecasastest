@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/la-firma.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -92,6 +92,24 @@
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
+
+        // Load More Items
+        boxNumber = 3;
+        boxIncrement = 3;
+        boxItems = $("#loadMoreBoxes article").length;
+
+        $('#loadMoreBoxes').each(function() {
+            if ($(this).children('article').length >= 3) {
+                $(this).children('article:lt(3)').show();
+                $(this).children('article:gt(2)').hide();
+            }
+        });
+
+        $('#loadMore').click(function () {
+            boxNumber = (boxNumber+boxIncrement <= boxItems) ? boxNumber+boxIncrement : boxItems; $('#loadMoreBoxes article:lt('+boxNumber+')').show();
+            $(this).blur();
+            $(this).toggle(boxNumber < boxItems);
+        });
     });
 </script>
 {% endblock %}

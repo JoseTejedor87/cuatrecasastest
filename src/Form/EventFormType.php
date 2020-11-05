@@ -207,7 +207,7 @@ class EventFormType extends AbstractType
     private function getResponsablesMarketing($em) {
 
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_responsablesmarketings";
+        $sql = "SELECT * FROM GC_responsablesMarketings";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $ValuesO =$stmt->fetchAll();    
@@ -234,7 +234,7 @@ class EventFormType extends AbstractType
     private function getSecretarias($em) {
 
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_secretarias";
+        $sql = "SELECT * FROM GC_secretarias";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $ValuesO =$stmt->fetchAll();    
@@ -248,7 +248,7 @@ class EventFormType extends AbstractType
     private function getSociosResponsables($em) {
 
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_sociosresponsables";
+        $sql = "SELECT * FROM GC_sociosResponsables";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $ValuesO =$stmt->fetchAll();    

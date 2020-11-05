@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -10,7 +9,7 @@
     <main role="main" class="lawyer">
         <article class="container">
 
-            {% set photo = practice.photo ? (asset('/resources/' ~ practice.photo.fileName) | imagine_filter('practices_header')) : '' %}
+            {% set photo = practice.photo ? (asset('/resources/' ~ practice.photo.fileName) | imagine_filter('full_header')) : '' %}
 
             <header class="row page__header" style="background-image: url('{{ photo ? photo : '' }}')">
                 <div class="col">
