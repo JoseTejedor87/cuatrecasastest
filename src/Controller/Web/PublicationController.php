@@ -50,19 +50,28 @@ class PublicationController extends WebController
         $attachmentPublished = [];
         $headerImage = '';
         $headerImage = $this->getPhotoPathByFilter($publication, 'full_header',$navigation);
+        $lang = $navigation->getLanguage();
 
         foreach($publication->getAttachments() as $attachment)
         {
-            //dd($attachment);
             if($attachment->getType() == 'publication_main_photo'){
 
                 $publication->photo = $attachment->getFileName();
             }
 
-            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion()))
+            if ($attachment->isPublished($lang,$navigation->getRegion()))
             array_push($attachmentPublished,$attachment);
         }
-
+        
+        // CUANDO SEAN PUBLICACIONES QUE SOLO SON PDF LOS REDIRIGE AUTOMATICAMENTE
+        if($publication->translate($lang)->getSummary() == '' && $publication->translate($lang)->getContent() == ''){
+            foreach($attachmentPublished as $attachment){
+                if( in_array($lang,$attachment->getLanguages()) && in_array($navigation->getRegion(),$attachment->getRegions()))
+                {
+                    return $this->redirect($request->getSchemeAndHttpHost().'/resources/'.$attachment->getFilename());
+                }
+            }
+        }
 
         return $this->render('web/publication/detail.html.twig', [
             'publication' => $publication,
@@ -71,5 +80,5 @@ class PublicationController extends WebController
             'relatedPublications' => $relatedPublications,
             'headerImage' => $headerImage
         ]);
-    }
+    }    
 }
