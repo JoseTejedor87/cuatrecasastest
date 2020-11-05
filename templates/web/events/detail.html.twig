@@ -12,10 +12,14 @@
     {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
 {% endif %}
 
+{% if  headerImage == '' %}
+    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
+{% endif %}
+
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -63,12 +67,12 @@
                         </div>
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
-                                {#% if attachment.publish.language  == app.request.getLocale() && attachment.publish.region == app.request.getRegion() %#}
+                                {% if attachment.type  == 'article_dossier' %}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
                                 </a>
-                                {#% endif %#}
+                                {% endif %}
                             {% endfor %}
 
                         </div>

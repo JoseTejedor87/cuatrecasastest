@@ -5,7 +5,14 @@ namespace App\Controller\CMS;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Knp\Component\Pager\PaginatorInterface;
+
+use App\Form\Type\PublicationCategoryType;
 
 use App\Entity\Publication;
 use App\Entity\Opinion;
@@ -20,29 +27,57 @@ class PublicationController extends CMSController
 {
     public function index(PublicationRepository $PublicationRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $filter = $this->filter($request);
+
+        if ($filter['fields'] != '') {
+            $result = $PublicationRepository->findFilteredBy($filter['fields']);
+        } else {
+            $result = $PublicationRepository->findBy(array(), array('id' => 'DESC'));
+        }
         $pagination = $paginator->paginate(
-            $PublicationRepository->findBy(array(), array('id' => 'DESC')),
+            $result,
             $request->query->getInt('page', 1),
             25
         );
         foreach ($pagination as $key => $value) {
-            if ($value instanceof \App\Entity\LegalNovelty  ){
+            if ($value instanceof \App\Entity\LegalNovelty) {
                 $value->type = 'legalNovelty';
             }
-            if ($value instanceof \App\Entity\Academy){
+            if ($value instanceof \App\Entity\Academy) {
                 $value->type = 'academy';
             }
-            if ($value instanceof \App\Entity\Opinion){
+            if ($value instanceof \App\Entity\Opinion) {
                 $value->type = 'opinion';
             }
-            if ($value instanceof \App\Entity\News){
+            if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
         }
         return $this->render('cms/publication/index.html.twig', [
             'pagination' => $pagination,
+            'formForFilterView' => $filter['form']->createView(),
         ]);
     }
+
+    private function filter(Request $request)
+    {
+        $formForFilter = $this->createFormBuilder(array(), [ 'translation_domain' => 'admin'])
+            ->setMethod('GET')
+            ->add('title', TextType::class, ['required' => false, 'label' => false ])
+            ->add('publicationCategoryType', PublicationCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('send', SubmitType::class, ['label'=> 'Filtrar' ])
+            ->getForm();
+
+        $formForFilter->handleRequest($request);
+        $filterFields = '';
+
+        if ($formForFilter->isSubmitted() && $formForFilter->isValid()) {
+            $filterFields = $formForFilter->getData();
+        }
+
+        return array('form' => $formForFilter, 'fields' => $filterFields);
+    }
+
 
     public function new(Request $request): Response
     {
@@ -61,7 +96,7 @@ class PublicationController extends CMSController
                 $Publication = new News();
                 break;
         }
-        
+
         $form = $this->createForm(PublicationFormType::class, $Publication);
         $form->handleRequest($request);
 

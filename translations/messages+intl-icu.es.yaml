@@ -48,6 +48,7 @@ global:
     related_content: Contenido relacionado
     featured_content: Contenido Destacado
     news_content: Actualidad
+    empty_results: No se han encontrado resultados para la búsqueda realizada
   forms:
     save: Guardar
     inscription: Inscribirme

@@ -6,11 +6,13 @@
 {% endblock %}
 
 {% block main %}
-
+{% if  headerImage == '' %}
+    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
+{% endif %}
     <main role="main">
         <article class="container" itemscope itemtype="http://schema.org/Article">
 
-            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title"  itemprop="name">

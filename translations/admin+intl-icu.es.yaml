@@ -156,6 +156,7 @@ sections:
   publication:
       index:
         title: Conocimiento
+        type: Tipo de Publicación
       new:
         title: Nuevo Conocimiento
       edit:

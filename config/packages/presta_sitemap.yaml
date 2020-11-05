@@ -9,5 +9,5 @@ presta_sitemap:
     alternate:
         enabled: true
         default_locale: 'es'
-        locales: ['es', 'pt']
+        locales: ['es', 'pt', 'en', 'ge']
         i18n: symfony
