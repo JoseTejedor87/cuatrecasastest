@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Form\Type\PublicationCategoryType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use App\Entity\Publication;
 use App\Entity\Opinion;
@@ -21,13 +22,14 @@ use App\Entity\Academy;
 use App\Entity\News;
 use App\Form\PublicationFormType;
 use App\Repository\PublicationRepository;
+use App\Repository\LegislationRepository;
 use App\Controller\CMS\CMSController;
 
 class PublicationController extends CMSController
 {
-    public function index(PublicationRepository $PublicationRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(PublicationRepository $PublicationRepository, LegislationRepository $legislationRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $filter = $this->filter($request);
+        $filter = $this->filter($request, $legislationRepository);
 
         if ($filter['fields'] != '') {
             $result = $PublicationRepository->findFilteredBy($filter['fields']);
@@ -59,12 +61,20 @@ class PublicationController extends CMSController
         ]);
     }
 
-    private function filter(Request $request)
+    private function filter(Request $request, LegislationRepository $legislationRepository)
     {
+        $legislationArray = array('Seleccionar' => 0);
+        $legislations = $legislationRepository->findAll();
+        foreach ($legislations as $legislation) {
+            $legislationArray[$legislation->getName()] = $legislation->getId();
+        }
         $formForFilter = $this->createFormBuilder(array(), [ 'translation_domain' => 'admin'])
             ->setMethod('GET')
             ->add('title', TextType::class, ['required' => false, 'label' => false ])
-            ->add('publicationCategoryType', PublicationCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('type', PublicationCategoryType::class, ['required' => false,'label'=> false ])
+            ->add('fechaDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
+            ->add('legislation', ChoiceType::class, ['label'=>false,'choices'  => $legislationArray])
             ->add('send', SubmitType::class, ['label'=> 'Filtrar' ])
             ->getForm();
 
