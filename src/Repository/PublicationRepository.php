@@ -65,10 +65,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             ->setParameter('place', $place);
         //---------------------
 
-        $results = $this->orderByDaySentences($results, 'p', '100')
+        /*$results = $this->orderByDaySentences($results, 'p', '100')
             ->setMaxResults($maxResult)
             ->getQuery()
-            ->getResult();
+            ->getResult();*/
 
         foreach ($results as $key => $item) {
             $returnPublications[$item->getId()] = $item;
@@ -135,7 +135,7 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 $value->type = 'news';
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'publication_box');
-            if(!$value->photo){
+            if (!$value->photo) {
                 $value->photo = 'web/assets/img/cabecera_1920x1080_baja.jpg';
                 // $value->photo = 'https://via.placeholder.com/800x400';
             }
@@ -167,26 +167,26 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             $title = $arrayFields['title'];
             unset($arrayFields['title']);
         }
-
-        /*if (isset($arrayFields['finDesde']) && isset($arrayFields['finDesde'])) {
-            $finDesde = $arrayFields['finDesde'];
-            unset($arrayFields['finDesde']);
+        if (isset($arrayFields['type']) && $arrayFields['type'] != '') {
+            $type = $arrayFields['type'];
+            unset($arrayFields['type']);
         }
 
-        if (isset($arrayFields['finHasta'])  && isset($arrayFields['finHasta'])) {
-            $finHasta = $arrayFields['finHasta'];
-            unset($arrayFields['finHasta']);
+        if (isset($arrayFields['fechaDesde']) && isset($arrayFields['fechaDesde'])) {
+            $fechaDesde = $arrayFields['fechaDesde'];
+            unset($arrayFields['fechaDesde']);
         }
 
-        if (isset($arrayFields['inicioDesde'])  && isset($arrayFields['inicioDesde'])) {
-            $inicioDesde = $arrayFields['inicioDesde'];
-            unset($arrayFields['inicioDesde']);
+        if (isset($arrayFields['fechaHasta'])  && isset($arrayFields['fechaHasta'])) {
+            $fechaHasta = $arrayFields['fechaHasta'];
+            unset($arrayFields['fechaHasta']);
         }
 
-        if (isset($arrayFields['inicioHasta'])  && isset($arrayFields['inicioHasta'])) {
-            $inicioHasta = $arrayFields['inicioHasta'];
-            unset($arrayFields['inicioHasta']);
-        }*/
+        if (isset($arrayFields['legislation'])  && isset($arrayFields['legislation'])) {
+            $legislation = $arrayFields['legislation'];
+            unset($arrayFields['legislation']);
+        }
+
 
 
 
@@ -197,25 +197,46 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->andWhere('t.title LIKE :titulo')
                 ->setParameter('titulo', '%'.$title.'%');
         }
-        /*  if (isset($finDesde)) {
-              $query->andWhere('e.endDate > :desde')
-                  ->setParameter('desde', $finDesde->format('Y-m-d'));
-          }
+        if (isset($type)) {
+            if ($type == "news") {
+                $query = $query->andWhere('p INSTANCE OF App\Entity\News');
+            }
+            if ($type == "academy") {
+                $query = $query->andWhere('p INSTANCE OF App\Entity\Academy');
+            }
+            if ($type == "opinion") {
+                $query = $query->andWhere('p INSTANCE OF App\Entity\Opinion');
+            }
+            if ($type == "legalNovelty") {
+                $query = $query->andWhere('p INSTANCE OF App\Entity\LegalNovelty');
+            }
+        }
 
-          if (isset($finHasta)) {
-              $query->andWhere('e.endDate < :hasta')
-                  ->setParameter('hasta', $finHasta->format('Y-m-d'));
-          }
+        if (isset($fechaDesde)) {
+            $query->andWhere('p.publication_date > :desde')
+                ->setParameter('desde', $fechaDesde->format('Y-m-d'));
+        }
 
-          if (isset($inicioDesde)) {
-              $query->andWhere('e.startDate > :desde')
-                  ->setParameter('desde', $inicioDesde->format('Y-m-d'));
-          }
+        if (isset($fechaHasta)) {
+            $query->andWhere('p.publication_date < :hasta')
+                ->setParameter('hasta', $fechaHasta->format('Y-m-d'));
+        }
 
-          if (isset($inicioHasta)) {
-              $query->andWhere('e.startDate < :hasta')
-                  ->setParameter('hasta', $inicioHasta->format('Y-m-d'));
-          }*/
+        if (isset($legislation)) {
+            $query = $query->innerJoin('p.legislations', 'l')
+                ->andWhere('l.id = :legislation')
+                ->setParameter('legislation', $legislation);
+        }
+
+        /* if (isset($inicioDesde)) {
+             $query->andWhere('e.startDate > :desde')
+                 ->setParameter('desde', $inicioDesde->format('Y-m-d'));
+         }
+
+         if (isset($inicioHasta)) {
+             $query->andWhere('e.startDate < :hasta')
+                 ->setParameter('hasta', $inicioHasta->format('Y-m-d'));
+         }*/
         /* foreach ($query->getQuery()->getResult() as $r) {
              var_dump($r->translate('es')->getTitle());
          }

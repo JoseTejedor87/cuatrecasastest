@@ -117,7 +117,7 @@
                                         {% for key, region in regiones %}
                                             {% if region.principal == 0  %}
                                                 <li class="buttons__list__column__item">
-                                                    <a class="btn__subcat" href="{{ path('location_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link">{{ region.translate(app.request.getLocale()).title }}</a>
+                                                    <a class="btn__subcat" href="{{ path('location_other_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link">{{ region.translate(app.request.getLocale()).title }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
