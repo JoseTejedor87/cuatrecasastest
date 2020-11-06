@@ -159,10 +159,20 @@
                                     <ul class="page__block__content__details show__more">
                                     {% for publication in lawyer.person.publications %}
                                         {% set PublicationDate = publication.getPublicationDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
-                                        <li>
-                                            <div>{{ PublicationDate[1] }}</div>
-                                            <a href="{{ path('publications_detail', {slug: publication.translate(app.request.getLocale()).slug}) }}">{{ publication.translate(app.request.getLocale()).title}}</a>
-                                        </li>
+
+                                            {# Esta comprobacion existe solo para el caso que se esta navegado en un idioma
+                                                y la publicacion relacionada este en otro #}
+                                            {% set slug_publication = publication.translate(app.request.getLocale()).slug %}
+                                            {% if slug_publication == '' %}
+                                                {% set slug_publication = publication.translate('es').slug %}
+                                            {% endif %}
+                                            {% if slug_publication != '' %}
+                                                <li>
+                                                    <div>{{ PublicationDate[1] }}</div>
+                                                    <a href="{{ path('publications_detail', {slug: slug_publication }) }}">{{ publication.translate(app.request.getLocale()).title}}</a>
+                                                </li>
+                                            {% endif %}
+
                                     {% endfor %}
                                     </ul>
                                 </div>
@@ -181,10 +191,18 @@
                                         {% for event in lawyer.person.events %}
                                         {% set StartDate = event.getStartDate() |format_datetime('full', 'none', locale= app.request.getLocale() )|split(',') %}
                                             {% if (event.translate(app.request.getLocale()).title) %}
-                                                <li>
-                                                    <div>{{ StartDate[1] }}</div>
-                                                    <a href="{{ path('events_detail', {slug: event.translate(app.request.getLocale()).slug}) }}">{{ event.translate(app.request.getLocale()).title}}</a>
-                                                </li>
+                                            {# Esta comprobacion existe solo para el caso que se esta navegado en un idioma
+                                                y la events relacionada este en otro #}
+                                                {% set slug_event = event.translate(app.request.getLocale()).slug %}
+                                                {% if slug_event == '' %}
+                                                    {% set slug_event = slug_event.translate('es').slug %}
+                                                {% endif %}
+                                                {% if slug_event != '' %}                                            
+                                                    <li>
+                                                        <div>{{ StartDate[1] }}</div>
+                                                        <a href="{{ path('events_detail', {slug: slug_event }) }}">{{ event.translate(app.request.getLocale()).title}}</a>
+                                                    </li>
+                                                {% endif %}                                                    
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
