@@ -58,6 +58,7 @@ global:
     featured_content: Contenido Destacado
     news_content: Actualidad
     our_recomendation: Te recomendamos
+    dossier_download: Descarga el dossier
     empty_results: No se han encontrado resultados para la búsqueda realizada
   forms:
     search: Buscar
@@ -184,7 +185,6 @@ sections:
       speaker: Ponente
     next_events: Próximos eventos
     list: Listado eventos
-    dossier: Descarga el dossier
     filters:
       lugar: Lugar
       expertise: Expertise

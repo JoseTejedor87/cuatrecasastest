@@ -643,6 +643,13 @@ img {
     width: 100vw;
     margin-left: -50vw;
     left: 50%;
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        border: 1px solid magenta;
+        width: 200vw;
+        margin-left: -100vw;
+        left: 50%;
+    }
 }
 
 @mixin reset-list {

@@ -12,7 +12,7 @@ use App\Repository\PublicationRepository;
 use App\Controller\Web\WebController;
 use App\Repository\GeneralBlockRepository;
 
-class locationController extends WebController
+class LocationController extends WebController
 {
     public function index(Request $request, RegionRepository $RegionRepository,DeskRepository $DeskRepository,OfficeRepository $OfficeRepository, NavigationService $navigation)
     {
