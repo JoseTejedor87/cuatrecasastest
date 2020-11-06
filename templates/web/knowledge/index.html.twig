@@ -1,5 +1,8 @@
 {% extends 'web/base.html.twig' %}
-
+{% block link %}
+<link id="relprev" rel="prev" href="{{app.request.uri}}" />
+<link id="relnext" rel="next" href="{{app.request.uri~'?page=1'}}" />
+{% endblock %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
@@ -33,12 +36,14 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                            <input type="text" class="form-control" placeholder="Buscar" name="initial">
+                        <form action="" method="get">
+                            <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" name="initial">
                             <div class="input-group">
                                 <button class="search_box__button apply_button">
                                     <span class="icon4-lupa"></span>
                                 </button>
                             </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -295,6 +300,7 @@
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
+
         // GRID
         var masonryOptions = {
             itemSelector: '.grid__item',
@@ -506,8 +512,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    console.log(parseInt(msg['page']));
-                    console.log(parseInt(msg['pagesTotal']));
+                    $('#relprev').attr('href', $('#relnext').attr('href'));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

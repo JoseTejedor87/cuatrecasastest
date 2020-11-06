@@ -189,6 +189,10 @@
             border-top-right-radius: 0;
             transition: color 0.2s ease-in-out;
 
+            &.revolution {
+                text-transform: none;
+            }
+
             &:after {
                 content: '';
                 position: absolute;

@@ -4,7 +4,7 @@ $(function () {
         slidesPerView: 1,
         spaceBetween: 20,
         allowTouchMove: true,
-        grabCursor: false,
+        grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',
             draggable: false
@@ -30,7 +30,7 @@ $(function () {
         slidesPerView: 1,
         spaceBetween: 20,
         allowTouchMove: true,
-        grabCursor: false,
+        grabCursor: true,
         scrollbar: {
             el: '.swiper-scrollbar',
             draggable: false

@@ -423,15 +423,41 @@ publications-api-media:
 
 # PAGES REGIONS
 # ###########################################
-
 location:
+    path:
+        en:   /location
+        es:   /location
+        pt:   /location
+        ge:   /location
+    methods:    GET|POST
+    controller: App\Controller\Web\locationController::index
+
+location_detail:
     path:
         en:   /location/{slug}
         es:   /location/{slug}
         pt:   /location/{slug}
         ge:   /location/{slug}
     methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
+    controller: App\Controller\Web\locationController::detail
+
+location_other:
+    path:
+        en:   /locationother
+        es:   /locationother
+        pt:   /locationother
+        ge:   /locationother
+    methods:    GET|POST
+    controller: App\Controller\Web\locationController::indexOther   
+
+location_other_detail:
+    path:
+        en:   /locationother/{slug}
+        es:   /locationother/{slug}
+        pt:   /locationother/{slug}
+        ge:   /locationother/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\locationController::detailOther
 
 # PAGES FIRM
 # ###########################################

@@ -6,38 +6,19 @@
         <div class="row">
             <div class="col-md-6">
                 {{ form_row(form.principal) }}
-
-
-                {#{ form_row(form.country) }#}
-{#                {{ form_row(form.contact) }}#}
-
             </div>
             <div class="col-md-12">
                 {{ translatableField.partialTranslations(form.translations, ['title']) }}
-{#                {{ form_row(form.fax) }}#}
-{#                {{ form_row(form.phone) }}                #}
-
-            </div>
-            <div class="col-md-12">
-
-{#                {{ translatableField.partialTranslations(form.translations, ['summary']) }}#}
-{#                {{ translatableField.partialTranslations(form.translations, ['content']) }}#}
-{#                {{ translatableField.partialTranslations(form.translations, ['descriptions']) }}#}
-
-                {#                {{ translatableField.partialTranslations(form.translations, ['tags']) }}#}
-
-
-
-            </div>    
+                {{ translatableField.partialTranslations(form.translations, ['summary']) }}
+                {{ translatableField.partialTranslations(form.translations, ['content']) }}
+            </div>  
             <div class="col-md-6" >
                 <div class="m-form__section m-form__section">
                     <div class="m-form__heading">
                         <h3 class="m-form__heading-title">
-{#                            {{ form_label(form.img_office) }}#}
                             {{ form_label(form.photo) }}
                         </h3>
                     </div>
-
                     <div class="vich-attachment-list">
                         <div class="vich-attachment-item col-md-12">
                             {{ form_errors(form.photo) }}
@@ -54,17 +35,9 @@
             <div class="m-form__heading">
                 <h3 class="m-form__heading-title">
                     {{ 'forms.fieldsets.relations'|trans }}
-
-
                 </h3>
             </div>
-            {{ form_row(form.office) }}
-{#            {{ form_row(form.award) }}#}
-{#            {{ form_row(form.status) }}#}
-{#            {{ form_row(form.place) }}#}
-{#            {{ form_row(form.geographical_area) }}#}
-{#            {{ form_row(form.sap) }}#}
-            
+            {{ form_row(form.office) }}            
         </div>
     
         <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -79,8 +52,8 @@
             {{ form_row(form.languages) }}
             {{ form_row(form.regions) }}
             {{ form_row(form.published) }}
+            {{ translatableField.partialTranslations(form.translations, ['slug']) }}
         </div>
-
         <div class="m-form__section m-form__section--last">
             <div class="m-form__heading">
                 <h3 class="m-form__heading-title">
@@ -90,11 +63,10 @@
             {{ translatableField.partialTranslations(form.translations, ['metaTitle']) }}
             {{ translatableField.partialTranslations(form.translations, ['metaDescription']) }}
             {{ form_row(form.metaRobots) }}
-
-
         </div>
-
     </div>
+    {{ form_row(form._token) }}
+    {% do form.translations.setRendered %}
 </div>
 
 
