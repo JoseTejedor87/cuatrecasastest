@@ -42,6 +42,7 @@ use App\Entity\Slider;
 use App\Entity\Brand;
 use App\Entity\Home;
 use App\Entity\Question;
+use App\Entity\Region;
 
 
 class ImportCommand extends Command
@@ -907,7 +908,7 @@ class ImportCommand extends Command
         foreach ($items as $item) {
             $Region = new Region();
             $Region->setLanguages($item['lenguaje']);
-            $Region->setPrincipal($item['principal'] ? $item['principal'] : 0);
+            $Region->setPrincipal(isset($item['principal']) ? $item['principal'] : 0);
             self::setRegions($Region);
             foreach ($item['lenguaje'] as $currentLang) {
                 $Region->translate($currentLang)->setTitle($item['titulo']);
