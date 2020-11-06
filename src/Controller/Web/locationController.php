@@ -88,7 +88,7 @@ class locationController extends WebController
     }
 
 
-    public function detailOther(Request $request, RegionRepository $RegionRepository, AwardRepository $awardRepository, CaseStudyRepository $CaseStudyRepository, PublicationRepository $publicationRepository)
+    public function detailOther(Request $request, RegionRepository $RegionRepository, AwardRepository $awardRepository, NavigationService $navigation, CaseStudyRepository $CaseStudyRepository, PublicationRepository $publicationRepository)
     {
         
         $regiond = $RegionRepository->getInstanceByRequest($request);
@@ -98,7 +98,7 @@ class locationController extends WebController
         $lawyersid = array();
         foreach ( $offices as $key => $office) {
             foreach ($office->getLawyer() as $key => $value) {
-                if( $value->getPublished()){
+                if( $value->getPublished() && in_array($navigation->getRegion(), $value->getRegions()) && in_array($navigation->getLanguage(), $value->getLanguages())  ){
                     array_push( $lawyers, $value);
                     array_push( $lawyersid, $value->getId());
                 }

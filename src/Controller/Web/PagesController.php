@@ -18,6 +18,7 @@ class PagesController extends WebController
     public function detail(Request $request, PageRepository $PageRepository, CaseStudyRepository $caseStudyRepository,OfficeRepository $OfficeRepository,
      HomeRepository $homeRepository, NavigationService $navigation, PublicationRepository $publicationRepository)
     {
+  
         $page = $PageRepository->getInstanceByRequest($request);
         $home = $homeRepository->findOneBy(['id' => 1]);
         $relatedPublications = $publicationRepository->findByActivities('');
@@ -43,11 +44,7 @@ class PagesController extends WebController
         }
         $relatedPublications = array_values($relatedPublications);
         //dd($page->getBlocks()[0]);
-
         return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
-            'officesMapa' => isset($officeATest) ? json_encode($officeATest)  : '',
-            'officesMapaLabel' => isset($officeA) ? json_encode($officeA)  : '',
-            'offices' => isset($offices) ? $offices  : '',
             'page' => $page,
             'controller_name' => 'PageController',
             'home' => $home,
