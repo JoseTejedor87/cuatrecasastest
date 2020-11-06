@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </section>
-            <!-- <section class="row page__block">
+            {# <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
                         <h3 class="subsection__title">Puntos clave</h3>
@@ -101,7 +101,7 @@
                         </ul>
                     </div>
                 </div>
-            </section> -->
+            </section> #}
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
@@ -116,9 +116,9 @@
                             <div class="form-group flex-group">
                                 <div class="checkbox">
                                     <input id="data-privacy" name="data-privacy" type="checkbox">
-                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                    <label for="data-privacy" class="checkbox-label"><span>{{ 'footer.privacy.privacy' | trans }}</span></label>
                                 </div>
-                                <!-- <button type="submit" class="doble__arrow__link">Enviar</button> -->
+                                {# <button type="submit" class="doble__arrow__link">Enviar</button> #}
                                 <button class="btn btn__solid" type="submit">Enviar</button>
                             </div>
                         </form>
@@ -137,7 +137,7 @@
                                 </ul>
                             {% endif %}
                             <a href="#" class="btn btn__solid btn__solid--icon">
-                                Descarga el dossier
+                                {{ 'global.messages.dossier_download'|trans }}
                                 <span class="icon4-download"></span>
                             </a>
                         </div>
