@@ -29,13 +29,41 @@
 
             <div class="container">
 
-                <section class="row page__block noborder">
+                {# <section class="row page__block noborder">
                     <div class="col">
                         <div class="page__block__title page__block__title--article">
                             <p>{{ regiond.translate(app.request.getLocale()).summary|raw }}</p>
                         </div>
                         <div class="page__block__content page__block__content--article">
                             {{ regiond.translate(app.request.getLocale()).content|raw }}
+                        </div>
+                    </div>
+                </section> #}
+
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            {{ regiond.translate(app.request.getLocale()).summary|raw }}
+                        </div>
+                    </div>
+                </section>
+
+                <section class="row page__block--aside">
+                    <div class="page__block__content">
+                        {{ regiond.translate(app.request.getLocale()).content|raw }}
+                    </div>
+                    <div class="page__block__aside">
+                        <div class="page__aside">
+                            <h3 class="page__aside__title page__aside__title--specialties">{{ 'static.offices.title'|trans }}</h3>
+                            <ul class="page__aside__list--specialties">
+                            {% for key, office in regiond.office %}
+                                <li>
+                                    <a href="{{ path('offices_detail',{slug:office.slug }) }}">
+                                        {{ office.translate(app.request.getLocale()).city }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -57,9 +85,8 @@
              {# {% include 'web/shared-cmp/cases_CMP.html.twig' %} #}
             {# {% include 'web/shared/cases-offices.html.twig' %} #}
             {# {% include 'web/shared/cta-offices.html.twig' %} #}
-            {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %} 
-            {# cta_discover
-            call to action #}
+            {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %}
+            {# cta_discover call to action #}
 
         </article>
     </main>

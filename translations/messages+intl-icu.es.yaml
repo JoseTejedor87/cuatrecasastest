@@ -206,6 +206,7 @@ sections:
 # ###########################################
 static:
   offices:
+    title: Oficinas
     officeOthers: Otras regiones
     officeList: Listado de oficinas
     deskList: Listado de desk
