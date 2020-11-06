@@ -896,12 +896,12 @@ class ImportCommand extends Command
     public function Regions()
     {
         $this->em->getConnection()->executeQuery("DELETE FROM Region ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Region AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([RegionTranslation], RESEED, 1)");
 
         $this->em->getConnection()->executeQuery("DELETE FROM RegionTranslation ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE RegionTranslation AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([RegionTranslation], RESEED, 1)");
         $data = file_get_contents("JsonExports/regions.json");
         $items = json_decode($data, true);
 
