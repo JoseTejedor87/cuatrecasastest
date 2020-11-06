@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/estamos-en.jpg') }}'){% endif %} ">
+            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/cabecera_1920x1080_05_baja.jpg') }}'){% endif %} ">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -84,7 +84,7 @@
                 </div>
             </section>
 
-            {% include 'web/pages/custom/location/shared/awards-spain.html.twig' %}
+            {% include 'web/location/shared/awards-spain.html.twig' %}
             {#% include 'web/pages/custom/location/shared/cases-spain.html.twig' %#}
             {% include '/web/shared-cmp/cases_CMP.html.twig' %}
             {#% include 'web/pages/custom/location/shared/related-content-slider-spain.html.twig' %#}
@@ -92,7 +92,7 @@
             {% if relatedPublications|length > 0 %}
                 {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
             {% endif %}
-            {% include 'web/pages/custom/location/shared/info-spain.html.twig' %}
+            {% include 'web/location/shared/info-spain.html.twig' %}
 
         </article>
     </main>
