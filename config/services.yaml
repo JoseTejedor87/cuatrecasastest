@@ -76,7 +76,7 @@ parameters:
 
     # app.social.key: '%env(string:ADTHIS_ID)%
 
-    app.path.uploads.resources: '/resources'
+    app.path.uploads.resources: '%env(string:APP_ENV_VHOST)%/resources'
 
 services:
     # default configuration for services in *this* file
