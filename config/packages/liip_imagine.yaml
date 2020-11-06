@@ -85,7 +85,7 @@ liip_imagine:
 
         # LAWYERS
         lawyers_header:
-            quality: 75
+            quality: 100
             filters:
                 scale:
                     dim: [1800, 1000]
