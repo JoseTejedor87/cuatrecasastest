@@ -42,6 +42,7 @@ use App\Entity\Slider;
 use App\Entity\Brand;
 use App\Entity\Home;
 use App\Entity\Question;
+use App\Entity\Region;
 
 
 class ImportCommand extends Command
@@ -894,20 +895,20 @@ class ImportCommand extends Command
 
     public function Regions()
     {
-        $this->em->getConnection()->executeQuery("DELETE FROM region ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM Region ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Region AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([RegionTranslation], RESEED, 1)");
 
-        $this->em->getConnection()->executeQuery("DELETE FROM regiontranslation ");
-        // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        $this->em->getConnection()->executeQuery("DELETE FROM RegionTranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE RegionTranslation AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([RegionTranslation], RESEED, 1)");
         $data = file_get_contents("JsonExports/regions.json");
         $items = json_decode($data, true);
 
         foreach ($items as $item) {
             $Region = new Region();
             $Region->setLanguages($item['lenguaje']);
-            $Region->setPrincipal($item['principal'] ? $item['principal'] : 0);
+            $Region->setPrincipal(isset($item['principal']) ? $item['principal'] : 0);
             self::setRegions($Region);
             foreach ($item['lenguaje'] as $currentLang) {
                 $Region->translate($currentLang)->setTitle($item['titulo']);
