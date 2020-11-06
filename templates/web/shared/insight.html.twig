@@ -13,14 +13,14 @@
                             {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
                                 {{ insight.translate(InsightLanguague).title|raw }}
                             {% else %}
-                                Women in Business
+                                
                             {% endif %}
                         </h3>
-                        <a href="#" class="insight__link">
+                        <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="insight__link">
                             {% if insight is defined and insight.translate(InsightLanguague).summary != '' %}
                                 {{ insight.translate(InsightLanguague).summary|raw }}
                             {% else %}
-                                Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+                                
                             {% endif %}
                         </a>
                     </div>
@@ -29,7 +29,7 @@
                         <ul class="related__content related__content--lawyers">
                             {% for lawyer in insight.lawyers %}
                                 <li class="related__content__item">
-                                    <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
+                                    <a href="{{ path('lawyers_detail', { slug: lawyer.slug }) }}" class="related__content__link">
                                         {{ lawyer.name }}
                                         {{ lawyer.surname }}
                                     </a>
