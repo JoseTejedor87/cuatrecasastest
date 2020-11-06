@@ -157,6 +157,7 @@ sections:
       index:
         title: Conocimiento
         type: Tipo de Publicación
+        legislation: Legislación
       new:
         title: Nuevo Conocimiento
       edit:

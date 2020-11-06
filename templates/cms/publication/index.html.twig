@@ -72,7 +72,35 @@
                     </li>
                 </ul>
             <div class="m-portlet m--padding-15" >
-
+                    {{ form_start(formForFilterView) }}
+                        <div class="row">
+                            <div class="col-md-5">
+                                {{ 'entities.event.fields.title'|trans }}
+                                {{ form_row(formForFilterView.title) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ 'entities.filter.fechaDesde'|trans }}
+                                {{ form_row(formForFilterView.fechaDesde) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{'entities.filter.fechaHasta'|trans}}
+                                {{ form_row(formForFilterView.fechaHasta) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ 'sections.publication.index.type'|trans }}
+                                {{ form_row(formForFilterView.type) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{'sections.publication.index.legislation'|trans}}
+                                {{ form_row(formForFilterView.legislation) }}
+                            </div>
+                            <div class="col-md-2">
+                                <p>
+                                {{ form_row(formForFilterView.send) }}
+                                </p>
+                            </div>
+                        </div>
+                    {{ form_end(formForFilterView) }}
                 </div>
             </div>
         </div>

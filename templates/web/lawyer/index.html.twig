@@ -180,7 +180,7 @@
 
 {% if countLawyers == '' %}
 {% if relatedPublications|length > 0 %}
-{% include 'web/shared/related-content-slider.html.twig' with { tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+{% include 'web/shared/related-content-slider.html.twig' with { title: 'global.messages.related_content'|trans, publications: relatedPublications } %}
 {% endif %}
 {% if insights|length > 0 %}
 {% include 'web/shared/insight.html.twig'  with {insight: insights|first}  %}
