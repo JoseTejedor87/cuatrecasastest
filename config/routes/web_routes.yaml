@@ -430,7 +430,7 @@ location:
         pt:   /location
         ge:   /location
     methods:    GET|POST
-    controller: App\Controller\Web\locationController::index
+    controller: App\Controller\Web\LocationController::index
 
 location_detail:
     path:
@@ -439,7 +439,7 @@ location_detail:
         pt:   /location/{slug}
         ge:   /location/{slug}
     methods:    GET|POST
-    controller: App\Controller\Web\locationController::detail
+    controller: App\Controller\Web\LocationController::detail
 
 location_other:
     path:
@@ -448,7 +448,7 @@ location_other:
         pt:   /locationother
         ge:   /locationother
     methods:    GET|POST
-    controller: App\Controller\Web\locationController::indexOther   
+    controller: App\Controller\Web\LocationController::indexOther   
 
 location_other_detail:
     path:
@@ -457,7 +457,7 @@ location_other_detail:
         pt:   /locationother/{slug}
         ge:   /locationother/{slug}
     methods:    GET|POST
-    controller: App\Controller\Web\locationController::detailOther
+    controller: App\Controller\Web\LocationController::detailOther
 
 # PAGES FIRM
 # ###########################################

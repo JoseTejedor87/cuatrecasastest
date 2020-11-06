@@ -66,7 +66,8 @@
             <section class="foto__mapa" style="background-image: url('{{ asset('web/assets/img/mapa-vision-general.png') }}')">
             </section>
 
-            {% include 'web/shared/offices.html.twig' %}
+            {#% include 'web/shared/offices.html.twig' %#}
+            {% include 'web/shared-cmp/offices-links_CMP.html.twig' %}
 
             <section class="tabs__component" id="tabsToAccordion">
                 <div class="tabs__component__full">
@@ -107,8 +108,8 @@
         </article>
     </main>
 
-    {% include 'web/shared/cases_CMP.html.twig' %}
-    {% include 'web/shared/call-to-action.html.twig' %}
+    {% include 'web/shared-cmp/cases_CMP.html.twig' %}
+    {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %}
 
 {% endblock %}
 
