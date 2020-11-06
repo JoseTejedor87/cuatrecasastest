@@ -6,11 +6,13 @@
 {% endblock %}
 
 {% block main %}
-
+{% if  headerImage == '' %}
+    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
+{% endif %}
     <main role="main">
         <article class="container" itemscope itemtype="http://schema.org/Article">
 
-            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title"  itemprop="name">
@@ -39,12 +41,12 @@
                     <div class="page__block__title page__block__title--article" itemprop="articleBody" >
                         <span style="display:none;" itemprop="datePublished">{{ publication.getPublicationDate |date("Y-m-d\\TH:i:s") }}</span>
                         <p itemprop="about">{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
-                        <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo ) | imagine_filter('article_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo ) | imagine_filter('publication_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
 
                         {# duplicated block desktop / mobile #}
                         <div class="article__details desktop" >
                             {% for attachment in attachmentPublished %}
-                                {% if attachment.type == 'article_dossier'%}
+                                {% if attachment.type == 'publication_dossier'%}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>
@@ -88,7 +90,7 @@
                         {% if publication.urlVideo != ''  %}
                             {% include 'web/shared/video-article.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
                         {% endif %}
-                        <!-- <img src="{{ asset('web/assets/img/la-firma.jpg') }}" alt=""> -->
+                        <!-- <img src="{#{ asset('web/assets/img/la-firma.jpg') }#}" > -->
                         <div class="read__more" itemprop="description">
                             {{ publication.translate(app.request.getLocale()).content|raw }}
                         </div>
@@ -96,7 +98,7 @@
                         {# duplicated block desktop / mobile #}
                         <div class="article__details mobile">
                             {% for attachment in attachmentPublished %}
-                                {% if attachment.type == 'article_dossier'%}
+                                {% if attachment.type == 'publication_dossier'%}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     Descarga el dossier
                                     <span class="icon4-download"></span>

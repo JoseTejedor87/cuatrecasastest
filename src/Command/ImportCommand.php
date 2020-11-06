@@ -215,6 +215,9 @@ class ImportCommand extends Command
                 case "pages":
                     $this->Pages();
                 break;
+                case "regions":
+                    $this->Regions();
+                break;
                 case "banner":
                     $this->Banner();
                 break; 
@@ -889,6 +892,36 @@ class ImportCommand extends Command
         }
     }
 
+    public function Regions()
+    {
+        $this->em->getConnection()->executeQuery("DELETE FROM region ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE Page AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM regiontranslation ");
+        // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        $data = file_get_contents("JsonExports/regions.json");
+        $items = json_decode($data, true);
+
+        foreach ($items as $item) {
+            $Region = new Region();
+            $Region->setLanguages($item['lenguaje']);
+            $Region->setPrincipal($item['principal'] ? $item['principal'] : 0);
+            self::setRegions($Region);
+            foreach ($item['lenguaje'] as $currentLang) {
+                $Region->translate($currentLang)->setTitle($item['titulo']);
+                $Region->translate($currentLang)->setSummary($item['summary']);
+                $Region->translate($currentLang)->setContent($item['content']);
+            }
+            $Region->setPublished(true);
+            $Region->mergeNewTranslations();
+            $this->em->persist($Region);
+            $this->em->flush();
+            $this->logger->debug("Region ".$Region->getId());
+        }
+    }
+
     public function Brand(){
 
         ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
@@ -1010,7 +1043,7 @@ class ImportCommand extends Command
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Lawyer], RESEED, 1)");
         // // $this->em->getConnection()->executeQuery("DELETE FROM [Office] ");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Resource] WHERE lawyer_id IS NOT NULL");
-        // //$this->em->getConnection()->executeQuery("DELETE FROM [article_person]");
+        // //$this->em->getConnection()->executeQuery("DELETE FROM [publication_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [event_person]");
         // $this->em->getConnection()->executeQuery("DELETE FROM [Person]");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Person], RESEED, 1)");

@@ -295,11 +295,14 @@
                     display: inline-block;
                     margin: 0 0;
                     padding: 14px 4px 10px;
-
                     @include fontSet(16px, 16px);
                     @include classic-link($complementary-color, $main-color, $border: false);
                     font-weight: bold;
                     text-transform: uppercase;
+
+                    &.revolution {
+                        text-transform: none;
+                    }
 
                     @include on-event() {
                         text-decoration: none;
@@ -881,6 +884,10 @@
             @include fontSet(16px, 36px);
             font-weight: bold;
             text-transform: uppercase;
+
+            &.revolution {
+                text-transform: none;
+            }
 
             @include on-event() {
                 color: inherit;

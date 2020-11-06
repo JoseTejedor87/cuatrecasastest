@@ -44,7 +44,7 @@
                                 <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
+                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link revolution">{{ 'menu.career.revolution'|trans }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link">{{ 'menu.career.learn'|trans }}</a>
@@ -66,7 +66,7 @@
         {% include 'web/pages/custom/talent/shared/info-join.html.twig' %}
         {# {% include 'web/pages/custom/talent/shared/related-content-slider_Join.html.twig' %} #}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.news_content'|trans,classTittle: '--recomended',publications: relatedPublications }  %}
         {% endif %}
         {# {% include 'web/career/shared/info-career-join.html.twig' %} #}
 

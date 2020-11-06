@@ -70,7 +70,7 @@
     }
 
     @include has("title") {
-        @include fontSet(58px, 58px);
+        @include fontSet(48px, 52px);
         color: $complementary-color;
 
         @include when-inside(".cta--fundation") {
@@ -84,7 +84,7 @@
 
     @include has("excerpt") {
         margin-bottom: 2rem;
-        @include fontSet(58px, 58px);
+        @include fontSet(48px, 52px);
         color: $white;
 
         @include when-inside(".cta--fundation") {

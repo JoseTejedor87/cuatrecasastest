@@ -26,9 +26,9 @@
                             {# <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_02_1920x1080.png') }}')"></div> #}
 
                             {% if key is odd  %}
-                                <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
+                                <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                             {% else %}
-                                <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
+                                <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                             {% endif %}
 
                         </a>

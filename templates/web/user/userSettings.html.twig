@@ -1,9 +1,5 @@
 {% extends 'web/base.html.twig' %}
 
-{% block stylesheets %}
-<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block main %}
 
     <main role="main">
@@ -78,7 +74,8 @@
                                         <input type="text" class="form-control" name="eAddress" id="eAddress" placeholder="Direccion *" value="{{ contacto.Direccion is defined ? contacto.Direccion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select name="eCountry" id="eCountry"  class="custom-select form-control" data-style="btn-custom"   data-width="100%" data-size="5" title="País *">
+                                        <select name="eCountry" id="eCountry" class="form-control custom-select" required>
+                                            <option value="" selected disabled>País *</option>
                                             {% if paises|length > 0 %}
                                                 {% for value in paises %}
                                                     {% if value['IdPais'] %}
@@ -92,34 +89,35 @@
                                         <input type="text" class="form-control" name="eTown" id="eTown" placeholder="Población *" value="{{ contacto.Poblacion is defined ? contacto.Poblacion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <select id="eRegion" class="form-control custom-select " data-style="btn-custom" data-width="100%" data-size="5" title="Provincia *" required>
+                                        <select id="eRegion" class="form-control custom-select" required>
                                             <option value="" selected disabled>Provincia *</option>
-                                            {% if contacto.ProvinciaId is defined %}
-                                            {% if provincias|length > 0 %}
-                                                {% for value in provincias %}
-                                                    {% if value['IdProvincia'] %}
-                                                        <option {{ contacto.ProvinciaId is defined ? contacto.ProvinciaId==value['IdProvincia'] ? 'selected' : ''}} value="{{ value['IdProvincia'] }}">{{ value['Nombre'] }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% endif %}
-                                            {% endif %}
+                                {% if contacto.ProvinciaId is defined %}
+                                {% if provincias|length > 0 %}
+                                    {% for value in provincias %}
+                                        {% if value['IdProvincia'] %}
+                                            <option {{ contacto.ProvinciaId is defined ? contacto.ProvinciaId==value['IdProvincia'] ? 'selected' : ''}} value="{{ value['IdProvincia'] }}">{{ value['Nombre'] }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                {% endif %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 ">
                                     <div class=" form-group">
-                                        <select name="eLang" id="eLang" class="custom-select  form-control" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
-                                            {% if idiomas|length > 0 %}
-                                                    {% for value in idiomas %}
-                                                        {% if value['IdIdioma'] %}
-                                                            <option {{ contacto.IdiomaId is defined ? contacto.IdiomaId==value['IdIdioma'] ? 'selected' : ''}} value="{{ value['IdIdioma'] }}">{{ value['Nombre'] }}</option>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% endif %}
+                                        <select name="eLang" id="eLang" class="form-control custom-select" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
+                                            <option value="" selected disabled>Idioma *</option>
+                                {% if idiomas|length > 0 %}
+                                    {% for value in idiomas %}
+                                        {% if value['IdIdioma'] %}
+                                            <option {{ contacto.IdiomaId is defined ? contacto.IdiomaId==value['IdIdioma'] ? 'selected' : ''}} value="{{ value['IdIdioma'] }}">{{ value['Nombre'] }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                                         </select>
                                     </div>
                                     <div class=" form-group">
-                                            <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="Código postal *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
+                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="Código postal *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
                                     </div>
                                 </div>
 
@@ -158,21 +156,28 @@
                 <div class="row page__block--privacy">
                     <div class="col-12 privacy__text">
                         <h4 class="section__title section__title--main">{{ 'userForm.data.title'|trans }}</h4>
+                        <p><strong>Información sobre el tratamiento de sus datos personales</strong></p>
                         <p>
-                        <b>Información sobre el tratamiento de sus datos personales</b></p>
-                        <p>
-                        <b>Responsable del tratamiento:</b> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
-                        <b>Finalidades:</b> : gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
-                        <b>Legitimación:</b> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
-                        <b>Destinatarios:</b> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
-                        <b>Derechos:</b> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a target="_blank" href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">la política de privacidad</a>.
+                            <strong>Responsable del tratamiento:</strong> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
+                            <strong>Finalidades:</strong> : gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
+                            <strong>Legitimación:</strong> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
+                            <strong>Destinatarios:</strong> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
+                            <strong>Derechos:</strong> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a target="_blank" href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">la política de privacidad</a>.
                         </p>
+
+                        <p>{{ 'Please read our %link_start%privacy policy%link_end%' | trans({'%link_start%' : '<a href="'~path('privacyPolicy')~'">', '%link_end%' : '</a>'}) | raw }}</p>
+
+                        <p>{{ 'probando' | trans({'%link_start%' : '<a href="'~path('privacyPolicy')~'">', '%link_end%' : '</a>'}) | raw }}</p>
+
+                        <p>{{ 'Please read our %privacyPolicy%'|trans({'%privacyPolicy%': '<a href="' ~ path('privacyPolicy') ~ '"> ' ~ 'Privacy Policy'|trans ~ '</a>'})|raw }}</p>
+
                     </div>
                     <div class="col-12 privacy__confirm">
                         <div class="form-group">
                             <div class="checkbox">
                                 <input name="accept" type="checkbox" {{ contacto.GDPR is defined ? contacto.GDPR ? 'checked' : ''}} id="accept" required>
-                                <label  class="checkbox-label" for="accept"><span>He leído y acepto las <a href="#">Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a></span></label>
+                                <label  class="checkbox-label" for="accept"><span>He leído y acepto las <a href="{{ path('webUse') }}">Condiciones de Uso</a> y la <a href="{{ path('privacyPolicy') }}">Política de Privacidad</a></span></label>
+                                <div class="invalid-feedback">{{ 'global.forms.mandatory_field' | trans }}</div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -182,7 +187,7 @@
                             </div>
                         </div>
                         <div class="button__wrapper">
-                            <button type="submit"  class="btn btn__solid btn__solid--icon" id="formSubmit">Guardar <span class="material-icons">save</span></button>
+                            <button type="submit"  class="btn btn__solid btn__solid--icon" id="formSubmit">{{ 'global.forms.save' | trans }} <span class="material-icons">save</span></button>
                         </div>
                     </div>
                 </div>
@@ -190,9 +195,9 @@
 
         </article>
     </main>
-<!-- Loader -->
+{# Loader #}
 <div class="search__component__loader" style="display:none">
-    <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+    <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="loading">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
         <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
             <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -202,7 +207,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script>
     $(function () {

@@ -1,6 +1,9 @@
 # Global
 # ###########################################
 global:
+  calendar:
+    month: Month
+    year: Year
   home: Home
   goBack: Back
   languages:
@@ -30,6 +33,7 @@ global:
     error_404_button: Volver al inicio
     alternative_urls: This document is not available for the language and region selected, please try it with these alternative links
     show_filters: Show filters
+    apply_button: Aplicar
     load_more: Load more
     show_more: Show more
     show_less: Show less
@@ -42,6 +46,41 @@ global:
     view_all_events: View all events
     slider_next: Next
     related_content: Related content
+    featured_content: Contenido Destacado
+    news_content: Actualidad
+    our_recomendation: Te recomendamos
+    empty_results: No se han encontrado resultados para la búsqueda realizada
+  forms:
+    search: Buscar
+    save: Guardar
+    inscription: Inscribirme
+    mandatory_field: Campo obligatorio
+
+##COOKIES
+##############################################
+ch_cookie_consent:
+  title: ''
+  intro: 'Utilizamos cookies propias y tecnologías analíticas de terceros para identificar sus hábitos de navegación y poder ofrecer nuestros contenidos en función de sus intereses, mejorando al mismo tiempo su seguridad. Para obtener más información, seleccione "más información" para acceder a nuestra política de cookies para habilitar o deshabilitar las cookies en cualquier momento.'
+  read_more: 'Más información'
+  analytics:
+    title: '¿Quieres cookies analíticas?'
+    description: ''
+  tracking:
+    title: '¿Quieres cookies de seguimiento?'
+    description: ''
+  marketing:
+    title: '¿Quieres anuncios personalizados?'
+    description: ''
+  social_media:
+    title: '¿Quieres cookies de redes sociales?'
+    description: ''
+  no: 'No'
+  yes: 'Si'
+  save: 'Guardar'
+  use_only_functional_cookies: 'Utilice solo cookies funcionales'
+  use_all_cookies: 'Permitir todas las cookies'
+  show_details: 'Mostrar detalles'
+  hide_details: 'Ocultar detalles'
 
 # Sections
 # ###########################################
@@ -110,6 +149,13 @@ static:
     vision_intro: “A través de una red de 20 oficinas, cubrimos España, Portugal y Latinoamérica. Tenemos oficinas de representación en UK, US, Asia y Africa y, mediante nuestra alianza europea con firmas líderes en Alemania, Francia e Italia, contamos con más de 2.000 abogados y 28 oficinas en Europa continental.”
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
+    content: <p>En la actualidad existe una carencia en España de foros de innovación estratégica en recursos humanos, en especial en aquellas materias sociolaborales que van a marcar el desarrollo futuro de las empresas en un contexto de innovación y globalización constantes.</p>
+            <p>Por esta razón se ha creado el Instituto Cuatrecasas de Estrategia Legal en RRHH.</p>
+            <p>Se constituye, así, un foro de innovación legal que contribuya a la toma de decisiones en el medio y largo plazo por parte de las empresas de mayor importancia a nivel español e internacional, así como por otros operadores del mercado de trabajo, ofreciéndoles la posibilidad de colaborar estrechamente con ellas en la identificación de respuestas estratégicas legales adecuadas, desde una perspectiva práctica de las relaciones laborales y teniendo muy presente el contexto de globalización.</p>
+            <p>El Instituto cuenta con un Consejo Asesor, integrado por un selecto grupo de Senior Managers de recursos humanos y Directores de Departamentos legales, o profesionales de nivel similar, de grandes empresas, de reconocido prestigio y con larga trayectoria en las distintas vertientes de este área, cuyo papel esencial se desarrolla al nivel más elevado de elaboración y operatividad estratégica.</p>
+            <p>El Instituto se caracteriza por facilitar un ámbito proactivo de búsqueda de innovación en la ordenación de lo que se considera que es, y será, un elemento diferencial en la competitividad de las empresas:&nbsp;su capital humano.</p>
+            <p>Es también un punto de encuentro con otros operadores en recursos humanos que, de forma directa e indirecta, condicionan la toma de decisiones en este campo, a saber, y entre otros, con los máximos responsables de las Administraciones Públicas en sus distintos ámbitos (General, Autonómica o Institucional), responsables de Grupos Políticos que deseen desarrollar visiones estratégicas en el área sociolaboral, representantes sindicales de primer nivel y con otras instituciones y creadores de opinión en los medios de comunicación sociales.</p>
+            <p>El Instituto está presidido por Salvador del Rey Guanter, Socio del Área Laboral de Cuatrecasas y Catedrático de Derecho del Trabajo y de la Seguridad Social. Su Director es Guillermo Tena, Consejero de Cuatrecasas.</p>
 
 # User Settings
 # ###########################################
@@ -133,26 +179,26 @@ userForm:
 # Menu
 # ###########################################
 menu:
-  knowledge: Conhecimento
-  lawyers: Advogados
-  services: Serviços
-  sectors: Sectores
+  knowledge: Knowledge
+  lawyers: Lawyers
+  services: Services
+  sectors: Sectors
   career:
-    career: Talento
+    career: Talent
     live: Live Cuatrecasas
-    revolution: Revolution
+    revolution: rEvolution
     learn: Learn with the best
     international: International Career
     join: Join Us
   offices:
-    offices: Territórios
+    offices: Location
     vision: Overview
     spain: Spain
     portugal: Portugal
     latam: Latin America
     other: Other regions
   firm:
-    firm: Sociedade
+    firm: Firm
     vision: Overview
     social: Social
     environment: Environment
@@ -184,9 +230,9 @@ footer:
   privacy:
     site_map: Site map
     web_use: Terms of Use
-    privacy: Privacy policy
+    privacy: Privacy Policy
     cookies: Cookies Policy
-    security: Information security policy
+    security: Information Security Policy
     rss: RSS
     contact: Contact us
 
@@ -492,13 +538,17 @@ firm:
       title: Comité de igualdad
       content: La firma trabaja con firmeza y determinación para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres. La Comisión de Igualdad ha trazado el Plan de Igualdad para este fin y para promocionar el talento femenino.
       link: 18 medidas
-    art_3:
+
+# asociations
+  asociations_social:
+    title: Asociaciones
+    art_1:
       title: Adhesión a Redi
       content: En julio de 2019 nos adherimos a REDI, red de profesionales y expertos en diversidad y recursos humanos interesados en promover la inclusión LGBTI en el contexto empresarial.
-    art_4:
+    art_2:
       title: Prevención del acoso
       content: La aprobación del Código de Prevención del Acoso supone un fortalecimiento de las normas y mecanismos utilizados hasta la fecha para resolver conflictos internos. Además, la firma cuenta con un canal de denuncias que permite comunicar, de manera confidencial, conductas presuntamente irregulares que puedan suponer un incumplimiento de nuestro código ético.
-    art_5:
+    art_3:
       title: Inclusión
       content: Cumplimos las obligaciones derivadas de la LGDP a través de la contratación directa (el 0,71% de la plantilla) y de medidas alternativas para su cumplimiento. Hemos apostado por la contratación de CETs durante el 2019 con una aportación de 571.169€. Además, disponemos del certificado plata Discert como empresa responsable con la accesivilidad universal de las personas con discapacidad.
 
@@ -663,79 +713,125 @@ career:
     author: Ignacio Buil
     position: Director oficina Londres
 
-  quote_2:
-    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+  quote_revolution:
+    title: Pendiente.
     author: Ignacio Buil
     position: Director oficina Londres
 
-  quote_3:
-    title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+  quote_learn:
+    title: Pendiente.
     author: Ignacio Buil
     position: Director oficina Londres
+
+  quote_join:
+    title: titular del video
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_international:
+    title: Quote resumen ppai.
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  quote_international_2:
+    title: Quote titular del video
+    author: Ignacio Buil
+    position: Director oficina Londres
+
+  # International Career
+  international_career:
+    title: International Career
+    block_1:
+      content: Más de XXXX experiencias internacionales de nuestos abogados en 2019. Apostamos por la movilidad de nuestros abogados entre las distintas oficinas y con otros despachos con los que existen acuerdos de colaboración.
+    block_2:
+      content: Titular extraido del video + Video de testimonio de un Secondment.
+    quote:
+      title: Si tienes un proyecto en el que crees y por el que apostar, el despacho apuesta por ti.
+      author: Ignacio Buil
+      position: Director oficina Londres
+
+  related_content:
+    title: Actualidad
+    title_join: Actualidad y eventos
 
   learn:
-    intro: Learn lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
-    content:
-      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
-      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+    cases:
+      title: Our work
+      art_1:
+        title: Pendiente MKT
+      art_2:
+        title: Pendiente MKT
+      art_3:
+        title: Pendiente MKT
+
+    intro: Cuatrecasas es tu mejor escuela. Aquí podrás formarte, potenciar tu desarrollo y superarte continuamente. Por ello te pediremos que seas dinámico y aproveches todos los medios que el despacho pone a tu disposición.
 
   international:
-    intro: International lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, libero, quam fugit id eaque, placeat, similique saepe nostrum sequi dolorem. Velit sequi est aspernatur, mollitia. Veritatis natus itaque sunt exercitationem.
+    cases:
+      title: Our work
+      art_1:
+        title: Este contido irá por etiquetas (Casos destacados)
+      art_2:
+        title: Este contido irá por etiquetas (Casos destacados)
+      art_3:
+        title: Este contido irá por etiquetas (Casos destacados)
+
+    intro: Introducción lorem ipsum dolor sit amet consectetur adipisicing elit.
     content:
-      txt_1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque viverra mauris. Id ornare arcu odio ut sem nulla pharetra diam sit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. At tellus at urna condimentum mattis pellentesque id. Eveniet, alias doloribus. Dignissimos praesentium sint voluptatem maxime esse commodi, quo eveniet nostrum, iusto nesciunt illum officia earum, excepturi vitae quam adipisci.
-      txt_2: Fringilla ut morbi tincidunt augue interdum velit euismod in. Rutrum tellus pellentesque eu tincidunt tortor aliquam. Consequat ac felis donec et odio pellentesque. Convallis convallis tellus id interdum velit. Sociis natoque penatibus et magnis dis parturient.
+      txt_1: Introducción lorem ipsum dolor sit amet consectetur adipisicing elit. Quod dolorem a nisi nihil, qui mollitia ab, fugiat doloribus vero incidunt vel blanditiis sint accusamus repudiandae impedit maxime amet eius necessitatibus.
+      txt_2: Introducción lorem ipsum dolor sit amet consectetur adipisicing elit. Quod dolorem a nisi nihil, qui mollitia ab, fugiat doloribus vero incidunt vel blanditiis sint accusamus repudiandae impedit maxime amet eius necessitatibus.
 
 # colections
   collections_career_home:
     art_1:
       title: Vive Cuatrecasas
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: No te pongas limites, vive la experiencia Cuatrecasas. Encontraras un excelente ambiente de trabajo y un gran compañerismo para que des lo mejor de ti.
     art_2:
       title: Revolución
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Apostamos por una forma de trabajar distinta, aplicando la última tecnología disponible y una metodología de gestión de proyectos innovadora.
 
   collections_career_international:
     art_1:
       title: What we look for
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: titular del video socio CINC
     art_2:
-      title: Our practice areas
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Áreas de práctica
+      content: (*) ¡Conoce nuestras áreas de práctica, los sectores de especialización y nuestros desks!
 
 # info boxes
   info_join_us:
     title: Únete a nosotros
     art_1:
-      title: Graduados
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Prácticas
+      content: Si eres estudiante de últimos cursos de Grado o Máster y deseas tener una primera experiencia profesional, envíanos tu CV.
     art_2:
       title: Abogados
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Si eres abogado, quieres formar parte de un gran quipo y participar en asuntos de primer nivel, (1) envianos tu cv y (2) consulta aquí nuestras vacantes.
     art_3:
       title: Profesionales de organización
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Si quieres formar parte de nuestro excelente equipo corporativo, sea cual sea tu area de especialidad, en ámbito nacional o internacional (1) envianos tu cv o (2) consulta nuestras vacantes.
 
   info_live:
     art_0:
       title: Well Being
-      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+      content: No todo es trabajar. Conoce nuestras secciones de deporte, tiempo libre y salud.
     art_1:
-      title: Environmental
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Mediambiente
+      content: Conoce las medidas que nos han ayudado a reducir el impacto de nuestra actividad en el medioambiente.
     art_2:
       title: Social
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Descubre nuestro programa Pro Bono, el buque insignia de nuestra acción social, y nuestras iniciativas de impacto social positivo.
     art_3:
-      title: Governance
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Buen gobierno
+      content: En nuestras relaciones internas respetamos nuestros valores como pautas de convivencia y garantía del mejor servicio a nuestros clientes. Accede a nuestra política de buen gobierno y cumplimiento normativo.
 
   info_revolution:
     art_0:
       title: Diversidad
-      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+      content: Apostamos por la diversidad cultural, sexual, generacional y de género a través de iniciativas que promueven la inclusión en el entorno laboral.
     art_1:
-      title: Environmental
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Innovación
+      content: Somos pioneros en la búsqueda de soluciones jurídicas para nuevos modelos de negocio. Apostamos por un ambicioso plan de capacitación tecnológica, invertimos en las herramientas más avanzadas y contamos con un equipo interno de conocimiento e innovación que ofrecen soluciones innovadoras con un enfoque interdisciplinar.
     art_2:
       title: Social
       content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -749,25 +845,25 @@ career:
       content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
     art_1:
       title: Tech Channel
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Accede a nuestro canal de innovación y conocimiento jurídico más disruptivo.
     art_2:
       title: Premio FT
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: En 2019 y 2018 fuimos reconocidos por Financial Times Innovative Lawyers como la Firma más Innovadora de Europa continental.
     art_3:
       title: Acelera Ventures
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Fuimos la primera firma en crear un vehículo de inversión especializado en startups del ámbito legaltech.
 
   info_learn:
     title: Special Programs
     art_1:
-      title: Compendio
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Plan Mentor
+      content: Pendiente formación.
     art_2:
-      title: Plan mentor
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      title: Legal+
+      content: Pendiente formación.
     art_3:
       title: Metas volantes
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: Pendiente formación.
     art_4:
       title: PPAI
       content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -778,41 +874,43 @@ career:
   info_international:
     art_0:
       title: Secondments
-      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, sunt, rerum possimus minus mollitia explicabo perferendis voluptatibus aut id amet.
+      content: ¿sin texto?
     art_1:
       title: PPAI
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: PPAI video.
 
   info_join:
     art_0:
       title: Programas de prácticas
-      content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum odio nobis ut repellat at eligendi deserunt, perferendis voluptatibus aut id amet.
+      content: (*) Más de 360 estudiantes en prácticas en 2019 en territorio nacional e internacional, procedentes de más de 60 universidades, integrados en 20 oficinas de 6 países diferentes.
+      content_2: Ofrecemos programas de prácticas para estudiantes de Derecho, Master de Acceso a la abogacía y en nuestros equipos corporativos.
     art_1:
       title: Our organization
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      content: En Cuatrecasas contamos con con los mejores profesionales del mercado, lideres en todas las áreas de práctica.
+      content_2: Entra para conocer cómo estamos organizados.
     art_2:
       title: Nuestro proceso
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+      content: ¿Quieres formar parte de nuestro equipo? Conoce nuestro proceso de selección.
     art_3:
       title: FAQs
-      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+      content: ¿Tienes alguna duda? Consulta las más frecuentes
 
 # banners CTA
   cta_learn:
     title: Aprende con los mejores
-    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    content: Cuatrecasas es tu mejor escuela. Aquí podrás formarte, potenciar tu desarrollo y superarte continuamente. Sé dinámico y aprovecha todos los medios que el despacho pone a tu disposición.
 
   cta_live:
-    title: Lorem ipsum dolor
-    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    title: Alumni
+    content: Pendiente introducción hasta que sepamos contenido MKT.
 
   cta_school:
     title: Escuela de derecho
-    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    content: Pendiente formación.
 
   cta_international:
     title: Donde estamos
-    content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    content: Descubre la red de oficinas nacionales e internacionales de Cuatrecasas.
 
   cta_video:
     title: Lorem, ipsum dolor sit amet, consectetur vídeo de 10 años

@@ -9,13 +9,13 @@
                             {% for award in awards %}
                             {% if award %}
                                 {% if award.image %}
-                                    {% set photo_path = asset('/resources/' ~ award.image.getFileName) | imagine_filter('logo_awards') %}
+                                    {% set photo_path = asset('/resources/' ~ award.image.getFileName) %}
                                 {% endif %}
                             {% endif %}
                             <div class="swiper-slide">
                                 <figure class="awards__wrapper">
                                     {% if award.image is not null %}
-                                    <img src="{{  (photo_path is defined) ? photo_path : ""}}" class="awards__logo" alt="Nombre Empresa">
+                                    <img src="{{  (photo_path is defined) ? photo_path : ""}}" class="awards__logo" alt="{{ award.translate(app.request.getLocale()).title }}">
                                     {% endif %}
                                     <div class="awards__title">{{ award.translate(app.request.getLocale()).title }}</div>
                                     <div class="awards__date">{{ award.translate(app.request.getLocale()).granted }}</div>

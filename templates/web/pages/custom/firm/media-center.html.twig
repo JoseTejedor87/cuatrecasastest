@@ -13,9 +13,7 @@
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
                         <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
-                        <h1 class="lawyer__page__region">
-                            Centro de medios
-                        </h1>
+                        <h1 class="lawyer__page__region">{{ 'menu.media_center'|trans }}</h1>
                     {% include 'web/base/social-share.html.twig' %}
                     </div>
                     <div class="col-md-5">
@@ -31,7 +29,7 @@
                     <div class="col search_box__wrapper">
                         <div class="search_box__name search_box__name--full">
                             <form action="" method="get">
-                                <input type="text" class="form-control" placeholder="Buscar" name="initial">
+                                <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" name="initial">
                                 <div class="input-group">
                                     <button class="search_box__button" type="submit">
                                         <span class="icon4-lupa"></span>
@@ -43,7 +41,7 @@
                 </section>
                 <section class="row page__section page__section--fullbg">
                     <div class="col-12">
-                        <h4 class="section__title section__title--recomended">Actualidad</h4>
+                        <h4 class="section__title section__title--recomended">{{ 'global.messages.news_content'|trans }}</h4>
                     </div>
                     <div class="col-12">
                         <div class="grid__masonry">

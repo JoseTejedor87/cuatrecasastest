@@ -16,18 +16,15 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Próximos eventos
+                            {{ 'sections.events.next_events' | trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Conocimiento</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Eventos
+                                    {{ 'sections.events.title' | trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -44,7 +41,7 @@
                                 <div class="search_box__wrapper">
                                     <div class="search_box__name search_box__name--full">
                                         <form >
-                                            <input type="text" class="form-control" placeholder="Buscar" id="title">
+                                            <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" id="title">
                                             <div class="input-group">
                                                 <button class="search_box__button" type="button">
                                                     <span class="icon4-lupa"></span>
@@ -58,7 +55,7 @@
                                 </div>
                                 <div class="search_selects filtersToggle">
                                     <select id="office" class="custom__select">
-                                        <option disabled selected>Lugar</option>
+                                        <option disabled selected>{{ 'sections.events.filters.lugar'|trans }}</option>
                                         {% for office in offices %}
                                             {% if office.translate(app.request.getLocale()).city  %}
                                                 <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
@@ -66,7 +63,7 @@
                                         {% endfor %}
                                     </select>
                                     <select id="activity" class="custom__select">
-                                        <option disabled selected>Expertise</option>
+                                        <option disabled selected>{{ 'sections.events.filters.expertise'|trans }}</option>
                                         {% for activity in activities %}
                                             {% if activity.translate(app.request.getLocale()).title  %}
                                                 <option value="{{activity.id}}">{{ activity.translate(app.request.getLocale()).title|raw  }}</option>
@@ -75,18 +72,18 @@
                                     </select>
                                     <select id="month" class="custom__select" >
                                         <option value="{{ "now"|date("m") }}" selected >{{ 'global.calendar.month' | trans }}</option>
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
+                                        <option value="1">{{ 'sections.events.filters.month.enero'|trans }}</option>
+                                        <option value="2">{{ 'sections.events.filters.month.febrero'|trans }}</option>
+                                        <option value="3">{{ 'sections.events.filters.month.marzo'|trans }}</option>
+                                        <option value="4">{{ 'sections.events.filters.month.abril'|trans }}</option>
+                                        <option value="5">{{ 'sections.events.filters.month.mayo'|trans }}</option>
+                                        <option value="6">{{ 'sections.events.filters.month.junio'|trans }}</option>
+                                        <option value="7">{{ 'sections.events.filters.month.julio'|trans }}</option>
+                                        <option value="8">{{ 'sections.events.filters.month.agosto'|trans }}</option>
+                                        <option value="9">{{ 'sections.events.filters.month.septiembre'|trans }}</option>
+                                        <option value="10">{{ 'sections.events.filters.month.octubre'|trans }}</option>
+                                        <option value="11">{{ 'sections.events.filters.month.noviembre'|trans }}</option>
+                                        <option value="12">{{ 'sections.events.filters.month.diciembre'|trans }}</option>
                                     </select>
                                     {% set actualYear =  "now"|date("Y") %}
                                     <select id="year" class="custom__select">
@@ -100,7 +97,6 @@
                         </div>
                     </div>
                     <!-- Selected tags -->
-                    <p></p>
                     <div class="col-12" id="checksOutput" style="display:none">
                         <span id="checkbox-tag-title" class="checkbox-tag" style="display:none">
                             <span class="tag-text"></span><button type="button" class="close-tag" data-value="title" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
@@ -118,20 +114,16 @@
                             <span class="tag-text"></span><button type="button" class="close-tag" data-value="year" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
                         </span>
                     </div>
-
                 </div>
-
-
-
             </section>
 
             {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
 
-            <!-- Calendar -->
+            {# Calendar #}
             <section class="event__wrapper">
                 <div class="row" id="gridFocus">
                     <div class="col">
-                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                        <h4 class="section__title section__title--events">{{ 'sections.events.list'|trans }}</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -147,14 +139,14 @@
            </section>
 
             {% if relatedPublications|length > 0 %}
-                {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.outstanding_content'|trans, publications: relatedPublications } %}
+                {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
             {% endif %}
         </article>
     </main>
     {% include 'web/shared/cta-footer.html.twig' %}
     {# Loader #}
     <div class="search__component__loader" style="display:none">
-        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="loading">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>

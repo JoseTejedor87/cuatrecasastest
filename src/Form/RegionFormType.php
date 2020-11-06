@@ -27,7 +27,7 @@ class RegionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('principal', CheckboxType::class, ['label'=>'entities.region.fields.principal'])
+            ->add('principal', CheckboxType::class, ['label'=>'entities.region.fields.principal','required' => false])
             ->add('office', EntityType::class, [
                 'class' => Office::class,
                 'label' => 'entities.region.fields.office',
@@ -39,37 +39,26 @@ class RegionFormType extends AbstractType
                 'expanded' => false,
                 'required' => false,
                 'choice_label' => function ($office) {
-                    return $office->getAddress();
+                    return $office->translate('es')->getCity();
                 }
             ])
-//            ->add('award', EntityType::class, [
-//                'class' => Award::class,
-//                'label' => 'entities.region.fields.award',
-//                'attr' => [
-//                    'class' => 'm-select2',
-//                    'data-allow-clear' => true
-//                ],
-//                'multiple' => true,
-//                'expanded' => false,
-//                'required' => false,
-//                'choice_label' => function ($award) {
-//                    return $award->translate('es')->getTitle();
-//                }
-//            ])
+
             ->add('photo', ResourceFormType::class, [
                 'label'=>'entities.region.fields.photo'
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
-//            ->add('slug', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.slug'])
+            
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
+                    'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
+                    'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
                     'title' => ['label'=>'entities.region.fields.Title'],
-//                    'summary' => ['label'=>'entities.region.fields.summary', 'attr'=>['class'=>'summernote'] ,'required' => true],
-//                    'content' => ['label'=>'entities.office.fields.content', 'attr'=>['class'=>'summernote'] ,'required' => true]
-
+                    'summary' => ['label'=>'entities.lawyer.fields.description', 'attr'=>['class'=>'summernote']],
+                    'content' => ['label'=>'entities.lawyer.fields.curriculum', 'attr'=>['class'=>'summernote']],
+                    'slug' => ['label'=>'entities.activity.fields.slug'],
                 ],
             ]);
         ;
