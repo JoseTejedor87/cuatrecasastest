@@ -65,10 +65,10 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
             ->setParameter('place', $place);
         //---------------------
 
-        $results = $this->orderByDaySentences($results, 'p', '100')
+        /*$results = $this->orderByDaySentences($results, 'p', '100')
             ->setMaxResults($maxResult)
             ->getQuery()
-            ->getResult();
+            ->getResult();*/
 
         foreach ($results as $key => $item) {
             $returnPublications[$item->getId()] = $item;
