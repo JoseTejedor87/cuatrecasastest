@@ -136,10 +136,15 @@
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <a href="#" class="btn btn__solid btn__solid--icon">
-                                {{ 'global.messages.dossier_download'|trans }}
-                                <span class="icon4-download"></span>
-                            </a>
+                            {# {% for attachment in insight.attachments %}
+                                {% if attachment.type  == 'publication_dossier' %}
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    {{ 'global.messages.dossier_download'|trans }}
+                                    <span class="icon4-download"></span>
+                                </a>
+                                {% endif %}
+                            {% endfor %}                             #}
+                            {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~insight.photo.fileName } %}
                         </div>
                     </div>
                 </div>
@@ -153,10 +158,10 @@
         {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
     {% endif %}
 
-    {% if insight.showLegalNoveltiesBlock %}
-        {% include 'web/shared/related-legal-slider.html.twig' %}
+    {# {% if insight.showLegalNoveltiesBlock %}
+        {% include 'web/shared/related-legal-slider.html.twig' %} #}
         {# include 'web/shared/related-legal-slider.html.twig' with {items: ... } #}
-    {% endif %}
+    {# {% endif %} #}
 
     {% if insight.lawyers|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
@@ -170,11 +175,11 @@
         {% include 'web/shared/collections.html.twig' with {insights: contextualBlocks.insights} %}
     {% endif %}
 
-    {% if insight.showCaseStudiesBlock %}
+    {# {% if insight.showCaseStudiesBlock %}
         {% if relatedCaseStudies|length > 1 %}
             {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
         {% endif %}
-    {% endif %}
+    {% endif %} #}
 
     {% include 'web/shared/cta-footer.html.twig' %}
 
