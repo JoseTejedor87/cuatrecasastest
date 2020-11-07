@@ -10,7 +10,7 @@ parameters:
 
     app.default_language: es        # The default language
 
-    app.web_service_active: false        # The default language
+    app.web_service_active: false        # If yo can't access to the cuatrecasasWebservice False
 
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
