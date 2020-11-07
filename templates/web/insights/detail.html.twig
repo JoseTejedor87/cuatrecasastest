@@ -146,9 +146,7 @@
                             {% endfor %}                             #}
 
                             {% for attachment in insight.attachments %}
-                                {{ dump(attachment.getType())  }}
                                 {% if (attachment.getType() == 'publication_dossier') %}
-
                                     {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}
                                 {% endif %}
                             {% endfor %}
