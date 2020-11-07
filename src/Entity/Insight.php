@@ -92,9 +92,9 @@ class Insight extends Publishable
     private $home;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="insights", cascade={"persist"}, orphanRemoval=true)
      */
-    private $photo;
+    private $attachments;    
 
     public function __construct()
     {
@@ -105,6 +105,7 @@ class Insight extends Publishable
         $this->events = new ArrayCollection();
         $this->caseStudies = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getHeaderType(): ?string
@@ -396,6 +397,37 @@ class Insight extends Publishable
         if ($this->caseStudies->contains($caseStudy)) {
             $this->caseStudies->removeElement($caseStudy);
             $caseStudy->removeInsight($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setInsights($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getInsights() === $this) {
+                $attachment->setInsights(null);
+            }
         }
 
         return $this;

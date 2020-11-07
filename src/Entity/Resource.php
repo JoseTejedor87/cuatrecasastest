@@ -88,9 +88,10 @@ class Resource extends Publishable
     private $title;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Insight", inversedBy="photo")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Insight", inversedBy="attachments")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
-    private $insight;
+    private $insight;    
 
     public function __toString()
     {
@@ -286,4 +287,6 @@ class Resource extends Publishable
 
         return $this;
     }
+
+
 }
