@@ -65,7 +65,7 @@ class KnowledgeController extends WebController
         $format = $request->query->get('format');
         $collections = $request->query->get('collections');
         $initial = $request->query->get('initial');
-        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedEvents = $eventRepository->findFeaturedByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
 

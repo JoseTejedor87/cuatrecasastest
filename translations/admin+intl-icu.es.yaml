@@ -319,6 +319,7 @@ entities:
       customCountry: Pais (Si no hay oficina)
       customPostalcode: Codigo postal (Si no hay oficina)
       customProvince: Provincia (Si no hay oficina)
+      featured: Destacado
 
 
   programs:

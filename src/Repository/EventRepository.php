@@ -40,17 +40,17 @@ class EventRepository extends PublishableEntityRepository implements Publishable
     {
         $MAXRESULT = 5;
         $activitiesA = array();
-        if($activities){
+        if ($activities) {
             foreach ($activities as $key => $activity) {
-                array_push($activitiesA,$activity->getId());
-             }
+                array_push($activitiesA, $activity->getId());
+            }
         }
         $query =  $this->createPublishedQueryBuilder('p');
 
         if ($activitiesA) {
             $query->innerJoin('p.activities', 'a')
             ->andWhere('a.id in (:activity)')
-            ->setParameter('activity',$activitiesA);
+            ->setParameter('activity', $activitiesA);
         }
         $query->orderBy('p.startDate', 'DESC')->setMaxResults($MAXRESULT);
 
@@ -67,73 +67,113 @@ class EventRepository extends PublishableEntityRepository implements Publishable
         $eventsAll = $query->getQuery()->getResult();
         // se evitan  posisiones que pueden repetirse y se agrean al final el resto
         foreach ($eventsAll as $key => $item) {
-            if (!isset($totalEvents[$item->getId()])){
+            if (!isset($totalEvents[$item->getId()])) {
                 array_push($totalEvents, $item);
             }
         }
 
-        return array_slice($totalEvents,0,$MAXRESULT);
+        return array_slice($totalEvents, 0, $MAXRESULT);
     }
 
-    public function findFilteredBy($arrayFields){
+    public function findFilteredBy($arrayFields)
+    {
 
-        // se quitan los filtros que necesitan un join de tablas 
-        if ( isset ( $arrayFields['title']) && $arrayFields['title'] != ''){
+        // se quitan los filtros que necesitan un join de tablas
+        if (isset($arrayFields['title']) && $arrayFields['title'] != '') {
             $title = $arrayFields['title'];
             unset($arrayFields['title']);
         }
 
-        if ( isset ( $arrayFields['finDesde']) && isset ( $arrayFields['finDesde'])){
+        if (isset($arrayFields['finDesde']) && isset($arrayFields['finDesde'])) {
             $finDesde = $arrayFields['finDesde'];
             unset($arrayFields['finDesde']);
         }
 
-        if( isset ( $arrayFields['finHasta'])  && isset ( $arrayFields['finHasta'])){
+        if (isset($arrayFields['finHasta'])  && isset($arrayFields['finHasta'])) {
             $finHasta = $arrayFields['finHasta'];
             unset($arrayFields['finHasta']);
         }
 
-        if( isset ( $arrayFields['inicioDesde'])  && isset ( $arrayFields['inicioDesde'])){
+        if (isset($arrayFields['inicioDesde'])  && isset($arrayFields['inicioDesde'])) {
             $inicioDesde = $arrayFields['inicioDesde'];
             unset($arrayFields['inicioDesde']);
         }
 
-        if( isset ( $arrayFields['inicioHasta'])  && isset ( $arrayFields['inicioHasta'])){
+        if (isset($arrayFields['inicioHasta'])  && isset($arrayFields['inicioHasta'])) {
             $inicioHasta = $arrayFields['inicioHasta'];
             unset($arrayFields['inicioHasta']);
         }
 
 
 
-        $query = $this->filterByFieldsQueryBuilder($arrayFields,'e');
+        $query = $this->filterByFieldsQueryBuilder($arrayFields, 'e');
 
-        if ( isset ( $title)){
+        if (isset($title)) {
             $query->join('e.translations', 't')
                 ->andWhere('t.title LIKE :titulo')
                 ->setParameter('titulo', '%'.$title.'%');
         }
-        if (isset($finDesde)){
+        if (isset($finDesde)) {
             $query->andWhere('e.endDate > :desde')
                 ->setParameter('desde', $finDesde->format('Y-m-d'));
         }
 
-        if( isset ( $finHasta )){
-            $query->andWhere('e.endDate < :hasta')                
+        if (isset($finHasta)) {
+            $query->andWhere('e.endDate < :hasta')
                 ->setParameter('hasta', $finHasta->format('Y-m-d'));
         }
 
-        if( isset ( $inicioDesde )){
-            $query->andWhere('e.startDate > :desde')                
+        if (isset($inicioDesde)) {
+            $query->andWhere('e.startDate > :desde')
                 ->setParameter('desde', $inicioDesde->format('Y-m-d'));
         }
 
-        if( isset ( $inicioHasta )){
-            $query->andWhere('e.startDate < :hasta')                
+        if (isset($inicioHasta)) {
+            $query->andWhere('e.startDate < :hasta')
                 ->setParameter('hasta', $inicioHasta->format('Y-m-d'));
         }
 
         return  $query->getQuery()->getResult();
+    }
 
+    public function findFeaturedByActivities($activities)
+    {
+        $MAXRESULT = 5;
+        $activitiesA = array();
+        if ($activities) {
+            foreach ($activities as $key => $activity) {
+                array_push($activitiesA, $activity->getId());
+            }
+        }
+        $query =  $this->createPublishedQueryBuilder('p');
+
+        if ($activitiesA) {
+            $query->innerJoin('p.activities', 'a')
+            ->andWhere('a.id in (:activity)')
+            ->setParameter('activity', $activitiesA);
+        }
+        $query->andWhere('p.featured = 1');
+        $query->orderBy('p.startDate', 'DESC')->setMaxResults($MAXRESULT);
+
+        $queryPrior = clone $query;
+        //$queryPrior->join('p.lawyers', 'l');
+        $this->priorBuilderClause($queryPrior, 'p.office');
+        $eventsPrior = $queryPrior->getQuery()->getResult();
+
+        $totalEvents = [];
+        foreach ($eventsPrior as $key => $item) {
+            $totalEvents[$item->getId()] = $item;
+        }
+
+        $eventsAll = $query->getQuery()->getResult();
+        // se evitan  posisiones que pueden repetirse y se agrean al final el resto
+        foreach ($eventsAll as $key => $item) {
+            if (!isset($totalEvents[$item->getId()])) {
+                array_push($totalEvents, $item);
+            }
+        }
+
+        return array_slice($totalEvents, 0, $MAXRESULT);
     }
     // /**
     //  * @return Event[] Returns an array of Event objects

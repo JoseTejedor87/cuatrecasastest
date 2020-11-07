@@ -134,6 +134,9 @@
             center: {lat: lat, lng: lng},
             zoom: zoom,
             mapTypeControl: false,
+            options: {
+                gestureHandling: 'greedy'
+            }
         });
         //setMarkers(map);
         var image = {

@@ -18,7 +18,6 @@ use App\Repository\OfficeRepository;
 use App\Repository\ActivityRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
-
 class EventController extends WebController
 {
     private $soap;
@@ -35,33 +34,31 @@ class EventController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
     
- 
 
-    
-    public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation,PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
+
+    public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository, ActivityRepository $ActivityRepository)
     {
-  
         $month = $request->query->get('month');
         $year = $request->query->get('year');
         $activity = $request->query->get('activity');
         $office_id = $request->query->get('office');
-        $relatedEvents = $EventRepository->findByActivities('');
+        $relatedEvents = $EventRepository->findFeaturedByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
         $activities = $ActivityRepository->findAll();
         $offices = $OfficeRepository->findAll();
         // dd($relatedPublications);
-        if( !$month ||  !$year){
+        if (!$month ||  !$year) {
             $fechaHoy = new \DateTime();
-            if(!$month){
+            if (!$month) {
                 $month = $fechaHoy->format('m');
             }
-            if(!$year){
+            if (!$year) {
                 $year = $fechaHoy->format('Y');
             }
         }
 
         $fecha = new \DateTime($year.'-'.$month.'-01');
-        $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
+        $lastday = date('t', strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
         $query = $EventRepository->createPublishedQueryBuilder('e');
@@ -86,33 +83,33 @@ class EventController extends WebController
             }
         }
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
-        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
-        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') );
+        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s'))
+        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s'));
         $queryPrior = clone $query;
 
         $eventsAll = $query->getQuery()->getResult();
 
         // ----------------
-        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
-        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place',  $place);
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
+        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place', $place);
         // -------------------
         $eventsPrior = $queryPrior->getQuery()->getResult();
 
 
-       // dd($eventsPrior);
+        // dd($eventsPrior);
 
         $events = [];
         foreach ($eventsPrior as $key => $item) {
             $item->setCapacity(1);
             $events[$item->getId()] = $item;
         }
-  
+
         foreach ($eventsAll as $key => $item) {
-            if (!isset($events[$item->getId()])){
+            if (!isset($events[$item->getId()])) {
                 $item->setCapacity(0);
                 array_push($events, $item);
             }
-        }  
+        }
 
         // if($activity){
         //     $sql = "SELECT e FROM App:Event e inner JOIN event_activity a ON a.event_id = e.idWHERE e.startDate BETWEEN '".$fecha->format('Y-m-d H:i:s')."' AND  '".$fechaFin->format('Y-m-d H:i:s')."' and a.activity_id=".$activity;
@@ -129,7 +126,7 @@ class EventController extends WebController
 
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
-            if($event->translate('es')->getSlug()){
+            if ($event->translate('es')->getSlug()) {
                 $activities = "";
                 foreach ($event->getActivities() as $keyActivity => $activity) {
                     $activities = $activities . $activity->translate('es')->getTitle();
@@ -150,18 +147,18 @@ class EventController extends WebController
                     "speakers" =>  array( )
                 );
                 foreach ($event->getPeople() as $keySpeaker => $speaker) {
-                    if($speaker->getLawyer()){
+                    if ($speaker->getLawyer()) {
                         $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
-                    }else{
+                    } else {
                         $speakerName =$speaker->getName() .' '. $speaker->getSurname();
                     }
                     $speaker = array(
                         "speaker_name" => $speakerName,
                         "speaker_url" => "",
                     );
-                    array_push($array['speakers'],$speaker);
+                    array_push($array['speakers'], $speaker);
                 }
-                array_push($eventsCalendar,$array);
+                array_push($eventsCalendar, $array);
             }
         }
         return $this->render('web/events/index.html.twig', [
@@ -178,7 +175,7 @@ class EventController extends WebController
         ]);
     }
 
-    public function detail(Request $request, EventRepository $EventRepository,NavigationService $navigation, PublicationRepository $publicationRepository)
+    public function detail(Request $request, EventRepository $EventRepository, NavigationService $navigation, PublicationRepository $publicationRepository)
     {
         // $paises = $this->soap->getPaises('es')->getContent();
         $query = "Select * From GC_paises order by nombre";
@@ -188,29 +185,27 @@ class EventController extends WebController
 
 
         $event = $EventRepository->getInstanceByRequest($request);
-        $relatedEvents = $EventRepository->findByActivities($event->getActivities());
+        $relatedEvents = $EventRepository->findFeaturedByActivities($event->getActivities());
         $relatedPublications = $publicationRepository->findByActivities($event->getActivities());
 
         foreach ($event->getPrograms() as $key => $value) {
             $value->timeStart = $value->getDateTime()->format('H:i');
-            if(isset($event->getPrograms()[$key+1])){
+            if (isset($event->getPrograms()[$key+1])) {
                 $value->timeEnd = $event->getPrograms()[$key+1]->getDateTime()->format('H:i');
             }
             // dd($value->getPeople());
         }
         // dd($event);
-       
+
         $attachmentPublished = [];
         $headerImage = '';
-        foreach($event->getAttachments() as $attachment)
-        {
-            if ($attachment->isPublished($navigation->getLanguage(),$navigation->getRegion())){       
-                array_push($attachmentPublished,$attachment);
+        foreach ($event->getAttachments() as $attachment) {
+            if ($attachment->isPublished($navigation->getLanguage(), $navigation->getRegion())) {
+                array_push($attachmentPublished, $attachment);
             }
-            
         }
-        $headerImage = $this->getPhotoPathByFilter($event, 'full_header',$navigation);
-        
+        $headerImage = $this->getPhotoPathByFilter($event, 'full_header', $navigation);
+
         return $this->render('web/events/detail.html.twig', [
             'event' => $event,
             'attachmentPublished' => $attachmentPublished,
@@ -221,7 +216,7 @@ class EventController extends WebController
         ]);
     }
 
-    public function ajaxActionEvent(Request $request, EventRepository $EventRepository,NavigationService $navigation)    
+    public function ajaxActionEvent(Request $request, EventRepository $EventRepository, NavigationService $navigation)
     {
         $month = $request->query->get('month');
         $year = $request->query->get('year');
@@ -229,18 +224,18 @@ class EventController extends WebController
         $activity = $request->query->get('activity');
         $office_id = $request->query->get('office');
 
-        if( !$month ||  !$year){
+        if (!$month ||  !$year) {
             $fechaHoy = new \DateTime();
-            if(!$month){
+            if (!$month) {
                 $month = $fechaHoy->format('m');
             }
-            if(!$year){
+            if (!$year) {
                 $year = $fechaHoy->format('Y');
             }
         }
 
         $fecha = new \DateTime($year.'-'.$month.'-01');
-        $lastday = date('t',strtotime($fecha->format('Y-m-d H:i:s')));
+        $lastday = date('t', strtotime($fecha->format('Y-m-d H:i:s')));
         $fechaFin = new \DateTime($year.'-'.$month.'-'.$lastday);
         $url= "";
         $query = $EventRepository->createPublishedQueryBuilder('e');
@@ -258,14 +253,14 @@ class EventController extends WebController
         if ($title) {
             $query = $query->innerJoin('e.translations', 't')
                             ->andWhere('t.title LIKE :title')
-                            ->setParameter('title', '%'.$title.'%');   
+                            ->setParameter('title', '%'.$title.'%');
             if ($url == "") {
                 $url= "?title=".$title;
             } else {
                 $url= $url . "&title=".$title;
             }
         }
-        
+
         if ($office_id) {
             $query = $query->innerJoin('e.office', 'o_tbl')
                 ->andWhere('o_tbl.id = :office_id')
@@ -278,35 +273,35 @@ class EventController extends WebController
         }
 
         $query = $query->andWhere('e.startDate BETWEEN :startDate AND :endDate')
-        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s') )
-        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s') )
-        ->orderBy('e.startDate','ASC') ;
+        ->setParameter('startDate', $fecha->format('Y-m-d H:i:s'))
+        ->setParameter('endDate', $fechaFin->format('Y-m-d H:i:s'))
+        ->orderBy('e.startDate', 'ASC') ;
 
         $queryPrior = clone $query;
 
         $eventsAll = $query->getQuery()->getResult();
 
         // ----------------
-        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];        
-        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place',  $place);
+        $place = $navigation->getParams()->get('app.office_place')[$navigation->getRegion()];
+        $queryPrior->join('e.office', 'o')->andWhere('o.place = :place')->setParameter('place', $place);
         // -------------------
         $eventsPrior = $queryPrior->getQuery()->getResult();
 
 
-       // dd($eventsPrior);
+        // dd($eventsPrior);
 
         $events = [];
         foreach ($eventsPrior as $key => $item) {
             $item->setCapacity(1);
             $events[$item->getId()] = $item;
         }
-  
+
         foreach ($eventsAll as $key => $item) {
-            if (!isset($events[$item->getId()])){
+            if (!isset($events[$item->getId()])) {
                 $item->setCapacity(0);
                 array_push($events, $item);
             }
-        }  
+        }
 
 
         // if($activity){
@@ -321,10 +316,10 @@ class EventController extends WebController
         //                 ->getManager()
         //                 ->createQuery($sql)
         //                 ->getResult();
-        
+
         $eventsCalendar = array();
         foreach ($events as $key => $event) {
-            if($event->translate('es')->getSlug()){
+            if ($event->translate('es')->getSlug()) {
                 $activities = "";
                 foreach ($event->getActivities() as $keyActivity => $activity) {
                     $activities = $activities . $activity->translate('es')->getTitle();
@@ -346,10 +341,10 @@ class EventController extends WebController
                     "speakers" =>  array( )
                 );
                 foreach ($event->getPeople() as $keySpeaker => $speaker) {
-                    if($speaker->getLawyer()){
+                    if ($speaker->getLawyer()) {
                         $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
                         $speakerURL = 'abogados/'.$speaker->getLawyer()->getSlug();
-                    }else{
+                    } else {
                         $speakerName =$speaker->getName() .' '. $speaker->getSurname();
                         $speakerURL='';
                     }
@@ -357,25 +352,24 @@ class EventController extends WebController
                         "speaker_name" => $speakerName,
                         "speaker_url" => $speakerURL,
                     );
-                    array_push($array['speakers'],$speaker);
+                    array_push($array['speakers'], $speaker);
                 }
-                if($title && $title!=""){
-                    if(strpos($event->translate('es')->getTitle(), $title) !== false){
-                        array_push($eventsCalendar,$array);
+                if ($title && $title!="") {
+                    if (strpos($event->translate('es')->getTitle(), $title) !== false) {
+                        array_push($eventsCalendar, $array);
                     }
-                }else{
-                    array_push($eventsCalendar,$array);
+                } else {
+                    array_push($eventsCalendar, $array);
                 }
-                
-            }   
+            }
         }
-        if ($eventsCalendar) {         
+        if ($eventsCalendar) {
             return new JsonResponse($eventsCalendar);
         }
 
         return new JsonResponse($eventsCalendar['Results']=false);
-    } 
-    public function ajaxActionContact(Request $request)    
+    }
+    public function ajaxActionContact(Request $request)
     {
         $contacto = $request->query->get('contacto');
         $enventIdGC = $request->query->get('enventIdGC');
@@ -396,7 +390,7 @@ class EventController extends WebController
         $contactoReturnEvent = $this->soap->createEventoAsistenteForGestionEventos(array('eventoAsistenteGestionEventosCreatePatamDto'=>($contactoEventoA)));
         return new JsonResponse($contactoReturnEvent);
     }
-    
+
     public function ajaxActionRegions(Request $request)
     {
         $idCountry = $request->query->get('idCountry');
@@ -406,6 +400,5 @@ class EventController extends WebController
         $regions = $stmt->fetchAll();
         //$regions = $this->soap->getProvincias('es',$idCountry)->getContent();
         return new JsonResponse($regions);
-
     }
 }
