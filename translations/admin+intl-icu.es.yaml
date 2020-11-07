@@ -347,7 +347,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
-      photo: Foto
+      attachments: Adjuntos
   item:
     fields:
       createdAt: Fecha de creación

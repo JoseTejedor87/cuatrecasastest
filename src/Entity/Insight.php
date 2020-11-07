@@ -92,7 +92,7 @@ class Insight extends Publishable
     private $home;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="insights", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
      */
     private $attachments;    
 
@@ -377,21 +377,6 @@ class Insight extends Publishable
         return $this;
     }
 
-    public function getPhoto(): ?Resource
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?Resource $photo): self
-    {
-        $this->photo = $photo;
-        if ($photo) {
-            $photo->setInsight($this);
-        }
-
-        return $this;
-    }
-
     public function removeCaseStudy(CaseStudy $caseStudy): self
     {
         if ($this->caseStudies->contains($caseStudy)) {
@@ -414,7 +399,7 @@ class Insight extends Publishable
     {
         if (!$this->attachments->contains($attachment)) {
             $this->attachments[] = $attachment;
-            $attachment->setInsights($this);
+            $attachment->setInsight($this);
         }
 
         return $this;
@@ -425,11 +410,12 @@ class Insight extends Publishable
         if ($this->attachments->contains($attachment)) {
             $this->attachments->removeElement($attachment);
             // set the owning side to null (unless already changed)
-            if ($attachment->getInsights() === $this) {
-                $attachment->setInsights(null);
+            if ($attachment->getInsight() === $this) {
+                $attachment->setInsight(null);
             }
         }
 
         return $this;
     }
+
 }
