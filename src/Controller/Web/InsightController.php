@@ -10,6 +10,7 @@ use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use App\Controller\Web\NavigationService;
 
 class InsightController extends WebController
 {
@@ -39,7 +40,7 @@ class InsightController extends WebController
     }
 
 
-    public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
+    public function detail(Request $request, InsightRepository $insightRepository,NavigationService $navigation, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
     {
         $insight = $insightRepository->getInstanceByRequest($request);
         $limit = 14;
@@ -62,7 +63,7 @@ class InsightController extends WebController
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'publication_box');
+            $value->photo = $this->getPhotoPathByFilter($value, 'publication_box', $navigation);
             if (!$value->photo) {
                 $value->photo = 'web/assets/img/cabecera_1920x1080_baja.jpg';
                 // $value->photo = 'https://via.placeholder.com/800x400';
@@ -88,18 +89,5 @@ class InsightController extends WebController
             'relatedPublications' => $relatedPublications
         ]);
     }
-    protected function getPhotoPathByFilter($publication, $filter)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->getType() == "publication_main_photo") {
-                    $photo = $this->imagineCacheManager->getBrowserPath(
-                        '/resources/' . $photo->getFileName(),
-                        $filter
-                    );
-                    return $photo;
-                }
-            }
-        }
-    }
+
 }

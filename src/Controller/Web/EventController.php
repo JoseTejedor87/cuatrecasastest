@@ -35,22 +35,7 @@ class EventController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
     
-    protected function getPhotoPathByFilter($publication, $filter,$navigation)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
-                    if ($photo->getType() == "publication_main_photo" ) {
-                        $photo = $this->imagineCacheManager->getBrowserPath(
-                            '/resources/' . $photo->getFileName(),
-                            $filter
-                        );
-                        return $photo;
-                    }
-                }
-            }
-        }
-    }
+ 
 
     
     public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation,PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository,  ActivityRepository $ActivityRepository)
