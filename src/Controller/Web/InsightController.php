@@ -24,7 +24,7 @@ class InsightController extends WebController
     {
         $awards = $awardRepository->getAll();
         $insights = $insightRepository->findAll();
-        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedEvents = $eventRepository->findFeaturedByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
 
         $test = 'testc';
@@ -75,7 +75,7 @@ class InsightController extends WebController
         //
         $relatedPublications = $publicationRepository->findByActivities($insight->getActivities());
         //dd($relatedPublications);
-        $relatedEvents = $eventRepository->findByActivities($insight->getActivities());
+        $relatedEvents = $eventRepository->findFeaturedByActivities($insight->getActivities());
 
         $contextualBlocks['cases'] = $caseStudyRepository->findByActivities($insight->getActivities()->toArray());
         $contextualBlocks['insights'] = $insightRepository->getPublishedRelatedInsights($insight);
