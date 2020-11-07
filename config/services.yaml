@@ -10,6 +10,8 @@ parameters:
 
     app.default_language: es        # The default language
 
+    app.web_service_active: false        # The default language
+
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
     app.regions: [spain, latam, portugal, global]
