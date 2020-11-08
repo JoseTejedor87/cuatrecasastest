@@ -144,10 +144,10 @@
                                 </a>
                                 {% endif %}
                             {% endfor %}                             #}
-
+                            
                             {% for attachment in insight.attachments %}
                                 {% if (attachment.getType() == 'publication_dossier') %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: asset('resources/'~attachment.fileName) } %}
                                 {% endif %}
                             {% endfor %}
                             
