@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </section>
-            <!-- <section class="row page__block">
+            {# <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
                         <h3 class="subsection__title">Puntos clave</h3>
@@ -101,7 +101,7 @@
                         </ul>
                     </div>
                 </div>
-            </section> -->
+            </section> #}
             <section class="row page__block--aside">
                 <div class="col">
                     <div class="page__block__content">
@@ -116,9 +116,9 @@
                             <div class="form-group flex-group">
                                 <div class="checkbox">
                                     <input id="data-privacy" name="data-privacy" type="checkbox">
-                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
+                                    <label for="data-privacy" class="checkbox-label"><span>{{ 'footer.privacy.privacy' | trans }}</span></label>
                                 </div>
-                                <!-- <button type="submit" class="doble__arrow__link">Enviar</button> -->
+                                {# <button type="submit" class="doble__arrow__link">Enviar</button> #}
                                 <button class="btn btn__solid" type="submit">Enviar</button>
                             </div>
                         </form>
@@ -136,10 +136,21 @@
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <a href="#" class="btn btn__solid btn__solid--icon">
-                                Descarga el dossier
-                                <span class="icon4-download"></span>
-                            </a>
+                            {# {% for attachment in insight.attachments %}
+                                {% if attachment.type  == 'publication_dossier' %}
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    {{ 'global.messages.dossier_download'|trans }}
+                                    <span class="icon4-download"></span>
+                                </a>
+                                {% endif %}
+                            {% endfor %}                             #}
+                            
+                            {% for attachment in insight.attachments %}
+                                {% if (attachment.getType() == 'publication_dossier') %}
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: asset('resources/'~attachment.fileName) } %}
+                                {% endif %}
+                            {% endfor %}
+                            
                         </div>
                     </div>
                 </div>
@@ -153,10 +164,10 @@
         {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
     {% endif %}
 
-    {% if insight.showLegalNoveltiesBlock %}
-        {% include 'web/shared/related-legal-slider.html.twig' %}
+    {# {% if insight.showLegalNoveltiesBlock %}
+        {% include 'web/shared/related-legal-slider.html.twig' %} #}
         {# include 'web/shared/related-legal-slider.html.twig' with {items: ... } #}
-    {% endif %}
+    {# {% endif %} #}
 
     {% if insight.lawyers|length > 0 %}
         {% include 'web/shared/team.html.twig' with {
@@ -170,11 +181,11 @@
         {% include 'web/shared/collections.html.twig' with {insights: contextualBlocks.insights} %}
     {% endif %}
 
-    {% if insight.showCaseStudiesBlock %}
+    {# {% if insight.showCaseStudiesBlock %}
         {% if relatedCaseStudies|length > 1 %}
             {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
         {% endif %}
-    {% endif %}
+    {% endif %} #}
 
     {% include 'web/shared/cta-footer.html.twig' %}
 

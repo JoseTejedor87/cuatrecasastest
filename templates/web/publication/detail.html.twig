@@ -47,10 +47,7 @@
                         <div class="article__details desktop" >
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'publication_dossier'%}
-                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    Descarga el dossier
-                                    <span class="icon4-download"></span>
-                                </a>
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
 
@@ -100,7 +97,7 @@
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'publication_dossier'%}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    Descarga el dossier
+                                    {{ 'global.messages.dossier_download'|trans }}
                                     <span class="icon4-download"></span>
                                 </a>
                                 {% endif %}
@@ -147,7 +144,9 @@
     {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
-    {% include 'web/shared/insight.html.twig' %}
+    {% if insight is defined and insight|length > 0 %}
+        {% include 'web/shared/insight.html.twig' %}
+    {% endif %}
     {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
     {% include 'web/shared/cta-footer.html.twig' %}
 

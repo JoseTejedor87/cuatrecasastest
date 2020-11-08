@@ -34,8 +34,7 @@ class PracticeController extends CMSController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            var_dump($request->request->get('practice_form'));
-//            die();
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($practice);
             $practice->mergeNewTranslations();

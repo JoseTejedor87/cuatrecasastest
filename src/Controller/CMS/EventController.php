@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LawyerCategoryType;
@@ -26,15 +27,15 @@ use App\Controller\CMS\CMSController;
 class EventController extends CMSController
 {
     private $url;
-    public function __construct()
+    public function __construct(ContainerBagInterface $params)
     {
         $this->url = 'http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl';
-
+        $this->params = $params;
     }
     public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $filter = $this->filter($request);
-
+        
         if ( $filter['fields'] != ''){
             $result = $eventRepository->findFilteredBy($filter['fields']);
         }else{
@@ -76,10 +77,13 @@ class EventController extends CMSController
 
         return array('form' => $formForFilter, 'fields' => $filterFields);
     }
-
+    function test($x)
+    {
+        return new \SoapFault("Server", "Some error message");
+    }
     public function new(Request $request): Response
     {
-      
+        $WS_active = $this->params->get('app.web_service_active');
         $event = new Event();
         $entityManager = $this->getDoctrine()->getManager();
         $eventRepository = $entityManager->getRepository(Event::class);
@@ -89,17 +93,18 @@ class EventController extends CMSController
             'entityManager' => $entityManager
         ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             //Crear Evento WS
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+1);
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->CreateEventoForGestionEventos($eventoWS);
-            $data = $res->CreateEventoForGestionEventosResult;
-            $dataEventoWS = ((array)$data);
+            if($WS_active){
+                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+1);
+                $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+                $res  = $client->CreateEventoForGestionEventos($eventoWS);
+                $data = $res->CreateEventoForGestionEventosResult;
+                $dataEventoWS = ((array)$data);
+            }
             if($responsablesmarketing)
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
@@ -140,14 +145,17 @@ class EventController extends CMSController
                 }
                 $event->addPerson($person);
             }
-            if($dataEventoWS['Result'] == true){
-                $event->setIdGestorEventos($dataEventoWS['Data']->Id);
-                $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+            if($WS_active){
+                if($dataEventoWS['Result'] == true ){
+                    $event->setIdGestorEventos($dataEventoWS['Data']->Id);
+                    $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+                }
             }
+           
                 $entityManager->persist($event);
                 $event->mergeNewTranslations();
                 $entityManager->flush();
-            if($dataEventoWS['Result'] == true){
+            if(isset($dataEventoWS) && $dataEventoWS['Result'] == true){
                 return $this->redirectToRoute('cms_events_index');
             }else{
                 return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId(), 'error'=>true]);
@@ -169,6 +177,7 @@ class EventController extends CMSController
 
     public function edit(Request $request, Event $event): Response
     {
+        $WS_active = $this->params->get('app.web_service_active');
         $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(EventFormType::class, $event,[
             'entityManager' => $entityManager
@@ -180,13 +189,13 @@ class EventController extends CMSController
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,0,$event->getOldId());
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-
-            $res  = $client->UpdateEventoForGestionEventos($eventoWS);
-            $data = $res->UpdateEventoForGestionEventosResult;
-            $dataEventoWS = ((array)$data);
-            if($dataEventoWS['Result'] == true){
+            if($WS_active){
+                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,0,$event->getOldId());
+                $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+                $res  = $client->UpdateEventoForGestionEventos($eventoWS);
+                $data = $res->UpdateEventoForGestionEventosResult;
+                $dataEventoWS = ((array)$data);
+            }
                 if($responsablesmarketing)
                 foreach ($responsablesmarketing as $key => $value) {
                     $personRepository = $entityManager->getRepository(Person::class);
@@ -248,7 +257,7 @@ class EventController extends CMSController
                 $this->getDoctrine()->getManager()->flush();
     
                 return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId()]);
-            }
+            
             
         }
 

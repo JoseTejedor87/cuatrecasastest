@@ -385,11 +385,10 @@
                 page=1;
             }
             item = $(".grid__item").first().clone();
-
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date, collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -483,11 +482,17 @@
                             url= url + "&page="+msg['page'];
                         }
                     }
+
                     if(msg['page'] == 1){
                         $('.grid__item').remove();
                     }
                     //$grid.masonry('reloadItems');
                     $grid.masonry('destroy');
+                    if($.type(msg['publications']) == 'object'){
+                        msg['publications'] = $.map(msg['publications'], function(value, index){
+                            return [value];
+                        });
+                    }
                     msg['publications'].forEach(function(publication, i){
                         item.find( "a" ).text(publication['title']).attr('href', 'articulo/'+publication['Slug']);
                         item.find( ".boxnews__info" ).text(publication['Publication_date']);

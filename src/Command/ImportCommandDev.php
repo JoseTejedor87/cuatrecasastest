@@ -36,6 +36,7 @@ use App\Entity\Page;
 use App\Entity\Banner;
 use App\Entity\Slider;
 use App\Entity\Legislation;
+use App\Entity\Region;
 
 class ImportCommandDev extends Command
 {
@@ -147,6 +148,9 @@ class ImportCommandDev extends Command
                 case "awards":
                     $this->awards();
                     break;
+                case "regions":
+                    $this->Regions();
+                break;                    
                 case "publication":
                     $this->Publications();
                     break;
@@ -1588,6 +1592,39 @@ class ImportCommandDev extends Command
     }
 
 
+    public function Regions()
+    {
+        $this->em->getConnection()->executeQuery("DELETE FROM Region ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE Region AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Page], RESEED, 1)");
+
+        $this->em->getConnection()->executeQuery("DELETE FROM RegionTranslation ");
+        $this->em->getConnection()->executeQuery("ALTER TABLE RegionTranslation AUTO_INCREMENT = 1");
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
+        $data = file_get_contents("JsonExports/regions.json");
+        $items = json_decode($data, true);
+
+        foreach ($items as $item) {
+            $Region = new Region();
+            $Region->setLanguages($item['lenguaje']);
+            $Region->setPrincipal(isset($item['principal']) ? $item['principal'] : 0);
+            self::setRegions($Region);
+            foreach ($item['lenguaje'] as $currentLang) {
+                $Region->translate($currentLang)->setTitle($item['titulo']);
+                $Region->translate($currentLang)->setSummary($item['summary']);
+                $Region->translate($currentLang)->setContent($item['content']);
+            }
+            $Region->setPublished(true);
+            $Region->mergeNewTranslations();
+            $this->em->persist($Region);
+            $this->em->flush();
+            $this->logger->debug("Region ".$Region->getId());
+        }
+
+        // INSERT INTO `region_office` VALUES (1,3),(1,4),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,14),(1,15),(1,16),(1,17),(1,23),(2,2),(2,21),(3,24),(3,27),(3,28),(3,37),(3,38),(4,18),(5,22),(6,20),(7,1),(7,35),(8,19),(8,25),(8,26);
+
+
+    }
 
 
     public function Publications()

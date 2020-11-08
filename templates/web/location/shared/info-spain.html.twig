@@ -10,7 +10,7 @@
                                 <p>Transferencia de conocimiento entre las personas y la empresa con el fin de extenderlo al resto de profesionales</p>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="#" class="doble__arrow__link">Ver el equipo</a>
+                                <a href="{{ path('lawyers_index') }}" class="doble__arrow__link">Ver el equipo</a>
                             </div>
                         </div>
                     </article>
@@ -21,10 +21,10 @@
                                 <p>Transferencia de conocimiento entre las personas y la empresa con el fin de extenderlo al resto de profesionales</p>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="#" class="doble__arrow__link">Ver Sectores</a>
+                                <a href="{{ path('sectors_index') }}" class="doble__arrow__link">Ver Sectores</a>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="#" class="doble__arrow__link">Ver Servicios</a>
+                                <a href="{{ path('services_index') }}" class="doble__arrow__link">Ver Servicios</a>
                             </div>
                         </div>
                     </article>
@@ -35,7 +35,7 @@
                                 <p>Transferencia de conocimiento entre las personas y la empresa con el fin de extenderlo al resto de profesionales</p>
                             </div>
                             <div class="boxnews__content__button">
-                                <a href="#" class="doble__arrow__link">Join us</a>
+                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="doble__arrow__link">Join us</a>
                             </div>
                         </div>
                     </article>

@@ -25,23 +25,6 @@ class PublicationController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    protected function getPhotoPathByFilter($publication, $filter,$navigation)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
-                    if ($photo->getType() == "publication_main_photo") {
-                        $photo = $this->imagineCacheManager->getBrowserPath(
-                            '/resources/' . $photo->getFileName(),
-                            $filter
-                        );
-                        return $photo;
-                    }
-                }
-            }
-        }
-    }
-
     public function detail(Request $request, PublicationRepository $PublicationRepository,CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $publication = $PublicationRepository->getInstanceByRequest($request);

@@ -10,6 +10,8 @@ parameters:
 
     app.default_language: es        # The default language
 
+    app.web_service_active: false        # If yo can't access to the cuatrecasasWebservice False
+
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
     app.regions: [spain, latam, portugal, global]
@@ -76,7 +78,7 @@ parameters:
 
     # app.social.key: '%env(string:ADTHIS_ID)%
 
-    app.path.uploads.resources: '/resources'
+    app.path.uploads.resources: '%env(string:APP_ENV_VHOST)%/resources'
 
 services:
     # default configuration for services in *this* file

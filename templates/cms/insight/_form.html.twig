@@ -16,20 +16,36 @@
                 </div>
             </div>
             <div class="col-md-4">
-            <div class="m-form__section m-form__section">
-                <div class="m-form__heading">
-                    <h3 class="m-form__heading-title">
-                        {{ 'entities.insight.fields.photo'|trans }}
-                    </h3>
-                </div>
-                <div class="vich-attachment-list">
-                    <div class="vich-attachment-item col-md-12">
-                        {{ form_errors(form.photo) }}
-                        {{ form_row(form.photo.file) }}
+                <div class="m-form__section m-form__section">
+                    <div class="m-form__heading">
+                        <h3 class="m-form__heading-title">
+                            {{ 'entities.insight.fields.attachments'|trans }}
+                        </h3>
                     </div>
-                </div>
-                {% do form.photo.setRendered %}
-            </div>
+                    <div id="attachments-fields-list" class="vich-attachment-list"
+                        data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}"
+                        data-widget-tags="{{ '<div class="vich-attachment-item col-md-12"></div>'|e }}"
+                        data-widget-counter="{{ form.attachments|length }}">
+                        {% for attachment in form.attachments %}
+                        <div class="vich-attachment-item col-md-12">
+                            {{ form_errors(attachment) }}
+                            {{ form_widget(attachment) }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="button" class="add-another-collection-widget btn btn-secondary"
+                        data-list-selector="#attachments-fields-list">
+                        <span>
+                            <i class="fa flaticon-plus"></i>
+                            <span>
+                                Añadir fichero
+                            </span>
+                        </span>
+                    </button>
+
+                    {% do form.attachments.setRendered %}
+                </div>            
                 <div class="m-form__section m-form__section">
                     <div class="m-form__heading">
                         <h3 class="m-form__heading-title">

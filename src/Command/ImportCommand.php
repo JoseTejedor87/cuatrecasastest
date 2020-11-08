@@ -44,7 +44,6 @@ use App\Entity\Home;
 use App\Entity\Question;
 use App\Entity\Region;
 
-
 class ImportCommand extends Command
 {
     protected static $defaultName = 'app:import';
@@ -59,7 +58,7 @@ class ImportCommand extends Command
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
     const LOCAL_URL = "https://srvwebext4dev.cuatrecasas.com/cuatrecasas_pre";
 
-    public function __construct(ContainerInterface $container, LoggerInterface $logger,HttpClientInterface $client)
+    public function __construct(ContainerInterface $container, LoggerInterface $logger, HttpClientInterface $client)
     {
         parent::__construct();
         $this->container = $container;
@@ -120,7 +119,6 @@ class ImportCommand extends Command
 
             $this->EventosResponsables();
             $this->EventosPreguntas();
-            
         } else {
             switch ($table) {
                 case "lawyer":
@@ -128,6 +126,9 @@ class ImportCommand extends Command
                     break;
                 case "event":
                     $this->Events();
+                    break;
+                case "UpdateEventStatus":
+                    $this->UpdateEventStatus();
                     break;
                 case "activity":
                     $this->Activities();
@@ -221,7 +222,7 @@ class ImportCommand extends Command
                 break;
                 case "banner":
                     $this->Banner();
-                break; 
+                break;
 
                 case "videos":
                     $this->Videos();
@@ -237,23 +238,23 @@ class ImportCommand extends Command
                     break;
                 case "legislation":
                     $this->PublicationsByLegislation();
-                    break;        
+                    break;
                 case "brand":
-                    $this->Brand();                              
-                    break; 
+                    $this->Brand();
+                    break;
                 case "OfficeLatitudeLongitude":
                     $this->OfficeLatitudeLongitude();
-                    break;            
+                    break;
                 case "changeSummary":
                     $this->changeSummary();
-                break;                                                
+                break;
 
                 case "eventos_preguntas":
                     $this->EventosPreguntas();
-                break;            
+                break;
                 case "eventos_responsables":
                     $this->EventosResponsables();
-                break;  
+                break;
                 case "principal":
                     $this->Lawyers();
                     $this->Events();
@@ -293,7 +294,7 @@ class ImportCommand extends Command
                     $this->PublicationsByLawyers();
                     $this->PublicationsByOffices();
                     $this->PublicationsByActivities();
-                break;          
+                break;
             }
         }
         $this->logger->info('Fin de importación :: '.date("Y-m-d H:i:s"));
@@ -301,8 +302,8 @@ class ImportCommand extends Command
     }
 
 
-    public function Legislation(){
-
+    public function Legislation()
+    {
         $data = file_get_contents("JsonExports/legislacion.json");
         $items = json_decode($data, true);
 
@@ -317,7 +318,6 @@ class ImportCommand extends Command
             $this->em->persist($leg);
             $this->em->flush();
         }
-
     }
 
 
@@ -325,9 +325,9 @@ class ImportCommand extends Command
     {
         $data = file_get_contents("JsonExports/eventos_preguntas.json");
         $items = json_decode($data, true);
-        
+
         //  [{"id_evento":"93022","lang":"esp","hash":"pzm8wl94hp482hlf9fv2rr85vfbs518g","titulo":"","required":"0"},
-        
+
         $eventRepository = $this->em->getRepository(Event::class);
 
         $processedQuestionMap = [];
@@ -337,7 +337,7 @@ class ImportCommand extends Command
                 continue;
             }
             $currentLang = self::getMappedLanguageCode($item['lang']);
-                        
+
             $eventId = $this->getMappedEventId($item['id_evento']);
             if ($eventId == '') {
                 $this->logger->debug("============================= SKIPPED ======================================================== ");
@@ -350,9 +350,9 @@ class ImportCommand extends Command
                 continue;
             }
 
-            if(isset($processedQuestionMap[$item['id_evento']])){
+            if (isset($processedQuestionMap[$item['id_evento']])) {
                 $question =  $processedQuestionMap[$item['id_evento']];
-            }else{
+            } else {
                 $question = new Question();
                 $question->setEvents($event);
             }
@@ -372,27 +372,25 @@ class ImportCommand extends Command
     {
         $data = file_get_contents("JsonExports/eventos_responsables.json");
         $items = json_decode($data, true);
-        
+
         $eventRepository = $this->em->getRepository(Event::class);
         $personRepository = $this->em->getRepository(Person::class);
         $getMappedEventId = [];
 
-        
-        foreach($items as $item){
+
+        foreach ($items as $item) {
             $eventId = $this->getMappedEventId($item['id_evento']);
 
-            if ($eventId){
+            if ($eventId) {
                 //$event = $eventRepository->findOneBy(['oldId'=>$eventId]);
                 $event = $eventRepository->find($eventId);
 
                 $person = $personRepository->findOneBy(['inicial' => $item['sap']]);
-                if($person == null) 
-                {
-                    
+                if ($person == null) {
                     $person = new Person();
                     if ($item['id_responsables_tipo'] == 1) {
                         $person->setType('socio');
-                    }elseif ($item['id_responsables_tipo'] == 2) {
+                    } elseif ($item['id_responsables_tipo'] == 2) {
                         $person->setType('marketing');
                     } elseif ($item['id_responsables_tipo'] == 3) {
                         $person->setType('secretaria');
@@ -405,12 +403,12 @@ class ImportCommand extends Command
                     $this->em->persist($person);
                     $this->em->flush();
                 }
-                
+
                 $this->logger->debug("PERSON: INITIALS:" . $item['sap'] . " evento:" . $item['id_evento']);
                 $event->addPerson($person);
                 $this->em->persist($event);
                 $this->em->flush();
-            }else{
+            } else {
                 $this->logger->debug("SKIPEEEDDD ==========================================  evento:" . $item['id_evento']);
             }
         }
@@ -430,7 +428,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Publicacion:" . $item['publicacion_id'] . " legislacionID:" . $item['legislacion_id']);
-            $publicationId = $this->getMappedPublicationId($item['publicacion_id'],1);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id'], 1);
             $legislationId = $item['legislacion_id']; // En nuestra DB siempre tendra el id original 1, 2 y3 por eso se puede asi.
             if ($publicationId && $legislationId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -443,7 +441,7 @@ class ImportCommand extends Command
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
         }
-    }   
+    }
 
     public function Videos()
     {
@@ -458,17 +456,17 @@ class ImportCommand extends Command
         );
 
         $videos_idiom_processed = [];
-        
+
         $this->logger->debug("videosNoticias Procesando array de idiomas...");
 
         $id_anterior = 0;
         $arrayVideoTrans = array();
         foreach ($pub_video_translations as $key => $item) {
-            if ( $id_anterior != $item['videos_id']){
+            if ($id_anterior != $item['videos_id']) {
                 $id_anterior = $item['videos_id'];
                 $arrayVideoTrans[$item['videos_id']] = array();
             }
-            array_push($arrayVideoTrans[$item['videos_id']],$item);
+            array_push($arrayVideoTrans[$item['videos_id']], $item);
         }
         $this->logger->debug("array de arrayVideoTrans... creado por key = id_video");
         //print_r($arrayVideoTrans);die();
@@ -484,13 +482,13 @@ class ImportCommand extends Command
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
 
-            if(isset($processedPublicationMap[$oldPublicationId])){
+            if (isset($processedPublicationMap[$oldPublicationId])) {
                 $publicationRepository = $this->em->getRepository(Publication::class);
-                $publicationId = $this->getMappedPublicationId($oldPublicationId,4);
-                if($publicationId){
-                    $publication = $publicationRepository->find($publicationId); 
+                $publicationId = $this->getMappedPublicationId($oldPublicationId, 4);
+                if ($publicationId) {
+                    $publication = $publicationRepository->find($publicationId);
                 }
-            }else{
+            } else {
                 if ($item['tipo_video']!=5) {
                     $publication = new News();
                 } elseif ($item['tipo_video']==5) {
@@ -499,7 +497,7 @@ class ImportCommand extends Command
                     continue;
                 }
             }
-            if($publication){
+            if ($publication) {
                 $publication->setOldId($oldPublicationId);
                 $publication->setOriginalTableCode(4);
                 $publication->setFeatured($item['destacada'] ? $item['destacada'] : 0);
@@ -515,25 +513,23 @@ class ImportCommand extends Command
                 array_unique($arrayLang);
                 $publication->setLanguages($arrayLang);
 
-                foreach ($arrayVideoTrans[$item['id']] as $key => $video_lan){             
-
+                foreach ($arrayVideoTrans[$item['id']] as $key => $video_lan) {
                     $lang = $this->getMappedLanguageCodeById($video_lan['idiomas_id']);
-                    if (isset($video_lan['title']) && $video_lan['title'] != ''){
+                    if (isset($video_lan['title']) && $video_lan['title'] != '') {
                         $publication->translate($lang)->setTitle($this->convertStringUTF8($video_lan['title']));
                         $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
-                        //$publication->setPublished(true);
+                    //$publication->setPublished(true);
                     } else {
                         $publication->translate($lang)->setTitle('Notitle');
                         $publication->translate($lang)->setContent($this->convertStringUTF8($video_lan['description']));
                         //$publication->setPublished(false);
                     }
-                    
+
                     if ($item['url_source'] != '') {
                         $publication->setUrlVideo($item['url_source']);
                     }
-
                 }
-    
+
                 if ($item['url_img']) {
                     if (isset($processedAttachmentsMap[$oldPublicationId][$item['url_img']])) {
                         $resource = $processedAttachmentsMap[$oldPublicationId][$item['url_img']];
@@ -578,7 +574,7 @@ class ImportCommand extends Command
                         }
                     }
                 }
-				
+
 
                 $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                 $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
@@ -587,9 +583,8 @@ class ImportCommand extends Command
                 $processedPublicationMap[$oldPublicationId] = $publication;
             }
         }
-
     }
- 
+
 
     public function VideoPublicationsByLawyers()
     {
@@ -603,13 +598,13 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " Lawyer:" . $item['abogado_id']);
-            $publicationId = $this->getMappedPublicationId($item['videos_id'],4);
+            $publicationId = $this->getMappedPublicationId($item['videos_id'], 4);
             $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
             if ($publicationId && $lawyerId) {
                 $publication = $publicationRepository->find($publicationId);
                 $lawyer = $lawyerRepository->find($lawyerId);
                 $person = $personRepository->findOneBy(array('lawyer' => $lawyer));
-                if(!$person){
+                if (!$person) {
                     $person = new Person();
                     $person->setOldId($lawyerId);
                     $person->setLawyer($lawyer);
@@ -618,7 +613,7 @@ class ImportCommand extends Command
                 self::setRegions($publication);
                 $this->em->persist($publication);
                 $this->em->flush();
-                // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
+            // $this->logger->debug("- Mapped article " . $publication->translate("es")->getTitle());
                 // $this->logger->debug("- Mapped lawyer " . $lawyer->translate("es")->getTitle());
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
@@ -637,7 +632,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " office:" . $item['oficina_id']);
-            $publicationId = $this->getMappedPublicationId($item['videos_id'],4);
+            $publicationId = $this->getMappedPublicationId($item['videos_id'], 4);
             $oficceId = $this->getMappedOfficeId($item['oficina_id']);
             if ($publicationId && $oficceId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -667,7 +662,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['videos_id'] . " practica:" . $item['practica_id']);
-            $publicationId = $this->getMappedPublicationId($item['videos_id'],4);
+            $publicationId = $this->getMappedPublicationId($item['videos_id'], 4);
             $practicaId = $this->getMappedActivityId($item['practica_id']);
             if ($publicationId && $practicaId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -740,13 +735,13 @@ class ImportCommand extends Command
             }
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
-            if(isset($processedTrainingsMap[$item['id_abogado']])){
+            if (isset($processedTrainingsMap[$item['id_abogado']])) {
                 $training =  $processedTrainingsMap[$item['id_abogado']];
-            }else{
+            } else {
                 $training = new Training();
                 $training->setLawyer($lawyer);
             }
-            
+
 
             if (preg_match('/Languages/', $item['formacion'])) {
                 $matches = explode("Languages", $item['formacion']);
@@ -813,7 +808,6 @@ class ImportCommand extends Command
             $this->em->flush();
             $this->logger->debug("training ".$training->getId()." ".$training->translate($currentLang)->getDescription());
         }
-
     }
 
     public function Mentions()
@@ -831,7 +825,7 @@ class ImportCommand extends Command
             }
             $currentLang = self::getMappedLanguageCode($item['lang']);
             $lawyerRepository = $this->em->getRepository(Lawyer::class);
-            
+
             $lawyerId = $this->getMappedLawyerId($item['id_abogado']);
             if ($lawyerId == '') {
                 $this->logger->debug("============================= SKIPPED ======================================================== ");
@@ -848,9 +842,9 @@ class ImportCommand extends Command
             $this->logger->debug(" lawyer: ".$lawyer->getName());
 
 
-            if(isset($processedMentionMap[$item['id_abogado']])){
+            if (isset($processedMentionMap[$item['id_abogado']])) {
                 $mention =  $processedMentionMap[$item['id_abogado']];
-            }else{
+            } else {
                 $mention = new Mention();
                 $mention->setLawyer($lawyer);
             }
@@ -923,10 +917,11 @@ class ImportCommand extends Command
         }
     }
 
-    public function Brand(){
+    public function Brand()
+    {
 
-        ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
-        
+        ///  Si la tabla ya existe hay que borrar la foreign key de Resources
+
         // $this->em->getConnection()->executeQuery("DELETE FROM Resource WHERE brand_id is not null");
         // $this->em->getConnection()->executeQuery("DELETE FROM BrandTranslation ");
         // // $this->em->getConnection()->executeQuery("ALTER TABLE BrandTranslation AUTO_INCREMENT = 1");
@@ -934,24 +929,24 @@ class ImportCommand extends Command
 
         // $this->em->getConnection()->executeQuery("DELETE FROM Brand ");
         // // $this->em->getConnection()->executeQuery("ALTER TABLE Brand AUTO_INCREMENT = 1");
-        //       $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");      
-     
+        //       $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");
+
 
         $data = file_get_contents("JsonExports/brands.json");
         $items = json_decode($data, true);
 
         $homeRepository = $this->em->getRepository(Home::class);
         $home = $homeRepository->findOneBy(['id' => 1]);
-        
-        foreach($items as $item){
+
+        foreach ($items as $item) {
             $brand = new Brand();
-            
+
             $brand->setHome($home);
             $brand->translate('es')->setTitle($item['titulo']);
             $brand->translate('es')->setDescription($item['description']);
             $brand->translate('es')->setUrl($item['url']);
             $brand->setPublished(true);
-            
+
             $photo = $this->importFile('brand', self::LOCAL_URL.$item['image']);
             if ($photo) {
                 $resource = new Resource();
@@ -965,19 +960,18 @@ class ImportCommand extends Command
             $brand->mergeNewTranslations();
             $this->em->persist($brand);
             $this->em->flush();
-            $this->logger->debug("Brand ".$brand->getId());           
-
+            $this->logger->debug("Brand ".$brand->getId());
         }
-
     }
 
-    public function Banner(){
+    public function Banner()
+    {
 
-        ///  Si la tabla ya existe hay que borrar la foreign key de Resources 
+        ///  Si la tabla ya existe hay que borrar la foreign key de Resources
 
         // $this->em->getConnection()->executeQuery("DELETE FROM Banner ");
         // //$this->em->getConnection()->executeQuery("ALTER TABLE Banner AUTO_INCREMENT = 1");
-        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Banner], RESEED, 1)");      
+        // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Banner], RESEED, 1)");
 
         // $this->em->getConnection()->executeQuery("DELETE FROM SliderTranslation ");
         // //$this->em->getConnection()->executeQuery("ALTER TABLE SliderTranslation AUTO_INCREMENT = 1");
@@ -993,19 +987,19 @@ class ImportCommand extends Command
         $data = file_get_contents("JsonExports/banner.json");
         $items = json_decode($data, true);
 
-        foreach($items as $item){
+        foreach ($items as $item) {
             $banner = new Banner();
             $banner->setLocation($item['location']);
             $banner->setDelay($item['delay']);
             $banner->setSpeed($item['speed']);
-            
-            foreach($item['sliders'] as $item_slide){
+
+            foreach ($item['sliders'] as $item_slide) {
                 $slide = new Slider();
                 $slide->translate('es')->setTitle($item_slide['titulo']);
                 $slide->translate('es')->setDescription($item_slide['description']);
                 $slide->translate('es')->setUrl($item_slide['url']);
                 $slide->setPriority($item_slide['priority']);
-                
+
                 $photo = $this->importFile('slider', $item_slide['image']);
                 if ($photo) {
                     $resource = new Resource();
@@ -1019,16 +1013,13 @@ class ImportCommand extends Command
                 $slide->mergeNewTranslations();
                 $this->em->persist($slide);
                 $this->em->flush();
-    
-                $banner->addSlider($slide);
 
+                $banner->addSlider($slide);
             }
             $this->em->persist($banner);
             $this->em->flush();
-            $this->logger->debug("Banner ".$banner->getId());           
-
+            $this->logger->debug("Banner ".$banner->getId());
         }
-
     }
 
     public function Lawyers()
@@ -1076,7 +1067,7 @@ class ImportCommand extends Command
                 $lawyer->setOldId($oldLawyerId);
                 if ($item['status']=='0') {
                     $lawyer->setPublished(false);
-                }else{
+                } else {
                     $lawyer->setPublished(true);
                 }
                 $lawyer->setName($item['nombre']);
@@ -1178,7 +1169,7 @@ class ImportCommand extends Command
 
                 if ($item['status']=='0' || $item['visible']=='0' || empty($item['titulo'])) {
                     $event->setPublished(false);
-                }else{
+                } else {
                     $event->setPublished(true);
                 }
                 $event->setOldId($oldEventId);
@@ -1195,6 +1186,7 @@ class ImportCommand extends Command
                 $event->setCustomSignup($item['url_inscripcion']);
                 $event->setPhone($item['telefono']);
                 $event->setContact($item['contacto']);
+                $event->setFeatured($item['status']);
                 $event->setEventType(
                     self::getMappedEventTypeCode($item['tipo'])
                 );
@@ -1239,7 +1231,7 @@ class ImportCommand extends Command
             }
 
             // Filling translatable fields
-            if($item['titulo']){
+            if ($item['titulo']) {
                 $event->translate($currentLang)->setTitle($item['titulo']);
                 $event->translate($currentLang)->setDescription($item['resumen']);
                 $event->translate($currentLang)->setSchedule($item['descripcion_lugar']);
@@ -1249,7 +1241,6 @@ class ImportCommand extends Command
                 // Adding the current instance to the events mapping
                 $processedEventsMap[$oldEventId] = $event;
             }
-            
         }
 
         foreach ($processedEventsMap as $event) {
@@ -1270,6 +1261,29 @@ class ImportCommand extends Command
                 $this->logger->debug("Event ".$event->getId()." ".$event->translate('es')->getTitle());
             }
         }
+    }
+
+    public function UpdateEventStatus()
+    {
+        $data = file_get_contents("JsonExports/eventos.json");
+        $items = json_decode($data, true);
+        $eventRepository = $this->em->getRepository(Event::class);
+
+        foreach ($items as $item) {
+            $eventId = $this->getMappedEventId($item['id']);
+            if ($eventId) {
+                $event = $eventRepository->findOneBy(['oldId' => $eventId]);
+                if ($event) {
+                    if ($item['destacada'] && $item['destacada'] !== null) {
+                        $event->setFeatured($item['destacada']);
+                    } else {
+                        $event->setFeatured(0);
+                    }
+                    $this->em->persist($event);
+                }
+            }
+        }
+        $this->em->flush();
     }
 
     public function Activities()
@@ -1308,12 +1322,11 @@ class ImportCommand extends Command
                 if ($item['id_area']==1) {
                     $activity = new Practice();
                 } elseif ($item['id_area']==2) {
-                    if(in_array($oldActivityId, $oldIdsProducts)){
+                    if (in_array($oldActivityId, $oldIdsProducts)) {
                         $activity = new Product();
-                    }else{
+                    } else {
                         $activity = new Sector();
                     }
-                    
                 } elseif ($item['id_area']==3) {
                     $activity = new Desk();
                 } else {
@@ -1348,32 +1361,31 @@ class ImportCommand extends Command
 
         foreach ($processedActivitiesMap as $activity) {
             // Persist only the registers with at least one active language
-                if (!empty($activity->getLanguages())) {
-                    $activity->setPublished(true);
-                }else{
-                    $activity->setPublished(false);
-                }
-                
-                // Persist the instance
-                self::setRegions($activity);
-                $activity->mergeNewTranslations();
-                $this->em->persist($activity);
-                $this->em->flush();
-                $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
-            
+            if (!empty($activity->getLanguages())) {
+                $activity->setPublished(true);
+            } else {
+                $activity->setPublished(false);
+            }
+
+            // Persist the instance
+            self::setRegions($activity);
+            $activity->mergeNewTranslations();
+            $this->em->persist($activity);
+            $this->em->flush();
+            $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
         }
     }
     public function ActivitiesExcels()
     {
         $dataPracticas = file_get_contents("ExcelExports/practicas.json");
-        $itemsPracticas = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataPracticas), true );
+        $itemsPracticas = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataPracticas), true);
         $dataSectores = file_get_contents("ExcelExports/sectores.json");
-        $itemsSectores = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataSectores), true );
+        $itemsSectores = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataSectores), true);
         $dataProductos = file_get_contents("ExcelExports/productos.json");
-        $itemsProductos = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataProductos), true );
+        $itemsProductos = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataProductos), true);
         $currentLang = 'es';
         foreach ($itemsPracticas as $key => $value) {
-            if(!isset($value['Id'])){
+            if (!isset($value['Id'])) {
                 $activity = new Practice();
                 $activity->setLanguages(
                     array_unique(
@@ -1391,7 +1403,7 @@ class ImportCommand extends Command
             }
         }
         foreach ($itemsSectores as $key => $value) {
-            if(!isset($value['Id'])){
+            if (!isset($value['Id'])) {
                 $activity = new Sector();
                 $activity->setLanguages(
                     array_unique(
@@ -1407,10 +1419,9 @@ class ImportCommand extends Command
                 $this->em->flush();
                 $this->logger->debug("Activity ".$activity->getId()." ".$activity->translate('es')->getTitle());
             }
-       
         }
         foreach ($itemsProductos as $key => $value) {
-            if(!isset($value['Id'])){
+            if (!isset($value['Id'])) {
                 $activity = new Product();
                 $activity->setLanguages(
                     array_unique(
@@ -1822,7 +1833,7 @@ class ImportCommand extends Command
                 $office = new Office();
                 if ($item['status']=='0' || empty($item['titulo'])) {
                     $office->setPublished(false);
-                }else{
+                } else {
                     $office->setPublished(true);
                 }
                 $office->setOldId($oldOfficeId);
@@ -1909,7 +1920,6 @@ class ImportCommand extends Command
     }
     public function OfficeLatitudeLongitude()
     {
-
         $officeRepository = $this->em->getRepository(Office::class);
         $offices= $officeRepository->findAll();
         foreach ($offices as $office) {
@@ -1918,23 +1928,22 @@ class ImportCommand extends Command
                     'GET',
                     'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&address='.utf8_encode($office->getAddress()).','.utf8_encode($office->translate('es')->getCity()).','.utf8_encode($office->translate('es')->getCountry())
                 );
-				if($response->getStatusCode()==200){
-					$content = $response->toArray();
-					if(isset($content['results'][0]['geometry']['location'])){
-							$office->setLat(strval($content['results'][0]['geometry']['location']['lat']));
-							$office->setLng(strval($content['results'][0]['geometry']['location']['lng'] ));
-							$this->em->persist($office);
-							$this->em->flush();	
-						}else{
-							$office->setLat(strval($content['results'][0]['geometry']['bounds']['northeast']['lat']));
-							$office->setLng(strval($content['results'][0]['geometry']['bounds']['northeast']['lng'] ));
-							$this->em->persist($office);
-							$this->em->flush();
-						}
-				}else{
+                if ($response->getStatusCode()==200) {
+                    $content = $response->toArray();
+                    if (isset($content['results'][0]['geometry']['location'])) {
+                        $office->setLat(strval($content['results'][0]['geometry']['location']['lat']));
+                        $office->setLng(strval($content['results'][0]['geometry']['location']['lng']));
+                        $this->em->persist($office);
+                        $this->em->flush();
+                    } else {
+                        $office->setLat(strval($content['results'][0]['geometry']['bounds']['northeast']['lat']));
+                        $office->setLng(strval($content['results'][0]['geometry']['bounds']['northeast']['lng']));
+                        $this->em->persist($office);
+                        $this->em->flush();
+                    }
+                } else {
                     $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
-				}
- 
+                }
             } else {
                 $this->logger->warning(">>>>>>>>>>>>>>>> SKIPPED !!!!");
             }
@@ -2035,7 +2044,7 @@ class ImportCommand extends Command
                     }
                 }
                 // Updating the languages field using the correspondent visio_* field
-                
+
                 // if ($item['visio_'.$item['lang']] == "1") {
                 //     $Award->setLanguages(
                 //         array_unique(
@@ -2044,7 +2053,7 @@ class ImportCommand extends Command
                 //         )
                 //     );
                 // }
-                
+
                 // Importing attachments from source
                 if ($item['url_image']) {
                     // Was processed the current attachment instance in a previous iteration ?
@@ -2087,11 +2096,11 @@ class ImportCommand extends Command
         foreach ($processedAwardsMap as $Award) {
             // Persist only the registers with at least one active language
             // if (!empty($Award->getLanguages())) {
-                // Persist the instance
-                $Award->mergeNewTranslations();
-                $this->em->persist($Award);
-                $this->em->flush();
-                $this->logger->debug("Award ".$Award->getId()." ".$Award->translate('es')->getTitle());
+            // Persist the instance
+            $Award->mergeNewTranslations();
+            $this->em->persist($Award);
+            $this->em->flush();
+            $this->logger->debug("Award ".$Award->getId()." ".$Award->translate('es')->getTitle());
             // }
         }
     }
@@ -2144,7 +2153,7 @@ class ImportCommand extends Command
                 $publication->setFormat('text');
                 if ($item['status']=='0') {
                     $publication->setPublished(false);
-                }else{
+                } else {
                     $publication->setPublished(true);
                 }
                 $publication->setPublicationDate(new \DateTime($item['fecha_publicacion']));
@@ -2205,7 +2214,7 @@ class ImportCommand extends Command
                 if ($publication) {
                     if (!empty($publication->getLanguages())) {
                         $publication->setPublished(true);
-                    }else{
+                    } else {
                         $publication->setPublished(false);
                     }
                     $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
@@ -2216,9 +2225,8 @@ class ImportCommand extends Command
                     if (isset($processedAttachmentsMap[$lastId])) {
                         unset($processedAttachmentsMap[$lastId]);
                     }
-                        // To force garbage collector to do its job
+                    // To force garbage collector to do its job
                     gc_collect_cycles();
-                    
                 }
             }
 
@@ -2272,11 +2280,9 @@ class ImportCommand extends Command
 
                 // Is the last item in the collection
                 if ($index+1 == count($publication_translations)) {
-                        
-                        self::setRegions($publication);
-                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
-                        $this->logger->debug("Updating Publication ".$publication->getId());
-                    
+                    self::setRegions($publication);
+                    $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                    $this->logger->debug("Updating Publication ".$publication->getId());
                 }
             }
 
@@ -2289,7 +2295,7 @@ class ImportCommand extends Command
     {
         if (!empty($publication->getLanguages())) {
             $publication->setPublished(true);
-        }else{
+        } else {
             $publication->setPublished(false);
         }
         $publication->mergeNewTranslations();
@@ -2314,7 +2320,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Publication:" . $item['publicacion_id'] . " Lawyer:" . $item['abogado_id']);
-            $publicationId = $this->getMappedPublicationId($item['publicacion_id'],1);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id'], 1);
             $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
             if ($publicationId && $lawyerId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -2345,7 +2351,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Publication:" . $item['publicacion_id'] . " Office:" . $item['oficina_id']);
-            $publicationId = $this->getMappedPublicationId($item['publicacion_id'],1);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id'], 1);
             $oficceId = $this->getMappedOfficeId($item['oficina_id']);
             if ($publicationId && $oficceId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -2371,7 +2377,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Publication:" . $item['publicacion_id'] . " Activity:" . $item['practica_id']);
-            $publicationId = $this->getMappedPublicationId($item['publicacion_id'],1);
+            $publicationId = $this->getMappedPublicationId($item['publicacion_id'], 1);
             $activityId = $this->getMappedActivityId($item['practica_id']);
             if ($publicationId && $activityId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -2387,7 +2393,7 @@ class ImportCommand extends Command
         }
     }
 
-    
+
     public function ArticlesAuthors()
     {
         $client = HttpClient::create();
@@ -2414,23 +2420,23 @@ class ImportCommand extends Command
     }
 
 
-    public function changeSummary(){
-
+    public function changeSummary()
+    {
         $publicationRepository = $this->em->getRepository(Publication::class);
         $arrayPublications = $publicationRepository->findBy(['originalTableCode' => 2]);
 
         $processedPublicationMap = [];
-        foreach($arrayPublications as $key => $pub ){
-            if ($pub->getOriginalTableCode() != 2)  continue;
+        foreach ($arrayPublications as $key => $pub) {
+            if ($pub->getOriginalTableCode() != 2) {
+                continue;
+            }
             // sale del cilco si hubiese una con el valor 2
-            
-            //print_r($pub->getLanguages()); die();
-            
-            foreach($pub->getLanguages() as $lan){
 
-                if( $pub->translate($lan)->getContent() != null  || $pub->translate($lan)->getSummary != null  )
-                {
-                    $this->logger->debug("getLanguages ".$lan );
+            //print_r($pub->getLanguages()); die();
+
+            foreach ($pub->getLanguages() as $lan) {
+                if ($pub->translate($lan)->getContent() != null  || $pub->translate($lan)->getSummary != null) {
+                    $this->logger->debug("getLanguages ".$lan);
                     $real_content = $real_summary = '';
                     $real_summary =  $pub->translate($lan)->getContent();
                     $real_content =  $pub->translate($lan)->getSummary();
@@ -2439,9 +2445,8 @@ class ImportCommand extends Command
                     $pub->translate($lan)->setSummary($real_summary);
                     //dd($pub);
                 }
-            }          
+            }
             $processedPublicationMap[$pub->getId()] = $pub;
-
         }
 
         foreach ($processedPublicationMap as $publication) {
@@ -2449,42 +2454,43 @@ class ImportCommand extends Command
             $this->em->persist($publication);
             $this->em->flush();
             $this->logger->debug("publication ".$publication->getId()." ".$publication->translate('es')->getContent());
-        } 
-
-    }        
+        }
+    }
 
     public function ArticlesPostId($url)
     {
-        if($this->url_exists($url)){
+        if ($this->url_exists($url)) {
             $texto = file_get_contents($url);
             $porciones = explode("\n", $texto);
             $termToSearch = '<body';
-            $matches = array_filter($porciones, function($var) use ($termToSearch) { return preg_match("/$termToSearch/i", $var); });
-            if($matches) {
+            $matches = array_filter($porciones, function ($var) use ($termToSearch) {
+                return preg_match("/$termToSearch/i", $var);
+            });
+            if ($matches) {
                 foreach ($matches as $match) {
                     $porcionesBody = explode(" ", $match);
                 }
-            } 
-            if(isset($porcionesBody)){
+            }
+            if (isset($porcionesBody)) {
                 $termToSearchC = 'category-';
-                $matchesC = array_filter($porcionesBody, function($var) use ($termToSearchC) { return preg_match("/$termToSearchC/i", $var); });
+                $matchesC = array_filter($porcionesBody, function ($var) use ($termToSearchC) {
+                    return preg_match("/$termToSearchC/i", $var);
+                });
                 $categoriaIdA = explode("-", $matchesC[4]);
                 return intval($categoriaIdA[1]);
-            }else{
+            } else {
                 return false;
             }
-            
-        }else{
+        } else {
             return false;
         }
-        
     }
-    function url_exists( $url = NULL ) {
-
-        if( empty( $url ) ){
+    public function url_exists($url = null)
+    {
+        if (empty($url)) {
             return false;
         }
-    
+
         // get_headers() realiza una petición GET por defecto,
         // cambiar el método predeterminadao a HEAD
         // Ver http://php.net/manual/es/function.get-headers.php
@@ -2495,12 +2501,12 @@ class ImportCommand extends Command
                  )
             )
         );
-        $headers = @get_headers( $url );
-        sscanf( $headers[0], 'HTTP/%*d.%*d %d', $httpcode );
-    
+        $headers = @get_headers($url);
+        sscanf($headers[0], 'HTTP/%*d.%*d %d', $httpcode);
+
         // Aceptar solo respuesta 200 (Ok), 301 (redirección permanente) o 302 (redirección temporal)
         $accepted_response = array( 200, 301, 302 );
-        if( in_array( $httpcode, $accepted_response ) ) {
+        if (in_array($httpcode, $accepted_response)) {
             return true;
         } else {
             return false;
@@ -2509,7 +2515,7 @@ class ImportCommand extends Command
     public function ArticlesCategory()
     {
         $dataCategory = file_get_contents("ExcelExports/postActivity.json");
-        $categoriasjson = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataCategory), true );
+        $categoriasjson = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $dataCategory), true);
         $client = HttpClient::create();
         $categorias = ["propiedad-intelectual","competencia","deporte-entretenimiento","mercado-de-valores","laboral",""];
         //Categorias en español
@@ -2520,7 +2526,7 @@ class ImportCommand extends Command
                 if ($status!=400) {
                     $content = $response->toArray();
                     foreach ($content as $key2 => $value2) {
-                        $this->ArticlesPost($categoria,$value2["id"],$value2["link"],$categoriasjson);
+                        $this->ArticlesPost($categoria, $value2["id"], $value2["link"], $categoriasjson);
                     }
                 }
                 if ($status=400) {
@@ -2529,99 +2535,98 @@ class ImportCommand extends Command
             }
         }
     }
-    public function ArticlesPost($categoriaLink,$categoriaOldId,$categoriaOldlink,$categoriasjson)
+    public function ArticlesPost($categoriaLink, $categoriaOldId, $categoriaOldlink, $categoriasjson)
     {
         $ActivityRepository = $this->em->getRepository(Activity::class);
         $PublicationRepository = $this->em->getRepository(Publication::class);
         $InsightRepository = $this->em->getRepository(Insight::class);
         $client = HttpClient::create();
-                for ($i = 1; $i <= 20; $i++) {
-                    $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?categories='.$categoriaOldId.'&page='.$i);
-                    $status = $response->getStatusCode();
-                    if ($status!=400) {
-                        $content = $response->toArray();
-                        foreach ($content as $keyPost => $post) {
-                            $publicationId = $this->getMappedPublicationId($post['id'],2);
-                            if($publicationId){
-                                $article = $PublicationRepository->find(intval($publicationId));
-                            }else{
-                                $article = new Academy();
-                                $article->setOldId($post['id']);
-                                $article->setOriginalTableCode(2);
-                                $article->setPublished($post['status']=='publish' ? 1 : 0);
-                                $article->setPublicationDate(new \DateTime($post['date']));
-                                $article->setFormat('text');
-                                $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
-                                $article->translate('es')->setSummary($post['excerpt']['rendered']);
-                                $article->translate('es')->setContent($post['content']['rendered']);
-                                $article->setLanguages(
-                                    array_unique(
-                                        array_merge($article
+        for ($i = 1; $i <= 20; $i++) {
+            $response =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?categories='.$categoriaOldId.'&page='.$i);
+            $status = $response->getStatusCode();
+            if ($status!=400) {
+                $content = $response->toArray();
+                foreach ($content as $keyPost => $post) {
+                    $publicationId = $this->getMappedPublicationId($post['id'], 2);
+                    if ($publicationId) {
+                        $article = $PublicationRepository->find(intval($publicationId));
+                    } else {
+                        $article = new Academy();
+                        $article->setOldId($post['id']);
+                        $article->setOriginalTableCode(2);
+                        $article->setPublished($post['status']=='publish' ? 1 : 0);
+                        $article->setPublicationDate(new \DateTime($post['date']));
+                        $article->setFormat('text');
+                        $article->translate('es')->setTitle($post['title'] ? $post['title']['rendered'] : '');
+                        $article->translate('es')->setSummary($post['excerpt']['rendered']);
+                        $article->translate('es')->setContent($post['content']['rendered']);
+                        $article->setLanguages(
+                            array_unique(
+                                array_merge($article
                                         ->getLanguages(), ['es'])
-                                    )
-                                );
-                            }
-                            if($post['author']){
-                                $personRepository = $this->em->getRepository(Person::class);
-                                $personId = $this->getMappedPersonId($post['author']);
-                                if($personId){
-                                    $person = $personRepository->find($personId);
-                                    $article->addPerson($person);
-                                }
-                                
-                            }
-                            foreach ($categoriasjson as $key => $categoriajson) {
-                                if(isset($categoriajson['Idinsigh'])){
-                                    if($categoriajson['oldlink']  == $categoriaOldlink){
-                                        if(isset($categoriajson['IdWeb Antigua'])){
-                                            foreach (explode(".", $categoriajson['IdWeb Antigua']) as $keyCategory => $idActivity) {
-                                                $activityId = $this->getMappedActivityId($idActivity);
-                                                if ($activityId) {
-                                                    $activity = $ActivityRepository->find($activityId);
-                                                    $article->addActivity($activity);
-                                                }
-                                            }
-                                        }
-                                        if(isset($categoriajson['Idactivity'])){
-                                            $activity = $ActivityRepository->find(intval($categoriajson['Idactivity']));
-                                            if($activity)
+                            )
+                        );
+                    }
+                    if ($post['author']) {
+                        $personRepository = $this->em->getRepository(Person::class);
+                        $personId = $this->getMappedPersonId($post['author']);
+                        if ($personId) {
+                            $person = $personRepository->find($personId);
+                            $article->addPerson($person);
+                        }
+                    }
+                    foreach ($categoriasjson as $key => $categoriajson) {
+                        if (isset($categoriajson['Idinsigh'])) {
+                            if ($categoriajson['oldlink']  == $categoriaOldlink) {
+                                if (isset($categoriajson['IdWeb Antigua'])) {
+                                    foreach (explode(".", $categoriajson['IdWeb Antigua']) as $keyCategory => $idActivity) {
+                                        $activityId = $this->getMappedActivityId($idActivity);
+                                        if ($activityId) {
+                                            $activity = $ActivityRepository->find($activityId);
                                             $article->addActivity($activity);
-                                        }
-                                        if( $categoriajson['Idinsigh'] != -1){
-                                            $Insight = $InsightRepository->find(intval($categoriajson['Idinsigh']));
-                                            $article->addInsight($Insight);
                                         }
                                     }
                                 }
+                                if (isset($categoriajson['Idactivity'])) {
+                                    $activity = $ActivityRepository->find(intval($categoriajson['Idactivity']));
+                                    if ($activity) {
+                                        $article->addActivity($activity);
+                                    }
+                                }
+                                if ($categoriajson['Idinsigh'] != -1) {
+                                    $Insight = $InsightRepository->find(intval($categoriajson['Idinsigh']));
+                                    $article->addInsight($Insight);
+                                }
                             }
-                            $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=en');
-                            $contentEn = $responseEn->toArray();
-                            if (isset($contentEn[0])) {
-                                $article->translate('en')->setTitle($contentEn[0]['title']['rendered']);
-                                $article->translate('en')->setSummary($contentEn[0]['excerpt']['rendered']);
-                                $article->translate('en')->setContent($contentEn[0]['content']['rendered']);
-                                $article->setLanguages(
-                                    array_unique(
-                                        array_merge($article
-                                        ->getLanguages(), ['en'])
-                                    )
-                                );
-                            }
-                            self::setRegions($article);
-                            if($article->translate('es')->getTitle() != "" || $article->translate('en')->getTitle()){
-                                $article->mergeNewTranslations();
-                                $this->em->persist($article);
-                                $this->em->flush();
-                            }
-                            
                         }
                     }
-                    if ($status=400) {
-                        break;
+                    $responseEn =  $client->request('GET', 'https://blog.cuatrecasas.com/'.$categoriaLink.'/wp-json/wp/v2/posts?include='.$post['id'].'&wpml_language=en');
+                    $contentEn = $responseEn->toArray();
+                    if (isset($contentEn[0])) {
+                        $article->translate('en')->setTitle($contentEn[0]['title']['rendered']);
+                        $article->translate('en')->setSummary($contentEn[0]['excerpt']['rendered']);
+                        $article->translate('en')->setContent($contentEn[0]['content']['rendered']);
+                        $article->setLanguages(
+                            array_unique(
+                                array_merge($article
+                                        ->getLanguages(), ['en'])
+                            )
+                        );
+                    }
+                    self::setRegions($article);
+                    if ($article->translate('es')->getTitle() != "" || $article->translate('en')->getTitle()) {
+                        $article->mergeNewTranslations();
+                        $this->em->persist($article);
+                        $this->em->flush();
                     }
                 }
+            }
+            if ($status=400) {
+                break;
+            }
+        }
     }
-    
+
     public function ArticlesPostFiles()
     {
         $client = HttpClient::create();
@@ -2683,13 +2688,12 @@ class ImportCommand extends Command
             $oldPublicationId = $item['id'];
             // create a new instance and fill it
             if (isset($processedPublicationMap[$oldPublicationId])) {
-                
-                $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
+                $publicationId = $this->getMappedPublicationId($oldPublicationId, 3);
                 if ($publicationId) {
                     $publication = $publicationRepository->find($publicationId);
                 }
             } else {
-                if ($item['tipo_noticia']==3 || $item['tipo_noticia']==4 ) {
+                if ($item['tipo_noticia']==3 || $item['tipo_noticia']==4) {
                     $publication = new News();
                 } elseif ($item['tipo_noticia']==5) {
                     $publication = new Opinion();
@@ -2726,7 +2730,7 @@ class ImportCommand extends Command
                         }
                     }
                 }
-               
+
                 $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
                 $this->logger->debug("New Publication : From $oldPublicationId ~> To ".$publication->getId());
 
@@ -2745,21 +2749,21 @@ class ImportCommand extends Command
         // Attaching translations
         foreach ($publication_translations as $index => $item1) {
             $oldPublicationId = $item1['noticias_id'];
-            $publicationId = $this->getMappedPublicationId($oldPublicationId,3);
-                if ($publicationId) {
-                    $publication = $publicationRepository->find($publicationId);
-                } else {
-                    continue;
-                }
+            $publicationId = $this->getMappedPublicationId($oldPublicationId, 3);
+            if ($publicationId) {
+                $publication = $publicationRepository->find($publicationId);
+            } else {
+                continue;
+            }
             // $publication = isset($processedPublicationMap[$oldPublicationId]) ? $processedPublicationMap[$oldPublicationId] :  null;
             if ($publication) {
                 $currentLang = self::getMappedLanguageCodeById($item1['idiomas_id']);
                 if ($currentLang && isset($item1['title']) && $item1['title'] != '') {
-                     //NEW ENCODING PROCESS
-                     $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item1['title']));
-                     $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item1['summary']));
-                     $publication->translate($currentLang)->setContent($this->convertStringUTF8($item1['contenido']));
-                     
+                    //NEW ENCODING PROCESS
+                    $publication->translate($currentLang)->setTitle($this->convertStringUTF8($item1['title']));
+                    $publication->translate($currentLang)->setSummary($this->convertStringUTF8($item1['summary']));
+                    $publication->translate($currentLang)->setContent($this->convertStringUTF8($item1['contenido']));
+
 
                     $publication->setLanguages(
                         array_unique(
@@ -2799,16 +2803,14 @@ class ImportCommand extends Command
 
 
                 // Is the last item in the collection
-                    if (!empty($publication->getLanguages())) {
-                        $publication->setPublished(true);
-                    }else{
-                        $publication->setPublished(false);
-                    }
-                        self::setRegions($publication);
-                        $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
-                        $this->logger->debug("Updating Publication ".$publication->getId());
-                    
-                
+                if (!empty($publication->getLanguages())) {
+                    $publication->setPublished(true);
+                } else {
+                    $publication->setPublished(false);
+                }
+                self::setRegions($publication);
+                $this->persistPublication($publication, $processedAttachmentsMap[$publication->getOldId()] ?? []);
+                $this->logger->debug("Updating Publication ".$publication->getId());
             }
         }
     }
@@ -2824,7 +2826,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['noticia_id'] . " Lawyer:" . $item['abogado_id']);
-            $publicationId = $this->getMappedPublicationId($item['noticia_id'],3);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id'], 3);
             $lawyerId = $this->getMappedLawyerId($item['abogado_id']);
             if ($publicationId && $lawyerId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -2856,7 +2858,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Article:" . $item['noticia_id'] . " office:" . $item['oficina_id']);
-            $publicationId = $this->getMappedPublicationId($item['noticia_id'],3);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id'], 3);
             $oficceId = $this->getMappedOfficeId($item['oficina_id']);
             if ($publicationId && $oficceId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -2884,7 +2886,7 @@ class ImportCommand extends Command
 
         foreach ($items as $item) {
             $this->logger->debug("ORIGINAL DATA: Noticia:" . $item['noticia_id'] . " practica:" . $item['practica_id']);
-            $publicationId = $this->getMappedPublicationId($item['noticia_id'],3);
+            $publicationId = $this->getMappedPublicationId($item['noticia_id'], 3);
             $practicaId = $this->getMappedActivityId($item['practica_id']);
             if ($publicationId && $practicaId) {
                 $publication = $publicationRepository->find($publicationId);
@@ -3151,130 +3153,130 @@ class ImportCommand extends Command
         return isset($map[$code]) ? $map[$code] : null;
     }
 
-    private static function convertStringUTF8($input){
+    private static function convertStringUTF8($input)
+    {
 
         //$input = str_replace("Â¢", "¢",$input);
-        $input = str_replace("Â£", "£",$input);
-        $input = str_replace("Â¥", "¥",$input);
-        $input = str_replace("Â¨", "¨",$input);
-        $input = str_replace("Â©", "©",$input);
-        $input = str_replace("Âª", "ª",$input);
+        $input = str_replace("Â£", "£", $input);
+        $input = str_replace("Â¥", "¥", $input);
+        $input = str_replace("Â¨", "¨", $input);
+        $input = str_replace("Â©", "©", $input);
+        $input = str_replace("Âª", "ª", $input);
         //$input = str_replace("Â«", "«",$input);
         //$input = str_replace("Â", "",$input);
         //$input = str_replace("Â­", "­",$input);
-        $input = str_replace("Â®", "®",$input);
+        $input = str_replace("Â®", "®", $input);
         //$input = str_replace("Â¯", "¯",$input);
         //$input = str_replace("Â°", "°",$input);
         //$input = str_replace("Â±", "±",$input);
-        $input = str_replace("Â²", "²",$input);
-        $input = str_replace("Â³", "³",$input);
-        $input = str_replace("Â´", "´",$input);
-        $input = str_replace("Âµ", "µ",$input);
+        $input = str_replace("Â²", "²", $input);
+        $input = str_replace("Â³", "³", $input);
+        $input = str_replace("Â´", "´", $input);
+        $input = str_replace("Âµ", "µ", $input);
         //$input = str_replace("Â", "",$input);
         //$input = str_replace("Â·", "·",$input);
         //$input = str_replace("Â¸", "¸",$input);
         //$input = str_replace("Â¹", "¹",$input);
-        $input = str_replace("Âº", "º",$input);
-        $input = str_replace("Â»", "»",$input);
-        $input = str_replace("Â¼", "¼",$input);
-        $input = str_replace("Â½", "½",$input);
-        $input = str_replace("Â¾", "¾",$input);
-        $input = str_replace("Â¿", "¿",$input);
-        $input = str_replace("Ã€", "À",$input);
-        $input = str_replace("â€", "À",$input);
-        $input = str_replace("Ã‚", "Â",$input);
-        $input = str_replace("Ãƒ", "Ã",$input);
-        $input = str_replace("Ã„", "Ä",$input);
-        $input = str_replace("Ã…", "Å",$input);
-        $input = str_replace("Ã†", "Æ",$input);
-        $input = str_replace("Ã‡", "Ç",$input);
-        $input = str_replace("Ãˆ", "È",$input);
-        $input = str_replace("Ã‰", "É",$input);
-        $input = str_replace("ÃŠ", "Ê",$input);
-        $input = str_replace("Ã‹", "Ë",$input);
-        $input = str_replace("ÃŒ", "Ì",$input);
-        $input = str_replace("Ã", "Í",$input);
-        $input = str_replace("ÃŽ", "Î",$input);
-        $input = str_replace("Ã", "Ï",$input);
+        $input = str_replace("Âº", "º", $input);
+        $input = str_replace("Â»", "»", $input);
+        $input = str_replace("Â¼", "¼", $input);
+        $input = str_replace("Â½", "½", $input);
+        $input = str_replace("Â¾", "¾", $input);
+        $input = str_replace("Â¿", "¿", $input);
+        $input = str_replace("Ã€", "À", $input);
+        $input = str_replace("â€", "À", $input);
+        $input = str_replace("Ã‚", "Â", $input);
+        $input = str_replace("Ãƒ", "Ã", $input);
+        $input = str_replace("Ã„", "Ä", $input);
+        $input = str_replace("Ã…", "Å", $input);
+        $input = str_replace("Ã†", "Æ", $input);
+        $input = str_replace("Ã‡", "Ç", $input);
+        $input = str_replace("Ãˆ", "È", $input);
+        $input = str_replace("Ã‰", "É", $input);
+        $input = str_replace("ÃŠ", "Ê", $input);
+        $input = str_replace("Ã‹", "Ë", $input);
+        $input = str_replace("ÃŒ", "Ì", $input);
+        $input = str_replace("Ã", "Í", $input);
+        $input = str_replace("ÃŽ", "Î", $input);
+        $input = str_replace("Ã", "Ï", $input);
         //$input = str_replace("Ã", "Ð",$input);
-        $input = str_replace("Â'", "Ñ",$input);
-        $input = str_replace("Ã‘", "Ñ",$input);
-        $input = str_replace("Ã’", "Ò",$input);
-        $input = str_replace("Ã“", "Ó",$input);
-        $input = str_replace("Ã”", "Ô",$input);
-        $input = str_replace("Ã•", "Õ",$input);
-        $input = str_replace("Ã–", "Ö",$input);
+        $input = str_replace("Â'", "Ñ", $input);
+        $input = str_replace("Ã‘", "Ñ", $input);
+        $input = str_replace("Ã’", "Ò", $input);
+        $input = str_replace("Ã“", "Ó", $input);
+        $input = str_replace("Ã”", "Ô", $input);
+        $input = str_replace("Ã•", "Õ", $input);
+        $input = str_replace("Ã–", "Ö", $input);
         //$input = str_replace("Ã—", "×",$input);
         //$input = str_replace("Ã˜", "Ø",$input);
-        $input = str_replace("Ã™", "Ù",$input);
-        $input = str_replace("Ãš", "Ú",$input);
-        $input = str_replace("Ã›", "Û",$input);
-        $input = str_replace("Ãœ", "Ü",$input);
+        $input = str_replace("Ã™", "Ù", $input);
+        $input = str_replace("Ãš", "Ú", $input);
+        $input = str_replace("Ã›", "Û", $input);
+        $input = str_replace("Ãœ", "Ü", $input);
         //$input = str_replace("Ã", "Ý",$input);
-        $input = str_replace("Ãž", "Þ",$input);
-        $input = str_replace("ÃŸ", "ß",$input);
-        $input = str_replace("Ã", "à",$input);
-        $input = str_replace("Ã¡", "á",$input);
-        $input = str_replace("Ã¢", "â",$input);
-        $input = str_replace("Ã£", "ã",$input);
-        $input = str_replace("à£", "ã",$input);
-        $input = str_replace("Ã¤", "ä",$input);
+        $input = str_replace("Ãž", "Þ", $input);
+        $input = str_replace("ÃŸ", "ß", $input);
+        $input = str_replace("Ã", "à", $input);
+        $input = str_replace("Ã¡", "á", $input);
+        $input = str_replace("Ã¢", "â", $input);
+        $input = str_replace("Ã£", "ã", $input);
+        $input = str_replace("à£", "ã", $input);
+        $input = str_replace("Ã¤", "ä", $input);
         //$input = str_replace("Ã¥", "å",$input);
         //$input = str_replace("Ã¦", "æ",$input);
-        $input = str_replace("Ã§", "ç",$input);
-        $input = str_replace("Ã¨", "è",$input);
-        $input = str_replace("Ã©", "é",$input);
-        $input = str_replace("Ãª", "ê",$input);
-        $input = str_replace("Ã«", "ë",$input);
-        $input = str_replace("Ã", "ì",$input);
-        $input = str_replace("Ã­", "í",$input);
-        $input = str_replace("Ã®", "î",$input);
-        $input = str_replace("Ã¯", "ï",$input);
+        $input = str_replace("Ã§", "ç", $input);
+        $input = str_replace("Ã¨", "è", $input);
+        $input = str_replace("Ã©", "é", $input);
+        $input = str_replace("Ãª", "ê", $input);
+        $input = str_replace("Ã«", "ë", $input);
+        $input = str_replace("Ã", "ì", $input);
+        $input = str_replace("Ã­", "í", $input);
+        $input = str_replace("Ã®", "î", $input);
+        $input = str_replace("Ã¯", "ï", $input);
         //$input = str_replace("Ã°", "ð",$input);
-        $input = str_replace("Ã±", "ñ",$input);
-        $input = str_replace("à±", "ñ",$input);
+        $input = str_replace("Ã±", "ñ", $input);
+        $input = str_replace("à±", "ñ", $input);
 
-        $input = str_replace("Ã²", "ò",$input);
-        $input = str_replace("Ã³", "ó",$input);
-        $input = str_replace("Ã´", "ô",$input);
-        $input = str_replace("Ãµ", "õ",$input);
-        $input = str_replace("àµ", "õ",$input);
-        $input = str_replace("Ã", "ö",$input);
+        $input = str_replace("Ã²", "ò", $input);
+        $input = str_replace("Ã³", "ó", $input);
+        $input = str_replace("Ã´", "ô", $input);
+        $input = str_replace("Ãµ", "õ", $input);
+        $input = str_replace("àµ", "õ", $input);
+        $input = str_replace("Ã", "ö", $input);
         //$input = str_replace("Ã·", "÷",$input);
         //$input = str_replace("Ã¸", "ø",$input);
-        $input = str_replace("Ã¹", "ù",$input);
-        $input = str_replace("Ãº", "ú",$input);
-        $input = str_replace("Ã»", "û",$input);
-        $input = str_replace("Ã¼", "ü",$input);
-        $input = str_replace("Ã½", "ý",$input);
+        $input = str_replace("Ã¹", "ù", $input);
+        $input = str_replace("Ãº", "ú", $input);
+        $input = str_replace("Ã»", "û", $input);
+        $input = str_replace("Ã¼", "ü", $input);
+        $input = str_replace("Ã½", "ý", $input);
         //$input = str_replace("Ã¾", "þ",$input);
-        $input = str_replace("Ã¿", "ÿ",$input);
-    
+        $input = str_replace("Ã¿", "ÿ", $input);
 
 
-        $input = str_replace("ã§", "ç",$input);
-        $input = str_replace("ã©", "é",$input);
-        $input = str_replace("ã©", "é",$input);
-        $input = str_replace("ã¡", "á",$input);
-        $input = str_replace("ã³", "ó",$input);
-        $input = str_replace("ã", "í",$input);
-        $input = str_replace("ãº", "ú",$input);
+
+        $input = str_replace("ã§", "ç", $input);
+        $input = str_replace("ã©", "é", $input);
+        $input = str_replace("ã©", "é", $input);
+        $input = str_replace("ã¡", "á", $input);
+        $input = str_replace("ã³", "ó", $input);
+        $input = str_replace("ã", "í", $input);
+        $input = str_replace("ãº", "ú", $input);
         //ã
 
-        $input = str_replace("à§", "ç",$input);
-        $input = str_replace("à©", "é",$input);
-        $input = str_replace("à©", "é",$input);
-        $input = str_replace("à¡", "á",$input);
-        $input = str_replace("à³", "ó",$input);
-        $input = str_replace("àº", "ú",$input);
-        $input = str_replace("à¼", "ü",$input);
-        $input = str_replace("à¤", "ä",$input);
-        $input = str_replace("à¤", "ä",$input);
-        $input = str_replace("ï¿½", "",$input);
+        $input = str_replace("à§", "ç", $input);
+        $input = str_replace("à©", "é", $input);
+        $input = str_replace("à©", "é", $input);
+        $input = str_replace("à¡", "á", $input);
+        $input = str_replace("à³", "ó", $input);
+        $input = str_replace("àº", "ú", $input);
+        $input = str_replace("à¼", "ü", $input);
+        $input = str_replace("à¤", "ä", $input);
+        $input = str_replace("à¤", "ä", $input);
+        $input = str_replace("ï¿½", "", $input);
 
         $_encoding = mb_detect_encoding($input, "UTF-8, ISO-8859-1");
         return html_entity_decode($input, ENT_QUOTES | ENT_HTML5, $_encoding);
-
     }
     private function importFile($type, $source)
     {

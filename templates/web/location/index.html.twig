@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/estamos-en.jpg') }}')">
+            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/cabecera_1920x1080_05_baja.jpg') }}'){% endif %} ">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -117,7 +117,7 @@
                                         {% for key, region in regiones %}
                                             {% if region.principal == 0  %}
                                                 <li class="buttons__list__column__item">
-                                                    <a class="btn__subcat" href="{{ path('location_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link">{{ region.translate(app.request.getLocale()).title }}</a>
+                                                    <a class="btn__subcat" href="{{ path('location_other_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link">{{ region.translate(app.request.getLocale()).title }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
@@ -285,6 +285,9 @@
             center: {lat: lat, lng: lng},
             zoom: zoom,
             mapTypeControl: false,
+            options: {
+                gestureHandling: 'greedy'
+            }
         });
         //setMarkers(map);
         var image = {

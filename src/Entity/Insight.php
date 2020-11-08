@@ -92,9 +92,9 @@ class Insight extends Publishable
     private $home;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
      */
-    private $photo;
+    private $attachments;    
 
     public function __construct()
     {
@@ -105,6 +105,7 @@ class Insight extends Publishable
         $this->events = new ArrayCollection();
         $this->caseStudies = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getHeaderType(): ?string
@@ -376,21 +377,6 @@ class Insight extends Publishable
         return $this;
     }
 
-    public function getPhoto(): ?Resource
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?Resource $photo): self
-    {
-        $this->photo = $photo;
-        if ($photo) {
-            $photo->setInsight($this);
-        }
-
-        return $this;
-    }
-
     public function removeCaseStudy(CaseStudy $caseStudy): self
     {
         if ($this->caseStudies->contains($caseStudy)) {
@@ -400,4 +386,36 @@ class Insight extends Publishable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setInsight($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getInsight() === $this) {
+                $attachment->setInsight(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

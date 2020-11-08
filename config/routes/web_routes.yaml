@@ -156,6 +156,7 @@ contactUs:
     path:
         en:   /contact-us
         es:   /contacta
+        pt:   /contact-us
         ge:   /contact-us
     methods:    GET|POST
     controller: App\Controller\Web\PrivacyController::contactUs

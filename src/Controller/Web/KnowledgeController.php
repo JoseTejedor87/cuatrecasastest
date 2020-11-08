@@ -65,7 +65,7 @@ class KnowledgeController extends WebController
         $format = $request->query->get('format');
         $collections = $request->query->get('collections');
         $initial = $request->query->get('initial');
-        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedEvents = $eventRepository->findFeaturedByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
 
@@ -151,12 +151,17 @@ class KnowledgeController extends WebController
                 ->setParameter('legislation', array_values($legislationA));
         }
         if ($date) {
-            foreach ($date as $key => $value) {
+            $dateA = explode(",", $date);
+            foreach ($dateA as $key => $value) {
                 $startdate = new \DateTime($value.'-01-01');
                 $enddate = new \DateTime($value.'-12-31');
-                $query = $query->orWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d H:i:s')."' AND  '".$enddate->format('Y-m-d H:i:s')."'")->orderBy('p.publication_date', 'DESC');
-                ;
+                if ($key == 0) {
+                    $query = $query->andWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d')."' AND  '".$enddate->format('Y-m-d')."'");
+                } else {
+                    $query = $query->orWhere("p.publication_date BETWEEN '".$startdate->format('Y-m-d')."' AND  '".$enddate->format('Y-m-d')."'");
+                }
             }
+            $query = $query->orderBy('p.publication_date', 'DESC');
         } else {
             $query = $query->andWhere('p.publication_date < :day')->setParameter('day', date("Y-m-d"))->orderBy('p.publication_date', 'DESC');
         }
@@ -240,7 +245,7 @@ class KnowledgeController extends WebController
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid',$navigation);
             if (!$value->photo) {
                 $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
             }
@@ -288,6 +293,9 @@ class KnowledgeController extends WebController
             if ($initial) {
                 $json['initial'] = $initial;
             }
+            if ($date) {
+                $json['date'] = $date;
+            }
             if (empty($json['publications'])) {
                 $json['error'] = "empty";
             }
@@ -310,18 +318,5 @@ class KnowledgeController extends WebController
             ]);
         }
     }
-    protected function getPhotoPathByFilter($publication, $filter)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->getType() == "publication_main_photo" ) {
-                    $photo = $this->imagineCacheManager->getBrowserPath(
-                        '/resources/' . $photo->getFileName(),
-                        $filter
-                    );
-                    return $photo;
-                }
-            }
-        }
-    }
+
 }

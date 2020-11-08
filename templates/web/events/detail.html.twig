@@ -68,10 +68,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'publication_dossier' %}
-                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    {{ 'sections.events.dossier'|trans }}
-                                    <span class="icon4-download"></span>
-                                </a>
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
                         </div>

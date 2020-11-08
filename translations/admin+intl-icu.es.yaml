@@ -157,6 +157,7 @@ sections:
       index:
         title: Conocimiento
         type: Tipo de Publicación
+        legislation: Legislación
       new:
         title: Nuevo Conocimiento
       edit:
@@ -318,6 +319,7 @@ entities:
       customCountry: Pais (Si no hay oficina)
       customPostalcode: Codigo postal (Si no hay oficina)
       customProvince: Provincia (Si no hay oficina)
+      featured: Destacado
 
 
   programs:
@@ -346,7 +348,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
-      photo: Foto
+      attachments: Adjuntos
   item:
     fields:
       createdAt: Fecha de creación
