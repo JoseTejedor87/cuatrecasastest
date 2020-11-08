@@ -38,6 +38,21 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
+    protected function getPhotoPathByFilter($lawyer, $filter,$navigation)
+    {
+        $photo = $lawyer->getPhoto();
+        if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
+            if ($photo->getType() == "publication_main_photo" ) {
+                $photo = $this->imagineCacheManager->getBrowserPath(
+                    '/resources/' . $photo->getFileName(),
+                    $filter
+                );
+                return $photo;
+            }
+        }
+        
+    }
+
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
@@ -48,6 +63,7 @@ class LawyerController extends WebController
         ]);
     }
 
+    
     public function index(
         Request $request,
         TranslatorInterface $translator,
