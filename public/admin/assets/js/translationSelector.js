@@ -11,8 +11,29 @@ var TranslationSelector = {
     changeView: function(locale) {
         // Hide all translatable fields
         $('.translatable-field-wrapper').hide();
+        if($('.translatable-field-wrapper .form-group input').hasClass( "required" )){
+            $('.translatable-field-wrapper .form-group input').hide().prop('required',false);
+        }
         // Show fields tagged with the selected locale
         $('.translatable-field-wrapper[data-locale="'+locale+'"]').show();
+        var inputs = $('.translatable-field-wrapper[data-locale="'+locale+'"]').find('input');
+        // var textareas = $('.translatable-field-wrapper[data-locale="'+locale+'"]').find('textarea');
+        inputs.each(function( index ) {
+            if($( this ).hasClass( "required" )){
+                $( this ).show().prop('required',true);
+            }else{
+                $( this ).show();
+            }
+        });
+        // textareas.each(function( index ) {
+        //     if($( this ).hasClass( "required" )){
+        //         $( this ).show().prop('required',true);
+        //     }else{
+        //         $( this ).show();
+        //     }
+        // });
+
+        
         this.locale = locale;
     },
     refresh: function() {
