@@ -242,7 +242,8 @@
                             <div class="grid__item {{ style[key] }}">
                                 <article class="boxnews__item boxnews__item--{{ publication.type  }}">
                                     <div class="boxnews__header">
-                                        <div class="boxnews__type">{{ publication.type  }}
+                                    {% set typeTrans = 'sections.knowledge.knowledgeTypes.'~publication.type %}
+                                        <div class="boxnews__type">{{ typeTrans | trans  }}
                                         </div>
                                         <div class="boxnews__info">
                                         {{ publication.fechaPubli }}
