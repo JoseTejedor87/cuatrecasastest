@@ -10,7 +10,9 @@
                                     <div class="boxnews__content__button boxnews__content__button--region">
                                         <a href="{{ path('location_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="floating__arrow__img">{{ region.translate(app.request.getLocale()).title }}</a>
                                     </div>
-                                    <img class="boxnews__content__img" src="{{ asset('web/assets/img/territorios-spain.jpg') }}" alt="">
+                                    <a href="{{ path('location_detail',{slug: region.translate(app.request.getLocale()).slug }) }}">
+                                        <img class="boxnews__content__img" src="{{ asset('web/assets/img/territorios-spain.jpg') }}" alt="">
+                                    </a>
                                 </div>
                             </article>
                         {% endif %}
