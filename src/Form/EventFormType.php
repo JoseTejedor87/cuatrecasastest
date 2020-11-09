@@ -122,10 +122,17 @@ class EventFormType extends AbstractType
                         ->andWhere('to.city is not null')
                         ->orderBy('to.city', 'ASC');
                 }
+//                'choice_label' =>
+//                    function ($office) {
+//                    if ($office->translate('es')){
+//                        return $office->translate('es')->getCity() ;
+//                    }
+//
+//                }
             ])
 
             ->add('responsablesmarketing', ChoiceType::class, [
-                'label' => 'Responsables de marketing Sap', 
+                'label' => 'Responsables de marketing Sap',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
