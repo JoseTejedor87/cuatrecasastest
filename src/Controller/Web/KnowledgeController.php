@@ -65,7 +65,7 @@ class KnowledgeController extends WebController
         $format = $request->query->get('format');
         $collections = $request->query->get('collections');
         $initial = $request->query->get('initial');
-        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedEvents = $eventRepository->findFeaturedByActivities('');
         $limit = 14;
         $page = $request->query->get('page') ?: 1;
 
@@ -245,7 +245,7 @@ class KnowledgeController extends WebController
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid',$navigation);
             if (!$value->photo) {
                 $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
             }
@@ -318,18 +318,5 @@ class KnowledgeController extends WebController
             ]);
         }
     }
-    protected function getPhotoPathByFilter($publication, $filter)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->getType() == "publication_main_photo") {
-                    $photo = $this->imagineCacheManager->getBrowserPath(
-                        '/resources/' . $photo->getFileName(),
-                        $filter
-                    );
-                    return $photo;
-                }
-            }
-        }
-    }
+
 }

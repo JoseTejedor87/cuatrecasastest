@@ -25,6 +25,7 @@ class DeskFormType extends ActivityFormType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
@@ -37,7 +38,7 @@ class DeskFormType extends ActivityFormType
         $resolver->setDefaults([
             'data_class' => Desk::class,
             'translation_domain' => 'admin',
-            'required' => false
+            'required' => true
         ]);
     }
 }

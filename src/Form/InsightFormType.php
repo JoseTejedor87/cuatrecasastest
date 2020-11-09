@@ -9,6 +9,7 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Entity\Activity;
 use App\Entity\Lawyer;
@@ -90,10 +91,14 @@ class InsightFormType extends AbstractType
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
                 ],
             ])
-            ->add('photo', ResourceFormType::class, [
-                'required' => false,
-                'label'=>'entities.insight.fields.photo'
-            ]);
+            ->add('attachments', CollectionType::class, [
+                'label' => 'entities.event.fields.attachments',
+                'entry_type' => ResourceFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ]);            
+
     }
 
     /**

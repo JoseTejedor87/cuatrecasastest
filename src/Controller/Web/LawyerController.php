@@ -38,6 +38,21 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
+    protected function getPhotoPathByFilter($lawyer, $filter,$navigation)
+    {
+        $photo = $lawyer->getPhoto();
+        if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
+            if ($photo->getType() == "publication_main_photo" ) {
+                $photo = $this->imagineCacheManager->getBrowserPath(
+                    '/resources/' . $photo->getFileName(),
+                    $filter
+                );
+                return $photo;
+            }
+        }
+        
+    }
+
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
     {
         $lawyer = $lawyerRepository->getInstanceByRequest($request);
@@ -48,6 +63,7 @@ class LawyerController extends WebController
         ]);
     }
 
+    
     public function index(
         Request $request,
         TranslatorInterface $translator,
@@ -208,7 +224,7 @@ class LawyerController extends WebController
                     }
                     $lawyerA[$key]['activities'] = $activities;
                     $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->translate($navigation->getLanguage())->getCity() : '';
-                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid');
+                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid',$navigation);
                 }
             }
             $json = array(
@@ -260,16 +276,6 @@ class LawyerController extends WebController
     }
 
 
-    protected function getPhotoPathByFilter($lawyer, $filter)
-    {
-        if ($photo = $lawyer->getPhoto()) {
-            $photo = $this->imagineCacheManager->getBrowserPath(
-                '/resources/' . $photo->getFileName(),
-                $filter
-            );
-        }
-        return $photo;
-    }
 
     public function download(Request $request, LawyerRepository $lawyerRepository, OfficeRepository $officeRepository)
     {
@@ -290,7 +296,7 @@ class LawyerController extends WebController
 
 
 
-        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid'));
+        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid',$navigation));
         $dataImage64 = base64_encode($img);
 
         $dataString =   'BEGIN:VCARD'."\n".
@@ -300,7 +306,7 @@ class LawyerController extends WebController
                         'ORG:Cuatrocasas'."\n".
                         'TITLE:'.$lawyer->getLawyerType()."\n".
                         //'PHOTO;VALUE=URI;TYPE=GIF:http://'.$lawyer->getPhoto()->getFile()."\n".
-                        //'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid')."\n".
+                        //'PHOTO;VALUE=URI;TYPE=JPG:'.$this->getPhotoPathByFilter($lawyer, 'lawyers_grid',$navigation)."\n".
                         'PHOTO;TYPE=JPEG;ENCODING=BASE64:'.$dataImage64."\n".
                         'TEL;TYPE=HOME,VOICE:'.$lawyer->getPhone()."\n".
                         'TEL;TYPE=FAX,VOICE:'.$lawyer->getFax()."\n";
