@@ -26,7 +26,8 @@ class UsersCommand extends Command
     private $CrearTablas;
     private $soap;
     private $em;
-
+    private $emUser;
+    private $connUser;
     const SOURCE_DOMAIN = "https://www.cuatrecasas.com";
 
     public function __construct(ContainerInterface $container, LoggerInterface $logger)
@@ -34,8 +35,10 @@ class UsersCommand extends Command
         parent::__construct();
         $this->container = $container;
         $this->logger = $logger;
-        $this->em =  $this->container->get('doctrine')->getManager('customeruser');
+        $this->em =  $this->container->get('doctrine')->getManager();
         $this->conn = $this->em->getConnection();
+        $this->emUser =  $this->container->get('doctrine')->getManager('customeruser');
+        $this->connUser = $this->emUser->getConnection();
     }
 
     protected function configure()
@@ -64,11 +67,15 @@ class UsersCommand extends Command
     public function UpdateUsers()
     {
         $query = "Select distinct shortname from SAP.dbo.tb_user_list_prod_Active";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->connUser->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll();
         $userRepository = $this->em->getRepository(User::class);
         foreach ($results as $key => $value) {
+            $query = "Select * from SAP.dbo.tb_user_list_prod_Active";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $results = $stmt->fetchAll();
             $user = $userRepository->findOneBy(['user_id' => $value['shortname']]);
             if(!$user){
                 $user = new User();
