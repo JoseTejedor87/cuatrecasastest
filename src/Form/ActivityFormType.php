@@ -32,10 +32,10 @@ abstract class ActivityFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
-                    'slug' => ['label'=>'entities.activity.fields.slug', 'required'=>false],
-                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false, 'empty_data' => ''],
+                    'title' => ['label'=>'entities.activity.fields.title', 'attr'=>[ 'required'=>true,'class'=>'required', 'empty_data' => '']],
+                    'slug' => ['label'=>'entities.activity.fields.slug','attr'=>[ 'required'=>false]],
+                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote', 'required'=>false]],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote','required'=>false, 'empty_data' => ''] ],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
@@ -47,6 +47,7 @@ abstract class ActivityFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
+                'required' => false,
                 'multiple' => true,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
@@ -81,6 +82,7 @@ abstract class ActivityFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($quote) {
                     return $quote->translate('es')->getBody();

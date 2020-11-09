@@ -15,7 +15,7 @@ class ActivityTranslation extends PublishableTranslation
     use ORMBehaviors\Translatable\Translation;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
 

@@ -32,6 +32,7 @@
     </div>
     <!-- END: Subheader -->
 
+
     <div class="m-content">
         <div class="row">
             <div class="col-md-12">
@@ -51,6 +52,15 @@
                                 {{ include('cms/tools/translationSelector.html.twig') }}
                             </div>
                         </div>
+                        {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show   m-alert m-alert--air" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            <strong>
+                            Error en el Web service!
+                            </strong>
+                            El Web service no ha podido conectarse o añadir el nuevo evento.
+                        </div>
+                         {% endif %}
                         <div class="m-portlet__body">
                             {{ include('cms/event/_form.html.twig') }}  
                         </div>
