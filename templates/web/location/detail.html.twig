@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/cabecera_1920x1080_05_baja.jpg') }}'){% endif %} ">
+            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('doble_header') }}') {% else %} url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg')| imagine_filter('doble_header') }}'){% endif %} ">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
