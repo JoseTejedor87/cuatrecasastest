@@ -101,7 +101,7 @@ sections:
     title: Conocimiento
     knowledgeTypes:
       news: Noticias
-      opinion: Opinion
+      opinion: Publicación
       academy: Academia
       legalNovelty: Novedades legales
     knowledgeFormat:

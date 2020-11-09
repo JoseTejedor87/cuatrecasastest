@@ -55,9 +55,9 @@ class RegionFormType extends AbstractType
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription'],
-                    'title' => ['label'=>'entities.region.fields.Title'],
-                    'summary' => ['label'=>'entities.lawyer.fields.description', 'attr'=>['class'=>'summernote']],
-                    'content' => ['label'=>'entities.lawyer.fields.curriculum', 'attr'=>['class'=>'summernote']],
+                    'title' => ['label'=>'entities.region.fields.title'],
+                    'summary' => ['label'=>'entities.region.fields.summary', 'attr'=>['class'=>'summernote']],
+                    'content' => ['label'=>'entities.region.fields.content', 'attr'=>['class'=>'summernote']],
                     'slug' => ['label'=>'entities.activity.fields.slug'],
                 ],
             ]);

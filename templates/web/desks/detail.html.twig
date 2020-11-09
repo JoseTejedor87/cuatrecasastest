@@ -9,7 +9,7 @@
     <main role="main" class="lawyer">
         <article class="container">
 
-            {% set photo = desk.photo ? (asset('/resources/' ~ desk.photo.fileName) | imagine_filter('full_header')) : '' %}
+            {% set photo = desk.photo ? (asset(resourcesPath ~ desk.photo.fileName) | imagine_filter('full_header')) : '' %}
 
             <header class="row page__header" style="background-image: url('{{ photo }}')">
                 <div class="col">

@@ -68,7 +68,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'publication_dossier' %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
                         </div>

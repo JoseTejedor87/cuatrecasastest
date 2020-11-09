@@ -28,6 +28,11 @@ use App\Controller\CMS\CMSController;
 
 class EventController extends CMSController
 {
+    // IMPORTANTE CAMPOS OBLIGATORIOS PASADOS POR CLIENTE
+    // Campos obligatorios: solo deben ser obligatorios los siguientes campos: "Fecha Inicio", "Fecha Final", "Hora Inicio", "Hora Final" y "Título del evento"  , id_evento_web, idTIpoWeb, tiponombre, urlics(Hay que implementarlo), urlweb
+    // Null: aforo, areas, ciudad, contacto, id estado web si publicado o no publicado, id_oficina, oficina nombre, optional adress, Ponentes externos, ponentes internos, preguntas eventos, responsables marketing, secretarias , socios , urlimagenemail
+    //URLWEB: Solo slug, tiene q estar la url completa
+    
     private $url;
     public function __construct(ContainerBagInterface $params)
     {
