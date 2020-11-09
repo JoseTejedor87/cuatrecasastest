@@ -56,6 +56,7 @@ class LawyerController extends CMSController
             ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
             ->add('languages', LanguageType::class, ['label'=>false])
             ->add('regions', RegionType::class, ['label'=>false])
+            ->add('initials', TextType::class, ['required' => false, 'label' => false])
             ->add('send', SubmitType::class,['label'=> 'Filtrar' ])
             ->getForm();
     

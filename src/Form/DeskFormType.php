@@ -37,7 +37,7 @@ class DeskFormType extends ActivityFormType
         $resolver->setDefaults([
             'data_class' => Desk::class,
             'translation_domain' => 'admin',
-            'required' => false
+            'required' => true
         ]);
     }
 }

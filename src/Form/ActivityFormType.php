@@ -32,8 +32,8 @@ abstract class ActivityFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true, 'empty_data' => ' '],
-                    'slug' => ['label'=>'entities.activity.fields.slug'],
+                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
+                    'slug' => ['label'=>'entities.activity.fields.slug', 'required'=>false],
                     'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
                     'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false, 'empty_data' => ''],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
@@ -61,6 +61,7 @@ abstract class ActivityFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'query_builder' => function (LawyerRepository $lr) {
                     return $lr->createQueryBuilder('l')
@@ -85,7 +86,9 @@ abstract class ActivityFormType extends AbstractType
                     return $quote->translate('es')->getBody();
                 }
             ])
-            ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])
+            ->add('highlighted', CheckboxType::class, [
+                'label'=>'entities.activity.fields.highlighted',
+                'required'=>false])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])

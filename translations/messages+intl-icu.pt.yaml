@@ -227,32 +227,6 @@ reusable_blocks:
       title: Cases
       link: View more
 
-##COOKIES
-##############################################
-ch_cookie_consent:
-    title: ''
-    intro: 'We use our own cookies and third-party analytics technologies to identify your browsing habits and be able to offer our contents based on your interests, while improving your security. For more information, select "more information" to access our Cookies policy to enable or disable cookies at any time.'
-    read_more: 'More information'
-    analytics:
-        title: 'Do you want analytical cookies?'
-        description: ''
-    tracking:
-        title: 'Do you want tracking cookies?'
-        description: ''
-    marketing:
-        title: 'Do you want personalised ads?'
-        description: ''
-    social_media:
-        title: 'Do you want social media cookies?'
-        description: ''
-    no: 'No'
-    yes: 'Yes'
-    save: 'Save'
-    use_only_functional_cookies: 'Only use functional cookies'
-    use_all_cookies: 'Allow all cookies'
-    show_details: 'Show details'
-    hide_details: 'Hide details'
-
 ## BLOCK FIRM
 #################################################
 firm:

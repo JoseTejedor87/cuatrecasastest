@@ -105,6 +105,11 @@ class Event extends Publishable
      */
     private $idGestorEventos;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=false})
+     */
+    private $featured;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
@@ -115,7 +120,6 @@ class Event extends Publishable
         $this->questions = new ArrayCollection();
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
-
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -428,4 +432,15 @@ class Event extends Publishable
         return $this;
     }
 
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
+
+    public function setFeatured($featured): self
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
 }

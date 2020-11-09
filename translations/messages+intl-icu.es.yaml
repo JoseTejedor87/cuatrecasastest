@@ -6,6 +6,7 @@ global:
     month: Mes
     year: Año
   home: Inicio
+  knowledge: Conocimiento
   goBack: Volver
   languages:
     es: Español

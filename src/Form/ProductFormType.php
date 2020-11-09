@@ -37,7 +37,7 @@ class ProductFormType extends ActivityFormType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'data_class' => Product::class,
-            'required' => false
+            'required' => true
         ]);
     }
 }

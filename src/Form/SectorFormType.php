@@ -37,7 +37,7 @@ class SectorFormType extends ActivityFormType
         $resolver->setDefaults([
             'data_class' => Sector::class,
             'translation_domain' => 'admin',
-            'required' => false
+            'required' => true
         ]);
     }
 }
