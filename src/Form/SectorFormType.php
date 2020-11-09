@@ -26,6 +26,7 @@ class SectorFormType extends ActivityFormType
                 ],
                 'multiple' => true,
                 'expanded' => false,
+                'required' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
                 }

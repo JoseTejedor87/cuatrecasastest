@@ -17,7 +17,7 @@
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
+                                <li class="breadcrumb-item">456 -
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
@@ -82,7 +82,6 @@
 
         </article>
     </main>
-
 
     {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
