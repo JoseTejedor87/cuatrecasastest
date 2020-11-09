@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 use App\Form\Type\EventCategoryType;
 use App\Form\Type\LawyerCategoryType;
@@ -17,6 +18,8 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 
 use App\Entity\Event;
+use App\Entity\Lawyer;
+
 use App\Entity\Question;
 use App\Entity\Person;
 use App\Form\EventFormType;
@@ -26,15 +29,15 @@ use App\Controller\CMS\CMSController;
 class EventController extends CMSController
 {
     private $url;
-    public function __construct()
+    public function __construct(ContainerBagInterface $params)
     {
         $this->url = 'http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl';
-
+        $this->params = $params;
     }
     public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $filter = $this->filter($request);
-
+        
         if ( $filter['fields'] != ''){
             $result = $eventRepository->findFilteredBy($filter['fields']);
         }else{
@@ -76,34 +79,43 @@ class EventController extends CMSController
 
         return array('form' => $formForFilter, 'fields' => $filterFields);
     }
-
+    function test($x)
+    {
+        return new \SoapFault("Server", "Some error message");
+    }
     public function new(Request $request): Response
     {
-      
+        
         $event = new Event();
         $entityManager = $this->getDoctrine()->getManager();
-        $eventRepository = $entityManager->getRepository(Event::class);
-        $eventlast = $eventRepository->findBy(array(),array('oldId'=>'DESC'),1,0);
-        $OldId = $eventlast[0]->getOldId();
         $form = $this->createForm(EventFormType::class, $event,[
             'entityManager' => $entityManager
         ]);
         $form->handleRequest($request);
 
+        $eventRepository = $entityManager->getRepository(Event::class);
+        $eventlast = $eventRepository->findBy(array(),array('oldId'=>'DESC'),1,0);
+        $OldId = $eventlast[0]->getOldId();
+        $WS_active = $this->params->get('app.web_service_active');
         if ($form->isSubmitted() && $form->isValid()) {
             //Crear Evento WS
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+1);
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-            $res  = $client->CreateEventoForGestionEventos($eventoWS);
-            $data = $res->CreateEventoForGestionEventosResult;
-            $dataEventoWS = ((array)$data);
+            $ponentesInternos = $this->getPonentesInternos($form,$entityManager);
+            if($WS_active){
+                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,$ponentesInternos,1,$OldId+1);
+                $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+                $res  = $client->CreateEventoForGestionEventos($eventoWS);
+                $data = $res->CreateEventoForGestionEventosResult;
+                $dataEventoWS = ((array)$data);
+            }
             if($responsablesmarketing)
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -116,7 +128,9 @@ class EventController extends CMSController
             if($secretarias)
             foreach ($secretarias as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -130,7 +144,9 @@ class EventController extends CMSController
             if($sociosresponsables)
             foreach ($sociosresponsables as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -140,14 +156,17 @@ class EventController extends CMSController
                 }
                 $event->addPerson($person);
             }
-            if($dataEventoWS['Result'] == true){
-                $event->setIdGestorEventos($dataEventoWS['Data']->Id);
-                $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+            if($WS_active){
+                if($dataEventoWS['Result'] == true ){
+                    $event->setIdGestorEventos($dataEventoWS['Data']->Id);
+                    $event->setOldId($dataEventoWS['Data']->IdEventoWeb);
+                }
             }
+           
                 $entityManager->persist($event);
                 $event->mergeNewTranslations();
                 $entityManager->flush();
-            if($dataEventoWS['Result'] == true){
+            if(isset($dataEventoWS) && $dataEventoWS['Result'] == true){
                 return $this->redirectToRoute('cms_events_index');
             }else{
                 return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId(), 'error'=>true]);
@@ -169,6 +188,8 @@ class EventController extends CMSController
 
     public function edit(Request $request, Event $event): Response
     {
+        $error =$request->query->get('error');
+        $WS_active = $this->params->get('app.web_service_active');
         $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(EventFormType::class, $event,[
             'entityManager' => $entityManager
@@ -180,13 +201,17 @@ class EventController extends CMSController
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
-            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,0,$event->getOldId());
-            $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
-
-            $res  = $client->UpdateEventoForGestionEventos($eventoWS);
-            $data = $res->UpdateEventoForGestionEventosResult;
-            $dataEventoWS = ((array)$data);
-            if($dataEventoWS['Result'] == true){
+            $ponentesInternos = $this->getPonentesInternos($form,$entityManager);
+            dd($ponentesInternos);
+            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,$ponentesInternos,0,$event->getOldId());
+            dd($eventoWS);
+            if($WS_active){
+                
+                $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
+                $res  = $client->UpdateEventoForGestionEventos($eventoWS);
+                $data = $res->UpdateEventoForGestionEventosResult;
+                $dataEventoWS = ((array)$data);
+            }
                 if($responsablesmarketing)
                 foreach ($responsablesmarketing as $key => $value) {
                     $personRepository = $entityManager->getRepository(Person::class);
@@ -248,15 +273,15 @@ class EventController extends CMSController
                 $this->getDoctrine()->getManager()->flush();
     
                 return $this->redirectToRoute('cms_events_edit', ['id'=>$event->getId()]);
-            }
+            
             
         }
 
         $a = $form->createView();
-
         return $this->render('cms/event/edit.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
+            'error' => $error
         ]);
     }
 
@@ -269,6 +294,23 @@ class EventController extends CMSController
         }
 
         return $this->redirectToRoute('cms_events_index');
+    }
+    public function getPonentesInternos($form, $entityManager){
+        $ponentesinternos = array();
+        $lawyerRepository = $entityManager->getRepository(Lawyer::class);
+            foreach ($form->get('people')->getData() as $key => $value) {
+                if($value->getLawyer()->getId())
+                array_push($ponentesinternos, $value->getLawyer()->getId());
+            }
+            if($ponentesinternos){
+                $conn = $entityManager->getConnection();
+                $sql = "SELECT * FROM lawyer where id in (". implode(",", $ponentesinternos) .")";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $ponentesinternos =$stmt->fetchAll();
+                return  $ponentesinternos;
+            }
+            return null;
     }
     public function getResponsablesmarketingSW($form, $entityManager){
         $responsablesmarketing = array();
@@ -316,7 +358,8 @@ class EventController extends CMSController
             }
             return null;
     }
-    public function eventoSW($form,$responsablesmarketing,$secretarias,$sociosresponsables,$new,$oldId){
+    public function eventoSW($form,$responsablesmarketing,$secretarias,$sociosresponsables,$ponentesInternos,$new,$oldId){
+
         if($new){
             $type= 'eventoGestionEventosCreateParamDto';
         }else{
@@ -376,12 +419,14 @@ class EventController extends CMSController
             $parametrosEvento[$type]['OptionalAddress']['PostalCode'] = $form->get('translations')->getData()['es']->getCustomPostalcode() ? $form->get('translations')->getData()['es']->getCustomPostalcode() : '';
             $parametrosEvento[$type]['OptionalAddress']['Province'] = $form->get('translations')->getData()['es']->getCustomProvince() ? $form->get('translations')->getData()['es']->getCustomProvince() : '';
         }
+        if($ponentesInternos)
+        foreach ($ponentesInternos as $key => $value) {
+            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array( 'Apellidos' => $value->getSurname(), 'Iniciales' => $value->getInicial() ,'Nombre' => $value->getName());
+        }
         if($form->get('people')->getData()){
             foreach ($form->get('people')->getData() as $key => $value) {
-                if($value->getLawyer()){
-                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array( 'Apellidos' => $value->getSurname(), 'Iniciales' => $value->getInicial() ,'Nombre' => $value->getName());
-                }else{
-                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array('Apellidos' => $value->getSurname(),'Nombre' => $value->getName());
+                if($value->getLawyer()->getId() == null){
+                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteExternoCreateParamDto'] = array('Apellidos' => $value->getSurname(),'Nombre' => $value->getName());
                 }
             }
         }

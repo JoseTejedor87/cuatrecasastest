@@ -26,6 +26,7 @@ class SectorFormType extends ActivityFormType
                 ],
                 'multiple' => true,
                 'expanded' => false,
+                'required' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
                 }
@@ -37,7 +38,7 @@ class SectorFormType extends ActivityFormType
         $resolver->setDefaults([
             'data_class' => Sector::class,
             'translation_domain' => 'admin',
-            'required' => false
+            'required' => true
         ]);
     }
 }

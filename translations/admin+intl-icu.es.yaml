@@ -319,6 +319,7 @@ entities:
       customCountry: Pais (Si no hay oficina)
       customPostalcode: Codigo postal (Si no hay oficina)
       customProvince: Provincia (Si no hay oficina)
+      featured: Destacado
 
 
   programs:
@@ -347,7 +348,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
-      photo: Foto
+      attachments: Adjuntos
   item:
     fields:
       createdAt: Fecha de creación
@@ -363,7 +364,7 @@ entities:
       photo: Fotografía
       knownLanguages: Idiomas conocidos
       lawyerType: Tipo
-      description: Descripción
+      description: Resumen
       curriculum: Curriculum Vitae
       activities: Sectores / Servicios / Desks
       secondaryActivities: Sectores / Servicios / Desks (secundarias)
@@ -481,10 +482,10 @@ entities:
       title: Titulo
       description: Descripcion
       showSearchBlock: Mostrar Bloque de Búsqueda
-      showRelatedPublicationAndEvents: Mostrar Bloque de Publicaciones
-      showInsight: Mostrar Bloque Conocimientos elegidos
-      showCarrerBlock: Mostrar Bloque Carrer
-      showQuoteBlock: Mostrar Bloque Citas
+      showRelatedPublicationAndEvents: Mostrar Bloque de Contenido Destacado
+      showInsight: Mostrar Bloque Insights
+      showCarrerBlock: Mostrar Bloque Talento
+      showQuoteBlock: Mostrar Bloque Premios
       insight: Seleccionar Colecciones
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas

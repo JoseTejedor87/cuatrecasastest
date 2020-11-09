@@ -21,10 +21,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#">Conocimiento</a>
+                                    <a href="{{ path('knowledge_index') }}">{{ 'global.knowledge'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Artículos
@@ -47,10 +47,7 @@
                         <div class="article__details desktop" >
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'publication_dossier'%}
-                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
-                                    {{ 'global.messages.dossier_download'|trans }}
-                                    <span class="icon4-download"></span>
-                                </a>
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
 
@@ -147,7 +144,9 @@
     {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
-    {% include 'web/shared/insight.html.twig' %}
+    {% if insight is defined and insight|length > 0 %}
+        {% include 'web/shared/insight.html.twig' %}
+    {% endif %}
     {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
