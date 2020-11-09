@@ -14,6 +14,7 @@
         <meta name="msapplication-TileColor" content="#46001d">
         <meta name="theme-color" content="#46001d">
         {% set canonical = app.request.attributes.get('_route') ? url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) : '' %}
+        {% set resourcesPath = navigation_service.getResourcesPath() %}
         {% if canonical %}
             <link rel="canonical" href="{{ canonical }}" />
         {% endif %}

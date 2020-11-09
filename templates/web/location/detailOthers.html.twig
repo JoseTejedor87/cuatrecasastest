@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
-                            <figure style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset('/resources/' ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/cabecera_1920x1080_05_baja.jpg') }}'){% endif %}"></figure>
+                            <figure style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('lawyers_header') }}') {% else %} url('{{ asset('web/assets/img/cabecera_1920x1080_05_baja.jpg') }}'){% endif %}"></figure>
                         </div>
                     </div>
                 </div>
@@ -81,10 +81,11 @@
             {% if relatedCaseStudies|length > 1 %}
                 {% include 'web/shared/cases.html.twig' with {caseStudies: relatedCaseStudies} %}
             {% endif %}
-             {# {% include 'web/shared-cmp/cases_CMP.html.twig' %} #}
+             {% include 'web/shared-cmp/cases_CMP.html.twig' %}
             {# {% include 'web/shared/cases-offices.html.twig' %} #}
             {# {% include 'web/shared/cta-offices.html.twig' %} #}
-            {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %}
+            {# {% include 'web/shared-cmp/call-to-action_CMP.html.twig' %} #}
+            {% include 'web/shared/call-to-action-sectors-services.html.twig' %}
             {# cta_discover call to action #}
 
         </article>

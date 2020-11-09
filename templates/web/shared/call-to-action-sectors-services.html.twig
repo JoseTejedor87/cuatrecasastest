@@ -1,0 +1,29 @@
+<section class="cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <a href="#" class="cta__link">
+                    <figure class="cta__img cta__img--left" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('call_to_action') }}')">
+                        <img src="{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('call_to_action') }}" alt="" class="sr-only">
+                    </figure>
+                </a>
+            </div>
+            <div class="col-xl-6">
+                <article class="cta__content cta__content--right">
+                    <h3 class="cta__title">
+                        {{ 'global.messages.services_sectors'|trans }}
+                    </h3>
+                    <p class="cta__excerpt">
+                        Lorem, ipsum dolor sit, amet consectetur adipisicing elit...
+                    </p>
+                    <div class="button__block">
+                        <a href="{{ path('services_index') }}" class="doble__arrow__link">{{ 'global.messages.show_service'|trans }}</a>
+                    </div>
+                    <div class="button__block">
+                        <a href="{{ path('sectors_index') }}" class="doble__arrow__link">{{ 'global.messages.show_sector'|trans }}</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>

@@ -47,8 +47,8 @@ global:
     load_more: Cargar más
     show_more: Ver más
     show_less: Ver menos
-    show_sector: Ver Sectores
-    show_service: Ver Servicios
+    show_sector: Ver sectores
+    show_service: Ver servicios
     view_more_cases: Ver más casos
     view_more_publications: Ver más publicaciones
     view_more_collections: Ver más colecciones
@@ -61,6 +61,7 @@ global:
     our_recomendation: Te recomendamos
     dossier_download: Descarga el dossier
     empty_results: No se han encontrado resultados para la búsqueda realizada
+    services_sectors: Servicios y sectores de Cuatrecasas
   forms:
     search: Buscar
     save: Guardar

@@ -23,6 +23,13 @@ class NavigationService
         return $this->params;
     }
 
+    public function getResourcesPath()
+    {
+        
+        return $_SERVER['APP_ENV_VHOST'].'/resources/'; 
+    }
+
+
     public function getLanguage()
     {
         return $this->router->getContext()->getParameter('_locale');

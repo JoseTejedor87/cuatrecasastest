@@ -13,7 +13,7 @@
          {%  set imageFile = 'cabecera_1920x1080_baja.jpg' %}
     {% endif %}
 
-    <div class="swiper-slide" style="background-image: url('{{ asset('/resources/'~imageFile) | imagine_filter('home_header') }}')">
+    <div class="swiper-slide" style="background-image: url('{{ asset(resourcesPath~imageFile) | imagine_filter('home_header') }}')">
         <div class="home__wrapper">
             <div class="home__article">
                 <div class="home__article__type">{{ slide.translate(app.request.getLocale()).title }}</div>
