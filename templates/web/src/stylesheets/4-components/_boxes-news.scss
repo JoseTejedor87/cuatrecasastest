@@ -1156,7 +1156,20 @@
             }
             @include has("date") {}
             @include has("time") {}
-            @include has("author") {}
+
+            @include has("author") {
+                span {
+                    &:after {
+                        content: ',';
+                    }
+
+                    &:last-child {
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+            }
         }
 
         @include has("action") {
