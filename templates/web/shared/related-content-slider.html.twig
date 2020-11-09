@@ -28,7 +28,15 @@
                                     </h5>
                                     <div class="boxnews__meta">
                                         <div class="boxnews__meta__date">{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</div>
-                                        <div class="boxnews__meta__author">{% for person in publication.people %}{% if person.lawyer %}  {{ person.lawyer.name }} {{ person.lawyer.surname }}{% else %}{{ person.name }} {{ person.surname }} {% endif %} {% endfor %}</div>
+                                        <div class="boxnews__meta__author">
+                                    {% for person in publication.people %}
+                                        {% if person.lawyer %}
+                                            <span>{{ person.lawyer.name }} {{ person.lawyer.surname }}</span>
+                                        {% else %}
+                                            <span>{{ person.name }} {{ person.surname }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                                 {% if publication.activities|length > 1 %}
