@@ -25,8 +25,8 @@ global:
     ru: Ruso
   regions:
     spain: España
-    latam: Latinoamerica
     portugal: Portugal
+    latam: Latinoamerica
     global: Global
   messages:
     error_generic: Error genérico
