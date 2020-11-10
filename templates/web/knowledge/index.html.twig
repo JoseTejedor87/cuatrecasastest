@@ -1,7 +1,7 @@
 {% extends 'web/base.html.twig' %}
 {% block link %}
 <link id="relprev" rel="prev" href="{{app.request.uri}}" />
-<link id="relnext" rel="next" href="{{app.request.uri~'?page=1'}}" />
+<link id="relnext" rel="next" href="{{app.request.uri~'?page=2'}}" />
 {% endblock %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
@@ -516,8 +516,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    $('#relprev').attr('href', $('#relnext').attr('href'));
-                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
+                    $('#relprev').attr('href', location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])-1));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])+1));
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

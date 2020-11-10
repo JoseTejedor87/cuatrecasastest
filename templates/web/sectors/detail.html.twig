@@ -91,7 +91,7 @@
             fixed_activity:sector.translate(app.request.getLocale()).title
         } %}
     {% endif %}
-    {% if relatedCaseStudies|length > 0 %}
+    {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
     {% if relatedCaseStudies|length > 1 %}
@@ -100,7 +100,9 @@
     {% if awards|length > 2 %}
     {% include 'web/shared/awards.html.twig' with { awards: awards} %}
     {% endif %}
-    {% include 'web/shared/insight.html.twig' %}
+    {% if insights|length > 0 %}
+    {% include 'web/shared/insight.html.twig'  with {insight: insights|first}  %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
