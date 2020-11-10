@@ -11,14 +11,14 @@
                     <div class="insight__content">
                         <h3 class="insight__title">
                             {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
-                                {{ insight.translate(InsightLanguague).title|raw }}
+                                {{ insight.translate(InsightLanguague).title|striptags }}
                             {% else %}
 
                             {% endif %}
                         </h3>
                         <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="insight__link">
                             {% if insight is defined and insight.translate(InsightLanguague).summary != '' %}
-                                {{ insight.translate(InsightLanguague).summary|raw }}
+                                {{ insight.translate(InsightLanguague).summary|striptags }}
                             {% else %}
 
                             {% endif %}

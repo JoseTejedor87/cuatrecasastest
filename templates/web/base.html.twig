@@ -25,6 +25,7 @@
         {% include 'web/base/stylesheets.html.twig' %}
         {% block stylesheets %}{% endblock %}
     </head>
+    <body>
         {% set array = { 'es':'','en':'-1','pt':'-2','ge':'-3' } %}
         {% set slug_ext = array[app.request.getLocale()] %} {# Slug temporal para pages diferentes idiomas  borrar al hacer la navegacion administrable #}
         {% include 'web/base/menu.html.twig' %}
@@ -39,5 +40,15 @@
         {% endif %}
         {% if chcookieconsent_isCookieConsentSavedByUser() == true %}
         {% endif %}
+        <script>
+            const updatePixelRatio = () => {
+                if (window.devicePixelRatio == 1.5) {
+                    document.body.setAttribute("id", "zoomBrowser");
+                } else {
+                    document.body.removeAttribute("id");
+                }
+            }
+            updatePixelRatio();
+        </script>
     </body>
 </html>
