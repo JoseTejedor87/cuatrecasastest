@@ -419,12 +419,14 @@ class EventController extends CMSController
             $parametrosEvento[$type]['OptionalAddress']['PostalCode'] = $form->get('translations')->getData()['es']->getCustomPostalcode() ? $form->get('translations')->getData()['es']->getCustomPostalcode() : '';
             $parametrosEvento[$type]['OptionalAddress']['Province'] = $form->get('translations')->getData()['es']->getCustomProvince() ? $form->get('translations')->getData()['es']->getCustomProvince() : '';
         }
-        if($ponentesInternos)
-        $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array();
-        foreach ($ponentesInternos as $key => $value) {
-            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Apellidos'] = $value['surname'];
-            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Iniciales'] = $value['initials'];
-            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Nombre'] = $value['name'];
+      
+        if (is_array($ponentesInternos) || is_object($ponentesInternos)){
+            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array();
+            foreach ($ponentesInternos as $key => $value) {
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Apellidos'] = $value['surname'];
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Iniciales'] = $value['initials'];
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Nombre'] = $value['name'];
+            }
         }
         if($form->get('people')->getData()){
             foreach ($form->get('people')->getData() as $key => $value) {
@@ -441,14 +443,13 @@ class EventController extends CMSController
                 $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'][$key]['Question'] =  $value->translate('es')->getQuestion();
             }
         }
-        
-        if($responsablesmarketing)
+        if (is_array($responsablesmarketing) || is_object($responsablesmarketing))
         foreach ($responsablesmarketing as $key => $value) {
                 $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Apellidos'] = $value['Apellidos'];
                 $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Iniciales'] = $value['Iniciales'];
                 $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Nombre'] = $value['Nombre'];
         }
-        if($secretarias)
+        if (is_array($secretarias) || is_object($secretarias))
         foreach ($secretarias as $key => $value) {
             $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'][$key]['Apellidos'] = $value['Apellidos'];
             $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'][$key]['Iniciales'] = $value['Iniciales'];
