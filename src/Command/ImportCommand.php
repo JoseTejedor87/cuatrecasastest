@@ -1186,7 +1186,7 @@ class ImportCommand extends Command
                 $event->setCustomSignup($item['url_inscripcion']);
                 $event->setPhone($item['telefono']);
                 $event->setContact($item['contacto']);
-                $event->setFeatured($item['status']);
+                $event->setFeatured($item['destacada']);
                 $event->setEventType(
                     self::getMappedEventTypeCode($item['tipo'])
                 );

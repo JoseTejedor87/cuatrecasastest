@@ -80,3 +80,25 @@
 
 </div>
 {% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+<script>
+$('#event_form_questions').on('input', ':input', function() { 
+     $(".question").each(function(index, value){
+         if($(this).val()){
+             setTimeout(setHash(index,$(this).val()) , 1000000);
+            
+         }
+    });
+});
+function setHash(key,question){
+    $(".hash").each(function(index, value){
+        if(index == key){
+            setTimeout($(this).val(CryptoJS.MD5(question)) , 1000000);
+        }
+    });
+}
+</script>
+
+{% endblock %}
