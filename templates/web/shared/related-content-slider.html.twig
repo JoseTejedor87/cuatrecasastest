@@ -59,9 +59,13 @@
                     </div>
                     <div class="swiper-scrollbar"></div>
                 </div>
-                <div class="viewmore__button">
-                    <button type="button" class="btn btn__viewmore">{{ 'global.messages.show_more'|trans }}</button>
-                </div>
+                {% if noButton is defined %}
+                    {# no button -> home #}
+                {% else %}
+                    <div class="viewmore__button">
+                        <button type="button" class="btn btn__viewmore">{{ 'global.messages.show_more'|trans }}</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
