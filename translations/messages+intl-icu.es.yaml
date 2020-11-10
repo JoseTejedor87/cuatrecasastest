@@ -837,7 +837,7 @@ career:
       title: Vive Cuatrecasas
       content: No te pongas limites, vive la experiencia Cuatrecasas. Encontraras un excelente ambiente de trabajo y un gran compañerismo para que des lo mejor de ti.
     art_2:
-      title: Revolución
+      title: rEvolution
       content: Apostamos por una forma de trabajar distinta, aplicando la última tecnología disponible y una metodología de gestión de proyectos innovadora.
 
   collections_career_international:
@@ -962,8 +962,11 @@ career:
     title: Donde estamos
     content: Descubre la red de oficinas nacionales e internacionales de Cuatrecasas.
 
-  cta_video:
-    title: Lorem, ipsum dolor sit amet, consectetur vídeo de 10 años
+  cta_video_learn:
+    title: Talento aprende, lorem ipsum dolor sit amet, consectetur vídeo de 10 años
+
+  cta_video_live:
+    title: Talento vive, lorem ipsum dolor sit amet, consectetur vídeo de 10 años
 
 # PRIVACY
 # ###########################################
