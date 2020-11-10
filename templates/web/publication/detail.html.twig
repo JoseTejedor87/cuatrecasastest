@@ -55,8 +55,6 @@
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item" itemscope itemtype="https://schema.org/Person" >
-                                 
-                                 {{ dump(person) }})
                                      {% if person.lawyer %}
                                         <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}"  class="related__content__link" itemprop="author" itemprop="name">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}
