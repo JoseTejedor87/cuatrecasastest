@@ -32,10 +32,10 @@ abstract class ActivityFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.activity.fields.title', 'attr'=>[ 'required'=>true,'class'=>'required', 'empty_data' => '']],
-                    'slug' => ['label'=>'entities.activity.fields.slug','attr'=>[ 'required'=>false]],
+                    'title' => ['label'=>'entities.activity.fields.title', 'attr'=>[ 'required'=>true,'class'=>'required'], 'empty_data' => ' '],
+                    'slug' => ['label'=>'entities.activity.fields.slug','attr'=>[ 'required'=>false], 'empty_data' => ' '],
                     'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote', 'required'=>false]],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote','required'=>false, 'empty_data' => ''] ],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote','required'=>false] , 'empty_data' => ' ' ],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
@@ -94,7 +94,7 @@ abstract class ActivityFormType extends AbstractType
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
-            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published','required'=>false])
             ->add('photo', ResourceFormType::class, [
                 'required' => false,
                 'label'=>'entities.activity.fields.image'
