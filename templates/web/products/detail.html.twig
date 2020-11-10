@@ -7,7 +7,7 @@
 {% block main %}
 {% if product %}
     {% if product.photo %}
-        {% set photo_path = asset('/resources/' ~ product.photo.fileName) |imagine_filter('full_header') %}
+        {% set photo_path = asset(resourcesPath ~ product.photo.fileName) |imagine_filter('full_header') %}
     {% else %}
         {% set photo_path = asset('/web/assets/img/cabecera_1920x1080_baja.jpg') |imagine_filter('full_header') %}
     {% endif %}

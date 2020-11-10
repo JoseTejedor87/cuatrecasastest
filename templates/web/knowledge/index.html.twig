@@ -516,8 +516,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    $('#relprev').attr('href', $('#relnext').attr('href'));
-                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
+                    $('#relprev').attr('href', location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])-1));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])+1));
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

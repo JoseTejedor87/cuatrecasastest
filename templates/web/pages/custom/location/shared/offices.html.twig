@@ -3,28 +3,28 @@
         <div class="row page__section">
             <div class="col">
                 <div class="boxnews__list">
-                    <article class="boxnews__item">
+                    <article class="boxnews__item boxnews__item--photo">
                         <div class="boxnews__content">
                             <div class="boxnews__content__button boxnews__content__button--region">
-                                <a href="#" class="floating__arrow__img">España</a>
+                                <a href="#" class="floating__arrow__img">{{ 'global.regions.spain'|trans }}</a>
                             </div>
-                            <img class="boxnews__content__img" src="{{ asset('web/assets/img/territorios-spain.jpg') }}" alt="">
+                            <img class="boxnews__content__img" src="{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('publication_box') }}" alt="{{ 'global.regions.spain'|trans }}">
                         </div>
                     </article>
                     <article class="boxnews__item">
                         <div class="boxnews__content">
                             <div class="boxnews__content__button boxnews__content__button--region">
-                                <a href="#" class="floating__arrow__img">Portugal</a>
+                                <a href="#" class="floating__arrow__img">{{ 'global.regions.portugal'|trans }}</a>
                             </div>
-                            <img class="boxnews__content__img" src="{{ asset('web/assets/img/territorios-portugal.jpg') }}" alt="">
+                            <img class="boxnews__content__img" src="{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('publication_box') }}" alt="{{ 'global.regions.portugal'|trans }}">
                         </div>
                     </article>
                     <article class="boxnews__item">
                         <div class="boxnews__content">
                             <div class="boxnews__content__button boxnews__content__button--region">
-                                <a href="#" class="floating__arrow__img">Latinoamérica</a>
+                                <a href="#" class="floating__arrow__img">{{ 'global.regions.latam'|trans }}</a>
                             </div>
-                            <img class="boxnews__content__img" src="{{ asset('web/assets/img/territorios-latam.jpg') }}" alt="">
+                            <img class="boxnews__content__img" src="{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('publication_box') }}" alt="{{ 'global.regions.latam'|trans }}">
                         </div>
                     </article>
                 </div>

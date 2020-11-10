@@ -65,6 +65,8 @@ sections:
       title: Región
     new:
       title: Nueva región
+    edit:
+      title: Editar región
   insights:
     index:
       title: Colecciones

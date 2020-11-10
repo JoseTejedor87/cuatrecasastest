@@ -60,7 +60,7 @@
                             {% include 'web/base/social-share.html.twig' %}
                             {% if lawyer.photo %}
                                 <div class="lawyer__page__foto--img"  itemprop="image" style="background-image: url('{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}');">
-                                    <img src="{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}" alt="{{ lawyer.slug }}" class="sr-only">
+                                    <img src="{{ asset('/resources/' ~ lawyer.photo.fileName) | imagine_filter('lawyers_header') }}" alt="{{ lawyer.fullName }}" class="sr-only">
                                 </div>
                             {% endif %}
                         </div>
@@ -197,12 +197,12 @@
                                                 {% if slug_event == '' %}
                                                     {% set slug_event = slug_event.translate('es').slug %}
                                                 {% endif %}
-                                                {% if slug_event != '' %}                                            
+                                                {% if slug_event != '' %}
                                                     <li>
                                                         <div>{{ StartDate[1] }}</div>
                                                         <a href="{{ path('events_detail', {slug: slug_event }) }}">{{ event.translate(app.request.getLocale()).title}}</a>
                                                     </li>
-                                                {% endif %}                                                    
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
