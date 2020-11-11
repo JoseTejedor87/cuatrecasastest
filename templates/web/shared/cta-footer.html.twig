@@ -8,11 +8,11 @@
             </div>
             <div class="col-5 choose__interests">
                 <p>{{ 'reusable_blocks.cta_footer.intro' | trans }}</p>
-                {% if url is defined  %}
-                    <a href="{{url}}" class="btn btn__arrow">{{ 'reusable_blocks.cta_footer.button' | trans }}</a>
-                {% else %}
+{#                {% if url is defined  %}#}
+{#                    <a href="{{url}}" class="btn btn__arrow">{{ 'reusable_blocks.cta_footer.button' | trans }}</a>#}
+{#                {% else %}#}
                     <a href="{{ path('userSettings') }}" class="btn btn__arrow">{{ 'reusable_blocks.cta_footer.button' | trans }}</a>
-                {% endif %}
+{#                {% endif %}#}
             </div>
         </div>
     </div>

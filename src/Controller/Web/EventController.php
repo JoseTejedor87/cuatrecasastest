@@ -33,23 +33,7 @@ class EventController extends WebController
         $this->conn = $this->em->getConnection();
         $this->imagineCacheManager = $imagineCacheManager;
     }
-
-    protected function getPhotoPathByFilter($publication, $filter, $navigation)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->isPublished($navigation->getLanguage(), $navigation->getRegion())) {
-                    if ($photo->getType() == "publication_main_photo") {
-                        $photo = $this->imagineCacheManager->getBrowserPath(
-                            '/resources/' . $photo->getFileName(),
-                            $filter
-                        );
-                        return $photo;
-                    }
-                }
-            }
-        }
-    }
+    
 
 
     public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository, ActivityRepository $ActivityRepository)
@@ -148,20 +132,23 @@ class EventController extends WebController
                     $activities = $activities . $activity->translate('es')->getTitle();
                 }
 
-                $array = array(
-                    "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
-                    "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
-                    "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
-                    "sector" => $activities,
-                    "place" => $event->translate('es')->getCustomAddress(),
-                    "placeLink" => "",
-                    "fullDate" => "",
-                    "fullTime" => "",
-                    "button" => "Inscribirme",
-                    "speakersTitle" => "Ponentes",
-                    "speakers" =>  array( )
-                );
+
+
+                    $array = array(
+                        "title" => $event->translate('es')->getTitle(),
+                        "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
+                        "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
+                        "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
+                        "sector" => $activities,
+                        "place" => $event->translate('es')->getCustomAddress(),
+                        "placeLink" => "",
+                        "fullDate" => "",
+                        "fullTime" => "",
+                        "button" => "Inscribirme",
+                        "speakersTitle" => "Ponentes",
+                        "speakers" =>  array( )
+                    );
+
                 foreach ($event->getPeople() as $keySpeaker => $speaker) {
                     if ($speaker->getLawyer()) {
                         $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();
@@ -220,7 +207,8 @@ class EventController extends WebController
                 array_push($attachmentPublished, $attachment);
             }
         }
-        $headerImage = $this->getPhotoPathByFilter($event, 'full_header', $navigation);
+        $headerImage = $this->getPhotoPathByFilter($event, 'full_header',$navigation);
+
 
         return $this->render('web/events/detail.html.twig', [
             'event' => $event,

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Insight;
+use App\Entity\OfficeTranslation;
+use App\Repository\OfficeRepository;
+use App\Repository\OfficeTranslationRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,10 +36,7 @@ class EventFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // IMPORTANTE CAMPOS OBLIGATORIOS PASADOS POR CLIENTE
-        // Campos obligatorios: solo deben ser obligatorios los siguientes campos: "Fecha Inicio", "Fecha Final", "Hora Inicio", "Hora Final" y "Título del evento"  , id_evento_web, idTIpoWeb, tiponombre, urlics(Hay que implementarlo), urlweb
-        // Null: aforo, areas, ciudad, contacto, id estado web si publicado o no publicado, id_oficina, oficina nombre, optional adress, Ponentes externos, ponentes internos, preguntas eventos, responsables marketing, secretarias , socios , urlimagenemail
-        //URLWEB: Solo slug, tiene q estar la url completa
+  
         $builder
             ->add('startDate', DateTimeType::class, ['label'=>'entities.event.fields.startDate', 'required' => true])
             ->add('endDate', DateTimeType::class, ['label'=>'entities.event.fields.endDate', 'required' => true])
@@ -111,20 +111,28 @@ class EventFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
-                'required' => false,
                 'placeholder' => 'entities.event.fields.no-office',
                 'empty_data' => null,
                 'required' => false,
                 'multiple' => false,
                 'expanded' => false,
-                'choice_label' => function ($office) {
-                    return $office->translate('es')->getCity();
+                'query_builder' => function (OfficeRepository $or){
+                    return $or->createQueryBuilder('o')
+                        ->join('o.translations', 'to')
+                        ->andWhere('to.city is not null')
+                        ->orderBy('to.city', 'ASC');
                 }
+//                'choice_label' =>
+//                    function ($office) {
+//                    if ($office->translate('es')){
+//                        return $office->translate('es')->getCity() ;
+//                    }
+//
+//                }
             ])
 
             ->add('responsablesmarketing', ChoiceType::class, [
                 'label' => 'Responsables de marketing Sap',
-                'required' => true,
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -136,8 +144,7 @@ class EventFormType extends AbstractType
                 'data' =>  $this->getResponsablesSelected($options['entityManager'], $options['data'], 'marketing')
             ])
             ->add('secretarias', ChoiceType::class, [
-                'label' => 'Secretarias Sap',
-                'required' => true,
+                'label' => 'Secretarias Sap', 
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -149,8 +156,7 @@ class EventFormType extends AbstractType
                 'data' =>  $this->getResponsablesSelected($options['entityManager'], $options['data'], 'secretaria')
             ])
             ->add('sociosresponsables', ChoiceType::class, [
-                'label' => 'Socios Responsables Sap',
-                'required' => true,
+                'label' => 'Socios Responsables Sap', 
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
@@ -179,7 +185,7 @@ class EventFormType extends AbstractType
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.event.fields.title', 'required' => true],
+                    'title' => [ 'label'=>'entities.event.fields.title', 'attr'=>['required' => true,'class'=>'required']],
                     'description' => ['label'=>'entities.event.fields.description', 'attr'=>['class'=>'summernote']],
                     // 'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'customCity' => ['label'=>'entities.event.fields.customCity'],

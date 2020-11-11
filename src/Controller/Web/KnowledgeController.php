@@ -3,6 +3,7 @@
 namespace App\Controller\Web;
 
 use App\Repository\LegislationRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,12 +38,18 @@ class KnowledgeController extends WebController
         SectorRepository $sectorRepository,
         InsightRepository $insightRepository,
         PracticeRepository $practiceRepository,
+        ProductRepository $productRepository,
         OfficeRepository $officeRepository,
         LegislationRepository $legislationRepository,
         EventRepository $eventRepository,
         NavigationService $navigation
     ) {
-        $practices = $practiceRepository->getPracticeByName($request)->getResult();
+        $practices = $practiceRepository->findBy(
+            array('highlighted' => 'asc')
+        );
+        $products = $productRepository->findBy(
+            array('highlighted' => 'asc')
+        );
         $sectors = $sectorRepository->getSectorsByName($request)->getResult();
         $offices = $officeRepository->getOfficesByName($request)->getResult();
         $legislations = $legislationRepository->findBy(
@@ -57,6 +64,7 @@ class KnowledgeController extends WebController
 
         $textSearch = $request->query->get('textSearch');
         $services = $request->query->get('services');
+        $product = $request->query->get('products');
         $sector = $request->query->get('sector');
         $office = $request->query->get('office');
         $legislation = $request->query->get('legislation');
@@ -70,8 +78,6 @@ class KnowledgeController extends WebController
         $page = $request->query->get('page') ?: 1;
 
 
-        // dd($insights);
-
 
         $query = $publicationRepository->createPublishedQueryBuilder('p');
         // $query = $query->innerJoin('p.translations', 'pt')
@@ -82,6 +88,12 @@ class KnowledgeController extends WebController
             $query = $query->innerJoin('p.activities', 'a')
                            ->andWhere('a.id in (:activity)')
                            ->setParameter('activity', array_values($servicesA));
+        }
+        if ($product) {
+            $productA = explode(",", $product);
+            $query = $query->innerJoin('p.activities', 'a')
+                ->andWhere('a.id in (:activity)')
+                ->setParameter('activity', array_values($productA));
         }
         if ($sector) {
             $sectorA = explode(",", $sector);
@@ -245,9 +257,9 @@ class KnowledgeController extends WebController
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid',$navigation);
             if (!$value->photo) {
-                $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
+                $value->photo = '/web/assets/img/360x460_generica_news.jpg';
             }
         }
         //dd($publications);
@@ -275,6 +287,9 @@ class KnowledgeController extends WebController
             if ($services) {
                 $json['services'] = $services;
             }
+            if ($product) {
+                $json['products'] = $product;
+            }
             if ($sector) {
                 $json['sector'] = $sector;
             }
@@ -301,11 +316,13 @@ class KnowledgeController extends WebController
             }
 
             return new JsonResponse($json);
+
         } else {
             return $this->render('web/knowledge/index.html.twig', [
                 'controller_name' => 'KnowledgeController',
                 'sectors' => $sectors,
                 'practices' => $practices,
+                'products' => $products,
                 'offices' => $offices,
                 'types' => $types,
                 'formats' => $formats,
@@ -318,18 +335,5 @@ class KnowledgeController extends WebController
             ]);
         }
     }
-    protected function getPhotoPathByFilter($publication, $filter)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->getType() == "publication_main_photo") {
-                    $photo = $this->imagineCacheManager->getBrowserPath(
-                        '/resources/' . $photo->getFileName(),
-                        $filter
-                    );
-                    return $photo;
-                }
-            }
-        }
-    }
+
 }

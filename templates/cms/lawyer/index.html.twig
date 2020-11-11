@@ -21,8 +21,9 @@
                         <a href="{{ path('cms_lawyers_new') }}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h">
                             <i class="flaticon-plus"></i> {{ 'global.actions.create'|trans }}
                         </a>
-                    </li> 
-                      
+                    </li>
+
+
                 </ul>
                 <div class="m-portlet m--padding-15" >
                 {{ form_start(formForFilterView) }} 
@@ -53,14 +54,19 @@
                             {{'entities.filter.fechaHasta'|trans}}
                             {{ form_row(formForFilterView.fechaHasta) }} 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            {{'entities.lawyer.fields.initials'|trans}}
+                            {{ form_row(formForFilterView.initials) }}
+                        </div>
+                        <div class="col-md-2">
                             {{'entities.publishable.fields.languages'|trans}}
                             {{ form_row(formForFilterView.languages) }} 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             {{'entities.publishable.fields.regions'|trans}}
                             {{ form_row(formForFilterView.regions) }} 
                         </div>
+
                         <div class="col-md-2">
                             <p>
                             {{ form_row(formForFilterView.send) }}

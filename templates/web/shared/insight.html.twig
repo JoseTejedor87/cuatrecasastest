@@ -11,16 +11,16 @@
                     <div class="insight__content">
                         <h3 class="insight__title">
                             {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
-                                {{ insight.translate(InsightLanguague).title|raw }}
+                                {{ insight.translate(InsightLanguague).title|striptags }}
                             {% else %}
-                                
+
                             {% endif %}
                         </h3>
                         <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="insight__link">
                             {% if insight is defined and insight.translate(InsightLanguague).summary != '' %}
-                                {{ insight.translate(InsightLanguague).summary|raw }}
+                                {{ insight.translate(InsightLanguague).summary|striptags }}
                             {% else %}
-                                
+
                             {% endif %}
                         </a>
                     </div>
@@ -50,11 +50,9 @@
                     {% endif %}
                 </article>
             </div>
-
             <div class="col-xl-6">
-                <a href="#" class="box__link">
+                <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="box__link">
                     <figure class="insight__vector" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_header') }}')">
-                        <img src="{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_header') }}" alt="">
                     </figure>
                 </a>
             </div>

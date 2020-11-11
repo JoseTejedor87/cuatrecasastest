@@ -1,7 +1,7 @@
 {% extends 'web/base.html.twig' %}
 {% block link %}
 <link id="relprev" rel="prev" href="{{app.request.uri}}" />
-<link id="relnext" rel="next" href="{{app.request.uri~'?page=1'}}" />
+<link id="relnext" rel="next" href="{{app.request.uri~'?page=2'}}" />
 {% endblock %}
 {% block stylesheets %}
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
@@ -36,14 +36,12 @@
             <section class="row page__section search_box">
                 <div class="col search_box__wrapper">
                     <div class="search_box__name search_box__name--full">
-                        <form action="" method="get">
                             <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" name="initial">
                             <div class="input-group">
                                 <button class="search_box__button apply_button">
                                     <span class="icon4-lupa"></span>
                                 </button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </section>
@@ -107,6 +105,14 @@
                                             <div class="checkbox">
                                                 <input type="checkbox" id="services-{{practice.id}}" data-name="{{ practice.translate(app.request.getLocale()).title|raw  }}" value="{{practice.id}}">
                                                 <label class="checkbox-label" for="services-{{practice.id}}"><span>{{ practice.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for product in products %}
+                                        {% if product.translate(app.request.getLocale()).title  %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="services-{{product.id}}" data-name="{{ product.translate(app.request.getLocale()).title|raw  }}" value="{{product.id}}">
+                                                <label class="checkbox-label" for="services-{{product.id}}"><span>{{ product.translate(app.request.getLocale()).title|raw  }}</span></label>
                                             </div>
                                         {% endif %}
                                     {% endfor %}
@@ -242,7 +248,8 @@
                             <div class="grid__item {{ style[key] }}">
                                 <article class="boxnews__item boxnews__item--{{ publication.type  }}">
                                     <div class="boxnews__header">
-                                        <div class="boxnews__type">{{ publication.type  }}
+                                    {% set typeTrans = 'sections.knowledge.knowledgeTypes.'~publication.type %}
+                                        <div class="boxnews__type">{{ typeTrans | trans  }}
                                         </div>
                                         <div class="boxnews__info">
                                         {{ publication.fechaPubli }}
@@ -339,6 +346,7 @@
         function ajax(page) {
             var sectors = new Array();
             var services = new Array();
+            var products = new Array();
             var collections = new Array();
             var type = new Array();
             var region = new Array();
@@ -359,6 +367,9 @@
                     sectors.push($(this).val());
                 }
                 if(result[0] == "services"){
+                    services.push($(this).val());
+                }
+                if(result[0] == "products"){
                     services.push($(this).val());
                 }
                 if(result[0] == "collection"){
@@ -388,7 +399,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
+                data: { sector: sectors.toString(), services: services.toString(),products: products.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -431,6 +442,13 @@
                             url= "?services="+msg['services'];
                         }else{
                             url= url + "&services="+msg['services'];
+                        }
+                    }
+                    if(msg['products']){
+                        if(url == ""){
+                            url= "?products="+msg['products'];
+                        }else{
+                            url= url + "&products="+msg['products'];
                         }
                     }
                     if(msg['collections']){
@@ -517,8 +535,8 @@
                     //
                     $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
                     window.history.replaceState(null, null, "conocimiento"+url);
-                    $('#relprev').attr('href', $('#relnext').attr('href'));
-                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+msg['page']);
+                    $('#relprev').attr('href', location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])-1));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])+1));
                     if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
                         $('.btn__viewmore').hide();
                     }else{

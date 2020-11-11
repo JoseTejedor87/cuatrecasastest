@@ -18,6 +18,8 @@ use App\Form\Type\LanguageType;
 use App\Form\Type\RegionType;
 
 use App\Entity\Event;
+use App\Entity\Lawyer;
+
 use App\Entity\Question;
 use App\Entity\Person;
 use App\Form\EventFormType;
@@ -26,6 +28,7 @@ use App\Controller\CMS\CMSController;
 
 class EventController extends CMSController
 {
+    
     private $url;
     public function __construct(ContainerBagInterface $params)
     {
@@ -83,23 +86,26 @@ class EventController extends CMSController
     }
     public function new(Request $request): Response
     {
-        $WS_active = $this->params->get('app.web_service_active');
+        
         $event = new Event();
         $entityManager = $this->getDoctrine()->getManager();
-        $eventRepository = $entityManager->getRepository(Event::class);
-        $eventlast = $eventRepository->findBy(array(),array('oldId'=>'DESC'),1,0);
-        $OldId = $eventlast[0]->getOldId();
         $form = $this->createForm(EventFormType::class, $event,[
             'entityManager' => $entityManager
         ]);
         $form->handleRequest($request);
+
+        $eventRepository = $entityManager->getRepository(Event::class);
+        $eventlast = $eventRepository->findBy(array(),array('oldId'=>'DESC'),1,0);
+        $OldId = $eventlast[0]->getOldId();
+        $WS_active = $this->params->get('app.web_service_active');
         if ($form->isSubmitted() && $form->isValid()) {
             //Crear Evento WS
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
+            $ponentesInternos = $this->getPonentesInternos($form,$entityManager);
             if($WS_active){
-                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,1,$OldId+1);
+                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,$ponentesInternos,1,$OldId+1);
                 $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
                 $res  = $client->CreateEventoForGestionEventos($eventoWS);
                 $data = $res->CreateEventoForGestionEventosResult;
@@ -108,7 +114,9 @@ class EventController extends CMSController
             if($responsablesmarketing)
             foreach ($responsablesmarketing as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -121,7 +129,9 @@ class EventController extends CMSController
             if($secretarias)
             foreach ($secretarias as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -135,7 +145,9 @@ class EventController extends CMSController
             if($sociosresponsables)
             foreach ($sociosresponsables as $key => $value) {
                 $personRepository = $entityManager->getRepository(Person::class);
-                $person = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                $personA = $personRepository->findBy(['inicial' => $value['Iniciales']]);
+                if(isset($personA[0]))
+                    $person = $personA[0];
                 if(!$person){
                     $person = new Person();
                     $person->setName($value['Nombre']);
@@ -177,6 +189,7 @@ class EventController extends CMSController
 
     public function edit(Request $request, Event $event): Response
     {
+        $error =$request->query->get('error');
         $WS_active = $this->params->get('app.web_service_active');
         $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(EventFormType::class, $event,[
@@ -189,8 +202,12 @@ class EventController extends CMSController
             $responsablesmarketing = $this->getResponsablesmarketingSW($form,$entityManager);
             $secretarias = $this->getSecretariasSW($form,$entityManager);
             $sociosresponsables = $this->getSociosresponsablesSW($form,$entityManager);
+            $ponentesInternos = $this->getPonentesInternos($form,$entityManager);
+            // dd($ponentesInternos);
+            $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,$ponentesInternos,0,$event->getOldId());
+            // dd($eventoWS);
             if($WS_active){
-                $eventoWS = $this->eventoSW($form,$responsablesmarketing,$secretarias, $sociosresponsables,0,$event->getOldId());
+                
                 $client = new \SoapClient('http://gestorcontactosdev.cuatrecasas.com/GestorContactosWcfService.svc?wsdl');
                 $res  = $client->UpdateEventoForGestionEventos($eventoWS);
                 $data = $res->UpdateEventoForGestionEventosResult;
@@ -262,10 +279,10 @@ class EventController extends CMSController
         }
 
         $a = $form->createView();
-
         return $this->render('cms/event/edit.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
+            'error' => $error
         ]);
     }
 
@@ -278,6 +295,23 @@ class EventController extends CMSController
         }
 
         return $this->redirectToRoute('cms_events_index');
+    }
+    public function getPonentesInternos($form, $entityManager){
+        $ponentesinternos = array();
+        $lawyerRepository = $entityManager->getRepository(Lawyer::class);
+            foreach ($form->get('people')->getData() as $key => $value) {
+                if($value->getLawyer()->getId())
+                array_push($ponentesinternos, $value->getLawyer()->getId());
+            }
+            if($ponentesinternos){
+                $conn = $entityManager->getConnection();
+                $sql = "SELECT * FROM lawyer where id in (". implode(",", $ponentesinternos) .")";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $ponentesinternos =$stmt->fetchAll();
+                return  $ponentesinternos;
+            }
+            return null;
     }
     public function getResponsablesmarketingSW($form, $entityManager){
         $responsablesmarketing = array();
@@ -325,7 +359,8 @@ class EventController extends CMSController
             }
             return null;
     }
-    public function eventoSW($form,$responsablesmarketing,$secretarias,$sociosresponsables,$new,$oldId){
+    public function eventoSW($form,$responsablesmarketing,$secretarias,$sociosresponsables,$ponentesInternos,$new,$oldId){
+
         if($new){
             $type= 'eventoGestionEventosCreateParamDto';
         }else{
@@ -372,7 +407,6 @@ class EventController extends CMSController
         $parametrosEvento[$type]['FechaFin'] = $form->get('endDate')->getData()->format('Y-m-d\TH:i:s');;
         $parametrosEvento[$type]['FechaInicio'] = $form->get('startDate')->getData()->format('Y-m-d\TH:i:s');;
         $parametrosEvento[$type]['IdEstadoWeb'] = $form->get('published')->getData() ? '2' : '1' ;
-        // REVISAR
         $parametrosEvento[$type]['IdEventoWeb'] = $new ? $oldId : $oldId;
         $parametrosEvento[$type]['IdOficina'] = $form->get('office')->getData() ? $form->get('office')->getData()->getSap() : '';
         $parametrosEvento[$type]['IdTipoWeb'] = $form->get('eventType')->getData()=='standard' ? '1' : $form->get('eventType')->getData()=='webinar' ? '2' : $form->get('eventType')->getData()=='breakfast' ? '3' : $form->get('eventType')->getData()=='institutional' ? '4' :'' ;
@@ -385,32 +419,49 @@ class EventController extends CMSController
             $parametrosEvento[$type]['OptionalAddress']['PostalCode'] = $form->get('translations')->getData()['es']->getCustomPostalcode() ? $form->get('translations')->getData()['es']->getCustomPostalcode() : '';
             $parametrosEvento[$type]['OptionalAddress']['Province'] = $form->get('translations')->getData()['es']->getCustomProvince() ? $form->get('translations')->getData()['es']->getCustomProvince() : '';
         }
+      
+        if (is_array($ponentesInternos) || is_object($ponentesInternos)){
+            $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array();
+            foreach ($ponentesInternos as $key => $value) {
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Apellidos'] = $value['surname'];
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Iniciales'] = $value['initials'];
+                $parametrosEvento[$type]['PonentesInternos']['EventoGestionEventosPonenteInternoCreateParamDto'][$key]['Nombre'] = $value['name'];
+            }
+        }
         if($form->get('people')->getData()){
             foreach ($form->get('people')->getData() as $key => $value) {
-                if($value->getLawyer()){
-                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array( 'Apellidos' => $value->getSurname(), 'Iniciales' => $value->getInicial() ,'Nombre' => $value->getName());
-                }else{
-                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteInternoCreateParamDto'] = array('Apellidos' => $value->getSurname(),'Nombre' => $value->getName());
+                if($value->getLawyer()->getId() == null){
+                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteExternoCreateParamDto'][$key]['Apellidos'] = $value->getSurname();
+                    $parametrosEvento[$type]['PonentesExternos']['EventoGestionEventosPonenteExternoCreateParamDto'][$key]['Nombre'] = $value->getName();
                 }
             }
         }
         if($form->get('questions')->getData()){
             foreach ($form->get('questions')->getData() as $key => $value) {
-                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'] = array( 'Action' => $new ? "INSERT" : "EDIT", 'IdEventQuestionWeb' => $value->translate('es')->getHash() ?  $value->translate('es')->getHash() : md5($value->translate('es')->getQuestion()) ,'Question' => $value->translate('es')->getQuestion());
+                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'][$key]['Action'] =  "INSERT" ;
+                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'][$key]['IdEventQuestionWeb'] =  $value->translate('es')->getHash() ?  $value->translate('es')->getHash() : md5($value->translate('es')->getQuestion());
+                $parametrosEvento[$type]['PreguntasEvento']['EventoPreguntaCreateDto'][$key]['Question'] =  $value->translate('es')->getQuestion();
+            }
         }
-        }
-        
-        if($responsablesmarketing)
+        if (is_array($responsablesmarketing) || is_object($responsablesmarketing))
         foreach ($responsablesmarketing as $key => $value) {
-                $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'] = array( 'Apellidos' => $value['Apellidos'], 'Iniciales' => $value['Iniciales'] ,'Nombre' => $value['Nombre']);
+                $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Apellidos'] = $value['Apellidos'];
+                $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Iniciales'] = $value['Iniciales'];
+                $parametrosEvento[$type]['ResponsablesMarketing']['EventoGestionEventosResponsableMarketingCreateParamDto'][$key]['Nombre'] = $value['Nombre'];
         }
-        if($secretarias)
+        if (is_array($secretarias) || is_object($secretarias))
         foreach ($secretarias as $key => $value) {
-                $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'] = array( 'Apellidos' => $value['Apellidos'], 'Iniciales' => $value['Iniciales'] ,'Nombre' => $value['Nombre']);      
+            $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'][$key]['Apellidos'] = $value['Apellidos'];
+            $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'][$key]['Iniciales'] = $value['Iniciales'];
+            $parametrosEvento[$type]['Secretarias']['EventoGestionEventosSecretariaCreateParamDto'][$key]['Nombre'] = $value['Nombre'];
+         
         }
         if($sociosresponsables)
         foreach ($sociosresponsables as $key => $value) {
-                $parametrosEvento[$type]['SociosResponsables']['EventoGestionEventosSocioResponsableCreateParamDto'] = array( 'Apellidos' => $value['Apellidos'], 'Iniciales' => $value['Iniciales'] ,'Nombre' => $value['Nombre']);
+            $parametrosEvento[$type]['SociosResponsables']['EventoGestionEventosSocioResponsableCreateParamDto'][$key]['Apellidos'] = $value['Apellidos'];
+            $parametrosEvento[$type]['SociosResponsables']['EventoGestionEventosSocioResponsableCreateParamDto'][$key]['Iniciales'] = $value['Iniciales'];
+            $parametrosEvento[$type]['SociosResponsables']['EventoGestionEventosSocioResponsableCreateParamDto'][$key]['Nombre'] = $value['Nombre'];
+    
         }
         $parametrosEvento[$type]['IdTipoWeb'] = $form->get('eventType')->getData()=='standard' ? 'Estándar' : $form->get('eventType')->getData()=='webinar' ? 'Webinar' : $form->get('eventType')->getData()=='breakfast' ? 'Desayuno' : $form->get('eventType')->getData()=='institutional' ? 'Institucional' :'' ;
         $parametrosEvento[$type]['Titulo'] = $form->get('translations')->getData()['es']->getTitle();
@@ -418,7 +469,6 @@ class EventController extends CMSController
         $parametrosEvento[$type]['UrlImagenEmail'] = "";
         $parametrosEvento[$type]['UrlWeb'] = $form->get('translations')->getData()['es']->getSlug() ?  $this->container->get('router')->generate('events_detail', array('slug' => $form->get('translations')->getData()['es']->getSlug())) : ' ';
         
-       
         return $parametrosEvento;
 
     }

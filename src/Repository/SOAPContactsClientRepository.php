@@ -218,13 +218,29 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
     {
         
         $values = "";
+        $values2 = "";
+        $values3 = "";
         foreach ($data as $key => $value) {
             if($key==0){
                 $values = $values . "('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
             }else{
-                $values = $values . ",('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+                if($key<1000){
+                    $values = $values . ",('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+                } 
             }
-            
+            if($key==1000){
+                $values2 = $values2 . "('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+            }else{
+                if($key<2000 && $key>1000)
+                $values2 = $values2 . ",('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+            } 
+            if($key==2000){
+                $values3 = $values3 . "('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+            }else{
+                if($key<3000 && $key>2000)
+                $values3 = $values3 . ",('".$value->IdPais."','".str_replace("'","",$value->IdProvincia)."','".str_replace("'","",$value->Nombre) ."')";
+            } 
+
         }
         $query = "INSERT INTO 
         GC_provincias (IdPais, IdProvincia , Nombre)
@@ -232,6 +248,15 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
         ".$values.";";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+
+        $query = "INSERT INTO 
+        GC_provincias (IdPais, IdProvincia , Nombre)
+        VALUES
+        ".$values2.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+
         
         return true;
     }
@@ -337,15 +362,40 @@ class SOAPContactsClientRepository extends ServiceEntityRepository
     {
         
         $values = "";
+        $values2 = "";
+        $values3 = "";
         foreach ($data as $key => $value) {
             if($key==0){
                 $values = $values . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }else{
+                if($key<1000){
                 $values = $values . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
+                }
+            }
+            if($key==1000){
+                $values2 = $values2 . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
+            }else{
+                if($key<2000 && $key>1000)
+                $values2 = $values2 . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
+            } 
+            if($key==2000){
+                $values3 = $values3 . "('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
+            }else{
+                if($key<3000 && $key>2000)
+                $values3 = $values3 . ",('".$value->EmpId."','".$value->Iniciales."','".$value->Nombre."','".$value->Apellidos."','".$value->Email."','".$value->Telefono."')";
             }
             
         }
+       
         $query = "INSERT INTO GC_secretarias(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "INSERT INTO GC_secretarias(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values2.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $query = "INSERT INTO GC_secretarias(EmpId, Iniciales,Nombre,Apellidos,Email,Telefono) VALUES ".$values3.";";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         

@@ -44,9 +44,9 @@ use App\Entity\Home;
 use App\Entity\Question;
 use App\Entity\Region;
 
-class ImportCommand extends Command
+class ImportUpdate extends Command
 {
-    protected static $defaultName = 'app:import';
+    protected static $defaultName = 'app:importUpdate';
     private $container;
     private $logger;
     private $mappedLawyerIds;
@@ -90,8 +90,8 @@ class ImportCommand extends Command
 
         if ($table=="all") {
             $this->logger->info("Se van a importar todas las tablas");
-            $this->delTrainings();  // porque da error constraint al borrar los lawyers sino
-            $this->delMentions();  // porque da error constraint al borrar los lawyers sino
+           // $this->delTrainings();  // porque da error constraint al borrar los lawyers sino
+           // $this->delMentions();  // porque da error constraint al borrar los lawyers sino
             $this->Lawyers();
             $this->Events();
             $this->Activities();
@@ -304,7 +304,7 @@ class ImportCommand extends Command
 
     public function Legislation()
     {
-        $data = file_get_contents("JsonExports/legislacion.json");
+        $data = file_get_contents("JsonExports/Updates/legislacion.json");
         $items = json_decode($data, true);
 
 
@@ -323,7 +323,7 @@ class ImportCommand extends Command
 
     public function EventosPreguntas()
     {
-        $data = file_get_contents("JsonExports/eventos_preguntas.json");
+        $data = file_get_contents("JsonExports/Updates/eventos_preguntas.json");
         $items = json_decode($data, true);
 
         //  [{"id_evento":"93022","lang":"esp","hash":"pzm8wl94hp482hlf9fv2rr85vfbs518g","titulo":"","required":"0"},
@@ -370,7 +370,7 @@ class ImportCommand extends Command
 
     public function EventosResponsables()
     {
-        $data = file_get_contents("JsonExports/eventos_responsables.json");
+        $data = file_get_contents("JsonExports/Updates/eventos_responsables.json");
         $items = json_decode($data, true);
 
         $eventRepository = $this->em->getRepository(Event::class);
@@ -420,7 +420,7 @@ class ImportCommand extends Command
     {
         //$this->Legislation();
 
-        $data = file_get_contents("JsonExports/PublicacionesLegislacion.json");
+        $data = file_get_contents("JsonExports/Updates/PublicacionesLegislacion.json");
         $items = json_decode($data, true);
         $legislationRepository = $this->em->getRepository(Legislation::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -446,12 +446,12 @@ class ImportCommand extends Command
     public function Videos()
     {
         $pub_videos = json_decode(
-            file_get_contents("JsonExports/Videos.json"),
+            file_get_contents("JsonExports/Updates/Videos.json"),
             true
         );
 
         $pub_video_translations = json_decode(
-            file_get_contents("JsonExports/VideosIdiomas.json"),
+            file_get_contents("JsonExports/Updates/VideosIdiomas.json"),
             true
         );
 
@@ -588,7 +588,7 @@ class ImportCommand extends Command
 
     public function VideoPublicationsByLawyers()
     {
-        $data = file_get_contents("JsonExports/VideosAbogados.json");
+        $data = file_get_contents("JsonExports/Updates/VideosAbogados.json");
         $items = json_decode($data, true);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -623,7 +623,7 @@ class ImportCommand extends Command
 
     public function VideoPublicationsByOffices()
     {
-        $data = file_get_contents("JsonExports/VideosOficina.json");
+        $data = file_get_contents("JsonExports/Updates/VideosOficina.json");
         $items = json_decode($data, true);
         $officeRepository = $this->em->getRepository(Office::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -653,7 +653,7 @@ class ImportCommand extends Command
 
     public function VideoPublicationsByActivities()
     {
-        $data = file_get_contents("JsonExports/VideosPractica.json");
+        $data = file_get_contents("JsonExports/Updates/VideosPractica.json");
         $items = json_decode($data, true);
         $activityRepository = $this->em->getRepository(Activity::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -706,7 +706,7 @@ class ImportCommand extends Command
     public function Trainings()
     {
         $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
-        $data = file_get_contents("JsonExports/abogados.json");
+        $data = file_get_contents("JsonExports/Updates/abogados.json");
         $items = json_decode($data, true);
 
         // $this->delTrainings();
@@ -813,7 +813,7 @@ class ImportCommand extends Command
     public function Mentions()
     {
         $this->logger->debug("La tabla Lawyer debe estar previamente cargada y correcta para que las relaciones esten bien ");
-        $data = file_get_contents("JsonExports/abogados.json");
+        $data = file_get_contents("JsonExports/Updates/abogados.json");
         $items = json_decode($data, true);
 
         // $this->delMentions();
@@ -868,7 +868,7 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM PageTranslation ");
         // $this->em->getConnection()->executeQuery("ALTER TABLE PageTranslation AUTO_INCREMENT = 1");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([PageTranslation], RESEED, 1)");
-        $data = file_get_contents("JsonExports/pages.json");
+        $data = file_get_contents("JsonExports/Updates/pages.json");
         $items = json_decode($data, true);
 
         foreach ($items as $item) {
@@ -896,7 +896,7 @@ class ImportCommand extends Command
         $this->em->getConnection()->executeQuery("DELETE FROM RegionTranslation ");
         // $this->em->getConnection()->executeQuery("ALTER TABLE RegionTranslation AUTO_INCREMENT = 1");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([RegionTranslation], RESEED, 1)");
-        $data = file_get_contents("JsonExports/regions.json");
+        $data = file_get_contents("JsonExports/Updates/regions.json");
         $items = json_decode($data, true);
 
         foreach ($items as $item) {
@@ -932,7 +932,7 @@ class ImportCommand extends Command
         //       $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([Brand], RESEED, 1)");
 
 
-        $data = file_get_contents("JsonExports/brands.json");
+        $data = file_get_contents("JsonExports/Updates/brands.json");
         $items = json_decode($data, true);
 
         $homeRepository = $this->em->getRepository(Home::class);
@@ -984,7 +984,7 @@ class ImportCommand extends Command
         // $this->em->getConnection()->executeQuery("DELETE FROM slider_banner ");
         // //$this->em->getConnection()->executeQuery("ALTER TABLE slider_banner AUTO_INCREMENT = 1");
         // $this->em->getConnection()->executeQuery("DBCC CHECKIDENT ([slider_banner], RESEED, 1)");
-        $data = file_get_contents("JsonExports/banner.json");
+        $data = file_get_contents("JsonExports/Updates/banner.json");
         $items = json_decode($data, true);
 
         foreach ($items as $item) {
@@ -1024,7 +1024,7 @@ class ImportCommand extends Command
 
     public function Lawyers()
     {
-        $data = file_get_contents("JsonExports/abogados.json");
+        $data = file_get_contents("JsonExports/Updates/abogados.json");
         $items = json_decode($data, true);
 
         // Removing files from disk
@@ -1132,7 +1132,7 @@ class ImportCommand extends Command
 
     public function Events()
     {
-        $data = file_get_contents("JsonExports/eventos.json");
+        $data = file_get_contents("JsonExports/Updates/eventos.json");
         $items = json_decode($data, true);
 
         // Removing files from disk
@@ -1186,7 +1186,7 @@ class ImportCommand extends Command
                 $event->setCustomSignup($item['url_inscripcion']);
                 $event->setPhone($item['telefono']);
                 $event->setContact($item['contacto']);
-                $event->setFeatured($item['destacada']);
+                $event->setFeatured($item['status']);
                 $event->setEventType(
                     self::getMappedEventTypeCode($item['tipo'])
                 );
@@ -1265,7 +1265,7 @@ class ImportCommand extends Command
 
     public function UpdateEventStatus()
     {
-        $data = file_get_contents("JsonExports/eventos.json");
+        $data = file_get_contents("JsonExports/Updates/eventos.json");
         $items = json_decode($data, true);
         $eventRepository = $this->em->getRepository(Event::class);
 
@@ -1288,7 +1288,7 @@ class ImportCommand extends Command
 
     public function Activities()
     {
-        $data = file_get_contents("JsonExports/areas_practicas.json");
+        $data = file_get_contents("JsonExports/Updates/areas_practicas.json");
         $items = json_decode($data, true);
         $oldIdsProducts = [1461,1457,1383,1391,1453,1452,1464];
         // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
@@ -1441,7 +1441,7 @@ class ImportCommand extends Command
     }
     public function ActivityActivities()
     {
-        $data = file_get_contents("JsonExports/areas_relacionades.json");
+        $data = file_get_contents("JsonExports/Updates/areas_relacionades.json");
         $items = json_decode($data, true);
 
         // $this->em->getConnection()->executeQuery("DELETE FROM [activity_activity]");
@@ -1469,7 +1469,7 @@ class ImportCommand extends Command
     }
     public function ActivityupdateDescription()
     {
-        $data = file_get_contents("JsonExports/areas_practicas.json");
+        $data = file_get_contents("JsonExports/Updates/areas_practicas.json");
         $items = json_decode($data, true);
         $activityRepository = $this->em->getRepository(Activity::class);
         foreach ($items as $item) {
@@ -1488,7 +1488,7 @@ class ImportCommand extends Command
     }
     public function Quote()
     {
-        $data = file_get_contents("JsonExports/areasQuotes.json");
+        $data = file_get_contents("JsonExports/Updates/areasQuotes.json");
         $items = json_decode($data, true);
 
         // $this->em->getConnection()->executeQuery("DELETE FROM [QuoteTranslation]");
@@ -1544,7 +1544,7 @@ class ImportCommand extends Command
 
     public function ActivitiesByLawyer()
     {
-        $data = file_get_contents("JsonExports/abogadoArea.json");
+        $data = file_get_contents("JsonExports/Updates/abogadoArea.json");
         $items = json_decode($data, true);
         $lawyersMappingtest = [];
         $activitiesMappingtest = [];
@@ -1596,7 +1596,7 @@ class ImportCommand extends Command
 
     public function ActivitiesByEvent()
     {
-        $data = file_get_contents("JsonExports/eventosArea.json");
+        $data = file_get_contents("JsonExports/Updates/eventosArea.json");
         $items = json_decode($data, true);
         $eventRepository = $this->em->getRepository(Event::class);
         $activityRepository = $this->em->getRepository(Activity::class);
@@ -1625,7 +1625,7 @@ class ImportCommand extends Command
 
     public function PeopleByEvent()
     {
-        $data = file_get_contents("JsonExports/eventosPonente.json");
+        $data = file_get_contents("JsonExports/Updates/eventosPonente.json");
         $items = json_decode($data, true);
         $processedPeople = [];
 
@@ -1678,7 +1678,7 @@ class ImportCommand extends Command
     }
     public function EventPrograms()
     {
-        $data = file_get_contents("JsonExports/eventosPrograma.json");
+        $data = file_get_contents("JsonExports/Updates/eventosPrograma.json");
         $items = json_decode($data, true);
         $processedPrograms = [];
 
@@ -1731,7 +1731,7 @@ class ImportCommand extends Command
     }
     public function PeopleByEventProgram()
     {
-        $data = file_get_contents("JsonExports/EventosProgramaPonente.json");
+        $data = file_get_contents("JsonExports/Updates/EventosProgramaPonente.json");
         $items = json_decode($data, true);
         $processedPeople = [];
         $processedPeopleName = [];
@@ -1796,10 +1796,10 @@ class ImportCommand extends Command
     }
     public function Office()
     {
-        $data = file_get_contents("JsonExports/oficinas.json");
+        $data = file_get_contents("JsonExports/Updates/oficinas.json");
         $items = json_decode($data, true);
 
-        $data1 = file_get_contents("JsonExports/OficinaDescripcion.json");
+        $data1 = file_get_contents("JsonExports/Updates/OficinaDescripcion.json");
         $items1 = json_decode($data1, true);
 
         // Removing files from disk
@@ -1951,7 +1951,7 @@ class ImportCommand extends Command
     }
     public function OfficeByLawyer()
     {
-        $data = file_get_contents("JsonExports/OficinaAbogado.json");
+        $data = file_get_contents("JsonExports/Updates/OficinaAbogado.json");
         $items = json_decode($data, true);
         $lawerRepository = $this->em->getRepository(Lawyer::class);
         $officeRepository = $this->em->getRepository(Office::class);
@@ -1974,7 +1974,7 @@ class ImportCommand extends Command
 
     public function OfficeByEvents()
     {
-        $data = file_get_contents("JsonExports/OficinaEventos.json");
+        $data = file_get_contents("JsonExports/Updates/OficinaEventos.json");
         $items = json_decode($data, true);
         $eventRepository = $this->em->getRepository(Event::class);
         $officeRepository = $this->em->getRepository(Office::class);
@@ -1997,7 +1997,7 @@ class ImportCommand extends Command
 
     public function awards()
     {
-        $data = file_get_contents("JsonExports/premios.json");
+        $data = file_get_contents("JsonExports/Updates/premios.json");
         $items = json_decode($data, true);
 
         // Removing files from disk
@@ -2108,12 +2108,12 @@ class ImportCommand extends Command
     public function Publications()
     {
         $publications = json_decode(
-            file_get_contents("JsonExports/Publicaciones.json"),
+            file_get_contents("JsonExports/Updates/Publicaciones.json"),
             true
         );
 
         $publication_translations = json_decode(
-            file_get_contents("JsonExports/PublicacionesIdiomas.json"),
+            file_get_contents("JsonExports/Updates/PublicacionesIdiomas.json"),
             true
         );
 
@@ -2310,7 +2310,7 @@ class ImportCommand extends Command
 
     public function PublicationsByLawyers()
     {
-        $data = file_get_contents("JsonExports/PublicacionesAbogados.json");
+        $data = file_get_contents("JsonExports/Updates/PublicacionesAbogados.json");
         $items = json_decode($data, true);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -2342,7 +2342,7 @@ class ImportCommand extends Command
     }
     public function PublicationsByOffices()
     {
-        $data = file_get_contents("JsonExports/PublicacionesOficina.json");
+        $data = file_get_contents("JsonExports/Updates/PublicacionesOficina.json");
         $items = json_decode($data, true);
         $officeRepository = $this->em->getRepository(Office::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -2368,7 +2368,7 @@ class ImportCommand extends Command
     }
     public function PublicationsByActivities()
     {
-        $data = file_get_contents("JsonExports/PublicacionesPractica.json");
+        $data = file_get_contents("JsonExports/Updates/PublicacionesPractica.json");
         $items = json_decode($data, true);
         $activityRepository = $this->em->getRepository(Activity::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -2663,12 +2663,12 @@ class ImportCommand extends Command
     public function News()
     {
         $publications = json_decode(
-            file_get_contents("JsonExports/noticias.json"),
+            file_get_contents("JsonExports/Updates/noticias.json"),
             true
         );
 
         $publication_translations = json_decode(
-            file_get_contents("JsonExports/noticiasIdioma.json"),
+            file_get_contents("JsonExports/Updates/noticiasIdioma.json"),
             true
         );
 
@@ -2816,7 +2816,7 @@ class ImportCommand extends Command
     }
     public function NewsByLawyers()
     {
-        $data = file_get_contents("JsonExports/NoticiasAbogados.json");
+        $data = file_get_contents("JsonExports/Updates/NoticiasAbogados.json");
         $items = json_decode($data, true);
         $lawyerRepository = $this->em->getRepository(Lawyer::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -2850,7 +2850,7 @@ class ImportCommand extends Command
     }
     public function NewsByOffices()
     {
-        $data = file_get_contents("JsonExports/NoticiaOficina.json");
+        $data = file_get_contents("JsonExports/Updates/NoticiaOficina.json");
         $items = json_decode($data, true);
         $officeRepository = $this->em->getRepository(Office::class);
         $publicationRepository = $this->em->getRepository(Publication::class);
@@ -2878,7 +2878,7 @@ class ImportCommand extends Command
     }
     public function NewsByActivities()
     {
-        $data = file_get_contents("JsonExports/NoticiaPractica.json");
+        $data = file_get_contents("JsonExports/Updates/NoticiaPractica.json");
         $items = json_decode($data, true);
         $activityRepository = $this->em->getRepository(Activity::class);
         $publicationRepository = $this->em->getRepository(Publication::class);

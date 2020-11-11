@@ -13,11 +13,13 @@
                             {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
                         {% endif %}
                         {% set fecha = event.startDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
+                            {% set fechaLimite = event.startDate| date('m, d, Y') %}
+                            {% set hoy = ('today'| date('m, d, Y')) %}
                         <div class="swiper-slide">
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">{{ event.eventType|raw }}</div>
-                                    <div class="boxnews__button"><a href="{{ path('events_detail', {slug: event.translate(app.request.getLocale()).slug}) }}" class="plain__button">Inscribirme</a></div>
+                                    <div class="boxnews__button"><a href="{{ path('events_detail', {slug: event.translate(app.request.getLocale()).slug}) }}"{% if  (hoy > fechaLimite) %} style="display: none" {% else %} style="display: block" {% endif%}  class="plain__button">Inscribirme</a></div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">

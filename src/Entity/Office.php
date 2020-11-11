@@ -27,7 +27,7 @@ class Office extends Publishable
     private $cp;
 
     /**
-     * @ORM\Column(type="string", length=1024)
+     * @ORM\Column(type="string", length=1024,  nullable=true)
      */
     private $link_external_map;
 

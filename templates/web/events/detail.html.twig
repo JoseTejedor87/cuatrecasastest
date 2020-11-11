@@ -68,7 +68,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'publication_dossier' %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -90,10 +90,12 @@
                                     {#{ event.translate(app.request.getLocale()).schedule|raw }#}
                                 </div>
                                 <div class="author">
-                                    <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
+                                    <span><a href="mailto:{{ event.email }}">{{ event.contact ? event.contact : '' }}</a></span>
                                     <span>{{ (event.phone) ? event.phone : '' }}</span>
                                 </div>
-                                <button type="button" class="btn btn__arrow" id="botPreReg">Inscribirme</button>
+                                {% set fechaLimite = event.startDate| date('m, d, Y') %}
+                                {% set hoy = ('today'| date('m, d, Y')) %}
+                                <button type="button" class="btn btn__arrow"{% if  (hoy > fechaLimite) %} style="display: none" {% else %} style="display: block" {% endif%} id="botPreReg">Inscribirme</button>
                             </div>
                             <div class="boxnews__content" id="eventBoxForm" style="display:none">
                                 <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
@@ -449,13 +451,7 @@
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
-                isvalidate = false;
-            }
-
-            if($("#accept").is(':checked')){
-                contacto['GDPR']= 1;
-            }else{
-                isvalidate = false;
+                 contacto['GDPR']= 0;
             }
             if($("#subscribe").is(':checked')){
                 contacto['Suscripcion']= 1;

@@ -5,7 +5,7 @@
                 {% for key, product in products %}
                 {% if product %}
                     {% if product.photo %}
-                        {#% set photo_path = asset('/resources/' ~ product.photo.fileName)|imagine_filter('product_grid') %#}
+                        {#% set photo_path = asset(resourcesPath ~ product.photo.fileName)|imagine_filter('product_grid') %#}
                     {% else %}
                         {% set photo_path = '' %}
                     {% endif %}

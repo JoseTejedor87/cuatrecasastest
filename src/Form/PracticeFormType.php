@@ -25,6 +25,7 @@ class PracticeFormType extends ActivityFormType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
@@ -37,7 +38,7 @@ class PracticeFormType extends ActivityFormType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'data_class' => Practice::class,
-            'required' => false
+            'required' => true
         ]);
     }
 }
