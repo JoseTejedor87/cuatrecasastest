@@ -185,7 +185,15 @@ function newCalendar(eventosjson, month , year) {
             // LIST VIEW (MONTH & DAY)
             if(info.view.type === "listMonth" || info.view.type === "listDay") {
                 // DETAILS
-                info.el.firstChild.innerHTML = '<div class="event-place"><a href="#">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button"><a href="#" class="doble__arrow__link">'+ info.event.extendedProps.button +'</a></div>';
+                let date = new Date(info.event.start);
+                let day = new Date;
+                if ( day > date){
+                    info.el.firstChild.innerHTML = '<div class="event-place"><a href="#">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div>';
+
+                }else {
+                    info.el.firstChild.innerHTML = '<div class="event-place"><a href="#">'+ info.event.extendedProps.place +'</a></div><div class="event-date">'+ info.event.extendedProps.fullDate +'</div><div class="event-time">'+ info.event.extendedProps.fullTime +'</div><div class="event-button " ><a href="#" class="doble__arrow__link ">'+ info.event.extendedProps.button +'</a></div>';
+
+                }
 
                 // TITLE
                 info.el.lastChild.innerHTML = '<div class="event-intro"><a href="'+ info.event.extendedProps.titleURL +'">'+ info.event.title +'</a></div>';

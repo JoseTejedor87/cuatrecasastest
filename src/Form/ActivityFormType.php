@@ -80,6 +80,7 @@ abstract class ActivityFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
+                'required' => false,
                 'multiple' => true,
                 'expanded' => false,
                 'choice_label' => function ($quote) {
