@@ -11,9 +11,9 @@
                             {% for caseStudy in caseStudies %}
                             {% if caseStudy %}
                                 {% if caseStudy.image  %}
-                                    {% set photo_path = asset('/resources/' ~ caseStudy.image.getFileName)|imagine_filter('lawyers_grid') %}
+                                    {% set photo_path = asset(resourcesPath ~ caseStudy.image.getFileName) | imagine_filter('picto_cases') %}
                                 {% else  %}
-                                    {% set photo_path = asset('/web/assets/vector/Picto_03_1920x1080.png') %}
+                                    {% set photo_path = asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_cases') %}
                                 {% endif %}
                             {% endif %}
                             <div class="swiper-slide">

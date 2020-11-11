@@ -556,6 +556,10 @@ img {
     @include reset-figure;
     margin-left: -22vw;
 
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        margin-left: -100vw;
+    }
+
     img {
         width: 100%;
         max-width: 100%;
@@ -568,12 +572,15 @@ img {
     width: auto;
     height: 100%;
     margin-right: -22vw;
-
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: cover;
 
     // border: 1px solid blue;
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        margin-right: -100vw;
+    }
 
     img {
         display: none;
@@ -643,6 +650,13 @@ img {
     width: 100vw;
     margin-left: -50vw;
     left: 50%;
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        // border: 1px solid magenta;
+        width: 200vw;
+        margin-left: -100vw;
+        left: 50%;
+    }
 }
 
 @mixin reset-list {

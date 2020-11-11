@@ -58,21 +58,21 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             $this->singleSignOnParameters['options']
         );
         $response  = $client->ValidateSSO([
-            'input' => [
-                'Data'      => $token,
-                'SSOType'   =>  'SSO'
-            ]
-        ]);
+             'input' => [
+                 'Data'      => $token,
+                 'SSOType'   =>  'SSO'
+             ]
+         ]);
 
         //dd((array)$response->ValidateSSOResult->Data);
         if ($response->ValidateSSOResult->Result) {
             $data = (array)$response->ValidateSSOResult->Data;
             return $this->em->getRepository(User::class)
-                ->findOneBy(['user_id' => $data['Iniciales']]);
+                 ->findOneBy(['user_id' => $data['Iniciales']]);
         }
 
         // return $this->em->getRepository(User::class)
-        //     ->findOneBy(['user_id' => 'JTEB']);
+         //    ->findOneBy(['user_id' => 'JTEB']);
     }
 
     public function checkCredentials($credentials, UserInterface $user)

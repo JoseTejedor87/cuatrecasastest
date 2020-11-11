@@ -1,0 +1,78 @@
+{% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row footer__info">
+                <div class="col-4 footer__info--content">
+                    <img src="{{ asset('web/assets/logos/Cuatrecasas-logo.png') }}" alt="Cuatrecasas" class="footer__logo">
+                    <p>{{ 'footer.intro'|trans }}</p>
+                </div>
+            </div>
+            <div class="row footer__links">
+                <div class="col-9 footer__links--legal">
+                    <div class="info__copyright">{{ 'footer.copyright'|trans }}</div>
+                    <ul class="info__legal">
+                        <li class="legal__item">
+                            <a href="../../sitemap.xml" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.site_map'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('webUse') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.web_use'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('privacyPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.privacy'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('cookiesPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.cookies'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('securityPolicy') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.security'|trans }}
+                            </a>
+                        </li>
+                        <li class="legal__item">
+                            <a href="{{ path('contactUs') }}" class="legal__link" rel="nofollow">
+                                {{ 'footer.privacy.contact'|trans }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-3 footer__links--social">
+                    <ul class="social__media">
+                        <li class="social__item">
+                            <a href="https://www.facebook.com/cuatrecasasgp" class="social__link" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="https://twitter.com/cuatrecasas" class="social__link" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="https://www.linkedin.com/company/13423" class="social__link" target="_blank">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="https://www.youtube.com/user/CuatrecasasGP" class="social__link" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="https://www.instagram.com/cuatrecasas_/" class="social__link" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

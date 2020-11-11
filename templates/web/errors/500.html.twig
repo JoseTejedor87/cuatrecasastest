@@ -3,31 +3,21 @@
 {% block main %}
 
     <main role="main">
-        <article class="container">
-
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
-                <div class="col">
-                    <div class="info__block">
-                        <h1 class="page__title">
-                            500
-                        </h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    XXX
-                                </li>
-                            </ol>
-                        </nav>
+        <header class="container">
+            <div class="row doble__header">
+                <div class="col-md-7 doble__header__content doble__header__content--error404">
+                    <div class="page__title">{{ 'global.messages.error_500'|trans }}</div>
+                    <div class="page__title">{{ 'global.messages.error_500_title'|trans }}</div>
+                    <p>{{ 'global.messages.error_500_content'|trans }}</p>
+                    <a href="{{ path('home') }}" class="btn btn__viewmore">{{ 'global.messages.error_500_button'|trans }}</a>
+                </div>
+                <div class="col-md-5 doble__header__foto">
+                    <div class="doble__header__wrapper">
+                        <figure style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_03_baja.jpg') | imagine_filter('doble_header') }}')"></figure>
                     </div>
                 </div>
-            </header>
-
-        </article>
+            </div>
+        </header>
     </main>
-
-
 
 {% endblock %}

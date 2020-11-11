@@ -11,26 +11,25 @@
                     <div class="insight__content">
                         <h3 class="insight__title">
                             {% if insight is defined and insight.translate(InsightLanguague).title != '' %}
-                                {{ insight.translate(InsightLanguague).title|raw }}
+                                {{ insight.translate(InsightLanguague).title|striptags }}
                             {% else %}
-                                Women in Business
+
                             {% endif %}
                         </h3>
-                        <a href="#" class="insight__link">
+                        <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="insight__link">
                             {% if insight is defined and insight.translate(InsightLanguague).summary != '' %}
-                                {{ insight.translate(InsightLanguague).summary|raw }}
+                                {{ insight.translate(InsightLanguague).summary|striptags }}
                             {% else %}
-                                Lorem ipsum dolor sit amet, consectejur adipiscing elit, sed do eiusmod labore
+
                             {% endif %}
                         </a>
                     </div>
-
                     {% if insight is defined %}
                     <div class="insight__meta">
                         <ul class="related__content related__content--lawyers">
                             {% for lawyer in insight.lawyers %}
                                 <li class="related__content__item">
-                                    <a href="abogados/{{ lawyer.slug }}" class="related__content__link">
+                                    <a href="{{ path('lawyers_detail', { slug: lawyer.slug }) }}" class="related__content__link">
                                         {{ lawyer.name }}
                                         {{ lawyer.surname }}
                                     </a>
@@ -49,15 +48,11 @@
                         </ul>
                     </div>
                     {% endif %}
-
                 </article>
             </div>
-
-
             <div class="col-xl-6">
-                <a href="#" class="box__link">
-                    <figure class="insight__vector" style="background-image: url('{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}')">
-                        <img src="{{ asset('web/assets/vector/Picto_03_1920x1080.png') }}" alt="">
+                <a href="{{ path('insights_detail',{ slug: insight.translate(InsightLanguague).slug }) }}" class="box__link">
+                    <figure class="insight__vector" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_header') }}')">
                     </figure>
                 </a>
             </div>

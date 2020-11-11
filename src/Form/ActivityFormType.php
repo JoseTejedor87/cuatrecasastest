@@ -32,10 +32,10 @@ abstract class ActivityFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.activity.fields.title', 'required'=>true],
-                    'slug' => ['label'=>'entities.activity.fields.slug'],
-                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote'], 'required'=>false],
-                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote'], 'required'=>false],
+                    'title' => ['label'=>'entities.activity.fields.title', 'attr'=>[ 'required'=>true,'class'=>'required'], 'empty_data' => ' '],
+                    'slug' => ['label'=>'entities.activity.fields.slug','attr'=>[ 'required'=>false], 'empty_data' => ' '],
+                    'summary' => ['label'=>'entities.activity.fields.summary', 'attr'=>['class'=>'summernote', 'required'=>false]],
+                    'description' => ['label'=>'entities.activity.fields.description', 'attr'=>['class'=>'summernote','required'=>false] , 'empty_data' => ' ' ],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
                     'metaDescription' => ['label'=>'entities.publishable.fields.metaDescription']
                 ],
@@ -47,6 +47,7 @@ abstract class ActivityFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
+                'required' => false,
                 'multiple' => true,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
@@ -61,16 +62,17 @@ abstract class ActivityFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'query_builder' => function (LawyerRepository $lr) {
-                                    return $lr->createQueryBuilder('l')
+                    return $lr->createQueryBuilder('l')
                                     ->join('l.activities', 'a')
                                     ->join('l.secondaryActivities', 'sa')
                                     ->where('a.id = :id_act')
                                     ->orWhere('sa.id = :id_act')
                                     ->setParameter('id_act', $this->id_act)
                                     ->orderBy('l.name', 'ASC');
-                        }
+                }
             ])
             ->add('quote', EntityType::class, [
                 'class' => Quote::class,
@@ -80,16 +82,19 @@ abstract class ActivityFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($quote) {
                     return $quote->translate('es')->getBody();
                 }
             ])
-            ->add('highlighted', CheckboxType::class, ['label'=>'entities.activity.fields.highlighted'])
+            ->add('highlighted', CheckboxType::class, [
+                'label'=>'entities.activity.fields.highlighted',
+                'required'=>false])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
-            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published','required'=>false])
             ->add('photo', ResourceFormType::class, [
                 'required' => false,
                 'label'=>'entities.activity.fields.image'
@@ -102,5 +107,4 @@ abstract class ActivityFormType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
-
 }

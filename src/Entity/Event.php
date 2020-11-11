@@ -66,11 +66,13 @@ class Event extends Publishable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Activity", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $activities;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="event", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $attachments;
 
@@ -81,12 +83,20 @@ class Event extends Publishable
     private $office;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Insight", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $insights;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $programs;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="events", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $questions;
 
@@ -95,16 +105,21 @@ class Event extends Publishable
      */
     private $idGestorEventos;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=false})
+     */
+    private $featured;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->insights = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
-
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -332,6 +347,37 @@ class Event extends Publishable
     }
 
     /**
+     * @return Collection|Insight[]
+     */
+    public function getInsights(): Collection
+    {
+        return $this->insights;
+    }
+
+    public function addInsight(Insight $insight): self
+    {
+        if (!$this->insights->contains($insight)) {
+            $this->insights[] = $insight;
+            $insight->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsight(Insight $insight): self
+    {
+        if ($this->insights->contains($insight)) {
+            $this->insights->removeElement($insight);
+            // set the owning side to null (unless already changed)
+            if ($insight->getEvents() === $this) {
+                $insight->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Question[]
      */
     public function getQuestions(): Collection
@@ -386,4 +432,15 @@ class Event extends Publishable
         return $this;
     }
 
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
+
+    public function setFeatured($featured): self
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
 }

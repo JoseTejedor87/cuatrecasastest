@@ -1,0 +1,88 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% set lang = app.request.getLocale() %}
+{% block main %}
+
+    {% if  office.getImgOffice().getFileName() is defined %}
+         {%  set imageFile = 'resources/'~office.getImgOffice().getFileName() %}
+         {% else %}
+         {%  set imageFile = '/web/assets/img/cabecera_1920x1080_05_baja.jpg' %}
+    {% endif %}
+
+    <main role="main" class="lawyer__page">
+        <article>
+
+            <header class="container">
+                <div class="row lawyer__page__header">
+                    <div class="col-md-7 lawyer__page__content">
+                        <button type="button" class="back__button" id="goBack">{{ 'global.goBack'|trans }}</button>
+                        <h1 class="lawyer__page__region">
+                            {{ office.translate(lang).city }}
+                        </h1>
+                        <div class="lawyer__page__contact">
+                            <div data-address>
+                                {{ office.address }}<br>
+                                {{ office.cp }}
+                                {{ office.translate(lang).city }}
+                            </div>
+                            <div data-telephone>
+                                {{ office.phone }}
+                            </div>
+                            <div data-email>
+                                <a href="mailto:">
+                                   {{ office.email }}
+                                </a>
+                            </div>
+                        </div>
+                        <a href="{{ office.getLinkExternalMap }}" target="_blank" class="doble__arrow__link">Ver mapa</a>
+                        {% include 'web/base/social-share.html.twig' %}
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lawyer__page__office">
+                            <figure style="background-image: url('{{ asset(imageFile ) | imagine_filter('doble_header') }}')"></figure>
+                            <img src="{{ asset(imageFile ) | imagine_filter('doble_header') }}" alt=" {{ office.translate(lang).city }}" class="sr-only">
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+
+                <section class="row page__block--full">
+                    <div class="col">
+                        <div class="page__block__content--full">
+                            {{ office.translate(lang).description | raw }}
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            {% if office.lawyer is not empty %}
+                {% include 'web/shared/team.html.twig' with { lawyers: office.lawyer } %}
+            {% endif %}
+
+            {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

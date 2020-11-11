@@ -9,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/drew-beamer-5DD7-L4A4Uw-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -26,11 +26,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -87,9 +83,8 @@
         </article>
     </main>
 
-
     {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+        {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
     {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
@@ -97,8 +92,8 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
 <script>
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();

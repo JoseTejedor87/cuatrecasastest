@@ -1,0 +1,151 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        {# <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.career.learn'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.career.learn'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs faketabs__component__tabs--career">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link active">{{ 'menu.career.learn'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block--centered">
+                <div class="col">
+                    <p>{{ 'career.learn.intro'|trans }}</p>
+                </div>
+            </section>
+
+        </article> #}
+
+        <div class="container">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.career.learn'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.career.learn'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+        </div>
+
+        <div class="container-fluid">
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs faketabs__component__tabs--career">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link revolution">{{ 'menu.career.revolution'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link active">{{ 'menu.career.learn'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        {# <div class="container">
+            <section class="row page__block--centered">
+                <div class="col" style="padding-top:0">
+                    <p>{{ 'career.learn.intro'|trans }}</p>
+                </div>
+            </section>
+        </div> #}
+
+        {% include 'web/pages/custom/talent/shared/cta-video-full-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/cases-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/cta-career-school.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/info-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/awards-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/info-career-join.html.twig' %}
+
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+    });
+</script>
+{% endblock %}

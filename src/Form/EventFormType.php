@@ -2,6 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Insight;
+use App\Entity\OfficeTranslation;
+use App\Repository\OfficeRepository;
+use App\Repository\OfficeTranslationRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,11 +32,11 @@ use App\Form\ResourceFormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Repository\PersonRepository;
 
-
 class EventFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+  
         $builder
             ->add('startDate', DateTimeType::class, ['label'=>'entities.event.fields.startDate', 'required' => true])
             ->add('endDate', DateTimeType::class, ['label'=>'entities.event.fields.endDate', 'required' => true])
@@ -47,6 +51,7 @@ class EventFormType extends AbstractType
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
             ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
+            ->add('featured', CheckboxType::class, ['label'=>'entities.event.fields.featured'])
             ->add('attachments', CollectionType::class, [
                 'label' => 'entities.event.fields.attachments',
                 'entry_type' => ResourceFormType::class,
@@ -62,9 +67,24 @@ class EventFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'choice_label' => function ($activity) {
                     return $activity->translate('es')->getTitle();
+                }
+            ])
+            ->add('insights', EntityType::class, [
+                'class' => Insight::class,
+                'label' => 'entities.event.fields.insights',
+                'attr' => [
+                    'class' => 'm-select2',
+                    'data-allow-clear' => true
+                ],
+                'multiple' => true,
+                'required' => false,
+                'expanded' => false,
+                'choice_label' => function ($insight) {
+                    return $insight->translate('es')->getTitle();
                 }
             ])
             ->add('people', EntityType::class, [
@@ -75,6 +95,7 @@ class EventFormType extends AbstractType
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
+                'required' => false,
                 'expanded' => false,
                 'query_builder' => function (PersonRepository $pr) {
                     return $pr->createQueryBuilder('p')
@@ -90,57 +111,68 @@ class EventFormType extends AbstractType
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
-                'required' => false,
                 'placeholder' => 'entities.event.fields.no-office',
                 'empty_data' => null,
+                'required' => false,
                 'multiple' => false,
                 'expanded' => false,
-                'choice_label' => function ($office) {
-                    return $office->translate('es')->getCity();
+                'query_builder' => function (OfficeRepository $or){
+                    return $or->createQueryBuilder('o')
+                        ->join('o.translations', 'to')
+                        ->andWhere('to.city is not null')
+                        ->orderBy('to.city', 'ASC');
                 }
+//                'choice_label' =>
+//                    function ($office) {
+//                    if ($office->translate('es')){
+//                        return $office->translate('es')->getCity() ;
+//                    }
+//
+//                }
             ])
-                
+
             ->add('responsablesmarketing', ChoiceType::class, [
-                'label' => 'Responsables de marketing Sap', 
-                'required' => true,
+                'label' => 'Responsables de marketing Sap',
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getResponsablesMarketing($options['entityManager']),
-                'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'marketing')
+                'data' =>  $this->getResponsablesSelected($options['entityManager'], $options['data'], 'marketing')
             ])
             ->add('secretarias', ChoiceType::class, [
                 'label' => 'Secretarias Sap', 
-                'required' => true,
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getSecretarias($options['entityManager']),
-                'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'secretaria')
+                'data' =>  $this->getResponsablesSelected($options['entityManager'], $options['data'], 'secretaria')
             ])
             ->add('sociosresponsables', ChoiceType::class, [
                 'label' => 'Socios Responsables Sap', 
-                'required' => true,
                 'attr' => [
                     'class' => 'm-select2',
                     'data-allow-clear' => true
                 ],
                 'multiple' => true,
                 'mapped'=> false,
+                'required' => false,
                 'choices' =>  $this->getSociosResponsables($options['entityManager']),
-                'data' =>  $this->getResponsablesSelected($options['entityManager'],$options['data'], 'socio')
+                'data' =>  $this->getResponsablesSelected($options['entityManager'], $options['data'], 'socio')
             ])
             ->add('programs', CollectionType::class, [
                 'label'=>'entities.event.fields.programs',
                 'entry_type' => ProgramFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'required' => false,
                 'by_reference' => false,
             ])
             ->add('questions', CollectionType::class, [
@@ -148,14 +180,14 @@ class EventFormType extends AbstractType
                 'entry_type' => QuestionFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'required' => false,
                 'by_reference' => false,
             ])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.event.fields.title', 'required' => true],
+                    'title' => [ 'label'=>'entities.event.fields.title', 'attr'=>['required' => true,'class'=>'required']],
                     'description' => ['label'=>'entities.event.fields.description', 'attr'=>['class'=>'summernote']],
-                    'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
-                    // 'program' => ['label'=>'entities.event.fields.program', 'attr'=>['class'=>'summernote']],
+                    // 'schedule' => ['label'=>'entities.event.fields.schedule', 'attr'=>['class'=>'summernote']],
                     'customCity' => ['label'=>'entities.event.fields.customCity'],
                     'customCountry' => ['label'=>'entities.event.fields.customCountry'],
                     'customPostalcode' => ['label'=>'entities.event.fields.customPostalcode'],
@@ -177,60 +209,60 @@ class EventFormType extends AbstractType
             'entityManager' => null,
         ]);
     }
-   
-    private function getResponsablesMarketing($em) {
 
+    private function getResponsablesMarketing($em)
+    {
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_responsablesmarketings";
+        $sql = "SELECT * FROM GC_responsablesMarketings";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        $ValuesO =$stmt->fetchAll();    
+        $ValuesO =$stmt->fetchAll();
         $ValuesA = array();
-        foreach($ValuesO as $key => $bu){
-            $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales']; 
+        foreach ($ValuesO as $key => $bu) {
+            $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales'];
         }
         return $ValuesA;
     }
-    private function getResponsablesSelected($em,$event,$type) {
-
+    private function getResponsablesSelected($em, $event, $type)
+    {
         $personRepository = $em->getRepository(Person::class);
-        $person = $personRepository->findBy(['type' => $type ]);  
+        $person = $personRepository->findBy(['type' => $type ]);
         $ValuesA = array();
-        foreach($person as $key => $bu){
-            foreach($bu->getEvents() as $key => $value){
-                if($value->getId() == $event->getId())
-                array_push($ValuesA,$bu->getInicial());
+        foreach ($person as $key => $bu) {
+            foreach ($bu->getEvents() as $key => $value) {
+                if ($value->getId() == $event->getId()) {
+                    array_push($ValuesA, $bu->getInicial());
+                }
             }
         }
-      
+
         return $ValuesA;
     }
-    private function getSecretarias($em) {
-
+    private function getSecretarias($em)
+    {
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_secretarias";
+        $sql = "SELECT * FROM GC_secretarias";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        $ValuesO =$stmt->fetchAll();    
+        $ValuesO =$stmt->fetchAll();
         $ValuesA = array();
-        foreach($ValuesO as $key => $bu){
-             $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales']; 
+        foreach ($ValuesO as $key => $bu) {
+            $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales'];
         }
         return $ValuesA;
     }
-   
-    private function getSociosResponsables($em) {
 
+    private function getSociosResponsables($em)
+    {
         $conn = $em->getConnection();
-        $sql = "SELECT * FROM gc_sociosresponsables";
+        $sql = "SELECT * FROM GC_sociosResponsables";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        $ValuesO =$stmt->fetchAll();    
+        $ValuesO =$stmt->fetchAll();
         $ValuesA = array();
-        foreach($ValuesO as $key => $bu){
-            $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales']; 
+        foreach ($ValuesO as $key => $bu) {
+            $ValuesA[$bu['Nombre'].' '.$bu['Apellidos']] = $bu['Iniciales'];
         }
         return $ValuesA;
     }
-    
 }

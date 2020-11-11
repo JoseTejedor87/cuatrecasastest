@@ -5,30 +5,30 @@
                 <h4 class="section__title section__title--insight">Colecciones</h4>
                 <div class="boxnews__list">
                     {% for key,insight in insights %}
-                    {% if key <= 2 %}
-                    <article class="boxnews__item">
-                        <div class="boxnews__header">
-                            <div class="boxnews__type">{{ insight.translate(app.request.getLocale()).title }}</div>
-                        </div>
-                        <div class="boxnews__content">
-                            <div class="boxnews__excerpt">
-                                {# si el bloque de texto viene del CMS no hace falta poner el tag <p></p>, en caso contrario hay que ponerlo #}
-                                <p>{{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}</p>
-                                {# {{ insight.translate(app.request.getLocale()).summary|raw }} #}
+                        {% if key < 2 %}
+                        <article class="boxnews__item">
+                            <div class="boxnews__header">
+                                <div class="boxnews__type">{{ insight.translate(app.request.getLocale()).title }}</div>
                             </div>
-                            <div class="boxnews__action">
-                                <a href="{{ path('insights_detail', {slug: insight.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">Ver más</a>
+                            <div class="boxnews__content">
+                                <div class="boxnews__excerpt">
+                                    {# si el bloque de texto viene del CMS no hace falta poner el tag <p></p>, en caso contrario hay que ponerlo #}
+                                    <p>{{ insight.translate(app.request.getLocale()).summary|length > 100 ? insight.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : insight.translate(app.request.getLocale()).summary|raw  }}</p>
+                                    {# {{ insight.translate(app.request.getLocale()).summary|raw }} #}
+                                </div>
+                                <div class="boxnews__action">
+                                    <a href="{{ path('insights_detail', {slug: insight.translate(app.request.getLocale()).slug}) }}" class="doble__arrow__link">Ver más</a>
+                                </div>
+                                <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_03_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                             </div>
-                            <div class="boxnews__img" style="background-image: url('{{ asset('web/assets/vector/insight-bg-1.png') }}')"></div>
-                        </div>
-                    </article>
-                    {% endif %}
+                        </article>
+                        {% endif %}
                     {% endfor %}
 
                 </div>
                 <div class="viewmore__button">
                     <!-- <button type="button" class="btn btn__viewmore">Ver más colecciones</button> -->
-                    <a href="{{ path('insights_index') }}" class="btn btn__viewmore">Ver más colecciones</a>
+                    <a href="{{ path('insights_index') }}" class="btn btn__viewmore">{{ 'global.messages.view_more_collections'|trans }}</a>
                 </div>
             </div>
         </div>

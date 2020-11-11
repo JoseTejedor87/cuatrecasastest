@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -10,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            {% set photo = sector.photo ? (asset('/resources/' ~ sector.photo.fileName) | imagine_filter('sectors_header')) : '' %}
+            {% set photo = sector.photo ? (asset(resourcesPath ~ sector.photo.fileName) | imagine_filter('full_header')) : '' %}
 
             <header class="row page__header" style="background-image: url('{{ photo ? photo : '' }}')">
                 <div class="col">
@@ -32,11 +31,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
             <section class="row page__block--full">
@@ -96,7 +91,7 @@
             fixed_activity:sector.translate(app.request.getLocale()).title
         } %}
     {% endif %}
-    {% if relatedCaseStudies|length > 0 %}
+    {% if relatedPublications|length > 0 %}
         {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
     {% endif %}
     {% if relatedCaseStudies|length > 1 %}
@@ -105,12 +100,14 @@
     {% if awards|length > 2 %}
     {% include 'web/shared/awards.html.twig' with { awards: awards} %}
     {% endif %}
-    {% include 'web/shared/insight.html.twig' %}
+    {% if insights|length > 0 %}
+    {% include 'web/shared/insight.html.twig'  with {insight: insights|first}  %}
+    {% endif %}
     {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 {% endblock %}

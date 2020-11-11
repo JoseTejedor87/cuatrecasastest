@@ -1,0 +1,22 @@
+<section class="boxnews boxnews--links boxnews--regions">
+    <div class="container">
+        <div class="row page__section">
+            <div class="col">
+                <div class="boxnews__list">
+                    {% for key, region in regiones %}
+                        {% if region.principal == 0  %}
+                        <article class="boxnews__item">
+                            <div class="boxnews__content">
+                                <a href="{{ path('location_other_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="box__link__trans">
+                                    <h5>{{ region.translate(app.request.getLocale()).title }}</h5>
+                                    {{ region.translate(app.request.getLocale()).summary | raw }}
+                                </a>
+                            </div>
+                        </article>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

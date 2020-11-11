@@ -57,6 +57,7 @@
             {{ form_row(form.highlighted) }}
             {{ form_row(form.languages) }}
             {{ form_row(form.regions) }}
+            {{ form_row(form.published) }}
         </div>
 
         <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -76,5 +77,5 @@
 
     {% do form.translations.setRendered %}
 
-    {{ form_rest(form) }}
+{#    {{ form_rest(form) }}#}
 </div>

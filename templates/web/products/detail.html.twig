@@ -1,16 +1,15 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
 {% if product %}
     {% if product.photo %}
-        {% set photo_path = asset('/resources/' ~ product.photo.fileName)|imagine_filter('prodruct_grid') %}
+        {% set photo_path = asset(resourcesPath ~ product.photo.fileName) |imagine_filter('full_header') %}
     {% else %}
-        {% set photo_path = '' %}
+        {% set photo_path = asset('/web/assets/img/cabecera_1920x1080_baja.jpg') |imagine_filter('full_header') %}
     {% endif %}
 {% endif %}
     <main role="main" class="lawyer">
@@ -36,11 +35,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -120,5 +115,5 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 {% endblock %}

@@ -5,7 +5,6 @@ web.global = {
         web.global.mobileNav();
         web.global.hoverMenu();
         web.global.loadMiscell();
-        web.global.zoomAjust();
     },
 
     hoverMenu: function(){
@@ -15,107 +14,16 @@ web.global = {
             $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
         });
 
-        // menu interactios (hover versus click)
-        // $('#about-nav .dropdown-menu')
-        //     .bind('mouseover', function(event) {
-        //         $(this).prev('.nav-link').addClass('active');
-        //     })
-        //     .bind('mouseleave', function(event) {
-        //         $(this).prev('.nav-link').removeClass('active');
-        // });
-    },
-
-    zoomAjust: function(){
-        function zoomBrowser() {
-            document.body.style.zoom = "100%";
-            alert('zoom: ' + document.body.style.zoom);
-        }
-
-        // https://css-tricks.com/screen-resolution-notequalto-browser-window/
-
-
+        // menu interactios (hover versus click) -> not in use because of the delay
         /*
-        // Force page zoom at 100% with JS
-        // https://www.thetopsites.net/article/52862232.shtml
-        document.body.style.zoom = screen.logicalXDPI / screen.deviceXDPI;
-        document.body.style.zoom = (window.innerWidth / window.outerWidth);
-
-        // http://jsfiddle.net/5RzJ8/
-        var scale = 'scale(1)';
-        document.body.style.webkitTransform =  scale;    // Chrome, Opera, Safari
-        document.body.style.msTransform =   scale;       // IE 9
-        document.body.style.transform = scale;     // General
-        */
-
-        /*
-        // Set initial zoom level
-        var zoom_level=100;
-
-        // Click events
-        $('#zoom_in').click(function() { zoom_page(10, $(this)) });
-        $('#zoom_out').click(function() { zoom_page(-10, $(this)) });
-        $('#zoom_reset').click(function() { zoom_page(0, $(this)) });
-
-        function zoom_page(step, trigger) {
-            // Zoom just to steps in or out
-            if(zoom_level>=120 && step>0 || zoom_level<=80 && step<0) return;
-
-            // Set / reset zoom
-            if(step==0) zoom_level=100;
-            else zoom_level=zoom_level+step;
-
-            // Set page zoom via CSS
-            $('body').css({
-                transform: 'scale('+(zoom_level/100)+')', // set zoom
-                transformOrigin: '50% 0' // set transform scale base
-            });
-
-            // Adjust page to zoom width
-            if(zoom_level>100) $('body').css({ width: (zoom_level*1.2)+'%' });
-            else $('body').css({ width: '100%' });
-
-            // Activate / deaktivate trigger (use CSS to make them look different)
-            if(zoom_level>=120 || zoom_level<=80) trigger.addClass('disabled');
-            else trigger.parents('ul').find('.disabled').removeClass('disabled');
-            if(zoom_level!=100) $('#zoom_reset').removeClass('disabled');
-            else $('#zoom_reset').addClass('disabled');
-        }
-        */
-
-        // https://stackoverflow.com/questions/1055336/changing-the-browser-zoom-level/12603229#12603229
-        function zoomFactor() {
-            // var factor = 1.2;
-
-            // 125%
-            // var factor = 0.95;
-
-            // 150%
-            var factor = 0.90;
-
-            var all = document.getElementsByTagName("*");
-            for (var i=0, max=all.length; i < max; i++) {
-                var style = window.getComputedStyle(all[i]);
-                var fontSize = style.getPropertyValue('font-size');
-
-                if(fontSize){
-                    all[i].style.fontSize=(parseFloat(fontSize)*factor)+"px";
-                }
-                if(all[i].nodeName === "IMG"){
-                    var width=style.getPropertyValue('width');
-                    var height=style.getPropertyValue('height');
-                    all[i].style.height = (parseFloat(height)*factor)+"px";
-                    all[i].style.width = (parseFloat(width)*factor)+"px";
-                }
-            }
-        }
-
-        $(window).on('load', function(e) {
-            // zoomBrowser();
-            // alert('zoomBrowser');
-
-            // zoomFactor();
-            // alert('zoomFactor');
+        $('#about-nav .dropdown-menu')
+            .bind('mouseover', function(event) {
+                $(this).prev('.nav-link').addClass('active');
+            })
+            .bind('mouseleave', function(event) {
+                $(this).prev('.nav-link').removeClass('active');
         });
+        */
     },
 
     stickyMenu: function(){
@@ -198,36 +106,15 @@ web.global = {
             $('#navMobileWrapper .navbar-brand').removeClass('off');
             $("#navMobile .collapse").collapse("hide");
         });
-
     },
 
     loadMiscell: function(){
-        // $('.button__bookmark').click(function(e){
-        //     e.preventDefault();
-        //     $(this).toggleClass('button__bookmark--on');
-        // });
-
-        // $('.no-link').click(function(e){
-        //     e.preventDefault();
-        // });
-
         $('#goBack').click(function(e){
             e.preventDefault();
             window.history.back();
         });
 
-        $('.doble__arrow__accordion').click(function(){
-            $(this).toggleClass('doble__arrow__accordion--on');
-
-            if ($(this).hasClass('doble__arrow__accordion--on')) {
-                // alert('on');
-            } else {
-                // alert('off');
-            }
-        });
-
-
-        // Show filters
+        // Show filters -> just for mobile
         showFilters();
 
         var showFiltersTimer; // delete maybe ¿?
@@ -256,6 +143,27 @@ web.global = {
             $('.filtersToggle').toggle();
             $(this).blur();
         });
+
+        // no implementado por el momento
+        /*
+        $('.button__bookmark').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('button__bookmark--on');
+        });
+        */
+
+        // integrado en cada página por tema de traducciones
+        /*
+        $('.doble__arrow__accordion').click(function(){
+            $(this).toggleClass('doble__arrow__accordion--on');
+
+            if ($(this).hasClass('doble__arrow__accordion--on')) {
+                // alert('on');
+            } else {
+                // alert('off');
+            }
+        });
+        */
     },
 
     customSelects: function(){

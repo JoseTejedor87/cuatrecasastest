@@ -1,0 +1,468 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+{% set fecha = event.startDate |format_datetime('long', 'none',locale='es')|split(' ') %}
+{% if  event.getOffice() %}
+    {% set customAddress = event.getOffice().getAddress()| replace({"<BR>":"<br>"}) |split('<br>') %}
+{% else %}
+    {% set customAddress = event.translate(app.request.getLocale()).customAddress| replace({"<BR>":"<br>"}) |split('<br>') %}
+{% endif %}
+
+{% if  headerImage == '' %}
+    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
+{% endif %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ event.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'sections.events.title' | trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            {# Details #}
+            <section class="row page__event">
+                <div class="col">
+                    <div class="page__event__content" itemscope itemtype="http://schema.org/Event">
+                        {# Duplicated Event Info #}
+                        <div class="boxnews__content boxnews__content--event" id="eventMainInfo" style="display:none">
+                            <div class="place" itemprop="location">
+                                <span>{{ customAddress|first|raw }}</span>
+                                <span>{{ customAddress[:-1]|join(' ') }}</span>
+                            </div>
+                            <div class="date">
+                                <time class="hidden" itemprop="startDate" datetime="{{event.startDate |date("Y-m-d\\TH:i:s")}}"></time>
+                                <time class="hidden" itemprop="endDate" datetime="{{event.endDate |date("Y-m-d\\TH:i:s")}}"></time>
+                                <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
+                                <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
+                                {#{ event.translate(app.request.getLocale()).schedule|raw }#}
+                            </div>
+                            <div class="author" itemprop="organizer">
+                                <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
+                                <span>{{ (event.phone) ? event.phone : '' }}</span>
+                            </div>
+                        </div>
+                        <div class="read__more"  itemprop="description">
+                            {{ event.translate(app.request.getLocale()).description|raw }}
+                        </div>
+                        <div class="page__event__details">
+                            {% for attachment in attachmentPublished %}
+                                {% if attachment.type  == 'publication_dossier' %}
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="page__event__aside">
+                        <article class="boxnews__item boxnews__item--event sticky-top">
+                            <div class="boxnews__header">
+                                <div class="boxnews__type">{{ 'sections.events.event'|trans }}</div>
+                            </div>
+                            {# Event Info #}
+                            <div class="boxnews__content" id="eventBoxInfo">
+                                <div class="place">
+                                    <span>{{ customAddress|first|raw }}</span>
+                                    <span>{{ customAddress[:-1]|join(' ') }}</span>
+                                </div>
+                                <div class="date">
+                                    <span>{{ fecha[0] }} {{ fecha[1:]|join(' ') }}</span>
+                                    <span>{{ event.startDate |format_datetime('none', 'short',locale='es') }} — {{ event.endDate |format_datetime('none', 'short',locale='es') }}</span>
+                                    {#{ event.translate(app.request.getLocale()).schedule|raw }#}
+                                </div>
+                                <div class="author">
+                                    <span><a href="#">{{ event.contact ? event.contact : '' }}</a></span>
+                                    <span>{{ (event.phone) ? event.phone : '' }}</span>
+                                </div>
+                                <button type="button" class="btn btn__arrow" id="botPreReg">Inscribirme</button>
+                            </div>
+                            <div class="boxnews__content" id="eventBoxForm" style="display:none">
+                                <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
+                                <div class="txt__required__fields">* Campos requeridos</div>
+
+                                <form action="" class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eAddress" placeholder="Dirección *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="ePostalCode" placeholder="CP *" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="eCountry" class="form-control custom-select" required>
+                                            <option value="" selected disabled>País *</option>
+                                            {% for pais in paises %}
+                                                <option value="{{ pais.IdPais }}" id="{{ pais.IdPais }}" >{{ pais.Nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="eRegion" class="form-control custom-select" required>
+                                            <option value="" selected disabled>Provincia *</option>
+                                            <option value="15">A coru&#241;a</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="accept" required>
+                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="{{ path('webUse') }}">Condiciones de Uso</a> y la <a href="{{ path('privacyPolicy') }}">Política de Privacidad</a></span></label>
+                                            <div class="invalid-feedback">{{ 'global.forms.mandatory_field' | trans }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="subscribe" required>
+                                            <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn__solid__arrow">{{ 'global.forms.inscription' | trans }}</button>
+                                </form>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            {% if event.people|length > 0 and  event.people[0].type == null %}
+            {# Speakers #}
+            <section class="row page__block">
+                <div class="col">
+                    <div class="page__block__title">
+                        <h2 class="subsection__title subsection__title--event">{{ 'sections.events.speakers'|trans }}</h2>
+                    </div>
+                    <div class="page__block__content">
+                        <div class="lawyer__search__wrapper lawyer__search__wrapper--speakers">
+                            {% for speaker in event.people %}
+                                {% if speaker.type == null %}
+                                <div class="lawyer__search__item">
+                                    <a href="{{ path('lawyers_detail', {slug: speaker.lawyer.slug}) }}" class="lawyer__link">
+                                        <h3 class="lawyer__name">{{ speaker.lawyer.name }} {{ speaker.lawyer.surname }}</h3>
+                                        <div class="lawyer__details">
+                                            <div class="lawyer__company">
+                                                {{ 'sections.events.company'|trans }}
+                                            </div>
+                                            <ul class="lawyer__practice">
+                                                <li class="lawyer__practice__item">{{ ('sections.lawyers.lawyerCategoryTypes.' ~ speaker.lawyer.lawyerType) | trans }}</li>
+                                                <li class="lawyer__practice__item">{{ speaker.lawyer.office ? speaker.lawyer.office.translate(app.request.getLocale()).city : '' }}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+            {% if event.programs|length > 0   %}
+            {# Programme #}
+            <section class="event__programme">
+                <div class="container">
+                    <div class="row page__section">
+                        <div class="col tablesaw-wrapper">
+                            <h4 class="section__title section__title--programme">{{ 'sections.events.programme.title'|trans }}</h4>
+                            <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th class="time" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.time'|trans }}</th>
+                                        <th class="content" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.about'|trans }}</th>
+                                        <th class="speaker" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">{{ 'sections.events.programme.speaker'|trans }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for program in event.programs %}
+                                        <tr>
+                                            <td class="time">
+                                            {{ (program.timeStart) }} &mdash; {% if program.timeEnd is defined %} {{ (program.timeEnd) }}{% endif %}
+                                            </td>
+                                            <td class="content">{{ program.translate(app.request.getLocale()).title|raw}}</td>
+                                            <td class="speakers">
+                                                {% for person in program.people %}
+                                                <ul class="speakers__list">
+                                                    {% if person.lawyer  %}
+                                                        <li><a href="{{ path('lawyers_detail', {slug: person.lawyer.slug}) }}">{{ person.lawyer.name }} {{ person.lawyer.surname }}</a></li>
+                                                    {% else %}
+                                                        <li><span>{{ person.name }} {{ person.surname }}</span></li>
+                                                    {% endif %}
+                                                </ul>
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+        </article>
+    </main>
+
+    {% if relatedEvents|length > 0 %}
+    {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
+    {% endif %}
+    {% if relatedPublications|length > 0 %}
+    {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+    {% endif %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/stackonly/tablesaw.stackonly.jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/tablesaw/tablesaw-init.js') }}"></script>
+<script>
+    $(function () {
+        var enventIdGC =  {{ event.idGestorEventos ? event.idGestorEventos : 0 }};
+        var enventId =  {{ event.id ? event.id : '' }};
+        // EVENT BOX
+        $('#eventMainInfo').hide();
+        $('#eventBoxForm').hide();
+
+        $("#botPreReg").click( function() {
+            $('.boxnews__header').hide();
+            $('#eventBoxInfo').hide();
+            $('#eventBoxForm').show();
+            $('#eventMainInfo').show();
+            $('html, body').animate({
+                scrollTop: $('#eventBoxForm').offset().top - 130
+            }, 'slow');
+        });
+
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 600,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
+                }
+            }
+        });
+
+        // Bootstrap form validation
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var errorElements = document.querySelectorAll(".form-control.is-invalid");
+                        $('html, body').animate({
+                            scrollTop: $(errorElements[0]).offset().top - 120
+                        }, 'slow');
+                        $(errorElements[0]).focus();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+
+        $("#eventBoxForm .btn").click( function(e) {
+            $("#eventBoxForm .form-control").removeClass('is-valid');
+            $("#eventBoxForm .form-control").removeClass('is-invalid');
+            var contacto =  validation();
+
+            if(contacto){
+                $.ajax({
+                    method: "GET",
+                    data: { contacto: JSON.stringify(contacto), enventIdGC: enventIdGC, enventId: enventId },
+                    url: "{{ path('set_event_contact') }}",
+                    beforeSend: function( xhr ) {
+                        e.preventDefault();
+                    }
+                    })
+                .done(function( data ) {
+                })
+                .fail(function() {
+                });
+            }
+        });
+        $("#eCountry").change( function() {
+            var idCountry  =  $('#eCountry').val();
+            var idCountry  =  $('#eCountry').val();
+             $.ajax({
+                    method: "GET",
+                    data: { idCountry: idCountry  },
+                    url: "{{ path('get_regions') }}",
+                    beforeSend: function( xhr ) {
+                    }
+                    })
+                .done(function( data ) {
+                    var html = '';
+                    data.forEach(function(region){
+                        html = html + `<option value="`+region['IdProvincia']+`">`+region['Nombre']+`</option>`;
+                    })
+                    $('#eRegion').append( html  );
+                })
+                .fail(function() {
+                });
+        });
+
+        function validation() {
+
+            var contacto =  {};
+            var isvalidate = true;
+            if($("#eFirstName").val()){
+                $("#eFirstName").addClass('is-valid');
+                contacto['Nombre']= $("#eFirstName").val();
+            }else{
+                isvalidate = false;
+                $("#eFirstName").addClass('is-invalid');
+            }
+
+            if($("#eLastName").val()){
+                $("#eLastName").addClass('is-valid');
+                contacto['Apellidos']= $("#eLastName").val();
+            }else{
+                $("#eLastName").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eEmail").val()){
+                $("#eEmail").addClass('is-valid');
+                contacto['Email']= $("#eEmail").val();
+            }else{
+                $("#eEmail").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#ePosition").val()){
+                $("#ePosition").addClass('is-valid');
+                contacto['Cargo']= $("#ePosition").val();
+            }else{
+                $("#ePosition").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eCompany").val()){
+                $("#eCompany").addClass('is-valid');
+                contacto['Empresa']= $("#eCompany").val();
+            }else{
+                $("#eCompany").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eAddress").val()){
+                $("#eAddress").addClass('is-valid');
+                contacto['Direccion']= $("#eAddress").val();
+            }else{
+                $("#eAddress").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#ePostalCode").val()){
+                $("#ePostalCode").addClass('is-valid');
+                contacto['CodigoPostal']= $("#ePostalCode").val();
+            }else{
+                $("#ePostalCode").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eCountry").val()){
+                $("#eCountry").addClass('is-valid');
+                contacto['IdPais']= $("#eCountry").val();
+            }else{
+                $("#eCountry").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eRegion").val()){
+                $("#eRegion").addClass('is-valid');
+                contacto['IdProvincia']= $("#eRegion").val();
+            }else{
+                $("#eRegion").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#eTel").val()){
+                $("#eTel").addClass('is-valid');
+                contacto['Telefono']= $("#eTel").val();
+            }else{
+                $("#eTel").addClass('is-invalid');
+                isvalidate = false;
+            }
+
+            if($("#accept").is(':checked')){
+                contacto['GDPR']= 1;
+            }else{
+                 contacto['GDPR']= 0;
+            }
+            if($("#subscribe").is(':checked')){
+                contacto['Suscripcion']= 1;
+            }else{
+                contacto['Suscripcion']= 0;
+            }
+
+            if(isvalidate){
+                return contacto;
+            }else{
+                return isvalidate;
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -61,6 +61,10 @@
                     color: $white;
                 }
             }
+
+            @include when("photo") {
+                min-height: auto !important;
+            }
         }
     }
 
@@ -373,19 +377,6 @@
         @include when("half") {
             max-width: 100%;
             min-height: auto !important;
-        }
-
-        @include when-inside(".boxnews--collections") {
-            flex: 0 1 calc(50% - 1.6rem);
-            max-width: calc(50% - 1.6rem);
-            margin: 0 .8rem 2rem;
-
-            @media(max-width: $max-width-4casas) {
-                flex: 0 1 100%;
-                max-width: 100%;
-                min-height: auto;
-                margin-bottom: 1rem;
-            }
         }
 
         @include when-inside(".boxnews--doble") {
@@ -885,7 +876,8 @@
             }
 
             a {
-                @include left-to-right-link($complementary-color, $complementary-color);
+                // @include left-to-right-link($complementary-color, $complementary-color);
+                @include classic-link($complementary-color, $main-color, $border: false);
                 text-transform: uppercase;
             }
         }
@@ -901,7 +893,8 @@
 
         .author {
             a {
-                @include left-to-right-link($complementary-color, $complementary-color);
+                // @include left-to-right-link($complementary-color, $complementary-color);
+                @include classic-link($complementary-color, $main-color, $border: false);
             }
         }
 
@@ -1074,7 +1067,11 @@
                 max-height: 106px;
                 margin-bottom: 2rem;
                 overflow: hidden;
-                padding: 0 1rem 1rem 1rem;
+                padding: 0 2rem 1rem 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    padding: 0 1rem 1rem 1rem;
+                }
 
                 > * {
                     @include fontSet(22px, 26px);
@@ -1086,7 +1083,11 @@
             }
 
             @include when-inside(".boxnews--collections") {
-                padding: 0 1rem 1rem 1rem;
+                padding: 0 2rem 1rem 2rem;
+
+                @media(max-width: $max-width-4casas) {
+                    padding: 0 1rem 1rem 1rem;
+                }
 
                 > * {
                     @include fontSet(33px, 37px);
@@ -1146,7 +1147,20 @@
             }
             @include has("date") {}
             @include has("time") {}
-            @include has("author") {}
+
+            @include has("author") {
+                span {
+                    &:after {
+                        content: ',';
+                    }
+
+                    &:last-child {
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+            }
         }
 
         @include has("action") {

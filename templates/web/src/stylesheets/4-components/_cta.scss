@@ -20,8 +20,20 @@
     @include has("content") {
         padding: 5rem 2rem 6rem 0;
 
+        @include when("right") {
+            padding: 5rem 0 6rem 2rem;
+        }
+
         @media(max-width: $max-width-4casas) {
             padding: 2rem 0;
+        }
+
+        .button__block {
+            margin-bottom: 2rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -59,6 +71,10 @@
         @include stretch-to-right;
         background-position: 50% 50%;
 
+        @include when("left") {
+            @include stretch-to-left;
+        }
+
         @media(max-width: $max-width-4casas) {
             width: auto;
             height: 180px;
@@ -70,7 +86,7 @@
     }
 
     @include has("title") {
-        @include fontSet(58px, 58px);
+        @include fontSet(48px, 52px);
         color: $complementary-color;
 
         @include when-inside(".cta--fundation") {
@@ -84,7 +100,7 @@
 
     @include has("excerpt") {
         margin-bottom: 2rem;
-        @include fontSet(58px, 58px);
+        @include fontSet(48px, 52px);
         color: $white;
 
         @include when-inside(".cta--fundation") {

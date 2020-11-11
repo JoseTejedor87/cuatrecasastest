@@ -22,6 +22,11 @@ global:
     latam: Latinoamérica
     portugal: Portugal
     global: Global
+  places:
+    1: España
+    2: Portugal
+    3: Global
+    4: Latinoamérica
 
   messages:
     noRecordsFound: No se han encontrado registros
@@ -55,6 +60,13 @@ sections:
       title: Nuevo Desk
     edit:
       title: Editar Desk
+  region:
+    index:
+      title: Región
+    new:
+      title: Nueva región
+    edit:
+      title: Editar región
   insights:
     index:
       title: Colecciones
@@ -146,6 +158,8 @@ sections:
   publication:
       index:
         title: Conocimiento
+        type: Tipo de Publicación
+        legislation: Legislación
       new:
         title: Nuevo Conocimiento
       edit:
@@ -206,6 +220,7 @@ menu:
   knowledge.title: Conocimiento
   case_studies.title: Casos
   home.title: Home
+  region.title: Regiones
 # Entities
 # ###########################################
 entities:
@@ -214,6 +229,7 @@ entities:
       title: Título
       summary: Resumen
       description: Descripción
+
       image: Imagen
       highlighted: Menú
       experience: Experiencia
@@ -230,6 +246,10 @@ entities:
       activities: Sectores / Servicios / Desks
       offices: Oficinas
       people: Abogados
+      insights: Colecciones
+      legislations: Legislacion
+      pages: Páginas
+      url_video: Url Video
       summary: Resumen
       content: Contenido
       caption: Subtitulo
@@ -240,7 +260,7 @@ entities:
       type: Tipo
     knowledgeTypes:
       news: Noticias
-      opinion: Opinion
+      opinion: Publicación
       academy: Academia
       legalNovelty: Novedades legales
   award:
@@ -255,6 +275,14 @@ entities:
       activities: Actividades Relacionadas
       awards: Premios
       tags: Tags
+  region:
+    fields:
+      office: Oficina
+      title: Titulo
+      principal: Principal
+      photo: Imagen región
+      summary: Resumen
+      content: Descripción
   case_study:
     fields:
       title: Título
@@ -263,6 +291,7 @@ entities:
       image: Imagen
       events: Eventos
       lawyers: Abogados
+      insights: Colecciones
       articles: Artículos
       activities: Sectores / Servicios / Desks
       relatedCaseStudies: Casos relacionados
@@ -286,6 +315,7 @@ entities:
       capacity: Aforo
       people: Personas
       office: Oficina
+      insights: Colecciones
       no-office: Evento Sin Oficina
       attachments: Adjuntos
       activities: Sectores / Servicios / Desks
@@ -294,6 +324,7 @@ entities:
       customCountry: Pais (Si no hay oficina)
       customPostalcode: Codigo postal (Si no hay oficina)
       customProvince: Provincia (Si no hay oficina)
+      featured: Destacado
 
 
   programs:
@@ -322,7 +353,7 @@ entities:
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas
       slug: Slug
-      photo: Foto
+      attachments: Adjuntos
   item:
     fields:
       createdAt: Fecha de creación
@@ -338,7 +369,7 @@ entities:
       photo: Fotografía
       knownLanguages: Idiomas conocidos
       lawyerType: Tipo
-      description: Descripción
+      description: Resumen
       curriculum: Curriculum Vitae
       activities: Sectores / Servicios / Desks
       secondaryActivities: Sectores / Servicios / Desks (secundarias)
@@ -456,10 +487,10 @@ entities:
       title: Titulo
       description: Descripcion
       showSearchBlock: Mostrar Bloque de Búsqueda
-      showRelatedPublicationAndEvents: Mostrar Bloque de Publicaciones
-      showInsight: Mostrar Bloque Conocimientos elegidos
-      showCarrerBlock: Mostrar Bloque Carrer
-      showQuoteBlock: Mostrar Bloque Citas
+      showRelatedPublicationAndEvents: Mostrar Bloque de Contenido Destacado
+      showInsight: Mostrar Bloque Insights
+      showCarrerBlock: Mostrar Bloque Talento
+      showQuoteBlock: Mostrar Bloque Premios
       insight: Seleccionar Colecciones
       qoute: Seleccionar Citas
       brand: Seleccionar Marcas
@@ -488,7 +519,7 @@ forms:
       breakfast: Desayuno
       institutional: Institucional
     publicationCategoryTypes:
-      opinion: Opinion
+      opinion: Publicación
       news: Noticia
       academy: Academia
       legalNovelty: Legal Novelty

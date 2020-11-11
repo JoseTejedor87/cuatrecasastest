@@ -13,14 +13,8 @@
                 <div class="row lawyer__page__header">
                     <div class="col-md-7 lawyer__page__content">
                         <a href="#" class="back__button">{{ 'global.goBack'|trans }}</a>
-                        <h1 class="lawyer__page__region">
-                            Centro de medios
-                        </h1>
-                        <ul class="action__links">
-                            <li><a href="#"><i class="material-icons">share</i></a></li>
-                            <li><a href="#"><i class="material-icons">print</i></a></li>
-                            <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                        </ul>
+                        <h1 class="lawyer__page__region">{{ 'menu.media_center'|trans }}</h1>
+                    {% include 'web/base/social-share.html.twig' %}
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
@@ -35,7 +29,7 @@
                     <div class="col search_box__wrapper">
                         <div class="search_box__name search_box__name--full">
                             <form action="" method="get">
-                                <input type="text" class="form-control" placeholder="Buscar" name="initial">
+                                <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" name="initial">
                                 <div class="input-group">
                                     <button class="search_box__button" type="submit">
                                         <span class="icon4-lupa"></span>
@@ -47,7 +41,7 @@
                 </section>
                 <section class="row page__section page__section--fullbg">
                     <div class="col-12">
-                        <h4 class="section__title section__title--recomended">Actualidad</h4>
+                        <h4 class="section__title section__title--recomended">{{ 'global.messages.news_content'|trans }}</h4>
                     </div>
                     <div class="col-12">
                         <div class="grid__masonry">
@@ -152,15 +146,18 @@
                     </div>
                     <div class="col-12">
                         <div class="viewmore__button">
-                            <button type="button" class="btn btn__viewmore">Cargar más</button>
+                            <button type="button" class="btn btn__viewmore">{{ 'global.messages.load_more'|trans }}</button>
                         </div>
                     </div>
                 </section>
             </div>
 
-            {% include 'web/shared/info-mediakit.html.twig' %}
-            {% include 'web/shared/info-media-center.html.twig' %}
-            {% include 'web/shared/related-content-slider_YML.html.twig' %}
+            {% include 'web/pages/custom/firm/shared/info-mediakit.html.twig' %}
+            {% include 'web/pages/custom/firm/shared/info-media-center.html.twig' %}
+            {# {% include 'web/pages/custom/firm/shared/related-content-slider-mediakit.html.twig' %} #}
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications }  %}
+            {% endif %}
 
         </article>
     </main>
@@ -171,7 +168,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {

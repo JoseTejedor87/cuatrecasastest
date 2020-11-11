@@ -10,6 +10,7 @@ use App\Repository\AwardRepository;
 use App\Controller\Web\WebController;
 use App\Repository\PublicationRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use App\Controller\Web\NavigationService;
 
 class InsightController extends WebController
 {
@@ -24,11 +25,11 @@ class InsightController extends WebController
     {
         $awards = $awardRepository->getAll();
         $insights = $insightRepository->findAll();
-        $relatedEvents = $eventRepository->findByActivities('');
+        $relatedEvents = $eventRepository->findFeaturedByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
 
         $test = 'testc';
-        return $this->render('web/insights/collections.html.twig', [
+        return $this->render('web/insights/index.html.twig', [
             'controller_name' => 'InsightController',
             'awards' => $awards,
             'testc' => $test,
@@ -39,7 +40,7 @@ class InsightController extends WebController
     }
 
 
-    public function detail(Request $request, InsightRepository $insightRepository, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
+    public function detail(Request $request, InsightRepository $insightRepository,NavigationService $navigation, CaseStudyRepository $caseStudyRepository, PublicationRepository $publicationRepository, EventRepository $eventRepository)
     {
         $insight = $insightRepository->getInstanceByRequest($request);
         $limit = 14;
@@ -62,9 +63,10 @@ class InsightController extends WebController
             if ($value instanceof \App\Entity\News) {
                 $value->type = 'news';
             }
-            $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid');
+            $value->photo = $this->getPhotoPathByFilter($value, 'publication_box', $navigation);
             if (!$value->photo) {
-                $value->photo = 'https://via.placeholder.com/800x400';
+                $value->photo = 'web/assets/img/cabecera_1920x1080_baja.jpg';
+                // $value->photo = 'https://via.placeholder.com/800x400';
             }
         }
         // TODO:
@@ -74,7 +76,7 @@ class InsightController extends WebController
         //
         $relatedPublications = $publicationRepository->findByActivities($insight->getActivities());
         //dd($relatedPublications);
-        $relatedEvents = $eventRepository->findByActivities($insight->getActivities());
+        $relatedEvents = $eventRepository->findFeaturedByActivities($insight->getActivities());
 
         $contextualBlocks['cases'] = $caseStudyRepository->findByActivities($insight->getActivities()->toArray());
         $contextualBlocks['insights'] = $insightRepository->getPublishedRelatedInsights($insight);
@@ -87,18 +89,5 @@ class InsightController extends WebController
             'relatedPublications' => $relatedPublications
         ]);
     }
-    protected function getPhotoPathByFilter($publication, $filter)
-    {
-        if ($photos = $publication->getAttachments()) {
-            foreach ($photos as $key => $photo) {
-                if ($photo->getType() == "publication_main_photo") {
-                    $photo = $this->imagineCacheManager->getBrowserPath(
-                        '/resources/' . $photo->getFileName(),
-                        $filter
-                    );
-                    return $photo;
-                }
-            }
-        }
-    }
+
 }

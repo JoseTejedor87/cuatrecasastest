@@ -1,0 +1,194 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+{% if  headerImage == '' %}
+    {% set headerImage =  asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') %}
+{% endif %}
+    <main role="main">
+        <article class="container" itemscope itemtype="http://schema.org/Article">
+
+            <header class="row page__header" style="background-image: url('{{ headerImage }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title"  itemprop="name">
+                            {{ publication.translate(app.request.getLocale()).title|raw }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('knowledge_index') }}">{{ 'global.knowledge'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Artículos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="row page__block noborder" >
+                <div class="col">
+                    <div class="page__block__title page__block__title--article" itemprop="articleBody" >
+                        <span style="display:none;" itemprop="datePublished">{{ publication.getPublicationDate |date("Y-m-d\\TH:i:s") }}</span>
+                        <p itemprop="about">{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
+                        <img src="{{publication.photo is defined ? asset(resourcesPath ~ publication.photo ) | imagine_filter('publication_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+
+                        {# duplicated block desktop / mobile #}
+                        <div class="article__details desktop" >
+                            {% for attachment in attachmentPublished %}
+                                {% if attachment.type == 'publication_dossier'%}
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if publication.people|length > 0 %}
+                            <ul class="related__content related__content--lawyers">
+                             {% for person in publication.people %}
+                                <li class="related__content__item" itemscope itemtype="https://schema.org/Person" >
+                                 
+                                     {% if person.lawyer %}
+                                        <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}"  class="related__content__link" itemprop="author" itemprop="name">
+                                        {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                        </a>
+                                    {% else %}
+                                        <a href="#" class="related__content__link"  itemprop="author" itemprop="name">
+                                        {{ person.name }} {{ person.surname }}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {% if publication.activities|length > 0 %}
+                            <ul class="related__content related__content--services">
+                             {% for activity in publication.activities %}
+                                {% set path_string = get_pathda(activity)|trans %}
+                                <li class="related__services__item"  itemprop="keywords" >
+                                    <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="page__block__content page__block__content--article">
+                        {% if publication.urlVideo != ''  %}
+                            {% include 'web/shared/video-article.html.twig' with {article: publication, imgVideo: attachmentPublished ? attachmentPublished[0].fileName : '' } %}
+                        {% endif %}
+                        <!-- <img src="{#{ asset('web/assets/img/la-firma.jpg') }#}" > -->
+                        <div class="read__more" itemprop="description">
+                            {{ publication.translate(app.request.getLocale()).content|raw }}
+                        </div>
+
+                        {# duplicated block desktop / mobile #}
+                        <div class="article__details mobile">
+                            {% for attachment in attachmentPublished %}
+                                {% if attachment.type == 'publication_dossier'%}
+                                <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
+                                    {{ 'global.messages.dossier_download'|trans }}
+                                    <span class="icon4-download"></span>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if publication.people|length > 0 %}
+                            <ul class="related__content related__content--lawyers">
+                             {% for person in publication.people %}
+                                <li class="related__content__item">
+                                     {% if person.lawyer %}
+                                        <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}" class="related__content__link">
+                                        {{ person.lawyer.name }} {{ person.lawyer.surname }}
+                                        </a>
+                                    {% else %}
+                                        <a href="#" class="related__content__link">
+                                        {{ person.name }} {{ person.surname }}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {% if publication.activities|length > 0 %}
+                            <ul class="related__content related__content--services">
+                             {% for activity in publication.activities %}
+                                {% set path_string = get_pathda(activity)|trans %}
+                                <li class="related__services__item">
+                                    <a href="{{ path(path_string, { slug: activity.translate(app.request.getLocale()).slug }) }}" class="related__services__link">
+                                        {{ activity.translate(app.request.getLocale()).title|raw}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% if relatedPublications|length > 0 %}
+        {% include 'web/shared/related-content-slider.html.twig' with {classTittle: '--recomended',publications: relatedPublications } %}
+    {% endif %}
+    {% if insight is defined and insight|length > 0 %}
+        {% include 'web/shared/insight.html.twig' %}
+    {% endif %}
+    {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudiesRelated } %}
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.read__more').readmore({
+            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
+            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
+            embedCSS: true,
+            collapsedHeight: 400,
+            blockProcessed: function(element, collapsable) {
+                if(! collapsable) {
+                    element.addClass('mask-off');
+                }
+            },
+            beforeToggle: function(trigger, element, expanded) {
+                if(expanded) {
+                    element.removeClass('mask-off');
+                }
+                if(! expanded) {
+                    element.addClass('mask-off');
+                }
+            },
+            afterToggle: function(trigger, element, expanded) {
+                if(! expanded) {
+                    if (window.matchMedia('(max-width: 1199px)').matches) {
+                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
+                    } else {
+                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

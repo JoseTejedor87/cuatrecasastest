@@ -11,6 +11,7 @@
                 {#{ form_row(form.country) }#}
                 {{ form_row(form.contact) }}
                 {{ translatableField.partialTranslations(form.translations, ['city']) }}
+                {{ form_row(form.link_external_map) }}
             </div>
             <div class="col-md-6">               
 
@@ -22,7 +23,7 @@
             <div class="col-md-12">
 
 
-                {{ translatableField.partialTranslations(form.translations, ['descriptions']) }}
+                {{ translatableField.partialTranslations(form.translations, ['description']) }}
                 {{ translatableField.partialTranslations(form.translations, ['tags']) }}
 
 
@@ -56,7 +57,9 @@
             </div>
 
             {{ form_row(form.status) }}
+             <h6 class="">Territorio asociado: </h6>
             {{ form_row(form.place) }}
+            <h6 class="">Priorización de contenido: </h6>
             {{ form_row(form.geographical_area) }}
             {{ form_row(form.sap) }}
             

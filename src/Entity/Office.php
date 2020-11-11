@@ -26,6 +26,11 @@ class Office extends Publishable
      */
     private $cp;
 
+    /**
+     * @ORM\Column(type="string", length=1024,  nullable=true)
+     */
+    private $link_external_map;
+
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -102,6 +107,10 @@ class Office extends Publishable
      */
     private $event;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Region", mappedBy="office")
+     */
+    private $region;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="offices")
@@ -119,6 +128,7 @@ class Office extends Publishable
         $this->event = new ArrayCollection();
         $this->publication = new ArrayCollection();
         $this->sliders = new ArrayCollection();
+        $this->region = new ArrayCollection();
     }
 
     public function __toString()
@@ -413,6 +423,45 @@ class Office extends Publishable
         if ($this->sliders->contains($slider)) {
             $this->sliders->removeElement($slider);
             $slider->removeOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function getLinkExternalMap(): ?string
+    {
+        return $this->link_external_map;
+    }
+
+    public function setLinkExternalMap(string $link_external_map): self
+    {
+        $this->link_external_map = $link_external_map;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Region[]
+     */
+    public function getRegion(): Collection
+    {
+        return $this->region;
+    }
+
+    public function addRegion(Region $region): self
+    {
+        if (!$this->region->contains($region)) {
+            $this->region[] = $region;
+            $region->addOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegion(Region $region): self
+    {
+        if ($this->region->removeElement($region)) {
+            $region->removeOffice($this);
         }
 
         return $this;

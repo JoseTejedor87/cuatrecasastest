@@ -10,6 +10,8 @@ parameters:
 
     app.default_language: es        # The default language
 
+    app.web_service_active: true        # If yo can't access to the cuatrecasasWebservice False
+
     locale: '%app.default_language%'  # A parameter referenced from the Doctrine Behaviours configuration
 
     app.regions: [spain, latam, portugal, global]
@@ -17,8 +19,8 @@ parameters:
     app.office_place:
         spain: 1
         portugal: 2
-        global: 3
         latam: 4
+        global: 3
 
     app.language_switcher: {es: es, en: en, pt: pt ,ge: ge}
 
@@ -74,7 +76,9 @@ parameters:
         - eventsBlock
         - publicationBlock
 
-    app.path.uploads.resources: '/resources'
+    # app.social.key: '%env(string:ADTHIS_ID)%
+
+    app.path.uploads.resources: '%env(string:APP_ENV_VHOST)%/resources'
 
 services:
     # default configuration for services in *this* file
@@ -110,6 +114,13 @@ services:
 
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+
+    app.sitemap.post_subscriber:
+        class: App\Controller\EventListener\SitemapSubscriber
+        arguments:
+            - "@router"
+        tags:
+            - { name: "kernel.subscriber", priority: 100 }
 
 # KnpLab Paginator
 knp_paginator:

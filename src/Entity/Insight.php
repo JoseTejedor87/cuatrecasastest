@@ -41,9 +41,19 @@ class Insight extends Publishable
     private $activities;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", inversedBy="insights")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publication", mappedBy="insights")
      */
     private $publications;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="insights")
+     */
+    private $events;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseStudy", mappedBy="insights")
+     */
+    private $caseStudies;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -82,9 +92,9 @@ class Insight extends Publishable
     private $home;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Resource", mappedBy="insight", cascade={"persist"}, orphanRemoval=true)
      */
-    private $photo;
+    private $attachments;    
 
     public function __construct()
     {
@@ -92,7 +102,10 @@ class Insight extends Publishable
         $this->relatedInsights = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->caseStudies = new ArrayCollection();
         $this->lawyers = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getHeaderType(): ?string
@@ -274,6 +287,59 @@ class Insight extends Publishable
     }
 
     /**
+     * @return Collection|CaseStudy[]
+     */
+    public function getCaseStudies(): Collection
+    {
+        return $this->caseStudies;
+    }
+
+    public function addCaseStudy(CaseStudy $caseStudy): self
+    {
+        if (!$this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies[] = $caseStudy;
+        }
+
+        return $this;
+    }
+
+    public function removeCaseStudies(CaseStudy $caseStudy): self
+    {
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+        }
+
+        return $this;
+    }
+
+
+    /**
      * @return Collection|Lawyer[]
      */
     public function getLawyers(): Collection
@@ -311,18 +377,45 @@ class Insight extends Publishable
         return $this;
     }
 
-    public function getPhoto(): ?Resource
+    public function removeCaseStudy(CaseStudy $caseStudy): self
     {
-        return $this->photo;
-    }
-
-    public function setPhoto(?Resource $photo): self
-    {
-        $this->photo = $photo;
-        if ($photo) {
-            $photo->setInsight($this);
+        if ($this->caseStudies->contains($caseStudy)) {
+            $this->caseStudies->removeElement($caseStudy);
+            $caseStudy->removeInsight($this);
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Resource $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setInsight($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Resource $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getInsight() === $this) {
+                $attachment->setInsight(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -8,7 +8,6 @@
 {% block main %}
 
     <main role="main" class="home container-fluid">
-
         <header class="row home__header">
             <div class="col">
                 <div id="sliderHome" class="swiper-container">
@@ -18,7 +17,6 @@
                 </div>
             </div>
         </header>
-
     </main>
 
     {% if home.showSearchBlock %}
@@ -27,7 +25,7 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.our_recomendation'|trans, publications: relatedPublications, noButton: '' } %}
         {% endif %}
     {% endif %}
 
@@ -40,9 +38,9 @@
         {% endif %}
     {% endif %}
 
-    {% if home.showQuoteBlock and home.quotes[0] is defined %}
+    {# {% if home.showQuoteBlock and home.quotes[0] is defined %}
         {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes } %}
-    {% endif %}
+    {% endif %} #}
 
     {% if home.showCarrerBlock %}
         {% include 'web/shared/career.html.twig' with { career: careerBlock} %}
@@ -53,10 +51,9 @@
     {% endif %}
 
     {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
-
-    <!-- Loader -->
+    {# Loader #}
     <div class="search__component__loader" style="display:none">
-        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="loading">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -68,7 +65,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/lity.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/lity/dist/plugins/youtube/youtube.min.js') }}"></script>
 <script>

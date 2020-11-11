@@ -30,7 +30,7 @@
                 <div class="m-form__section m-form__section">
                     {{ translatableField.partialTranslations(form.translations, ['title']) }}
                     {{ translatableField.partialTranslations(form.translations, ['description']) }}
-                    {{ translatableField.partialTranslations(form.translations, ['schedule']) }}
+                    {# {{ translatableField.partialTranslations(form.translations, ['schedule']) }} #}
                     {{ form_row(form.programs) }}
                     {{ form_row(form.questions) }}
                     {# {{ translatableField.partialTranslations(form.translations, ['program']) }} #}
@@ -58,6 +58,8 @@
             {{ form_row(form.activities) }}
             {{ form_row(form.people) }}
             {{ form_row(form.office) }}
+            {{ form_row(form.insights) }}
+
         </div>
 
         <div class="m-form__section m-form__section">
@@ -104,6 +106,8 @@
             {{ translatableField.partialTranslations(form.translations, ['slug']) }}
             {{ form_row(form.languages) }}
             {{ form_row(form.regions) }}
+            {{ form_row(form.published) }}
+            {{ form_row(form.featured) }}
         </div>
 
         <div class="m-form__seperator m-form__seperator--dashed"></div>

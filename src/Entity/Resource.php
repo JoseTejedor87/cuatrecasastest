@@ -73,6 +73,11 @@ class Resource extends Publishable
     private $activity;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Region", inversedBy="photo")
+     */
+    private $region;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
@@ -83,9 +88,10 @@ class Resource extends Publishable
     private $title;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Insight", inversedBy="photo")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Insight", inversedBy="attachments")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
-    private $insight;
+    private $insight;    
 
     public function __toString()
     {
@@ -197,6 +203,18 @@ class Resource extends Publishable
         return $this;
     }
 
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
 
     public function getPublication(): ?Publication
     {
@@ -269,4 +287,6 @@ class Resource extends Publishable
 
         return $this;
     }
+
+
 }

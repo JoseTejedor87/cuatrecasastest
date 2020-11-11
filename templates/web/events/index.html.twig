@@ -1,9 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
-<!-- FullCalendar CSS -->
 <link href="{{ asset('web/vendor/fullcalendar/core/main.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
 <link href="{{ asset('web/vendor/fullcalendar/list/main.min.css') }}" rel="stylesheet">
@@ -14,31 +12,24 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: url('{{ asset('web/assets/img/eric-rothermel-FoKO4DpXamQ-unsplash.jpg') }}')">
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            Próximos eventos
+                            {{ 'sections.events.next_events' | trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Inicio</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Conocimiento</a>
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Eventos
+                                    {{ 'sections.events.title' | trans }}
                                 </li>
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -50,7 +41,7 @@
                                 <div class="search_box__wrapper">
                                     <div class="search_box__name search_box__name--full">
                                         <form >
-                                            <input type="text" class="form-control" placeholder="Buscar" id="title">
+                                            <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" id="title">
                                             <div class="input-group">
                                                 <button class="search_box__button" type="button">
                                                     <span class="icon4-lupa"></span>
@@ -63,65 +54,76 @@
                                     <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
                                 </div>
                                 <div class="search_selects filtersToggle">
-                                    <select id="place" class="custom__select">
-                                        <option disabled selected>Lugar</option>
+                                    <select id="office" class="custom__select">
+                                        <option disabled selected>{{ 'sections.events.filters.lugar'|trans }}</option>
                                         {% for office in offices %}
                                             {% if office.translate(app.request.getLocale()).city  %}
                                                 <option value="{{office.id}}">{{ office.translate(app.request.getLocale()).city  }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <select id="expertise" class="custom__select">
-                                        <option disabled selected>Expertise</option>
+                                    <select id="activity" class="custom__select">
+                                        <option disabled selected>{{ 'sections.events.filters.expertise'|trans }}</option>
                                         {% for activity in activities %}
                                             {% if activity.translate(app.request.getLocale()).title  %}
                                                 <option value="{{activity.id}}">{{ activity.translate(app.request.getLocale()).title|raw  }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <select id="month" class="custom__select">
-                                        <option disabled selected>Mes</option>
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
+                                    <select id="month" class="custom__select" >
+                                        <option value="{{ "now"|date("m") }}" selected >{{ 'global.calendar.month' | trans }}</option>
+                                        <option value="1">{{ 'sections.events.filters.month.enero'|trans }}</option>
+                                        <option value="2">{{ 'sections.events.filters.month.febrero'|trans }}</option>
+                                        <option value="3">{{ 'sections.events.filters.month.marzo'|trans }}</option>
+                                        <option value="4">{{ 'sections.events.filters.month.abril'|trans }}</option>
+                                        <option value="5">{{ 'sections.events.filters.month.mayo'|trans }}</option>
+                                        <option value="6">{{ 'sections.events.filters.month.junio'|trans }}</option>
+                                        <option value="7">{{ 'sections.events.filters.month.julio'|trans }}</option>
+                                        <option value="8">{{ 'sections.events.filters.month.agosto'|trans }}</option>
+                                        <option value="9">{{ 'sections.events.filters.month.septiembre'|trans }}</option>
+                                        <option value="10">{{ 'sections.events.filters.month.octubre'|trans }}</option>
+                                        <option value="11">{{ 'sections.events.filters.month.noviembre'|trans }}</option>
+                                        <option value="12">{{ 'sections.events.filters.month.diciembre'|trans }}</option>
                                     </select>
+                                    {% set actualYear =  "now"|date("Y") %}
                                     <select id="year" class="custom__select">
-                                        <option disabled selected>Año</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2014">2014</option>
-                                        <option value="2013">2013</option>
-                                        <option value="2012">2012</option>
-                                        <option value="2011">2011</option>
-                                        <option value="2010">2010</option>
+                                        <option value="{{ actualYear }}" selected>{{ 'global.calendar.year' | trans }}</option>
+                                        {% for i in 0..10 %}
+                                            <option value="{{ actualYear-i }}">{{ actualYear-i }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </form>
                         </div>
+                    </div>
+                    <!-- Selected tags -->
+                    <div class="col-12" id="checksOutput" style="display:none">
+                        <span id="checkbox-tag-title" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="title" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-office" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="office" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-activity" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="activity" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-month" class="checkbox-tag" style="display:none">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="month" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
+                        <span id="checkbox-tag-year" class="checkbox-tag" style="display:none;">
+                            <span class="tag-text"></span><button type="button" class="close-tag" data-value="year" aria-label="close"><span aria-hidden="true" class="icon ion-android-close"></span></button>
+                        </span>
                     </div>
                 </div>
             </section>
 
             {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
 
-            <!-- Calendar -->
+            {# Calendar #}
             <section class="event__wrapper">
                 <div class="row" id="gridFocus">
                     <div class="col">
-                        <h4 class="section__title section__title--events">Listado eventos</h4>
+                        <h4 class="section__title section__title--events">{{ 'sections.events.list'|trans }}</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -131,230 +133,20 @@
                         </div>
                         <div id="eventCalendarList">
                         </div>
-                        <!-- Search results / no calendar -->
-                        <!-- <div id="eventList">
-                            <h3 class="fc-list-heading-main">16 marzo 2020 (bloque estático)</h3>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Barcelona</a></div>
-                                    <div class="event-date">16 febrero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Bilbao</a></div>
-                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
-                                            <li><a href="#">Elvira Azaola</a></li>
-                                            <li><span>Ignacio Javier Irigoyen</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Madrid</a></div>
-                                    <div class="event-date">17 a 19 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Albert Garrofé</a></li>
-                                            <li><a href="#">Sonia Velasco</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Lisboa</a></div>
-                                    <div class="event-date">10 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <div class="viewmore__button">
-                                <button type="button" class="btn btn__viewmore">Cargar más</button>
-                            </div>
-                        </div> -->
+
                     </div>
                 </div>
            </section>
 
-            <!-- Event list -->
-            <!-- <section class="event__wrapper">
-                <div class="row">
-                    <div class="col">
-                        <h4 class="section__title section__title--events">Listado eventos</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="event__wrapper__chooser">
-                            <button type="button" id="viewEventList" class="icon__button list active">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Schemes&Charts/Checklist.png') }}" alt="Calendar List">
-                            </button>
-                            <button type="button" id="viewEventCalendar" class="icon__button grid">
-                                <img src="{{ asset('web/assets/icons/Icons_Burgundy/Office/Calender_03.png') }}" alt="Calendar Grid">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="eventCalendar" style="display:none"></div>
-                        <div id="eventList">
-                            <h2 class="fc-list-heading-main">4 de mayo de 2020</h2>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Barcelona</a></div>
-                                    <div class="event-date">16 febrero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">La Directiva de Intermediarios (DAC 6) Estado de transposición y principales aspectos conflictivos.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Bilbao</a></div>
-                                    <div class="event-date">26 febrero a 8 marzo 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Seminario conjunto con la Autoritat Catalana de la Competènce sobre Compentencia en la Contratación Pública.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Antón Pérez-Iriondo</a></li>
-                                            <li><a href="#">Elvira Azaola</a></li>
-                                            <li><span>Ignacio Javier Irigoyen</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Madrid</a></div>
-                                    <div class="event-date">17 a 19 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Mesa redonda: información privilegiada y otra información relevante.</a>
-                                    </div>
-                                    <div class="event-speakers">
-                                        <div class="title">ponentes</div>
-                                        <ul class="related__content">
-                                            <li><a href="#">Albert Garrofé</a></li>
-                                            <li><a href="#">Sonia Velasco</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="event__list__item">
-                                <div class="event__list__details">
-                                    <div class="event-place"><a href="#">Lisboa</a></div>
-                                    <div class="event-date">10 enero 2020</div>
-                                    <div class="event-time">10.30 — 14.30</div>
-                                    <div class="event-button">
-                                        <button type="button" class="doble__arrow__link">Inscribirme</button>
-                                    </div>
-                                </div>
-                                <div class="event__list__info">
-                                    <div class="event-intro">
-                                        <a href="#">Programa de Actualización Tributaria | Novedades fiscales y plan de control tributario 2020.</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <div class="viewmore__button">
-                                <button type="button" class="btn btn__viewmore">Cargar más</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row contact">
-                    <div class="col-4">
-                        <p class="emphasis">
-                            Recibe en tu correo el calendario de <strong>Eventos</strong>
-                        </p>
-                    </div>
-                    <div class="col-8">
-                        <form action="" method="" class="email-subscribe">
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group flex-group">
-                                <div class="checkbox">
-                                    <input id="data-privacy" name="data-privacy" type="checkbox">
-                                    <label for="data-privacy" class="checkbox-label"><span>Política de privacidad</span></label>
-                                </div>
-                                <button type="submit" class="doble__arrow__link">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section> -->
-    {% if relatedPublications|length > 0 %}
-        {% include 'web/shared/related-content-slider.html.twig' with { tittle: 'contenido destacado', publications: relatedPublications } %}
-    {% endif %}
-
+            {% if relatedPublications|length > 0 %}
+                {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
+            {% endif %}
         </article>
     </main>
     {% include 'web/shared/cta-footer.html.twig' %}
-
-    <!-- Loader -->
+    {# Loader #}
     <div class="search__component__loader" style="display:none">
-        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="loading">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
                 <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
@@ -365,7 +157,7 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/core/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/daygrid/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/list/main.min.js') }}"></script>
@@ -373,79 +165,17 @@
 <script type="text/javascript" src="{{ asset('web/vendor/fullcalendar/interaction/main.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/calendarEvents.js') }}"></script>
 <script>
-    $(function () {
-        web.global.customSelects();
-        // EVENTS
-        var year = {{ (year) ? year : "" }};
-        var month = {{ (month) ? month : "" }};
-        newCalendar( {{ eventsCalendar |raw }},month,year);
-        $(document).on("click", ".fc-icon__button__prev-button .fc-icon-chevron-left", function(){
-            month = parseInt(month)-1;
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
+web.global.customSelects();
+// EVENTS
 
-            })
-            .fail(function() {
+var year = (year) ? year : {{  "now"|date("Y") }};
+var month = (month) ? month : {{ "now"|date("m")  }};
 
-            });
+newCalendar( {{ eventsCalendar |raw }},month,year);
+var getEventUrl = "{{ path('get_events') }}";
 
-        });
-        $(document).on("click", ".fc-icon__button__next-button .fc-icon-chevron-right", function(){
-            month = parseInt(month)+1;
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
-
-            })
-            .fail(function() {
-
-            });
-
-        });
-        $(document).on("click", ".search_box__button", function(){
-            month = $("#month").val();
-            year = $("#year").val();
-            activity = $("#expertise").val();
-            office = $("#place").val();
-            title = $("#title").val();
-            $.ajax({
-                method: "GET",
-                url: "{{ path('get_events') }}",
-                data: { month: month, year: year, title: title, activity: activity, office: office  },
-                beforeSend: function( xhr ) {
-                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
-                }
-            })
-            .done(function( msg ) {
-                $('.search__component__loader').fadeOut();
-                $("#eventCalendar").empty();
-                newCalendar( msg,month,year);
-
-            })
-            .fail(function() {
-                console.log(data);
-            });
-
-        });
-    });
 </script>
+
+<script type="text/javascript" src="{{ asset('web/assets/js/events.js') }}"></script>
+
 {% endblock %}

@@ -14,6 +14,10 @@
     }
 }
 
+.button__block {
+    display: block;
+}
+
 .btn__solid {
     @include reset-link-button;
     height: 50px;
@@ -682,13 +686,25 @@
     position: relative;
     display: block;
     margin: 0 0;
-    padding: 0 0 2rem 0;
+    padding: 0 0;
     text-decoration: none;
     color: $complementary-color;
     transition: all 0.2s ease-in-out;
 
+    span {
+        display: block;
+        margin-bottom: 1.5rem;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: fill;
+        margin-top: 1rem;
+    }
+
     &:after {
-        @include icons-4casas(auto, -6px, 0, auto);
+        @include icons-4casas(3rem, -6px, auto, auto);
         @include fontSet(26px, 26px);
         content: '\e90a';
         color: $complementary-color;
@@ -791,6 +807,7 @@
         @include fontSet(33px, 33px);
         margin-bottom: 1rem;
         text-transform: uppercase;
+        transition: all 0.2s ease-out;
 
         @media(max-width: $max-width-4casas) {
             @include fontSet(20px, 20px);
@@ -825,13 +842,19 @@
         text-decoration: none;
         background-color: rgba($black, 0.01);
 
+        h5 {
+            color: $main-color;
+        }
+
         p {
             color: $complementary-color;
         }
 
         &:after {
-            // transform: rotate(90deg) scale(1.2);
-            transform: scale(1.5) rotate(45deg);
+            color: $main-color;
+            right: 20px;
+            transform: rotate(90deg) scale(1.2);
+            // transform: scale(1.5) rotate(45deg);
         }
     }
 

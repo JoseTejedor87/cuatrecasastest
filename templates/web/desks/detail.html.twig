@@ -1,7 +1,6 @@
 {% extends 'web/base.html.twig' %}
 
 {% block stylesheets %}
-<!-- Slider CSS -->
 <link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -10,7 +9,7 @@
     <main role="main" class="lawyer">
         <article class="container">
 
-            {% set photo = desk.photo ? (asset('/resources/' ~ desk.photo.fileName) | imagine_filter('desks_header')) : '' %}
+            {% set photo = desk.photo ? (asset(resourcesPath ~ desk.photo.fileName) | imagine_filter('full_header')) : '' %}
 
             <header class="row page__header" style="background-image: url('{{ photo }}')">
                 <div class="col">
@@ -32,11 +31,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <ul class="action__links">
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">print</i></a></li>
-                        <li><a href="#"><i class="material-icons">bookmark_border</i></a></li>
-                    </ul>
+                    {% include 'web/base/social-share.html.twig' %}
                 </div>
             </header>
 
@@ -113,7 +108,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<!-- Slider JS -->
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
 {% endblock %}

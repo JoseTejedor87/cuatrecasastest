@@ -10,18 +10,19 @@ use App\Repository\OfficeRepository;
 use App\Repository\CaseStudyRepository;
 use App\Repository\HomeRepository;
 use App\Repository\PageRepository;
+use App\Repository\PublicationRepository;
 use App\Controller\Web\NavigationService;
 
 class PagesController extends WebController
 {
     public function detail(Request $request, PageRepository $PageRepository, CaseStudyRepository $caseStudyRepository,OfficeRepository $OfficeRepository,
-     HomeRepository $homeRepository, NavigationService $navigation)
+     HomeRepository $homeRepository, NavigationService $navigation, PublicationRepository $publicationRepository)
     {
+  
         $page = $PageRepository->getInstanceByRequest($request);
         $home = $homeRepository->findOneBy(['id' => 1]);
-        
-        
-        if ($page->getCustomTemplate() == 'others'){
+        $relatedPublications = $publicationRepository->findByActivities('');
+        if ($page->getCustomTemplate() == 'location/others'){
             $place = $navigation->getParams()->get('app.office_place')['global'];
         }else{
             $place = $navigation->getParams()->get('app.office_place')[$page->getCustomTemplate()] ?? null ;
@@ -32,7 +33,7 @@ class PagesController extends WebController
         $urlTemplate = 'empty';
         if (null !== $page->getCustomTemplate() && $page->getCustomTemplate() != '') {
             $urlTemplate = 'custom/'.$page->getCustomTemplate();
-            if ($page->getCustomTemplate() =="vision") {
+            if ($page->getCustomTemplate() =="location/vision") {
                 $officeA = array();
                 $officeATest = array();
                 $offices = $OfficeRepository->createQueryBuilder('o')
@@ -45,17 +46,24 @@ class PagesController extends WebController
                 }
             }
         }
-
+        $Publicaciones = $page->getPublication()->toArray();
+        $Publicaciones = array_reverse($Publicaciones);
+        foreach ($Publicaciones as $key => $Publication) {
+            foreach ($relatedPublications as $key1 => $relatedPublication) {
+                if($Publication->getId() == $relatedPublication->getId()){
+                     unset($relatedPublications[$key1]);
+                } 
+            }
+            array_unshift( $relatedPublications ,  $Publication);
+        }
+        $relatedPublications = array_values($relatedPublications);
         //dd($page->getBlocks()[0]);
-
         return $this->render('web/pages/'.$urlTemplate.'.html.twig', [
-            'officesMapa' => isset($officeATest) ? json_encode($officeATest)  : '',
-            'officesMapaLabel' => isset($officeA) ? json_encode($officeA)  : '',
-            'offices' => isset($offices) ? $offices  : '',
             'page' => $page,
             'controller_name' => 'PageController',
             'home' => $home,
             'caseStudies' => $cases,
+            'relatedPublications' => $relatedPublications,
         ]);
     }
 }

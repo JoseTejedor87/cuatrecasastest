@@ -31,7 +31,7 @@ class PublicationTranslation extends PublishableTranslation
 
 
     /**
-     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @Gedmo\Slug(fields={"title"}, updatable=true)
      * @ORM\Column(length=128, nullable=true)
      */
     private $slug;

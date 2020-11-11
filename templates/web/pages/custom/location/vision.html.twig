@@ -1,0 +1,405 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'menu.offices.vision'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'menu.offices.vision'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="faketabs__component">
+                <div class="row">
+                    <div class="col faketabs__component__tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'vision-general'~slug_ext }) }}" class="nav-link active">{{ 'menu.offices.vision'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'espana'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.spain'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'portugal'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.portugal'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'latam'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.latam'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('location',{slug: 'other-regions'~slug_ext }) }}" class="nav-link">{{ 'menu.offices.other'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row page__block--centered">
+                <div class="col">
+                    <p>{{ 'static.offices.vision_intro'|trans }}</p>
+                </div>
+            </section>
+
+            <section class="world__offices">
+                <div class="world__offices__map" id="map"></div>
+                <div class="row world__offices__wrapper">
+                    <div class="col world__offices__select">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="{{ 'global.forms.search'|trans }}">
+                            {% for key, office in offices %}
+                                {% if key == 0  %}
+                                    <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                {% endif %}
+                                        <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                {% if offices|length > key+1 %}
+                                    {% if offices[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
+                                    </optgroup>
+                                    <optgroup label="{{ offices[key+1].translate(app.request.getLocale()).country }}"></optgroup>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/pages/custom/location/shared/offices.html.twig' %}
+
+            <section class="tabs__component" id="tabsToAccordion">
+                <div class="tabs__component__full">
+                    <div class="tabs__component__tabs">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a id="tab-01" href="#panel-01" data-toggle="tab" role="tab" class="nav-link active">{{ 'static.offices.officeOthers'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tab-02" href="#panel-02" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.officeList'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tab-03" href="#panel-03" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.deskList'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tab-04" href="#panel-04" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.interOrg'|trans }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tabs__component__content">
+                    <div class="row page__section">
+                        <div id="accordion" class="col tab-content" role="tablist">
+                            <div id="panel-01" class="panel tab-pane fade show active" role="tabpanel" aria-labelledby="tab-01">
+                                <div class="panel-header" role="tab" id="heading-01">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-01" aria-expanded="true" aria-controls="collapse-01">{{ 'static.offices.officeOthers'|trans }}</a>
+                                </div>
+                                <div id="collapse-01" class="collapse show" role="tabpanel" aria-labelledby="heading-01" data-parent="#accordion">
+                                    <ul class="buttons__list__column">
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">01 Continental Europe</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">UK</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">US</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Asia</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">África</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Middle East</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="panel-02" class="panel tab-pane fade" role="tabpanel" aria-labelledby="tab-02">
+                                <div class="panel-header" role="tab" id="heading-02">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-02" aria-expanded="true" aria-controls="collapse-02">{{ 'static.offices.officeList'|trans }}</a>
+                                </div>
+                                <div id="collapse-02" class="collapse" role="tabpanel" aria-labelledby="heading-02" data-parent="#accordion">
+                                    <ul class="buttons__list__column">
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">02 Continental Europe</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">UK</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">US</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Asia</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">África</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Middle East</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="panel-03" class="panel tab-pane fade" role="tabpanel" aria-labelledby="tab-03">
+                                <div class="panel-header" role="tab" id="heading-03">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-03" aria-expanded="true" aria-controls="collapse-03">{{ 'static.offices.deskList'|trans }}</a>
+                                </div>
+                                <div id="collapse-03" class="collapse" role="tabpanel" aria-labelledby="heading-03" data-parent="#accordion">
+                                    <ul class="buttons__list__column">
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">03 Continental Europe</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">UK</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">US</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Asia</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">África</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Middle East</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="panel-04" class="panel tab-pane fade" role="tabpanel" aria-labelledby="tab-04">
+                                <div class="panel-header" role="tab" id="heading-04">
+                                    <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-04" aria-expanded="true" aria-controls="collapse-04">{{ 'static.offices.interOrg'|trans }}</a>
+                                </div>
+                                <div id="collapse-04" class="collapse" role="tabpanel" aria-labelledby="heading-04" data-parent="#accordion">
+                                    <ul class="buttons__list__column">
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">04 Continental Europe</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">UK</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">US</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Asia</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">África</a>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">Middle East</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {% include 'web/pages/custom/location/shared/cases-location.html.twig' %}
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/assets/js/responsiveTabs.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<!-- Google Map -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy_8BlItQsCQwNM9habrhInm1QC57atK0&callback=initMap" async defer></script>
+<script>
+    $(function () {
+        $('.faketabs__component__tabs .nav').responsiveTabs();
+        $('#offices').change(function() {
+            lat = parseFloat($('option:selected', this).attr('data-lat'));
+            lng = parseFloat($('option:selected', this).attr('data-lng'));
+            zoom = 8.2;
+            key = parseFloat($('option:selected', this).attr('data-key'));
+            initMap(key);
+        });
+    });
+    var beaches = {{ officesMapa|raw }};
+    var labelsA = {{ officesMapaLabel|raw }};
+    var map;
+    var lat = 15.356144;
+    var lng = -5.2153932;
+    var zoom = 3.2;
+
+    function initMap(key) {
+        // Create the map with no initial style specified.
+        // It therefore has default styling.
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: {lat: lat, lng: lng},
+            zoom: zoom,
+            mapTypeControl: false,
+        });
+        //setMarkers(map);
+        var image = {
+        url: 'https://www.cuatrecasas.com/css/images/logos/cuatrecasas_simbolo.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32)
+        };
+
+         var labels = '';
+         var markers = beaches.map(function(location, i) {
+             return new google.maps.Marker({
+                 position: location,
+                 icon: image,
+             });
+         });
+        //console.log(markers);
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].infowindow = new google.maps.InfoWindow({
+            content: labelsA[i]
+            });
+            //$('#target').on('click mouseover', function () { // Do something for both });
+
+            google.maps.event.addListener(markers[i], 'click', function() {
+
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].infowindow.close();
+            }
+            this.infowindow.open(map, this);
+            });
+        }
+         var markerCluster = new MarkerClusterer(map, markers,
+         {imagePath: '/cuatrecasas/web/assets/img/logoMapa/m'});
+        map.setOptions({
+            styles: styles["retro"],
+            disableDefaultUI: true
+        });
+        if(key !== undefined){
+            google.maps.event.trigger( markers[key], 'click' );
+        }
+    }
+
+    function setMarkers(map) {
+      // Adds markers to the map.
+
+      // Marker sizes are expressed as a Size of X,Y where the origin of the image
+      // (0,0) is located in the top left of the image.
+
+      // Origins, anchor positions and coordinates of the marker increase in the X
+      // direction to the right and in the Y direction down.
+      var image = {
+        url: 'https://www.cuatrecasas.com/css/images/logos/cuatrecasas_simbolo.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        //size: new google.maps.Size(20, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+      };
+      // Shapes define the clickable region of the icon. The type defines an HTML
+      // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+      // The final coordinate closes the poly by connecting to the first coordinate.
+      var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+      };
+      for (var i = 0; i < beaches.length; i++) {
+        var beach = beaches[i];
+        var marker = new google.maps.Marker({
+          position: {lat: beach[1], lng: beach[2]},
+          map: map,
+          icon: image,
+          shape: shape,
+          title: beach[0],
+          zIndex: beach[3]
+        });
+      }
+    }
+    const styles = {
+      retro: [
+        { elementType: "labels", stylers: [{ visibility: "off" }] },
+        {
+          featureType: "administrative",
+          elementType: "geometry",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "administrative.land_parcel",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "administrative.land_parcel",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#ae9e90" }],
+        },
+        {
+          featureType: "administrative.neighborhood",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "landscape",
+          stylers: [{ color: "#46001d" }],
+        },
+        {
+          featureType: "poi",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "geometry.fill",
+          stylers: [{ color: "#a5b076" }],
+        },
+        {
+          featureType: "road",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "road",
+          elementType: "labels.icon",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "transit",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "water",
+          stylers: [{ color: "#d1ebff" }],
+        },
+      ],
+    };
+</script>
+{% endblock %}

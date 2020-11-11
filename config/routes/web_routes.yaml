@@ -55,52 +55,111 @@ gestorgetContactoWebtForm:
     methods:    GET|POST
     controller: App\Controller\TestController::getContactoWebtForm
 
+# TEMPORAL (BORRAR)
+##############################################
+productDetailServices:
+    path:
+        en:   /product-service
+        es:   /producto-servicio
+        pt:   /product-service
+        ge:   /product-service
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::productDetailServices
+
+fiscal:
+    path:
+        en:   /fiscal
+        es:   /fiscal
+        pt:   /fiscal
+        ge:   /fiscal
+    methods:    GET|POST
+    controller: App\Controller\Web\ServicesController::fiscal
+
+events_detail2:
+   path:
+       en:   /event
+       es:   /evento
+       pt:   /event
+       ge:   /event
+   methods:    GET|POST
+   controller: App\Controller\Web\KnowledgeController::detail2
+
 # HOME
 # ###########################################
 home:
-    path: 
+    path:
         en:   /
         es:   /
         pt:   /
     methods:    GET|POST
     controller: App\Controller\Web\HomeController::index
 
-components:
-    path:
-        en:   /components
-        es:   /componentes
-        pt:   /components
-        ge:   /componentes
-    methods:    GET|POST
-    controller: App\Controller\Web\InsightController::index
-
+# USER
+# ###########################################
 userSettings:
     path:
         en:   /user-settings
         es:   /preferencias-usuario
         pt:   /user-settings
-        ge:   /preferencias-usuario
+        ge:   /user-settings
     methods:    GET|POST
     controller: App\Controller\Web\UserController::newUser
 
-institutoRRHH:
+# PRIVACY
+# ###########################################
+siteMap:
     path:
-        en:   /instituto-estrategia-legal-rrhh
-        es:   /instituto-estrategia-legal-rrhh
-        pt:   /instituto-estrategia-legal-rrhh
-        ge:   /instituto-estrategia-legal-rrhh
+        en:   /site-map
+        es:   /mapa-web
+        pt:   /site-map
+        ge:   /site-map
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::institutoRRHH
+    controller: App\Controller\Web\PrivacyController::siteMap
 
-politicaCookies:
+webUse:
+    path:
+        en:   /terms-of-use
+        es:   /condiciones-de-uso
+        pt:   /terms-of-use
+        ge:   /terms-of-use
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::webUse
+
+privacyPolicy:
+    path:
+        en:   /privacy-policy
+        es:   /politica-de-privacidad
+        pt:   /privacy-policy
+        ge:   /privacy-policy
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::privacyPolicy
+
+cookiesPolicy:
     path:
         en:   /cookies-policy
         es:   /politica-de-cookies
         pt:   /cookies-policy
         ge:   /cookies-policy
     methods:    GET|POST
-    controller: App\Controller\Web\HomeController::politicaCookies
+    controller: App\Controller\Web\PrivacyController::cookiesPolicy
 
+securityPolicy:
+    path:
+        en:   /information-security-policy
+        es:   /politica-seguridad-informacion
+        pt:   /information-security-policy
+        ge:   /information-security-policy
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::securityPolicy
+
+contactUs:
+    path:
+        en:   /contact-us
+        es:   /contacta
+        pt:   /contact-us
+        ge:   /contact-us
+    methods:    GET|POST
+    controller: App\Controller\Web\PrivacyController::contactUs
 
 # KNOWLEDGE
 # ###########################################
@@ -112,8 +171,7 @@ knowledge_index:
     methods:    GET|POST
     controller: App\Controller\Web\KnowledgeController::index
 
-
-# Sectors
+# SECTORS
 # ###########################################
 sectors_index:
     path:
@@ -132,7 +190,7 @@ sectors_detail:
    methods:    GET|POST
    controller: App\Controller\Web\SectorController::detail
 
-# Case Studies
+# CASES
 # ###########################################
 case_studies_detail:
     path:
@@ -143,7 +201,7 @@ case_studies_detail:
     methods:    GET|POST
     controller: App\Controller\Web\CaseStudyController::detail
 
-# Services
+# SERVICES
 # ###########################################
 services_index:
     path:
@@ -156,7 +214,7 @@ services_index:
         route: practices_index
         keepQueryParams: true
 
-# Practices
+# PRACTICES
 # ###########################################
 practices_index:
     path:
@@ -175,7 +233,7 @@ practices_detail:
    methods:    GET|POST
    controller: App\Controller\Web\PracticeController::detail
 
-# Desks
+# DESKS
 # ###########################################
 desks_index:
    path:
@@ -194,7 +252,7 @@ desks_detail:
    methods:    GET|POST
    controller: App\Controller\Web\DeskController::detail
 
-# Products
+# PRODUCTS
 # ###########################################
 products_index:
     path:
@@ -213,7 +271,7 @@ products_detail:
    methods:    GET|POST
    controller: App\Controller\Web\ProductsController::detail
 
-# Events
+# EVENTS
 # ###########################################
 events_directory:
    path:
@@ -268,7 +326,7 @@ get_regions:
    methods:    GET|POST
    controller: App\Controller\Web\EventController::ajaxActionRegions
 
-# Lawyers
+# LAWYERS
 # ###########################################
 lawyers_index:
     path:
@@ -296,7 +354,7 @@ lawyers_vcard_download:
     methods:    GET|POST
     controller: App\Controller\Web\LawyerController::download
 
-# Insights
+# INSIGHTS
 # ###########################################
 insights_index:
     path:
@@ -315,7 +373,7 @@ insights_detail:
     methods:    GET|POST
     controller: App\Controller\Web\InsightController::detail
 
-# Offices
+# OFFICES
 # ###########################################
 offices_detail:
     path:
@@ -326,7 +384,7 @@ offices_detail:
     methods:    GET|POST
     controller: App\Controller\Web\OfficeController::detail
 
-# Pages
+# PAGES
 # ###########################################
 pages_detail:
     path:
@@ -337,7 +395,7 @@ pages_detail:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-# Publication
+# PUBLICATIONS
 # ###########################################
 publications_detail:
     path:
@@ -347,132 +405,6 @@ publications_detail:
         ge:   /article/{slug}
     methods:    GET|POST
     controller: App\Controller\Web\PublicationController::detail
-
-# REGIONS
-# ###########################################
-# estas urls estan fijas para poder acceder desde el menu de navgacion luego se deberia reemplazar por la dinamica de manera exclusiva
-regions_vision:
-    path:
-        en:   /p/vision-general-1
-        es:   /p/vision-general
-        pt:   /p/vision-general-1
-        ge:   /p/vision-general-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_espana:
-    path:
-        en:   /p/espana-1
-        es:   /p/espana
-        pt:   /p/espana-1
-        ge:   /p/espana-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_portugal:
-    path:
-        en:   /p/portugal-1
-        es:   /p/portugal
-        pt:   /p/portugal-1
-        ge:   /p/portugal-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_latam:
-    path:
-        en:   /p/latinoamerica-1
-        es:   /p/latinoamerica
-        pt:   /p/latinoamerica-1
-        ge:   /p/latinoamerica-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-regions_other_regions:
-    path:
-        en:   /p/other-regions-1
-        es:   /p/other-regions
-        pt:   /p/other-regions-1
-        ge:   /p/other-regions-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-#############################################################
-
-detail_office:
-    path:
-        en:   /regions/office-detail
-        es:   /territorios/detalle-oficina
-        pt:   /regions/office-detail
-        ge:   /regions/office-detail
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOffice
-
-detail_others:
-    path:
-        en:   /regions/office-others
-        es:   /territorios/detalle-otros
-        pt:   /regions/office-others
-        ge:   /regions/office-others
-    methods:    GET|POST
-    controller: App\Controller\Web\RegionsController::detailOthers
-
-
-# FIRM
-# ###########################################
-
-firm_vision:
-    path:
-        en:   /p/firm-vision-general-1
-        es:   /p/firm-vision-general
-        pt:   /p/firm-vision-general-1
-        ge:   /p/firm-vision-general-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_social:
-    path:
-        en:   /p/social-1
-        es:   /p/social
-        pt:   /p/social-1
-        ge:   /p/social-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_environment:
-    path:
-        en:   /p/medio-ambiente-1
-        es:   /p/medio-ambiente
-        pt:   /p/medio-ambiente-1
-        ge:   /p/medio-ambiente-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_governance:
-    path:
-        en:   /p/buen-gobierno-1
-        es:   /p/buen-gobierno
-        pt:   /p/buen-gobierno-1
-        ge:   /p/buen-gobierno-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_innovation:
-    path:
-        en:   /p/innovacion-1
-        es:   /p/innovacion
-        pt:   /p/innovacion-1
-        ge:   /p/innovacion-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
-
-firm_mediaCenter:
-    path:
-        en:   /p/centro-de-medios-1
-        es:   /p/centro-de-medios
-        pt:   /p/centro-de-medios-1
-        ge:   /p/centro-de-medios-1
-    methods:    GET|POST
-    controller: App\Controller\Web\PagesController::detail
 
 # API-PUBLICATIONS
 ##############################################
@@ -490,87 +422,87 @@ publications-api-media:
     methods:    GET|POST
     controller: App\Controller\APIController::media
 
-# TEMPORAL (BORRAR)
-##############################################
-productDetailServices:
+# PAGES REGIONS
+# ###########################################
+location:
     path:
-        en:   /product-service
-        es:   /producto-servicio
-        pt:   /product-service
-        ge:   /product-service
+        en:   /location
+        es:   /location
+        pt:   /location
+        ge:   /location
     methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::productDetailServices
+    controller: App\Controller\Web\LocationController::index
 
-fiscal:
+location_detail:
     path:
-        en:   /fiscal
-        es:   /fiscal
-        pt:   /fiscal
-        ge:   /fiscal
+        en:   /location/{slug}
+        es:   /location/{slug}
+        pt:   /location/{slug}
+        ge:   /location/{slug}
     methods:    GET|POST
-    controller: App\Controller\Web\ServicesController::fiscal
+    controller: App\Controller\Web\LocationController::detail
 
-events_detail2:
-   path:
-       en:   /event
-       es:   /evento
-       pt:   /event
-       ge:   /event
-   methods:    GET|POST
-   controller: App\Controller\Web\KnowledgeController::detail2
+location_other:
+    path:
+        en:   /locationother
+        es:   /locationother
+        pt:   /locationother
+        ge:   /locationother
+    methods:    GET|POST
+    controller: App\Controller\Web\LocationController::indexOther   
 
-# CAREER
+location_other_detail:
+    path:
+        en:   /locationother/{slug}
+        es:   /locationother/{slug}
+        pt:   /locationother/{slug}
+        ge:   /locationother/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\LocationController::detailOther
+
+# PAGES FIRM
+# ###########################################
+
+firm:
+    path:
+        es:   /firm/{slug}
+        en:   /firm/{slug}
+        pt:   /firm/{slug}
+        ge:   /firm/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\PagesController::detail
+
+# PAGES  TALENT ( EX CAREER )
 ##############################################
-career_home:
-  path:
-      en:   /career/career
-      es:   /talento/talento
-      pt:   /career/career
-      ge:   /career/career
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::career
+talent:
+    path:
+        es:   /talent/{slug}
+        en:   /talent/{slug}
+        pt:   /talent/{slug}
+        ge:   /talent/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\PagesController::detail
 
-career_live:
-  path:
-      en:   /career/live-cuatrecasas
-      es:   /talento/vive-cuatrecasas
-      pt:   /career/live-cuatrecasas
-      ge:   /career/live-cuatrecasas
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::live
+# BRANDS
+# Temporal, mantener hasta nueva fase del proyecto
+# ###########################################
+institutoRRHH:
+    path:
+        en:   /instituto-estrategia-legal-rrhh
+        es:   /instituto-estrategia-legal-rrhh
+        pt:   /instituto-estrategia-legal-rrhh
+        ge:   /instituto-estrategia-legal-rrhh
+    methods:    GET|POST
+    controller: App\Controller\Web\BrandsController::institutoRRHH
 
-career_revolution:
-  path:
-      en:   /career/revolution
-      es:   /talento/revolucion
-      pt:   /career/revolution
-      ge:   /career/revolution
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::revolution
-
-career_learn:
-  path:
-      en:   /career/learn-with-the-best
-      es:   /talento/aprende-con-los-mejores
-      pt:   /career/learn-with-the-best
-      ge:   /career/learn-with-the-best
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::learn
-
-career_international:
-  path:
-      en:   /career/international-career
-      es:   /talento/carrera-internacional
-      pt:   /career/international-career
-      ge:   /career/international-career
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::international
-
-career_join:
-  path:
-      en:   /career/join-us
-      es:   /talento/unete-a-nosotros
-      pt:   /career/join-us
-      ge:   /career/join-us
-  methods:    GET|POST
-  controller: App\Controller\Web\CareerController::join
+# COMPONENTES
+# No tocar, es una maqueta de referencia que no necesita programación
+# ###########################################
+components:
+    path:
+        en:   /components
+        es:   /componentes
+        pt:   /components
+        ge:   /componentes
+    methods:    GET|POST
+    controller: App\Controller\Web\ComponentsController::index

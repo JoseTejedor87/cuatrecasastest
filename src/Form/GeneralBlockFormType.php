@@ -22,7 +22,7 @@ class GeneralBlockFormType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class, [
                 'fields' => [
-                    'title' => ['label'=>'entities.generalBlock.fields.title', 'required'=>true],
+                    'title' => ['label'=>'entities.generalBlock.fields.title', 'required'=>true, 'empty_data' => ' '],
                     'subtitle' => ['label'=>'entities.generalBlock.fields.subtitle', 'required'=>false],
                     'content' => ['label'=>'entities.generalBlock.fields.content', 'attr'=>['class'=>'summernote'], 'required'=>false],
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],
@@ -31,7 +31,7 @@ class GeneralBlockFormType extends AbstractType
                 ],
             ])
             ->add('blockName', TextType::class, ['label'=>'entities.generalBlock.fields.name', 'required' => true ])
-            ->add('customTemplate',  TextType::class, ['label'=>'Custom-Template', 'required' => true])
+            ->add('customTemplate', TextType::class, ['label'=>'Custom-Template', 'required' => true])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])

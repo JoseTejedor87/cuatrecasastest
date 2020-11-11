@@ -1,0 +1,19 @@
+<section class="cta-footer">
+    <div class="container">
+        <div class="row cta-footer__block">
+            <div class="col-7 customize__interests">
+                <p>
+                    {{ 'reusable_blocks.cta_footer.title' | trans|raw }}
+                </p>
+            </div>
+            <div class="col-5 choose__interests">
+                <p>{{ 'reusable_blocks.cta_footer.intro' | trans }}</p>
+                {% if url is defined  %}
+                    <a href="{{url}}" class="btn btn__arrow">{{ 'reusable_blocks.cta_footer.button' | trans }}</a>
+                {% else %}
+                    <a href="{{ path('userSettings') }}" class="btn btn__arrow">{{ 'reusable_blocks.cta_footer.button' | trans }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
