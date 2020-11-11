@@ -68,7 +68,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'publication_dossier' %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -451,13 +451,7 @@
             if($("#accept").is(':checked')){
                 contacto['GDPR']= 1;
             }else{
-                isvalidate = false;
-            }
-
-            if($("#accept").is(':checked')){
-                contacto['GDPR']= 1;
-            }else{
-                isvalidate = false;
+                 contacto['GDPR']= 0;
             }
             if($("#subscribe").is(':checked')){
                 contacto['Suscripcion']= 1;

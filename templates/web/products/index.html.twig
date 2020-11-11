@@ -74,7 +74,7 @@
 
             {% include 'web/products/products-tools.html.twig' %}
             {% if relatedPublications|length > 0 %}
-                {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+                {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
             {% endif %}
 
         </article>

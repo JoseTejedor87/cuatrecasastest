@@ -32,6 +32,7 @@
     </div>
     <!-- END: Subheader -->
 
+
     <div class="m-content">
         <div class="row">
             <div class="col-md-12">
@@ -51,6 +52,15 @@
                                 {{ include('cms/tools/translationSelector.html.twig') }}
                             </div>
                         </div>
+                        {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show   m-alert m-alert--air" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            <strong>
+                            Error en el Web service!
+                            </strong>
+                            El Web service no ha podido conectarse o añadir el nuevo evento.
+                        </div>
+                         {% endif %}
                         <div class="m-portlet__body">
                             {{ include('cms/event/_form.html.twig') }}  
                         </div>
@@ -69,4 +79,26 @@
 
 
 </div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+<script>
+$('#event_form_questions').on('input', ':input', function() { 
+     $(".question").each(function(index, value){
+         if($(this).val()){
+             setTimeout(setHash(index,$(this).val()) , 1000000);
+            
+         }
+    });
+});
+function setHash(key,question){
+    $(".hash").each(function(index, value){
+        if(index == key){
+            setTimeout($(this).val(CryptoJS.MD5(question)) , 1000000);
+        }
+    });
+}
+</script>
+
 {% endblock %}

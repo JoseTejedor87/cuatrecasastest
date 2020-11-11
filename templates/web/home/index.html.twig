@@ -25,7 +25,7 @@
 
     {% if home.showRelatedPublicationAndEvents   %}
         {% if relatedPublications|length > 0 %}
-            {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.featured_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.our_recomendation'|trans, publications: relatedPublications, noButton: '' } %}
         {% endif %}
     {% endif %}
 
@@ -38,9 +38,9 @@
         {% endif %}
     {% endif %}
 
-    {% if home.showQuoteBlock and home.quotes[0] is defined %}
+    {# {% if home.showQuoteBlock and home.quotes[0] is defined %}
         {% include 'web/shared/testimonials.html.twig'  with {quotes: home.quotes } %}
-    {% endif %}
+    {% endif %} #}
 
     {% if home.showCarrerBlock %}
         {% include 'web/shared/career.html.twig' with { career: careerBlock} %}

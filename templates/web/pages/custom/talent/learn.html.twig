@@ -118,18 +118,19 @@
             </section>
         </div>
 
-        <div class="container">
+        {# <div class="container">
             <section class="row page__block--centered">
                 <div class="col" style="padding-top:0">
                     <p>{{ 'career.learn.intro'|trans }}</p>
                 </div>
             </section>
-        </div>
+        </div> #}
 
+        {% include 'web/pages/custom/talent/shared/cta-video-full-learn.html.twig' %}
+        {% include 'web/pages/custom/talent/shared/cases-learn.html.twig' %}
         {% include 'web/pages/custom/talent/shared/cta-career-school.html.twig' %}
         {% include 'web/pages/custom/talent/shared/info-learn.html.twig' %}
         {% include 'web/pages/custom/talent/shared/awards-learn.html.twig' %}
-        {% include 'web/pages/custom/talent/shared/cases-learn.html.twig' %}
         {% include 'web/pages/custom/talent/shared/info-career-join.html.twig' %}
 
     </main>

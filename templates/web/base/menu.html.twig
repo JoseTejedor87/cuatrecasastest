@@ -7,7 +7,6 @@
                     <a href="{{ path('home') }}" class="navbar-brand" id="cuatrecasasLogo">
                         <img src="{{ asset('web/assets/logos/4casas.png') }}" alt="Cuatrecasas">
                     </a>
-
                     <div class="navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item">
@@ -83,7 +82,7 @@
                     <div class="navbar-collapse justify-content-end">
                         <ul class="navbar-nav contact-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">{{ 'menu.contact'|trans }}</a>
+                                <a class="nav-link" href="{{ path('contactUs') }}">{{ 'menu.contact'|trans }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{ 'menu.webs.webs'|trans }}</a>
@@ -212,7 +211,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownInfo" data-toggle="collapse" data-target="#dropdownInfoId" aria-haspopup="true" aria-expanded="false">Info</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownInfo" id="dropdownInfoId" data-parent="#navMobile">
-                        <li><a class="dropdown-item-submenu" href="#">{{ 'menu.contact'|trans }}</a></li>
+                        <li><a class="dropdown-item-submenu" href="{{ path('contactUs') }}">{{ 'menu.contact'|trans }}</a></li>
                         <li class="nav-item dropdown submenu">
                             <a class="nav-link-submenu dropdown-toggle" href="#" id="dropdownWebs" data-toggle="collapse" data-target="#dropdownWebsId" aria-haspopup="true" aria-expanded="false">{{ 'menu.webs.webs'|trans }}</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownWebs" id="dropdownWebsId" data-parent="#dropdownInfoId">

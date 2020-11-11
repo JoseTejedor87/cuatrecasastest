@@ -65,6 +65,8 @@ sections:
       title: Región
     new:
       title: Nueva región
+    edit:
+      title: Editar región
   insights:
     index:
       title: Colecciones
@@ -218,6 +220,7 @@ menu:
   knowledge.title: Conocimiento
   case_studies.title: Casos
   home.title: Home
+  region.title: Regiones
 # Entities
 # ###########################################
 entities:
@@ -257,7 +260,7 @@ entities:
       type: Tipo
     knowledgeTypes:
       news: Noticias
-      opinion: Opinion
+      opinion: Publicación
       academy: Academia
       legalNovelty: Novedades legales
   award:
@@ -275,9 +278,11 @@ entities:
   region:
     fields:
       office: Oficina
-      Title: Titulo
+      title: Titulo
       principal: Principal
       photo: Imagen región
+      summary: Resumen
+      content: Descripción
   case_study:
     fields:
       title: Título
@@ -514,7 +519,7 @@ forms:
       breakfast: Desayuno
       institutional: Institucional
     publicationCategoryTypes:
-      opinion: Opinion
+      opinion: Publicación
       news: Noticia
       academy: Academia
       legalNovelty: Legal Novelty

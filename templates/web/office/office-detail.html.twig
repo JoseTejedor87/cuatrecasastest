@@ -66,13 +66,13 @@
                 {% include 'web/shared/team.html.twig' with { lawyers: office.lawyer } %}
             {% endif %}
 
-            {% include 'web/shared/related-content-slider.html.twig' with {tittle: 'global.messages.related_content'|trans, publications: relatedPublications } %}
+            {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.related_content'|trans, publications: relatedPublications } %}
             {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %}
 
         </article>
     </main>
 
-    {% include 'web/shared/cta-footer.html.twig' with { url: home.urlUserSetting } %} {#   Es el template de acceso al los intercambios de datos #}
+    {% include 'web/shared/cta-footer.html.twig' %}
 
 {% endblock %}
 

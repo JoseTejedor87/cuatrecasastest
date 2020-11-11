@@ -83,14 +83,14 @@ class SoapCommand extends Command
 
     public function getPaises()
     {
-        $data = $this->soap->getPaises("");
+        $data = $this->soap->getPaises("es");
         $this->SOAPContactsClientRepository->setPaises(json_decode($data->getContent()));
            
     }
 
     public function getProvincias()
     {
-            $data = $this->soap->getProvincias("","");
+            $data = $this->soap->getProvincias("es","");
             $this->SOAPContactsClientRepository->setProvincias(json_decode($data->getContent()));
            
     }

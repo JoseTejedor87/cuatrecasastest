@@ -259,7 +259,7 @@ class KnowledgeController extends WebController
             }
             $value->photo = $this->getPhotoPathByFilter($value, 'lawyers_grid',$navigation);
             if (!$value->photo) {
-                $value->photo = '/cuatrecasas_pre/web/assets/img/360x460_generica_news.jpg';
+                $value->photo = '/web/assets/img/360x460_generica_news.jpg';
             }
         }
         //dd($publications);

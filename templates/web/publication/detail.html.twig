@@ -41,13 +41,13 @@
                     <div class="page__block__title page__block__title--article" itemprop="articleBody" >
                         <span style="display:none;" itemprop="datePublished">{{ publication.getPublicationDate |date("Y-m-d\\TH:i:s") }}</span>
                         <p itemprop="about">{{ publication.translate(app.request.getLocale()).summary|length > 100 ? publication.translate(app.request.getLocale()).summary|raw|striptags|slice(0, 100) ~ '...' : publication.translate(app.request.getLocale()).summary|raw  }}</p>
-                        <img src="{{publication.photo is defined ? asset('/resources/' ~ publication.photo ) | imagine_filter('publication_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
+                        <img src="{{publication.photo is defined ? asset(resourcesPath ~ publication.photo ) | imagine_filter('publication_box') : '' }}" alt="{{ publication.translate(app.request.getLocale()).title|raw }}">
 
                         {# duplicated block desktop / mobile #}
                         <div class="article__details desktop" >
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type == 'publication_dossier'%}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: '/resources/'~attachment.fileName } %}                                
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
                                 {% endif %}
                             {% endfor %}
 
@@ -55,8 +55,8 @@
                             <ul class="related__content related__content--lawyers">
                              {% for person in publication.people %}
                                 <li class="related__content__item" itemscope itemtype="https://schema.org/Person" >
-                                     {% if person.lawyer%}
 
+                                     {% if person.lawyer%}
 
                                         <a href="{{ path('lawyers_detail', {slug:person.lawyer.slug}) }}"  class="related__content__link" itemprop="author" itemprop="name">
                                         {{ person.lawyer.name }} {{ person.lawyer.surname }}

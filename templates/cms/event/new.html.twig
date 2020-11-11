@@ -78,7 +78,7 @@ $('#event_form_questions').on('input', ':input', function() {
 function setHash(key,question){
     $(".hash").each(function(index, value){
         if(index == key){
-            setTimeout($(this).val(CryptoJS.MD5(question)) , 1000000);
+            setTimeout($(this).val(CryptoJS.MD5(question+Math.random())) , 1000000);
         }
     });
 }
