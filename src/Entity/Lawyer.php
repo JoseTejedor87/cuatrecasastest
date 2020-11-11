@@ -117,6 +117,11 @@ class Lawyer extends Publishable
      */
     private $mentions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PublicationLink", mappedBy="lawyer" , cascade={"persist"}, orphanRemoval=true)
+     */
+    private $publicationLinks;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -126,6 +131,7 @@ class Lawyer extends Publishable
         $this->mentions = new ArrayCollection();
         $this->trainings = new ArrayCollection();
         $this->specificActivities = new ArrayCollection();
+        $this->publicationLinks = new ArrayCollection();
     }
 
     public function __toString()
@@ -489,11 +495,34 @@ class Lawyer extends Publishable
         return $this;
     }
 
+    /**
+     * @return Collection|PublicationLink[]
+     */
+    public function getPublicationLinks(): Collection
+    {
+        return $this->publicationLinks;
+    }
 
+    public function addPublicationLink(Mention $publicationLink): self
+    {
+        if (!$this->publicationLinks->contains($publicationLink)) {
+            $this->publicationLinks[] = $publicationLink;
+            $publicationLink->setLawyer($this);
+        }
 
+        return $this;
+    }
 
+    public function removePublicationLink(Mention $publicationLink): self
+    {
+        if ($this->publicationLinks->contains($publicationLink)) {
+            $this->publicationLinks->removeElement($publicationLink);
+            // set the owning side to null (unless already changed)
+            if ($publicationLink->getLawyer() === $this) {
+                $publicationLink->setLawyer(null);
+            }
+        }
 
-
-
-
+        return $this;
+    }
 }

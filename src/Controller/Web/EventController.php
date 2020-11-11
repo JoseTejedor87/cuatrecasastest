@@ -132,20 +132,23 @@ class EventController extends WebController
                     $activities = $activities . $activity->translate('es')->getTitle();
                 }
 
-                $array = array(
-                    "title" => $event->translate('es')->getTitle(),
-                    "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
-                    "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
-                    "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
-                    "sector" => $activities,
-                    "place" => $event->translate('es')->getCustomAddress(),
-                    "placeLink" => "",
-                    "fullDate" => "",
-                    "fullTime" => "",
-                    "button" => "Inscribirme",
-                    "speakersTitle" => "Ponentes",
-                    "speakers" =>  array( )
-                );
+
+
+                    $array = array(
+                        "title" => $event->translate('es')->getTitle(),
+                        "titleURL" => $this->container->get('router')->generate('events_detail', array('slug' => $event->translate('es')->getSlug())) ,
+                        "start" => $event->getStartDate()->format('Y-m-d\TH:i:s.uP'),
+                        "end" => $event->getEndDate()->format('Y-m-d\TH:i:s.uP'),
+                        "sector" => $activities,
+                        "place" => $event->translate('es')->getCustomAddress(),
+                        "placeLink" => "",
+                        "fullDate" => "",
+                        "fullTime" => "",
+                        "button" => "Inscribirme",
+                        "speakersTitle" => "Ponentes",
+                        "speakers" =>  array( )
+                    );
+
                 foreach ($event->getPeople() as $keySpeaker => $speaker) {
                     if ($speaker->getLawyer()) {
                         $speakerName = $speaker->getLawyer()->getName() .' '. $speaker->getLawyer()->getSurname();

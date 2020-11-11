@@ -16,6 +16,7 @@ use App\Entity\Activity;
 use App\Entity\Lawyer;
 use App\Entity\Office;
 use App\Entity\Mention;
+use App\Entity\PublicationLink;
 use App\Form\Type\LawyerCategoryType;
 use App\Form\Type\KnownLanguageType;
 use App\Form\Type\LanguageType;
@@ -110,6 +111,14 @@ class LawyerFormType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+            ])
+            ->add('publicationLinks', CollectionType::class, [
+                'label'=>'entities.lawyer.fields.publicationLinks',
+                'entry_type' => PublicationLinkFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
             ])
             ->add('languages', LanguageType::class, ['label'=>'entities.publishable.fields.languages'])
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
