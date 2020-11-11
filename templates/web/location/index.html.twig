@@ -10,7 +10,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('full_header') }}') {% else %} url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg')| imagine_filter('full_header') }}'){% endif %} ">
+            <header class="row page__header page__header--cb" style="background-image: {% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('full_header') }}') {% else %} url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg')| imagine_filter('full_header') }}'){% endif %} ">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -58,7 +58,7 @@
 
             <section class="row page__block--centered">
                 <div class="col">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                    <p>{{ 'static.offices.vision_intro'|trans }}</p>
                 </div>
             </section>
 
@@ -99,9 +99,9 @@
                             <li class="nav-item">
                                 <a id="tab-03" href="#panel-03" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.deskList'|trans }}</a>
                             </li>
-                            {# <li class="nav-item">
-                                <a id="tab-04" href="#panel-04" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.interOrg'|trans }}</a>
-                            </li> #}
+                            <li class="nav-item">
+                                <a id="tab-04" href="#panel-04" data-toggle="tab" role="tab" class="nav-link">{{ 'static.offices.interOrg.title'|trans }}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -210,39 +210,82 @@
                                     </ul>
                                 </div>
                             </div>
-                            {# <div id="panel-04" class="panel tab-pane fade" role="tabpanel" aria-labelledby="tab-04">
+                            <div id="panel-04" class="panel tab-pane fade" role="tabpanel" aria-labelledby="tab-04">
                                 <div class="panel-header" role="tab" id="heading-04">
                                     <a class="accordion__button collapsed" data-toggle="collapse" href="#collapse-04" aria-expanded="true" aria-controls="collapse-04">{{ 'static.offices.interOrg'|trans }}</a>
                                 </div>
                                 <div id="collapse-04" class="collapse" role="tabpanel" aria-labelledby="heading-04" data-parent="#accordion">
                                     <ul class="buttons__list__column">
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">04 Continental Europe</a>
+                                        {{ 'static.offices.interOrg.list'|trans|raw }}
+                                        {# <li class="buttons__list__column__item">
+                                            <a class="btn__subcat" href="#">European Network (EN)</a>
                                         </li>
                                         <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">UK</a>
+                                            <span class="btn__subcat__fake">World Law Group (WLG)</span>
                                         </li>
                                         <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">US</a>
+                                            <span class="btn__subcat__fake">The International Bar Association (IBA)</span>
                                         </li>
                                         <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Asia</a>
+                                            <span class="btn__subcat__fake">The International Fiscal Association (IFA)</span>
                                         </li>
                                         <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">África</a>
+                                            <span class="btn__subcat__fake">The International Association of Young Lawyers (AIJA)</span>
                                         </li>
                                         <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Middle East</a>
+                                            <span class="btn__subcat__fake">UIA International Association of Lawyers (UIA)</span>
                                         </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">The International Criminal Court (ICC)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">American Bar Association (ABA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">The International Tax Planning Association (ITPA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">Society of Trust and Estate Practitioners (STEP)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">The International Association of Estate and Trust Law (IAETL)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">American College of Trust and Estate Council (ACTEC)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">Inter Pacific Bar Association (IPBA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">American Law Institute (ALI)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">Association of Corporate Counsel (ACC)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">New York Bar Association (NYBA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">American Foreign Law Association (AFLA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">Turnaround Management Association (TMA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">International Law Association (ILA)</span>
+                                        </li>
+                                        <li class="buttons__list__column__item">
+                                            <span class="btn__subcat__fake">European American Chamber of Commerce New York (EACC)</span>
+                                        </li> #}
                                     </ul>
                                 </div>
-                            </div> #}
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {% include 'web/pages/custom/location/shared/cases-location.html.twig' %}
+            {% include 'web/location/shared/cases-location.html.twig' %}
 
         </article>
     </main>

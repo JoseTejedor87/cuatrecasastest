@@ -31,6 +31,16 @@
         background-size: cover;
         overflow: hidden;
 
+        @include when("ct") {
+            // center-top
+            background-position: 50% 0;
+        }
+
+        @include when("cb") {
+            // center-bottom
+            background-position: 50% 100%;
+        }
+
         &:before {
             @include reset-pseudo($black);
             opacity: 0.2;
@@ -462,6 +472,60 @@
                 .button__wrapper {
                     .btn {
                         margin: 2rem 0;
+                    }
+                }
+            }
+        }
+
+        @include when("standard") {
+            > .col {
+                display: block;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+
+                @media(max-width: $max-width-4casas) {
+                    padding-bottom: 1rem;
+                }
+            }
+
+            h2 {
+                padding-bottom: 2rem;
+            }
+
+            p {
+                @include fontSet(20px, 28px);
+
+                @media(max-width: $max-width-4casas) {
+                    @include fontSet(16px, 20px);
+                }
+            }
+
+            ul {
+                @include reset-list;
+                margin-bottom: 2rem;
+
+                > li {
+                    @include fontSet(20px, 28px);
+                    position: relative;
+                    margin-bottom: 1rem;
+                    padding-left: 1.6rem;
+                    color: $main-color;
+
+                    @media(max-width: $max-width-4casas) {
+                        @include fontSet(16px, 20px);
+                    }
+
+                    &:before {
+                        @include icons-4casas(5px, auto, auto, 0);
+                        position: absolute;
+                        display: inline-block;
+                        content: '\e90a';
+                        font-size: 16px;
+                        color: $complementary-color;
+
+                        @media(max-width: $max-width-4casas) {
+                            top: 0;
+                        }
                     }
                 }
             }
@@ -1623,6 +1687,4 @@
             }
         }
     }
-
-
 }
