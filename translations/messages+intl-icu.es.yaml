@@ -236,9 +236,6 @@ static:
     interOrg:
       title: Organizaciones internacionales
       list: <li class="buttons__list__column__item">
-                <a class="btn__subcat" href="#">European Network (EN)</a>
-            </li>
-            <li class="buttons__list__column__item">
                 <span class="btn__subcat__fake">World Law Group (WLG)</span>
             </li>
             <li class="buttons__list__column__item">
