@@ -349,6 +349,7 @@ entities:
       showEventsBlock:  Bloque eventos
       showLegalNoveltiesBlock: Bloque novedades jurídicas
       showCaseStudiesBlock: Bloque casos
+      showTeamsBlock: Bloque de equipo
       activities: Sectores / Servicios / Desks
       lawyers: Abogados
       relatedInsights: Colecciones relacionadas

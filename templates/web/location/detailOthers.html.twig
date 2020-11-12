@@ -29,17 +29,8 @@
 
             <div class="container">
 
-                {# <section class="row page__block noborder">
-                    <div class="col">
-                        <div class="page__block__title page__block__title--article">
-                            <p>{{ regiond.translate(app.request.getLocale()).summary|raw }}</p>
-                        </div>
-                        <div class="page__block__content page__block__content--article">
-                            {{ regiond.translate(app.request.getLocale()).content|raw }}
-                        </div>
-                    </div>
-                </section> #}
 
+            {% if regiond.office|length > 0 %}
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
@@ -67,6 +58,18 @@
                         </div>
                     </div>
                 </section>
+                {% else %}
+                <section class="row page__block noborder">
+                    <div class="col">
+                        <div class="page__block__title page__block__title--article">
+                            <p>{{ regiond.translate(app.request.getLocale()).summary|raw }}</p>
+                        </div>
+                        <div class="page__block__content page__block__content--article">
+                            {{ regiond.translate(app.request.getLocale()).content|raw }}
+                        </div>
+                    </div>
+                </section>
+                {% endif %}
             </div>
             {% if key_contacts|length > 0 %}
                 {% include 'web/shared/team.html.twig' with {
