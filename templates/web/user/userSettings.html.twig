@@ -48,11 +48,8 @@
                                     <input type="text" class="form-control" name="eLastName" id="eLastName" placeholder="{{ 'global.forms.placeholder.apellidos'|trans }} *" value="{{ contacto.Apellidos is defined ? contacto.Apellidos : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="{{ 'global.forms.placeholder.password'|trans }} *" value="" required>
-                                </div>
-                                {# <div class="form-group col-lg-6">
                                     <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="{{ 'global.forms.placeholder.telefono'|trans }} *" value="{{ contacto.Telefono is defined ? contacto.Telefono : ''}}" required>
-                                </div> #}
+                                </div>
                                 <div class="form-group col-lg-6">
                                     <input type="text" class="form-control" name="eEmail" id="eEmail" placeholder="{{ 'global.forms.placeholder.email'|trans }} *" value="{{ contacto.Email is defined ? contacto.Email : ''}}" required>
                                 </div>
@@ -74,7 +71,7 @@
                             <div class="row">
                                 <div class="col-lg-6 pr-0 pl-0">
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="{{ 'global.forms.placeholder.codigo_postal'|trans }} *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
+                                        <input type="text" class="form-control" name="eAddress" id="eAddress" placeholder="Direccion *" value="{{ contacto.Direccion is defined ? contacto.Direccion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <select name="eCountry" id="eCountry" class="form-control custom-select" required>
@@ -105,6 +102,9 @@
                                 {% endif %}
                                         </select>
                                     </div>
+                                    <div class="form-group col-lg-12">
+                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="{{ 'global.forms.placeholder.codigo_postal'|trans }} *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 ">
                                     <div class=" form-group">
@@ -120,7 +120,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
                         </fieldset>
                     </div>
@@ -301,13 +300,13 @@
                 $("#eLastName").addClass('is-invalid');
                 isvalidate = false;
             }
-            // if($("#ePhone").val()){
-            //     $("#ePhone").addClass('is-valid');
-            //     contacto['Telefono']= $("#ePhone").val();
-            // }else{
-            //     $("#ePhone").addClass('is-invalid');
-            //     isvalidate = false;
-            // }
+            if($("#ePhone").val()){
+                $("#ePhone").addClass('is-valid');
+                contacto['Telefono']= $("#ePhone").val();
+            }else{
+                $("#ePhone").addClass('is-invalid');
+                isvalidate = false;
+            }
             if($("#eEmail").val()){
                 $("#eEmail").addClass('is-valid');
                 contacto['Email']= $("#eEmail").val();
@@ -329,13 +328,13 @@
                 $("#eCompany").addClass('is-invalid');
                 isvalidate = false;
             }
-            // if($("#eAddress").val()){
-            //     $("#eAddress").addClass('is-valid');
-            //     contacto['Direccion']= $("#eAddress").val();
-            // }else{
-            //     $("#eAddress").addClass('is-invalid');
-            //     isvalidate = false;
-            // }
+            if($("#eAddress").val()){
+                $("#eAddress").addClass('is-valid');
+                contacto['Direccion']= $("#eAddress").val();
+            }else{
+                $("#eAddress").addClass('is-invalid');
+                isvalidate = false;
+            }
             if($("#ePostalCode").val()){
                 $("#ePostalCode").addClass('is-valid');
                 contacto['CodigoPostal']= $("#ePostalCode").val();
