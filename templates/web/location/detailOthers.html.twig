@@ -28,9 +28,7 @@
             </header>
 
             <div class="container">
-
-
-            {% if regiond.office|length > 0 %}
+                {% if regiond.office|length > 0 %}
                 <section class="row page__block--full">
                     <div class="col">
                         <div class="page__block__content--full">
@@ -38,7 +36,6 @@
                         </div>
                     </div>
                 </section>
-
                 <section class="row page__block--aside">
                     <div class="page__block__content">
                         {{ regiond.translate(app.request.getLocale()).content|raw }}
@@ -62,7 +59,7 @@
                 <section class="row page__block noborder">
                     <div class="col">
                         <div class="page__block__title page__block__title--article">
-                            <p>{{ regiond.translate(app.request.getLocale()).summary|raw }}</p>
+                            {{ regiond.translate(app.request.getLocale()).summary|raw }}
                         </div>
                         <div class="page__block__content page__block__content--article">
                             {{ regiond.translate(app.request.getLocale()).content|raw }}
@@ -71,6 +68,7 @@
                 </section>
                 {% endif %}
             </div>
+
             {% if key_contacts|length > 0 %}
                 {% include 'web/shared/team.html.twig' with {
                     lawyers:key_contacts|slice(0, 5)
