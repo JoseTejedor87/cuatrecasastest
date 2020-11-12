@@ -337,6 +337,36 @@
     }
 }
 
+.btn__subcat__fake {
+    position: relative;
+    display: block;
+    padding: 0.6rem 1.6rem 0.6rem 0;
+    @include fontSet(20px, 20px);
+    color: $black;
+    border-bottom: 1px solid rgba($black, 0.1);
+    overflow: hidden;
+
+    // &:after {
+    //     @include icons-4casas(4px, -8px, auto, auto);
+    //     content: '\e90a';
+    //     font-size: 32px;
+    //     color: $complementary-color;
+    //     transition: all 0.2s ease-out;
+    // }
+
+    @media(max-width: $max-width-4casas) {
+        @include fontSet(14px, 14px);
+        padding: 1rem 1.6rem .4rem 0;
+        border-bottom: 1px solid rgba($black, 0.4);
+
+        // &:after {
+        //     top: 14px;
+        //     right: -4px;
+        //     font-size: 18px;
+        // }
+    }
+}
+
 
 //
 // VIEW MORE BUTTON (PLUS SYMBOL)

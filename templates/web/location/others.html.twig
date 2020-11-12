@@ -9,7 +9,7 @@
     <main role="main">
         <article class="container">
 
-            <header class="row page__header" style="background-image:{% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('full_header') }}') {% else %} url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg')| imagine_filter('full_header') }}'){% endif %} ">
+            <header class="row page__header page__header--cb" style="background-image:{% if regiond.photo.fileName is defined %} url('{{ asset(resourcesPath ~ regiond.photo.fileName)| imagine_filter('full_header') }}') {% else %} url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg')| imagine_filter('full_header') }}'){% endif %} ">
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
@@ -57,7 +57,7 @@
 
             <section class="row page__block--centered">
                 <div class="col">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere urna nec tincidunt praesent semper feugiat.</p>
+                    <p>{{ 'static.offices.others_intro'|trans }}</p>
                 </div>
             </section>
 

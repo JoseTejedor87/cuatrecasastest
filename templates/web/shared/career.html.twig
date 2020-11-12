@@ -59,11 +59,12 @@
                             {% set fechaInicio = event.startDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                             {% set fechaFin = event.endDate |format_datetime('long', 'none',locale=app.request.getLocale())|split(' ') %}
                             {% set path_str = get_pathda(event)|trans %}
-
+                            {% set fechaLimite = event.startDate| date('m, d, Y') %}
+                            {% set hoy = ('today'| date('m, d, Y')) %}
                             <article class="boxnews__item boxnews__item--event">
                                 <div class="boxnews__header">
                                     <div class="boxnews__type">Evento</div>
-                                    <div class="boxnews__button"><a href="#" class="plain__button">Inscribirme</a></div>
+                                    <div class="boxnews__button"><a href="#" class="plain__button" {% if  (hoy > fechaLimite) %} style="display: none" {% else %} style="display: block" {% endif%}>Inscribirme</a></div>
                                 </div>
                                 <div class="boxnews__content">
                                     <h5 class="boxnews__copy">

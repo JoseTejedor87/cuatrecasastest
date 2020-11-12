@@ -213,8 +213,70 @@ static:
     officeOthers: Otras regiones
     officeList: Listado de oficinas
     deskList: Listado de desk
-    interOrg: Organizaciones internacionales
+    interOrg:
+      title: Organizaciones internacionales
+      list: <li class="buttons__list__column__item">
+                <a class="btn__subcat" href="#">European Network (EN)</a>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">World Law Group (WLG)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Bar Association (IBA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Fiscal Association (IFA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Association of Young Lawyers (AIJA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">UIA International Association of Lawyers (UIA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Criminal Court (ICC)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">American Bar Association (ABA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Tax Planning Association (ITPA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">Society of Trust and Estate Practitioners (STEP)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">The International Association of Estate and Trust Law (IAETL)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">American College of Trust and Estate Council (ACTEC)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">Inter Pacific Bar Association (IPBA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">American Law Institute (ALI)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">Association of Corporate Counsel (ACC)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">New York Bar Association (NYBA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">American Foreign Law Association (AFLA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">Turnaround Management Association (TMA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">International Law Association (ILA)</span>
+            </li>
+            <li class="buttons__list__column__item">
+                <span class="btn__subcat__fake">European American Chamber of Commerce New York (EACC)</span>
+            </li>
     vision_intro: A través de una red de 20 oficinas, cubrimos España, Portugal y Latinoamérica. Tenemos oficinas de representación en UK, US, Asia y Africa y, mediante nuestra alianza europea con firmas líderes en Alemania, Francia e Italia, contamos con más de 2.000 abogados y 28 oficinas en Europa continental.
+    others_intro: Además de España, Portugal y Latinoamérica, la actividad global de Cuatrecasas alcanza otras regiones geográficas para asegurar a nuestros clientes la cobertura y seguridad necesarias en sus negocios internacionales y transfronterizos.
   rrhh:
     title: Instituto de Estrategia Legal en RRHH
     content: <p>En la actualidad existe una carencia en España de foros de innovación estratégica en recursos humanos, en especial en aquellas materias sociolaborales que van a marcar el desarrollo futuro de las empresas en un contexto de innovación y globalización constantes.</p>
@@ -290,6 +352,46 @@ menu:
   practices: Áreas de práctica
   products: Productos
   media_center: Centro de medios
+
+# Landings static
+# ###########################################menu:
+landings:
+  career:
+    live:
+      alumni: Alumni
+      alumni_content:
+        <h2>Únete a nuestra comunidad global de Alumni y mantén el contacto con antiguos compañeros.</h2>
+        <p>Cuatrecasas Alumni es un espacio que compartimos con nuestros alumni para seguir en contacto y generar foros de encuentro entre antiguos compañeros, oportunidades de networking con otros profesionales y estar al día de la actualidad jurídica y de Cuatrecasas.</p>
+        <p>Puedes seguirnos a través de nuestro grupo de Linkedin o inscribirte a nuestro network de Alumni mediante el siguiente link.</p>
+        <p>No dudes en contactar con nosotros si tienes cualquier duda o quieres actualizar tus datos.</p>
+        <p>¡Seguimos en contacto!</p>
+        <p>Persona de contacto:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
+    join:
+      faqs: FAQs
+      faqs_content: FAQs > Pendiente
+      internship_program: Programas de prácticas
+      internship_program_content: Programas de prácticas > Pendiente
+  offices:
+    vision:
+      project_europe: Proyecto Europa
+      project_europe_content:
+        <p>En Europa continental hemos creado un network sin carácter exclusivo junto a otros tres despachos de prestigio:&nbsp;Chiomenti en Italia, Gide en Francia y Gleiss Lutz en Alemania.</p>
+        <p>Nuestros más de 2.000 abogados repartidos en 28 oficinas en toda Europa nos permiten prestar la más amplia gama de servicios, ofreciendo a nuestros clientes un asesoramiento integral en operaciones transfronterizas, proyectos internacionales y litigios de gran complejidad.</p>
+        <p>Cada firma es líder en su jurisdicción, lo que nos permite ofrecer a nuestros clientes el mejor servicio en cada país. Compartimos una misma filosofía de servicio al cliente. Entender las necesidades del cliente y los aspectos básicos del negocio, tener una rápida capacidad de respuesta y una comunicación eficaz son aspectos clave de nuestro asesoramiento.</p>
+  firm:
+    social:
+      equality: Igualdad
+      equality_content:
+        <p>Desde 2012 contamos con una Comisión de Igualdad cuya misión es promover la igualdad efectiva entre mujeres y hombres, asegurar que se alcancen los objetivos marcados en el Plan de Igualdad y aplicar y evaluar las medidas que en él se establecen.</p>
+        <p>El 24% de nuestros cargos de responsabilidad los desempeñan mujeres. Nuestro compromiso es alcanzar el 20% en el partnership y el 25% en posiciones de gestión. Por ello, estamos trabajando con firmeza para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres.</p>
+        <p>A continuación, indicamos algunas de las medidas que hemos promovido:</p>
+        <ul>
+            <li>Renovación de comités de gestión. Favorecer la participación de socias y directivas aplicando el principio de nombramiento de la mujer cuando hay diversos candidatos que cumplen las mismas condiciones.</li>
+            <li>Consolidar metodologías y cultura de trabajo que favorezcan la conciliación de los profesionales:&nbsp;uso racional del tiempo y trabajo flexible y corresponsable.</li>
+            <li>Las asociadas que tengan hijos pueden reducir en un 5% su objetivo de horas facturables y dedicar ese tiempo a su desarrollo profesional, en especial en la vertiente comercial.</li>
+            <li>Participación anual de socias y directivas en Promociona, un programa dirigido a socias y directoras, promovido por el Instituto de la Mujer para la Igualdad de Oportunidades y la CEOE.</li>
+            <li>Desarrollo de la plataforma “Women in Business” desde 2014 como punto de encuentro para promover el networking y el desarrollo profesional de mujeres directivas a través de la organización de eventos y sesiones de formación y actualidad.</li>
+        </ul>
 
 # Footer
 # ###########################################
@@ -586,7 +688,7 @@ firm:
       title: Women in business
       content: Cuatro ediciones de este evento dirigido a mujeres directivas, cuyos objetivos son la (i) presencia femenina en los puestos de dirección, (ii) liderazgo inclusivo, (iii) transformación digital y liderazgo femenino, (iv) soft Skills e inteligencia emocional.
     art_2:
-      title: Comité de igualdad
+      title: Igualdad
       content: La firma trabaja con firmeza y determinación para erradicar todas las barreras que limitan o ralentizan el crecimiento profesional de las mujeres. La Comisión de Igualdad ha trazado el Plan de Igualdad para este fin y para promocionar el talento femenino.
       link: 18 medidas
 

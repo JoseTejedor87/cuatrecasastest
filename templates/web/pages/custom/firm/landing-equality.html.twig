@@ -1,0 +1,45 @@
+{% extends 'web/base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('web/vendor/swiper/css/swiper.min.css') }}" rel="stylesheet">
+<link href="{{ asset('web/vendor/lity/dist/lity.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    <main role="main">
+        <article class="container">
+
+            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+                <div class="col">
+                    <div class="info__block">
+                        <h1 class="page__title">
+                            {{ 'landings.firm.social.equality'|trans }}
+                        </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ 'landings.firm.social.equality'|trans }}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {% include 'web/base/social-share.html.twig' %}
+                </div>
+            </header>
+
+            <section class="row page__block--standard">
+                <div class="col">
+                    {{ 'landings.firm.social.equality_content'|trans|raw }}
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    {% include 'web/shared/cta-footer.html.twig' %}
+
+{% endblock %}

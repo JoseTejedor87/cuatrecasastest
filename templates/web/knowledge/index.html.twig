@@ -108,6 +108,14 @@
                                             </div>
                                         {% endif %}
                                     {% endfor %}
+                                    {% for product in products %}
+                                        {% if product.translate(app.request.getLocale()).title  %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="services-{{product.id}}" data-name="{{ product.translate(app.request.getLocale()).title|raw  }}" value="{{product.id}}">
+                                                <label class="checkbox-label" for="services-{{product.id}}"><span>{{ product.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div class="filters__apply">
                                     <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
@@ -338,6 +346,7 @@
         function ajax(page) {
             var sectors = new Array();
             var services = new Array();
+            var products = new Array();
             var collections = new Array();
             var type = new Array();
             var region = new Array();
@@ -358,6 +367,9 @@
                     sectors.push($(this).val());
                 }
                 if(result[0] == "services"){
+                    services.push($(this).val());
+                }
+                if(result[0] == "products"){
                     services.push($(this).val());
                 }
                 if(result[0] == "collection"){
@@ -387,7 +399,7 @@
             var html = '';
             $.ajax({
                 method: "GET",
-                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
+                data: { sector: sectors.toString(), services: services.toString(),products: products.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
                 url: "{{ path('knowledge_index') }}",
                 beforeSend: function( xhr ) {
                     $('.search__component__loader').css("display", "flex").fadeIn('fast');
@@ -430,6 +442,13 @@
                             url= "?services="+msg['services'];
                         }else{
                             url= url + "&services="+msg['services'];
+                        }
+                    }
+                    if(msg['products']){
+                        if(url == ""){
+                            url= "?products="+msg['products'];
+                        }else{
+                            url= url + "&products="+msg['products'];
                         }
                     }
                     if(msg['collections']){
