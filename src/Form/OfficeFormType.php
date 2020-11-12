@@ -36,6 +36,8 @@ class OfficeFormType extends AbstractType
             ->add('link_external_map', TextType::class, ['label'=>'entities.office.fields.link_google'])
             ->add('geographical_area', IntegerType::class, ['label'=>'entities.office.fields.geographical_area'])
             ->add('sap', TextType::class, ['label'=>'entities.office.fields.sap'])
+            ->add('lat', TextType::class, ['label'=>'entities.office.fields.lat'])
+            ->add('lng', TextType::class, ['label'=>'entities.office.fields.lng'])
             ->add('img_office', ResourceFormType::class, [
                 'label'=>'entities.office.fields.img_office'
             ])
@@ -43,7 +45,7 @@ class OfficeFormType extends AbstractType
             ->add('regions', RegionType::class, ['label'=>'entities.publishable.fields.regions'])
             ->add('slug', TextType::class, ['required' => false,'label'=>'entities.lawyer.fields.slug'])
             ->add('metaRobots', MetaRobotsType::class, ['label'=>'entities.publishable.fields.metaRobots'])
-            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published'])
+            ->add('published', CheckboxType::class, ['label'=>'entities.publishable.fields.published', 'required' => false])
             ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'metaTitle' => ['label'=>'entities.publishable.fields.metaTitle'],

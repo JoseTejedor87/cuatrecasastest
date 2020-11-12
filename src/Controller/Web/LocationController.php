@@ -14,16 +14,16 @@ use App\Repository\GeneralBlockRepository;
 
 class LocationController extends WebController
 {
-    public function index(Request $request, RegionRepository $RegionRepository,DeskRepository $DeskRepository,OfficeRepository $OfficeRepository, NavigationService $navigation)
+    public function index(Request $request, RegionRepository $RegionRepository, DeskRepository $DeskRepository, OfficeRepository $OfficeRepository, NavigationService $navigation)
     {
-     
         $regions = $RegionRepository->findAll();
         $desks = $DeskRepository->findAll();
-        $offices = $OfficeRepository->findAll();
+        $offices = $OfficeRepository->findBy(['published' => true]);
         $officeA = array();
         $officeATest = array();
         $officesLat = $OfficeRepository->createQueryBuilder('o')
         ->where("o.lat != ''")
+        ->andWhere("o.published = true")
         //  ->orderBy('o.country', 'DESC')  PAra ordenarlos hay que hacerlo contra OfficeTranstable.country
         ->getQuery()->getResult();
         foreach ($officesLat as $key => $office) {
@@ -42,7 +42,7 @@ class LocationController extends WebController
     }
 
 
-    public function detail(Request $request, RegionRepository $RegionRepository, AwardRepository $awardRepository, PublicationRepository $publicationRepository,OfficeRepository $OfficeRepository, NavigationService $navigation)
+    public function detail(Request $request, RegionRepository $RegionRepository, AwardRepository $awardRepository, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository, NavigationService $navigation)
     {
         $officeA = array();
         $officeATest = array();
@@ -53,17 +53,17 @@ class LocationController extends WebController
         $officesLat = $OfficeRepository->createQueryBuilder('o')
         ->innerJoin('o.region', 'ro')
         ->andWhere('ro.id = :region')
-        ->setParameter('region',  $regiond->getId())
+        ->setParameter('region', $regiond->getId())
         ->andWhere("o.lat != ''")
         ->getQuery()->getResult();
-        
-        
+
+
         foreach ($officesLat as $key => $office) {
             array_push($officeA, '<h5 id="'.$office->getId().'"><a href="'.$this->container->get('router')->generate('offices_detail', array('slug' => $office->getSlug())).'">'.$office->translate($navigation->getLanguage())->getCountry().'</a></h5><h6>'.$office->translate($navigation->getLanguage())->getCity().'</h6><p>'.$office->getAddress().'</p>');
             array_push($officeATest, [ "lat" => floatval($office->getLat()),"lng" =>  floatval($office->getLng())]);
-            if(floatval($office->getLat())>0){
+            if (floatval($office->getLat())>0) {
                 $centerMap=['lat'=>40.4165, 'lng'=>-3.70256 ,'zoom'=>6.7];
-            }else{
+            } else {
                 $centerMap=['lat'=>-15.7801, 'lng'=>-47.9292 ,'zoom'=>4];
             }
         }
@@ -90,17 +90,16 @@ class LocationController extends WebController
 
     public function detailOther(Request $request, RegionRepository $RegionRepository, AwardRepository $awardRepository, NavigationService $navigation, CaseStudyRepository $CaseStudyRepository, PublicationRepository $publicationRepository)
     {
-        
         $regiond = $RegionRepository->getInstanceByRequest($request);
         $relatedPublications = $publicationRepository->findByActivities('');
         $offices = $regiond->getOffice();
         $lawyers = array();
         $lawyersid = array();
-        foreach ( $offices as $key => $office) {
+        foreach ($offices as $key => $office) {
             foreach ($office->getLawyer() as $key => $value) {
-                if( $value->getPublished() && in_array($navigation->getRegion(), $value->getRegions()) && in_array($navigation->getLanguage(), $value->getLanguages())  ){
-                    array_push( $lawyers, $value);
-                    array_push( $lawyersid, $value->getId());
+                if ($value->getPublished() && in_array($navigation->getRegion(), $value->getRegions()) && in_array($navigation->getLanguage(), $value->getLanguages())) {
+                    array_push($lawyers, $value);
+                    array_push($lawyersid, $value->getId());
                 }
             }
         }

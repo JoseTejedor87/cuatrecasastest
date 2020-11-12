@@ -33,7 +33,7 @@ class EventController extends WebController
         $this->conn = $this->em->getConnection();
         $this->imagineCacheManager = $imagineCacheManager;
     }
-    
+
 
 
     public function index(Request $request, EventRepository $EventRepository, NavigationService $navigation, PublicationRepository $publicationRepository, OfficeRepository $OfficeRepository, ActivityRepository $ActivityRepository)
@@ -45,7 +45,7 @@ class EventController extends WebController
         $relatedEvents = $EventRepository->findFeaturedByActivities('');
         $relatedPublications = $publicationRepository->findByActivities('');
         $activities = $ActivityRepository->findAll();
-        $offices = $OfficeRepository->findAll();
+        $offices = $OfficeRepository->findBy(['published' => true]);
         // dd($relatedPublications);
         if (!$month ||  !$year) {
             $fechaHoy = new \DateTime();
@@ -204,7 +204,7 @@ class EventController extends WebController
                 array_push($attachmentPublished, $attachment);
             }
         }
-        $headerImage = $this->getPhotoPathByFilter($event, 'full_header',$navigation);
+        $headerImage = $this->getPhotoPathByFilter($event, 'full_header', $navigation);
 
 
         return $this->render('web/events/detail.html.twig', [
