@@ -11,12 +11,36 @@
 
 {% block main %}
 
-    <main role="main">
-        <article class="container">
+<main role="main">
+    <article class="container">
 
         {% if insight.headerType == 'two_columns' %}
-            <header class="row insights__header">
-                <div class="col-md-7 insights__header__info">
+        <header class="row insights__header">
+            <div class="col-md-7 insights__header__info">
+                <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('knowledge_index') }}">{{ 'sections.knowledge.title'|trans }}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ 'sections.insights.title'|trans }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-5 insights__header__share">
+                {% include 'web/base/social-share.html.twig' %}
+            </div>
+        </header>
+        {% elseif insight.headerType == 'full_width' %}
+        <header class="row page__header"
+            style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
+            <div class="col">
+                <div class="info__block">
                     <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -32,48 +56,25 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-5 insights__header__share">
-                    {% include 'web/base/social-share.html.twig' %}
-                </div>
-            </header>
-        {% elseif insight.headerType == 'full_width' %}
-            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
-                <div class="col">
-                    <div class="info__block">
-                        <h1 class="page__title">{{ insight.translate(app.request.getLocale()).title|raw }}</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('knowledge_index') }}">{{ 'sections.knowledge.title'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'sections.insights.title'|trans }}
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    {% include 'web/base/social-share.html.twig' %}
-                </div>
-            </header>
+                {% include 'web/base/social-share.html.twig' %}
+            </div>
+        </header>
         {% endif %}
 
         {% if insight.showIntroBlock %}
-            <section class="row page__block noborder">
-                <div class="col">
-                    <div class="page__block__title page__block__title--article">
-                        {{ insight.translate(app.request.getLocale()).summary|raw }}
-                    </div>
-                    <div class="page__block__content page__block__content--article">
-                        <div class="read__more">
-                            {{ insight.translate(app.request.getLocale()).description|raw }}
-                        </div>
+        <section class="row page__block noborder">
+            <div class="col">
+                <div class="page__block__title page__block__title--article">
+                    {{ insight.translate(app.request.getLocale()).summary|raw }}
+                </div>
+                <div class="page__block__content page__block__content--article">
+                    <div class="read__more">
+                        {{ insight.translate(app.request.getLocale()).description|raw }}
                     </div>
                 </div>
-            </section>
-            {# <section class="row page__block">
+            </div>
+        </section>
+        {# <section class="row page__block">
                 <div class="col">
                     <div class="page__block__title">
                         <h3 class="subsection__title">Puntos clave</h3>
@@ -102,41 +103,43 @@
                     </div>
                 </div>
             </section> #}
-            <section class="row page__block--aside">
-                <div class="col">
-                    <div class="page__block__content">
-                        <p class="contact">
-                            {{ 'sections.insights.contact_with_us'|trans }} <br>
-                            <strong>{{ insight.translate(app.request.getLocale()).title|raw }}</strong>
-                        </p>
-                        <form action="" method="" class="email-subscribe">
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email">
+        <section class="row page__block--aside">
+            <div class="col">
+                <div class="page__block__content">
+                    <p class="contact">
+                        {{ 'sections.insights.contact_with_us'|trans }} <br>
+                        <strong>{{ insight.translate(app.request.getLocale()).title|raw }}</strong>
+                    </p>
+                    <form action="" method="" class="email-subscribe">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group flex-group">
+                            <div class="checkbox">
+                                <input id="data-privacy" name="data-privacy" type="checkbox">
+                                <label for="data-privacy"
+                                    class="checkbox-label"><span>{{ 'footer.privacy.privacy' | trans }}</span></label>
                             </div>
-                            <div class="form-group flex-group">
-                                <div class="checkbox">
-                                    <input id="data-privacy" name="data-privacy" type="checkbox">
-                                    <label for="data-privacy" class="checkbox-label"><span>{{ 'footer.privacy.privacy' | trans }}</span></label>
-                                </div>
-                                {# <button type="submit" class="doble__arrow__link">Enviar</button> #}
-                                <button class="btn btn__solid" type="submit">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
+                            {# <button type="submit" class="doble__arrow__link">Enviar</button> #}
+                            <button class="btn btn__solid" type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
 
-                    <div class="page__block__aside">
-                        <div class="page__aside page__aside--practices">
-                            {% if insight.activities|length > 0 %}
-                                <h3 class="page__aside__subtitle">{{ 'sections.insights.relatedActivities'|trans }}</h3>
-                                <ul class="related__services">
-                                    {% for activity in insight.activities %}
-                                        <li class="related__services__item">
-                                            <a href="{{ navigation_service.getPathByPublishable(activity) }}" class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                            {# {% for attachment in insight.attachments %}
+                <div class="page__block__aside">
+                    <div class="page__aside page__aside--practices">
+                        {% if insight.activities|length > 0 %}
+                        <h3 class="page__aside__subtitle">{{ 'sections.insights.relatedActivities'|trans }}</h3>
+                        <ul class="related__services">
+                            {% for activity in insight.activities %}
+                            <li class="related__services__item">
+                                <a href="{{ navigation_service.getPathByPublishable(activity) }}"
+                                    class="related__services__link">{{ activity.translate(app.request.getLocale()).title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {# {% for attachment in insight.attachments %}
                                 {% if attachment.type  == 'publication_dossier' %}
                                 <a href="/cuatrecasas/resources/{{ attachment.fileName }}" class="btn btn__solid btn__solid--icon" target="_blank" alt="{{ attachment.fileName|raw}}">
                                     {{ 'global.messages.dossier_download'|trans }}
@@ -144,95 +147,538 @@
                                 </a>
                                 {% endif %}
                             {% endfor %}                             #}
-                            
-                            {% for attachment in insight.attachments %}
-                                {% if (attachment.getType() == 'publication_dossier') %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: asset('resources/'~attachment.fileName) } %}
-                                {% endif %}
-                            {% endfor %}
-                            
-                        </div>
+
+                        {% for attachment in insight.attachments %}
+                        {% if (attachment.getType() == 'publication_dossier') %}
+                        {% include 'web/shared/components/dossier-btn.html.twig' with { href: asset('resources/'~attachment.fileName) } %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% if insight.showKnowledgeBlock %}
+         <section class="row page__section search_box">
+                <div class="col search_box__wrapper">
+                    <div class="search_box__name search_box__name--full">
+                            <input type="text" class="form-control" placeholder="{{ 'global.forms.search'|trans }}" name="initial">
+                            <div class="input-group">
+                                <button class="search_box__button apply_button">
+                                    <span class="icon4-lupa"></span>
+                                </button>
+                            </div>
                     </div>
                 </div>
             </section>
+        {# FILTERS #}
+            <section id="filterWrapper" class="row">
+                <div class="col-12">
+                    <div id="filtersButton">
+                        <button type="button" class="doble__arrow__accordion">{{ 'global.messages.show_filters'|trans }}</button>
+                    </div>
+                    <div id="accordionFilters" class="filtersToggle">
+                        <ul id="filterTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">{{ 'sections.knowledge.knowledgeFilters.sector'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">{{ 'sections.knowledge.knowledgeFilters.servicios'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">{{ 'sections.knowledge.knowledgeFilters.tipo'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">{{ 'sections.knowledge.knowledgeFilters.region'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">{{ 'sections.knowledge.knowledgeFilters.legislacion'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">{{ 'sections.knowledge.knowledgeFilters.fecha'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">{{ 'sections.knowledge.knowledgeFilters.coleccion'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">{{ 'sections.knowledge.knowledgeFilters.formato'|trans }}</a>
+                            </li>
+                        </ul>
+                        <div id="filterTabsContent">
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" aria-controls="collapse01">{{ 'sections.knowledge.knowledgeFilters.sector'|trans }}</a>
+                            <div id="collapse01" class="collapse" aria-labelledby="heading01" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                {% for sector in sectors %}
+                                    {% if sector.translate(app.request.getLocale()).title  %}
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="sector-{{sector.id}}" data-name="{{ sector.translate(app.request.getLocale()).title|raw  }}" value="{{sector.id}}">
+                                            <label class="checkbox-label" for="sector-{{sector.id}}"><span>{{ sector.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" aria-controls="collapse02">{{ 'sections.knowledge.knowledgeFilters.servicios'|trans }}</a>
+                            <div id="collapse02" class="collapse" aria-labelledby="heading02" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for practice in practices %}
+                                        {% if practice.translate(app.request.getLocale()).title  %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="services-{{practice.id}}" data-name="{{ practice.translate(app.request.getLocale()).title|raw  }}" value="{{practice.id}}">
+                                                <label class="checkbox-label" for="services-{{practice.id}}"><span>{{ practice.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" aria-controls="collapse03">{{ 'sections.knowledge.knowledgeFilters.tipo'|trans }}</a>
+                            <div id="collapse03" class="collapse" aria-labelledby="heading03" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for type in types %}
+                                        {% if type  %}
+                                        {% set typeTrans = 'sections.knowledge.knowledgeTypes.'~type %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="type-{{type}}" data-name="{{ typeTrans | trans }}" value="{{ type | trans }}">
+                                                <label class="checkbox-label" for="type-{{type}}"><span>{{ typeTrans | trans }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">{{ 'sections.knowledge.knowledgeFilters.region'|trans }}</a>
+                            <div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for office in offices %}
+                                        {% if office.translate(app.request.getLocale()).city  %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="region-{{office.id}}" data-name="{{ office.translate(app.request.getLocale()).city }}" value="{{office.id}}">
+                                                <label class="checkbox-label" for="region-{{office.id}}"><span>{{ office.translate(app.request.getLocale()).city  }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" aria-controls="collapse05">{{ 'sections.knowledge.knowledgeFilters.legislacion'|trans }}</a>
+                            <div id="collapse05" class="collapse" aria-labelledby="heading05" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for legislation in legislations %}
+                                        {% if legislation.name %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="legislation-{{legislation.id}}" data-name="{{ legislation.name }}" value="{{ legislation.id }}">
+                                                <label class="checkbox-label" for="legislation-{{legislation.id}}"><span>{{ legislation.name }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">{{ 'sections.knowledge.knowledgeFilters.fecha'|trans }}</a>
+                            <div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for i in 2010..2020 %}
+                                         <div class="checkbox">
+                                            <input type="checkbox" id="date-{{ i }}" data-name="{{ i }}" value="{{ i }}">
+                                            <label class="checkbox-label" for="date-{{ i }}"><span>{{ i }}</span></label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">{{ 'sections.knowledge.knowledgeFilters.coleccion'|trans }}</a>
+                            <div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for insight in insights %}
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="collection-{{ insight.id }}" data-name="{{ insight.translate(app.request.getLocale()).title }}" value="{{ insight.id }}">
+                                        <label class="checkbox-label" for="collection-{{ insight.id }}"><span>{{ insight.translate(app.request.getLocale()).title|raw  }}</span></label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                            <a class="collapsed nav-link" role="button" data-toggle="collapse" data-target="#collapse08" aria-expanded="false" aria-controls="collapse08">{{ 'sections.knowledge.knowledgeFilters.formato'|trans }}</a>
+                            <div id="collapse08" class="collapse" aria-labelledby="heading08" data-parent="#accordionFilters">
+                                <div class="chechbox__wrapper">
+                                    {% for format in formats %}
+                                        {% if format  %}
+                                        {% set formatTrans = 'sections.knowledge.knowledgeFormat.'~format %}
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="format-{{format}}" data-name="{{ formatTrans | trans }}" value="{{ format | trans }}">
+                                                <label class="checkbox-label" for="format-{{format}}"><span>{{ formatTrans | trans }}</span></label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="filters__apply">
+                                    <button type="button" class="btn btn__naked apply_button">{{ 'global.messages.apply_button'|trans }}</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {# Selected tags #}
+                <div class="col-12" id="checksOutput" style="display:none">
+                </div>
+            </section>
+
+
+        <div id="empty_message" class="page__section--fullbg" style="display:none">
+                <p>{{ 'global.messages.empty_results'|trans }}</p>
+        </div>
+        <!-- MASONRY GRID JS -->
+       <section id="knowledge_content" class="row page__section page__section--fullbg">
+                <div class="col-12">
+                    <h4 class="section__title section__title--recomended">{{ 'global.messages.our_recomendation'|trans }}</h4>
+                </div>
+                <div class="col-12">
+                    <div class="grid__masonry">
+                        <div class="grid__sizer"></div>
+                        <div class="grid__gutter"></div>
+                        {% for key,publication in publications %}
+                            {% set style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"] %}
+                            {# {% set fecha = publication.publication_date |format_datetime('long', 'none',locale='es')|split(' ') %} #}
+                            <div class="grid__item {{ style[key] }}">
+                                <article class="boxnews__item boxnews__item--{{ publication.type  }}">
+                                    <div class="boxnews__header">
+                                    {% set typeTrans = 'sections.knowledge.knowledgeTypes.'~publication.type %}
+                                        <div class="boxnews__type">{{ typeTrans | trans  }}
+                                        </div>
+                                        <div class="boxnews__info">
+                                        {{ publication.fechaPubli }}
+                                        </div>
+                                    </div>
+                                    <div class="boxnews__content">
+                                        <h5 class="boxnews__copy">
+                                            <a href="{{ publication.translate(app.request.getLocale()).slug is not empty ? path('publications_detail', {slug:publication.translate(app.request.getLocale()).slug})  : ''}}" class="boxnews__link">
+                                                {{ publication.translate(app.request.getLocale()).title|raw  }}
+                                            </a>
+                                        </h5>
+                                        {% if style[key] !=  "grid__item--normal"%}
+                                        <div class="boxnews__img" style="background-image: url('{{ asset(publication.photo) | imagine_filter('publication_box') }}')">
+                                            <img src="{{ asset(publication.photo) | imagine_filter('publication_box') }}" alt=" {{ publication.translate(app.request.getLocale()).title|raw  }}" class="sr-only">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if page < pagesTotal %}
+                <div class="col-12">
+                    <div class="viewmore__button">
+                        <button type="button" class="btn btn__viewmore btn__viewmore--plus" data-page="2">{{ 'global.messages.load_more'|trans }}</button>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
         {% endif %}
 
-        </article>
-    </main>
+        </div>
 
-    {% if insight.showEventsBlock %}
-        {% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
-    {% endif %}
+    </article>
+</main>
 
-    {# {% if insight.showLegalNoveltiesBlock %}
-        {% include 'web/shared/related-legal-slider.html.twig' %} #}
-        {# include 'web/shared/related-legal-slider.html.twig' with {items: ... } #}
-    {# {% endif %} #}
+{% if insight.showEventsBlock and  relatedEvents|length > 0%}
+{% include 'web/shared/related-events-slider.html.twig' with {events: relatedEvents } %}
+{% endif %}
 
-    {% if insight.lawyers|length > 0 %}
-        {% include 'web/shared/team.html.twig' with {
+{% if insight.showLegalNoveltiesBlock and relatedPublications|length > 0 %}
+{% include 'web/shared/related-content-slider.html.twig' with {title:'global.messages.featured_content'|trans , relatedPublications: relatedPublications} %}
+{% endif %}
+
+{% if insight.lawyers|length > 0 and insight.showTeamsBlock  %}
+{% include 'web/shared/team.html.twig' with {
             team:insight.translate(app.request.getLocale()).title,
             lawyers:insight.lawyers|slice(0, 5),
             fixed_activity:insight.translate(app.request.getLocale()).title
         } %}
+{% endif %}
+
+{% if contextualBlocks.insights|length > 0 %}
+{% include 'web/shared/collections.html.twig' with {insights: contextualBlocks.insights} %}
+{% endif %}
+
+{% if insight.showCaseStudiesBlock %}
+    {% if contextualBlocks.cases|length > 1 %}
+        {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
     {% endif %}
+{% endif %}
 
-    {% if contextualBlocks.insights|length > 0 %}
-        {% include 'web/shared/collections.html.twig' with {insights: contextualBlocks.insights} %}
-    {% endif %}
-
-    {# {% if insight.showCaseStudiesBlock %}
-        {% if relatedCaseStudies|length > 1 %}
-            {% include 'web/shared/cases.html.twig' with {caseStudies: contextualBlocks.cases} %}
-        {% endif %}
-    {% endif %} #}
-
-    {% include 'web/shared/cta-footer.html.twig' %}
-
+{% include 'web/shared/cta-footer.html.twig' %}
+    {# Loader #}
+    <div class="search__component__loader" style="display:none">
+        <img src="{{ asset('web/assets/icons/Infinity-1s-200px.gif') }}" alt="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <path fill="none" stroke="#ff5a60" stroke-width="8" stroke-dasharray="42.76482137044271 42.76482137044271" d="M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z" stroke-linecap="round">
+                <animate attributeName="stroke-dashoffset" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0;256.58892822265625"></animate>
+            </path>
+        </svg>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('web/vendor/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/assets/js/swiperInit.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('web/vendor/readmore.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('web/vendor/masonry.pkgd.min.js') }}"></script>
 <script>
     $(function () {
-        $('.grid__masonry').masonry({
+
+        // GRID
+        var masonryOptions = {
             itemSelector: '.grid__item',
             columnWidth: '.grid__sizer',
             gutter: '.grid__gutter',
             percentPosition: true
-        });
+        };
+        var $grid = $('.grid__masonry').masonry( masonryOptions );
+        $grid.masonry( masonryOptions );
 
-        $('.read__more').readmore({
-            moreLink: '<button type="button" class="doble__arrow__accordion show__more">{{ 'global.messages.show_more'|trans }}</button>',
-            lessLink: '<button type="button" class="doble__arrow__accordion show__less">{{ 'global.messages.show_less'|trans }}</button>',
-            embedCSS: true,
-            collapsedHeight: 400,
-            blockProcessed: function(element, collapsable) {
-                if(! collapsable) {
-                    element.addClass('mask-off');
+        // FILTERS
+        $(document).on('click', '.btn__viewmore', function(event){
+            var page =  $(this).data("page");
+            ajax(page);
+        });
+        $(document).on('click', '.apply_button', function(e){
+            ajax();
+        });
+        $(document).on('click', '#deleteFilters', function(e){
+            $("input:checkbox:checked").each(function() {
+                $(this).prop('checked', false);
+            });
+            $('#checksOutput').empty();
+            ajax();
+        });
+        var $checksOutput = $('#checksOutput');
+        $($checksOutput).on('click', '.checkbox-tag .close-tag', function(element){
+            var value = $(this).data( "value" );
+                $checkBoxes.each(function(i, elem) {
+                    if($(elem).attr("data-name") == value){
+                        $(elem).prop( "checked", false );
+                    }
+                });
+                ajax();
+        });
+        function ajax(page) {
+            var sectors = new Array();
+            var services = new Array();
+            var collections = new Array();
+            var type = new Array();
+            var region = new Array();
+            var legislation = new Array();
+            var date = new Array();
+            var format = new Array();
+            var page = page ? page : $(this).data("page");
+            var item = "";
+            var initial = "";
+            var style = ["grid__item--dobleW" , "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal","grid__item--dobleH", "grid__item--normal", "grid__item--normal","grid__item--dobleH", "grid__item--dobleW", "grid__item--normal"];
+            if($("input[name=initial]").val() !== ""){
+                initial = $("input[name=initial]").val();
+
+            }
+            $("input:checkbox:checked").each(function() {
+                var result = $(this)[0].id.split('-');
+                if(result[0] == "sector"){
+                    sectors.push($(this).val());
                 }
-            },
-            beforeToggle: function(trigger, element, expanded) {
-                if(expanded) {
-                    element.removeClass('mask-off');
+                if(result[0] == "services"){
+                    services.push($(this).val());
                 }
-                if(! expanded) {
-                    element.addClass('mask-off');
+                if(result[0] == "collection"){
+                    collections.push($(this).val());
                 }
-            },
-            afterToggle: function(trigger, element, expanded) {
-                if(! expanded) {
-                    if (window.matchMedia('(max-width: 1199px)').matches) {
-                        $('html, body').animate({scrollTop: element.offset().top - 20}, {duration: 'slow'});
-                    } else {
-                        $('html, body').animate({scrollTop: element.offset().top - 120}, {duration: 'slow'});
+                if(result[0] == "type"){
+                    type.push($(this).val());
+                }
+                if(result[0] == "region"){
+                    region.push($(this).val());
+                }
+                if(result[0] == "legislation"){
+                    legislation.push($(this).val());
+                }
+                if(result[0] == "date"){
+                    date.push($(this).val());
+                }
+                if(result[0] == "format"){
+                    format.push($(this).val());
+                }
+            });
+
+            if(!page){
+                page=1;
+            }
+            item = $(".grid__item").first().clone();
+            var html = '';
+            $.ajax({
+                method: "GET",
+                data: { sector: sectors.toString(), services: services.toString(), type: type.toString(),office: region.toString(), legislation: legislation.toString(), date: date.toString(), collections: collections.toString(),format: format.toString(), page :page, initial: initial   },
+                url: "{{ path('knowledge_index') }}",
+                beforeSend: function( xhr ) {
+                    $('.search__component__loader').css("display", "flex").fadeIn('fast');
+                }
+            })
+            .done(function( msg ) {
+                if(msg['error'] == 'empty') {
+                    $('.search__component__loader').css("display", "flex").fadeOut();
+                    $('#knowledge_content').css("display", "none");
+                    $('#empty_message').css("display", "block");
+                } else {
+                    // $('.section__title--recomended').hide();
+                    $('.search__component__loader').css("display", "flex").fadeOut();
+                    $('#knowledge_content').css("display", "flex");
+                    $('#empty_message').css("display", "none");
+                    var url="";
+                    if(msg['office']){
+                        if(url == ""){
+                            url= "?office="+msg['office'];
+                        }else{
+                            url= url + "&office="+msg['office'];
+                        }
+                    }
+                    if(msg['legislation']){
+                        if(url == ""){
+                            url= "?legislation="+msg['legislation'];
+                        }else{
+                            url= url + "&legislation="+msg['legislation'];
+                        }
+                    }
+                    if(msg['textSearch']){
+                        if(url == ""){
+                            url= "?textSearch="+msg['textSearch'];
+                        }else{
+                            url= url + "&textSearch="+msg['textSearch'];
+                        }
+                    }
+                    if(msg['services']){
+                        if(url == ""){
+                            url= "?services="+msg['services'];
+                        }else{
+                            url= url + "&services="+msg['services'];
+                        }
+                    }
+                    if(msg['collections']){
+                        if(url == ""){
+                            url= "?collections="+msg['collections'];
+                        }else{
+                            url= url + "&collections="+msg['collections'];
+                        }
+                    }
+                    if(msg['sector']){
+                        if(url == ""){
+                            url= "?sector="+msg['sector'];
+                        }else{
+                            url= url + "&sector="+msg['sector'];
+                        }
+                    }
+                    if(msg['type']){
+                        if(url == ""){
+                            url= "?type="+msg['type'];
+                        }else{
+                            url= url + "&type="+msg['type'];
+                        }
+                    }
+                    if(msg['date']){
+                        if(url == ""){
+                            url= "?date="+msg['date'];
+                        }else{
+                            url= url + "&date="+msg['date'];
+                        }
+                    }
+                    if(msg['format']){
+                        if(url == ""){
+                            url= "?format="+msg['format'];
+                        }else{
+                            url= url + "&format="+msg['format'];
+                        }
+                    }
+                    if(msg['initial']){
+                        if(url == ""){
+                            url= "?initial="+msg['initial'];
+                        }else{
+                            url= url + "&initial="+msg['initial'];
+                        }
+                    }
+                    if(msg['page']>1){
+                        if(url == ""){
+                            url= "?page="+msg['page'];
+                        }else{
+                            url= url + "&page="+msg['page'];
+                        }
+                    }
+
+                    if(msg['page'] == 1){
+                        $('.grid__item').remove();
+                    }
+                    //$grid.masonry('reloadItems');
+                    $grid.masonry('destroy');
+                    if($.type(msg['publications']) == 'object'){
+                        msg['publications'] = $.map(msg['publications'], function(value, index){
+                            return [value];
+                        });
+                    }
+                    msg['publications'].forEach(function(publication, i){
+                        item.find( "a" ).text(publication['title']).attr('href', 'articulo/'+publication['Slug']);
+                        item.find( ".boxnews__info" ).text(publication['Publication_date']);
+                        item.find( ".boxnews__type" ).text(publication['publicationType']);
+                        if(style[i] != "grid__item--normal"){
+                            item.find( ".boxnews__img" ).css("background-image", "url('" + publication['photo']+ "' )");
+                        }else{
+                            item.find( ".boxnews__img" ).hide();
+                        }
+
+
+                        item.find( ".boxnews__item--academy" ).removeClass("boxnews__item--academy");
+                        item.find( ".boxnews__item--news" ).removeClass("boxnews__item--news");
+                        item.find( ".boxnews__item--opinion" ).removeClass("boxnews__item--opinion");
+                        item.find( ".boxnews__item" ).addClass('boxnews__item--'+publication['publicationType'])
+                        var html = '<div class="grid__item '+style[i]+'">'+item.html()+ '<div>';
+                        $grid.append(html);
+                    });
+                    $( ".grid__item--normal" ).find(".boxnews__img").hide();
+                    //item.find( ".boxnews__img" ).hide();
+                    $grid.masonry( masonryOptions );
+                    //
+                    $('.btn__viewmore').data("page",parseInt(msg['page'])+1);
+                    window.history.replaceState(null, null, window.location.pathname+url);
+                    $('#relprev').attr('href', location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])-1));
+                    $('#relnext').attr('href',  location.protocol + '//' + location.host + location.pathname +  "?page="+(Number(msg['page'])+1));
+                    if(parseInt(msg['page']) > parseInt(msg['pagesTotal'])){
+                        $('.btn__viewmore').hide();
+                    }else{
+                        $('.btn__viewmore').show();
                     }
                 }
-            }
-        });
+
+            });
+        }
     });
 </script>
 {% endblock %}

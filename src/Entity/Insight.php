@@ -81,6 +81,11 @@ class Insight extends Publishable
     private $showCaseStudiesBlock;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $showTeamsBlock;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Lawyer", inversedBy="insights")
      */
     private $lawyers;
@@ -414,6 +419,18 @@ class Insight extends Publishable
                 $attachment->setInsight(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getShowTeamsBlock(): ?bool
+    {
+        return $this->showTeamsBlock;
+    }
+
+    public function setShowTeamsBlock(bool $showTeamsBlock): self
+    {
+        $this->showTeamsBlock = $showTeamsBlock;
 
         return $this;
     }
