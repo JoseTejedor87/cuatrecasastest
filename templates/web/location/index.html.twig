@@ -73,16 +73,15 @@
                                         <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                 {% else %}
                                         {% if officesLat[key-1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
-                                            </optgroup>
-                                            <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
-                                            <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                    </optgroup>
+                                    <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                        <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                         {% else %}
-                                            <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                        <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
                                              {% if key == officesLat|length  %}
-                                            </optgroup>
+                                    </optgroup>
                                              {% endif %}
                                         {% endif %}
-
                                 {% endif %}
                             {% endfor %}
                         </select>
