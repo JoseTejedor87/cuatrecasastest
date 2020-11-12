@@ -400,6 +400,8 @@ entities:
       img_office: Imagen oficina
       descriptions: Descripción
       tags: Tags
+      lat: Latitud
+      lng: Longitud
   page:
     fields:
       title: Título

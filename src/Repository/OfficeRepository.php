@@ -34,7 +34,7 @@ class OfficeRepository extends PublishableEntityRepository implements Publishabl
     }
     public function getOfficesIfLawyers()
     {
-        $offices = $this->findAll();
+        $offices = $this->findBy(['published' => true]);
         foreach ($offices as $key => $office) {
             $lawyers = $office->getLawyer();
             if (count($lawyers) == 0) {
