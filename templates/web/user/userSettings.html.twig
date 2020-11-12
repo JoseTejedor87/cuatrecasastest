@@ -33,25 +33,28 @@
                     <div class="col">
                         <h4 class="section__title section__title--main">{{ 'userForm.settings.title'|trans }}</h4>
                         <div class="alert alert-success" style="display:none" role="alert">
-                            Formulario enviado
+                            {{ 'global.forms.feedback.form_ok'|trans }}
                         </div>
                         <div class="alert alert-danger" style="display:none" role="alert">
-                            Error en el envio del formulario, inténtelo más tarde
+                            {{ 'global.forms.feedback.form_ko'|trans }}
                         </div>
                         <fieldset>
                             <legend>{{ 'userForm.settings.subTitleInfo'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="eFirstName" id="eFirstName" placeholder="Nombre *" value="{{ contacto.Nombre is defined ? contacto.Nombre : ''}}" required>
+                                    <input type="text" class="form-control" name="eFirstName" id="eFirstName" placeholder="{{ 'global.forms.placeholder.nombre'|trans }} *" value="{{ contacto.Nombre is defined ? contacto.Nombre : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="eLastName" id="eLastName" placeholder="Apellidos *" value="{{ contacto.Apellidos is defined ? contacto.Apellidos : ''}}" required>
+                                    <input type="text" class="form-control" name="eLastName" id="eLastName" placeholder="{{ 'global.forms.placeholder.apellidos'|trans }} *" value="{{ contacto.Apellidos is defined ? contacto.Apellidos : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="Telefono *" value="{{ contacto.Telefono is defined ? contacto.Telefono : ''}}" required>
+                                    <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="{{ 'global.forms.placeholder.password'|trans }} *" value="" required>
                                 </div>
+                                {# <div class="form-group col-lg-6">
+                                    <input type="text" class="form-control" name="ePhone" id="ePhone" placeholder="{{ 'global.forms.placeholder.telefono'|trans }} *" value="{{ contacto.Telefono is defined ? contacto.Telefono : ''}}" required>
+                                </div> #}
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="eEmail" id="eEmail" placeholder="Email *" value="{{ contacto.Email is defined ? contacto.Email : ''}}" required>
+                                    <input type="text" class="form-control" name="eEmail" id="eEmail" placeholder="{{ 'global.forms.placeholder.email'|trans }} *" value="{{ contacto.Email is defined ? contacto.Email : ''}}" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -59,10 +62,10 @@
                             <legend>{{ 'userForm.settings.subTitleCompany'|trans }}</legend>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="ePosition" id="ePosition" placeholder="Cargo *" value="{{ contacto.Cargo is defined ? contacto.Cargo : ''}}" required>
+                                    <input type="text" class="form-control" name="ePosition" id="ePosition" placeholder="{{ 'global.forms.placeholder.cargo'|trans }} *" value="{{ contacto.Cargo is defined ? contacto.Cargo : ''}}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" class="form-control" name="eCompany" id="eCompany" placeholder="Empresa *" value="{{ contacto.Empresa is defined ? contacto.Empresa : ''}}" required>
+                                    <input type="text" class="form-control" name="eCompany" id="eCompany" placeholder="{{ 'global.forms.placeholder.empresa'|trans }} *" value="{{ contacto.Empresa is defined ? contacto.Empresa : ''}}" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -71,11 +74,11 @@
                             <div class="row">
                                 <div class="col-lg-6 pr-0 pl-0">
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" name="eAddress" id="eAddress" placeholder="Direccion *" value="{{ contacto.Direccion is defined ? contacto.Direccion : ''}}" required>
+                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="{{ 'global.forms.placeholder.codigo_postal'|trans }} *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <select name="eCountry" id="eCountry" class="form-control custom-select" required>
-                                            <option value="" selected disabled>País *</option>
+                                            <option value="" selected disabled>{{ 'global.forms.placeholder.pais'|trans }} *</option>
                                             {% if paises|length > 0 %}
                                                 {% for value in paises %}
                                                     {% if value['IdPais'] %}
@@ -86,11 +89,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" name="eTown" id="eTown" placeholder="Población *" value="{{ contacto.Poblacion is defined ? contacto.Poblacion : ''}}" required>
+                                        <input type="text" class="form-control" name="eTown" id="eTown" placeholder="{{ 'global.forms.placeholder.poblacion'|trans }} *" value="{{ contacto.Poblacion is defined ? contacto.Poblacion : ''}}" required>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <select id="eRegion" class="form-control custom-select" required>
-                                            <option value="" selected disabled>Provincia *</option>
+                                            <option value="" selected disabled>{{ 'global.forms.placeholder.provincia'|trans }} *</option>
                                 {% if contacto.ProvinciaId is defined %}
                                 {% if provincias|length > 0 %}
                                     {% for value in provincias %}
@@ -105,8 +108,8 @@
                                 </div>
                                 <div class="col-lg-6 ">
                                     <div class=" form-group">
-                                        <select name="eLang" id="eLang" class="form-control custom-select" data-style="btn-custom" data-width="100%" data-size="5" title="Idioma de las publicaciones *" required>
-                                            <option value="" selected disabled>Idioma *</option>
+                                        <select name="eLang" id="eLang" class="form-control custom-select" required>
+                                            <option value="" selected disabled>{{ 'global.forms.placeholder.idioma_publicaciones'|trans }} *</option>
                                 {% if idiomas|length > 0 %}
                                     {% for value in idiomas %}
                                         {% if value['IdIdioma'] %}
@@ -115,9 +118,6 @@
                                     {% endfor %}
                                 {% endif %}
                                         </select>
-                                    </div>
-                                    <div class=" form-group">
-                                        <input type="text" class="form-control" name="ePostalCode" id="ePostalCode" placeholder="Código postal *" value="{{ contacto.CodigoPostal is defined ? contacto.CodigoPostal : ''}}" required>
                                     </div>
                                 </div>
 
@@ -156,34 +156,24 @@
                 <div class="row page__block--privacy">
                     <div class="col-12 privacy__text">
                         <h4 class="section__title section__title--main">{{ 'userForm.data.title'|trans }}</h4>
-                        <p><strong>Información sobre el tratamiento de sus datos personales</strong></p>
-                        <p>
-                            <strong>Responsable del tratamiento:</strong> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
-                            <strong>Finalidades:</strong> : gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
-                            <strong>Legitimación:</strong> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
-                            <strong>Destinatarios:</strong> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
-                            <strong>Derechos:</strong> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a target="_blank" href="https://www.cuatrecasas.com/media_repository/docs/politica_privacidad.pdf">la política de privacidad</a>.
-                        </p>
-
-                        <p>{{ 'Please read our %link_start%privacy policy%link_end%' | trans({'%link_start%' : '<a href="'~path('privacyPolicy')~'">', '%link_end%' : '</a>'}) | raw }}</p>
-
-                        <p>{{ 'probando' | trans({'%link_start%' : '<a href="'~path('privacyPolicy')~'">', '%link_end%' : '</a>'}) | raw }}</p>
-
-                        <p>{{ 'Please read our %privacyPolicy%'|trans({'%privacyPolicy%': '<a href="' ~ path('privacyPolicy') ~ '"> ' ~ 'Privacy Policy'|trans ~ '</a>'})|raw }}</p>
-
+                        {{ 'userForm.data.content' | trans | replace({'%privacyPolicy%': path('privacyPolicy')}) | raw }}
                     </div>
                     <div class="col-12 privacy__confirm">
                         <div class="form-group">
                             <div class="checkbox">
                                 <input name="accept" type="checkbox" {{ contacto.GDPR is defined ? contacto.GDPR ? 'checked' : ''}} id="accept" required>
-                                <label  class="checkbox-label" for="accept"><span>He leído y acepto las <a href="{{ path('webUse') }}">Condiciones de Uso</a> y la <a href="{{ path('privacyPolicy') }}">Política de Privacidad</a></span></label>
+                                <label  class="checkbox-label" for="accept">
+                                    <span>{{ 'global.forms.privacy_accept' | trans | replace({'%webUse%': path('webUse'), '%privacyPolicy%': path('privacyPolicy')}) | raw }}</span>
+                                </label>
                                 <div class="invalid-feedback">{{ 'global.forms.mandatory_field' | trans }}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
                                 <input name="subscribe" {{ contacto.Suscripcion is defined ? contacto.Suscripcion ? 'checked' : ''}}  type="checkbox" id="subscribe">
-                                <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
+                                <label class="checkbox-label" for="subscribe">
+                                    <span>{{ 'global.forms.news_accept' | trans }}</span>
+                                </label>
                             </div>
                         </div>
                         <div class="button__wrapper">
@@ -311,13 +301,13 @@
                 $("#eLastName").addClass('is-invalid');
                 isvalidate = false;
             }
-             if($("#ePhone").val()){
-                $("#ePhone").addClass('is-valid');
-                contacto['Telefono']= $("#ePhone").val();
-            }else{
-                $("#ePhone").addClass('is-invalid');
-                isvalidate = false;
-            }
+            // if($("#ePhone").val()){
+            //     $("#ePhone").addClass('is-valid');
+            //     contacto['Telefono']= $("#ePhone").val();
+            // }else{
+            //     $("#ePhone").addClass('is-invalid');
+            //     isvalidate = false;
+            // }
             if($("#eEmail").val()){
                 $("#eEmail").addClass('is-valid');
                 contacto['Email']= $("#eEmail").val();
@@ -339,14 +329,13 @@
                 $("#eCompany").addClass('is-invalid');
                 isvalidate = false;
             }
-
-            if($("#eAddress").val()){
-                $("#eAddress").addClass('is-valid');
-                contacto['Direccion']= $("#eAddress").val();
-            }else{
-                $("#eAddress").addClass('is-invalid');
-                isvalidate = false;
-            }
+            // if($("#eAddress").val()){
+            //     $("#eAddress").addClass('is-valid');
+            //     contacto['Direccion']= $("#eAddress").val();
+            // }else{
+            //     $("#eAddress").addClass('is-invalid');
+            //     isvalidate = false;
+            // }
             if($("#ePostalCode").val()){
                 $("#ePostalCode").addClass('is-valid');
                 contacto['CodigoPostal']= $("#ePostalCode").val();
