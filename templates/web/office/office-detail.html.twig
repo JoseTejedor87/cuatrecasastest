@@ -43,8 +43,9 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
-                            <figure style="background-image: url('{{ asset(imageFile ) | imagine_filter('doble_header') }}')"></figure>
-                            <img src="{{ asset(imageFile ) | imagine_filter('doble_header') }}" alt=" {{ office.translate(lang).city }}" class="sr-only">
+                            <figure style="background-image: url('{{ asset(imageFile ) | imagine_filter('doble_header') }}')">
+                                <img src="{{ asset(imageFile ) | imagine_filter('doble_header') }}" alt=" {{ office.translate(lang).city }}" class="sr-only">
+                            </figure>
                         </div>
                     </div>
                 </div>
@@ -68,6 +69,8 @@
 
             {% include 'web/shared/related-content-slider.html.twig' with {title: 'global.messages.related_content'|trans, publications: relatedPublications } %}
             {% include 'web/shared/cases.html.twig' with { caseStudies: caseStudies } %}
+            {% include 'web/shared-cmp/cases_CMP.html.twig' %} {# contenido estatico hasta programar el de arriba #}
+            {% include 'web/shared/cta-services-sectors.html.twig' %}
 
         </article>
     </main>

@@ -11,7 +11,7 @@
     {"titulo":"Learn","custom_template":"talent/learn","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"International","custom_template":"talent/international","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Join","custom_template":"talent/join","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
-    {"titulo":"Proyecto Europa","custom_template":"landing-project-europe","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
+    {"titulo":"Proyecto Europa","custom_template":"organization/landing-project-europe","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Alumni","custom_template":"talent/landing-alumni","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"FAQs","custom_template":"talent/landing-faqs","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
     {"titulo":"Programas de prácticas","custom_template":"talent/landing-internship-program","regiones":["spain", "global", "latam", "portugal"],"lenguaje":["es", "en","pt","ge"]},
