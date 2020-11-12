@@ -449,7 +449,7 @@ location_other:
         pt:   /locationother
         ge:   /locationother
     methods:    GET|POST
-    controller: App\Controller\Web\LocationController::indexOther   
+    controller: App\Controller\Web\LocationController::indexOther
 
 location_other_detail:
     path:
@@ -472,7 +472,7 @@ firm:
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 
-# PAGES  TALENT ( EX CAREER )
+# PAGES TALENT ( EX CAREER )
 ##############################################
 talent:
     path:
@@ -480,6 +480,17 @@ talent:
         en:   /talent/{slug}
         pt:   /talent/{slug}
         ge:   /talent/{slug}
+    methods:    GET|POST
+    controller: App\Controller\Web\PagesController::detail
+
+# PAGES international organizations
+##############################################
+organization:
+    path:
+        es:   /organization/{slug}
+        en:   /organization/{slug}
+        pt:   /organization/{slug}
+        ge:   /organization/{slug}
     methods:    GET|POST
     controller: App\Controller\Web\PagesController::detail
 

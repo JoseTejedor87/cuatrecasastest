@@ -14,18 +14,18 @@
                 <div class="col">
                     <div class="info__block">
                         <h1 class="page__title">
-                            {{ 'menu.offices.vision'|trans }}
+                            {{ 'menu.offices.offices'|trans }}
                         </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
-                                </li>
+                                {# <li class="breadcrumb-item">
+                                    <a href="#">{{ 'menu.offices.offices'|trans }}</a>
+                                </li> #}
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.offices.vision'|trans }}
+                                    {{ 'menu.offices.offices'|trans }}
                                 </li>
                             </ol>
                         </nav>
@@ -117,28 +117,10 @@
                                         {% for key, region in regiones %}
                                             {% if region.principal == 0  %}
                                                 <li class="buttons__list__column__item">
-                                                    <a class="btn__subcat" href="{{ path('location_other_detail',{slug: region.translate(app.request.getLocale()).slug }) }}" class="nav-link">{{ region.translate(app.request.getLocale()).title }}</a>
+                                                    <a class="btn__subcat" href="{{ path('location_other_detail',{slug: region.translate(app.request.getLocale()).slug }) }}">{{ region.translate(app.request.getLocale()).title }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
-                                        {# <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">01 Continental Europe</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">UK</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">US</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Asia</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">África</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Middle East</a>
-                                        </li> #}
                                     </ul>
                                 </div>
                             </div>
@@ -151,28 +133,10 @@
                                         {% for key, office in offices %}
                                              {% if office.translate(app.request.getLocale()).city  %}
                                                 <li class="buttons__list__column__item">
-                                                    <a class="btn__subcat" href="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }} " class="nav-link">{{ office.translate(app.request.getLocale()).city }}</a>
+                                                    <a class="btn__subcat" href="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}">{{ office.translate(app.request.getLocale()).city }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
-                                        {# <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">02 Continental Europe</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">UK</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">US</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Asia</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">África</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Middle East</a>
-                                        </li> #}
                                     </ul>
                                 </div>
                             </div>
@@ -185,28 +149,10 @@
                                         {% for key, desk in desks %}
                                             {% if desk.translate(app.request.getLocale()).title  %}
                                                 <li class="buttons__list__column__item">
-                                                    <a class="btn__subcat" href="{{ desk.translate(app.request.getLocale()).slug  is defined ?   path('desks_detail',{slug: desk.translate(app.request.getLocale()).slug }) : '' }} " class="nav-link">{{ desk.translate(app.request.getLocale()).title }}</a>
+                                                    <a class="btn__subcat" href="{{ desk.translate(app.request.getLocale()).slug  is defined ?   path('desks_detail',{slug: desk.translate(app.request.getLocale()).slug }) : '' }}">{{ desk.translate(app.request.getLocale()).title }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
-                                        {# <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">03 Continental Europe</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">UK</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">US</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Asia</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">África</a>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <a class="btn__subcat" href="#">Middle East</a>
-                                        </li> #}
                                     </ul>
                                 </div>
                             </div>
@@ -222,60 +168,6 @@
                                         </li>
                                         <li class="buttons__list__column__item">
                                             <span class="btn__subcat__fake">World Law Group (WLG)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Bar Association (IBA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Fiscal Association (IFA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Association of Young Lawyers (AIJA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">UIA International Association of Lawyers (UIA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Criminal Court (ICC)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">American Bar Association (ABA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Tax Planning Association (ITPA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">Society of Trust and Estate Practitioners (STEP)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">The International Association of Estate and Trust Law (IAETL)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">American College of Trust and Estate Council (ACTEC)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">Inter Pacific Bar Association (IPBA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">American Law Institute (ALI)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">Association of Corporate Counsel (ACC)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">New York Bar Association (NYBA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">American Foreign Law Association (AFLA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">Turnaround Management Association (TMA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">International Law Association (ILA)</span>
-                                        </li>
-                                        <li class="buttons__list__column__item">
-                                            <span class="btn__subcat__fake">European American Chamber of Commerce New York (EACC)</span>
                                         </li> #}
                                     </ul>
                                 </div>

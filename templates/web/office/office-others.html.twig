@@ -20,8 +20,9 @@
                     </div>
                     <div class="col-md-5">
                         <div class="lawyer__page__office">
-                            <figure style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('doble_header') }}')"></figure>
-                            <img src="{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('doble_header') }}" alt="" class="sr-only">
+                            <figure style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('doble_header') }}')">
+                                <img src="{{ asset('/web/assets/img/cabecera_1920x1080_05_baja.jpg') | imagine_filter('doble_header') }}" alt="" class="sr-only">
+                            </figure>
                         </div>
                     </div>
                 </div>
@@ -47,6 +48,7 @@
             {% include 'web/shared/related-content-slider-offices.html.twig' %}
             {% include 'web/shared/cases-offices.html.twig' %}
             {% include 'web/shared/cta-offices.html.twig' %}
+            {% include 'web/shared/cta-services-sectors.html.twig' %}
 
         </article>
     </main>

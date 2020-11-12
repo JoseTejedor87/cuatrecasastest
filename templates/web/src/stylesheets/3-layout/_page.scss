@@ -493,7 +493,7 @@
             }
 
             p {
-                @include fontSet(20px, 28px);
+                @include fontSet(24px, 30px);
 
                 @media(max-width: $max-width-4casas) {
                     @include fontSet(16px, 20px);
@@ -505,7 +505,7 @@
                 margin-bottom: 2rem;
 
                 > li {
-                    @include fontSet(20px, 28px);
+                    @include fontSet(24px, 30px);
                     position: relative;
                     margin-bottom: 1rem;
                     padding-left: 1.6rem;
@@ -513,18 +513,20 @@
 
                     @media(max-width: $max-width-4casas) {
                         @include fontSet(16px, 20px);
+                        padding-left: 1rem;
                     }
 
                     &:before {
-                        @include icons-4casas(5px, auto, auto, 0);
+                        @include icons-4casas(4px, auto, auto, -4px);
                         position: absolute;
                         display: inline-block;
                         content: '\e90a';
-                        font-size: 16px;
+                        font-size: 20px;
                         color: $complementary-color;
 
                         @media(max-width: $max-width-4casas) {
                             top: 0;
+                            font-size: 16px;
                         }
                     }
                 }

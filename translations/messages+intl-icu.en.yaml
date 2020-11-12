@@ -243,12 +243,12 @@ landings:
         <p>Puedes seguirnos a través de nuestro grupo de Linkedin o inscribirte a nuestro network de Alumni mediante el siguiente link.</p>
         <p>No dudes en contactar con nosotros si tienes cualquier duda o quieres actualizar tus datos.</p>
         <p>¡Seguimos en contacto!</p>
-        <p>Persona de contacto:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
+        <p><strong>Persona de contacto</strong>:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
     join:
       faqs: ENG_ FAQs
-      faqs_content: ENG_ FAQs > Pendiente
+      faqs_content: <p>ENG_ FAQs > Pendiente</p>
       internship_program: ENG_ Programas de prácticas
-      internship_program_content: ENG_ Programas de prácticas > Pendiente
+      internship_program_content: <p>ENG_ Programas de prácticas > Pendiente</p>
   offices:
     vision:
       project_europe: ENG_ Proyecto Europa
@@ -288,17 +288,20 @@ footer:
 # Reusable Blocks
 # ###########################################
 reusable_blocks:
-    cta_footer:
-      title: Personalize your insights, read only what <strong>interests you</strong>
-      intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-      button: Choose your interests
-    team:
-      title: Team Cuatrecasas
-      link: Meet the team
-      intro: Cuatrecasas has a team of {team}
-    cases:
-      title: Cases
-      link: View more
+  cta_services_sectors:
+    title: ENG_ Servicios y sectores de Cuatrecasas
+    content: ENG_ Lorem, ipsum dolor sit, amet consectetur adipisicing elit...
+  cta_footer:
+    title: Personalize your insights, read only what <strong>interests you</strong>
+    intro: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    button: Choose your interests
+  team:
+    title: Team Cuatrecasas
+    link: Meet the team
+    intro: Cuatrecasas has a team of {team}
+  cases:
+    title: Cases
+    link: View more
 
 ## BLOCK FIRM
 #################################################

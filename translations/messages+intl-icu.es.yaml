@@ -61,7 +61,6 @@ global:
     our_recomendation: Te recomendamos
     dossier_download: Descarga el dossier
     empty_results: No se han encontrado resultados para la búsqueda realizada
-    services_sectors: Servicios y sectores de Cuatrecasas
   forms:
     search: Buscar
     save: Guardar
@@ -364,12 +363,12 @@ landings:
         <p>Puedes seguirnos a través de nuestro grupo de Linkedin o inscribirte a nuestro network de Alumni mediante el siguiente link.</p>
         <p>No dudes en contactar con nosotros si tienes cualquier duda o quieres actualizar tus datos.</p>
         <p>¡Seguimos en contacto!</p>
-        <p>Persona de contacto:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
+        <p><strong>Persona de contacto</strong>:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
     join:
       faqs: FAQs
-      faqs_content: FAQs > Pendiente
+      faqs_content: <p>FAQs > Pendiente</p>
       internship_program: Programas de prácticas
-      internship_program_content: Programas de prácticas > Pendiente
+      internship_program_content: <p>Programas de prácticas > Pendiente</p>
   offices:
     vision:
       project_europe: Proyecto Europa
@@ -409,17 +408,23 @@ footer:
 # Reusable Blocks
 # ###########################################
 reusable_blocks:
-    cta_footer:
-      title: Recibe en tu email el contenido jurídico que te interesa
-      intro: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico
-      button: Escoge tus intereses
-    team:
-      title: Equipo Cuatrecasas
-      link: Ver equipo
-      intro: Cuatrecasas cuenta con un equipo de {team}
-    cases:
-      title: Casos
-      link: Ver más
+  cta_services_sectors:
+    title: Servicios y sectores de Cuatrecasas
+    content: Lorem, ipsum dolor sit, amet consectetur adipisicing elit...
+  cta_international_career:
+    title: Carrera internacional
+    content: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  cta_footer:
+    title: Recibe en tu email el contenido jurídico que te interesa
+    intro: Personaliza tus intereses, selecciona la periodicidad y accede a un mundo de conocimiento jurídico
+    button: Escoge tus intereses
+  team:
+    title: Equipo Cuatrecasas
+    link: Ver equipo
+    intro: Cuatrecasas cuenta con un equipo de {team}
+  cases:
+    title: Casos
+    link: Ver más
 
 # Error Messages
 # ###########################################
