@@ -7,6 +7,7 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
 		m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+		{% if is_granted('ROLE_ADMIN') %}
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('cms_home_edit', { 'id': 1}) }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-map"></i>
@@ -14,7 +15,9 @@
 						{{ 'menu.home.title'|trans }}
 					</span>
 				</a>
-			</li>		
+			</li>	
+		{% endif %}	
+		{% if ( is_granted('ROLE_ADMIN') ) or ( is_granted('ROLE_USER') ) %}
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('cms_lawyers_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-users"></i>
@@ -23,6 +26,8 @@
 					</span>
 				</a>
 			</li>
+		{% endif %}	
+		{% if is_granted('ROLE_ADMIN') %}
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('cms_case_studies_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-folder"></i>
@@ -55,7 +60,8 @@
 					</span>
 				</a>
 			</li>
-
+		{% endif %}	
+		{% if (is_granted('ROLE_ADMIN')) or  (is_granted('ROLE_TEST'))%}
 			<li class="m-menu__section ">
 				<h4 class="m-menu__section-text">
 					{{ 'menu.knowledge.title'|trans }}
@@ -70,6 +76,8 @@
 					</span>
 				</a>
 			</li>
+		{% endif %}
+		{% if is_granted('ROLE_ADMIN') %}
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{ path('cms_events_index') }}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-calendar"></i>
@@ -156,6 +164,7 @@
 					</span>
 				</a>
 			</li>
+		{% endif %}	
 		</ul>
 	</div>
 	<!-- END: Aside Menu -->

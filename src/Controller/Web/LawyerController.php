@@ -38,11 +38,11 @@ class LawyerController extends WebController
         $this->imagineCacheManager = $imagineCacheManager;
     }
 
-    protected function getPhotoPathByFilter($lawyer, $filter,$navigation)
+    protected function getPhotoPathByFilter($lawyer, $filter, $navigation)
     {
         $photo = $lawyer->getPhoto();
-        if ($photo->isPublished($navigation->getLanguage(),$navigation->getRegion())){
-            if ($photo->getType() == "publication_main_photo" ) {
+        if ($photo->isPublished($navigation->getLanguage(), $navigation->getRegion())) {
+            if ($photo->getType() == "publication_main_photo") {
                 $photo = $this->imagineCacheManager->getBrowserPath(
                     '/resources/' . $photo->getFileName(),
                     $filter
@@ -50,7 +50,6 @@ class LawyerController extends WebController
                 return $photo;
             }
         }
-        
     }
 
     public function detail(Request $request, LawyerRepository $lawyerRepository, CaseStudyRepository $caseStudyRepository, NavigationService $navigation)
@@ -63,7 +62,7 @@ class LawyerController extends WebController
         ]);
     }
 
-    
+
     public function index(
         Request $request,
         TranslatorInterface $translator,
@@ -79,7 +78,7 @@ class LawyerController extends WebController
         $blockCareer = $generalBlockRepository->findOneBy(['blockName' => 'block_career']);
         $practices = $PracticeRepository->findAll();
         $sectors = $sectorRepository->findAll();
-        $offices = $OfficeRepository->findAll();
+        $offices = $OfficeRepository->findBy(['published' => true]);
         $insightsPrior = $insightRepository->getInsightsPriorFor(['showLegalNoveltiesBlock' => true]);
         $insightsAll = $insightRepository->findBy(['showLegalNoveltiesBlock' => true], ['id' => 'DESC']);
         $totalInsights = [];
@@ -224,7 +223,7 @@ class LawyerController extends WebController
                     }
                     $lawyerA[$key]['activities'] = $activities;
                     $lawyerA[$key]['office'] = $lawyer->getOffice() ? $lawyer->getOffice()->translate($navigation->getLanguage())->getCity() : '';
-                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid',$navigation);
+                    $lawyerA[$key]['photo'] = $this->getPhotoPathByFilter($lawyer, 'lawyers_grid', $navigation);
                 }
             }
             $json = array(
@@ -296,7 +295,7 @@ class LawyerController extends WebController
 
 
 
-        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid',$navigation));
+        $img = file_get_contents($this->getPhotoPathByFilter($lawyer, 'lawyers_grid', $navigation));
         $dataImage64 = base64_encode($img);
 
         $dataString =   'BEGIN:VCARD'."\n".

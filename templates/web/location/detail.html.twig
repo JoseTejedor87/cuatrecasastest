@@ -66,17 +66,23 @@
                 <div class="world__offices__map" id="map"></div>
                 <div class="row world__offices__wrapper">
                     <div class="col world__offices__select">
-                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
+                        <select name="offices" id="offices" class="selectpicker dropup" data-dropup-auto="false" data-style="btn-custom" data-width="30%" data-size="auto" data-sanitize="false"  data-hide-disabled:"false" title="Oficinas" data-live-search="true" data-live-search-placeholder="Buscar">
                             {% for key, office in officesLat %}
                                 {% if key == 0  %}
                                     <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
-                                {% endif %}
-                                        <option value="office.translate(app.request.getLocale()).city" data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
-                                {% if officesLat|length > key+1 %}
-                                    {% if officesLat[key+1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
-                                    </optgroup>
-                                    <optgroup label="{{ officesLat[key+1].translate(app.request.getLocale()).country }}"></optgroup>
-                                    {% endif %}
+                                        <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                {% else %}
+                                        {% if officesLat[key-1].translate(app.request.getLocale()).country != office.translate(app.request.getLocale()).country %}
+                                            </optgroup>
+                                            <optgroup label="{{ office.translate(app.request.getLocale()).country }}">
+                                            <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                        {% else %}
+                                            <option value="office.translate(app.request.getLocale()).city" data-slug="{{ office.slug != '' ?   path('offices_detail',{slug: office.slug }):'' }}"  data-lat="{{ office.lat }}" data-lng="{{ office.lng }}" data-key="{{ key }}">{{ office.translate(app.request.getLocale()).city }}</option>
+                                             {% if key == officesLat|length  %}
+                                            </optgroup>
+                                             {% endif %}
+                                        {% endif %}
+
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -113,11 +119,13 @@
     $(function () {
         $('.faketabs__component__tabs .nav').responsiveTabs();
         $('#offices').change(function() {
-            lat = parseFloat($('option:selected', this).attr('data-lat'));
-            lng = parseFloat($('option:selected', this).attr('data-lng'));
-            zoom = 8.2;
-            key = parseFloat($('option:selected', this).attr('data-key'));
-            initMap(key);
+            slug = $('option:selected', this).attr('data-slug');
+           // lat = parseFloat($('option:selected', this).attr('data-lat'));
+           // lng = parseFloat($('option:selected', this).attr('data-lng'));
+           // zoom = 8.2;
+           // key = parseFloat($('option:selected', this).attr('data-key'));
+           // initMap(key);
+           window.location.href = slug;
         });
     });
     var beaches = {{ officesMapa|raw }};
