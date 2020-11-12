@@ -45,9 +45,11 @@ class KnowledgeController extends WebController
         NavigationService $navigation
     ) {
         $practices = $practiceRepository->findBy(
+            array(),
             array('highlighted' => 'asc')
         );
         $products = $productRepository->findBy(
+            array(),
             array('highlighted' => 'asc')
         );
         $sectors = $sectorRepository->getSectorsByName($request)->getResult();
