@@ -63,7 +63,7 @@ class PublicationController extends CMSController
 
     private function filter(Request $request, LegislationRepository $legislationRepository)
     {
-        $legislationArray = array('Seleccionar' => 0);
+        $legislationArray = array('Seleccionar' => null);
         $legislations = $legislationRepository->findAll();
         foreach ($legislations as $legislation) {
             $legislationArray[$legislation->getName()] = $legislation->getId();
@@ -74,7 +74,7 @@ class PublicationController extends CMSController
             ->add('type', PublicationCategoryType::class, ['required' => false,'label'=> false ])
             ->add('fechaDesde', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
             ->add('fechaHasta', DateType::class, ['label'=>false, 'widget' => 'single_text', 'required' => false])
-            ->add('legislation', ChoiceType::class, ['label'=>false,'choices'  => $legislationArray])
+            ->add('legislation', ChoiceType::class, ['label'=>false,'choices'  => $legislationArray, 'required' => false])
             ->add('send', SubmitType::class, ['label'=> 'Filtrar' ])
             ->getForm();
 

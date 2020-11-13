@@ -228,19 +228,6 @@ class PublicationRepository extends PublishableEntityRepository implements Publi
                 ->setParameter('legislation', $legislation);
         }
 
-        /* if (isset($inicioDesde)) {
-             $query->andWhere('e.startDate > :desde')
-                 ->setParameter('desde', $inicioDesde->format('Y-m-d'));
-         }
-
-         if (isset($inicioHasta)) {
-             $query->andWhere('e.startDate < :hasta')
-                 ->setParameter('hasta', $inicioHasta->format('Y-m-d'));
-         }*/
-        /* foreach ($query->getQuery()->getResult() as $r) {
-             var_dump($r->translate('es')->getTitle());
-         }
-         die();*/
         return  $query->getQuery()->getResult();
     }
     // /**
