@@ -81,7 +81,7 @@ class Insight extends Publishable
     private $showCaseStudiesBlock;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $showTeamsBlock;
 

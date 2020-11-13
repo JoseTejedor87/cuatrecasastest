@@ -13,11 +13,11 @@
                 {{ translatableField.partialTranslations(form.translations, ['city']) }}
                 {{ form_row(form.link_external_map) }}
             </div>
-            <div class="col-md-6">               
+            <div class="col-md-6">
 
                 {{ form_row(form.email) }}
                 {{ form_row(form.fax) }}
-                {{ form_row(form.phone) }}                
+                {{ form_row(form.phone) }}
                 {{ translatableField.partialTranslations(form.translations, ['country']) }}
             </div>
             <div class="col-md-12">
@@ -28,7 +28,7 @@
 
 
 
-            </div>    
+            </div>
             <div class="col-md-6" >
                 <div class="m-form__section m-form__section">
                     <div class="m-form__heading">
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     {% do form.img_office.setRendered %}
-                </div>            
-            </div>            
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-4  offset-md-1">
@@ -62,9 +62,12 @@
             <h6 class="">Priorización de contenido: </h6>
             {{ form_row(form.geographical_area) }}
             {{ form_row(form.sap) }}
-            
+            {{ form_row(form.lat) }}
+            {{ form_row(form.lng) }}
+
+
         </div>
-    
+
         <div class="m-form__seperator m-form__seperator--dashed"></div>
 
         <div class="m-form__section m-form__section">

@@ -59,11 +59,32 @@ global:
     our_recomendation: Te recomendamos ENG
     empty_results: No se han encontrado resultados para la búsqueda realizada ENG
   forms:
+    placeholder:
+      nombre: ENG Nombre
+      apellidos: ENG Apellidos
+      password: ENG Contraseña
+      telefono: ENG Teléfono
+      email: ENG Email
+      cargo: ENG Cargo
+      empresa: ENG Empresa
+      direccion: ENG Dirección
+      cp: ENG CP
+      codigo_postal: ENG Código postal
+      pais: ENG País
+      provincia: ENG Provincia
+      poblacion: ENG Población
+      idioma: ENG Idioma
+      idioma_publicaciones: ENG Idioma de las publicaciones
+    feedback:
+      form_ok: ENG Formulario enviado lorem ipsum
+      form_ko: ENG Error en el envio del formulario, inténtelo más tarde
     search: Search
     save: Save
-    inscription: Inscribirme ENG
-    mandatory_field: Campo obligatorio ENG
-
+    inscription: ENG Inscribirme
+    fill_form: ENG Rellenar los datos para lorem ipsum dolor sit amet
+    mandatory_field: ENG Campo obligatorio
+    privacy_accept: ENG_ He leído y acepto las <a href="%webUse%">Condiciones de Uso</a> y la <a href="%privacyPolicy%">Política de Privacidad</a>
+    news_accept: ENG_ Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos
 
 ##COOKIES
 ##############################################
@@ -183,6 +204,11 @@ userForm:
     tabGeo: ENG Geográficos
   data:
     title: ENG Información sobre el tratamiento de sus datos personales
+    content: <p><strong>ENG_ Responsable del tratamiento:</strong> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
+          <strong>Finalidades:</strong> gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
+          <strong>Legitimación:</strong> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
+          <strong>Destinatarios:</strong> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
+          <strong>Derechos:</strong> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a href="%privacyPolicy%">Política de Privacidad</a>.</p>
   button: ENG Guardar
 
 # Menu

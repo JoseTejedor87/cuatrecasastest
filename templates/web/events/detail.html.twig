@@ -68,7 +68,7 @@
                         <div class="page__event__details">
                             {% for attachment in attachmentPublished %}
                                 {% if attachment.type  == 'publication_dossier' %}
-                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}                                
+                                    {% include 'web/shared/components/dossier-btn.html.twig' with { href: resourcesPath~attachment.fileName } %}
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -95,37 +95,37 @@
                                 </div>
                                 {% set fechaLimite = event.startDate| date('m, d, Y') %}
                                 {% set hoy = ('today'| date('m, d, Y')) %}
-                                <button type="button" class="btn btn__arrow"{% if  (hoy > fechaLimite) %} style="display: none" {% else %} style="display: block" {% endif%} id="botPreReg">Inscribirme</button>
+                                <button type="button" class="btn btn__arrow"{% if  (hoy > fechaLimite) %} style="display: none" {% else %} style="display: block" {% endif%} id="botPreReg">{{ 'global.forms.inscription' | trans }}</button>
                             </div>
                             <div class="boxnews__content" id="eventBoxForm" style="display:none">
-                                <div class="txt__fill__form">Rellenar los datos para lorem ipsum dolor sit amet</div>
-                                <div class="txt__required__fields">* Campos requeridos</div>
+                                <div class="txt__fill__form">{{ 'global.forms.fill_form' | trans }}</div>
+                                <div class="txt__required__fields">* {{ 'global.forms.mandatory_field' | trans }}</div>
 
                                 <form action="" class="needs-validation" novalidate>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eFirstName" placeholder="Nombre *" required>
+                                        <input type="text" class="form-control" id="eFirstName" placeholder="{{ 'global.forms.placeholder.nombre'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eLastName" placeholder="Apellidos *" required>
+                                        <input type="text" class="form-control" id="eLastName" placeholder="{{ 'global.forms.placeholder.apellidos'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eEmail" placeholder="Email *" required>
+                                        <input type="text" class="form-control" id="eEmail" placeholder="{{ 'global.forms.placeholder.email'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="ePosition" placeholder="Cargo *" required>
+                                        <input type="text" class="form-control" id="ePosition" placeholder="{{ 'global.forms.placeholder.cargo'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eCompany" placeholder="Empresa *" required>
+                                        <input type="text" class="form-control" id="eCompany" placeholder="{{ 'global.forms.placeholder.empresa'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eAddress" placeholder="Dirección *" required>
+                                        <input type="text" class="form-control" id="eAddress" placeholder="{{ 'global.forms.placeholder.direccion'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="ePostalCode" placeholder="CP *" required>
+                                        <input type="text" class="form-control" id="ePostalCode" placeholder="{{ 'global.forms.placeholder.cp'|trans }} *" required>
                                     </div>
                                     <div class="form-group">
                                         <select id="eCountry" class="form-control custom-select" required>
-                                            <option value="" selected disabled>País *</option>
+                                            <option value="" selected disabled>{{ 'global.forms.placeholder.pais'|trans }} *</option>
                                             {% for pais in paises %}
                                                 <option value="{{ pais.IdPais }}" id="{{ pais.IdPais }}" >{{ pais.Nombre }}</option>
                                             {% endfor %}
@@ -133,24 +133,28 @@
                                     </div>
                                     <div class="form-group">
                                         <select id="eRegion" class="form-control custom-select" required>
-                                            <option value="" selected disabled>Provincia *</option>
+                                            <option value="" selected disabled>{{ 'global.forms.placeholder.provincia'|trans }} *</option>
                                             <option value="15">A coru&#241;a</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="eTel" placeholder="Teléfono *" required>
+                                        <input type="text" class="form-control" id="eTel" placeholder="{{ 'global.forms.placeholder.telefono'|trans }} *" required>
                                     </div>
                                     <div class="form-group mt-4">
                                         <div class="checkbox">
                                             <input type="checkbox" id="accept" required>
-                                            <label class="checkbox-label" for="accept"><span>* He leído y acepto las <a href="{{ path('webUse') }}">Condiciones de Uso</a> y la <a href="{{ path('privacyPolicy') }}">Política de Privacidad</a></span></label>
+                                            <label class="checkbox-label" for="accept">
+                                                <span>* {{ 'global.forms.privacy_accept' | trans | replace({'%webUse%': path('webUse'), '%privacyPolicy%': path('privacyPolicy')}) | raw }}</span>
+                                            </label>
                                             <div class="invalid-feedback">{{ 'global.forms.mandatory_field' | trans }}</div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <input type="checkbox" id="subscribe" required>
-                                            <label class="checkbox-label" for="subscribe"><span>Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos</span></label>
+                                            <label class="checkbox-label" for="subscribe">
+                                                <span>{{ 'global.forms.news_accept' | trans }}</span>
+                                            </label>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn__solid__arrow">{{ 'global.forms.inscription' | trans }}</button>

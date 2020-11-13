@@ -46,7 +46,8 @@ class OfficeController extends WebController
 
         
         // Publicaciones relacionadas con las oficians son los eventos y publicaciones 
-        $relatedPublications = $publicationRepository->setTypePublication($office->getPublication());       
+        $relatedPublications = $publicationRepository->findByActivities('');
+        // $relatedPublications = $publicationRepository->setTypePublication($office->getPublication());       
 
         $relatedEvents = $office->getEvent();
 

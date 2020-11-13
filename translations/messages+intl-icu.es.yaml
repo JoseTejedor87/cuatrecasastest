@@ -1,6 +1,5 @@
 # Global
 # ###########################################
-probando: Please read our %link_start%privacy policy%link_end%
 global:
   calendar:
     month: Mes
@@ -63,10 +62,32 @@ global:
     dossier_download: Descarga el dossier
     empty_results: No se han encontrado resultados para la búsqueda realizada
   forms:
+    placeholder:
+      nombre: Nombre
+      apellidos: Apellidos
+      password: Contraseña
+      telefono: Teléfono
+      email: Email
+      cargo: Cargo
+      empresa: Empresa
+      direccion: Dirección
+      cp: CP
+      codigo_postal: Código postal
+      pais: País
+      provincia: Provincia
+      poblacion: Población
+      idioma: Idioma
+      idioma_publicaciones: Idioma de las publicaciones
+    feedback:
+      form_ok: Formulario enviado lorem ipsum
+      form_ko: Error en el envio del formulario, inténtelo más tarde
     search: Buscar
     save: Guardar
     inscription: Inscribirme
+    fill_form: Rellenar los datos para lorem ipsum dolor sit amet
     mandatory_field: Campo obligatorio
+    privacy_accept: He leído y acepto las <a href="%webUse%">Condiciones de Uso</a> y la <a href="%privacyPolicy%">Política de Privacidad</a>
+    news_accept: Deseo recibir información sobre novedades legales y eventos promovidos por Cuatrecasas, incluso por medios electrónicos
 
 ##COOKIES
 ##############################################
@@ -215,9 +236,6 @@ static:
     interOrg:
       title: Organizaciones internacionales
       list: <li class="buttons__list__column__item">
-                <a class="btn__subcat" href="#">European Network (EN)</a>
-            </li>
-            <li class="buttons__list__column__item">
                 <span class="btn__subcat__fake">World Law Group (WLG)</span>
             </li>
             <li class="buttons__list__column__item">
@@ -303,7 +321,11 @@ userForm:
     tabGeo: Geográficos
   data:
     title: Información sobre el tratamiento de sus datos personales
-    content: Información sobre el tratamiento de sus datos personales
+    content: <p><strong>Responsable del tratamiento:</strong> Cuatrecasas Gonçalves Pereira, S.L.P. (“Cuatrecasas”).<br>
+          <strong>Finalidades:</strong> gestionar su condición de usuario del sitio web, de las aplicaciones, inscripción a los eventos y su relación con Cuatrecasas, incluyendo el envío de información sobre novedades legales y eventos promovidos por Cuatrecasas. <br>
+          <strong>Legitimación:</strong> el interés legítimo de Cuatrecasas y, cuando corresponda, el propio consentimiento del usuario. <br>
+          <strong>Destinatarios:</strong> terceros a los que Cuatrecasas haya encomendado servicios de mailing y de soporte técnico e informático, así como empresas de su mismo grupo. En caso de inscripción a eventos de Cuatrecasas organizados con terceros, sus datos podrán ser cedidos a estos para la organización y gestión de los eventos.<br>
+          <strong>Derechos:</strong> Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. Puede consultar la información adicional y detallada sobre protección de datos en <a href="%privacyPolicy%">Política de Privacidad</a>.</p>
   button: Guardar
 
 # Menu
