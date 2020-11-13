@@ -59,7 +59,7 @@ footer {
     }
 
     .footer__info {
-        padding: 1.6em 0;
+        padding: 1em 0 0.5rem;
 
         @include when("content") {
 
@@ -70,7 +70,7 @@ footer {
         }
 
         p {
-            @include fontSet(13px, 17px);
+            @include fontSet(14px, 16px);
             color: $black;
         }
     }
@@ -105,8 +105,10 @@ footer {
                 margin-top: 0.2rem;
 
                 @media(max-width: $max-width-4casas) {
-                    justify-content: center;
-                    margin-top: 0.5rem;
+                    // justify-content: center;
+                    display: block;
+                    text-align: center;
+                    margin-top: 1rem;
                 }
 
                 .legal__item {
@@ -116,9 +118,9 @@ footer {
                     white-space: nowrap;
 
                     @media(max-width: $max-width-4casas) {
-                        margin: 0 1rem;
+                        margin: 0 1rem 0.5rem 0;
                         padding: 0 0;
-                        white-space: normal;
+                        // white-space: normal;
                     }
 
                     &:after {
@@ -132,6 +134,7 @@ footer {
                         opacity: 0.5;
 
                         @media(max-width: $max-width-4casas) {
+                            display: none;
                             top: 0;
                             right: -18px;
                         }
@@ -162,10 +165,12 @@ footer {
 
             .social__media {
                 @include reset-list;
+                margin: -10px 0 0 0;
                 display: flex;
                 justify-content: flex-end;
 
                 @media(max-width: $max-width-4casas) {
+                    margin: 0 0;
                     justify-content: space-between;
                 }
 

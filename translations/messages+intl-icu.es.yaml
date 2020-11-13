@@ -389,9 +389,75 @@ landings:
         <p><strong>Persona de contacto</strong>:&nbsp;<a href="mailto:rosalia.valdes@cuatrecasas.com">Rosalía Valdés</a></p>
     join:
       faqs: FAQs
-      faqs_content: <p>FAQs > Pendiente</p>
+      faqs_content:
+        <ul>
+            <li>
+                <h2>¿Cómo puedo iniciar proceso de selección?</h2>
+                <p>Para valorar tu candidatura debes inscribirte en nuestra página web (Link a JOIN US) y seleccionar la opción que más te interese en función de tu perfil y experiencia, adjuntando tu CV y expediente académico.</p>
+            </li>
+            <li>
+                <h2>¿Qué requisitos hay para iniciar el proceso de selección?</h2>
+                <p>Buscamos estudiantes de Derecho o Doble grado y graduados/licenciados con perfil internacional en constante evolución y aprendizaje, capaces de trabajar en un entorno flexible, colaborativo, 3.0 y multidisciplinar, que hayan desarrollado una buena trayectoria académica y tengan un nivel de inglés avanzado.</p>
+            </li>
+            <li>
+                <h2>¿Cuándo se realizan las prácticas? ¿Qué duración tienen?</h2>
+                <p>En relación a las prácticas de grado, podrás realizarlas durante el curso académico siempre que sea compatible con el calendrio académico de la Universidad.</p>
+                <p>Las prácticas de verano se realizan durante los meses de junio y julio, y tienen una duración de 1/2 meses.</p>
+                <p>En cuanto a las prácticas del máster de acceso, se realizarán en el período y duración establecido por la Universidad.</p>
+            </li>
+            <li>
+                <h2>¿Cuándo se inician los procesos de selección para las posiciones de prácticas?</h2>
+                <p>Nuestro proceso de selección está permanentemente abierto y se realiza de manera continuada a lo largo de todo el año.  Recomendamos que la petición de prácticas tanto de grado como de máster se haga con un año de antelación respecto a la fecha de inicio prevista.</p>
+            </li>
+            <li>
+                <h2>¿En qué áreas y oficinas puedo hacer prácticas?</h2>
+                <p>Podrás realizarlas en una de nuestras cuatro grandes áreas de prácticas o en alguna de las especialidades con las que cuentan algunas de ellas. Te orientaremos en la asignación del área de destino, teniendo en cuenta tus intereses y preferencias, así como la disponibilidad y las necesidades de los equipo.</p>
+            </li>
+            <li>
+                <h2>¿Hay rotación por áreas?</h2>
+                <p>Las prácticas (tanto de grado como de Máster de acceso a la abogacía), se realizan en una única área de prácticas. Consideremos que es importante que durante el periodo de prácticas te integres en un único equipo y conozcas en detalle la especialidad y la globalidad del área.</p>
+                <p>Una vez incorporado, el despacho te ofrece la posibilidad de rotación en distintas áreas y oficinas. Además contamos con el programa PPAI (Programa pro abogacía internacional), dirigido a abogados recién graduados y que establece un periodo de rotaciones de tres años (Puedes ampliar la información pinchando <a href="%PPAI%">aquí</a> (Link a PPAI).</p>
+            </li>
+            <li>
+                <h2>¿Cómo puedo saber el estado de mi candidatura?</h2>
+                <p>En todo momento te mantendremos informado del estado de tu candidatura. En caso de que tengas cualquier duda o necesites contactar con nosotros, puedes hacerlo a través del técnico de selección que esté llevando tu proceso de selección, o mandando un correo electrónico a la siguiente dirección:&nbsp;<a href="mailto:rrhh.seleccion@cuatrecasas.com">rrhh.seleccion@cuatrecasas.com</a>.</p>
+            </li>
+            <li>
+                <h2>Una vez ya incorporado, ¿se ofrece algún tipo de formación?</h2>
+                <p>Contamos con un Plan de formación adaptado a cada colectivo y a la etapa de de la carrera de los abogados. Ofrecemos formación jurídica, en habilidades e idiomas.</p>
+            </li>
+        </ul>
       internship_program: Programas de prácticas
-      internship_program_content: <p>Programas de prácticas > Pendiente</p>
+      internship_program_content:
+        <h2>Grado</h2>
+        <p>Tendrás la oportunidad de tener una primera experiencia profesional en un despacho de primer nivel, aprender con los mejores profesionales y participar en todo tipo de asuntos.</p>
+        <ul>
+            <li>Dirigidas a estudiantes de últimos cursos de Derecho/dobles grados.</li>
+            <li>Se realizan durante el curso o en verano en cualquiera de nuestras áreas y oficinas.</li>
+            <li>Te asignaremos un tutor que te orientará y aconsejará durante las prácticas.</li>
+            <li>Remuneradas.</li>
+            <li>Formación de primer nivel de carácter técnico y en habilidades.</li>
+        </ul>
+        <p>Si quieres conocer como es el proceso de selección, haz click aquí.</p>
+        <h2>Máster de Acceso a la Abogacía</h2>
+        <p>Te integrarás desde el primer día en el equipo, participando en asuntos de primer nivel y aprenderás con los mejores profesionales que te ayudarán a adquirir las habilidades y competencias necesarias para el ejercicio de la abogacía, con el objetivo de convertirte en un gran abogado.</p>
+        <ul>
+            <li>Dirigidas a los estudiantes del Máster de acceso a la abogacía.</li>
+            <li>Las prácticas se realizan en cualquiera de nuestras áreas y oficinas.</li>
+            <li>Contarás con el apoyo de todo el equipo y de un tutor que te orientará y aconsejará durante las prácticas.</li>
+            <li>Remuneradas.</li>
+            <li>Formación de primer nivel de carácter técnico y en habilidades.</li>
+            <li>Posibilidad de incorporarte como abogado junior una vez superadas las prácticas.</li>
+        </ul>
+        <p>Si quieres conocer como es el proceso de selección, haz click <a href="%selectionProcess%">aquí</a>.</p>
+        <h2>Organización</h2>
+        <p>Formarás parte de un equipo de primer nivel y colaborarás de forma transversal con los distintos colectivos y departamentos de la Firma.</p>
+        <ul>
+            <li>Contarás con el apoyo de todo el equipo y de tu tutor que te orientará y aconsejará durante las prácticas.</li>
+            <li>Remuneradas.</li>
+            <li>Plan de formación.</li>
+        </ul>
+        <p>El despacho ofrece prácticas en nuestros equipos corporativos de las oficinas de Barcelona y Madrid.</p>
   offices:
     vision:
       project_europe: Proyecto Europa
@@ -1310,4 +1376,6 @@ privacy:
         <li><a href="mailto:barcelona@cuatrecasas.com">barcelona@cuatrecasas.com</a></li>
         <li><a href="mailto:madrid@cuatrecasas.com">madrid@cuatrecasas.com</a></li>
     </ul>
-    <p>Indicando su nombre, dirección de correo electrónico, empresa y el motivo de su consulta y nos pondremos en contacto con usted</p>
+    <p>Indicando su nombre, dirección de correo electrónico, empresa y el motivo de su consulta y nos pondremos en contacto con usted.</p>
+
+image.example: '@AppBundle/Resources/public/images/en/example.jpg'

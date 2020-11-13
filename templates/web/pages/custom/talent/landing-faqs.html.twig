@@ -21,6 +21,9 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a>
+                                </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ 'landings.career.join.faqs'|trans }}
                                 </li>
@@ -34,6 +37,43 @@
             <section class="row page__block--standard">
                 <div class="col">
                     {{ 'landings.career.join.faqs_content'|trans|raw }}
+                    {# <ul>
+                        <li>
+                            <h2>¿Cómo puedo iniciar proceso de selección?</h2>
+                            <p>Para valorar tu candidatura debes inscribirte en nuestra página web (Link a JOIN US) y seleccionar la opción que más te interese en función de tu perfil y experiencia, adjuntando tu CV y expediente académico.</p>
+                        </li>
+                        <li>
+                            <h2>¿Qué requisitos hay para iniciar el proceso de selección?</h2>
+                            <p>Buscamos estudiantes de Derecho o Doble grado y graduados/licenciados con perfil internacional en constante evolución y aprendizaje, capaces de trabajar en un entorno flexible, colaborativo, 3.0 y multidisciplinar, que hayan desarrollado una buena trayectoria académica y tengan un nivel de inglés avanzado.</p>
+                        </li>
+                        <li>
+                            <h2>¿Cuándo se realizan las prácticas? ¿Qué duración tienen?</h2>
+                            <p>En relación a las prácticas de grado, podrás realizarlas durante el curso académico siempre que sea compatible con el calendrio académico de la Universidad.</p>
+                            <p>Las prácticas de verano se realizan durante los meses de junio y julio, y tienen una duración de 1/2 meses.</p>
+                            <p>En cuanto a las prácticas del máster de acceso, se realizarán en el período y duración establecido por la Universidad.</p>
+                        </li>
+                        <li>
+                            <h2>¿Cuándo se inician los procesos de selección para las posiciones de prácticas?</h2>
+                            <p>Nuestro proceso de selección está permanentemente abierto y se realiza de manera continuada a lo largo de todo el año.  Recomendamos que la petición de prácticas tanto de grado como de máster se haga con un año de antelación respecto a la fecha de inicio prevista.</p>
+                        </li>
+                        <li>
+                            <h2>¿En qué áreas y oficinas puedo hacer prácticas?</h2>
+                            <p>Podrás realizarlas en una de nuestras cuatro grandes áreas de prácticas o en alguna de las especialidades con las que cuentan algunas de ellas. Te orientaremos en la asignación del área de destino, teniendo en cuenta tus intereses y preferencias, así como la disponibilidad y las necesidades de los equipo.</p>
+                        </li>
+                        <li>
+                            <h2>¿Hay rotación por áreas?</h2>
+                            <p>Las prácticas (tanto de grado como de Máster de acceso a la abogacía), se realizan en una única área de prácticas. Consideremos que es importante que durante el periodo de prácticas te integres en un único equipo y conozcas en detalle la especialidad y la globalidad del área.</p>
+                            <p>Una vez incorporado, el despacho te ofrece la posibilidad de rotación en distintas áreas y oficinas. Además contamos con el programa PPAI (Programa pro abogacía internacional), dirigido a abogados recién graduados y que establece un periodo de rotaciones de tres años (Puedes ampliar la información pinchando <a href="%PPAI%">aquí</a> (Link a PPAI).</p>
+                        </li>
+                        <li>
+                            <h2>¿Cómo puedo saber el estado de mi candidatura?</h2>
+                            <p>En todo momento te mantendremos informado del estado de tu candidatura. En caso de que tengas cualquier duda o necesites contactar con nosotros, puedes hacerlo a través del técnico de selección que esté llevando tu proceso de selección, o mandando un correo electrónico a la siguiente dirección: <a href="mailto:rrhh.seleccion@cuatrecasas.com">rrhh.seleccion@cuatrecasas.com</a>.</p>
+                        </li>
+                        <li>
+                            <h2>Una vez ya incorporado, ¿se ofrece algún tipo de formación?</h2>
+                            <p>Contamos con un Plan de formación adaptado a cada colectivo y a la etapa de de la carrera de los abogados. Ofrecemos formación jurídica, en habilidades e idiomas.</p>
+                        </li>
+                    </ul> #}
                 </div>
             </section>
 

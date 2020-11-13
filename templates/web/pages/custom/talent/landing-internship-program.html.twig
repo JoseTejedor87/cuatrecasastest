@@ -21,6 +21,9 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a>
+                                </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ 'landings.career.join.internship_program'|trans }}
                                 </li>
@@ -34,6 +37,37 @@
             <section class="row page__block--standard">
                 <div class="col">
                     {{ 'landings.career.join.internship_program_content'|trans|raw }}
+                    {# {{ 'landings.career.join.internship_program_content' | trans | replace({'%selectionProcess%': path('selectionProcess')}) | raw }} #}
+
+                    {# <h2>Grado</h2>
+                    <p>Tendrás la oportunidad de tener una primera experiencia profesional en un despacho de primer nivel, aprender con los mejores profesionales y participar en todo tipo de asuntos.</p>
+                    <ul>
+                        <li>Dirigidas a estudiantes de últimos cursos de Derecho/dobles grados.</li>
+                        <li>Se realizan durante el curso o en verano en cualquiera de nuestras áreas y oficinas.</li>
+                        <li>Te asignaremos un tutor que te orientará y aconsejará durante las prácticas.</li>
+                        <li>Remuneradas.</li>
+                        <li>Formación de primer nivel de carácter técnico y en habilidades.</li>
+                    </ul>
+                    <p>Si quieres conocer como es el proceso de selección, haz click aquí.</p>
+                    <h2>Máster de Acceso a la Abogacía</h2>
+                    <p>Te integrarás desde el primer día en el equipo, participando en asuntos de primer nivel y aprenderás con los mejores profesionales que te ayudarán a adquirir las habilidades y competencias necesarias para el ejercicio de la abogacía, con el objetivo de convertirte en un gran abogado.</p>
+                    <ul>
+                        <li>Dirigidas a los estudiantes del Máster de acceso a la abogacía.</li>
+                        <li>Las prácticas se realizan en cualquiera de nuestras áreas y oficinas.</li>
+                        <li>Contarás con el apoyo de todo el equipo y de un tutor que te orientará y aconsejará durante las prácticas.</li>
+                        <li>Remuneradas.</li>
+                        <li>Formación de primer nivel de carácter técnico y en habilidades.</li>
+                        <li>Posibilidad de incorporarte como abogado junior una vez superadas las prácticas.</li>
+                    </ul>
+                    <p>Si quieres conocer como es el proceso de selección, haz click <a href="%selectionProcess%">aquí</a>.</p>
+                    <h2>Organización</h2>
+                    <p>Formarás parte de un equipo de primer nivel y colaborarás de forma transversal con los distintos colectivos y departamentos de la Firma.</p>
+                    <ul>
+                        <li>Contarás con el apoyo de todo el equipo y de tu tutor que te orientará y aconsejará durante las prácticas.</li>
+                        <li>Remuneradas.</li>
+                        <li>Plan de formación.</li>
+                    </ul>
+                    <p>El despacho ofrece prácticas en nuestros equipos corporativos de las oficinas de Barcelona y Madrid.</p> #}
                 </div>
             </section>
 

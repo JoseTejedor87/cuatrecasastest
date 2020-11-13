@@ -21,7 +21,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#}">{{ 'menu.firm.firm'|trans }}</a>
+                                    <a href="{{ path('firm',{ slug: 'firm-vision'~slug_ext }) }}">{{ 'menu.firm.firm'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ 'menu.firm.governance'|trans }}
