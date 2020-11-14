@@ -58,8 +58,8 @@ class UsersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-       
         $this->UpdateUsers(); 
+        $this->UpdateRoles(); 
         $this->logger->info('Fin de actualización :: '.date("Y-m-d H:i:s"));
         return 0;
     }
@@ -72,20 +72,68 @@ class UsersCommand extends Command
         $results = $stmt->fetchAll();
         $userRepository = $this->em->getRepository(User::class);
         foreach ($results as $key => $value) {
-            $query = "Select * from SAP.dbo.tb_user_list_prod_Active";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $results = $stmt->fetchAll();
             $user = $userRepository->findOneBy(['user_id' => $value['shortname']]);
             if(!$user){
                 $user = new User();
                 $user->setUserId($value['shortname']);
-                $user->setRoles(["test_user"]);
+                $user->setRoles(["Norole"]);
                 $this->em->persist($user);
                 $this->em->flush();
             }
         }
            
+    }
+    public function UpdateRoles()
+    {
+        $userRepository = $this->em->getRepository(User::class);
+        $users = $userRepository->findAll();
+        foreach ($users as $key => $user) {
+            $idUser = $user->getUserId();
+            if( $idUser !== 'JMMA' && $idUser !== 'JTEB'){
+                $query = "select distinct SHORTNAME, CATEGORYID, CATEGORY, AREAID, AREANAME, ADMINGROUPID, ADMINGROUPNAME, P_PO as colectivo from SAP.dbo.tb_user_list_prod_Active where SHORTNAME like '".$idUser."' AND (AREAID like 'GD' or AREAID like 'RH' or AREAID like 'GF' or AREAID like 'AC' or ADMINGROUPID like '917' or ADMINGROUPID like '949-EXTS')";
+                $stmt = $this->connUser->prepare($query);
+                $stmt->execute();
+                $resultsAdmin = $stmt->fetch();
+                if($resultsAdmin){             
+                    if (!in_array("ROLE_ADMIN", $user->getRoles())) {
+                        if(in_array("Norole", $user->getRoles())){
+                            $user->setRoles(["ROLE_ADMIN"]);
+                        }else{
+                            $user->setRoles(
+                                array_unique(
+                                    array_merge($user->getRoles(), ["ROLE_ADMIN"])
+                                )
+                            );
+                        }
+                        $this->em->persist($user);
+                        $this->em->flush();
+                    }
+                }
+                $query = "select distinct SHORTNAME, CATEGORYID, CATEGORY, AREAID, AREANAME, ADMINGROUPID, ADMINGROUPNAME, P_PO as colectivo from [SAP].[dbo].[tb_user_list_prod_Active] where SHORTNAME like '".$idUser."' AND (CATEGORYID like '%SC' or CATEGORYID like '%SC1' or CATEGORYID like '%SC3' or CATEGORYID like '%SC5' or CATEGORYID like '%SC6' or CATEGORYID like '%SC8' or CATEGORYID like '%SC9')";
+                $stmt = $this->connUser->prepare($query);
+                $stmt->execute();
+                $resultsUsers = $stmt->fetch();
+                if($resultsUsers){
+                    
+                    if (!in_array("ROLE_USER", $user->getRoles())) {
+                        if(in_array("Norole", $user->getRoles())){
+                            $user->setRoles(["ROLE_USER"]);
+                        }else{
+                            $user->setRoles(
+                                array_unique(
+                                    array_merge($user->getRoles(), ["ROLE_USER"])
+                                )
+                            );
+                        }
+                        $this->em->persist($user);
+                        $this->em->flush();
+                    }
+                    
+                }
+                
+            }
+            
+        }
     }
 
    
