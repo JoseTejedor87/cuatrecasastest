@@ -18,7 +18,7 @@
                                     <p>{{ 'career.info_join.art_0.content_2'|trans}}</p>
                                 </div>
                                 <div class="boxnews__content__button">
-                                    <a href="{{ path('lawyers_index') }}" class="btn btn__solid__arrow">{{ 'global.messages.show_more'|trans}}</a>
+                                    <a href="{{ path('talent',{ slug: 'programas-de-practicas'~slug_ext }) }}" class="btn btn__solid__arrow">{{ 'global.messages.show_more'|trans}}</a>
                                 </div>
                             </div>
                             <div class="boxnews__foto">
@@ -69,7 +69,7 @@
                                 <div class="boxnews__content__info">
                                     <p>{{ 'career.info_join.art_3.content'|trans}}</p>
                                     <div class="boxnews__content__button">
-                                        <a href="#" class="doble__arrow__link">{{ 'global.messages.show_more'|trans}}</a>
+                                        <a href="{{ path('talent',{ slug: 'FAQs'~slug_ext }) }}" class="doble__arrow__link">{{ 'global.messages.show_more'|trans}}</a>
                                     </div>
                                     {# <div class="boxnews__content__button">
                                         <a href="{{ path('lawyers_index') }}" class="btn btn__solid__arrow">{{ 'global.messages.show_more'|trans}}</a>

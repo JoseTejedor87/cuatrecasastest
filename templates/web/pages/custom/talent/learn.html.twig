@@ -8,63 +8,6 @@
 {% block main %}
 
     <main role="main">
-        {# <article class="container">
-
-            <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
-                <div class="col">
-                    <div class="info__block">
-                        <h1 class="page__title">
-                            {{ 'menu.career.learn'|trans }}
-                        </h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    {{ 'menu.career.learn'|trans }}
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    {% include 'web/base/social-share.html.twig' %}
-                </div>
-            </header>
-
-            <section class="faketabs__component">
-                <div class="row">
-                    <div class="col faketabs__component__tabs faketabs__component__tabs--career">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}" class="nav-link">{{ 'menu.career.career'|trans }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'live'~slug_ext }) }}" class="nav-link">{{ 'menu.career.live'|trans }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'revolution'~slug_ext }) }}" class="nav-link">{{ 'menu.career.revolution'|trans }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'learn'~slug_ext }) }}" class="nav-link active">{{ 'menu.career.learn'|trans }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'international'~slug_ext }) }}" class="nav-link">{{ 'menu.career.international'|trans }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('talent',{ slug: 'join'~slug_ext }) }}" class="nav-link">{{ 'menu.career.join'|trans }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="row page__block--centered">
-                <div class="col">
-                    <p>{{ 'career.learn.intro'|trans }}</p>
-                </div>
-            </section>
-
-        </article> #}
 
         <div class="container">
             <header class="row page__header" style="background-image: url('{{ asset('/web/assets/img/cabecera_1920x1080_baja.jpg') | imagine_filter('full_header') }}')">
@@ -77,6 +20,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ 'menu.career.learn'|trans }}

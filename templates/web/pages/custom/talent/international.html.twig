@@ -21,6 +21,9 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('talent',{ slug: 'talent'~slug_ext }) }}">{{ 'menu.career.career'|trans }}</a>
+                                </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ 'menu.career.international'|trans }}
                                 </li>

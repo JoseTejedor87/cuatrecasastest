@@ -22,7 +22,7 @@
                                     <a href="{{ path('home') }}">{{ 'global.home'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#}">{{ 'menu.offices.offices'|trans }}</a>
+                                    <a href="{{ path('location') }}">{{ 'menu.offices.offices'|trans }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     {{ regiond.translate(app.request.getLocale()).title }}
@@ -56,9 +56,17 @@
                 </div>
             </section>
 
-            <section class="row page__block--centered">
+            <section class="row page__block noborder">
                 <div class="col">
-                    <p>{{ regiond.translate(app.request.getLocale()).summary |raw }}</p>
+                    <div class="page__block__title page__block__title--article">
+                        {{ regiond.translate(app.request.getLocale()).summary | raw }}
+                    </div>
+                    <div class="page__block__content page__block__content--article">
+                        {# activar la variable correspondiente y borrar los parrafos Lorem #}
+                        {# {{ regiond.translate(app.request.getLocale()).description | raw }} #}
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio distinctio dignissimos animi possimus soluta deleniti perspiciatis corporis fuga ratione! Ullam incidunt, voluptate nostrum odio consequatur, asperiores. Doloribus, quibusdam quam fuga. Lorem ipsum dolor sit amet, consectetur, adipisicing elit. Explicabo voluptate nulla corporis ipsam nihil, porro incidunt ut blanditiis ab dolorum ducimus molestiae repellat ipsa architecto, possimus aperiam quibusdam sed voluptatibus.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt quam, inventore debitis ullam similique alias pariatur quia reiciendis dolore, unde consectetur eius, ipsam saepe delectus at. Nesciunt molestiae iure, obcaecati.</p>
+                    </div>
                 </div>
             </section>
 

@@ -49,6 +49,21 @@
                             <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_02_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
                         </div>
                     </article>
+                    <article class="boxnews__item">
+                        <div class="boxnews__header">
+                            <div class="boxnews__type">Lorem ipsum dolor</div>
+                        </div>
+                        <div class="boxnews__content">
+                            <div class="boxnews__excerpt">
+                                {% set summary = "The educational prerequisites for becoming a lawyer vary greatly from country to country. In some countries, law is taught by a faculty of law, which is a department of a university's general undergraduate college." %}
+                                <p>{{ summary|length > 120 ? summary|slice(0, 120) ~ '...' : summary }}</p>
+                            </div>
+                            <div class="boxnews__action">
+                                <a href="#" class="doble__arrow__link">Ver más</a>
+                            </div>
+                            <div class="boxnews__img" style="background-image: url('{{ asset('/web/assets/vector/Picto_02_1920x1080.png') | imagine_filter('picto_grid') }}')"></div>
+                        </div>
+                    </article>
                 </div>
                 <div class="viewmore__button">
                     <button type="button" class="btn btn__viewmore btn__viewmore--plus">{{ 'global.messages.show_more'|trans}}</button>
