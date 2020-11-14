@@ -1,5 +1,0 @@
-{% for region in regions|sort %}
-    <span class="m-badge {{ (region in values) ? 'm-badge--success' : 'm-badge--secondary' }}" title="{{ region|title }}">
-        {{ region|slice(0,2)|title }}
-    </span>
-{% endfor %}
